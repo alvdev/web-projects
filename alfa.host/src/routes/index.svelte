@@ -1,37 +1,37 @@
 <script>
 	import ToTop from './components/ToTop.svelte';
 
-	import Copyright from './Copyright.svelte';
+	import Copyright from './sections/Copyright.svelte';
 
-	import Footer from './Footer.svelte';
+	import Footer from './sections/Footer.svelte';
 
-	import BlogFaq from './PostsFaqs.svelte';
+	import BlogFaq from './sections/PostsFaqs.svelte';
 
-	import HostingApps from './HostingApps.svelte';
+	import HostingApps from './sections/HostingApps.svelte';
 
-	import MarketingServices from './MarketingServices.svelte';
+	import MarketingServices from './sections/MarketingServices.svelte';
 
-	import DigitalNeurs from './DigitalNeurs.svelte';
+	import DigitalNeurs from './sections/DigitalNeurs.svelte';
 
-	import EmailMarketing from './EmailMarketing.svelte';
+	import EmailMarketing from './sections/EmailMarketing.svelte';
 
-	import BannerWebsiteBuilder from './BannerWebsiteBuilder.svelte';
+	import BannerWebsiteBuilder from './sections/BannerWebsiteBuilder.svelte';
 
-	import WebsiteBuilders from './WebsiteBuilders.svelte';
+	import WebsiteBuilders from './sections/WebsiteBuilders.svelte';
 
-	import AlfaFeatures from './AlfaFeatures.svelte';
+	import AlfaFeatures from './sections/AlfaFeatures.svelte';
 
-	import HostingFeatures from './HostingFeatures.svelte';
+	import HostingFeatures from './sections/HostingFeatures.svelte';
 
-	import HostingDesc from './HostingDesc.svelte';
+	import HostingDesc from './sections/HostingDesc.svelte';
 
-	import BannerEntrepreneur from './BannerEntrepreneur.svelte';
+	import BannerEntrepreneur from './sections/BannerEntrepreneur.svelte';
 
-	import WhatDoYouNeed from './components/WhatDoYouNeed.svelte';
+	import WhatDoYouNeed from './sections/WhatDoYouNeed.svelte';
 
-	import DomainSearchBox from './components/DomainSearchBox.svelte';
+	import DomainSearchBox from './sections/DomainSearchBox.svelte';
 
-	import HomeHeader from './components/HomeHeader.svelte';
+	import HomeHeader from './sections/HomeHeader.svelte';
 </script>
 
 <svelte:head>

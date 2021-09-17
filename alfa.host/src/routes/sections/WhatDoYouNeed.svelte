@@ -1,6 +1,4 @@
 <script>
-	import DomainSearchBox from './DomainSearchBox.svelte';
-	import HomeHeader from './HomeHeader.svelte';
 </script>
 
 <section class="p-8 mb-8 text-center">
