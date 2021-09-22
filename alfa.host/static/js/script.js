@@ -1,5 +1,3 @@
-// Functions
-
 function stickyNav() {
 
   const nav = document.querySelector('nav');
@@ -12,7 +10,7 @@ function stickyNav() {
       link.classList.remove('lg:text-white')
     }
   } else {
-    nav.classList.remove('sticky', 'fixed', 'top-0', 'py-0', 'w-full');
+    nav.classList.remove('sticky', 'fixed', 'top-0', 'py-0', 'w-full', 'backdrop-filter', 'backdrop-blur-md');
     
     for (const link of navLinks) {
       link.classList.add('lg:text-white')
@@ -23,14 +21,12 @@ function stickyNav() {
 document.addEventListener('scroll', stickyNav);
 
 burgerMenu();
-
 function burgerMenu() {
 
   const burger = document.querySelector('#burger');
   const menu = document.querySelector('#burger ~ ul');
   //const menuLinks = document.querySelectorAll('#burger ~ ul a');
   const cross = document.querySelector('#burger span');
-  //console.log(cross);
 
   burger.addEventListener('click', () => {
     //burger.classList.toggle('mt-2'); // No needed after moving html container
@@ -63,30 +59,32 @@ function toTop() {
 }
 
 servicesTabs();
-
 function servicesTabs() {
-  const tabs = document.querySelectorAll('.services ul > li > a');
-  const tabsContent = document.querySelectorAll('.services div[id$="tabcontent"]');
 
-  for (tab of tabs) {
+  const tabs = document.querySelectorAll('.services ul#tabs li a');
+  const tabsContent = document.querySelectorAll('.services [id$=tabcontent');
+  const ulTabs = document.querySelector('.services ul#tabs');
 
-    console.log(tab.classList.remove('active'));
-    tab.addEventListener('click', e => {
-      e.preventDefault();
+  ulTabs.addEventListener('click', e => {
 
-      console.log(e.target.closest('.tab'));
-      if (!e.target.closest('.tab').classList.contains('active')) {
-        e.target.closest('.tab').classList.add('active');
-      }
+    let id;
 
-      // Getting id tag of a tab element to show tab content
-      const id = e.target.closest('.tab').getAttribute('id');
+    if (e.target.tagName === 'A') {
+      id = e.target.getAttribute('id');
+    }
+    
+    if (e.target.tagName === 'STRONG') {
+      id = e.target.parentElement.getAttribute('id');
+    }
+    
+    for (let tab of tabs) {
+      tab.classList.remove('active')
+    }
+    document.querySelector(`#${id}`).classList.add('active')
 
-      for (tabContent of tabsContent) {
-        tabContent.getAttribute('id').includes(id) ?
-          tabContent.classList.remove('hidden') :
-          tabContent.classList.add('hidden')
-      }
-    });
-  }
+    for (let tabContent of tabsContent) {
+      tabContent.classList.add('hidden')
+    }
+    document.querySelector(`#${id}content`).classList.remove('hidden');
+  })
 }
