@@ -1,20 +1,17 @@
-<script>
-	let sharp = '#';
+<!-- <svelte:head>
+	<script defer>
+		document.addEventListener('scroll', showToTop);
 
-	import { onMount } from 'svelte';
-
-	onMount(async () => {
-		document.addEventListener('scroll', toTop);
-
-		function toTop() {
+		function showToTop() {
 			const toTop = document.querySelector('#totop');
 
 			scrollY > 500 ? toTop.classList.remove('hidden') : toTop.classList.add('hidden');
 		}
-	});
-</script>
+	</script>
+</svelte:head> -->
 
-<a href={sharp} id="totop" class="fixed hidden bottom-4 right-4 opacity-30 hover:opacity-50">
+<!-- svelte-ignore a11y-invalid-attribute -->
+<a href="#" id="totop" class="fixed hidden bottom-4 right-4 opacity-30 hover:opacity-50">
 	<svg
 		aria-hidden="true"
 		focusable="false"

@@ -36,6 +36,7 @@
 
 <svelte:head>
 	<title>Alfa Host Home</title>
+	<script src="../../static/js/script.js" defer></script>
 </svelte:head>
 
 <HomeHeader />

@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <section class="px-8 pt-20 pb-24 mb-24 bg-gray-200 services">
 	<h2 class="mb-12 text-center">Más servicios personales para empresarios digitales</h2>
 	<p class="mb-16 text-2xl leading-relaxed text-center">
@@ -19,18 +16,18 @@
 			<a
 				href="#tabs"
 				id="seotab"
-				class="block p-4 bg-blue-600 rounded active tab hover:bg-blue-600"
+				class="block p-4 bg-gray-500 rounded active tab hover:bg-blue-400"
 			>
 				<strong>Posicionamiento y marketing en Google</strong>
 			</a>
 		</li>
 		<li class="flex-wrap md:w-1/3">
-			<a href="#tabs" id="socialtab" class="block p-4 bg-gray-500 rounded tab hover:bg-blue-600">
+			<a href="#tabs" id="socialtab" class="block p-4 bg-gray-500 rounded tab hover:bg-blue-400">
 				<strong>Gestión y promoción en redes sociales</strong>
 			</a>
 		</li>
 		<li class="flex-wrap md:w-1/3">
-			<a href="#tabs" id="designtab" class="block p-4 bg-gray-500 rounded tab hover:bg-blue-600">
+			<a href="#tabs" id="designtab" class="block p-4 bg-gray-500 rounded tab hover:bg-blue-400">
 				<strong>Desarrollo y mantenimiento web</strong>
 			</a>
 		</li>
