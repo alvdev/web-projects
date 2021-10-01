@@ -4,264 +4,294 @@
 @tailwind utilities;
 
 @layer base {
-	@font-face {
-		font-family: Roboto;
-		font-weight: 300;
-		src: url(../fonts/Roboto-Light-300.ttf) format('truetype');
-		font-display: swap;
-	}
-	@font-face {
-		font-family: Roboto;
-		font-weight: 400;
-		src: url(../fonts/Roboto-Regular-400.ttf) format('truetype');
-		font-display: swap;
-	}
-	@font-face {
-		font-family: Roboto;
-		font-weight: 500;
-		src: url(../fonts/Roboto-Medium-500.ttf) format('truetype');
-		font-display: swap;
-	}
-	@font-face {
-		font-family: Roboto;
-		font-weight: 700;
-		src: url(../fonts/Roboto-Bold-700.ttf) format('truetype');
-		font-display: swap;
-	}
+  @font-face {
+    font-family: Roboto;
+    font-weight: 300;
+    src: url(/fonts/Roboto-Light-300.ttf) format('truetype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: Roboto;
+    font-weight: 400;
+    src: url(/fonts/Roboto-Regular-400.ttf) format('truetype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: Roboto;
+    font-weight: 500;
+    src: url(/fonts/Roboto-Medium-500.ttf) format('truetype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: Roboto;
+    font-weight: 700;
+    src: url(/fonts/Roboto-Bold-700.ttf) format('truetype');
+    font-display: swap;
+  }
 
-	/* */
+  /* */
 
-	#tabs .active {
-		@apply bg-blue-600;
-	}
+  #tabs .active {
+    @apply bg-blue-600;
+  }
 
-	/* */
+  .glide .glide__slide {
+    @apply bg-black bg-opacity-50 h-full w-full relative rounded-md;
+    cursor: grab;
+  }
 
-	html {
-		scroll-behavior: smooth;
-	}
+  .glide .glide__slide:active {
+    cursor: grabbing;
+  }
 
-	body {
-		font-family: 'Roboto' !important;
-	}
+  .glide img {
+    @apply rounded relative w-full;
+  }
 
-	input::placeholder {
-		font-size: 1rem;
-		position: absolute;
-		top: 50%;
-		transform: translate(0%, -50%);
-		text-transform: none;
-		font-weight: normal;
-	}
+  .glide .glide__slide .overlay {
+    @apply bg-black bg-opacity-30 h-full w-full absolute z-10 top-0 rounded transition duration-200 shadow-2xl;
+    content: '';
+  }
 
-	section > h2,
-	section h2.title {
-		animation: gradientmove 15s ease infinite;
-		line-height: 1.3;
-		font-weight: 600;
-		width: 85%;
-		margin-left: auto;
-		margin-right: auto;
-		background: linear-gradient(315deg, #000, #000, #000, #1d4ed8, #000, #000, #000);
-		background-size: 100% 400%;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
+  .glide .glide__slide .overlay:hover {
+    @apply bg-opacity-0 shadow-md transition duration-500;
+  }
 
-	@keyframes gradientmove {
-		0% {
-			background-position: 0% 5%;
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-		}
+  @media (prefers-color-scheme: dark) {
+  }
 
-		50% {
-			background-position: 100% 95%;
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-		}
+  /* */
 
-		100% {
-			background-position: 0% 5%;
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-		}
-	}
+  html {
+    scroll-behavior: smooth;
+  }
 
-	section h2 span.subtitle {
-		-webkit-text-fill-color: #6b7280;
-	}
+  body {
+    font-family: 'Roboto' !important;
+    overflow-x: hidden;
+  }
 
-	/* Sections */
+  input::placeholder {
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+    text-transform: none;
+    font-weight: normal;
+  }
 
-	section.hosting-plans .triangle {
-		clip-path: polygon(50% 100%, 0 0, 100% 0);
-	}
+  section > h2,
+  section h2.title {
+    animation: gradientmove 15s ease infinite;
+    line-height: 1.3;
+    font-weight: 600;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(315deg, #000, #000, #000, #1d4ed8, #000, #000, #000);
+    background-size: 100% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-	@media only screen and (min-width: 768px) {
-		section > h2,
-		section h2.title {
-			font-size: 3.75rem;
-		}
-	}
+  @keyframes gradientmove {
+    0% {
+      background-position: 0% 5%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-	@media only screen and (max-width: 768px) {
-		section > h2,
-		section h2.title {
-			font-size: 2.2rem;
-			width: 100%;
-		}
-	}
+    50% {
+      background-position: 100% 95%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-	nav {
-		transition: 0.25s ease;
-	}
+    100% {
+      background-position: 0% 5%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
 
-	nav.sticky {
-		background-color: rgb(255, 255, 255, 85%);
-		position: fixed;
-		top: 0;
-		width: 100%;
-		padding-top: 0;
-		padding-bottom: 0;
-		transition: 0.5s ease;
-		--tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-		box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-			var(--tw-shadow);
-	}
+  section h2 span.subtitle {
+    -webkit-text-fill-color: #6b7280;
+  }
 
-	nav .logo svg .a {
-		fill: #ffffff;
-	}
+  /* Sections */
 
-	nav.sticky .logo svg {
-		width: 6rem;
-	}
+  section.hosting-plans .triangle {
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+  }
 
-	nav.sticky .a {
-		color: #000;
-	}
+  @media only screen and (min-width: 768px) {
+    section > h2,
+    section h2.title {
+      font-size: 3.75rem;
+    }
+  }
 
-	nav.sticky .logo svg .a,
-	nav.sticky .logo svg .c {
-		fill: #2563eb;
-		stroke: #2563eb;
-	}
+  @media only screen and (max-width: 768px) {
+    section > h2,
+    section h2.title {
+      font-size: 2.2rem;
+      width: 100%;
+    }
+  }
 
-	nav.sticky .logo svg .b {
-		fill: #6b7280;
-		stroke: #6b7280;
-	}
+  nav {
+    transition: 0.25s ease;
+  }
 
-	section.make-entrepreneurs > h2 {
-		-webkit-text-fill-color: unset;
-		animation: none;
-		background: none;
-	}
+  nav a.active {
+    @apply border-b-2 border-teal-400;
+  }
 
-	h3 {
-		font-size: 1.5rem;
-		font-weight: bold;
-	}
+  nav.sticky {
+    background-color: rgb(255, 255, 255, 85%);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: 0.5s ease;
+    --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+      var(--tw-shadow);
+  }
 
-	p {
-		color: #6b7280;
-		/* text-gray-500 */
-		font-size: 1.1rem;
-	}
+  nav .logo svg .a {
+    fill: #ffffff;
+  }
 
-	ul.arrow-right li {
-		position: relative;
-		padding-left: 2.25rem;
-	}
+  nav.sticky .logo svg {
+    width: 6rem;
+  }
 
-	ul.arrow-right li:before {
-		content: '\279C';
-		/* background-image: url(../svgs/arrow-right-solid.svg); */
-		position: absolute;
-		left: 0;
-		font-size: 1.5rem;
-		line-height: 1.5rem;
-	}
+  nav.sticky .a {
+    color: #000;
+  }
 
-	.make-entrepreneurs {
-		background-image: url(../images/convertir-emprendedores.jpg);
-	}
+  nav.sticky .logo svg .a,
+  nav.sticky .logo svg .c {
+    fill: #2563eb;
+    stroke: #2563eb;
+  }
 
-	.features svg:not(.php) {
-		stroke: #1e40af;
-	}
+  nav.sticky .logo svg .b {
+    fill: #6b7280;
+    stroke: #6b7280;
+  }
 
-	footer {
-		background-image: url(../images/free-wolf.webp);
-	}
+  section.make-entrepreneurs > h2 {
+    -webkit-text-fill-color: unset;
+    animation: none;
+    background: none;
+  }
 
-	footer .news,
-	.topnav {
-		background-image: linear-gradient(
-			to right,
-			rgba(255, 255, 255, 0) 0,
-			rgba(255, 255, 255, 0.25) 25%,
-			rgba(255, 255, 255, 0.25) 50%,
-			rgba(255, 255, 255, 0.25) 75%,
-			rgba(255, 255, 255, 0) 100%
-		);
-	}
+  h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
 
-	footer .tab {
-		scroll-margin-top: 6rem;
-	}
+  p {
+    color: #6b7280;
+    /* text-gray-500 */
+    font-size: 1.1rem;
+  }
 
-	footer h3 a {
-		opacity: 0.95;
-	}
+  ul.arrow-right li {
+    position: relative;
+    padding-left: 2.25rem;
+  }
 
-	footer h3 a {
-		opacity: 0.95;
-		cursor: default;
-	}
+  ul.arrow-right li:before {
+    content: '\279C';
+    /* background-image: url(../svgs/arrow-right-solid.svg); */
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
 
-	footer a {
-		opacity: 0.8;
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-	}
+  .make-entrepreneurs {
+    background-image: url(/images/convertir-emprendedores.jpg);
+  }
 
-	footer a:hover {
-		opacity: 1;
-	}
+  .features svg:not(.php) {
+    stroke: #1e40af;
+  }
 
-	/* Accordion */
-	@media screen and (max-width: 768px) {
-		.tab h3 a {
-			display: block;
-			position: relative;
-		}
+  footer {
+    background-image: url(/images/free-wolf.webp);
+  }
 
-		.tab h3 a:before {
-			content: '\276F';
-			position: absolute;
-			right: 2px;
-			top: 1px;
-			z-index: 9;
-			transform: rotate(90deg);
-		}
+  footer .news,
+  .topnav {
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.25) 25%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0.25) 75%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
 
-		.tab:target h3 a:before {
-			content: '\2759';
-		}
+  footer .tab {
+    scroll-margin-top: 6rem;
+  }
 
-		.dropdown {
-			overflow: hidden;
-			transition: ease 0.7s;
-			max-height: 0;
-		}
+  footer h3 a {
+    opacity: 0.95;
+  }
 
-		.tab:target .dropdown {
-			max-height: unset;
-		}
-	}
+  footer h3 a {
+    opacity: 0.95;
+    cursor: default;
+  }
+
+  footer a {
+    opacity: 0.8;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  footer a:hover {
+    opacity: 1;
+  }
+
+  /* Accordion */
+  @media screen and (max-width: 768px) {
+    .tab h3 a {
+      display: block;
+      position: relative;
+    }
+
+    .tab h3 a:before {
+      content: '\276F';
+      position: absolute;
+      right: 2px;
+      top: 1px;
+      z-index: 9;
+      transform: rotate(90deg);
+    }
+
+    .tab:target h3 a:before {
+      content: '\2759';
+    }
+
+    .dropdown {
+      overflow: hidden;
+      transition: ease 0.7s;
+      max-height: 0;
+    }
+
+    .tab:target .dropdown {
+      max-height: unset;
+    }
+  }
 }
