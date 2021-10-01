@@ -1,72 +1,71 @@
 <script>
-	import ToTop from '../components/ToTop.svelte';
+  import ToTop from '../components/ToTop.svelte';
 
-	import Copyright from '../components/sections/Copyright.svelte';
+  import Copyright from '../components/sections/Copyright.svelte';
 
-	import Footer from '../components/sections/Footer.svelte';
+  import Footer from '../components/sections/Footer.svelte';
 
-	import BlogFaq from '../components/sections/PostsFaqs.svelte';
+  import BlogFaq from '../components/sections/PostsFaqs.svelte';
 
-	import HostingApps from '../components/sections/HostingApps.svelte';
+  import HostingApps from '../components/sections/HostingApps.svelte';
 
-	import MarketingServices from '../components/sections/MarketingServices.svelte';
+  import MarketingServices from '../components/sections/MarketingServices.svelte';
 
-	import DigitalNeurs from '../components/sections/DigitalNeurs.svelte';
+  import DigitalNeurs from '../components/sections/DigitalNeurs.svelte';
 
-	import EmailMarketing from '../components/sections/EmailMarketing.svelte';
+  import EmailMarketing from '../components/sections/EmailMarketing.svelte';
 
-	import BannerWebsiteBuilder from '../components/sections/BannerWebsiteBuilder.svelte';
+  import BannerWebsiteBuilder from '../components/sections/BannerWebsiteBuilder.svelte';
 
-	import WebsiteBuilders from '../components/sections/WebsiteBuilders.svelte';
+  import WebsiteBuilders from '../components/sections/WebsiteBuilders.svelte';
 
-	import AlfaFeatures from '../components/sections/AlfaFeatures.svelte';
+  import AlfaFeatures from '../components/sections/AlfaFeatures.svelte';
 
-	import HostingFeatures from '../components/sections/HostingFeatures.svelte';
+  import HostingFeatures from '../components/sections/HostingFeatures.svelte';
 
-	import HostingDesc from '../components/sections/HostingDesc.svelte';
+  import HostingDesc from '../components/sections/HostingDesc.svelte';
 
-	import BannerEntrepreneur from '../components/sections/BannerEntrepreneur.svelte';
+  import BannerEntrepreneur from '../components/sections/BannerEntrepreneur.svelte';
 
-	import WhatDoYouNeed from '../components/sections/WhatDoYouNeed.svelte';
+  import WhatDoYouNeed from '../components/sections/WhatDoYouNeed.svelte';
 
-	import DomainSearchBox from '../components/sections/DomainSearchBox.svelte';
+  import DomainSearchBox from '../components/sections/DomainSearchBox.svelte';
 
-	import HomeHeader from '../components/sections/HomeHeader.svelte';
+  import HomeHeader from '../components/sections/Header.svelte';
 </script>
 
 <svelte:head>
-	<title>Alfa Host Home</title>
-	<script src="../../static/js/script.js" defer></script>
+  <title>Alfa Host Home</title>
 </svelte:head>
 
 <HomeHeader />
 
 <main>
-	<DomainSearchBox />
+  <DomainSearchBox />
 
-	<WhatDoYouNeed />
+  <WhatDoYouNeed />
 
-	<BannerEntrepreneur />
+  <BannerEntrepreneur />
 
-	<HostingDesc />
+  <HostingDesc />
 
-	<HostingFeatures />
+  <HostingFeatures />
 
-	<AlfaFeatures />
+  <AlfaFeatures />
 
-	<WebsiteBuilders />
+  <WebsiteBuilders />
 
-	<BannerWebsiteBuilder />
+  <BannerWebsiteBuilder />
 
-	<EmailMarketing />
+  <EmailMarketing />
 
-	<DigitalNeurs />
+  <DigitalNeurs />
 
-	<MarketingServices />
+  <MarketingServices />
 
-	<HostingApps />
+  <HostingApps />
 
-	<BlogFaq />
+  <BlogFaq />
 </main>
 
 <Footer />

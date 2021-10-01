@@ -1,9 +1,12 @@
 <script>
-	import HomeHeader from '../components/sections/HomeHeader.svelte';
+  import Footer from '/src/components/sections/Footer.svelte';
+  import Header from '/src/components/sections/Header.svelte';
 </script>
 
 <svelte:head>
-	<title>Alfa Host Blogs</title>
+  <title>Alfa Host Blog</title>
 </svelte:head>
 
-<HomeHeader />
+<Header />
+
+<Footer />

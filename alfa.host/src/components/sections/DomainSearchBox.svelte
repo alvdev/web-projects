@@ -6,7 +6,7 @@
 >
 	<h3 class="relative text-lg font-medium text-center uppercase md:w-full lg:w-2/5">
 		Todo emprendedor digital necesita un dominio donde crear su negocio online
-		<span class="hidden md:block md:absolute md:z-10 md:w-32">
+		<span class="hidden md:block md:absolute md:z-0 md:w-32">
 			<svg
 				version="1.1"
 				class=""

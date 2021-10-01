@@ -9,6 +9,7 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
+		"@beyonk/svelte-carousel": "^2.8.0",
 		"@sveltejs/kit": "next",
 		"autoprefixer": "^10.3.4",
 		"cssnano": "^5.0.8",
@@ -20,8 +21,12 @@
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
 		"svelte": "^3.34.0",
+		"svelte-carousel": "^1.0.15",
 		"svelte-preprocess": "^4.9.4",
 		"tailwindcss": "^2.2.15"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@glidejs/glide": "^3.4.1"
+	}
 }
