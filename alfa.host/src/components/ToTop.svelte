@@ -1,14 +1,16 @@
-<svelte:head>
-  <script defer>
+<script>
+  import { onMount } from 'svelte';
+
+  onMount(() => {
     document.addEventListener('scroll', toTop);
 
     function toTop() {
-      const toTop = document.querySelector('#totop');
+      let toTop = document.querySelector('#totop');
 
       scrollY > 500 ? toTop.classList.remove('hidden') : toTop.classList.add('hidden');
     }
-  </script>
-</svelte:head>
+  });
+</script>
 
 <!-- svelte-ignore a11y-invalid-attribute -->
 <a href="#" id="totop" class="fixed hidden bottom-4 right-4 opacity-30 hover:opacity-50">
