@@ -232,7 +232,5 @@
 </section>
 
 <div class="w-full mb-24">
-  <!-- <Carousel />
-  <Beyonk /> -->
   <Carousel />
 </div>
