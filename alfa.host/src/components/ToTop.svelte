@@ -1,19 +1,43 @@
 <script>
-  import { onMount } from 'svelte';
+  // document.addEventListener('scroll', toTop);
 
-  onMount(() => {
-    document.addEventListener('scroll', toTop);
+  // function toTop() {
+  //   let toTop = document.querySelector('#totop');
 
-    function toTop() {
-      let toTop = document.querySelector('#totop');
+  //   scrollY > 500 ? toTop.classList.remove('hidden') : toTop.classList.add('hidden');
+  // }
+  export let showOnPx = 500;
+  let hidden = true;
 
-      scrollY > 500 ? toTop.classList.remove('hidden') : toTop.classList.add('hidden');
+  function goTop() {
+    document.body.scrollIntoView();
+  }
+
+  function scrollContainer() {
+    return document.documentElement || document.body;
+  }
+
+  function handleOnScroll() {
+    if (!scrollContainer()) {
+      return;
     }
-  });
+
+    if (scrollContainer().scrollTop > showOnPx) {
+      hidden = false;
+    } else {
+      hidden = true;
+    }
+  }
 </script>
 
-<!-- svelte-ignore a11y-invalid-attribute -->
-<a href="#" id="totop" class="fixed hidden bottom-4 right-4 opacity-30 hover:opacity-50">
+<svelte:window on:scroll={handleOnScroll} />
+
+<a
+  id="totop"
+  on:click={goTop}
+  class:hidden
+  class="fixed bottom-4 right-4 opacity-30 hover:opacity-50 hover:cursor-pointer"
+>
   <svg
     aria-hidden="true"
     focusable="false"
