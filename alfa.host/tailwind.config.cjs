@@ -19,7 +19,11 @@ const config = {
       yellow: colors.amber,
       red: colors.rose,
     },
-    extend: {},
+    extend: {
+      height: {
+        pxx: '2px'
+      },
+    },
   },
   plugins: [],
 };
