@@ -1,32 +1,12 @@
 <script>
-  // document.addEventListener('scroll', toTop);
-
-  // function toTop() {
-  //   let toTop = document.querySelector('#totop');
-
-  //   scrollY > 500 ? toTop.classList.remove('hidden') : toTop.classList.add('hidden');
-  // }
-  export let showOnPx = 500;
   let hidden = true;
 
   function goTop() {
     document.body.scrollIntoView();
   }
 
-  function scrollContainer() {
-    return document.documentElement || document.body;
-  }
-
   function handleOnScroll() {
-    if (!scrollContainer()) {
-      return;
-    }
-
-    if (scrollContainer().scrollTop > showOnPx) {
-      hidden = false;
-    } else {
-      hidden = true;
-    }
+    document.documentElement.scrollTop > 500 ? hidden = false : hidden = true;
   }
 </script>
 
