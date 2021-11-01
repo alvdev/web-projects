@@ -1,39 +1,47 @@
-<svelte:head>
-  <script defer>
-    servicesTabs();
-    function servicesTabs() {
-      const tabs = document.querySelectorAll('.services ul#tabs li a');
-      const tabsContent = document.querySelectorAll('.services [id$=tabcontent]');
-      const ulTabs = document.querySelector('.services ul#tabs');
+<script>
+  import { onMount } from 'svelte';
 
-      ulTabs.addEventListener(
-        'click',
-        (e) => {
-          let id;
+  let tab;
+  let tabContent;
+  let ulTabs;
 
-          if (e.target.tagName === 'A') {
-            id = e.target.getAttribute('id');
-          }
+  servicesTabs();
+  function servicesTabs() {
+    onMount(() => {
+      const tabs = tab.querySelectorAll('.services ul#tabs li a');
+      const tabsContent = tabContent.querySelectorAll('.services [id$=tabcontent]');
+      const ulTabs = ulTabs.querySelector('.services ul#tabs');
+      console.log('This is working')
+    });
 
-          if (e.target.tagName === 'STRONG') {
-            id = e.target.parentElement.getAttribute('id');
-          }
+    // ulTabs.addEventListener(
+    //   'click',
+    //   (e) => {
+    //     let id;
 
-          for (let tab of tabs) {
-            tab.classList.remove('active');
-          }
-          document.querySelector(`#${id}`).classList.add('active');
+    //     if (e.target.tagName === 'A') {
+    //       id = e.target.getAttribute('id');
+    //     }
 
-          for (let tabContent of tabsContent) {
-            tabContent.classList.add('hidden');
-          }
-          document.querySelector(`#${id}content`).classList.remove('hidden');
-        },
-        true
-      );
-    }
-  </script>
-</svelte:head>
+    //     if (e.target.tagName === 'STRONG') {
+    //       id = e.target.parentElement.getAttribute('id');
+    //     }
+
+    //     for (let tab of tabs) {
+    //       tab.classList.remove('active');
+    //     }
+    //     document.querySelector(`#${id}`).classList.add('active');
+
+    //     for (let tabContent of tabsContent) {
+    //       tabContent.classList.add('hidden');
+    //     }
+    //     document.querySelector(`#${id}content`).classList.remove('hidden');
+    //   },
+    //   true
+    // );
+  }
+</script>
+
 <section class="px-8 pt-20 pb-24 mb-24 bg-gray-200 services">
   <h2 class="mb-12 text-center">Más servicios personales para empresarios digitales</h2>
   <p class="mb-16 text-2xl leading-relaxed text-center">
@@ -50,6 +58,7 @@
   >
     <li class="flex-wrap md:w-1/3">
       <a
+        bind:this={tab}
         href="#tabs"
         id="seotab"
         class="block p-4 bg-gray-500 rounded active tab hover:bg-blue-400"
@@ -58,12 +67,22 @@
       </a>
     </li>
     <li class="flex-wrap md:w-1/3">
-      <a href="#tabs" id="socialtab" class="block p-4 bg-gray-500 rounded tab hover:bg-blue-400">
+      <a
+        bind:this={tab}
+        href="#tabs"
+        id="socialtab"
+        class="block p-4 bg-gray-500 rounded tab hover:bg-blue-400"
+      >
         <strong>Gestión y promoción en redes sociales</strong>
       </a>
     </li>
     <li class="flex-wrap md:w-1/3">
-      <a href="#tabs" id="designtab" class="block p-4 bg-gray-500 rounded tab hover:bg-blue-400">
+      <a
+        bind:this={tab}
+        href="#tabs"
+        id="designtab"
+        class="block p-4 bg-gray-500 rounded tab hover:bg-blue-400"
+      >
         <strong>Desarrollo y mantenimiento web</strong>
       </a>
     </li>
