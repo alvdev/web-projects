@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .cursor-grab {
+    cursor: grab;
+  }
+}
+
 @layer base {
   @font-face {
     font-family: Roboto;
@@ -35,9 +41,25 @@
     @apply bg-blue-600;
   }
 
+  .glide__slide {
+    @apply cursor-grab;
+  }
+
+  .glide__bullets button {
+    @apply w-2 h-2 rounded bg-gray-400 mx-1;
+  }
+  
+  .glide__bullets button:hover,
+  .glide__bullets button[class*=active] {
+    @apply bg-gray-800;
+  }
+
+  .glide__bullet--active {
+    @apply bg-gray-800;
+  }
+
   .glide .glide__slide {
     @apply bg-black bg-opacity-50 h-full w-full relative rounded-md;
-    cursor: grab;
   }
 
   .glide .glide__slide:active {
