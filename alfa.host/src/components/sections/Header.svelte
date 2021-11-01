@@ -74,7 +74,7 @@
 <header class="relative z-10 bg-blue-600 h-96">
   <div>
     <div
-      class="items-center justify-between px-8 py-3 text-sm bg-opacity-50 topnav md:flex bg-gradient-to-r from-transparent via-white to-transparent"
+      class="items-center justify-between px-8 py-3 text-sm bg-opacity-50 topnav md:flex"
     >
       <div class="justify-between hidden gap-4 md:inline-flex">
         <span>+34 902 750 355</span>
