@@ -6,7 +6,7 @@
   }
 
   function handleOnScroll() {
-    document.documentElement.scrollTop > 500 ? hidden = false : hidden = true;
+    document.documentElement.scrollTop > 500 ? (hidden = false) : (hidden = true);
   }
 </script>
 
@@ -16,7 +16,7 @@
   id="totop"
   on:click={goTop}
   class:hidden
-  class="fixed bottom-4 right-4 opacity-30 hover:opacity-50 hover:cursor-pointer"
+  class="fixed bottom-4 right-4 opacity-30 hover:opacity-50 hover:cursor-pointer z-50"
 >
   <svg
     aria-hidden="true"
