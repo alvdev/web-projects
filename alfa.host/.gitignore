@@ -5,3 +5,4 @@ node_modules
 /package
 /html/node_modules
 /html/.vscode
+package-lock.json

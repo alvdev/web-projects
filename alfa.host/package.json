@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@glidejs/glide": "^3.4.1"
+		"@glidejs/glide": "^3.4.1",
+		"nvm": "^0.0.4"
 	}
 }
