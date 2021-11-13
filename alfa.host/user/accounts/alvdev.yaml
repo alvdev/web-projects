@@ -1,7 +1,7 @@
 state: enabled
 email: alvdev@outlook.com
 fullname: 'Alv Dev'
-title: Administrador
+title: Admin
 access:
   admin:
     login: true
