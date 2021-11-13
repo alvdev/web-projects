@@ -1,0 +1,11 @@
+state: enabled
+email: alvdev@outlook.com
+fullname: 'Alv Dev'
+title: Administrador
+access:
+  admin:
+    login: true
+    super: true
+  site:
+    login: true
+hashed_password: $2y$10$mrcZUU8MbyNAcEO3wKtrHetB1dF0JL2QeiLuUjk6Wh.F9Bq7h289G
