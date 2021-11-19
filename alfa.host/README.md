@@ -1,4 +1,4 @@
-Alfa Grav
+# Alfa Grav
 
 Alfa Grav is a **Fast**, **Simple**, and **Flexible**, file-based Web-platform. It has a different design philosophy than most CMS.
 
