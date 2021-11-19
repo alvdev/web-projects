@@ -1,5 +1,6 @@
 absolute_urls: false
 timezone: null
+default_locale: null
 param_sep: ':'
 wrapped_site: false
 reverse_proxy_setup: false
@@ -24,13 +25,14 @@ languages:
   session_store_active: false
   http_accept_language: false
   override_locale: false
+  content_fallback: {  }
   pages_fallback_only: false
 home:
   alias: /home
   hide_in_urls: false
 pages:
   type: regular
-  theme: quark
+  theme: alfa
   order:
     by: default
     dir: asc
@@ -105,8 +107,8 @@ cache:
   clear_images_by_default: false
   cli_compatibility: true
   lifetime: 604800
-  gzip: false
-  allow_webserver_gzip: false
+  gzip: true
+  allow_webserver_gzip: true
   redis:
     socket: '0'
     password: null
@@ -131,10 +133,10 @@ twig:
   umask_fix: false
 assets:
   css_pipeline: false
-  css_pipeline_include_externals: true
+  css_pipeline_include_externals: false
   css_pipeline_before_excludes: true
-  css_minify: true
-  css_minify_windows: false
+  css_minify: false
+  css_minify_windows: true
   css_rewrite: true
   js_pipeline: false
   js_pipeline_include_externals: true

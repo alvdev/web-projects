@@ -1,0 +1,112 @@
+enabled: true
+route: /admin
+cache_enabled: true
+theme: grav
+logo_text: null
+body_classes: null
+content_padding: true
+twofa_enabled: true
+sidebar:
+  activate: tab
+  hover_delay: 100
+  size: auto
+dashboard:
+  days_of_stats: 7
+widgets_display:
+  dashboard-maintenance: 'true'
+  dashboard-statistics: 'true'
+  dashboard-notifications: 'true'
+  dashboard-feed: 'true'
+  dashboard-pages: 'true'
+pages:
+  show_parents: both
+  show_modular: true
+  parents_levels: null
+session:
+  timeout: 1800
+edit_mode: normal
+frontend_preview_target: inline
+show_github_msg: true
+pages_list_display_field: title
+admin_icons: line-awesome
+enable_auto_updates_check: true
+notifications:
+  feed: true
+  dashboard: true
+  plugins: true
+  themes: true
+popularity:
+  enabled: true
+  ignore:
+    - '/test*'
+    - /modular
+  history:
+    daily: '30'
+    monthly: '12'
+    visitors: '20'
+whitelabel:
+  quicktray_recompile: true
+  codemirror_theme: moxer
+  codemirror_fontsize: md
+  codemirror_md_font: sans
+  logo_custom:
+    user/assets/alfa-logo.svg:
+      name: alfa-logo.svg
+      type: image/svg+xml
+      size: 11483
+      path: user/assets/alfa-logo.svg
+  logo_login:
+    user/assets/alfa-logo.svg:
+      name: alfa-logo.svg
+      type: image/svg+xml
+      size: 11483
+      path: user/assets/alfa-logo.svg
+  color_scheme:
+    accents:
+      primary-accent: nav
+      secondary-accent: nav
+      tertiary-accent: tabs
+    colors:
+      logo-bg: '#2A2C33'
+      logo-link: '#d8dadf'
+      nav-bg: '#333842'
+      nav-text: '#858991'
+      nav-link: '#CED0D4'
+      nav-selected-bg: '#282c34'
+      nav-selected-link: '#d8dadf'
+      nav-hover-bg: '#3A404B'
+      nav-hover-link: '#d8dadf'
+      toolbar-bg: '#2A2C33'
+      toolbar-text: '#9ea5b3'
+      page-bg: '#1E2127'
+      page-text: '#ABB2BF'
+      page-link: '#61AFEE'
+      content-bg: '#282C34'
+      content-text: '#abb2bf'
+      content-link: '#61AFEE'
+      content-link2: '#b960d4'
+      content-header: '#727C8C'
+      content-tabs-bg: '#25272E'
+      content-tabs-text: '#9ea5b3'
+      button-bg: '#383F4C'
+      button-text: '#d8dadf'
+      notice-bg: '#18a4ba'
+      notice-text: '#dfe3ed'
+      update-bg: '#4fa814'
+      update-text: '#dfe3ed'
+      critical-bg: '#d13e46'
+      critical-text: '#dfe3ed'
+      content-highlight: '#ffffd7'
+    name: null
+  custom_footer: null
+  custom_css: null
+  custom_presets: null
+show_beta_msg: null
+pagemedia:
+  resize_width: 0
+  resize_height: 0
+  res_min_width: 0
+  res_min_height: 0
+  res_max_width: 0
+  res_max_height: 0
+  resize_quality: 0.8
