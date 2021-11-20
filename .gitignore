@@ -1,2 +1,6 @@
-alfa.host/package-lock.json
+package-lock.json
+composer.lock
 LICENSE
+logs/*
+logs/popularity/daily.json
+user/config/system.yaml

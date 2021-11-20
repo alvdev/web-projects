@@ -3,3 +3,8 @@ vendor
 user/accounts
 backup
 node_modules
+logs
+package-lock.json
+composer.lock
+LICENSE
+logs
