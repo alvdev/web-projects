@@ -1,5 +1,5 @@
 enabled: true
-production: true
+production: false
 dropdown:
   enabled: true
 blog-page: /blog

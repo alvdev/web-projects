@@ -1,6 +1,5 @@
 absolute_urls: false
 timezone: null
-default_locale: null
 param_sep: ':'
 wrapped_site: false
 reverse_proxy_setup: false
@@ -25,7 +24,6 @@ languages:
   session_store_active: false
   http_accept_language: false
   override_locale: false
-  content_fallback: {  }
   pages_fallback_only: false
 home:
   alias: /home
@@ -44,7 +42,7 @@ pages:
     long: 'F jS \a\t g:ia'
   publish_dates: true
   process:
-    markdown: true
+    markdown: false
     twig: false
   twig_first: false
   never_cache_twig: false
