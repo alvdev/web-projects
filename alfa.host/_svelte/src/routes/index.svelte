@@ -23,7 +23,7 @@
 
   import HostingFeatures from '../components/sections/HostingFeatures.svelte';
 
-  import HostingDesc from '../components/sections/HostingDesc.svelte';
+  import HostingDesc from '../components/sections/HostingPlans.svelte';
 
   import BannerEntrepreneur from '../components/sections/BannerEntrepreneur.svelte';
 
