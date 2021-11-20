@@ -1,0 +1,40 @@
+name: Markdown Yet Another Linker
+slug: markdown-yalinker
+type: plugin
+version: 1.0.0
+description: Adds the ability to create links with less typing in Markdown
+icon: plug
+author:
+  name: Huidae Cho
+  email: grass4u@gmail.com
+homepage: https://github.com/HuidaeCho/grav-plugin-markdown-yalinker
+demo: https://demo.isnew.info/grav/markdown-yalinker
+keywords: grav, plugin, links
+bugs: https://github.com/HuidaeCho/grav-plugin-markdown-yalinker/issues
+docs: https://github.com/HuidaeCho/grav-plugin-markdown-yalinker/blob/develop/README.md
+license: MIT
+
+form:
+  validation: loose
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    utf8_slugs:
+      type: toggle
+      label: PLUGIN_MARKDOWN_YALINKER.UTF8_SLUGS
+      help: PLUGIN_MARKDOWN_YALINKER.UTF8_SLUGS_HELP
+      highlight: 0
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
