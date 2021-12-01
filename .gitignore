@@ -4,3 +4,4 @@ LICENSE
 logs/*
 logs/popularity/daily.json
 user/config/system.yaml
+alfa.host/composer.lock

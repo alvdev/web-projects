@@ -164,7 +164,7 @@ images:
   cache_perms: '0755'
   debug: false
   auto_fix_orientation: true
-  seofriendly: false
+  seofriendly: true
   cls:
     auto_sizes: true
     aspect_ratio: true

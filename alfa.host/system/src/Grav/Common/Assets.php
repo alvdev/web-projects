@@ -169,7 +169,7 @@ class Assets extends PropertyObject
                 if (is_array($location)) {
                     $params = array_shift($params);
                     if (is_numeric($params)) {
-                        $params = [ 'priority' => $params ];
+                        $params = ['priority' => $params];
                     }
                     $params = [array_replace_recursive([], $location, $params)];
                     $location = $index;
@@ -253,7 +253,7 @@ class Assets extends PropertyObject
 
         $orderKey = "{$type}|{$group}|{$position}";
         if (!isset($this->order[$orderKey])) {
-           $this->order[$orderKey] = 0;
+            $this->order[$orderKey] = 0;
         }
 
         $options['order'] = $this->order[$orderKey]++;

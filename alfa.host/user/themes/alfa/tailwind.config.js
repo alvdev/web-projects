@@ -8,6 +8,7 @@ module.exports = {
     './blueprints/**/*.yaml',
     './js/**/*.js',
     './templates/**/*.twig',
+    './templates/**/*.svg',
     './alfa.yaml',
     './alfa.php'
   ],
@@ -36,7 +37,6 @@ module.exports = {
       red: colors.rose,
       current: 'currentColor',
       transparent: 'transparent',
-      'inherit': 'inherit',
     },
     typography: (theme) => ({
       DEFAULT: {

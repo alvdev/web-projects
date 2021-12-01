@@ -1,10 +1,13 @@
 cache
 vendor
 user/accounts
+user/data
+user/themes
+!user/themes/alfa
 backup
 node_modules
 logs
+tmp
 package-lock.json
 composer.lock
 LICENSE
-logs
