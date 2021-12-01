@@ -96,12 +96,18 @@
   }
 
   input::placeholder {
-    font-size: 1rem;
-    font-weight: normal;
-    position: absolute;
+    @apply text-lg text-gray-400 font-normal;
     text-transform: none;
-    top: 50%;
-    transform: translate(0%, -50%);
+  }
+
+  main {
+    animation-duration: .5s;
+    animation-name: onLoadFade;
+  }
+
+  @keyframes onLoadFade {
+    from { opacity: 0 }
+    to { opacity: 1 }
   }
 
   section > h2,
@@ -271,17 +277,12 @@
   }
 
   footer h3 a {
-    opacity: 0.95;
-  }
-
-  footer h3 a {
-    cursor: default;
-    opacity: 0.95;
+    @apply cursor-default
   }
 
   footer a {
-    opacity: 0.8;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    @apply text-blue-100;
+    text-shadow: 0 0 50px rgba(0, 0, 0, 100);
   }
 
   footer a:hover {
@@ -311,11 +312,11 @@
     .dropdown {
       max-height: 0;
       overflow: hidden;
-      transition: ease 0.7s;
     }
 
     .tab:target .dropdown {
-      max-height: unset;
+      max-height: 100%;
+      transition: ease 0.7s;
     }
   }
 }
