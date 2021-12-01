@@ -7,7 +7,7 @@
             <meta charset="utf-8" />
             <title>
                 {% if header.title %}
-                    {{ header.title|e }}
+                {{ header.title|e }}
                 {% endif %}
                 {{ site.title|e }}
             </title>
@@ -22,7 +22,7 @@
 
         {% block stylesheets %}
             {% do assets.addCss('theme://dist/css/app' ~ extension ~ '.css', 98) %}
-            {% do assets.addCss('theme://dist/css/site.css', 99) %}
+            {% do assets.addCss('theme://dist/css/site' ~ extension ~ '.css', 99) %}
         {% endblock %}
 
         {% block javascripts %}{% endblock %}
@@ -36,23 +36,12 @@
     <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
 
         {% block header %}
-            <div class="header">
-                <div class="">
-                    <a class="logo" href="{{ home_url|e }}">
-                        {{ config.site.title|e }}
-                    </a>
-                    {% block header_navigation %}
-                        <nav class="main-nav">
-                            {% include 'partials/navigation.html.twig' %}
-                        </nav>
-                    {% endblock %}
-                </div>
-            </div>
+            {% include 'modular/header.html.twig' %}
         {% endblock %}
 
         {% block body %}
             <main>
-                {% block content %}{% endblock %}
+            {% block content %}{% endblock %}
             </main>
         {% endblock %}
 
