@@ -1,47 +1,67 @@
-{% macro loop(page) %}
-    {% for p in page.children.visible %}
-        {% set current_page = (p.active or p.activeChild) ? 'selected' : '' %}
-        {% if p.children.visible.count > 0 %}
-            <li class="has-children {{ current_page|e }}">
-                <a href="{{ p.url|e }}">
-                    {% if p.header.icon %}<i class="fa fa-{{ p.header.icon|e }}"></i>{% endif %}
-                    {{ p.menu|e }}
-                </a>
-                <ul>
-                    {{ _self.loop(p) }}
-                </ul>
-            </li>
-        {% else %}
-            <li class="{{ current_page|e }}">
-                <a href="{{ p.url|e }}">
-                    {% if p.header.icon %}<i class="fa fa-{{ p.header.icon|e }}"></i>{% endif %}
-                    {{ p.menu|e }}
-                </a>
-            </li>
-        {% endif %}
-    {% endfor %}
-{% endmacro %}
+<nav class="grid items-center justify-between grid-cols-2 py-6 lg:flex lg:px-8 lg:gap-4 z-10">
+	<div class="pl-8 logo md:pl-0">
+		<a href="{{ home_url|e }}" title="{{ config.site.title|e }}">
+			{% include "modular/header/logo.svg" %}
+		</a>
+	</div>
+	<div id="burger" class="block pr-8 text-right md:pr-0 lg:hidden">
+		<span class="text-4xl font-bold text-white">
+			&#9776;
+		</span>
+	</div>
+	{% macro loop(page) %}
+	{% for p in page.children.visible %}
+	{% set current_page = (p.active or p.activeChild) ? 'border-b-2 border-teal-400' : '' %}
+	{% if p.children.visible.count > 0 %}
+	<li class="has-children">
+		<a href="{{ p.url|e }}" class="{{ current_page|e }}">
+			{% if p.header.icon %}
+			<i class="fa fa-{{ p.header.icon|e }}"></i>
+			{% endif %}
+			{{ p.menu|e }}
+		</a>
+		<ul>
+			{{ _self.loop(p) }}
+		</ul>
+	</li>
+	{% else %}
+	<li>
+		<a href="{{ p.url|e }}" class="p-2 lg:text-white {{ current_page|e }}">
+			{% if p.header.icon %}
+			<i class="fa fa-{{ p.header.icon|e }}"></i>
+			{% endif %}
+			{{ p.menu|e }}
+		</a>
+	</li>
+	{% endif %}
+	{% endfor %}
+	{% endmacro %}
 
-<ul>
-    {% if config.theme.dropdown.enabled %}
-        {{ _self.loop(pages) }}
-    {% else %}
-        {% for page in pages.children.visible %}
-            {% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
-            <li class="{{ current_page|e }}">
-                <a href="{{ page.url|e }}">
-                    {% if page.header.icon %}<i class="fa fa-{{ page.header.icon|e }}"></i>{% endif %}
-                    {{ page.menu|e }}
-                </a>
-            </li>
-        {% endfor %}
-    {% endif %}
-    {% for mitem in site.menu %}
-        <li>
-            <a href="{{ mitem.url|e }}">
-                {% if mitem.icon %}<i class="fa fa-{{ mitem.icon|e }}"></i>{% endif %}
-                {{ mitem.text|e }}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+	<ul class="grid items-center justify-end hidden grid-cols-2 gap-12 py-12 text-xl text-center uppercase border-t-2 border-blue-600 col-span-full md:text-center md:grid-cols-4 lg:flex lg:gap-4 md:border-0 lg:py-4 lg:text-base lg:mt-0 lg:bg-transparent">
+		{% if config.theme.dropdown.enabled %}
+		{{ _self.loop(pages) }}
+		{% else %}
+		{% for page in pages.children.visible %}
+		{% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
+		<li>
+			<a href="{{ page.url|e }}" class="p-2 lg:text-white {{ current_page|e }}">
+				{% if page.header.icon %}
+				<i class="fa fa-{{ page.header.icon|e }}"></i>
+				{% endif %}
+				{{ page.menu|e }}
+			</a>
+		</li>
+		{% endfor %}
+		{% endif %}
+		{% for mitem in site.menu %}
+		<li>
+			<a href="{{ mitem.url|e }}">
+				{% if mitem.icon %}
+				<i class="fa fa-{{ mitem.icon|e }}"></i>
+				{% endif %}
+				{{ mitem.text|e }}
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</nav>
