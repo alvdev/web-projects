@@ -1,0 +1,94 @@
+{% do assets.addJs('theme://js/marketing-services.js') %}
+
+<section class="px-8 pt-20 pb-24 mb-24 bg-gray-200 services">
+    <h2 class="mb-12 text-center">Más servicios personales para empresarios digitales</h2>
+    <p class="mb-16 text-2xl leading-relaxed text-center">
+        No te compliques la vida. Delega en personal cualificado las tareas técnicas vitales y necesarias para mantener tu sitio web y hacer crecer tu negocio digital mientras tú te enfocas
+        en atender a tus nuevos clientes, crear nuevos productos, mejorar tus servicios y rentabilizar
+        tu negocio en Internet
+    </p>
+    <ul id="tabs"
+        class="flex flex-col justify-between gap-4 mb-4 text-center text-white uppercase md:flex-row md:gap-8 md:mb-8"
+        style="scroll-margin-top: 100px;">
+        <li class="flex-wrap md:w-1/3">
+            <a bind:this={tab} href="#tabs" id="seotab"
+                class="block p-4 bg-gray-500 rounded active tab hover:bg-blue-400">
+                <strong>Posicionamiento y marketing en Google</strong>
+            </a>
+        </li>
+        <li class="flex-wrap md:w-1/3">
+            <a bind:this={tab} href="#tabs" id="socialtab" class="block p-4 bg-gray-500 rounded tab hover:bg-blue-400">
+                <strong>Gestión y promoción en redes sociales</strong>
+            </a>
+        </li>
+        <li class="flex-wrap md:w-1/3">
+            <a bind:this={tab} href="#tabs" id="designtab" class="block p-4 bg-gray-500 rounded tab hover:bg-blue-400">
+                <strong>Desarrollo y mantenimiento web</strong>
+            </a>
+        </li>
+    </ul>
+    <div id="seotabcontent" class="flex flex-col items-end gap-8 p-12 bg-white rounded shadow-sm lg:flex-row">
+        <div class="w-full lg:w-1/3">
+            {% include 'modular/marketing-services/seo.svg' %}
+        </div>
+        <div class="lg:w-2/3">
+            <h2 class="mb-8 text-3xl font-medium leading-10 normal-case ">
+                El marketing en buscadores es crítico. O lo haces tú o puedes incluirnos en tu equipo para hacerlo nosotros
+            </h2>
+            <p class="mb-4">
+                Intentar posicionar tus páginas web de forma incorrecta y precaria te hará perder meses de trabajo sin ver resultados. Delegar en personas inadecuadas te penalizará y te hará perder dinero destruyendo el trabajo que hubieras podido hacer bien. Y pagar en Google Adwords podría arruinar tu presupuesto.
+            </p>
+            <p class="mb-8">
+                El posicionamiento web llevará tu negocio digital a la cumbre y podemos ayudarte a conseguirlo.
+            </p>
+            <a href="./"
+                class="inline-block px-4 py-2 text-center text-blue-700 uppercase border-2 border-blue-700 rounded ">Infórmate sobre los planes disponibles
+            </a>
+        </div>
+    </div>
+    <div id="socialtabcontent" class="flex flex-col items-end hidden gap-8 p-12 bg-white rounded shadow-sm lg:flex-row">
+        <div class="w-full lg:w-1/3">
+            {% include 'modular/marketing-services/social-media.svg' %}
+        </div>
+        <div class="lg:w-2/3">
+            <h2 class="mb-8 text-3xl font-medium leading-10 normal-case ">
+                Las redes sociales son la mejor manera de difundir tu marca fácilmente y conseguir nuevos
+                visitantes muy rápidamente
+            </h2>
+            <p class="mb-8">
+                Las redes sociales no son para vender, son para socializar, para conocer a tu audiencia,
+                para difundir contenido relacionado con tu mercado y conseguir la interacción de tus
+                clientes potenciales. Necesitas analizar sus intereses, su procedencia, sus inquietudes, su
+                género, su edad, sus horarios de conexión. Podemos ayudarte a conseguir más seguidores y
+                proporcionarles contenido que puedan compartir para difundir mejor la marca de tu negocio
+                digital.
+            </p>
+            <a href="./"
+                class="inline-block px-4 py-2 text-center text-blue-700 uppercase border-2 border-blue-700 rounded ">Infórmate
+                sobre los planes disponibles
+            </a>
+        </div>
+    </div>
+    <div id="designtabcontent" class="flex flex-col items-end hidden gap-8 p-12 bg-white rounded shadow-sm lg:flex-row">
+        <div class="w-full lg:w-1/3">
+            {% include 'modular/marketing-services/web-development.svg' %}
+        </div>
+        <div class="lg:w-2/3">
+            <h2 class="mb-8 text-3xl font-medium leading-10 normal-case md:font-semibold">
+                Como un automóvil, tu sitio web necesitará mejoras, actualizaciones y mantenimiento para
+                funcionar bien.
+            </h2>
+            <p class="mb-8">
+                Si deseas emprender en Internet debes aprender y comprometerte a tener actualizado y hacer
+                labores de mantenimiento en tu sitio web, en el corazón de tu negocio digital. También
+                querrás o necesitarás ampliar sus funciones, por ejemplo, añadiendo foros o sistemas de
+                tickets completamente integrados con tu diseño. Podemos encargarnos de esas tareas tan
+                monótonas y, muchas veces, problemáticas de tu web.
+            </p>
+            <a href="./"
+                class="inline-block px-4 py-2 text-center text-blue-700 uppercase border-2 border-blue-700 rounded ">Infórmate
+                sobre los planes disponibles
+            </a>
+        </div>
+    </div>
+</section>
