@@ -2,7 +2,7 @@ cache
 vendor
 user/accounts
 user/data
-user/themes
+user/themes/*
 !user/themes/alfa
 backup
 node_modules
