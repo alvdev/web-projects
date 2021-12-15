@@ -182,20 +182,16 @@
   }
 
   nav.sticky {
+    @apply py-0 top-0 fixed w-full;
     background-color: rgb(255, 255, 255, 85%);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
       var(--tw-shadow);
-    padding-bottom: 0;
-    padding-top: 0;
-    position: fixed;
-    top: 0;
     transition: 0.5s ease;
-    width: 100%;
     --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   }
 
   nav .logo svg .a {
-    fill: #ffffff;
+    @apply fill-current text-white;
   }
 
   nav.sticky .logo svg {
@@ -203,7 +199,7 @@
   }
 
   nav.sticky .a {
-    color: #000;
+    @apply text-black;
   }
 
   nav.sticky .logo svg .a,
@@ -212,9 +208,12 @@
     stroke: #2563eb;
   }
 
+  nav .logo svg .b {
+    @apply stroke-current fill-current text-cyan-400;
+  }
+
   nav.sticky .logo svg .b {
-    fill: #6b7280;
-    stroke: #6b7280;
+    @apply stroke-current fill-current text-cyan-500;
   }
 
   section.make-entrepreneurs > h2 {
