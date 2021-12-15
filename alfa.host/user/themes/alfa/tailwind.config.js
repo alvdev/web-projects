@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  mode: "jit",
+  mode: 'jit',
   purge: [
     '../../config/**/*.yaml',
     '../../pages/**/*.md',
@@ -10,7 +10,7 @@ module.exports = {
     './templates/**/*.twig',
     './templates/**/*.svg',
     './alfa.yaml',
-    './alfa.php'
+    './alfa.php',
   ],
   darkMode: 'false', //false or 'media' or 'class'
   theme: {
@@ -20,10 +20,10 @@ module.exports = {
         md: '768px',
         lg: '1024px',
         xl: '1280px',
-        '2xl': '1536px'
+        '2xl': '1536px',
       },
       height: {
-        pxx: '2px'
+        pxx: '2px',
       },
     },
     colors: {
@@ -32,13 +32,14 @@ module.exports = {
       black: colors.black,
       blue: colors.blue,
       sky: colors.sky,
+      cyan: colors.cyan,
       teal: colors.teal,
       yellow: colors.amber,
       red: colors.rose,
       current: 'currentColor',
       transparent: 'transparent',
     },
-    typography: (theme) => ({
+    typography: theme => ({
       DEFAULT: {
         css: {
           color: 'inherit',
@@ -48,15 +49,15 @@ module.exports = {
             transition: 'all 500ms',
             color: theme('colors.primary.DEFAULT'),
             '&:hover': {
-              color: theme('colors.primary.darker')
+              color: theme('colors.primary.darker'),
             },
-            textDecoration: 'none'
+            textDecoration: 'none',
           },
           strong: {
-            color: 'inherit'
+            color: 'inherit',
           },
-        }
-      }
+        },
+      },
     }),
   },
   variants: {
@@ -68,4 +69,4 @@ module.exports = {
     require('tailwindcss-debug-screens'),
   ],
   important: false,
-}
+};
