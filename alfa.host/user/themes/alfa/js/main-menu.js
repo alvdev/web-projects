@@ -3,31 +3,13 @@ function stickyNav() {
   const navLinks = document.querySelectorAll('nav ul a');
 
   if (scrollY > 50) {
-    nav.classList.add(
-      'sticky',
-      'fixed',
-      'top-0',
-      'py-0',
-      'w-full',
-      'bg-white',
-      'backdrop-filter',
-      'backdrop-blur-md'
-    );
+    nav.classList.add('sticky');
 
     for (const link of navLinks) {
       link.classList.remove('lg:text-white');
     }
   } else {
-    nav.classList.remove(
-      'sticky',
-      'fixed',
-      'top-0',
-      'py-0',
-      'w-full',
-      'bg-white',
-      'backdrop-filter',
-      'backdrop-blur-md'
-    );
+    nav.classList.remove('sticky');
 
     for (const link of navLinks) {
       link.classList.add('lg:text-white');
@@ -36,7 +18,6 @@ function stickyNav() {
 }
 document.addEventListener('scroll', stickyNav);
 
-burgerMenu();
 function burgerMenu() {
   const burger = document.querySelector('#burger');
   const menu = document.querySelector('#burger ~ ul');
@@ -45,18 +26,14 @@ function burgerMenu() {
 
   burger.addEventListener('click', () => {
     //burger.classList.toggle('mt-2'); // No needed after moving html container
-    cross.textContent == '☰'
-      ? (cross.textContent = '✕')
-      : (cross.textContent = '☰');
+    cross.innerText = cross.innerText === '☰' ? '✕' : '☰';
     menu.classList.toggle('hidden');
     menu.classList.add('bg-opacity-90');
 
     document.addEventListener('scroll', () => {
-      if (scrollY < 50) {
-        menu.classList.add('bg-white', 'mt-6');
-      } else {
-        menu.classList.remove('bg-white', 'mt-6');
-      }
+      scrollY < 50
+        ? menu.classList.add('bg-white', 'mt-6')
+        : menu.classList.remove('bg-white', 'mt-6');
     });
   });
 
@@ -68,3 +45,4 @@ function burgerMenu() {
 
   //for (link of menuLinks) link.classList.toggle('lg:text-black');
 }
+burgerMenu();
