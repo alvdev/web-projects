@@ -182,7 +182,7 @@
   }
 
   nav.sticky {
-    @apply py-0 top-0 fixed w-full;
+    @apply py-0 top-0 fixed w-full bg-white backdrop-filter backdrop-blur-md;
     background-color: rgb(255, 255, 255, 85%);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
       var(--tw-shadow);

@@ -1045,8 +1045,14 @@ nav.sticky {
 	position: fixed;
 	top: 0px;
 	width: 100%;
+	--tw-bg-opacity: 1;
+	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 	padding-top: 0px;
 	padding-bottom: 0px;
+	--tw-backdrop-blur: blur(12px);
+	-webkit-backdrop-filter: var(--tw-backdrop-filter);
+	        backdrop-filter: var(--tw-backdrop-filter);
+	backdrop-filter: var(--tw-backdrop-filter);
     background-color: rgb(255, 255, 255, 85%);
     box-shadow: 0 0 rgba(0,0,0,0), 0 0 rgba(0,0,0,0),
       var(--tw-shadow);
@@ -1969,11 +1975,6 @@ footer a:hover {
 	padding-bottom: 0.75rem;
 }
 
-.py-0 {
-	padding-top: 0px;
-	padding-bottom: 0px;
-}
-
 .py-24 {
 	padding-top: 6rem;
 	padding-bottom: 6rem;
@@ -2260,17 +2261,6 @@ footer a:hover {
 .ring-gray-500 {
 	--tw-ring-opacity: 1;
 	--tw-ring-color: rgba(100, 116, 139, var(--tw-ring-opacity));
-}
-
-.backdrop-blur-md {
-	--tw-backdrop-blur: blur(12px);
-	-webkit-backdrop-filter: var(--tw-backdrop-filter);
-	        backdrop-filter: var(--tw-backdrop-filter);
-}
-
-.backdrop-filter {
-	-webkit-backdrop-filter: var(--tw-backdrop-filter);
-	        backdrop-filter: var(--tw-backdrop-filter);
 }
 
 .hover\:cursor-pointer:hover {
