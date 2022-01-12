@@ -12,8 +12,7 @@ const activeTab = tabs.forEach(tab => {
 
     tabsContent.forEach(tabContent => {
       console.log(tab.getAttribute('id'));
-      if (!tabContent.getAttribute('id').includes(tab.getAttribute('id'))) {
-        console.log('Working');
+      if (tabContent.getAttribute('id').includes(tab.getAttribute('id'))) {
         tabsContent.forEach(tabContent => {
           tabContent.classList.add('hidden');
         });
@@ -22,12 +21,3 @@ const activeTab = tabs.forEach(tab => {
     });
   });
 });
-
-// console.log(activeTab);
-
-// const activeTabContent = tabs.forEach(tab => {
-//   const tabActiveId = tab.getAttribute('id');
-//   console.log(tabActiveId);
-// });
-
-// console.log(activeTabContentId);
