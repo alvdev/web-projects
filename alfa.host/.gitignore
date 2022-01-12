@@ -12,3 +12,4 @@ package-lock.json
 composer.lock
 LICENSE
 *min.*
+**/test.*
