@@ -1,4 +1,4 @@
-new Glide('.glide', {
+new Glide('.glide-email', {
   type: 'carousel',
   animationDuration: 1000,
   perView: 1,
