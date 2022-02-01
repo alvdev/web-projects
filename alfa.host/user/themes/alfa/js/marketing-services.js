@@ -11,7 +11,6 @@ const activeTab = tabs.forEach(tab => {
     }
 
     tabsContent.forEach(tabContent => {
-      console.log(tab.getAttribute('id'));
       if (tabContent.getAttribute('id').includes(tab.getAttribute('id'))) {
         tabsContent.forEach(tabContent => {
           tabContent.classList.add('hidden');
