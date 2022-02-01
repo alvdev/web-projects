@@ -63,24 +63,24 @@
     @apply bg-gray-800;
   }
 
-  .glide .glide__slide {
-    @apply bg-black bg-opacity-50 h-full w-full relative rounded-md;
-  }
-
   .glide .glide__slide:active {
     cursor: grabbing;
   }
 
-  .glide img {
+  .glide-email .glide__slide {
+    @apply bg-black bg-opacity-50 h-full w-full relative rounded-md;
+  }
+
+  .glide-email img {
     @apply rounded relative w-full;
   }
 
-  .glide .glide__slide .overlay {
+  .glide-email .glide__slide .overlay {
     @apply bg-black bg-opacity-30 h-full w-full absolute z-10 top-0 rounded transition duration-200 shadow-2xl;
     content: '';
   }
 
-  .glide .glide__slide .overlay:hover {
+  .glide-email .glide__slide .overlay:hover {
     @apply bg-opacity-0 shadow-md transition duration-500;
   }
 

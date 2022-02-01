@@ -828,7 +828,12 @@ select {
 	background-color: rgba(30, 41, 59, var(--tw-bg-opacity));
 }
 
-.glide .glide__slide {
+.glide .glide__slide:active {
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+  }
+
+.glide-email .glide__slide {
 	position: relative;
 	height: 100%;
 	width: 100%;
@@ -838,18 +843,13 @@ select {
 	--tw-bg-opacity: 0.5;
 }
 
-.glide .glide__slide:active {
-    cursor: -webkit-grabbing;
-    cursor: grabbing;
-  }
-
-.glide img {
+.glide-email img {
 	position: relative;
 	width: 100%;
 	border-radius: 0.25rem;
 }
 
-.glide .glide__slide .overlay {
+.glide-email .glide__slide .overlay {
 	position: absolute;
 	top: 0px;
 	z-index: 10;
@@ -870,7 +870,7 @@ select {
     content: '';
 }
 
-.glide .glide__slide .overlay:hover {
+.glide-email .glide__slide .overlay:hover {
 	--tw-bg-opacity: 0;
 	--tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -890,6 +890,7 @@ select {
 
 html {
     scroll-behavior: smooth;
+
   }
 
 body {
@@ -935,6 +936,7 @@ main {
     from {
       opacity: 0
     }
+
     to {
       opacity: 1
     }
@@ -944,12 +946,13 @@ main {
     from {
       opacity: 0
     }
+
     to {
       opacity: 1
     }
   }
 
-section >h2,
+section>h2,
   section h2.title {
     -webkit-animation: gradientmove 15s ease infinite;
             animation: gradientmove 15s ease infinite;
@@ -1639,8 +1642,8 @@ footer a:hover {
 	height: 100%;
 }
 
-.h-96 {
-	height: 24rem;
+.h-auto {
+	height: auto;
 }
 
 .h-1 {
@@ -1773,6 +1776,10 @@ footer a:hover {
 
 .flex-wrap {
 	flex-wrap: wrap;
+}
+
+.place-content-center {
+	place-content: center;
 }
 
 .place-items-center {
