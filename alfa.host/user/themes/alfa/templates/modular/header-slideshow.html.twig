@@ -1,5 +1,5 @@
-{% do assets.addJs('https://cdn.jsdelivr.net/npm/@glidejs/glide', {loading: 'defer', id: 'custom-css'}) %}
-{% do assets.addJs('theme://js/header-slideshow.js', {loading: 'defer', id: 'custom-css'}) %}
+{% do assets.addJs('https://cdn.jsdelivr.net/npm/@glidejs/glide', {loading: 'defer', priority: 2, id: 'custom-css'}) %}
+{% do assets.addJs('theme://js/header-slideshow.js', {loading: 'defer', priority: 1, id: 'custom-css'}) %}
 
 <div class="glide-header relative">
     <div data-glide-el="track" class="glide__track">
