@@ -1574,6 +1574,14 @@ footer a:hover {
 	margin-bottom: 1.5rem;
 }
 
+.mt-1 {
+	margin-top: 0.25rem;
+}
+
+.mr-2 {
+	margin-right: 0.5rem;
+}
+
 .mb-20 {
 	margin-bottom: 5rem;
 }
@@ -1584,10 +1592,6 @@ footer a:hover {
 
 .mt-16 {
 	margin-top: 4rem;
-}
-
-.mt-1 {
-	margin-top: 0.25rem;
 }
 
 .mt-auto {
@@ -1718,6 +1722,10 @@ footer a:hover {
 	width: 8.333333%;
 }
 
+.w-4 {
+	width: 1rem;
+}
+
 .w-1\/2 {
 	width: 50%;
 }
@@ -1728,10 +1736,6 @@ footer a:hover {
 
 .w-40 {
 	width: 10rem;
-}
-
-.w-4 {
-	width: 1rem;
 }
 
 .w-8 {
@@ -1908,6 +1912,10 @@ footer a:hover {
 
 .border-2 {
 	border-width: 2px;
+}
+
+.border-4 {
+	border-width: 4px;
 }
 
 .border-t-4 {
@@ -2333,6 +2341,11 @@ footer a:hover {
 	color: rgba(245, 158, 11, var(--tw-text-opacity));
 }
 
+.text-blue-400 {
+	--tw-text-opacity: 1;
+	color: rgba(96, 165, 250, var(--tw-text-opacity));
+}
+
 .text-blue-800 {
 	--tw-text-opacity: 1;
 	color: rgba(30, 64, 175, var(--tw-text-opacity));
@@ -2399,6 +2412,11 @@ footer a:hover {
 
 .hover\:cursor-pointer:hover {
 	cursor: pointer;
+}
+
+.hover\:bg-white:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 }
 
 .hover\:bg-blue-400:hover {
