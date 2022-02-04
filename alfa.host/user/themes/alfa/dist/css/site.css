@@ -833,6 +833,24 @@ select {
     cursor: grabbing;
   }
 
+.glide-header ul li {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    place-items: center;
+  }
+
+.glide-header ul li:before {
+    background-image: url('../../images/svg/check-solid.svg');
+    background-repeat: no-repeat;
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+    margin-right: 0.5rem;
+  }
+
 .glide-email .glide__slide {
 	position: relative;
 	height: 100%;
@@ -1582,6 +1600,10 @@ footer a:hover {
 	margin-right: 0.5rem;
 }
 
+.mb-1 {
+	margin-bottom: 0.25rem;
+}
+
 .mb-20 {
 	margin-bottom: 5rem;
 }
@@ -1774,6 +1796,10 @@ footer a:hover {
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.grid-rows-4 {
+	grid-template-rows: repeat(4, minmax(0, 1fr));
+}
+
 .flex-col {
 	flex-direction: column;
 }
@@ -1912,10 +1938,6 @@ footer a:hover {
 
 .border-2 {
 	border-width: 2px;
-}
-
-.border-4 {
-	border-width: 4px;
 }
 
 .border-t-4 {
@@ -2253,6 +2275,11 @@ footer a:hover {
 .text-5xl {
 	font-size: 3rem;
 	line-height: 1;
+}
+
+.text-xs {
+	font-size: 0.75rem;
+	line-height: 1rem;
 }
 
 .font-medium {

@@ -67,6 +67,22 @@
     cursor: grabbing;
   }
 
+  .glide-header ul li {
+    display: flex;
+    place-items: center;
+  }
+
+  .glide-header ul li:before {
+    background-image: url('../../images/svg/check-solid.svg');
+    background-repeat: no-repeat;
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+    @apply mr-2;
+  }
+
   .glide-email .glide__slide {
     @apply bg-black bg-opacity-50 h-full w-full relative rounded-md;
   }
