@@ -16,8 +16,8 @@ The underlying architecture of Alfa Grav is designed to use well-established and
 
 # Requirements
 
-- PHP 7.3.6 or higher. Check the [required modules list](https://learn.getAlfa Grav.org/basics/requirements#php-requirements)
-- Check the [Apache](https://learn.getAlfa Grav.org/basics/requirements#apache-requirements) or [IIS](https://learn.getAlfa Grav.org/basics/requirements#iis-requirements) requirements
+- PHP 7.3.6 or higher.
+- Apache or IIS.
 
 # Running Tests
 
