@@ -1,8 +1,7 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  mode: 'jit',
-  purge: [
+  content: [
     '../../config/**/*.yaml',
     '../../pages/**/*.md',
     './blueprints/**/*.yaml',
@@ -12,7 +11,6 @@ module.exports = {
     './alfa.yaml',
     './alfa.php',
   ],
-  darkMode: 'false', //false or 'media' or 'class'
   theme: {
     extend: {
       screens: {
@@ -59,9 +57,6 @@ module.exports = {
         },
       },
     }),
-  },
-  variants: {
-    extend: {},
   },
   plugins: [
     require('@tailwindcss/typography'),
