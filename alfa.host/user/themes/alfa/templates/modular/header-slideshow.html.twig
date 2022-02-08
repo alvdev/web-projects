@@ -1,10 +1,13 @@
-{% do assets.addJs('https://cdn.jsdelivr.net/npm/@glidejs/glide', {
+{% do assets.addJs(
+  'https://cdn.jsdelivr.net/npm/@glidejs/glide',
+  {
     loading: 'defer',
     priority: 2,
     id: 'custom-css'
   }
 ) %}
-{% do assets.addJs('theme://js/header-slideshow.js',
+{% do assets.addJs(
+  'theme://js/header-slideshow.js',
   {
     loading: 'defer',
     priority: 1,
@@ -47,14 +50,32 @@
                 </div>
 
                 <div>
-                    <div>
-                        Posicionamiento en buscadores
+                    <div
+                        class="bg-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-32 h-32">
+                        <div class="w-min leading-tight mt-4">
+                            <div>
+                                Posicionamiento en buscadores
+                            </div>
+                            <div class="text-4xl">
+                                SEO
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        Diseño y desarrollo web
+
+                    <div
+                        class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28">
+                        <div class="w-min leading-tight mt-1">
+                            <div>Diseño y desarrollo</div>
+                            <div class="text-4xl">WEB</div>
+                        </div>
                     </div>
-                    <div>
-                        Social media marketing
+
+                    <div
+                        class="bg-white text-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-24 h-24">
+                        <div class="w-min mt-1">
+                            <div class="text-xl uppercase leading-none font-medium">Social media</div>
+                            <div class="">marketing</div>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -107,10 +128,10 @@
                         resultados
                     </div>
                     <div class="mb-8">
-                        Necesitas adquirir ciertos conocimientos y
-                        desarrollar ciertas habilidades para emprender en intertet con éxito y
-                        poder convertirte en empresario digital. La guía más completa que
-                        podrás encontrar para crear un negocio en Internet paso a paso
+                        Necesitas adquirir ciertos conocimientos y desarrollar ciertas
+                        habilidades para emprender en intertet con éxito y poder convertirte
+                        en empresario digital. La guía más completa que podrás encontrar
+                        para crear un negocio en Internet paso a paso
                     </div>
                     <button class="border-2 rounded p-4 uppercase hover:text-black hover:bg-white font-medium">
                         Descubre el camino de emprendedor a empresario digital
@@ -125,16 +146,17 @@
 
             <article class="glide__slide p-8 flex">
                 <div class="w-2/3">
-                    <div class="uppercase text-2xl font-medium mb-1">¿Sabes realmente lo que significa</div>
+                    <div class="uppercase text-2xl font-medium mb-1">
+                        ¿Sabes realmente lo que significa
+                    </div>
                     <div class="uppercase text-5xl font-semibold mb-8">
                         <span class="text-blue-400">Trabajar</span>
                         por Internet
                     </div>
                     <div class="mb-8">
-                        Cada vez más y
-                        más emprendedorees deciden lanzarse a trabajar por internet. No es
-                        fácil. Si no eres consciente de lo que significa trabajar online,
-                        fracasarás.
+                        Cada vez más y más emprendedorees deciden lanzarse a trabajar por
+                        internet. No es fácil. Si no eres consciente de lo que significa
+                        trabajar online, fracasarás.
                     </div>
                     <button class="border-2 rounded p-4 uppercase hover:text-black hover:bg-white font-medium">
                         Conoce los requisitos y beneficios de trabajar en internet

@@ -1668,6 +1668,18 @@ footer a:hover {
 	height: 100%;
 }
 
+.h-32 {
+	height: 8rem;
+}
+
+.h-28 {
+	height: 7rem;
+}
+
+.h-24 {
+	height: 6rem;
+}
+
 .h-auto {
 	height: auto;
 }
@@ -1678,10 +1690,6 @@ footer a:hover {
 
 .h-8 {
 	height: 2rem;
-}
-
-.h-24 {
-	height: 6rem;
 }
 
 .h-10 {
@@ -1706,10 +1714,6 @@ footer a:hover {
 
 .h-7 {
 	height: 1.75rem;
-}
-
-.h-28 {
-	height: 7rem;
 }
 
 .h-40 {
@@ -1746,6 +1750,20 @@ footer a:hover {
 
 .w-4 {
 	width: 1rem;
+}
+
+.w-min {
+	width: -webkit-min-content;
+	width: -moz-min-content;
+	width: min-content;
+}
+
+.w-28 {
+	width: 7rem;
+}
+
+.w-24 {
+	width: 6rem;
 }
 
 .w-1\/2 {
@@ -2324,6 +2342,10 @@ footer a:hover {
 
 .leading-tight {
 	line-height: 1.25;
+}
+
+.leading-none {
+	line-height: 1;
 }
 
 .leading-snug {
