@@ -1,6 +1,7 @@
 core:
   grav:
-    version: 1.7.25
+    version: 1.7.30
     schema: 1.7.0_2020-11-20_1
     history:
       - { version: 1.7.25, date: '2021-11-17 17:39:21' }
+      - { version: 1.7.30, date: '2022-02-17 08:34:16' }

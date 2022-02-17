@@ -18,7 +18,7 @@
 <div class="glide-header relative">
     <div data-glide-el="track" class="glide__track flex">
         <div class="glide__slides flex text-white">
-            <article class="glide__slide p-8 flex gap-4">
+            <article class="glide__slide p-8 flex gap-4 relative">
                 <div class="w-2/3">
                     <div class="uppercase text-5xl font-semibold mb-4">
                         Despre<span class="text-blue-400">ocúpate</span>
@@ -49,35 +49,41 @@
                     </button>
                 </div>
 
-                <div>
-                    <div
-                        class="bg-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-32 h-32">
-                        <div class="w-min leading-tight mt-4">
-                            <div>
-                                Posicionamiento en buscadores
+                <div class="w-1/3 relative">
+                    <div class="bubbles absolute z-10 -top-4 -left-4">
+                        <div
+                            class="bg-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-32 h-32 absolute z-0">
+                            <div class="w-min leading-tight mt-4">
+                                <div>
+                                    Posicionamiento en buscadores
+                                </div>
+                                <div class="text-4xl">
+                                    SEO
+                                </div>
                             </div>
-                            <div class="text-4xl">
-                                SEO
+                        </div>
+
+                        <div
+                            class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28 absolute z-10 ml-24 mt-16">
+                            <div class="w-min leading-tight mt-1">
+                                <div>Diseño y desarrollo</div>
+                                <div class="text-4xl">WEB</div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white text-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-24 h-24 absolute z-20 mt-28 ml-4">
+                            <div class="w-min mt-1">
+                                <div class="text-xl uppercase leading-none font-medium">Social media</div>
+                                <div class="">marketing</div>
                             </div>
                         </div>
                     </div>
-
-                    <div
-                        class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28">
-                        <div class="w-min leading-tight mt-1">
-                            <div>Diseño y desarrollo</div>
-                            <div class="text-4xl">WEB</div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="bg-white text-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-24 h-24">
-                        <div class="w-min mt-1">
-                            <div class="text-xl uppercase leading-none font-medium">Social media</div>
-                            <div class="">marketing</div>
-                        </div>
+                    <div class="relative ml-auto w-5/6">
+                        {{ media['image://header-slides/hosting-2.webp'].html()|raw }}
                     </div>
                 </div>
+
             </article>
 
             <article class="glide__slide p-8 flex gap-4">
@@ -88,7 +94,7 @@
                             incluido
                         </div>
                         <div class="uppercase text-5xl font-semibold">
-                            <span class="text-blue-400">Para</span>
+                            <span class="text-blue-400">Para</span>ñ
                             principiantes
                         </div>
                     </div>
