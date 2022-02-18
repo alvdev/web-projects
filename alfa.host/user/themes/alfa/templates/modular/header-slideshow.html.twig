@@ -167,7 +167,7 @@
                 </div>
             </article>
 
-            <article class="glide__slide p-8 flex">
+            <article class="glide__slide p-8 flex relative">
                 <div class="w-2/3">
                     <div class="uppercase text-2xl font-medium mb-1">
                         ¿Sabes realmente lo que significa
@@ -178,15 +178,15 @@
                     </div>
                     <div class="mb-8">
                         Cada vez más y más emprendedorees deciden lanzarse a trabajar por
-                        internet. No es fácil. Si no eres consciente de lo que significa
+                        internet.<br>No es fácil. Si no eres consciente de lo que significa
                         trabajar online, fracasarás.
                     </div>
                     <button class="border-2 rounded p-4 uppercase hover:text-black hover:bg-white font-medium">
                         Conoce los requisitos y beneficios de trabajar en internet
                     </button>
                 </div>
-                <div>
-                    Image
+                <div class="w-5/12 absolute right-0">
+                    {{ media['image://header-slides/trabajar-internet.webp'].html()|raw }}
                 </div>
             </article>
         </div>
