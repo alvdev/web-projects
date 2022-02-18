@@ -116,10 +116,18 @@
                         Ver todos los planes de alojamiento web
                     </button>
                 </div>
-
-                <div>
-                    <div>
-                        Elige el plan Alfa 1
+                <div class="w-1/3 relative">
+                    <div class="bubbles absolute z-10 -top-4 -left-4">
+                        <div
+                            class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28 absolute z-10 ml-24 mt-16">
+                            <div class="w-min leading-tight mt-1">
+                                <div>Elige el plan</div>
+                                <div class="text-4xl">Alfa</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        {{ media['image://header-slides/hosting-1.webp'].html()|raw }}
                     </div>
                 </div>
             </article>
