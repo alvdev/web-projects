@@ -1,3 +1,0 @@
----
-title: 'Banner website builder'
----
