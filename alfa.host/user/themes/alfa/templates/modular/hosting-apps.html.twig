@@ -1,0 +1,49 @@
+{% set image = url('theme://templates/modular/hosting-apps') %}
+
+<section class="px-8 mb-20 apps ">
+    <div class="flex flex-col gap-8 lg:flex-row">
+        <div class="w-full lg:w-1/3">
+            {% include 'modular/hosting-apps/click-apps.svg' %}
+        </div>
+        <div class="text-center lg:w-2/3">
+            <h2 class="mb-16 text-5xl font-medium leading-tight">
+                Más de 397 aplicaciones web para tu negocio digital, con sólo un clic
+            </h2>
+            <div
+                class="grid grid-cols-2 sm:grid-cols-3 mb-16 gap-x-20 gap-y-12 cms-logos justify-items-center place-items-center">
+                <div>
+                    {% include 'modular/hosting-apps/drupal.svg' %}
+                </div>
+                <div>
+                    {% include 'modular/hosting-apps/wordpress.svg' %}
+                </div>
+                <div>
+                    {% include 'modular/hosting-apps/joomla.svg' %}
+                </div>
+                <div>
+                    {% include 'modular/hosting-apps/prestashop.svg' %}
+                </div>
+                <div>
+                    {% include 'modular/hosting-apps/magento.svg' %}
+                </div>
+                <div>
+                    {% include 'modular/hosting-apps/opencart.svg' %}
+                </div>
+            </div>
+            <div class="text-4xl text-gray-500 leading-snug">
+                Foros, comunidades, tickets de soporte, chats en vivo, anuncios clasificados...
+                <span class="font-bold">¡y mucho más!</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="divide-y-6 w-full h-1 bg-gray-100 mt-20"></div>
+    <article class="grid grid-flow-col-dense justify-items-center items-center gap-8 mt-16">
+        <img class="h-8" src="{{ image ~ '/red-hat-logo.svg' }}" alt="" />
+        <img class=" h-24" src="{{ image ~ '/nginx-logo.svg' }}" alt="" />
+        <img class=" h-10" src="{{ image ~ '/apache-logo.svg' }}" alt="" />
+        <img class=" h-8" src="{{ image ~ '/mysql-horizontal.svg' }}" alt="" />
+        <img class=" h-8" src="{{ image ~ '/php-logo.svg' }}" alt="" />
+        <img class=" h-9" src="{{ image ~ '/lets-encrypt-logo2.svg' }}" alt="" />
+    </article>
+</section>

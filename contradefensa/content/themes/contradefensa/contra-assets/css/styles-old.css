@@ -1,0 +1,99 @@
+@import url(./normalize.css);
+
+a {
+    text-decoration: none;
+    color: coral;
+}
+
+figure {
+    margin: 0;
+}
+
+img {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+
+nav {
+    background-color: #1A1C23;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4vw;
+}
+
+nav #logo svg {
+    width: 60px;
+    height: auto;
+    display: block;
+}
+
+nav .right {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+}
+
+/** Header **/
+
+header {
+    display: grid;
+    grid-template-columns: 30% 1fr 200px;
+    background-image: url(../img/hacker.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+#welcome {
+    background-color: rgb(0 0 0 / 40%);
+    padding: 2rem 4vw;
+    color: rgb(255, 255, 255, 90%);
+}
+
+#welcome img {
+    width: 50px;
+}
+
+#featured,
+#carrousel > article {
+    /* background-color: rgb(195, 29, 32); */
+    position: relative;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#featured > *:first-child,
+#carrousel > article > *:first-child {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+}
+
+#carrousel > article > *:first-child:hover {
+    background-color: crimson;
+}
+
+#featured > *,
+#carrousel > article > * {
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+
+#featured img,
+#carrousel img {
+    width: auto;
+    object-fit: cover;
+}
