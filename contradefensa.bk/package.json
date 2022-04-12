@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "ghost-cli": "^1.5.2",
+    "npm": "^8.6.0"
+  }
+}

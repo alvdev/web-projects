@@ -6,3 +6,6 @@ logs/popularity/daily.json
 user/config/system.yaml
 alfa.host/composer.lock
 alfa.host/user/data/**/*
+
+contradefensa/*
+!contradefensa/content/themes/contradefensa/*
