@@ -4,6 +4,16 @@ into the {body} of the default.hbs template --}}
 
 {{#match @custom.publication_cover_style "!=" "None"}}
     <div class="site-header-content{{#match @custom.publication_cover_style "Large"}} large{{/match}}">
+        <article id="welcome">
+            <p>Welcome!</p>
+            <h1>Aprende hacking ético a tu ritmo y consigue la certificación</h1>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, praesentium amet! Nobis mollitia eaque
+                consequatur totam obcaecati necessitatibus sed esse suscipit, asperiores maiores. Voluptate, sed. Earum
+                quo qui quae ipsa.</p>
+            <div class="author">
+                <img src="https://placeimg.com/50/50/any" alt="">
+            </div>
+        </article>
         {{#if @site.cover_image}}
             {{!-- This is a responsive image, it loads different sizes depending on device
             https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
