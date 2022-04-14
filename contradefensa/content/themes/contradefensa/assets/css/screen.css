@@ -185,7 +185,7 @@ production stylesheet in assets/built/screen.css
 
 .gh-head-inner {
     display: grid;
-    grid-gap: 2.5vmin;
+    grid-gap: 4vmin;
     grid-template-columns: auto auto 1fr;
     grid-auto-flow: row dense;
 }
@@ -213,7 +213,7 @@ production stylesheet in assets/built/screen.css
 }
 
 .gh-head-logo img {
-    max-height: 26px;
+    max-height: 38px;
 }
 
 
