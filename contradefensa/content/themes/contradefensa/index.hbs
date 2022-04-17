@@ -5,8 +5,8 @@ into the {body} of the default.hbs template --}}
 {{#match @custom.publication_cover_style "!=" "None"}}
     <div class="site-header-content{{#match @custom.publication_cover_style "Large"}} large{{/match}}">
         <article id="welcome">
-            <p>Welcome!</p>
-            <h1>Aprende hacking ético a tu ritmo y consigue la certificación</h1>
+            <h1>{{@site.description}}</h1>
+            <h2>Consigue la certificación</h2>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, praesentium amet! Nobis mollitia eaque
                 consequatur totam obcaecati necessitatibus sed esse suscipit, asperiores maiores. Voluptate, sed. Earum
                 quo qui quae ipsa.</p>
@@ -14,6 +14,32 @@ into the {body} of the default.hbs template --}}
                 <img src="https://placeimg.com/50/50/any" alt="">
             </div>
         </article>
+        <section id="slides">
+            <article>
+                <a href="">
+                    <img src="https://picsum.photos/id/1/400/200" alt="">
+                    <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                </a>
+            </article>
+            <article>
+                <a href="">
+                    <img src="https://picsum.photos/id/2/200/100" alt="">
+                    <h2>Ea non aute aliquip quis nisi.</h2>
+                </a>
+            </article>
+            <article>
+                <a href="">
+                    <img src="https://picsum.photos/id/3/200/100" alt="">
+                    <h2>Adipisicing cupidatat reprehenderit pariatur voluptate ea.</h2>
+                </a>
+            </article>
+            <article>
+                <a href="">
+                    <img src="https://picsum.photos/id/4/200/100" alt="">
+                    <h2>Occaecat consectetur magna qui fugiat velit in dolor magna.</h2>
+                </a>
+            </article>
+        </section>
         {{#if @site.cover_image}}
             {{!-- This is a responsive image, it loads different sizes depending on device
             https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
@@ -27,14 +53,6 @@ into the {body} of the default.hbs template --}}
                 alt=""
             />
         {{/if}}
-        <h1 class="site-title">
-            {{#if @site.logo}}
-                <img class="site-logo" src="{{img_url @site.logo size="m"}}" alt="{{@site.title}}" />
-            {{else}}
-                {{@site.title}}
-            {{/if}}
-        </h1>
-        <p>{{@site.description}}</p>
     </div>
 {{/match}}
 
