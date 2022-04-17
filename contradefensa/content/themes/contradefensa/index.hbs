@@ -2,60 +2,6 @@
 {{!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template --}}
 
-{{#match @custom.publication_cover_style "!=" "None"}}
-    <div class="site-header-content{{#match @custom.publication_cover_style "Large"}} large{{/match}}">
-        <article id="welcome">
-            <h1>{{@site.description}}</h1>
-            <h2>Consigue la certificación</h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, praesentium amet! Nobis mollitia eaque
-                consequatur totam obcaecati necessitatibus sed esse suscipit, asperiores maiores. Voluptate, sed. Earum
-                quo qui quae ipsa.</p>
-            <div class="author">
-                <img src="https://placeimg.com/50/50/any" alt="">
-            </div>
-        </article>
-        <section id="slides">
-            <article>
-                <a href="">
-                    <img src="https://picsum.photos/id/1/400/200" alt="">
-                    <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                </a>
-            </article>
-            <article>
-                <a href="">
-                    <img src="https://picsum.photos/id/2/200/100" alt="">
-                    <h2>Ea non aute aliquip quis nisi.</h2>
-                </a>
-            </article>
-            <article>
-                <a href="">
-                    <img src="https://picsum.photos/id/3/200/100" alt="">
-                    <h2>Adipisicing cupidatat reprehenderit pariatur voluptate ea.</h2>
-                </a>
-            </article>
-            <article>
-                <a href="">
-                    <img src="https://picsum.photos/id/4/200/100" alt="">
-                    <h2>Occaecat consectetur magna qui fugiat velit in dolor magna.</h2>
-                </a>
-            </article>
-        </section>
-        {{#if @site.cover_image}}
-            {{!-- This is a responsive image, it loads different sizes depending on device
-            https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-            <img class="site-header-cover"
-                srcset="{{img_url @site.cover_image size="s"}} 300w,
-                        {{img_url @site.cover_image size="m"}} 600w,
-                        {{img_url @site.cover_image size="l"}} 1000w,
-                        {{img_url @site.cover_image size="xl"}} 2000w"
-                sizes="100vw"
-                src="{{img_url @site.cover_image size="xl"}}"
-                alt=""
-            />
-        {{/if}}
-    </div>
-{{/match}}
-
 {{!-- The main content area --}}
 <main id="site-main" class="site-main outer">
     <div class="inner posts">
