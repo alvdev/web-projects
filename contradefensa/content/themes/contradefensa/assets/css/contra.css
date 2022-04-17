@@ -4,7 +4,7 @@
     padding: 0;
 }
 
-nav {
+header nav {
     background-color: rgb(0 0 0 / 85%);
     display: flex;
     place-items: center;
@@ -34,7 +34,7 @@ nav ul {
 }
 
 .site-header-content {
-    padding: 4vmin 0;
+    padding: 0;
 }
 
 #welcome {
@@ -61,6 +61,7 @@ nav ul {
 #slides article {
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 #slides article img {

@@ -115,8 +115,8 @@ production stylesheet in assets/built/screen.css
     align-items: center;
     padding: 6vw 3vw;
     min-height: 200px;
-    max-height: 340px;
     text-align: center;
+    overflow: hidden;
 }
 
 .site-title {
@@ -525,15 +525,6 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 .home-template.gh-head-open .gh-head {
     background: var(--ghost-accent-color);
 }
-
-.home-template .gh-head.has-cover .gh-head-logo {
-    display: none;
-}
-
-.home-template .gh-head.has-cover .gh-head-menu {
-    margin-left: -2.5vmin;
-}
-
 
 /* 6. Post Feed
 /* ---------------------------------------------------------- */
@@ -1712,7 +1703,7 @@ iframe.instagram-media+script+ :not([id]) {
 .site-footer {
     position: relative;
     margin: 40px 0 0 0;
-    padding: 40px 4vmin 140px;
+    padding: 40px 4vmin 80px;
     color: #fff;
     background: color-mod(var(--color-darkgrey) l(-5%));
 }
