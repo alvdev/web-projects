@@ -170,14 +170,6 @@ production stylesheet in assets/built/screen.css
 /* 5. Site Navigation
 /* ---------------------------------------------------------- */
 
-.gh-head {
-    padding: 1vmin 4vmin;
-    font-size: 1.6rem;
-    line-height: 1.3em;
-    color: #fff;
-    background: var(--ghost-accent-color);
-}
-
 .gh-head a {
     color: inherit;
     text-decoration: none;
@@ -260,6 +252,7 @@ production stylesheet in assets/built/screen.css
     align-items: center;
     list-style: none;
     text-align: right;
+    margin-left: auto;
 }
 
 .gh-head-actions-list {
