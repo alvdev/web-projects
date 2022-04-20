@@ -64,10 +64,10 @@ nav ul {
     display: flex;
     gap: 1rem;
     line-height: 1.2em;
+    margin-top: 4rem;
     place-content: center;
     place-items: center;
     text-align: left;
-    margin-top: 4rem;
 }
 
 #welcome .author img {
@@ -90,6 +90,14 @@ nav ul {
     z-index: 1;
 }
 
+#slides article a {
+    background-color: rgb(0, 0, 0, 20%);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row-reverse;
+    place-items: center;
+}
+
 #slides article img {
     border: 2px solid rgb(105, 226, 237, 80%);
     border-radius: 8px;
@@ -102,27 +110,23 @@ nav ul {
 }
 
 #slides h2 {
-    bottom: 0rem;
     -webkit-box-orient: vertical;
     color: rgb(255, 255, 255, 95%);
     display: -webkit-box;
-    font-size: 1rem;
+    font-size: 1.8rem;
     font-weight: 500;
-    left: 0;
     -webkit-line-clamp: 2;
     margin: 0;
     margin-bottom: 1rem;
-    overflow: hidden;
-    padding: 0 1rem;
-    position: absolute;
+    padding: 1rem;
+    text-align: right;
     text-overflow: ellipsis;
     text-shadow: 0 0 15px black;
-    z-index: 9;
 }
 
 @media screen and (min-width: 769px) {
     #slides {
-        grid-template-columns: 200px;
+        grid-template-columns: 75%;
         padding: 4vw;
     }
 }
