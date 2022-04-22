@@ -24,6 +24,7 @@ header.gh-head nav {
     place-items: center;
     position: relative;
     z-index: 1;
+    box-shadow: 0 0 50px #000;
 }
 
 nav.inner {
