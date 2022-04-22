@@ -40,7 +40,7 @@ production stylesheet in assets/built/screen.css
     --color-midgrey: #738a94;
     --color-lightgrey: #c5d2d9;
     --color-wash: #e5eff5;
-    --color-darkmode: #151719;
+    --color-darkmode: #0a0b0c;
 
     /*
     An accent color is also set by Ghost itself in
@@ -182,6 +182,10 @@ production stylesheet in assets/built/screen.css
     grid-auto-flow: row dense;
 }
 
+body.home-template .gh-head-inner {
+    grid-gap: 0;
+}
+
 
 /* Brand
 /* ---------------------------------------------------------- */
@@ -206,6 +210,7 @@ production stylesheet in assets/built/screen.css
 
 .gh-head-logo img {
     max-height: 38px;
+    opacity: 1 !important;
 }
 
 
@@ -557,6 +562,9 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     min-height: 220px;
     background-size: cover;
     word-break: break-word;
+    padding: 0.6rem;
+    background-color: var(--color-wash);
+    border-radius: 6px;
 }
 
 @media (max-width: 700px) {
@@ -598,10 +606,6 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     padding: 0;
 }
 
-.no-image .post-card-header {
-    margin-top: 0;
-}
-
 .post-card-primary-tag {
     margin: 0 0 0.2em;
     color: var(--ghost-accent-color);
@@ -629,6 +633,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    padding: 1rem 2rem 2rem;
 }
 
 .post-card-excerpt {
@@ -763,7 +768,7 @@ make sure this only happens on large viewports / desktop-ish devices.
     .post-feed.list .post-card-large {
         grid-column: 1 / span 3;
         display: grid;
-        grid-gap: 4vmin;
+        grid-gap: 1vmin;
         grid-template-columns: 3fr 5fr;
         min-height: auto;
         border-top: 0;
@@ -787,7 +792,7 @@ make sure this only happens on large viewports / desktop-ish devices.
     .post-card-large {
         grid-column: 1 / span 3;
         display: grid;
-        grid-gap: 4vmin;
+        grid-gap: 1vmin;
         grid-template-columns: 1fr 1fr 1fr;
         min-height: 280px;
         border-top: 0;
@@ -917,6 +922,8 @@ make sure this only happens on large viewports / desktop-ish devices.
     margin-left: auto;
     margin-right: auto;
     width: 100%;
+    border-radius: 8px;
+    border: 6px solid var(--color-midgrey);
 }
 
 @media (max-width: 600px) {
@@ -1464,7 +1471,6 @@ iframe.instagram-media+script+ :not([id]) {
     width: 100%;
     padding: 4vmin;
     margin: 40px auto -40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     background: color-mod(var(--color-darkgrey) l(-5%));
 }
 
@@ -1701,6 +1707,10 @@ iframe.instagram-media+script+ :not([id]) {
     background: color-mod(var(--color-darkgrey) l(-5%));
 }
 
+body.home-template .site-footer {
+    margin: 0;
+}
+
 .site-footer .inner {
     display: grid;
     grid-gap: 40px;
@@ -1790,6 +1800,10 @@ to the html tag on the very first line of the file.
 
 html.dark-mode body {
     color: rgba(255, 255, 255, 0.75);
+    background: var(--color-darkgrey);
+}
+
+html.dark-mode body.home-template {
     background: var(--color-darkmode);
 }
 
@@ -1797,13 +1811,26 @@ html.dark-mode img {
     opacity: 0.9;
 }
 
+html.dark-mode article:hover a img {
+    opacity: 1;
+}
+
+html.dark-mode .gh-canvas .article-image img {
+    border-color: var(--color-darkmode);
+}
+
 html.dark-mode kbd {
     background: color-mod(var(--color-darkmode) l(+5%));
+}
+
+html.dark-mode .home-template .gh-head.has-cover {
+    border-bottom: 6px solid var(--color-darkgrey);
 }
 
 html.dark-mode .post-card,
 html.dark-mode .post-card:hover {
     border-bottom-color: color-mod(var(--color-darkmode) l(+8%));
+    background-color: var(--color-darkgrey);
 }
 
 html.dark-mode .post-card-byline-content a {
@@ -1940,6 +1967,10 @@ html.dark-mode .kg-header-card.kg-style-light {
 html.dark-mode .kg-header-card h2.kg-header-card-header,
 html.dark-mode .kg-header-card h3.kg-header-card-subheader {
     color: #fff;
+}
+
+html.dark-mode .site-footer {
+    border-top: 6px solid var(--color-darkgrey);
 }
 
 @media (prefers-color-scheme: dark) {
