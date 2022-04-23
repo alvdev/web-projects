@@ -74,8 +74,8 @@ production stylesheet in assets/built/screen.css
 
 /* Full width page blocks */
 .outer {
-    position: relative;
     padding: 0 4vmin;
+    position: relative;
 }
 
 /* Centered content container blocks */
@@ -90,39 +90,39 @@ production stylesheet in assets/built/screen.css
 /* ---------------------------------------------------------- */
 
 .site-header {
-    position: relative;
-    color: #fff;
     background: var(--ghost-accent-color);
+    color: #fff;
+    position: relative;
 }
 
 .site-header-cover {
-    position: absolute;
-    top: 0;
-    right: 0;
     bottom: 0;
-    left: 0;
-    width: 100%;
     height: 100%;
+    left: 0;
     object-fit: cover;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
 }
 
 .site-header-content {
-    position: relative;
-    z-index: 100;
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    padding: 6vw 3vw;
     min-height: 200px;
-    text-align: center;
     overflow: hidden;
+    padding: 6vw 3vw;
+    position: relative;
+    text-align: center;
+    z-index: 100;
 }
 
 .site-title {
-    z-index: 10;
     margin: 0 0 0.15em;
     padding: 0;
+    z-index: 10;
 }
 
 .site-logo {
@@ -130,17 +130,17 @@ production stylesheet in assets/built/screen.css
 }
 
 .site-header-content p {
-    z-index: 10;
-    max-width: 600px;
-    margin: 0 auto;
     line-height: 1.2em;
+    margin: 0 auto;
+    max-width: 600px;
     opacity: 0.8;
+    z-index: 10;
 }
 
 @media (max-width: 600px) {
     .site-header-content p {
-        max-width: 80vmin;
         font-size: 1.8rem;
+        max-width: 80vmin;
     }
 }
 
@@ -148,22 +148,22 @@ production stylesheet in assets/built/screen.css
 /* ---------------------------------------------------------- */
 
 .site-home-header {
+    overflow: hidden;
     position: relative;
     z-index: 1000;
-    overflow: hidden;
 }
 
 .site-header-content {
-    padding: 18vmin 4vmin;
+    background: var(--ghost-accent-color);
+    color: #fff;
     font-size: 2.5rem;
     font-weight: 400;
-    color: #fff;
-    background: var(--ghost-accent-color);
+    padding: 18vmin 4vmin;
 }
 
 .site-header-content.large {
-    padding-top: 28vmin;
     padding-bottom: 28vmin;
+    padding-top: 28vmin;
 }
 
 
@@ -177,9 +177,9 @@ production stylesheet in assets/built/screen.css
 
 .gh-head-inner {
     display: grid;
+    grid-auto-flow: row dense;
     grid-gap: 4vmin;
     grid-template-columns: auto auto 1fr;
-    grid-auto-flow: row dense;
 }
 
 body.home-template .gh-head-inner {
@@ -191,8 +191,8 @@ body.home-template .gh-head-inner {
 /* ---------------------------------------------------------- */
 
 .gh-head-brand {
-    display: flex;
     align-items: center;
+    display: flex;
     height: 40px;
     max-width: 200px;
     text-align: center;
@@ -201,11 +201,11 @@ body.home-template .gh-head-inner {
 
 .gh-head-logo {
     display: block;
-    padding: 10px 0;
-    font-weight: 700;
     font-size: 2rem;
-    line-height: 1.2em;
+    font-weight: 700;
     letter-spacing: -0.02em;
+    line-height: 1.2em;
+    padding: 10px 0;
 }
 
 .gh-head-logo img {
@@ -218,15 +218,15 @@ body.home-template .gh-head-inner {
 /* ---------------------------------------------------------- */
 
 .gh-head-menu {
-    display: flex;
     align-items: center;
+    display: flex;
     font-weight: 500;
 }
 
 .gh-head-menu .nav {
+    align-items: center;
     display: inline-flex;
     flex-wrap: wrap;
-    align-items: center;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -239,8 +239,8 @@ body.home-template .gh-head-inner {
 
 .gh-head-menu .nav a {
     display: inline-block;
-    padding: 5px 0;
-    opacity: 0.8
+    opacity: 0.8;
+    padding: 5px 0
 }
 
 .gh-head-menu .nav a:hover {
@@ -252,19 +252,19 @@ body.home-template .gh-head-inner {
 /* ---------------------------------------------------------- */
 
 .gh-head-actions {
+    align-items: center;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
     list-style: none;
-    text-align: right;
     margin-left: auto;
+    text-align: right;
 }
 
 .gh-head-actions-list {
+    align-items: center;
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    align-items: center;
 }
 
 .gh-head-actions-list a:not([class]) {
@@ -290,9 +290,9 @@ body.home-template .gh-head-inner {
 }
 
 .gh-social svg {
+    fill: #fff;
     height: 22px;
     width: 22px;
-    fill: #fff;
 }
 
 .gh-social-facebook svg {
@@ -301,15 +301,15 @@ body.home-template .gh-head-inner {
 }
 
 a.gh-head-button {
-    display: block;
-    padding: 8px 15px;
-    color: var(--button-text-color, var(--color-darkgrey));
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    font-size: 1.5rem;
-    line-height: 1em;
     background: var(--button-bg-color, #fff);
     border-radius: 30px;
+    color: var(--button-text-color, var(--color-darkgrey));
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1em;
+    padding: 8px 15px;
 }
 
 
@@ -317,53 +317,53 @@ a.gh-head-button {
 /* ---------------------------------------------------------- */
 
 .gh-burger {
-    position: relative;
-    display: none;
     cursor: pointer;
+    display: none;
+    position: relative;
 }
 
 .gh-burger-box {
-    position: relative;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 33px;
+    display: flex;
     height: 33px;
+    justify-content: center;
+    position: relative;
+    width: 33px;
 }
 
 .gh-burger-inner {
-    width: 100%;
     height: 100%;
+    width: 100%;
 }
 
 .gh-burger-box::before {
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    margin: auto;
-    content: '';
-    width: 100%;
-    height: 1px;
     background: currentcolor;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 1px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    top: 0;
     transition: transform 300ms cubic-bezier(.2, .6, .3, 1), width 300ms cubic-bezier(.2, .6, .3, 1);
+    width: 100%;
     will-change: transform, width;
 }
 
 .gh-burger-inner::before,
 .gh-burger-inner::after {
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    margin: auto;
-    content: '';
-    width: 100%;
-    height: 1px;
     background: currentcolor;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 1px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    top: 0;
     transition: transform 250ms cubic-bezier(.2, .7, .3, 1), width 250ms cubic-bezier(.2, .7, .3, 1);
+    width: 100%;
     will-change: transform, width;
 }
 
@@ -384,19 +384,19 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .gh-head-open .gh-burger-box::before {
-    width: 0;
     transform: translatex(19px);
     transition: transform 200ms cubic-bezier(.2, .7, .3, 1), width 200ms cubic-bezier(.2, .7, .3, 1);
+    width: 0;
 }
 
 .gh-head-open .gh-burger-inner::before {
-    width: 26px;
     transform: translatex(6px) rotate(135deg);
+    width: 26px;
 }
 
 .gh-head-open .gh-burger-inner::after {
-    width: 26px;
     transform: translatex(6px) rotate(-135deg);
+    width: 26px;
 }
 
 
@@ -410,24 +410,24 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     }
 
     #gh-head {
-        transition: all 0.4s ease-out;
         overflow: hidden;
+        transition: all 0.4s ease-out;
     }
 
     #gh-head .gh-head-inner {
-        height: 100%;
         grid-template-columns: 1fr;
+        height: 100%;
     }
 
     #gh-head .gh-head-brand {
-        position: relative;
-        z-index: 10;
-        grid-column-start: auto;
-        max-width: none;
-        display: flex;
         align-items: center;
+        display: flex;
+        grid-column-start: auto;
         justify-content: space-between;
+        max-width: none;
+        position: relative;
         user-select: none;
+        z-index: 10;
     }
 
     .home-template #gh-head.has-cover .gh-head-brand {
@@ -435,15 +435,15 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     }
 
     #gh-head .gh-head-menu {
+        align-items: center;
         align-self: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        text-align: center;
-        margin: 0 0 10vh 0;
-        font-weight: 300;
         font-size: 3.6rem;
+        font-weight: 300;
         line-height: 1.1em;
+        margin: 0 0 10vh 0;
+        text-align: center;
     }
 
     #gh-head .gh-head-menu .nav li {
@@ -455,14 +455,14 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     }
 
     #gh-head .gh-head-menu .nav {
+        align-items: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
     }
 
     #gh-head .gh-head-actions {
-        padding: 20px 0;
         justify-content: center;
+        padding: 20px 0;
         text-align: left;
     }
 
@@ -478,18 +478,18 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 
     /* Open the menu */
     .gh-head-open {
-        overflow: hidden;
         height: 100vh;
+        overflow: hidden;
     }
 
     .gh-head-open #gh-head {
-        position: fixed;
-        top: 0;
-        right: 0;
         bottom: 0;
         left: 0;
-        z-index: 3999999;
         overflow-y: scroll;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 3999999;
     }
 
     .gh-head-open #gh-head .gh-head-inner {
@@ -509,10 +509,10 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .home-template .gh-head.has-cover {
-    position: relative;
-    top: 0;
-    right: 0;
     left: 0;
+    position: relative;
+    right: 0;
+    top: 0;
     z-index: 2000;
 }
 
@@ -528,17 +528,17 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 /* ---------------------------------------------------------- */
 
 .post-feed {
-    position: relative;
     display: grid;
     grid-gap: 4vmin;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 4vmin 0;
+    position: relative;
 }
 
 .post-feed.list {
-    row-gap: 6vmin;
-    max-width: 940px;
     margin: 2vmin auto 0;
+    max-width: 940px;
+    row-gap: 6vmin;
 }
 
 @media (max-width: 1000px) {
@@ -549,22 +549,22 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 
 @media (max-width: 700px) {
     .post-feed {
-        grid-template-columns: 1fr;
         grid-gap: 40px;
+        grid-template-columns: 1fr;
     }
 }
 
 .post-card {
-    position: relative;
-    flex: 1 1 301px;
+    background-color: var(--color-wash);
+    background-size: cover;
+    border-radius: 6px;
     display: flex;
+    flex: 1 1 301px;
     flex-direction: column;
     min-height: 220px;
-    background-size: cover;
-    word-break: break-word;
     padding: 0.6rem;
-    background-color: var(--color-wash);
-    border-radius: 6px;
+    position: relative;
+    word-break: break-word;
 }
 
 @media (max-width: 700px) {
@@ -574,24 +574,24 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .post-card-image-link {
-    position: relative;
+    border-radius: 3px;
     display: block;
     overflow: hidden;
-    border-radius: 3px;
+    position: relative;
 }
 
 .post-card-image {
-    width: 100%;
-    height: 200px;
     background: var(--color-lightgrey) no-repeat center center;
+    height: 200px;
 
     object-fit: cover;
+    width: 100%;
 }
 
 .post-card-content-link {
-    position: relative;
-    display: block;
     color: var(--color-darkgrey);
+    display: block;
+    position: relative;
 }
 
 .post-card-content-link:hover {
@@ -607,17 +607,17 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .post-card-primary-tag {
-    margin: 0 0 0.2em;
     color: var(--ghost-accent-color);
     font-size: 1.2rem;
     font-weight: 500;
     letter-spacing: 0.2px;
+    margin: 0 0 0.2em;
     text-transform: uppercase;
 }
 
 .post-card-title {
-    margin: 0 0 0.4em;
     font-size: 2.4rem;
+    margin: 0 0 0.4em;
     transition: color 0.2s ease-in-out;
 }
 
@@ -630,16 +630,16 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .post-card-content {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     padding: 1rem 2rem 2rem;
 }
 
 .post-card-excerpt {
-    max-width: 56em;
     color: color-mod(var(--color-midgrey) l(-8%));
     font-family: var(--font-serif);
+    max-width: 56em;
 }
 
 .has-sans-body .post-card-excerpt {
@@ -647,29 +647,29 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .post-card-excerpt p {
-    margin-bottom: 1em;
-    display: -webkit-box;
-    overflow-y: hidden;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    margin-bottom: 1em;
+    overflow-y: hidden;
     word-break: break-word;
 }
 
 .post-card-meta {
-    display: flex;
     align-items: center;
+    display: flex;
     padding: 0;
 }
 
 .author-profile-image,
 .avatar-wrapper {
-    display: block;
-    width: 100%;
-    height: 100%;
     background: color-mod(var(--color-lightgrey) l(+10%));
     border-radius: 100%;
+    display: block;
+    height: 100%;
 
     object-fit: cover;
+    width: 100%;
 }
 
 .post-card-meta .profile-image-wrapper,
@@ -680,37 +680,37 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 .author-list {
     display: flex;
     flex-wrap: wrap;
+    list-style: none;
     margin: 0 0 0 4px;
     padding: 0;
-    list-style: none;
 }
 
 .author-list-item {
-    position: relative;
     flex-shrink: 0;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 .static-avatar {
-    display: block;
-    overflow: hidden;
-    margin: 0 0 0 -6px;
-    width: 36px;
-    height: 36px;
     border-radius: 100%;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+    display: block;
+    height: 36px;
+    margin: 0 0 0 -6px;
+    overflow: hidden;
+    width: 36px;
 }
 
 .post-card-byline-content {
-    flex: 1 1 50%;
-    display: flex;
-    flex-direction: column;
-    margin: 0 0 0 8px;
     color: color-mod(var(--color-midgrey) l(+10%));
+    display: flex;
+    flex: 1 1 50%;
+    flex-direction: column;
     font-size: 1.4rem;
-    line-height: 1.2em;
     font-weight: 400;
+    line-height: 1.2em;
+    margin: 0 0 0 8px;
 }
 
 .post-card-byline-content span {
@@ -734,18 +734,18 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .single-author-byline {
+    color: color-mod(var(--color-midgrey) l(-10%));
     display: flex;
     flex-direction: column;
-    margin-left: 5px;
-    color: color-mod(var(--color-midgrey) l(-10%));
     font-size: 1.3rem;
-    line-height: 1.4em;
     font-weight: 500;
+    line-height: 1.4em;
+    margin-left: 5px;
 }
 
 .single-author {
-    display: flex;
     align-items: center;
+    display: flex;
 }
 
 .single-author .static-avatar {
@@ -766,12 +766,12 @@ make sure this only happens on large viewports / desktop-ish devices.
 
 @media (min-width: 701px) {
     .post-feed.list .post-card-large {
-        grid-column: 1 / span 3;
+        border-top: 0;
         display: grid;
+        grid-column: 1 / span 3;
         grid-gap: 1vmin;
         grid-template-columns: 3fr 5fr;
         min-height: auto;
-        border-top: 0;
     }
 
     .post-feed.list .post-card-large.no-image {
@@ -790,12 +790,12 @@ make sure this only happens on large viewports / desktop-ish devices.
 
 @media (min-width: 1001px) {
     .post-card-large {
-        grid-column: 1 / span 3;
+        border-top: 0;
         display: grid;
+        grid-column: 1 / span 3;
         grid-gap: 1vmin;
         grid-template-columns: 1fr 1fr 1fr;
         min-height: 280px;
-        border-top: 0;
     }
 
     .post-card-large:not(.no-image) .post-card-header {
@@ -803,10 +803,10 @@ make sure this only happens on large viewports / desktop-ish devices.
     }
 
     .post-card-large .post-card-image-link {
-        position: relative;
         grid-column: 1 / span 2;
         margin-bottom: 0;
         min-height: 380px;
+        position: relative;
     }
 
     .post-feed.list .post-card-large .post-card-image-link {
@@ -822,9 +822,9 @@ make sure this only happens on large viewports / desktop-ish devices.
     }
 
     .post-card-large .post-card-image {
+        height: 100%;
         position: absolute;
         width: 100%;
-        height: 100%;
     }
 
     .post-card-large .post-card-content {
@@ -832,8 +832,8 @@ make sure this only happens on large viewports / desktop-ish devices.
     }
 
     .post-card-large .post-card-title {
-        margin-top: 0;
         font-size: 3.2rem;
+        margin-top: 0;
     }
 
     .post-feed.list .post-card-large .post-card-title {
@@ -842,8 +842,8 @@ make sure this only happens on large viewports / desktop-ish devices.
 
     .post-card-large .post-card-excerpt p {
         font-size: 1.7rem;
-        line-height: 1.55em;
         -webkit-line-clamp: 8;
+        line-height: 1.55em;
     }
 }
 
@@ -872,15 +872,15 @@ make sure this only happens on large viewports / desktop-ish devices.
 }
 
 .article-tag {
-    display: flex;
-    justify-content: flex-start;
     align-items: center;
-    margin: 0 0 0.5rem;
     color: var(--color-midgrey);
+    display: flex;
     font-size: 1.3rem;
-    line-height: 1.4em;
-    letter-spacing: 0.02em;
     font-weight: 600;
+    justify-content: flex-start;
+    letter-spacing: 0.02em;
+    line-height: 1.4em;
+    margin: 0 0 0.5rem;
     text-transform: uppercase;
 }
 
@@ -897,16 +897,16 @@ make sure this only happens on large viewports / desktop-ish devices.
 }
 
 .article-excerpt {
-    margin: 0 0 1rem;
     font-size: 2rem;
     line-height: 1.4em;
+    margin: 0 0 1rem;
     opacity: 0.6;
 }
 
 .gh-canvas .article-image {
     grid-column: wide-start / wide-end;
-    width: 100%;
     margin: 6vmin 0 0;
+    width: 100%;
 }
 
 .image-full .article-image {
@@ -918,12 +918,12 @@ make sure this only happens on large viewports / desktop-ish devices.
 }
 
 .gh-canvas .article-image img {
+    border: 6px solid var(--color-midgrey);
+    border-radius: 8px;
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-    border-radius: 8px;
-    border: 6px solid var(--color-midgrey);
 }
 
 @media (max-width: 600px) {
@@ -973,14 +973,14 @@ headings, text, images and lists. We deal with cards lower down. */
 
 /* Default vertical spacing */
 .gh-content>*+* {
-    margin-top: 4vmin;
     margin-bottom: 0;
+    margin-top: 4vmin;
 }
 
 /* [id] represents all headings h1-h6, reset all margins */
 .gh-content>[id] {
-    margin: 0;
     color: var(--color-darkgrey);
+    margin: 0;
 }
 
 .has-serif-title .gh-content>[id] {
@@ -1001,8 +1001,8 @@ is the very first element in the post content */
 /* A larger margin before/after HRs and blockquotes */
 .gh-content>hr,
 .gh-content>blockquote {
-    position: relative;
     margin-top: 6vmin;
+    position: relative;
 }
 
 .gh-content>hr+*,
@@ -1023,8 +1023,8 @@ is the very first element in the post content */
 .gh-content>dl,
 .gh-content>p {
     font-family: var(--font-serif);
-    font-weight: 400;
     font-size: 2.1rem;
+    font-weight: 400;
     line-height: 1.6em;
 }
 
@@ -1033,8 +1033,8 @@ is the very first element in the post content */
 .gh-content .kg-toggle-card .kg-toggle-content>ul,
 .gh-content .kg-toggle-card .kg-toggle-content>p {
     font-family: var(--font-serif);
-    font-weight: 400;
     font-size: 1.9rem;
+    font-weight: 400;
     line-height: 1.6em;
 }
 
@@ -1077,42 +1077,42 @@ is the very first element in the post content */
 }
 
 .gh-content>blockquote:not([class]) {
-    position: relative;
     font-style: italic;
     padding: 0;
+    position: relative;
 }
 
 .gh-content>blockquote:not([class])::before {
-    content: "";
-    position: absolute;
-    left: -1.5em;
-    top: 0;
-    bottom: 0;
-    width: 0.3rem;
     background: var(--ghost-accent-color);
+    bottom: 0;
+    content: "";
+    left: -1.5em;
+    position: absolute;
+    top: 0;
+    width: 0.3rem;
 }
 
 .gh-content :not(pre)>code {
-    vertical-align: middle;
-    padding: 0.15em 0.4em 0.15em;
-    border: #e1eaef 1px solid;
-    font-weight: 400 !important;
-    font-size: 0.9em;
-    line-height: 1em;
-    color: #15171A;
     background: #f0f6f9;
+    border: #e1eaef 1px solid;
     border-radius: 0.25em;
+    color: #15171A;
+    font-size: 0.9em;
+    font-weight: 400 !important;
+    line-height: 1em;
+    padding: 0.15em 0.4em 0.15em;
+    vertical-align: middle;
 }
 
 .gh-content pre {
-    overflow: auto;
-    padding: 16px 20px;
-    color: var(--color-wash);
-    font-size: 1.4rem;
-    line-height: 1.5em;
     background: var(--color-darkgrey);
     border-radius: 5px;
     box-shadow: 0 2px 6px -2px rgba(0, 0, 0, .1), 0 0 1px rgba(0, 0, 0, .4);
+    color: var(--color-wash);
+    font-size: 1.4rem;
+    line-height: 1.5em;
+    overflow: auto;
+    padding: 16px 20px;
 }
 
 @media (max-width: 650px) {
@@ -1152,20 +1152,20 @@ make sure they look good, and are given a bit of extra spacing. */
 /* Add extra margin before/after any cards,
 except for when immediately preceeded by a heading */
 .gh-content :not(.kg-card):not([id])+.kg-card {
-    margin-top: 6vmin;
     margin-bottom: 0;
+    margin-top: 6vmin;
 }
 
 .gh-content .kg-card+ :not(.kg-card) {
-    margin-top: 6vmin;
     margin-bottom: 0;
+    margin-top: 6vmin;
 }
 
 /* This keeps small embeds centered */
 .kg-embed-card {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
 }
 
@@ -1183,8 +1183,8 @@ except for when immediately preceeded by a heading */
 }
 
 .kg-blockquote-alt {
-    font-family: var(--font-serif);
     color: var(--color-midgrey);
+    font-family: var(--font-serif);
 }
 
 .has-sans-body .kg-blockquote-alt {
@@ -1206,12 +1206,12 @@ except for when immediately preceeded by a heading */
 
 /* Captions */
 figcaption {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.4em;
     padding: 1.5rem 1.5rem 0;
     text-align: center;
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: 600;
-    font-size: 1.3rem;
-    line-height: 1.4em;
 }
 
 figcaption strong {
@@ -1225,10 +1225,10 @@ figcaption a {
 
 /* Highly specific styles for traditional Instagram embeds */
 iframe.instagram-media {
-    margin-top: 6vmin !important;
+    margin-bottom: 0 !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    margin-bottom: 0 !important;
+    margin-top: 6vmin !important;
 }
 
 iframe.instagram-media+script+ :not([id]) {
@@ -1275,62 +1275,62 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .footnote-backref {
+    box-shadow: none !important;
     font-size: 1.2rem;
     font-weight: bold;
     text-decoration: none !important;
-    box-shadow: none !important;
 }
 
 /* Tables */
 .post-full-content table {
-    display: inline-block;
-    overflow-x: auto;
-    margin: 0.5em 0 2.5em;
-    max-width: 100%;
-    width: auto;
-    border-spacing: 0;
     border-collapse: collapse;
+    border-spacing: 0;
+    display: inline-block;
     font-family: var(--font-sans-serif);
     font-size: 1.6rem;
-    white-space: nowrap;
+    margin: 0.5em 0 2.5em;
+    max-width: 100%;
+    overflow-x: auto;
     vertical-align: top;
+    white-space: nowrap;
+    width: auto;
 }
 
 .post-full-content table {
-    -webkit-overflow-scrolling: touch;
     background: radial-gradient(ellipse at left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 0 center, radial-gradient(ellipse at right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 100% center;
     background-attachment: scroll, scroll;
-    background-size: 10px 100%, 10px 100%;
     background-repeat: no-repeat;
+    background-size: 10px 100%, 10px 100%;
+    -webkit-overflow-scrolling: touch;
 }
 
 .post-full-content table td:first-child {
     background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
-    background-size: 20px 100%;
     background-repeat: no-repeat;
+    background-size: 20px 100%;
 }
 
 .post-full-content table td:last-child {
     background-image: linear-gradient(to left, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
     background-position: 100% 0;
-    background-size: 20px 100%;
     background-repeat: no-repeat;
+    background-size: 20px 100%;
 }
 
 .post-full-content table th {
+    background-color: color-mod(var(--color-wash) l(+4%));
     color: var(--color-darkgrey);
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.2px;
     text-align: left;
     text-transform: uppercase;
-    background-color: color-mod(var(--color-wash) l(+4%));
 }
 
 .post-full-content table th,
 .post-full-content table td {
-    padding: 6px 12px;
     border: color-mod(var(--color-wash) l(-1%) s(-5%)) 1px solid;
+    padding: 6px 12px;
 }
 
 
@@ -1344,9 +1344,9 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .article-byline-content {
-    flex-grow: 1;
-    display: flex;
     align-items: center;
+    display: flex;
+    flex-grow: 1;
 }
 
 .article-byline-content .author-list {
@@ -1361,8 +1361,8 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .article-byline-meta h4 {
-    margin: 0 0 3px;
     font-size: 1.6rem;
+    margin: 0 0 3px;
 }
 
 .article-byline-meta .bull {
@@ -1372,30 +1372,30 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .author-avatar {
-    display: block;
-    overflow: hidden;
-    margin: 0 -4px;
-    width: 50px;
-    height: 50px;
     border: #fff 2px solid;
     border-radius: 100%;
+    display: block;
+    height: 50px;
+    margin: 0 -4px;
+    overflow: hidden;
     transition: all 0.5s cubic-bezier(0.4, 0.01, 0.165, 0.99) 700ms;
+    width: 50px;
 }
 
 .basic-info .avatar-wrapper {
-    position: relative;
-    margin: 0;
-    width: 60px;
-    height: 60px;
-    border: none;
     background: rgba(229, 239, 245, 0.1);
+    border: none;
+    height: 60px;
+    margin: 0;
+    position: relative;
+    width: 60px;
 }
 
 .basic-info .avatar-wrapper svg {
-    margin: 0;
-    width: 60px;
     height: 60px;
+    margin: 0;
     opacity: 0.15;
+    width: 60px;
 }
 
 .page-template .article-title {
@@ -1407,23 +1407,23 @@ iframe.instagram-media+script+ :not([id]) {
 /* ---------------------------------------------------------- */
 
 .footer-cta {
-    position: relative;
+    background: var(--color-darkgrey);
+    color: #fff;
     margin-bottom: -40px;
     padding: 9vmin 4vmin 10vmin;
-    color: #fff;
+    position: relative;
     text-align: center;
-    background: var(--color-darkgrey);
 }
 
 .footer-cta.cta-alt {
-    padding: 2vmin 4vmin 12vmin;
     background: transparent;
+    padding: 2vmin 4vmin 12vmin;
 }
 
 /* Increases the default h2 size by 15%, for small and large screens */
 .footer-cta h2 {
-    margin: 0 0 30px;
     font-size: 3.2rem;
+    margin: 0 0 30px;
 }
 
 .footer-cta.cta-alt h2 {
@@ -1437,17 +1437,17 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .footer-cta-button {
-    position: relative;
-    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 500px;
-    padding: 5px 5px 5px 15px;
-    font-size: 1.8rem;
-    color: var(--color-midgrey);
     background: #fff;
     border-radius: 8px;
+    color: var(--color-midgrey);
+    display: inline-flex;
+    font-size: 1.8rem;
+    justify-content: space-between;
+    max-width: 500px;
+    padding: 5px 5px 5px 15px;
+    position: relative;
+    width: 100%;
 }
 
 .footer-cta.cta-alt .footer-cta-button {
@@ -1455,12 +1455,12 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .footer-cta-button span {
-    display: inline-block;
-    padding: 10px 15px;
-    color: #fff;
-    font-weight: 500;
     background: var(--ghost-accent-color);
     border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+    font-weight: 500;
+    padding: 10px 15px;
 }
 
 
@@ -1468,16 +1468,16 @@ iframe.instagram-media+script+ :not([id]) {
 /* ---------------------------------------------------------- */
 
 .read-more-wrap {
-    width: 100%;
-    padding: 4vmin;
-    margin: 40px auto -40px;
     background: color-mod(var(--color-darkgrey) l(-5%));
+    margin: 40px auto -40px;
+    padding: 4vmin;
+    width: 100%;
 }
 
 .read-more {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 4vmin;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .read-more .post-card-title {
@@ -1519,11 +1519,11 @@ iframe.instagram-media+script+ :not([id]) {
 /* ---------------------------------------------------------- */
 
 .author-template .posts {
-    position: relative;
-    height: 100%;
     display: grid;
-    grid-template-columns: 200px 1fr 1fr;
     grid-gap: 4vmin;
+    grid-template-columns: 200px 1fr 1fr;
+    height: 100%;
+    position: relative;
 }
 
 .author-template .posts .post-feed {
@@ -1536,46 +1536,46 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .author-profile-content {
+    font-size: 1.4rem;
     height: auto;
+    line-height: 1.4em;
     position: sticky;
     top: 4vmin;
-    font-size: 1.4rem;
-    line-height: 1.4em;
 }
 
 .author-profile-pic {
-    display: block;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin: 0 0 2rem;
     background: color-mod(var(--color-lightgrey) l(+10%));
     border-radius: 50%;
+    display: block;
+    height: 150px;
+    margin: 0 0 2rem;
+    object-fit: cover;
+    width: 150px;
 }
 
 .author-profile h1 {
-    margin: 0 0 0.3em;
     font-size: 2rem;
+    margin: 0 0 0.3em;
 }
 
 .author-profile p {
-    margin: 0 0 1.5em;
     color: color-mod(var(--color-midgrey) l(-8%));
+    margin: 0 0 1.5em;
 }
 
 .author-profile-location {
-    margin: 0 0 1.5em;
     font-weight: 700;
+    margin: 0 0 1.5em;
 }
 
 .author-profile-social-link {
-    display: block;
-    padding: 0 0 5px;
-    font-size: 1.3rem;
     color: color-mod(var(--color-midgrey) l(-8%));
-    text-overflow: ellipsis;
-    overflow: hidden;
+    display: block;
+    font-size: 1.3rem;
     max-width: 100%;
+    overflow: hidden;
+    padding: 0 0 5px;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
@@ -1591,8 +1591,8 @@ iframe.instagram-media+script+ :not([id]) {
 
 @media (max-width: 650px) {
     .author-template .posts {
-        grid-template-columns: 1fr;
         grid-gap: 0;
+        grid-template-columns: 1fr;
     }
 
     .author-template .posts .post-feed {
@@ -1604,9 +1604,9 @@ iframe.instagram-media+script+ :not([id]) {
     }
 
     .author-profile-content {
+        align-items: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
         text-align: center;
     }
 }
@@ -1638,19 +1638,19 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .error-code {
-    margin: 0;
     color: var(--ghost-accent-color);
     font-size: 12vw;
-    line-height: 1em;
     letter-spacing: -5px;
+    line-height: 1em;
+    margin: 0;
 }
 
 .error-description {
-    margin: 0;
     color: var(--color-midgrey);
     font-size: 3.2rem;
-    line-height: 1.3em;
     font-weight: 400;
+    line-height: 1.3em;
+    margin: 0;
 }
 
 .error-link {
@@ -1660,9 +1660,9 @@ iframe.instagram-media+script+ :not([id]) {
 
 @media (min-width: 940px) {
     .error-content .post-card {
+        border-bottom: none;
         margin-bottom: 0;
         padding-bottom: 0;
-        border-bottom: none;
     }
 }
 
@@ -1680,8 +1680,8 @@ iframe.instagram-media+script+ :not([id]) {
     }
 
     .error-description {
-        margin: 5px 0 0 0;
         font-size: 1.8rem;
+        margin: 5px 0 0 0;
     }
 }
 
@@ -1700,29 +1700,29 @@ iframe.instagram-media+script+ :not([id]) {
 /* ---------------------------------------------------------- */
 
 .site-footer {
-    position: relative;
-    margin: 40px 0 0 0;
-    padding: 40px 4vmin 80px;
-    color: #fff;
     background: color-mod(var(--color-darkgrey) l(-5%));
+    color: #fff;
+    margin: 0;
+    padding: 40px 4vmin 80px;
+    position: relative;
 }
 
-body.home-template .site-footer {
-    margin: 0;
+body.post-template .site-footer {
+    margin-top: 40px;
 }
 
 .site-footer .inner {
+    color: rgba(255, 255, 255, 0.7);
     display: grid;
+    font-size: 1.3rem;
     grid-gap: 40px;
     grid-template-columns: auto 1fr auto;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1.3rem;
 }
 
 .site-footer .copyright a {
     color: #fff;
-    letter-spacing: -0.015em;
     font-weight: 500;
+    letter-spacing: -0.015em;
 }
 
 .site-footer a {
@@ -1736,43 +1736,43 @@ body.home-template .site-footer {
 
 .site-footer-nav ul {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
     margin: 0 0 20px;
     padding: 0;
-    list-style: none;
 }
 
 .site-footer-nav li {
-    display: inline-flex;
     align-items: center;
-    padding: 0;
-    margin: 0;
+    display: inline-flex;
     line-height: 2em;
+    margin: 0;
+    padding: 0;
 }
 
 .site-footer-nav a {
-    position: relative;
-    display: inline-flex;
     align-items: center;
+    display: inline-flex;
     margin-left: 10px;
+    position: relative;
 }
 
 .site-footer-nav li:not(:first-child) a:before {
-    content: "";
-    display: block;
-    width: 2px;
-    height: 2px;
-    margin: 0 10px 0 0;
     background: #fff;
     border-radius: 100%;
+    content: "";
+    display: block;
+    height: 2px;
+    margin: 0 10px 0 0;
+    width: 2px;
 }
 
 @media (max-width: 800px) {
     .site-footer .inner {
-        max-width: 500px;
-        grid-template-columns: 1fr;
         grid-gap: 0;
+        grid-template-columns: 1fr;
+        max-width: 500px;
         text-align: center;
     }
 
@@ -1799,11 +1799,11 @@ to the html tag on the very first line of the file.
  */
 
 html.dark-mode body {
-    color: rgba(255, 255, 255, 0.75);
     background: var(--color-darkgrey);
+    color: rgba(255, 255, 255, 0.75);
 }
 
-html.dark-mode body.home-template {
+html.dark-mode body:not(body.post-template) {
     background: var(--color-darkmode);
 }
 
@@ -1829,8 +1829,8 @@ html.dark-mode .home-template .gh-head.has-cover {
 
 html.dark-mode .post-card,
 html.dark-mode .post-card:hover {
-    border-bottom-color: color-mod(var(--color-darkmode) l(+8%));
     background-color: var(--color-darkgrey);
+    border-bottom-color: color-mod(var(--color-darkmode) l(+8%));
 }
 
 html.dark-mode .post-card-byline-content a {
@@ -1912,8 +1912,8 @@ html.dark-mode .gh-content em {
 }
 
 html.dark-mode .gh-content code {
-    color: #fff;
     background: #000;
+    color: #fff;
 }
 
 html.dark-mode hr {
@@ -1938,8 +1938,8 @@ html.dark-mode .gh-content table td:last-child {
 }
 
 html.dark-mode .gh-content table th {
-    color: rgba(255, 255, 255, 0.85);
     background-color: color-mod(var(--color-darkmode) l(+8%));
+    color: rgba(255, 255, 255, 0.85);
 }
 
 html.dark-mode .gh-content table th,
@@ -1952,8 +1952,8 @@ html.dark-mode .gh-content input {
 }
 
 html.dark-mode .site-archive-header .no-image {
-    color: rgba(255, 255, 255, 0.9);
     background: var(--color-darkmode);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 html.dark-mode .kg-header-card.kg-style-dark {
@@ -1975,8 +1975,8 @@ html.dark-mode .site-footer {
 
 @media (prefers-color-scheme: dark) {
     html.auto-color body {
-        color: rgba(255, 255, 255, 0.75);
         background: var(--color-darkmode);
+        color: rgba(255, 255, 255, 0.75);
     }
 
     html.auto-color img {
@@ -2071,8 +2071,8 @@ html.dark-mode .site-footer {
     }
 
     html.auto-color .gh-content code {
-        color: #fff;
         background: #000;
+        color: #fff;
     }
 
     html.auto-color hr {
@@ -2097,8 +2097,8 @@ html.dark-mode .site-footer {
     }
 
     html.auto-color .gh-content table th {
-        color: rgba(255, 255, 255, 0.85);
         background-color: color-mod(var(--color-darkmode) l(+8%));
+        color: rgba(255, 255, 255, 0.85);
     }
 
     html.auto-color .gh-content table th,
@@ -2111,8 +2111,8 @@ html.dark-mode .site-footer {
     }
 
     html.auto-color .site-archive-header .no-image {
-        color: rgba(255, 255, 255, 0.9);
         background: var(--color-darkmode);
+        color: rgba(255, 255, 255, 0.9);
     }
 
     html.auto-color .kg-header-card.kg-style-dark {
