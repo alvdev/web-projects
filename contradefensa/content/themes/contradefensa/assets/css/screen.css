@@ -1407,10 +1407,11 @@ iframe.instagram-media+script+ :not([id]) {
 /* ---------------------------------------------------------- */
 
 .footer-cta {
-    background: var(--color-darkgrey);
+    background: var(--color-darkmode);
+    box-shadow: 0px 40px 40px var(--color-darkgrey) inset;
     color: #fff;
-    margin-bottom: -40px;
-    padding: 9vmin 4vmin 10vmin;
+    margin-bottom: -34px;
+    padding: 14vmin 4vmin 10vmin;
     position: relative;
     text-align: center;
 }
