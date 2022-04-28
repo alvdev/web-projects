@@ -60,15 +60,20 @@ nav ul {
     place-content: center;
 }
 
+#welcome .logo {
+    margin-bottom: 2em;
+}
+
 #welcome h1 {
     font-size: 2.4rem;
+    margin-bottom: 1em;
 }
 
 #welcome .author {
     display: flex;
     gap: 1rem;
     line-height: 1.2em;
-    margin-top: 4rem;
+    margin-top: 2em;
     place-content: center;
     place-items: center;
     text-align: left;
