@@ -12,7 +12,7 @@
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px"
                         height="100px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve">
                     <g id="Layer_3">
-                        <rect y="150.937" fill="#BD001F" width="200" height="49"/>
+                        <rect y="150" fill="#BD001F" width="200" height="50"/>
                         <g>
                             <polyline fill="none" stroke="#ffffff" stroke-width="8" stroke-miterlimit="10" points="193.5,140.937 193.5005,41.0173 
                                 155.5,27.8175 155.5077,59.2205 127.5,49.2993 127.5801,18.0181 100.5419,7.5591 73.5,18.0181 100.4951,7.541 100.5419,7.5591 
@@ -81,30 +81,14 @@
             </article>
             {{!-- {{> latest-header-post}} --}}
             <section id="slides">
-                <article>
-                    <a href="">
-                        <img src="https://picsum.photos/id/1/200/100" alt="">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                    </a>
-                </article>
-                <article>
-                    <a href="">
-                        <img src="https://picsum.photos/id/2/200/100" alt="">
-                        <h2>Ea non aute aliquip quis nisi.</h2>
-                    </a>
-                </article>
-                <article>
-                    <a href="">
-                        <img src="https://picsum.photos/id/3/200/100" alt="">
-                        <h2>Adipisicing cupidatat reprehenderit pariatur voluptate ea.</h2>
-                    </a>
-                </article>
-                <article>
-                    <a href="">
-                        <img src="https://picsum.photos/id/4/200/100" alt="">
-                        <h2>Occaecat consectetur magna qui fugiat velit in dolor magna.</h2>
-                    </a>
-                </article>
+                {{#foreach posts limit="4"}}
+                    <article>
+                        <a href="">
+                            <img src="https://picsum.photos/id/1/200/100" alt="">
+                            <h2>{{title}}</h2>
+                        </a>
+                    </article>
+                {{/foreach}}            
             </section>
             {{#if @site.cover_image}}
                 {{!-- This is a responsive image, it loads different sizes depending on device
