@@ -1706,6 +1706,7 @@ iframe.instagram-media+script+ :not([id]) {
     margin: 0;
     padding: 40px 4vmin 80px;
     position: relative;
+    border-top: 6px solid var(--color-lightgrey);
 }
 
 body.post-template .site-footer {
@@ -1971,7 +1972,8 @@ html.dark-mode .kg-header-card h3.kg-header-card-subheader {
 }
 
 html.dark-mode .site-footer {
-    border-top: 6px solid var(--color-darkgrey);
+    border-top-color: var(--color-darkgrey);
+    box-shadow: 0 -40px 40px var(--color-darkgrey) inset;
 }
 
 @media (prefers-color-scheme: dark) {
