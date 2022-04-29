@@ -17,6 +17,7 @@
 
 header.gh-head nav {
     background-color: rgba(170, 0, 28, 0.9);
+    box-shadow: 0 0 50px #000;
     display: flex;
     grid-area: navbar;
     padding: 1rem 4vw;
@@ -24,7 +25,6 @@ header.gh-head nav {
     place-items: center;
     position: relative;
     z-index: 1;
-    box-shadow: 0 0 50px #000;
 }
 
 nav.inner {
@@ -51,13 +51,13 @@ nav ul {
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 20px 20px rgb(0, 0, 0, 50%);
     color: rgb(255, 255, 255, 80%);
-    grid-area: welcome;
-    padding: 4vw;
-    text-align: center;
-    z-index: inherit;
     display: flex;
     flex-direction: column;
+    grid-area: welcome;
+    padding: 4vw;
     place-content: center;
+    text-align: center;
+    z-index: inherit;
 }
 
 #welcome .logo {
@@ -102,14 +102,17 @@ nav ul {
 #slides article a {
     display: flex;
     flex-direction: row-reverse;
-    place-items: center;
     gap: 2vw;
+    place-items: center;
 }
 
 #slides article img {
     border: 2px solid rgb(105, 226, 237, 80%);
     border-radius: 8px;
-    object-position: bottom;
+    max-height: 100px;
+    max-width: 200px;
+    object-fit: cover;
+    object-position: center;
     opacity: .6;
 }
 
@@ -121,6 +124,7 @@ nav ul {
     -webkit-box-orient: vertical;
     color: rgb(255, 255, 255, 95%);
     display: -webkit-box;
+    display: block;
     font-size: 1.8rem;
     font-weight: 400;
     -webkit-line-clamp: 2;
