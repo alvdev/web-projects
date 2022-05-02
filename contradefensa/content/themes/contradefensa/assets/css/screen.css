@@ -70,6 +70,18 @@ production stylesheet in assets/built/screen.css
 
 .site-content {
     flex-grow: 1;
+    animation-name: onload;
+    animation-duration: .5s;
+}
+
+@keyframes onload {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 /* Full width page blocks */
@@ -1408,10 +1420,10 @@ iframe.instagram-media+script+ :not([id]) {
 
 .footer-cta {
     background: var(--color-darkmode);
-    box-shadow: 0px 40px 40px var(--color-darkgrey) inset;
+    box-shadow: 0px 80px 40px -40px var(--color-darkgrey) inset;
     color: #fff;
     margin-bottom: -34px;
-    padding: 14vmin 4vmin 10vmin;
+    padding: 4vmin 4vmin 10vmin;
     position: relative;
     text-align: center;
 }
@@ -1704,7 +1716,7 @@ iframe.instagram-media+script+ :not([id]) {
     background: color-mod(var(--color-darkgrey) l(-5%));
     color: #fff;
     margin: 0;
-    padding: 40px 4vmin 80px;
+    padding: 40px 4vmin 20px;
     position: relative;
     border-top: 6px solid var(--color-lightgrey);
 }
@@ -1819,6 +1831,7 @@ html.dark-mode article:hover a img {
 
 html.dark-mode .gh-canvas .article-image img {
     border-color: var(--color-darkmode);
+    box-shadow: 0 0 50px #000;
 }
 
 html.dark-mode kbd {
@@ -1973,7 +1986,7 @@ html.dark-mode .kg-header-card h3.kg-header-card-subheader {
 
 html.dark-mode .site-footer {
     border-top-color: var(--color-darkgrey);
-    box-shadow: 0 -40px 40px var(--color-darkgrey) inset;
+    box-shadow: 0 -80px 40px -40px var(--color-darkgrey) inset;
 }
 
 @media (prefers-color-scheme: dark) {
