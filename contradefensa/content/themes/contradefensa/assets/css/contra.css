@@ -20,7 +20,7 @@ header.gh-head nav {
     box-shadow: 0 0 50px #000;
     display: flex;
     grid-area: navbar;
-    padding: 1rem 4vw;
+    padding: 1rem 4vmin;
     place-content: center space-between;
     place-items: center;
     position: relative;
