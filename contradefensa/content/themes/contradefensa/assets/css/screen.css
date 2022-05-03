@@ -69,9 +69,9 @@ production stylesheet in assets/built/screen.css
 }
 
 .site-content {
-    flex-grow: 1;
-    animation-name: onload;
     animation-duration: .5s;
+    animation-name: onload;
+    flex-grow: 1;
 }
 
 @keyframes onload {
@@ -574,6 +574,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     flex: 1 1 301px;
     flex-direction: column;
     min-height: 220px;
+    overflow: hidden;
     padding: 0.6rem;
     position: relative;
     word-break: break-word;
@@ -1558,11 +1559,13 @@ iframe.instagram-media+script+ :not([id]) {
 
 .author-profile-pic {
     background: color-mod(var(--color-lightgrey) l(+10%));
+    border: 6px solid var(--color-wash);
     border-radius: 50%;
     display: block;
     height: 150px;
     margin: 0 0 2rem;
     object-fit: cover;
+    overflow: hidden;
     width: 150px;
 }
 
@@ -1714,11 +1717,11 @@ iframe.instagram-media+script+ :not([id]) {
 
 .site-footer {
     background: color-mod(var(--color-darkgrey) l(-5%));
+    border-top: 6px solid var(--color-lightgrey);
     color: #fff;
     margin: 0;
     padding: 40px 4vmin 20px;
     position: relative;
-    border-top: 6px solid var(--color-lightgrey);
 }
 
 body.post-template .site-footer {
@@ -1832,6 +1835,20 @@ html.dark-mode article:hover a img {
 html.dark-mode .gh-canvas .article-image img {
     border-color: var(--color-darkmode);
     box-shadow: 0 0 50px #000;
+}
+
+html.dark-mode .author-profile-pic {
+    border: 6px solid var(--color-darkgrey);
+}
+
+html.dark-mode .author-profile-pic img,
+html.dark-mode .static-avatar img {
+    opacity: 1;
+}
+
+html.dark-mode .static-avatar {
+    background: var(--color-darkgrey);
+    box-shadow: 0 0 100px #000;
 }
 
 html.dark-mode kbd {
