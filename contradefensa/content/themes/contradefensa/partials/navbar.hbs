@@ -4,7 +4,8 @@
         {{^is 'home'}}
             <a class="gh-head-logo" href="{{@site.url}}">
                 {{#if @site.logo}}
-                    <img src="{{@site.logo}}" alt="{{@site.title}}" />
+                    {{!-- <img src="{{@site.logo}}" alt="{{@site.title}}" /> --}}
+                    {{> 'icons/white-logo'}}
                 {{else}}
                     {{@site.title}}
                 {{/if}}
