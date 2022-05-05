@@ -22,9 +22,9 @@
         "postship": "git fetch && gulp release"
     },
     "author": {
-        "name": "Ghost Foundation",
-        "email": "hello@ghost.org",
-        "url": "https://ghost.org/"
+        "name": "<alv.dev>",
+        "email": "soy@alv.dev",
+        "url": "https://alv.dev/"
     },
     "gpm": {
         "type": "theme",
@@ -40,10 +40,10 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/TryGhost/Casper.git"
+        "url": "https://github.com/alvdev"
     },
-    "bugs": "https://github.com/TryGhost/Casper/issues",
-    "contributors": "https://github.com/TryGhost/Casper/graphs/contributors",
+    "bugs": "https://github.com/alvdev/issues",
+    "contributors": "https://github.com/alvdev/graphs/contributors",
     "devDependencies": {
         "@tryghost/release-utils": "0.6.12",
         "autoprefixer": "10.2.5",
@@ -66,7 +66,7 @@
         "defaults"
     ],
     "config": {
-        "posts_per_page": 25,
+        "posts_per_page": 11,
         "image_sizes": {
             "xxs": {
                 "width": 30
