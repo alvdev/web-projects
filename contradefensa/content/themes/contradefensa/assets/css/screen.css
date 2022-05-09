@@ -196,6 +196,7 @@ production stylesheet in assets/built/screen.css
 
 body.home-template .gh-head-inner {
     grid-gap: 0;
+    padding: 1rem 4vw 1rem 3vw;
 }
 
 
@@ -224,6 +225,15 @@ body.home-template .gh-head-inner {
     max-height: 38px;
     opacity: 1 !important;
 }
+
+.gh-head-logo svg {
+    max-width: 45px;
+}
+
+.gh-head-logo svg rect {
+    fill: black;
+}
+
 
 
 /* Primary Navigation
@@ -676,7 +686,6 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 
 .author-profile-image,
 .avatar-wrapper {
-    background: color-mod(var(--color-lightgrey) l(+10%));
     border-radius: 100%;
     display: block;
     height: 100%;
@@ -1385,7 +1394,7 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .author-avatar {
-    border: #fff 2px solid;
+    border: 2px solid rgb(255, 255, 255, .05);
     border-radius: 100%;
     display: block;
     height: 50px;
@@ -1558,7 +1567,6 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .author-profile-pic {
-    background: color-mod(var(--color-lightgrey) l(+10%));
     border: 6px solid var(--color-wash);
     border-radius: 50%;
     display: block;
@@ -1834,7 +1842,7 @@ html.dark-mode article:hover a img {
 
 html.dark-mode .gh-canvas .article-image img {
     border-color: var(--color-darkmode);
-    box-shadow: 0 0 50px #000;
+    box-shadow: 0 0 25vw #000;
 }
 
 html.dark-mode .author-profile-pic {
@@ -1848,7 +1856,8 @@ html.dark-mode .static-avatar img {
 
 html.dark-mode .static-avatar {
     background: var(--color-darkgrey);
-    box-shadow: 0 0 100px #000;
+    box-shadow: 0 0 150px #fff;
+    border: 2px solid rgb(255, 255, 255, .05);
 }
 
 html.dark-mode kbd {
