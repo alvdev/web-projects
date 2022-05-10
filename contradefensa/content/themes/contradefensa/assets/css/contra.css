@@ -122,6 +122,7 @@ nav ul {
     border-radius: 8px;
     max-height: 100px;
     max-width: 200px;
+    min-width: 200px;
     object-fit: cover;
     object-position: center;
     opacity: .6;
