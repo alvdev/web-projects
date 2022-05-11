@@ -437,8 +437,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     }
 
     #gh-head .gh-head-inner {
-        grid-template-columns: 1fr;
-        height: 100%;
+        flex-direction: column;
     }
 
     #gh-head .gh-head-brand {
@@ -716,11 +715,10 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 
 .static-avatar {
     border-radius: 100%;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
     display: block;
     height: 36px;
     margin: 0 0 0 -6px;
-    overflow: hidden;
+    /* overflow: hidden; */
     width: 36px;
 }
 
@@ -811,6 +809,16 @@ make sure this only happens on large viewports / desktop-ish devices.
 }
 
 @media (min-width: 1001px) {
+    .home-template #gh-head {
+        display: grid;
+        grid-template-areas:
+            "welcome navbar"
+            "welcome posts"
+            "welcome posts";
+        grid-template-columns: 1fr 3fr;
+        overflow: hidden;
+    }
+
     .post-card-large {
         border-top: 0;
         display: grid;
@@ -1394,12 +1402,10 @@ iframe.instagram-media+script+ :not([id]) {
 }
 
 .author-avatar {
-    border: 2px solid rgb(255, 255, 255, .05);
     border-radius: 100%;
     display: block;
     height: 50px;
     margin: 0 -4px;
-    overflow: hidden;
     transition: all 0.5s cubic-bezier(0.4, 0.01, 0.165, 0.99) 700ms;
     width: 50px;
 }
@@ -1845,19 +1851,27 @@ html.dark-mode .gh-canvas .article-image img {
     box-shadow: 0 0 25vw #000;
 }
 
-html.dark-mode .author-profile-pic {
-    border: 6px solid var(--color-darkgrey);
+html.dark-mode .author-profile-pic,
+html.dark-mode .author-profile-image {
+    border: 2px solid hsla(0, 0%, 100%, .05);
+    border-color: #212326;
+    box-shadow: 0 0 150px #fff;
+    opacity: 1;
+    position: relative;
+    z-index: 1;
 }
 
-html.dark-mode .author-profile-pic img,
-html.dark-mode .static-avatar img {
-    opacity: 1;
+html.dark-mode .author-profile-pic {
+    border: 6px solid var(--color-darkgrey);
+    box-shadow: 0 0 150px rgb(255, 255, 255, 15%);
+}
+
+html.dark-mode .author-avatar .author-profile-image {
+    box-shadow: 0 0 200px rgb(255, 255, 255, 90%);
 }
 
 html.dark-mode .static-avatar {
     background: var(--color-darkgrey);
-    box-shadow: 0 0 150px #fff;
-    border: 2px solid rgb(255, 255, 255, .05);
 }
 
 html.dark-mode kbd {
