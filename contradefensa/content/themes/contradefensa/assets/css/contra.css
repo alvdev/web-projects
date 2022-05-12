@@ -10,6 +10,7 @@ header.gh-head nav {
     box-shadow: 0 0 50px #000;
     display: flex;
     grid-area: navbar;
+    max-height: 6rem;
     padding: 1rem 3vw;
     place-content: center space-between;
     place-items: center;
@@ -43,16 +44,12 @@ nav ul {
     color: rgb(255, 255, 255, 80%);
     display: flex;
     flex-direction: column;
+    gap: 4vw;
     grid-area: welcome;
     padding: 4vw;
-    place-content: center;
     position: relative;
     text-align: center;
     z-index: inherit;
-}
-
-#welcome .logo {
-    margin-bottom: 2em;
 }
 
 #welcome h1 {
@@ -78,10 +75,10 @@ nav ul {
 
 #slides {
     display: grid;
+    grid-template-columns: 1fr;
     gap: 1rem;
-    grid-template-columns: 1fr 1fr;
-    padding: 40vw 4vw 4vw;
-    place-content: center flex-end;
+    grid-area: posts;
+    padding: 3vw;
 }
 
 #slides article {
@@ -91,7 +88,6 @@ nav ul {
 
 #slides article a {
     display: flex;
-    flex-direction: row-reverse;
     gap: 2vw;
     place-items: center;
 }
@@ -102,7 +98,6 @@ nav ul {
     color: #fff;
     display: block;
     font-size: 1rem;
-    margin-left: auto;
     max-width: fit-content;
     padding: 0.2rem 0.4rem;
     position: relative;
@@ -132,14 +127,23 @@ nav ul {
     font-weight: 400;
     -webkit-line-clamp: 2;
     margin: 0;
-    text-align: right;
     text-overflow: ellipsis;
     text-shadow: 0 0 30px #000, 0 0 30px #000;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1000px) {
+    #welcome {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    #welcome .author {
+        place-content: start;
+    }
 }
 
 @media screen and (min-width: 769px) {
     #slides {
         grid-template-columns: 60%;
-        padding: 4vw;
     }
 }

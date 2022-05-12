@@ -437,7 +437,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     }
 
     #gh-head .gh-head-inner {
-        flex-direction: column;
+        display: block;
     }
 
     #gh-head .gh-head-brand {
@@ -506,7 +506,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     .gh-head-open #gh-head {
         bottom: 0;
         left: 0;
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
         position: fixed;
         right: 0;
         top: 0;
@@ -515,6 +515,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 
     .gh-head-open #gh-head .gh-head-inner {
         grid-template-rows: auto 1fr auto;
+        height: 100vh;
     }
 
     .gh-head-open #gh-head .gh-head-actions,
@@ -817,6 +818,22 @@ make sure this only happens on large viewports / desktop-ish devices.
             "welcome posts";
         grid-template-columns: 1fr 3fr;
         overflow: hidden;
+    }
+
+    #slides {
+        place-content: center flex-end;
+    }
+
+    #slides article a {
+        flex-direction: row-reverse;
+    }
+
+    #slides h2 {
+        text-align: right;
+    }
+
+    #slides .post-card-primary-tag {
+        margin-left: auto;
     }
 
     .post-card-large {
@@ -1855,7 +1872,7 @@ html.dark-mode .author-profile-pic,
 html.dark-mode .author-profile-image {
     border: 2px solid hsla(0, 0%, 100%, .05);
     border-color: #212326;
-    box-shadow: 0 0 150px #fff;
+    box-shadow: 0 0 150px rgb(255 255 255 / 80%);
     opacity: 1;
     position: relative;
     z-index: 1;
