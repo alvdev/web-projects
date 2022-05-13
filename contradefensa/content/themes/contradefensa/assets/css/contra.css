@@ -75,10 +75,10 @@ nav ul {
 
 #slides {
     display: grid;
-    grid-template-columns: 1fr;
     gap: 1rem;
     grid-area: posts;
-    padding: 3vw;
+    grid-template-columns: 1fr;
+    padding: 3vmax;
 }
 
 #slides article {

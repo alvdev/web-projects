@@ -196,7 +196,7 @@ production stylesheet in assets/built/screen.css
 
 body.home-template .gh-head-inner {
     grid-gap: 0;
-    padding: 1rem 4vw 1rem 3vw;
+    padding: 1rem 3vmax;
 }
 
 
@@ -1765,6 +1765,7 @@ body.post-template .site-footer {
     font-size: 1.3rem;
     grid-gap: 40px;
     grid-template-columns: auto 1fr auto;
+    padding: 0 1vmin;
 }
 
 .site-footer .copyright a {
