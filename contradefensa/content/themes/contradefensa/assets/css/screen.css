@@ -918,6 +918,11 @@ make sure this only happens on large viewports / desktop-ish devices.
     padding: 0 0 6vmin 0;
 }
 
+.article-header *:not(figure) {
+    position: relative;
+    z-index: 1;
+}
+
 .article-tag {
     align-items: center;
     color: var(--color-midgrey);
@@ -953,6 +958,7 @@ make sure this only happens on large viewports / desktop-ish devices.
 .gh-canvas .article-image {
     grid-column: wide-start / wide-end;
     margin: 6vmin 0 0;
+    position: relative;
     width: 100%;
 }
 
@@ -992,6 +998,7 @@ use it for applying any other styles. */
     display: grid;
     grid-template-columns:
         [full-start] minmax(4vmin, auto) [wide-start] minmax(auto, 240px) [main-start] min(720px, calc(100% - 8vw)) [main-end] minmax(auto, 240px) [wide-end] minmax(4vmin, auto) [full-end];
+    position: relative;
 }
 
 .gh-canvas>* {
@@ -1866,7 +1873,18 @@ html.dark-mode article:hover a img {
 
 html.dark-mode .gh-canvas .article-image img {
     border-color: var(--color-darkmode);
+}
+
+html.dark-mode .gh-canvas .article-image:after {
+    border: 2px solid rgb(0, 0, 0, 25%);
+    /* Hack to fix rounded corners background color */
     box-shadow: 0 0 25vw #000;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 html.dark-mode .author-profile-pic,
@@ -1885,7 +1903,7 @@ html.dark-mode .author-profile-pic {
 }
 
 html.dark-mode .author-avatar .author-profile-image {
-    box-shadow: 0 0 200px rgb(255, 255, 255, 90%);
+    box-shadow: 50px 0 200px rgb(255, 255, 255, 90%);
 }
 
 html.dark-mode .static-avatar {
