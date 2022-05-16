@@ -227,14 +227,28 @@ body.home-template .gh-head-inner {
 }
 
 .gh-head-logo svg {
-    max-width: 45px;
+    width: 50px;
 }
 
-.gh-head-logo svg rect {
+.gh-head-logo rect {
     fill: black;
 }
 
+.gh-head-logo #e polygon:first-child,
+.gh-head-logo #f polygon:first-child,
+.gh-head-logo #g polygon:first-child {
+    fill: #ccc;
+}
 
+.gh-head-logo #e polygon:last-child,
+.gh-head-logo #f polygon:last-child,
+.gh-head-logo #g polygon:last-child {
+    fill: #fff;
+}
+
+.gh-head #i>* {
+    fill: #fff;
+}
 
 /* Primary Navigation
 /* ---------------------------------------------------------- */

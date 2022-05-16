@@ -6,7 +6,7 @@
 }
 
 header.gh-head nav {
-    background-color: rgba(170, 0, 28, 0.9);
+    background-color: rgba(158, 0, 0, 0.9);
     box-shadow: 0 0 50px #000;
     display: flex;
     grid-area: navbar;
@@ -44,12 +44,29 @@ nav ul {
     color: rgb(255, 255, 255, 80%);
     display: flex;
     flex-direction: column;
-    gap: 4vw;
+    gap: 3vw;
     grid-area: welcome;
     padding: 4vw;
     position: relative;
     text-align: center;
     z-index: inherit;
+}
+
+#welcome .logo {
+    width: 120px;
+    margin: 0 auto;
+}
+
+#welcome .logo rect {
+    fill: #fff;
+}
+
+#welcome .logo #h>* {
+    fill: #000;
+}
+
+.gh-head #welcome #i>* {
+    fill: #bd001f;
 }
 
 #welcome h1 {
