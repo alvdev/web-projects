@@ -530,6 +530,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     .gh-head-open #gh-head .gh-head-inner {
         grid-template-rows: auto 1fr auto;
         height: 100vh;
+        max-height: unset;
     }
 
     .gh-head-open #gh-head .gh-head-actions,
