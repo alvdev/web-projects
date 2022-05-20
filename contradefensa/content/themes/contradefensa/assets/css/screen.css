@@ -761,6 +761,9 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 .post-card-byline-date {
     font-size: 1.3rem;
     line-height: 1.5em;
+    display: flex;
+    place-items: center;
+    gap: .5rem;
 }
 
 .post-card-byline-date .bull {
