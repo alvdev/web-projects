@@ -40,29 +40,27 @@ into the {body} tag of the default.hbs template --}}
                 id="search-input"
                 type="text"
                 placeholder="Search"
-                style="color: black; padding: 20px"
             />
             <div id="search-result"></div>
             </div>
+
             <script>
             new GhostFinder({ 
                 input: '#search-input', 
                 showResult: '#search-result', 
                 contentApiKey: '8f8b77ced0e6b2f4552ad98eb9', 
-                resultTemplate: `
-                    <ul class="search-results-wrapper">
-                    <p>
-                        Resultados encontrados: ##resultCount
-                    </p>
-                    ##results
-                    </ul>
+                excerpt_length: 150,
+                singleResultTemplate: `
+                    <li>
+                        <a href="##url">##title</a>
+                        <p>##excerpt</p>
+                    </li>
                 `
             })
             </script>
 
-                    </section>
-
-                </article>
-            </main>
+        </section>
+    </article>
+</main>
 
 {{/post}}
