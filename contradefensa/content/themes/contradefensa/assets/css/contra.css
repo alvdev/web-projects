@@ -1,5 +1,9 @@
 /* Global styles */
 
+::selection {
+    background: transparent;
+}
+
 .gh-head {
     color: #fff;
     padding: 0;
