@@ -759,11 +759,11 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .post-card-byline-date {
-    font-size: 1.3rem;
-    line-height: 1.5em;
     display: flex;
-    place-items: center;
+    font-size: 1.3rem;
     gap: .5rem;
+    line-height: 1.5em;
+    place-items: center;
 }
 
 .post-card-byline-date .bull {
@@ -936,7 +936,7 @@ make sure this only happens on large viewports / desktop-ish devices.
     padding: 0 0 6vmin 0;
 }
 
-.article-header *:not(figure) {
+.article-header *:not(figure):not(figcaption) {
     position: relative;
     z-index: 1;
 }
@@ -1278,12 +1278,16 @@ except for when immediately preceeded by a heading */
 
 /* Captions */
 figcaption {
+    bottom: 2rem;
     color: rgba(0, 0, 0, 0.5);
     font-size: 1.3rem;
     font-weight: 600;
     line-height: 1.4em;
     padding: 1.5rem 1.5rem 0;
+    position: absolute;
     text-align: center;
+    width: 100%;
+    z-index: 1;
 }
 
 figcaption strong {
