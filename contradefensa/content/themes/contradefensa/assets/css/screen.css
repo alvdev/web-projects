@@ -672,6 +672,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     flex-direction: column;
     flex-grow: 1;
     padding: 1rem 2rem 2rem;
+    place-content: space-between;
 }
 
 .post-card-excerpt {
@@ -747,6 +748,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     line-height: 1.2em;
     margin: 0 0 0 8px;
     place-content: space-between;
+    place-items: center;
 }
 
 .post-card-byline-content span {
@@ -770,6 +772,36 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     display: inline-block;
     margin: 0 2px;
     opacity: 0.6;
+}
+
+.reading-time {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+}
+
+@media (max-width: 500px) {
+    .post-card-byline-date {
+        align-items: end;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .post-card-byline-date .bull {
+        display: none;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1280px) {
+    .author-template .post-card-byline-date {
+        align-items: end;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .author-template .post-card-byline-date .bull {
+        display: none;
+    }
 }
 
 .single-author-byline {
@@ -1567,7 +1599,6 @@ iframe.instagram-media+script+ :not([id]) {
 .read-more .post-card-byline-content a {
     color: #fff;
 }
-
 
 @media (max-width: 1000px) {
     .read-more {
