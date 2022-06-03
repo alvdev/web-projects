@@ -451,7 +451,8 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     }
 
     #gh-head .gh-head-inner {
-        display: block;
+        display: flex;
+        flex-direction: column;
     }
 
     #gh-head .gh-head-brand {
@@ -459,9 +460,10 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         display: flex;
         grid-column-start: auto;
         justify-content: space-between;
-        max-width: none;
+        max-width: 100%;
         position: relative;
         user-select: none;
+        width: 100%;
         z-index: 10;
     }
 
@@ -477,7 +479,6 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         font-size: 3.6rem;
         font-weight: 300;
         line-height: 1.1em;
-        margin: 0 0 10vh 0;
         text-align: center;
     }
 
@@ -499,6 +500,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         justify-content: center;
         padding: 20px 0;
         text-align: left;
+        width: 100%;
     }
 
     #gh-head .gh-head-actions a {
