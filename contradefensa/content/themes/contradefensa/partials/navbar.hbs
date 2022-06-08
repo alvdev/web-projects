@@ -18,14 +18,26 @@
         </a>
     </div>
     <div class="gh-head-menu">
-        <div id="search" placeholder="Search topics">Search</div>
         {{navigation}}
+    </div>
+    <div id="search">
+        <input id="search-input" type="text" placeholder="Search" />
+        <a id="search" href="/search" title="Search">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 13 13"
+        >
+            <g stroke-width="2" stroke="#ffffff" fill="none">
+            <path d="M11.29 11.71l-4-4"></path>
+            <circle cx="5" cy="5" r="4"></circle>
+            </g>
+        </svg>
+        </a>
     </div>
     <div class="gh-head-actions">
         <div class="gh-social">
-            <a id="search" href="/search" title="Search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 13 13"><g stroke-width="2" stroke="#ffffff" fill="none"><path d="M11.29 11.71l-4-4"/><circle cx="5" cy="5" r="4"/></g></svg>
-            </a>
             {{#if @site.facebook}}
                 <a class="gh-social-facebook" href="{{facebook_url @site.facebook}}" title="Facebook" target="_blank" rel="noopener">{{> "icons/facebook"}}</a>
             {{/if}}

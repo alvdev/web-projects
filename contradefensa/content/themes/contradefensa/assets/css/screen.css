@@ -195,7 +195,7 @@ production stylesheet in assets/built/screen.css
 }
 
 body.home-template .gh-head-inner {
-    grid-gap: 0;
+    grid-gap: 2vmin;
     padding: 1rem 3vmax;
 }
 
@@ -210,6 +210,10 @@ body.home-template .gh-head-inner {
     max-width: 200px;
     text-align: center;
     word-break: break-all;
+}
+
+.home-template .gh-head-brand {
+    display: none;
 }
 
 .gh-head-logo {
@@ -248,6 +252,40 @@ body.home-template .gh-head-inner {
 
 .gh-head #i>* {
     fill: #fff;
+}
+
+/* Search
+/* ---------------------------------------------------------- */
+
+#search {
+    display: flex;
+    flex: auto;
+    margin-left: auto;
+}
+
+#search input {
+    background-color: rgb(0, 0, 0, 40%);
+    border: none;
+    border-radius: 50px;
+    font-size: 110%;
+    margin-right: -34px;
+    opacity: .8;
+    padding: 0 1.4rem 2px;
+    width: 100%;
+}
+
+#search a {
+    background-color: #000;
+    border-radius: 50%;
+    display: flex;
+    opacity: .8;
+    padding: 8px;
+    place-content: end;
+}
+
+#search svg {
+    height: 16px;
+    width: 16px;
 }
 
 /* Primary Navigation
@@ -292,7 +330,6 @@ body.home-template .gh-head-inner {
     display: flex;
     justify-content: flex-end;
     list-style: none;
-    margin-left: auto;
     text-align: right;
 }
 
