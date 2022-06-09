@@ -43,6 +43,18 @@ nav ul {
     list-style: none;
 }
 
+nav #search-result {
+    background-color: #000;
+    left: 0;
+    position: absolute;
+    top: 5.7rem;
+    width: 100%;
+}
+
+nav #search-result ul {
+    flex-direction: column;
+}
+
 #welcome {
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 20px 20px rgb(0, 0, 0, 50%);

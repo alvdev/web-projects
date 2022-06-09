@@ -231,7 +231,7 @@ body.home-template .gh-head-inner {
 }
 
 .gh-head-logo svg {
-    width: 50px;
+    width: 45px;
 }
 
 .gh-head-logo rect {
@@ -280,7 +280,7 @@ body.home-template .gh-head-inner {
     display: flex;
     opacity: .8;
     padding: 8px;
-    place-content: end;
+    place-content: flex-end;
 }
 
 #search svg {

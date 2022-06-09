@@ -52,4 +52,10 @@
             <a class="gh-head-button" href="#/portal/account" data-portal="account">{{ t "Account"}}</a>
         {{/unless}}
     </div>
+
+    {{!-- Search --}}
+    <script defer src="{{asset "js/ghost-finder/dist/ghost-finder.js"}}"></script>
+    <script defer src="{{asset "js/alvdev-search.js"}}"></script>
+    <div id="search-result"></div>
+
 </nav>
