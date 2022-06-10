@@ -261,6 +261,7 @@ body.home-template .gh-head-inner {
     display: flex;
     flex: auto;
     margin-left: auto;
+    place-content: flex-end;
 }
 
 #search input {
@@ -268,9 +269,15 @@ body.home-template .gh-head-inner {
     border: none;
     border-radius: 50px;
     font-size: 110%;
-    margin-right: -34px;
+    margin-right: -32px;
     opacity: .8;
     padding: 0 1.4rem 2px;
+    transition: .25s ease;
+    width: 0%;
+}
+
+#search input.opened {
+    transition: .25s ease;
     width: 100%;
 }
 
@@ -278,6 +285,7 @@ body.home-template .gh-head-inner {
     background-color: #000;
     border-radius: 50%;
     display: flex;
+    max-width: 32px;
     opacity: .8;
     padding: 8px;
     place-content: flex-end;
@@ -286,6 +294,18 @@ body.home-template .gh-head-inner {
 #search svg {
     height: 16px;
     width: 16px;
+}
+
+#search-result {
+    background-color: #000;
+    left: 0;
+    position: absolute;
+    top: 5.7rem;
+    width: 100%;
+}
+
+#search-result ul {
+    flex-direction: column;
 }
 
 /* Primary Navigation
