@@ -23,8 +23,13 @@ searchBtn.addEventListener('click', e => {
   searchInput.focus();
 });
 
-searchInput.addEventListener('focusout', e => {
+const closeResults = () => {
   searchInput.classList.remove('opened');
   menu.style.display = 'flex';
   searchResult.innerHTML = '';
+};
+
+searchInput.addEventListener('focusout', closeResults);
+searchInput.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeResults();
 });

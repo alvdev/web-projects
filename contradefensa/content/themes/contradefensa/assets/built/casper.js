@@ -1,6 +1,6 @@
-!(function (o) {
+!(function (s) {
   'use strict';
-  (o.fn.fitVids = function (e) {
+  (s.fn.fitVids = function (e) {
     var t,
       i,
       n = { customSelector: null, ignore: null };
@@ -10,7 +10,7 @@
         ((i = document.createElement('div')).innerHTML =
           '<p>x</p><style id="fit-vids-style">.fluid-width-video-container{flex-grow: 1;width:100%;}.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style>'),
         t.appendChild(i.childNodes[1])),
-      e && o.extend(n, e),
+      e && s.extend(n, e),
       this.each(function () {
         var e = [
             'iframe[src*="player.vimeo.com"]',
@@ -22,11 +22,11 @@
           ],
           r = (n.customSelector && e.push(n.customSelector), '.fitvidsignore'),
           e =
-            (n.ignore && (r = r + ', ' + n.ignore), o(this).find(e.join(',')));
+            (n.ignore && (r = r + ', ' + n.ignore), s(this).find(e.join(',')));
         (e = (e = e.not('object object')).not(r)).each(function () {
           var e,
             t,
-            i = o(this);
+            i = s(this);
           0 < i.parents(r).length ||
             ('embed' === this.tagName.toLowerCase() &&
               i.parent('object').length) ||
@@ -44,9 +44,9 @@
                 ? i.width()
                 : parseInt(i.attr('width'), 10))),
             i.attr('name') ||
-              ((t = 'fitvid' + o.fn.fitVids._count),
+              ((t = 'fitvid' + s.fn.fitVids._count),
               i.attr('name', t),
-              o.fn.fitVids._count++),
+              s.fn.fitVids._count++),
             i
               .wrap(
                 '<div class="fluid-width-video-container"><div class="fluid-width-video-wrapper"></div></div>'
@@ -58,22 +58,22 @@
       })
     );
   }),
-    (o.fn.fitVids._count = 0);
+    (s.fn.fitVids._count = 0);
 })(window.jQuery || window.Zepto),
   (function (t, i) {
     var r,
       n,
-      o,
       s,
+      o,
       d,
       a,
       c,
       l = i.querySelector('link[rel=next]');
-    function h() {
+    function u() {
       if (404 === this.status)
         return (
           t.removeEventListener('scroll', p),
-          void t.removeEventListener('resize', f)
+          void t.removeEventListener('resize', m)
         );
       this.response.querySelectorAll('article.post-card').forEach(function (e) {
         r.appendChild(i.importNode(e, !0));
@@ -82,38 +82,38 @@
       e
         ? (l.href = e.href)
         : (t.removeEventListener('scroll', p),
-          t.removeEventListener('resize', f)),
+          t.removeEventListener('resize', m)),
         (c = i.documentElement.scrollHeight),
-        (s = o = !1);
+        (o = s = !1);
     }
     function e() {
       var e;
-      s ||
+      o ||
         (d + a <= c - n
-          ? (o = !1)
-          : ((s = !0),
+          ? (s = !1)
+          : ((o = !0),
             ((e = new t.XMLHttpRequest()).responseType = 'document'),
-            e.addEventListener('load', h),
+            e.addEventListener('load', u),
             e.open('GET', l.href),
             e.send(null)));
     }
-    function u() {
-      o || t.requestAnimationFrame(e), (o = !0);
+    function h() {
+      s || t.requestAnimationFrame(e), (s = !0);
     }
     function p() {
-      (d = t.scrollY), u();
+      (d = t.scrollY), h();
     }
-    function f() {
-      (a = t.innerHeight), (c = i.documentElement.scrollHeight), u();
+    function m() {
+      (a = t.innerHeight), (c = i.documentElement.scrollHeight), h();
     }
     !l ||
       ((r = i.querySelector('.post-feed')) &&
-        ((s = o = !(n = 300)),
+        ((o = s = !(n = 300)),
         (d = t.scrollY),
         (a = t.innerHeight),
         (c = i.documentElement.scrollHeight),
         t.addEventListener('scroll', p, { passive: !0 }),
-        t.addEventListener('resize', f),
-        u()));
+        t.addEventListener('resize', m),
+        h()));
   })(window, document);
 //# sourceMappingURL=casper.js.map
