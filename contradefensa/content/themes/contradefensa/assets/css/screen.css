@@ -297,15 +297,46 @@ body.home-template .gh-head-inner {
 }
 
 #search-result {
-    background-color: #000;
-    left: 0;
     position: absolute;
-    top: 5.7rem;
-    width: 100%;
+
 }
 
 #search-result ul {
+    backdrop-filter: blur(10px);
+    background-color: rgb(0 0 0 / 90%);
+    border-radius: 6px;
+    bottom: 60px;
+    box-shadow: 0 10px 20px rgb(0 0 0);
     flex-direction: column;
+    left: 6vw;
+    overflow-y: scroll;
+    padding: 4vw;
+    position: fixed;
+    right: 6vw;
+    top: 60px;
+}
+
+/* Width */
+.search-results-wrapper::-webkit-scrollbar {
+    height: 40px;
+    width: 6px;
+}
+
+/* Track */
+.search-results-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+/* Handle */
+.search-results-wrapper::-webkit-scrollbar-thumb {
+    background-color: #191b1e;
+    border-radius: 4px;
+}
+
+/* Handle on hover */
+.search-results-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #a6a6a6;
 }
 
 /* Primary Navigation

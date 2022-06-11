@@ -10,17 +10,17 @@
 }
 
 header.gh-head nav {
-    /* background-color: rgba(189, 0, 31, .9); */
     background-color: rgba(158, 0, 0, .9);
     box-shadow: 0 0 50px #000;
     display: flex;
     grid-area: navbar;
+    height: 60px;
     max-height: 6rem;
     padding: 1rem 3vw;
     place-content: center space-between;
     place-items: center;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 nav.inner {
