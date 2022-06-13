@@ -5,7 +5,7 @@ new GhostFinder({
   excerpt_length: 150,
   singleResultTemplate: `
       <li>
-        <a href="##url">##title</a>
+        <h4><a href="##url">##title</a></h4>
         <p>##excerpt</p>
       </li>
     `,
@@ -18,18 +18,31 @@ const searchResult = document.querySelector('#search-result');
 
 searchBtn.addEventListener('click', e => {
   e.preventDefault();
+  e.stopImmediatePropagation();
   searchInput.classList.add('opened');
   menu.style.display = 'none';
   searchInput.focus();
+
+  closeResults();
 });
 
 const closeResults = () => {
+  document.addEventListener('click', e => {
+    if (
+      !e.target.closest('.search-results-wrapper') &&
+      !e.target.closest('#search-input')
+    )
+      closeActions();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeActions();
+  });
+};
+
+const closeActions = () => {
+  searchInput.value = '';
   searchInput.classList.remove('opened');
   menu.style.display = 'flex';
   searchResult.innerHTML = '';
 };
-
-searchInput.addEventListener('focusout', closeResults);
-searchInput.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeResults();
-});

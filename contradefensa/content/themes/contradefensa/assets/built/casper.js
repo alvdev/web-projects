@@ -1,6 +1,6 @@
-!(function (s) {
+!(function (o) {
   'use strict';
-  (s.fn.fitVids = function (e) {
+  (o.fn.fitVids = function (e) {
     var t,
       i,
       n = { customSelector: null, ignore: null };
@@ -10,7 +10,7 @@
         ((i = document.createElement('div')).innerHTML =
           '<p>x</p><style id="fit-vids-style">.fluid-width-video-container{flex-grow: 1;width:100%;}.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style>'),
         t.appendChild(i.childNodes[1])),
-      e && s.extend(n, e),
+      e && o.extend(n, e),
       this.each(function () {
         var e = [
             'iframe[src*="player.vimeo.com"]',
@@ -22,11 +22,11 @@
           ],
           r = (n.customSelector && e.push(n.customSelector), '.fitvidsignore'),
           e =
-            (n.ignore && (r = r + ', ' + n.ignore), s(this).find(e.join(',')));
+            (n.ignore && (r = r + ', ' + n.ignore), o(this).find(e.join(',')));
         (e = (e = e.not('object object')).not(r)).each(function () {
           var e,
             t,
-            i = s(this);
+            i = o(this);
           0 < i.parents(r).length ||
             ('embed' === this.tagName.toLowerCase() &&
               i.parent('object').length) ||
@@ -44,9 +44,9 @@
                 ? i.width()
                 : parseInt(i.attr('width'), 10))),
             i.attr('name') ||
-              ((t = 'fitvid' + s.fn.fitVids._count),
+              ((t = 'fitvid' + o.fn.fitVids._count),
               i.attr('name', t),
-              s.fn.fitVids._count++),
+              o.fn.fitVids._count++),
             i
               .wrap(
                 '<div class="fluid-width-video-container"><div class="fluid-width-video-wrapper"></div></div>'
@@ -58,13 +58,13 @@
       })
     );
   }),
-    (s.fn.fitVids._count = 0);
+    (o.fn.fitVids._count = 0);
 })(window.jQuery || window.Zepto),
   (function (t, i) {
     var r,
       n,
-      s,
       o,
+      s,
       d,
       a,
       c,
@@ -84,21 +84,21 @@
         : (t.removeEventListener('scroll', p),
           t.removeEventListener('resize', m)),
         (c = i.documentElement.scrollHeight),
-        (o = s = !1);
+        (s = o = !1);
     }
     function e() {
       var e;
-      o ||
+      s ||
         (d + a <= c - n
-          ? (s = !1)
-          : ((o = !0),
+          ? (o = !1)
+          : ((s = !0),
             ((e = new t.XMLHttpRequest()).responseType = 'document'),
             e.addEventListener('load', u),
             e.open('GET', l.href),
             e.send(null)));
     }
     function h() {
-      s || t.requestAnimationFrame(e), (s = !0);
+      o || t.requestAnimationFrame(e), (o = !0);
     }
     function p() {
       (d = t.scrollY), h();
@@ -108,7 +108,7 @@
     }
     !l ||
       ((r = i.querySelector('.post-feed')) &&
-        ((o = s = !(n = 300)),
+        ((s = o = !(n = 300)),
         (d = t.scrollY),
         (a = t.innerHeight),
         (c = i.documentElement.scrollHeight),
