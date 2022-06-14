@@ -71,6 +71,14 @@ $(document).ready(function () {
 });
 </script>
 
+{{!-- alvdev quiz tests --}}
+{{#page}}
+    {{#has tag="tests"}}
+        <link rel="stylesheet" type="text/css" href="{{asset "css/alvdev-tests.css"}}" />
+        <script src="{{asset 'js/alvdev-tests.js'}}"></script>
+    {{/has}}
+{{/page}}
+
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}
 
