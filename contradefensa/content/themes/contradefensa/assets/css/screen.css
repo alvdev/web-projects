@@ -190,12 +190,12 @@ production stylesheet in assets/built/screen.css
 .gh-head-inner {
     display: grid;
     grid-auto-flow: row dense;
-    grid-gap: 4vmin;
+    grid-gap: 2vw;
     grid-template-columns: auto auto 1fr;
 }
 
 body.home-template .gh-head-inner {
-    grid-gap: 2vmin;
+    grid-gap: 2vw;
     padding: 1rem 3vmax;
 }
 

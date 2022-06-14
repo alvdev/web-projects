@@ -35,9 +35,31 @@ into the {body} tag of the default.hbs template --}}
 
             <h1 class="article-title">{{title}}</h1>
 
-            <div style="text-align: left;">
-                This is the tests content
+            <div class="container">
+                <div id="game">
+                    <h2 id="question">
+                        ¿Cuál es la respuesta a esta pregunta?
+                    </h2>
+                    <div class="choice-container">
+                        <p class="choice-prefix">a</p>
+                        <p class="choice-text">Choice 1</p>
+                    </div>
+                    <div class="choice-container">
+                        <p class="choice-prefix">b</p>
+                        <p class="choice-text">Choice 2</p>
+                    </div>
+                    <div class="choice-container">
+                        <p class="choice-prefix">c</p>
+                        <p class="choice-text">Choice 3</p>
+                    </div>
+                    <div class="choice-container">
+                        <p class="choice-prefix">d</p>
+                        <p class="choice-text">Choice 4</p>
+                    </div>
+                </div>
             </div>
+
+            {{content}}
 
         </section>
     </article>
