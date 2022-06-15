@@ -11,6 +11,8 @@ into the {body} tag of the default.hbs template --}}
     <article class="article {{post_class}}">
 
         <header class="article-header gh-canvas">
+            <h1 class="article-title">{{title}}</h1>
+
             {{#if feature_image}}
             <figure class="article-image">
                 {{!-- This is a responsive image, it loads different sizes depending on device
@@ -32,9 +34,6 @@ into the {body} tag of the default.hbs template --}}
         </header>
 
         <section class="gh-content gh-canvas">
-
-            <h1 class="article-title">{{title}}</h1>
-
             <div class="container">
                 <div id="game">
                     <h2 id="question">
@@ -60,7 +59,6 @@ into the {body} tag of the default.hbs template --}}
             </div>
 
             {{content}}
-
         </section>
     </article>
 </main>
