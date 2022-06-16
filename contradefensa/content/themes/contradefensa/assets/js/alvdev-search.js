@@ -2,11 +2,17 @@ new GhostFinder({
   input: '#search-input',
   showResult: '#search-result',
   contentApiKey: '8f8b77ced0e6b2f4552ad98eb9',
-  excerpt_length: 150,
+  excerpt_length: 175,
   singleResultTemplate: `
       <li>
-        <h4><a href="##url">##title</a></h4>
-        <p>##excerpt</p>
+        <img src="##feature_image" alt="">
+        <div class="search-result-content">
+          <p class="search-result-tag">##primary_tag_name</p>
+          <h4 class="search-result-title">
+            <a class="search-result-link" href="##url">##title</a>
+          </h4>
+          <p class="search-result-excerpt">##excerpt</p>
+        </div>
       </li>
     `,
 });
