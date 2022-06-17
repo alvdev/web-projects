@@ -51,10 +51,10 @@ nav ul {
     flex-direction: column;
     gap: 3vw;
     grid-area: welcome;
-    padding: 4vw;
+    padding: 4vw 3vw;
     position: relative;
     text-align: center;
-    z-index: inherit;
+    z-index: 1;
 }
 
 #welcome .logo {
