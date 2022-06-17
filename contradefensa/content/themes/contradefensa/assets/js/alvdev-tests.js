@@ -55,6 +55,11 @@ startGame = () => {
 };
 
 getNewQuestion = () => {
+  if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+    // TODO: go to final page after quiz ends
+    return window.location.assign('/');
+  }
+
   questionCounter++;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
@@ -64,6 +69,21 @@ getNewQuestion = () => {
     const number = choice.dataset['number'];
     choice.innerText = currentQuestion['choice' + number];
   });
+
+  availableQuestions.splice(questionIndex, 1);
+
+  acceptingAnswers = true;
 };
+
+choices.forEach(choice => {
+  choice.addEventListener('click', e => {
+    if (!acceptingAnswers) return;
+
+    acceptingAnswers = false;
+    const selectedChoice = e.target;
+    const selectedAnswer = selectedChoice.dataset['number'];
+    getNewQuestion();
+  });
+});
 
 startGame();
