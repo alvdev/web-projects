@@ -589,7 +589,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 
     #gh-head .gh-head-inner {
         display: flex;
-        flex-direction: column;
+        flex-direction: row-reverse;
     }
 
     #gh-head .gh-head-brand {
@@ -600,7 +600,6 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         max-width: 100%;
         position: relative;
         user-select: none;
-        width: 100%;
         z-index: 10;
     }
 
@@ -670,11 +669,20 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         grid-template-rows: auto 1fr auto;
         height: 100vh;
         max-height: unset;
+        flex-direction: column;
+    }
+
+    .gh-head-open #gh-head .gh-head-brand {
+        width: 100%;
     }
 
     .gh-head-open #gh-head .gh-head-actions,
     .gh-head-open #gh-head .gh-head-menu {
         display: flex;
+    }
+
+    .gh-head-open #search {
+        display: none;
     }
 }
 

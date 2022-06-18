@@ -1,16 +1,16 @@
-!(function (n) {
+!(function (r) {
   'use strict';
-  (n.fn.fitVids = function (e) {
+  (r.fn.fitVids = function (e) {
     var t,
       i,
-      s = { customSelector: null, ignore: null };
+      n = { customSelector: null, ignore: null };
     return (
       document.getElementById('fit-vids-style') ||
         ((t = document.head || document.getElementsByTagName('head')[0]),
         ((i = document.createElement('div')).innerHTML =
           '<p>x</p><style id="fit-vids-style">.fluid-width-video-container{flex-grow: 1;width:100%;}.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style>'),
         t.appendChild(i.childNodes[1])),
-      e && n.extend(s, e),
+      e && r.extend(n, e),
       this.each(function () {
         var e = [
             'iframe[src*="player.vimeo.com"]',
@@ -20,14 +20,14 @@
             'object',
             'embed',
           ],
-          o = (s.customSelector && e.push(s.customSelector), '.fitvidsignore'),
+          s = (n.customSelector && e.push(n.customSelector), '.fitvidsignore'),
           e =
-            (s.ignore && (o = o + ', ' + s.ignore), n(this).find(e.join(',')));
-        (e = (e = e.not('object object')).not(o)).each(function () {
+            (n.ignore && (s = s + ', ' + n.ignore), r(this).find(e.join(',')));
+        (e = (e = e.not('object object')).not(s)).each(function () {
           var e,
             t,
-            i = n(this);
-          0 < i.parents(o).length ||
+            i = r(this);
+          0 < i.parents(s).length ||
             ('embed' === this.tagName.toLowerCase() &&
               i.parent('object').length) ||
             i.parent('.fluid-width-video-wrapper').length ||
@@ -44,9 +44,9 @@
                 ? i.width()
                 : parseInt(i.attr('width'), 10))),
             i.attr('name') ||
-              ((t = 'fitvid' + n.fn.fitVids._count),
+              ((t = 'fitvid' + r.fn.fitVids._count),
               i.attr('name', t),
-              n.fn.fitVids._count++),
+              r.fn.fitVids._count++),
             i
               .wrap(
                 '<div class="fluid-width-video-container"><div class="fluid-width-video-wrapper"></div></div>'
@@ -58,62 +58,103 @@
       })
     );
   }),
-    (n.fn.fitVids._count = 0);
+    (r.fn.fitVids._count = 0);
 })(window.jQuery || window.Zepto),
+  async function fetchQuestions() {
+    const e = await fetch('http://localhost:8055/items/questions');
+    var t = (await e.json()).data;
+    availableQuestions = [...t];
+  };
+const question = document.querySelector('#question'),
+  choices = Array.from(document.querySelectorAll('.choice-text'));
+let currentQuestion = {},
+  acceptingAnswers = !0,
+  questionCounter = 0,
+  score = 0,
+  availableQuestions = [];
+const CORRECT_BONUS = 10,
+  MAX_QUESTIONS = 5;
+(startGame = () => {
+  (questionCounter = 0),
+    (score = 0),
+    (availableQuestions = fetchQuestions()),
+    getNewQuestion();
+}),
+  (getNewQuestion = () => {
+    if (0 === availableQuestions.length || questionCounter >= MAX_QUESTIONS)
+      return window.location.assign('/');
+    questionCounter++;
+    var e = Math.floor(Math.random() * availableQuestions.length);
+    (currentQuestion = availableQuestions[e]),
+      (question.innerText = currentQuestion.question),
+      choices.forEach(e => {
+        var t = e.dataset.number;
+        e.innerText = currentQuestion['choice' + t];
+      }),
+      availableQuestions.splice(e, 1),
+      (acceptingAnswers = !0);
+  }),
+  choices.forEach(e => {
+    e.addEventListener('click', e => {
+      acceptingAnswers &&
+        ((acceptingAnswers = !1), e.target.dataset.number, getNewQuestion());
+    });
+  }),
+  startGame(),
   (function (t, i) {
-    var o,
-      s,
+    var s,
       n,
       r,
-      c,
+      o,
       a,
-      u,
-      h = i.querySelector('link[rel=next]');
-    function l() {
+      c,
+      l,
+      u = i.querySelector('link[rel=next]');
+    function d() {
       if (404 === this.status)
         return (
           t.removeEventListener('scroll', p),
           void t.removeEventListener('resize', m)
         );
       this.response.querySelectorAll('article.post-card').forEach(function (e) {
-        o.appendChild(i.importNode(e, !0));
+        s.appendChild(i.importNode(e, !0));
       });
       var e = this.response.querySelector('link[rel=next]');
       e
-        ? (h.href = e.href)
+        ? (u.href = e.href)
         : (t.removeEventListener('scroll', p),
           t.removeEventListener('resize', m)),
-        (u = i.documentElement.scrollHeight),
-        (r = n = !1);
+        (l = i.documentElement.scrollHeight),
+        (o = r = !1);
     }
     function e() {
       var e;
-      r ||
-        (c + a <= u - s
-          ? (n = !1)
-          : ((r = !0),
+      o ||
+        (a + c <= l - n
+          ? (r = !1)
+          : ((o = !0),
             ((e = new t.XMLHttpRequest()).responseType = 'document'),
-            e.addEventListener('load', l),
-            e.open('GET', h.href),
+            e.addEventListener('load', d),
+            e.open('GET', u.href),
             e.send(null)));
     }
-    function d() {
-      n || t.requestAnimationFrame(e), (n = !0);
+    function h() {
+      r || t.requestAnimationFrame(e), (r = !0);
     }
     function p() {
-      (c = t.scrollY), d();
+      (a = t.scrollY), h();
     }
     function m() {
-      (a = t.innerHeight), (u = i.documentElement.scrollHeight), d();
+      (c = t.innerHeight), (l = i.documentElement.scrollHeight), h();
     }
-    !h ||
-      ((o = i.querySelector('.post-feed')) &&
-        ((r = n = !(s = 300)),
-        (c = t.scrollY),
-        (a = t.innerHeight),
-        (u = i.documentElement.scrollHeight),
+    !u ||
+      ((s = i.querySelector('.post-feed')) &&
+        ((o = r = !(n = 300)),
+        (a = t.scrollY),
+        (c = t.innerHeight),
+        (l = i.documentElement.scrollHeight),
         t.addEventListener('scroll', p, { passive: !0 }),
         t.addEventListener('resize', m),
-        d()));
+        h()));
   })(window, document);
 //# sourceMappingURL=casper.js.map
