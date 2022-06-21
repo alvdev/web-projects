@@ -60,7 +60,7 @@ which templates loop over to generate a list of posts. --}}
             </ul>
             <div class="post-card-byline-content">
                 <div class="post-card-byline-author">{{#has author="count:>2"}}Multiple authors{{else}}{{authors}}{{/has}}</div>
-                <div class="post-card-byline-date">
+                <div class="post-card-byline-date {{#has tag="news"}}post-card-byline-news{{/has}}">
                     {{> 'post-date'}}
                     <div class="reading-time">
                         {{> 'icons/clock'}}{{reading_time minute=(t "Just a minute") minutes=(t "% minutes")}}
