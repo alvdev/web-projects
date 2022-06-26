@@ -26,7 +26,7 @@ searchBtn.addEventListener('click', e => {
   e.preventDefault();
   e.stopImmediatePropagation();
   searchInput.classList.add('opened');
-  menu.style.display = 'none';
+  menu.classList.add('hide');
   searchInput.focus();
 
   closeResults();
@@ -49,6 +49,6 @@ const closeResults = () => {
 const closeActions = () => {
   searchInput.value = '';
   searchInput.classList.remove('opened');
-  menu.style.display = 'flex';
+  menu.classList.remove('hide');
   searchResult.innerHTML = '';
 };

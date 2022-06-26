@@ -396,6 +396,12 @@ body.home-template .gh-head-inner {
     display: flex;
     font-weight: 500;
     width: 100%;
+    visibility: visible;
+    transition: 2s ease;
+}
+
+.gh-head-menu.hide {
+    display: none;
 }
 
 .gh-head-menu .nav {
