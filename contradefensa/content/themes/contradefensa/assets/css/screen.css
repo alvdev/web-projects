@@ -260,7 +260,6 @@ body.home-template .gh-head-inner {
 #search {
     display: flex;
     flex: auto;
-    margin-left: auto;
     place-content: flex-end;
 }
 
@@ -593,11 +592,6 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     #gh-head {
         overflow: hidden;
         transition: all 0.4s ease-out;
-    }
-
-    #gh-head .gh-head-inner {
-        display: flex;
-        flex-direction: row-reverse;
     }
 
     #gh-head .gh-head-brand {
