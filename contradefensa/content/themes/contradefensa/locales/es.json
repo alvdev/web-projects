@@ -1,5 +1,5 @@
 {
-	"Enter your email": "Introduce tu correo electrónico",
+	"Enter your email": "Introduce tu email",
 	"Account": "Cuenta ",
 	"Subscribe": "Suscríbete",
 	"Subscribe to {blogtitle}": "Suscríbete a {blogtitle}",
@@ -16,6 +16,6 @@
 	"% posts": "% artículos",
 	"Just a minute": "1 min de lectura",
 	"% minutes": "% min de lectura",
-	"<strong>Great!</strong> Check your inbox and click the link to confirm your subscription.": "<strong>¡Excelente!</strong> Revise su bandeja de entrada y haga clic en el enlace para confirmar su suscripción.",
-	"Please enter a valid email address!": "¡Por favor, introduce una dirección de correo electrónico válida!"
+	"<strong>Great!</strong> Check your inbox and click the link to confirm your subscription.": "<strong>¡Excelente!</strong> Revisa tu bandeja de entrada y haz clic en el enlace para confirmar tu suscripción.",
+	"Please enter a valid email address!": "Debes introducir una dirección de email válida"
 }
