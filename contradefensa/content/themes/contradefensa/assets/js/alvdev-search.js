@@ -18,17 +18,15 @@ new GhostFinder({
 });
 
 const searchBtn = document.querySelector('#search-btn');
+const navBar = document.querySelector('.gh-head-inner');
 const searchInput = document.querySelector('#search-input');
-const menu = document.querySelector('.gh-head-menu');
 const searchResult = document.querySelector('#search-result');
 
 searchBtn.addEventListener('click', e => {
   e.preventDefault();
   e.stopImmediatePropagation();
-  searchInput.classList.add('opened');
-  menu.classList.add('hide');
+  document.body.classList.add('has-search');
   searchInput.focus();
-
   closeResults();
 });
 
@@ -36,7 +34,8 @@ const closeResults = () => {
   document.addEventListener('click', e => {
     if (
       !e.target.closest('.search-results-wrapper') &&
-      !e.target.closest('#search-input')
+      !e.target.closest('#search-input') &&
+      !e.target.closest('#search-btn')
     )
       closeActions();
   });
@@ -47,8 +46,7 @@ const closeResults = () => {
 };
 
 const closeActions = () => {
+  document.body.classList.remove('has-search');
   searchInput.value = '';
-  searchInput.classList.remove('opened');
-  menu.classList.remove('hide');
   searchResult.innerHTML = '';
 };
