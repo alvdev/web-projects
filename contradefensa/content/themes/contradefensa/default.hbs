@@ -74,8 +74,9 @@ $(document).ready(function () {
 {{!-- alvdev quiz tests --}}
 {{#page}}
     {{#has tag="tests"}}
-        <link rel="stylesheet" type="text/css" href="{{asset "css/alvdev-tests.css"}}" />
-        <script src="{{asset 'js/alvdev-tests.js'}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/appwrite@9.0.1"></script>
+        <link rel="stylesheet" type="text/css" href="{{asset 'css/alvdev-tests.css'}}" />
+        <script defer src="{{asset 'js/alvdev-tests.js'}}"></script>
     {{/has}}
 {{/page}}
 

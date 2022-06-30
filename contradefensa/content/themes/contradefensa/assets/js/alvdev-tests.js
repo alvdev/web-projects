@@ -5,7 +5,11 @@ async function fetchQuestions() {
   availableQuestions = [...questions];
 }
 
-// End testing
+// Fetching Appwrite questions
+new Client({
+  endpoint: 'http://localhost:8080/v1',
+  project: 'contra-quiz',
+});
 
 const question = document.querySelector('#question');
 const choices = Array.from(document.querySelectorAll('.choice-text'));
