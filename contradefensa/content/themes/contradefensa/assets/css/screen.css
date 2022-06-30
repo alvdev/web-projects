@@ -74,9 +74,22 @@ production stylesheet in assets/built/screen.css
     flex-grow: 1;
 }
 
-.has-search .site-content {
-    padding-top: 60px;
+@media (max-width: 1000px) {
+    .home-template.has-search #welcome {
+        margin-top: 60px;
+    }
 }
+
+@media (min-width: 1001px) {
+    .home-template.has-search #slides {
+        margin-top: 60px;
+    }
+}
+
+.has-search:not(.home-template) .site-content {
+    margin-top: 60px;
+}
+
 
 @keyframes onload {
     0% {
@@ -420,7 +433,7 @@ production stylesheet in assets/built/screen.css
 }
 
 .gh-head-menu .nav li {
-    margin: 0 2.5vmin 0 0;
+    margin: 0 1.25vw 0 0;
     padding: 0;
 }
 
@@ -1021,10 +1034,6 @@ make sure this only happens on large viewports / desktop-ish devices.
             "welcome posts";
         grid-template-columns: 1fr 3fr;
         overflow: hidden;
-    }
-
-    #slides {
-        place-content: center flex-end;
     }
 
     #slides article a {
