@@ -658,7 +658,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         align-self: center;
         display: flex;
         flex-direction: column;
-        font-size: 3.6rem;
+        font-size: 3rem;
         font-weight: 300;
         line-height: 1.1em;
         text-align: center;
@@ -729,12 +729,6 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 
     .gh-head-open #search {
         display: none;
-    }
-}
-
-@media (max-width: 600px) {
-    #gh-head .gh-head-menu {
-        font-size: 6vmin;
     }
 }
 
