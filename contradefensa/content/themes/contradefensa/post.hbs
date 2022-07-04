@@ -43,7 +43,7 @@ into the {body} tag of the default.hbs template --}}
                         <h4 class="author-name">{{authors}}</h4>
                         <div class="byline-meta-content">
                             {{> 'post-date'}}
-                            <span class="byline-reading-time">{{reading_time}}</span>
+                            <span class="reading-time">{{> 'icons/clock'}}{{reading_time minute=(t "Just a minute") minutes=(t "% minutes")}}</span>
                         </div>
                     </div>
                 </section>
