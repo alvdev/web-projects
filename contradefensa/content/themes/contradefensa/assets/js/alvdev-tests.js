@@ -1,15 +1,9 @@
 async function fetchQuestions() {
-  const response = await fetch('http://localhost:8055/items/questions');
+  const response = await fetch('https://app.contradefensa.com/items/questions');
   const data = await response.json();
   const questions = data['data'];
   availableQuestions = [...questions];
 }
-
-// Fetching Appwrite questions
-new Client({
-  endpoint: 'http://localhost:8080/v1',
-  project: 'contra-quiz',
-});
 
 const question = document.querySelector('#question');
 const choices = Array.from(document.querySelectorAll('.choice-text'));
