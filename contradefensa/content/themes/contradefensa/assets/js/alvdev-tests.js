@@ -14,45 +14,6 @@ let questionCounter = 0;
 let score = 0;
 let availableQuestions = [];
 
-// let questions = [
-//   {
-//     id: 1,
-//     question: 'This is the first question',
-//     choice1: 'Choice 1 to first question',
-//     choice2: 'Choice 2 to first question',
-//     choice3: 'Choice 3 to first question',
-//     choice4: 'Choice 4 to first question',
-//     answer: 3,
-//   },
-//   {
-//     id: 2,
-//     question: 'This is the second question',
-//     choice1: 'Choice 1 to second question',
-//     choice2: 'Choice 2 to second question',
-//     choice3: 'Choice 3 to second question',
-//     choice4: 'Choice 4 to second question',
-//     answer: 4,
-//   },
-//   {
-//     id: 3,
-//     question: 'This is the third question',
-//     choice1: 'Choice 1 to third question',
-//     choice2: 'Choice 2 to third question',
-//     choice3: 'Choice 3 to third question',
-//     choice4: 'Choice 4 to third question',
-//     answer: 2,
-//   },
-//   {
-//     id: 4,
-//     question: 'This is the fourth question',
-//     choice1: 'Choice 1 to fourth question',
-//     choice2: 'Choice 2 to fourth question',
-//     choice3: 'Choice 3 to fourth question',
-//     choice4: 'Choice 4 to fourth question',
-//     answer: 1,
-//   },
-// ];
-
 // Constants
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 5;
