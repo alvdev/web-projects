@@ -1,5 +1,5 @@
 async function fetchQuestions() {
-  const response = await fetch('https://app.contradefensa.com/items/questions');
+  const response = await fetch('http://contradefensa.com:8055/items/questions');
   const data = await response.json();
   const questions = data['data'];
   availableQuestions = [...questions];
