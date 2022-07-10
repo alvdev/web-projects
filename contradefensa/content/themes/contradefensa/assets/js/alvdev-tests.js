@@ -1,3 +1,24 @@
+// Appwrite
+const client = new Appwrite.Client();
+
+// Init your Web SDK
+client
+  .setEndpoint('https://essfera.com/v1') // Your API Endpoint
+  .setProject('62bc4bb22d426cc4437e'); // Your project ID
+
+const account = new Appwrite.Account(client);
+
+// Register User
+account.create('unique()', 'me@example.com', 'password', 'John Doe').then(
+  response => {
+    console.log(response);
+  },
+  error => {
+    console.log(error);
+  }
+);
+
+// Directus
 async function fetchQuestions() {
   const response = await fetch('http://contradefensa.com:8055/items/questions');
   const data = await response.json();
