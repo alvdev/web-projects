@@ -891,9 +891,9 @@
           Oe = Math.random(),
           Se = u('keys'),
           Me = {},
-          Ee = 'Object already initialized',
+          Ce = 'Object already initialized',
           s = g.WeakMap,
-          Ce =
+          Ee =
             ((xe =
               e || o.state
                 ? ((i = o.state || (o.state = new s())),
@@ -901,7 +901,7 @@
                   (ye = i.has),
                   (we = i.set),
                   (be = function (e, t) {
-                    if (ye.call(i, e)) throw new TypeError(Ee);
+                    if (ye.call(i, e)) throw new TypeError(Ce);
                     return (t.facade = e), we.call(i, e, t), t;
                   }),
                   (je = function (e) {
@@ -913,7 +913,7 @@
                 : ((a = le('state')),
                   (Me[a] = !0),
                   (be = function (e, t) {
-                    if (v(e, a)) throw new TypeError(Ee);
+                    if (v(e, a)) throw new TypeError(Ce);
                     return (t.facade = e), ue(e, a, t), t;
                   }),
                   (je = function (e) {
@@ -937,8 +937,8 @@
               },
             }),
           Pe = Y(function (e) {
-            var t = Ce.get,
-              u = Ce.enforce,
+            var t = Ee.get,
+              u = Ee.enforce,
               s = String(String).split('String');
             (e.exports = function (e, t, n, r) {
               var o,
@@ -1254,11 +1254,11 @@
             if (
               'function' !=
               typeof (n = (function (e) {
-                if (null != e) return e[Lt] || e['@@iterator'] || Ct[Et(e)];
+                if (null != e) return e[Lt] || e['@@iterator'] || Et[Ct(e)];
               })(e))
             )
               throw TypeError('Target is not iterable');
-            if (void 0 !== (t = n) && (Ct.Array === t || kt[Pt] === t)) {
+            if (void 0 !== (t = n) && (Et.Array === t || kt[Pt] === t)) {
               for (a = 0, u = b(e.length); a < u; a++)
                 if ((s = o(e[a])) && s instanceof _t) return;
               return;
@@ -1284,7 +1284,7 @@
                 return arguments;
               })()
             ),
-          Et = h
+          Ct = h
             ? n
             : function (e) {
                 var t;
@@ -1313,7 +1313,7 @@
                 h
                   ? {}.toString
                   : function () {
-                      return '[object ' + Et(this) + ']';
+                      return '[object ' + Ct(this) + ']';
                     },
                 { unsafe: !0 }
               ),
@@ -1355,7 +1355,7 @@
               throw TypeError(String(e) + ' is not a function');
             return e;
           },
-          Ct = {},
+          Et = {},
           Pt = f('iterator'),
           kt = Array.prototype,
           Lt = f('iterator'),
@@ -1465,7 +1465,7 @@
           _ = g.MutationObserver || g.WebKitMutationObserver,
           s = g.document,
           nn = g.process,
-          E = g.Promise,
+          C = g.Promise,
           T = T(g, 'queueMicrotask'),
           T = T && T.value;
         T ||
@@ -1483,8 +1483,8 @@
           }),
           (Jt =
             j || x || M || !_ || !s
-              ? E && E.resolve
-                ? ((($t = E.resolve(void 0)).constructor = E),
+              ? C && C.resolve
+                ? ((($t = C.resolve(void 0)).constructor = C),
                   (en = $t.then),
                   function () {
                     en.call($t, Gt);
@@ -1537,10 +1537,10 @@
           dn = 'object' == typeof window,
           hn = O.set,
           pn = f('species'),
-          C = 'Promise',
-          mn = Ce.get,
-          gn = Ce.set,
-          vn = Ce.getterFor(C),
+          E = 'Promise',
+          mn = Ee.get,
+          gn = Ee.set,
+          vn = Ee.getterFor(E),
           j = u && u.prototype,
           P = u,
           M = j,
@@ -1554,11 +1554,11 @@
           On = 'unhandledrejection',
           Sn = 'rejectionhandled',
           Mn = 1,
-          En = 2,
-          Cn = 1,
+          Cn = 2,
+          En = 1,
           Pn = 2,
           kn = !1,
-          E = Ke(C, function () {
+          C = Ke(E, function () {
             var e = Te(P),
               t = e !== String(P);
             if (!t && 66 === nt) return !0;
@@ -1578,7 +1578,7 @@
             );
           }),
           s =
-            E ||
+            C ||
             !(function (e, t) {
               if (!t && !At) return !1;
               var n = !1;
@@ -1632,7 +1632,7 @@
                                   : An(Sn, e, t.value);
                               });
                             })(d),
-                          (d.rejection = Cn)),
+                          (d.rejection = En)),
                         !0 === s
                           ? (o = e)
                           : (f && f.enter(),
@@ -1664,7 +1664,7 @@
                             ? bn.emit('unhandledRejection', n, t)
                             : An(On, t, n);
                         })),
-                        (r.rejection = x || qn(r) ? Pn : Cn),
+                        (r.rejection = x || qn(r) ? Pn : En),
                         e.error)
                       )
                         throw e.value;
@@ -1690,7 +1690,7 @@
                   })('Unhandled promise rejection', n);
           },
           qn = function (e) {
-            return e.rejection !== Cn && !e.parent;
+            return e.rejection !== En && !e.parent;
           },
           Dn = function (t, n, r) {
             return function (e) {
@@ -1701,7 +1701,7 @@
             e.done ||
               ((e.done = !0),
               ((e = n ? n : e).value = t),
-              (e.state = En),
+              (e.state = Cn),
               Un(e, !0));
           },
           Wn = function (n, e, t) {
@@ -1727,12 +1727,12 @@
             }
           };
         if (
-          E &&
+          C &&
           ((M = (P = function (e) {
             (function (e, t, n) {
               if (e instanceof t) return;
               throw TypeError('Incorrect ' + (n ? n + ' ' : '') + 'invocation');
-            })(this, P, C),
+            })(this, P, E),
               m(e),
               on.call(this);
             var t = mn(this);
@@ -1744,7 +1744,7 @@
           }).prototype),
           ((on = function (e) {
             gn(this, {
-              type: C,
+              type: E,
               done: !1,
               notified: !1,
               parent: !1,
@@ -1813,12 +1813,12 @@
           } catch (e) {}
           l && l(j, M);
         }
-        t({ global: !0, wrap: !0, forced: E }, { Promise: P }),
-          (T = !(_ = C)),
+        t({ global: !0, wrap: !0, forced: C }, { Promise: P }),
+          (T = !(_ = E)),
           (O = P) &&
             !v((O = T ? O : O.prototype), e) &&
             p(O, e, { configurable: !0, value: _ }),
-          (u = de((u = C))),
+          (u = de((u = E))),
           (l = w.f),
           d &&
             u &&
@@ -1829,9 +1829,9 @@
                 return this;
               },
             }),
-          (un = de(C)),
+          (un = de(E)),
           t(
-            { target: C, stat: !0, forced: E },
+            { target: E, stat: !0, forced: C },
             {
               reject: function (e) {
                 var t = jn(this);
@@ -1840,7 +1840,7 @@
             }
           ),
           t(
-            { target: C, stat: !0, forced: E },
+            { target: E, stat: !0, forced: C },
             {
               resolve: function (e) {
                 var t = this;
@@ -1854,7 +1854,7 @@
             }
           ),
           t(
-            { target: C, stat: !0, forced: s },
+            { target: E, stat: !0, forced: s },
             {
               all: function (e) {
                 var u = this,
@@ -2592,16 +2592,16 @@
           Mr = L.isStandardBrowserEnv()
             ? ((wr = /(msie|trident)/i.test(navigator.userAgent)),
               (U = document.createElement('a')),
-              (yr = Cr(window.location.href)),
+              (yr = Er(window.location.href)),
               function (e) {
-                e = L.isString(e) ? Cr(e) : e;
+                e = L.isString(e) ? Er(e) : e;
                 return e.protocol === yr.protocol && e.host === yr.host;
               })
             : function () {
                 return !0;
               },
-          Er = { 'Content-Type': 'application/x-www-form-urlencoded' };
-        function Cr(e) {
+          Cr = { 'Content-Type': 'application/x-www-form-urlencoded' };
+        function Er(e) {
           return (
             wr && (U.setAttribute('href', e), (e = U.href)),
             U.setAttribute('href', e),
@@ -2681,7 +2681,7 @@
               Lr.headers[e] = {};
             }),
             L.forEach(['post', 'put', 'patch'], function (e) {
-              Lr.headers[e] = L.merge(Er);
+              Lr.headers[e] = L.merge(Cr);
             }),
             Lr);
         function Ar(e) {

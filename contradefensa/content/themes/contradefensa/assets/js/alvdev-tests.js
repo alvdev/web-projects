@@ -18,6 +18,28 @@ account.create('unique()', 'me@example.com', 'password', 'John Doe').then(
   }
 );
 
+const questionForm = `
+  <h2 id="question">
+      What is the answer to this question?
+  </h2>
+  <div class="choice-container">
+      <p class="choice-prefix">a</p>
+      <p class="choice-text" data-number="1">Choice 1</p>
+  </div>
+  <div class="choice-container">
+      <p class="choice-prefix">b</p>
+      <p class="choice-text" data-number="2">Choice 2</p>
+  </div>
+  <div class="choice-container">
+      <p class="choice-prefix">c</p>
+      <p class="choice-text" data-number="3">Choice 3</p>
+  </div>
+  <div class="choice-container">
+      <p class="choice-prefix">d</p>
+      <p class="choice-text" data-number="4">Choice 4</p>
+  </div>
+`;
+
 // Directus
 async function fetchQuestions() {
   const response = await fetch('http://contradefensa.com:8055/items/questions');
