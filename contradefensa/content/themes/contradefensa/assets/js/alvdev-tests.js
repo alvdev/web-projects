@@ -87,9 +87,8 @@ document.addEventListener('DOMContentLoaded', e => {
     console.log(currentQuestion);
     question.innerText = currentQuestion.question;
 
-    answers.forEach(answer => {
-      const number = answer.dataset['number'];
-      answer.innerText = currentQuestion['answers'][number];
+    answers.forEach((answer, index) => {
+      answer.innerText = currentQuestion['answers'][index];
     });
 
     availableQuestions.splice(questionIndex, 1);
