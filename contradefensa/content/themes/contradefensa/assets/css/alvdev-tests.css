@@ -1,10 +1,10 @@
-#game {
+#questionForm {
     display: flex;
     flex-direction: column;
     gap: 2rem;
 }
 
-.choice-container {
+.answer-container {
     background-color: var(--color-darkgrey);
     border-radius: 6px;
     display: flex;
@@ -12,11 +12,11 @@
     width: 100%;
 }
 
-.choice-container>* {
+.answer-container>* {
     padding: 1rem 2rem;
 }
 
-.choice-text {
+.answer-text {
     background-color: var(--color-darkmode);
     border-radius: 4px;
     margin: 4px 4px 4px 0;
@@ -24,7 +24,7 @@
     width: 100%;
 }
 
-.choice-text:hover {
+.answer-text:hover {
     background-color: rgb(105 226 237 / 40%);
     cursor: pointer;
     transition: .5s ease;

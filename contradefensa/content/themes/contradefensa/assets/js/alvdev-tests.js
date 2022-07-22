@@ -1,30 +1,40 @@
-// Appwrite
+// Init Appwrite Web SDK
 const client = new Appwrite.Client();
 
-// Init your Web SDK
 client
-  .setEndpoint('https://essfera.com/v1') // Your API Endpoint
-  .setProject('62bc4bb22d426cc4437e'); // Your project ID
+  .setEndpoint('https://essfera.com/v1') // API Endpoint
+  .setProject('62bc4bb22d426cc4437e'); // Project ID
 
-const account = new Appwrite.Account(client);
+// Appwrite Databases
+const databases = new Appwrite.Databases(client, '62db19ea33336bea4376');
+const questionsDB = databases.listDocuments('62db19fcc2567543eded');
 
-// Register User
-account.create('unique()', 'me@example.com', 'password', 'John Doe').then(
-  response => {
-    console.log(response);
-  },
-  error => {
-    console.log(error);
-  }
-);
+async function fetchQuestions() {
+  const questions = await questionsDB;
+  availableQuestions = [...questions['documents']];
+  console.log(availableQuestions);
+  console.log('#########');
+}
+
+// Appwrite Register User Example
+// const account = new Appwrite.Account(client);
+
+// account.create('unique()', 'me@example.com', 'password', 'John Doe').then(
+//   response => {
+//     console.log(response);
+//   },
+//   error => {
+//     console.log(error);
+//   }
+// );
 
 // Directus
-async function fetchQuestions() {
-  const response = await fetch('http://contradefensa.com:8055/items/questions');
-  const data = await response.json();
-  const questions = data['data'];
-  availableQuestions = [...questions];
-}
+// async function fetchQuestions() {
+//   const response = await fetch('http://contradefensa.com:8055/items/questions');
+//   const data = await response.json();
+//   const questions = data['data'];
+//   availableQuestions = [...questions];
+// }
 
 let currentQuestion = {};
 let acceptingAnswers = true;
@@ -62,7 +72,7 @@ document.addEventListener('DOMContentLoaded', e => {
   console.log('content loaded');
   questionForm.innerHTML = questionFormTemplate;
   const question = document.querySelector('#question');
-  const choices = Array.from(document.querySelectorAll('.choice-text'));
+  const answers = Array.from(document.querySelectorAll('.choice-text'));
 
   getNewQuestion = () => {
     if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
@@ -73,11 +83,13 @@ document.addEventListener('DOMContentLoaded', e => {
     questionCounter++;
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
+    console.log('>>>>>>>>> ');
+    console.log(currentQuestion);
     question.innerText = currentQuestion.question;
 
-    choices.forEach(choice => {
+    answers.forEach(choice => {
       const number = choice.dataset['number'];
-      choice.innerText = currentQuestion['choice' + number];
+      choice.innerText = currentQuestion['answers'][number];
     });
 
     availableQuestions.splice(questionIndex, 1);
@@ -85,7 +97,7 @@ document.addEventListener('DOMContentLoaded', e => {
     acceptingAnswers = true;
   };
 
-  choices.forEach(choice => {
+  answers.forEach(choice => {
     choice.addEventListener('click', e => {
       if (!acceptingAnswers) return;
 
