@@ -88,9 +88,12 @@ document.addEventListener('DOMContentLoaded', e => {
     question.innerText = currentQuestion.question;
 
     answers.forEach((answer, index) => {
+      // TODO: Show answers randomly
+      // let randIndex = Math.floor(Math.random() * answers.length);
       answer.innerText = currentQuestion['answers'][index];
     });
 
+    // Remove answered question
     availableQuestions.splice(questionIndex, 1);
 
     acceptingAnswers = true;
