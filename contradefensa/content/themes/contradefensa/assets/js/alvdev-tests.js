@@ -50,21 +50,21 @@ const questionFormTemplate = `
   <h2 id="question">
       What is the answer to this question?
   </h2>
-  <div class="choice-container">
-      <p class="choice-prefix">a</p>
-      <p class="choice-text" data-number="1">Choice 1</p>
+  <div class="answer-container">
+      <p class="answer-prefix">a</p>
+      <p class="answer-text" data-number="1">answer 1</p>
   </div>
-  <div class="choice-container">
-      <p class="choice-prefix">b</p>
-      <p class="choice-text" data-number="2">Choice 2</p>
+  <div class="answer-container">
+      <p class="answer-prefix">b</p>
+      <p class="answer-text" data-number="2">answer 2</p>
   </div>
-  <div class="choice-container">
-      <p class="choice-prefix">c</p>
-      <p class="choice-text" data-number="3">Choice 3</p>
+  <div class="answer-container">
+      <p class="answer-prefix">c</p>
+      <p class="answer-text" data-number="3">answer 3</p>
   </div>
-  <div class="choice-container">
-      <p class="choice-prefix">d</p>
-      <p class="choice-text" data-number="4">Choice 4</p>
+  <div class="answer-container">
+      <p class="answer-prefix">d</p>
+      <p class="answer-text" data-number="4">answer 4</p>
   </div>
 `;
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', e => {
   console.log('content loaded');
   questionForm.innerHTML = questionFormTemplate;
   const question = document.querySelector('#question');
-  const answers = Array.from(document.querySelectorAll('.choice-text'));
+  const answers = Array.from(document.querySelectorAll('.answer-text'));
 
   getNewQuestion = () => {
     if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
@@ -87,9 +87,9 @@ document.addEventListener('DOMContentLoaded', e => {
     console.log(currentQuestion);
     question.innerText = currentQuestion.question;
 
-    answers.forEach(choice => {
-      const number = choice.dataset['number'];
-      choice.innerText = currentQuestion['answers'][number];
+    answers.forEach(answer => {
+      const number = answer.dataset['number'];
+      answer.innerText = currentQuestion['answers'][number];
     });
 
     availableQuestions.splice(questionIndex, 1);
@@ -97,13 +97,13 @@ document.addEventListener('DOMContentLoaded', e => {
     acceptingAnswers = true;
   };
 
-  answers.forEach(choice => {
-    choice.addEventListener('click', e => {
+  answers.forEach(answer => {
+    answer.addEventListener('click', e => {
       if (!acceptingAnswers) return;
 
       acceptingAnswers = false;
-      const selectedChoice = e.target;
-      const selectedAnswer = selectedChoice.dataset['number'];
+      const selectedanswer = e.target;
+      const selectedAnswer = selectedanswer.dataset['number'];
       getNewQuestion();
     });
   });
