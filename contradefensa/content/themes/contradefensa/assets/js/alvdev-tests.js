@@ -59,13 +59,22 @@ const questionFormTemplate = `
       <p class="answer-text" data-number="2">answer 2</p>
   </div>
   <div class="answer-container">
-      <p class="answer-prefix">c</p>
-      <p class="answer-text" data-number="3">answer 3</p>
+      <p class="answer-prefix">b</p>
+      <p class="answer-text" data-number="2">answer 2</p>
   </div>
   <div class="answer-container">
-      <p class="answer-prefix">d</p>
-      <p class="answer-text" data-number="4">answer 4</p>
+      <p class="answer-prefix">b</p>
+      <p class="answer-text" data-number="2">answer 2</p>
   </div>
+  <div class="answer-container">
+      <p class="answer-prefix">b</p>
+      <p class="answer-text" data-number="2">undefined</p>
+  </div>
+  <div class="answer-container">
+      <p class="answer-prefix">b</p>
+      <p class="answer-text" data-number="2">undefined</p>
+  </div>
+
 `;
 
 document.addEventListener('DOMContentLoaded', e => {
@@ -86,17 +95,37 @@ document.addEventListener('DOMContentLoaded', e => {
     console.log('>>>>>>>>> ');
     console.log(currentQuestion);
     question.innerText = currentQuestion.question;
+    const questionHtml = `
+      <h2 id="question">
+          What is the answer to this question?
+      </h2>    
+    `;
+
+    console.log(answers);
 
     answers.forEach((answer, index) => {
       // TODO: Show answers randomly
       // let randIndex = Math.floor(Math.random() * answers.length);
       answer.innerText = currentQuestion['answers'][index];
+      // const answerHtml = `
+      //   <div class="answer-container">
+      //       <p class="answer-prefix">b</p>
+      //       <p class="answer-text" data-number="2">${currentQuestion['answers'][index]}</p>
+      //   </div>
+      // `;
+      // questionForm.insertAdjacentHTML('beforeend', answerHtml);
     });
 
     // Remove answered question
     availableQuestions.splice(questionIndex, 1);
 
     acceptingAnswers = true;
+
+    // Remove HTML undefined answers containers
+    // const undefinedAnswer = document.querySelectorAll('.answerContainer');
+    // answers.forEach(answer => {
+    //   if (answer.innerHTML == undefined) return;
+    // });
   };
 
   answers.forEach(answer => {
