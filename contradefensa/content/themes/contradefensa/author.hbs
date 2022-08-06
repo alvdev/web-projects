@@ -22,7 +22,7 @@
                     {{#if bio}}
                         {{bio}}
                     {{else}}
-                        {{plural ../pagination.total empty='No posts' singular='% post' plural='% posts'}} published
+                        {{plural ../pagination.total empty='No posts' singular='% post' plural='% posts'}} {{plural ../pagination.total empty=(t 'None') singular=(t '% post') plural=(t 'Published')}}
                     {{/if}}
                 </p>
 
