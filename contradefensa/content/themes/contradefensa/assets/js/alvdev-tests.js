@@ -2,7 +2,7 @@
 const client = new Appwrite.Client();
 
 client
-  .setEndpoint('https://essfera.com/v1') // API Endpoint
+  .setEndpoint('http://localhost:8010/v1') // API Endpoint
   .setProject('62bc4bb22d426cc4437e'); // Project ID
 
 // Appwrite Databases
