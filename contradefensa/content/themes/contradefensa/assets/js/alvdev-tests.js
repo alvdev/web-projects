@@ -147,3 +147,10 @@ startGame = () => {
 };
 
 startGame();
+
+// test-page - add overlay to coming soon posts
+const comingSoon = document.querySelectorAll('.coming-soon');
+
+comingSoon.forEach(post =>
+  post.closest('.post-card.post').classList.add('overlay')
+);
