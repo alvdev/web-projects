@@ -80,9 +80,9 @@ nav ul {
 }
 
 #welcome h1+p {
+    color: rgb(105, 226, 237);
     font-size: 1.8rem;
     margin-bottom: 1rem;
-    color: rgb(105, 226, 237);
 }
 
 #welcome .author {
@@ -102,9 +102,9 @@ nav ul {
 }
 
 #welcome ul {
+    list-style-type: none;
     margin-top: 2rem;
     padding: 0;
-    list-style-type: none;
 }
 
 #welcome li {
