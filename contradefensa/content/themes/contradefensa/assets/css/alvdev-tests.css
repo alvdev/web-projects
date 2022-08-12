@@ -1,24 +1,3 @@
-.page-tests .overlay:before {
-    background: rgba(0, 0, 0, .5);
-    bottom: 0.6rem;
-    content: "";
-    left: 0.6rem;
-    position: absolute;
-    right: 0.6rem;
-    top: 0.6rem;
-    z-index: 9;
-}
-
-.page-tests .overlay .coming-soon {
-    color: red;
-}
-
-.page-tests .footer-test-button {
-    background-color: #017e90;
-    border-radius: 4px;
-    padding: 4px 14px;
-}
-
 #questionForm {
     display: flex;
     flex-direction: column;
