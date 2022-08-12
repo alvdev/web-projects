@@ -79,6 +79,12 @@ nav ul {
     margin-bottom: 1em;
 }
 
+#welcome h1+p {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: rgb(105, 226, 237);
+}
+
 #welcome .author {
     display: flex;
     gap: 1rem;
@@ -93,6 +99,17 @@ nav ul {
     border: 2px solid var(--color-darkgrey);
     border-radius: 50%;
     max-width: 50px;
+}
+
+#welcome ul {
+    margin-top: 2rem;
+    padding: 0;
+    list-style-type: none;
+}
+
+#welcome li {
+    margin-top: 1rem;
+    padding: 0;
 }
 
 #slides {
