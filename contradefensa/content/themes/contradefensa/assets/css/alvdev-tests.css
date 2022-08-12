@@ -1,3 +1,9 @@
+.page-tests .footer-test-button {
+    background-color: #017e90;
+    border-radius: 4px;
+    padding: 4px 14px;
+}
+
 #questionForm {
     display: flex;
     flex-direction: column;
