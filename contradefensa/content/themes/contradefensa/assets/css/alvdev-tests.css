@@ -1,3 +1,9 @@
+h2 {
+    font-size: 2.4rem;
+    font-weight: normal;
+    line-height: 1.25;
+}
+
 #questionForm {
     display: flex;
     flex-direction: column;
