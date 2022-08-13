@@ -1,57 +1,28 @@
 {{!< default}}
-{{!-- The tag above means - insert everything in this file into the {body} of the default.hbs template --}}
-
-
-<section class="outer">
-    <div class="inner posts">
-
-        <header class="author-profile">
-            {{#author}}
-            {{!-- Everything inside the #author tags pulls data from the author --}}
-
-            <div class="author-profile-content">
-
-                {{#if profile_image}}
-                <img class="author-profile-pic" src="{{profile_image}}" alt="{{name}}" />
-                {{else}}
-                <span class="author-profile-pic">{{> "icons/avatar"}}</span>
-                {{/if}}
-
-                <h1>{{name}}</h1>
-                <p>
-                    {{#if bio}}
-                        {{bio}}
-                    {{else}}
-                        {{plural ../pagination.total empty='No posts' singular='% post' plural='% posts'}} {{plural ../pagination.total empty=(t 'None') singular=(t '% post') plural=(t 'Published')}}
-                    {{/if}}
-                </p>
-
-                <div class="author-profile-meta">
-                    {{#if location}}
-                    <div class="author-profile-location">📍 {{location}}</div>
-                    {{/if}}
-                    {{#if website}}
-                    <span><a class="author-profile-social-link" href="{{website}}" target="_blank" rel="noopener">{{website}}</a></span>
-                    {{/if}}
-                    {{#if twitter}}
-                    <span><a class="author-profile-social-link" href="{{twitter_url}}" target="_blank" rel="noopener">{{twitter_url}}</a></span>
-                    {{/if}}
-                    {{#if facebook}}
-                    <span><a class="author-profile-social-link" href="{{facebook_url}}" target="_blank" rel="noopener">{{facebook_url}}</a></span>
-                    {{/if}}
-                </div>
-
-            </div>
-
-            {{/author}}
-        </header>
-
-        <div class="post-feed">
-            {{#foreach posts}}
-                {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
-                {{> "post-card"}}
-            {{/foreach}}
+{{! The tag above means: insert everything in this file
+into the {body} tag of the default.hbs template }}
+{{#post}}
+  {{! Everything inside the #post block pulls data from the page }}
+  <main id="site-main" class="site-main outer">
+    <article class="article {{post_class}}">
+      <header class="article-header gh-canvas">
+        <h1 class="article-title">
+          {{title}}
+        </h1>
+      </header>
+      <section class="gh-content gh-canvas">
+        <div class="container">
+          <div id="questionForm"></div>
         </div>
-
-    </div>
-</section>
+        {{content}}
+      </section>
+    </article>
+  </main>
+{{/post}}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{asset "css/alvdev-tests.css"}}"
+/>
+<script defer src="https://cdn.jsdelivr.net/npm/appwrite@9.0.1"></script>
+<script defer src="{{asset "js/alvdev-tests.js"}}"></script>
