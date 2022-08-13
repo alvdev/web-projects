@@ -59,22 +59,13 @@ const questionFormTemplate = `
       <p class="answer-text" data-number="2">answer 2</p>
   </div>
   <div class="answer-container">
-      <p class="answer-prefix">b</p>
-      <p class="answer-text" data-number="2">answer 2</p>
+      <p class="answer-prefix">c</p>
+      <p class="answer-text" data-number="3">answer 3</p>
   </div>
   <div class="answer-container">
-      <p class="answer-prefix">b</p>
-      <p class="answer-text" data-number="2">answer 2</p>
+      <p class="answer-prefix">d</p>
+      <p class="answer-text" data-number="4">answer 4</p>
   </div>
-  <div class="answer-container">
-      <p class="answer-prefix">b</p>
-      <p class="answer-text" data-number="2">undefined</p>
-  </div>
-  <div class="answer-container">
-      <p class="answer-prefix">b</p>
-      <p class="answer-text" data-number="2">undefined</p>
-  </div>
-
 `;
 
 document.addEventListener('DOMContentLoaded', e => {
