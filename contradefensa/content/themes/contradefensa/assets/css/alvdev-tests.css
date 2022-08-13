@@ -31,7 +31,7 @@ h2 {
 }
 
 .answer-text:hover {
-    background-color: rgb(105 226 237 / 40%);
+    background-color: var(--color-darkcyan);
     cursor: pointer;
     transition: .5s ease;
 }

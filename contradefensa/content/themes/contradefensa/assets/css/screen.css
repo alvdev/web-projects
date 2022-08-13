@@ -33,6 +33,7 @@ production stylesheet in assets/built/screen.css
 :root {
 
     /* Colours */
+    --color-darkcyan: #017f91;
     --color-green: #a4d037;
     --color-yellow: #fecd35;
     --color-red: #f05230;
