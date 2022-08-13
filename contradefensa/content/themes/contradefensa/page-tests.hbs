@@ -23,7 +23,7 @@ into the {body} tag of the default.hbs template }}
 
 {{!-- Add overlay to coming soon posts --}}
 <script>
-  const comingSoon = document.querySelectorAll('.coming-soon');
+const comingSoon = document.querySelectorAll('.coming-soon');
 
 comingSoon.forEach(post =>
   post.closest('.post-card.post').classList.add('overlay')
