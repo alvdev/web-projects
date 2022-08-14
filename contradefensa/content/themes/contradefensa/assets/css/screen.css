@@ -460,8 +460,12 @@ production stylesheet in assets/built/screen.css
 }
 
 .gh-head-menu .nav li {
-    margin: 0 1.25vw 0 0;
+    margin: 0 1.95vw 0 0;
     padding: 0;
+}
+
+.gh-head-menu .nav li:last-child {
+    margin: 0;
 }
 
 .gh-head-menu .nav a {
@@ -501,7 +505,7 @@ production stylesheet in assets/built/screen.css
 }
 
 .gh-social {
-    margin: 0 1.5vmin 0 0;
+    margin: 0 1.5vw 0 0;
 }
 
 .gh-social a {
