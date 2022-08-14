@@ -48,28 +48,27 @@ const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 5;
 
 const questionFormTemplate = `
-  <h2 id="question">
-      What is the answer to this question?
-  </h2>
+  <h2 id="question"></h2>
   <div class="answer-container">
       <p class="answer-prefix">a</p>
-      <p class="answer-text" data-number="1">answer 1</p>
+      <p class="answer-text" data-number="1"></p>
   </div>
   <div class="answer-container">
       <p class="answer-prefix">b</p>
-      <p class="answer-text" data-number="2">answer 2</p>
+      <p class="answer-text" data-number="2"></p>
   </div>
   <div class="answer-container">
       <p class="answer-prefix">c</p>
-      <p class="answer-text" data-number="3">answer 3</p>
+      <p class="answer-text" data-number="3"></p>
   </div>
   <div class="answer-container">
       <p class="answer-prefix">d</p>
-      <p class="answer-text" data-number="4">answer 4</p>
+      <p class="answer-text" data-number="4"></p>
   </div>
 `;
 
-let questionFormHtml;
+// TODO: Create form dinamically
+// let questionFormHtml;
 
 console.log('content loaded');
 questionForm.innerHTML = questionFormTemplate;
@@ -88,12 +87,13 @@ getNewQuestion = () => {
   console.log('>>>>>>>>> ');
   console.log(currentQuestion);
   question.innerText = currentQuestion.question;
-  // Building dynamic question form
-  questionFormHtml = `
-      <h2 id="question">
-          ${currentQuestion.question}
-      </h2>    
-    `;
+
+  // TODO: Create form dinamically
+  // questionFormHtml = `
+  //     <h2 id="question">
+  //         ${currentQuestion.question}
+  //     </h2>
+  //   `;
 
   console.log(answers);
 
@@ -101,12 +101,14 @@ getNewQuestion = () => {
     // TODO: Show answers randomly
     // let randIndex = Math.floor(Math.random() * answers.length);
     answer.innerText = currentQuestion['answers'][index];
-    questionFormHtml += `
-        <div class="answer-container">
-            <p class="answer-prefix">b</p>
-            <p class="answer-text" data-number="2">${currentQuestion['answers'][index]}</p>
-        </div>
-      `;
+
+    // TODO: Create form dinamically
+    // questionFormHtml += `
+    //     <div class="answer-container">
+    //         <p class="answer-prefix">b</p>
+    //         <p class="answer-text" data-number="2">${currentQuestion['answers'][index]}</p>
+    //     </div>
+    //   `;
   });
   // Remove answered question
   availableQuestions.splice(questionIndex, 1);
