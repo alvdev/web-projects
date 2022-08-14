@@ -14,6 +14,7 @@ async function fetchQuestions() {
   availableQuestions = [...questions['documents']];
   console.log(availableQuestions);
   console.log('#########');
+  getNewQuestion();
 }
 
 // Appwrite Register User Example
@@ -68,66 +69,65 @@ const questionFormTemplate = `
   </div>
 `;
 
-document.addEventListener('DOMContentLoaded', e => {
-  console.log('content loaded');
-  questionForm.innerHTML = questionFormTemplate;
-  const question = document.querySelector('#question');
-  const answers = Array.from(document.querySelectorAll('.answer-text'));
+let questionFormHtml;
 
-  getNewQuestion = () => {
-    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
-      // TODO: go to final page after quiz ends
-      return window.location.assign('/');
-    }
+console.log('content loaded');
+questionForm.innerHTML = questionFormTemplate;
+const question = document.querySelector('#question');
+const answers = Array.from(document.querySelectorAll('.answer-text'));
 
-    questionCounter++;
-    const questionIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = availableQuestions[questionIndex];
-    console.log('>>>>>>>>> ');
-    console.log(currentQuestion);
-    question.innerText = currentQuestion.question;
-    const questionHtml = `
+getNewQuestion = () => {
+  if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+    // TODO: go to final page after quiz ends
+    return window.location.assign('/');
+  }
+
+  questionCounter++;
+  const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+  currentQuestion = availableQuestions[questionIndex];
+  console.log('>>>>>>>>> ');
+  console.log(currentQuestion);
+  question.innerText = currentQuestion.question;
+  // Building dynamic question form
+  questionFormHtml = `
       <h2 id="question">
-          What is the answer to this question?
+          ${currentQuestion.question}
       </h2>    
     `;
 
-    console.log(answers);
+  console.log(answers);
 
-    answers.forEach((answer, index) => {
-      // TODO: Show answers randomly
-      // let randIndex = Math.floor(Math.random() * answers.length);
-      answer.innerText = currentQuestion['answers'][index];
-      // const answerHtml = `
-      //   <div class="answer-container">
-      //       <p class="answer-prefix">b</p>
-      //       <p class="answer-text" data-number="2">${currentQuestion['answers'][index]}</p>
-      //   </div>
-      // `;
-      // questionForm.insertAdjacentHTML('beforeend', answerHtml);
-    });
+  answers.forEach((answer, index) => {
+    // TODO: Show answers randomly
+    // let randIndex = Math.floor(Math.random() * answers.length);
+    answer.innerText = currentQuestion['answers'][index];
+    questionFormHtml += `
+        <div class="answer-container">
+            <p class="answer-prefix">b</p>
+            <p class="answer-text" data-number="2">${currentQuestion['answers'][index]}</p>
+        </div>
+      `;
+  });
+  // Remove answered question
+  availableQuestions.splice(questionIndex, 1);
 
-    // Remove answered question
-    availableQuestions.splice(questionIndex, 1);
+  acceptingAnswers = true;
 
-    acceptingAnswers = true;
+  // Remove HTML undefined answers containers
+  // const undefinedAnswer = document.querySelectorAll('.answerContainer');
+  // answers.forEach(answer => {
+  //   if (answer.innerHTML == undefined) return;
+  // });
+};
 
-    // Remove HTML undefined answers containers
-    // const undefinedAnswer = document.querySelectorAll('.answerContainer');
-    // answers.forEach(answer => {
-    //   if (answer.innerHTML == undefined) return;
-    // });
-  };
+answers.forEach(answer => {
+  answer.addEventListener('click', e => {
+    if (!acceptingAnswers) return;
 
-  answers.forEach(answer => {
-    answer.addEventListener('click', e => {
-      if (!acceptingAnswers) return;
-
-      acceptingAnswers = false;
-      const selectedanswer = e.target;
-      const selectedAnswer = selectedanswer.dataset['number'];
-      getNewQuestion();
-    });
+    acceptingAnswers = false;
+    const selectedanswer = e.target;
+    const selectedAnswer = selectedanswer.dataset['number'];
+    getNewQuestion();
   });
 });
 
