@@ -1296,9 +1296,17 @@ is the very first element in the post content */
     position: relative;
 }
 
+.gh-content>hr {
+    margin-top: 10vmin;
+}
+
 .gh-content>hr+*,
 .gh-content>blockquote+* {
     margin-top: 6vmin !important;
+}
+
+.gh-content>hr+* {
+    margin-top: 10vmin !important;
 }
 
 /* Now the content typography styles */
@@ -1447,9 +1455,14 @@ except for when immediately preceeded by a heading */
     margin-top: 6vmin;
 }
 
+.gh-content :not(.kg-card):not([id])+.kg-card.kg-width-full {
+    margin: 12vmin 0 6vmin;
+}
+
 .gh-content .kg-card+ :not(.kg-card) {
     margin-bottom: 0;
     margin-top: 6vmin;
+    position: inherit;
 }
 
 /* This keeps small embeds centered */
@@ -2288,7 +2301,12 @@ html.dark-mode .site-archive-header .no-image {
 }
 
 html.dark-mode .kg-header-card.kg-style-dark {
-    background: color-mod(var(--color-darkgrey) l(-5%));
+    /* background: color-mod(var(--color-darkgrey) l(-5%)); */
+    background: #000000;
+    border-color: var(--color-darkgrey);
+    border-style: solid;
+    border-width: 6px 0;
+    box-shadow: 0 0 25vw #000;
 }
 
 html.dark-mode .kg-header-card.kg-style-light {
