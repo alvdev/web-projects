@@ -2,7 +2,7 @@
 const client = new Appwrite.Client();
 
 client
-  .setEndpoint('http://localhost:8010/v1') // API Endpoint
+  .setEndpoint('https://app.essfera.com/v1') // API Endpoint
   .setProject('62bc4bb22d426cc4437e'); // Project ID
 
 // Appwrite Databases
@@ -78,7 +78,7 @@ const answers = Array.from(document.querySelectorAll('.answer-text'));
 getNewQuestion = () => {
   if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
     // TODO: go to final page after quiz ends
-    return window.location.assign('/');
+    return window.location.assign('/tests');
   }
 
   questionCounter++;
