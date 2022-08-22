@@ -1,7 +1,10 @@
 new GhostFinder({
   input: '#search-input',
   showResult: '#search-result',
-  contentApiKey: '8f8b77ced0e6b2f4552ad98eb9',
+  // Test local
+  // contentApiKey: '8f8b77ced0e6b2f4552ad98eb9',
+  // Test prod
+  contentApiKey: 'e071b8d4c7bbad13615f557a81',
   excerpt_length: 175,
   singleResultTemplate: `
       <li>
