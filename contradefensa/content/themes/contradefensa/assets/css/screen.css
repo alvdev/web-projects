@@ -1216,6 +1216,10 @@ make sure this only happens on large viewports / desktop-ish devices.
     width: 100%;
 }
 
+.gh-canvas .article-image figcaption {
+    position: absolute;
+}
+
 @media (max-width: 600px) {
     .article-excerpt {
         font-size: 1.8rem;
@@ -1516,7 +1520,6 @@ figcaption {
     font-weight: 600;
     line-height: 1.4em;
     padding: 1.5rem 1.5rem 0;
-    position: absolute;
     text-align: center;
     width: 100%;
     z-index: 1;
