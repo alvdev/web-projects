@@ -11,11 +11,6 @@
                 {{/if}}
             </a>
         {{/is}}    
-        <a class="gh-burger" role="button">
-            <div class="gh-burger-box">
-                <div class="gh-burger-inner"></div>
-            </div>
-        </a>
     </div>
     <div class="gh-head-menu">
         {{navigation}}
@@ -52,6 +47,11 @@
             <a class="gh-head-button" href="#/portal/account" data-portal="account">{{ t "Account"}}</a>
         {{/unless}}
     </div>
+    <a class="gh-burger" role="button">
+        <div class="gh-burger-box">
+            <div class="gh-burger-inner"></div>
+        </div>
+    </a>
 
     {{!-- Search packed by gulp --}}
     {{!-- <script defer src="{{asset "js/lib/ghost-finder.js"}}"></script> --}}

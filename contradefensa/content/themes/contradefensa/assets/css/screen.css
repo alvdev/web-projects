@@ -553,6 +553,13 @@ a.gh-head-button {
     position: relative;
 }
 
+.gh-head-open .gh-burger {
+    position: fixed;
+    right: 3vw;
+    top: 1.3rem;
+    z-index: 999;
+}
+
 .gh-burger-box {
     align-items: center;
     display: flex;
