@@ -681,6 +681,10 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         margin: 5px 0;
     }
 
+    #gh-head .gh-head-menu .nav li:first-child {
+        margin-top: 0;
+    }
+
     #gh-head .gh-head-menu .nav a {
         padding: 8px 0;
     }
@@ -716,8 +720,6 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 
     .gh-head-open #gh-head {
         bottom: 0;
-        left: 0;
-        /* overflow-y: scroll; */
         position: fixed;
         right: 0;
         top: 0;
@@ -727,7 +729,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     .gh-head-open #gh-head .gh-head-inner {
         flex-direction: column;
         grid-template-rows: auto 1fr auto;
-        height: 100vh;
+        height: 100%;
         max-height: unset;
     }
 
@@ -735,8 +737,13 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         width: 100%;
     }
 
-    .gh-head-open #gh-head .gh-head-actions,
     .gh-head-open #gh-head .gh-head-menu {
+        height: 70vh;
+        overflow-y: scroll;
+        display: block;
+    }
+
+    .gh-head-open #gh-head .gh-head-actions {
         display: flex;
     }
 
