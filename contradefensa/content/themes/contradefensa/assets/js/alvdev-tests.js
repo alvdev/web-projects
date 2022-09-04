@@ -133,7 +133,18 @@ answers.forEach(answer => {
 
     // Check if picked choice is the correct answer
     console.log(selectedAnswer === currentQuestion.correct_answer);
-    getNewQuestion();
+
+    const classToApply =
+      selectedAnswer === currentQuestion.correct_answer
+        ? 'correct'
+        : 'incorrect';
+
+    selectedChoice.classList.add(classToApply);
+
+    setTimeout(() => {
+      selectedChoice.classList.remove(classToApply);
+      getNewQuestion();
+    }, 1000);
   });
 });
 

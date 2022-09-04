@@ -35,3 +35,16 @@ h2 {
     cursor: pointer;
     transition: .5s ease;
 }
+
+.correct {
+    box-shadow: 0 0 0 2px inset greenyellow;
+}
+
+.incorrect {
+    box-shadow: 0 0 0 2px inset tomato;
+}
+
+.correct:hover,
+.incorrect:hover {
+    background-color: transparent;
+}
