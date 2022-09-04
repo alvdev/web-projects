@@ -12,6 +12,7 @@ const questionsDB = databases.listDocuments('62db19fcc2567543eded');
 async function fetchQuestions() {
   const questions = await questionsDB;
   availableQuestions = [...questions['documents']];
+  console.log('#########');
   console.log(availableQuestions);
   console.log('#########');
   getNewQuestion();
@@ -85,7 +86,7 @@ getNewQuestion = () => {
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
   console.log('>>>>>>>>> ');
-  console.log(currentQuestion);
+  console.log(currentQuestion.correct_answer);
   question.innerText = currentQuestion.question;
 
   // TODO: Create form dinamically
@@ -127,8 +128,11 @@ answers.forEach(answer => {
     if (!acceptingAnswers) return;
 
     acceptingAnswers = false;
-    const selectedanswer = e.target;
-    const selectedAnswer = selectedanswer.dataset['number'];
+    const selectedChoice = e.target;
+    const selectedAnswer = selectedChoice.textContent;
+
+    // Check if picked choice is the correct answer
+    console.log(selectedAnswer === currentQuestion.correct_answer);
     getNewQuestion();
   });
 });
