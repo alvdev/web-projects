@@ -555,8 +555,8 @@ a.gh-head-button {
 
 .gh-head-open .gh-burger {
     position: fixed;
-    right: 3vw;
-    top: 1.3rem;
+    right: 4vw;
+    top: 4vw;
     z-index: 999;
 }
 
@@ -731,6 +731,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
         grid-template-rows: auto 1fr auto;
         height: 100%;
         max-height: unset;
+        padding: 4vw 4vw 0;
     }
 
     .gh-head-open #gh-head .gh-head-brand {
@@ -738,9 +739,9 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     }
 
     .gh-head-open #gh-head .gh-head-menu {
+        display: block;
         height: 70vh;
         overflow-y: scroll;
-        display: block;
     }
 
     .gh-head-open #gh-head .gh-head-actions {
