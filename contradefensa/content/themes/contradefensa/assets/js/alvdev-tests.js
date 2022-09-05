@@ -46,7 +46,7 @@ let availableQuestions = [];
 
 // Constants
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 5;
+const TOTAL_QUESTIONS = 5;
 
 const questionFormTemplate = `
   <h2 id="question"></h2>
@@ -77,10 +77,13 @@ const question = document.querySelector('#question');
 const answers = Array.from(document.querySelectorAll('.answer-text'));
 
 getNewQuestion = () => {
-  if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+  if (availableQuestions.length === 0 || questionCounter >= TOTAL_QUESTIONS) {
     // TODO: go to final page after quiz ends
     return window.location.assign('/tests');
   }
+
+  document.querySelector('.current-question').innerText = questionCounter + 1;
+  document.querySelector('.total-questions').innerText = TOTAL_QUESTIONS;
 
   questionCounter++;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
