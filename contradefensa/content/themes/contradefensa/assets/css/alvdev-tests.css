@@ -1,7 +1,22 @@
-h2 {
+.hub {
+    display: flex;
+    place-content: space-between;
+    margin-top: 2.4em;
     font-size: 2.4rem;
-    font-weight: normal;
-    line-height: 1.25;
+    text-align: center;
+    line-height: 4rem;
+}
+
+.hub .wrapper {
+    display: flex;
+    place-content: center;
+    gap: 1rem;
+    color: cyan;
+}
+
+.hub span {
+    font-weight: 600;
+    font-size: 3.8rem;
 }
 
 #questionForm {
@@ -9,6 +24,13 @@ h2 {
     flex-direction: column;
     gap: 2rem;
 }
+
+h2 {
+    font-size: 2.4rem;
+    font-weight: normal;
+    line-height: 1.25;
+}
+
 
 .answer-container {
     background-color: var(--color-darkgrey);

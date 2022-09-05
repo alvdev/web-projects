@@ -9,6 +9,20 @@ into the {body} tag of the default.hbs template }}
         <h1 class="article-title">
           {{title}}
         </h1>
+        <div class="hub">
+          <div class="hub-counter">
+            <div class="questions-title">Preguntas</div>
+            <div class="wrapper">
+              <span class="current-question">0</span> /
+              <span class="available-questions">5</span>
+            </div>
+          </div>
+          <div class="hub-score">
+            <div class="score-title">Puntuación</div>
+            <div class="wrapper"><span>0</span>
+            </div>
+          </div>
+        </div>
         {{content}}
       </header>
       <section class="gh-content gh-canvas">
@@ -19,10 +33,6 @@ into the {body} tag of the default.hbs template }}
     </article>
   </main>
 {{/post}}
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="{{asset "css/alvdev-tests.css"}}"
-/>
+<link rel="stylesheet" type="text/css" href="{{asset "css/alvdev-tests.css"}}" />
 <script defer src="https://cdn.jsdelivr.net/npm/appwrite@9.0.1"></script>
 <script defer src="{{asset "js/alvdev-tests.js"}}"></script>
