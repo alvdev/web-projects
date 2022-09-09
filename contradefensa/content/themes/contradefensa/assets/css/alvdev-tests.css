@@ -1,4 +1,4 @@
-.hub {
+.stats {
     display: flex;
     place-content: space-between;
     margin-top: 2.4em;
@@ -7,14 +7,14 @@
     line-height: 4rem;
 }
 
-.hub .wrapper {
+.stats .wrapper {
     display: flex;
     place-content: center;
     gap: 1rem;
     color: cyan;
 }
 
-.hub span {
+.stats span {
     font-weight: 600;
     font-size: 3.8rem;
 }

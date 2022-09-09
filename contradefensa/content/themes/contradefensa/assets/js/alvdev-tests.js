@@ -146,7 +146,7 @@ answers.forEach(answer => {
 
     if (selectedAnswer === currentQuestion.correct_answer) {
       score += 1;
-      document.querySelector('.hub-score span').innerText = score;
+      document.querySelector('.stats-score span').innerText = score;
     }
 
     setTimeout(() => {
