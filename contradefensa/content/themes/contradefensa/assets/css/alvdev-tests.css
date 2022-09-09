@@ -1,22 +1,44 @@
 .stats {
     display: flex;
-    place-content: space-between;
-    margin-top: 2.4em;
     font-size: 2.4rem;
-    text-align: center;
+    gap: 4rem;
     line-height: 4rem;
+    margin-top: 2.4em;
+    place-content: space-between;
+    place-items: end;
+    text-align: center;
+}
+
+.stats>div {
+    white-space: nowrap;
 }
 
 .stats .wrapper {
-    display: flex;
-    place-content: center;
-    gap: 1rem;
     color: cyan;
+    display: flex;
+    gap: 1rem;
+    place-content: center;
 }
 
 .stats span {
-    font-weight: 600;
     font-size: 3.8rem;
+    font-weight: 600;
+}
+
+#progress {
+    background: var(--color-darkgrey);
+    border: 6px solid var(--color-darkgrey);
+    border-radius: 50px;
+    height: 50px;
+    width: 100%;
+}
+
+#progressBar {
+    background-color: var(--color-darkcyan);
+    border-radius: 50px;
+    display: block;
+    height: 100%;
+    width: 0%;
 }
 
 #questionForm {

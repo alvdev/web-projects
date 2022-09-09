@@ -78,8 +78,12 @@ getNewQuestion = () => {
     return window.location.assign('/tests');
   }
 
+  // Set stats
   document.querySelector('.current-question').innerText = questionCounter + 1;
   document.querySelector('.total-questions').innerText = TOTAL_QUESTIONS;
+
+  // Progress bar
+  progressBar.style.width = `${(questionCounter / TOTAL_QUESTIONS) * 100}%`;
 
   questionCounter++;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
