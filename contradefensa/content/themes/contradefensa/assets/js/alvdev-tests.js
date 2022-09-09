@@ -68,10 +68,6 @@ const questionFormTemplate = `
   </div>
 `;
 
-// TODO: Create form dinamically
-// let questionFormHtml;
-
-console.log('content loaded');
 questionForm.innerHTML = questionFormTemplate;
 const question = document.querySelector('#question');
 const answers = Array.from(document.querySelectorAll('.answer-text'));
@@ -88,42 +84,18 @@ getNewQuestion = () => {
   questionCounter++;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
-  console.log('>>>>>>>>> ');
-  console.log(currentQuestion.correct_answer);
   question.innerText = currentQuestion.question;
-
-  // TODO: Create form dinamically
-  // questionFormHtml = `
-  //     <h2 id="question">
-  //         ${currentQuestion.question}
-  //     </h2>
-  //   `;
-
-  console.log(answers);
 
   answers.forEach((answer, index) => {
     // TODO: Show answers randomly
     // let randIndex = Math.floor(Math.random() * answers.length);
     answer.innerText = currentQuestion['answers'][index];
-
-    // TODO: Create form dinamically
-    // questionFormHtml += `
-    //     <div class="answer-container">
-    //         <p class="answer-prefix">b</p>
-    //         <p class="answer-text" data-number="2">${currentQuestion['answers'][index]}</p>
-    //     </div>
-    //   `;
   });
+
   // Remove answered question
   availableQuestions.splice(questionIndex, 1);
 
   acceptingAnswers = true;
-
-  // Remove HTML undefined answers containers
-  // const undefinedAnswer = document.querySelectorAll('.answerContainer');
-  // answers.forEach(answer => {
-  //   if (answer.innerHTML == undefined) return;
-  // });
 };
 
 answers.forEach(answer => {
