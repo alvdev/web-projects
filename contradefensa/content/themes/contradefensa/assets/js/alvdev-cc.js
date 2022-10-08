@@ -5,7 +5,7 @@
   This is Fake Credit Card Generator (https://michaelsboost.github.io/Fake-Credit-Card-Generator), A simple app that generates a fake credit card. A great app to waste a scammer's time.
 */
 
-var cardsH = document.querySelector('.cards svg');
+var cardsH = document.querySelector('.cards');
 var cardsHeight = cardsH.clientHeight;
 var maleSex = 'Hombre';
 var femaleSex = 'Mujer';
@@ -174,8 +174,7 @@ detectSex.onclick = function () {
 
     // reset gender icon hight to match cards
     cardsHeight = cardsH.clientHeight;
-    document.querySelector('[data-gender] svg').style.height =
-      cardsHeight + 'px';
+    document.querySelector('[data-gender]').style.height = cardsHeight + 'px';
 
     // generate a female name
     genFName();
@@ -185,8 +184,7 @@ detectSex.onclick = function () {
 
     // reset gender icon hight to match cards
     cardsHeight = cardsH.clientHeight;
-    document.querySelector('[data-gender] svg').style.height =
-      cardsHeight + 'px';
+    document.querySelector('[data-gender]').style.height = cardsHeight + 'px';
 
     // generate a male name
     genMName();
