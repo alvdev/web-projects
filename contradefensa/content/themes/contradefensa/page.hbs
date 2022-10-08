@@ -34,9 +34,10 @@ into the {body} tag of the default.hbs template --}}
         <section class="gh-content gh-canvas">
 
             <h1 class="article-title">{{title}}</h1>
-
+            {{#has slug='recursos'}}
+                {{>fake-card}}
+            {{/has}}
             {{content}}
-
         </section>
 
     </article>
