@@ -163,7 +163,7 @@ var detectSex = document.querySelector('[data-gender]');
 detectSex.onclick = function () {
   if (this.getAttribute('data-gender') === 'male') {
     this.setAttribute('data-gender', 'female');
-    this.innerHTML = femaleSex;
+    this.innerHTML = maleSex;
 
     // reset gender icon hight to match cards
     cardsHeight = cardsH.clientHeight;
@@ -173,7 +173,7 @@ detectSex.onclick = function () {
     genFName();
   } else {
     this.setAttribute('data-gender', 'male');
-    this.innerHTML = maleSex;
+    this.innerHTML = femaleSex;
 
     // reset gender icon hight to match cards
     cardsHeight = cardsH.clientHeight;
