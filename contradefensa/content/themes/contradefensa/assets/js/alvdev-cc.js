@@ -225,9 +225,6 @@ function VisaCard() {
     genSC += char.substring(rnum, rnum + 1);
   }
   ccSecCode.textContent = genSC;
-
-  // give card a random randomBGColor
-  randomBGColor();
 }
 function MasterCard() {
   ccType.textContent = 'MasterCard';
@@ -250,10 +247,8 @@ function MasterCard() {
     genSC += char.substring(rnum, rnum + 1);
   }
   ccSecCode.textContent = genSC;
-
-  // give card a random randomBGColor
-  randomBGColor();
 }
+
 function AMexCard() {
   ccType.textContent = 'American Express';
   genMonth();
@@ -275,10 +270,8 @@ function AMexCard() {
     genSC += char.substring(rnum, rnum + 1);
   }
   ccSecCode.textContent = genSC;
-
-  // give card a random randomBGColor
-  randomBGColor();
 }
+
 function DiscoverCard() {
   ccType.textContent = 'Discover';
   genMonth();
@@ -300,18 +293,6 @@ function DiscoverCard() {
     genSC += char.substring(rnum, rnum + 1);
   }
   ccSecCode.textContent = genSC;
-
-  // give card a random randomBGColor
-  randomBGColor();
-}
-
-function randomBGColor() {
-  cc.style.background = 'hsl(' + Math.random() * 260 + ', 100%, 80%)';
-
-  var svgs = document.querySelectorAll('svg');
-  for (i = 0; i < svgs.length; i++) {
-    svgs[i].style.fill = 'hsl(' + Math.random() * 260 + ', 100%, 10%)';
-  }
 }
 
 // Generate visa card onload
@@ -320,7 +301,7 @@ VisaCard();
 // responsiveness
 function responsiveness() {
   cardsHeight = cardsH.clientHeight;
-  document.querySelector('[data-gender] svg').style.height = cardsHeight + 'px';
+  document.querySelector('[data-gender]').style.height = cardsHeight + 'px';
 }
 window.onresize = function () {
   responsiveness();
