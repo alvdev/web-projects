@@ -1,11 +1,4 @@
-/*
-  Version: 0.0.1
-  Fake Credit Card Generator, copyright (c) by Michael Schwartz and others
-  Distributed under the MIT license: https://github.com/michaelsboost/Fake-Credit-Card-Generator/blob/gh-pages/LICENSE
-  This is Fake Credit Card Generator (https://michaelsboost.github.io/Fake-Credit-Card-Generator), A simple app that generates a fake credit card. A great app to waste a scammer's time.
-*/
-
-var cardsH = document.querySelector('.cards');
+var cardsH = document.querySelector('.ccards');
 var cardsHeight = cardsH.clientHeight;
 var maleSex = 'Hombre';
 var femaleSex = 'Mujer';
@@ -139,7 +132,7 @@ var lastArr = [
 ];
 var mName, fName;
 var char = '0123456789';
-var cc = document.querySelector('.card');
+var cc = document.querySelector('.ccard');
 var ccType = document.querySelector('[data-cc=type]');
 var ccNum = document.querySelector('[data-cc=num]');
 var ccDate = document.querySelector('[data-cc=date]');
