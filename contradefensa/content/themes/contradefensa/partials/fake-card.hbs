@@ -1,20 +1,83 @@
 <script defer src="{{asset 'js/alvdev-cc.js'}}"></script>
+<style>
+    .ccard {
+        background-color: var(--color-darkgrey);
+        padding: 3rem;
+        border-radius: 8px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 4em;
+    }
+
+    .cell {
+        width: 75%;
+    }
+
+    .ccard .num {
+        font-size: 2em;
+        text-align: center;
+        text-shadow: 1px 1px 1px black;
+    }
+
+    .ccard-footer {
+        display: flex;
+        justify-content: space-between;
+        place-items: end;
+        gap: 2em;
+        text-transform: uppercase;
+    }
+
+    .ccard-footer .fl {
+        text-shadow: 1px 1px 1px black;
+        font-size: 1.15em;
+        letter-spacing: 1px;
+        line-height: 1;
+    }
+
+    .vccv {
+        display: flex;
+        gap: 2em;
+        line-height: 1.2;
+        text-align: right;
+    }
+
+    .vccv span:first-child {
+        font-size: .8em;
+        opacity: .5;
+    }
+
+    .vccv span+span {
+        display: block;
+        text-align: right;
+        text-shadow: 1px 1px 1px black;
+        letter-spacing: 1px;
+    }
+</style>
 
 <!-- center vertically and horizontally -->
 <div class="table">
     <div class="cell">
         <div class="ccard">
             <!-- ccard type = visa -->
-            <h1 data-cc="type" class="tc">VISA</h1>
+            <div class="tc" data-cc="type">VISA</div>
             <!-- ccard number -->
-            <div data-cc="num">4814574376745471</div>
-            <div class="tc">
+            <div class="num" data-cc="num">4814574376745471</div>
+            <div class="tc ccard-footer">
                 <!-- person name -->
-                <span class="fl" data-cc="person">Gabriel Rodríguez</span>
-                <!-- security code -->
-                <span data-cc="sec-code">485</span>
+                <div class="fl" data-cc="person">Gabriel Rodríguez</div>
                 <!-- expiration date -->
-                <span class="fr" data-cc="date">5/23</span>
+                <div class="vccv">
+                    <div class="fr">
+                        <span>Válida hasta</span>
+                        <span data-cc="date">5/23</span>
+                    </div>
+                    <!-- security code -->
+                    <div class="fs">
+                        <span>CCV</span>
+                        <span data-cc="sec-code">485</span>
+                    </div>
+                    </di>
             </div>
         </div>
     </div>
