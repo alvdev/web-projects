@@ -211,7 +211,9 @@ function VisaCard() {
     var rnum = Math.floor(Math.random() * char.length);
     genNum += char.substring(rnum, rnum + 1);
   }
-  ccNum.textContent = '4' + genNum;
+
+  genNum = '4' + genNum;
+  ccNum.textContent = genNum.replace(/\d{4}(?=.)/g, '$& ');
 
   // generate security code
   for (i = 0; i < 3; i++) {
@@ -233,7 +235,9 @@ function MasterCard() {
     var rnum = Math.floor(Math.random() * char.length);
     genNum += char.substring(rnum, rnum + 1);
   }
-  ccNum.textContent = '5' + genNum;
+
+  genNum = '5' + genNum;
+  ccNum.textContent = genNum.replace(/\d{4}(?=.)/g, '$& ');
 
   // generate security code
   for (i = 0; i < 3; i++) {
@@ -256,7 +260,9 @@ function AMexCard() {
     var rnum = Math.floor(Math.random() * char.length);
     genNum += char.substring(rnum, rnum + 1);
   }
-  ccNum.textContent = '3' + genNum;
+
+  genNum = '3' + genNum;
+  ccNum.textContent = genNum.replace(/\d{4}(?=.)/g, '$& ');
 
   // generate security code
   for (i = 0; i < 4; i++) {
@@ -279,7 +285,9 @@ function DiscoverCard() {
     var rnum = Math.floor(Math.random() * char.length);
     genNum += char.substring(rnum, rnum + 1);
   }
-  ccNum.textContent = '6' + genNum;
+
+  genNum = '6' + genNum;
+  ccNum.textContent = genNum.replace(/\d{4}(?=.)/g, '$& ');
 
   // generate security code
   for (i = 0; i < 3; i++) {
