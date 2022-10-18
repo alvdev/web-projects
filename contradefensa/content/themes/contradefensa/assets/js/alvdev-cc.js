@@ -1,7 +1,7 @@
 var cardsH = document.querySelector('.ccards');
 var cardsHeight = cardsH.clientHeight;
-var maleSex = 'Hombre';
-var femaleSex = 'Mujer';
+var maleSex = 'Cambiar el titular a un hombre';
+var femaleSex = 'Cambiar el titular a un mujer';
 var firstMArr = [
   'Agapito',
   'Anacleto',
