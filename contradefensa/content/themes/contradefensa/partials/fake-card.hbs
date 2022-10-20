@@ -3,48 +3,24 @@
     .ccard {
         display: flex;
         gap: 4rem;
+        place-content: space-between;
         place-items: center;
     }
 
     .ccard-wrapper {
+        width: 400px;
         min-width: 400px;
-        min-height: 250px;
+        height: 250px;
+        transition: .7s;
+        transform-style: preserve-3d;
+    }
+
+    .ccard-wrapper:hover {
+        transform: rotateY(180deg);
     }
 
     .ccard-wrapper > div {
         width: 400px;
-    }
-
-    .ccard-back > *:not(.strip) {
-        margin: 0 3rem;
-    }
-
-    .ccard-back .strip {
-        background: #000;
-        height: 50px;
-    }
-
-    .ccard-back .cvv {
-        text-align: right;
-    }
-
-    .ccard-back label {
-        font-size: .8em;
-        padding: 6px;
-    }
-
-    .ccard-back .cvv > div {
-        background: #fff;
-        color:#212428;
-        border-radius: 4px;
-        padding: 4px 6px;
-        font-weight: 500;
-    }
-
-    .ccard-wrapper .terms {
-        font-size: .7em;
-        line-height: 1.3;
-        white-space: normal;
     }
 
     .ccard-front,
@@ -58,10 +34,8 @@
         justify-content: space-between;
         white-space: nowrap;
         box-shadow: 0 1px 10px 1px rgb(0 0 0 / 30%);
-    }
-
-    .ccard-back {
-        padding: 3rem 0;
+        position: absolute;
+        backface-visibility: hidden
     }
 
     .ccard-header {
@@ -95,11 +69,48 @@
         line-height: 1;
     }
 
+    .ccard-back {
+        padding: 3rem 0;
+        transform: rotateY(180deg) translateZ(0)
+    }
+
+    .ccard-back > *:not(.strip) {
+        margin: 0 3rem;
+    }
+
+    .ccard-back .strip {
+        background: #000;
+        height: 50px;
+    }
+
+    .ccard-back .cvv {
+        text-align: right;
+    }
+
+    .ccard-back label {
+        font-size: .8em;
+        padding: 6px;
+    }
+
+    .ccard-back .cvv > div {
+        background: #fff;
+        color:#212428;
+        border-radius: 4px;
+        padding: 4px 6px;
+        font-weight: 500;
+    }
+
+    .ccard-back .terms {
+        font-size: .7em;
+        line-height: 1.3;
+        white-space: normal;
+    }
+
     .ccard-side {
-        width: 100%;
         display: flex;
         flex-direction: column;
         text-align: center;
+        width: 100%;
     }
 
     .ccard-side a {
