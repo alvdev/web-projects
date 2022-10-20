@@ -134,7 +134,7 @@ var lastArr = [
 var mName, fName;
 var char = '0123456789';
 var cc = document.querySelector('.ccard');
-var ccType = document.querySelector('[data-cc=type]');
+var ccType = document.querySelectorAll('[data-cc=type]');
 var ccNum = document.querySelector('[data-cc=num]');
 var ccDate = document.querySelector('[data-cc=date]');
 var ccSecCode = document.querySelector('[data-cc=sec-code]');
@@ -199,7 +199,7 @@ function genMonth() {
 }
 
 function VisaCard() {
-  ccType.textContent = 'VISA';
+  ccType.forEach(e => (e.textContent = 'VISA'));
   genMonth();
 
   var genNum = '',
@@ -223,7 +223,7 @@ function VisaCard() {
   ccSecCode.textContent = genSC;
 }
 function MasterCard() {
-  ccType.textContent = 'MasterCard';
+  ccType.forEach(e => (e.textContent = 'MasterCard'));
   genMonth();
 
   var genNum = '',
@@ -248,7 +248,7 @@ function MasterCard() {
 }
 
 function AMexCard() {
-  ccType.textContent = 'American Express';
+  ccType.forEach(e => (e.textContent = 'American Express'));
   genMonth();
 
   var genNum = '',
@@ -273,7 +273,7 @@ function AMexCard() {
 }
 
 function DiscoverCard() {
-  ccType.textContent = 'Discover';
+  ccType.forEach(e => (e.textContent = 'Discover'));
   genMonth();
 
   var genNum = '',
