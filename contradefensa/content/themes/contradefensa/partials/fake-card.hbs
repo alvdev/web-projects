@@ -7,12 +7,18 @@
         place-items: center;
     }
 
+    @keyframes flip {
+        100% { transform: rotateY(0deg) }
+        50% { transform: rotateY(180deg) }
+    }
+
     .ccard-wrapper {
         width: 400px;
         min-width: 400px;
         height: 250px;
         transition: .7s;
         transform-style: preserve-3d;
+        animation: flip 2.5s ease;
     }
 
     .ccard-wrapper:hover {
@@ -71,7 +77,7 @@
 
     .ccard-back {
         padding: 3rem 0;
-        transform: rotateY(180deg) translateZ(0)
+        transform: rotateY(180deg) translateZ(0);
     }
 
     .ccard-back > *:not(.strip) {
