@@ -13,9 +13,9 @@
     }
 
     .ccard-wrapper {
-        width: 400px;
+        aspect-ratio: 24/15;
         min-width: 400px;
-        height: 250px;
+        min-height: 215px;
         transition: .7s;
         transform-style: preserve-3d;
         animation: flip 2.5s ease;
@@ -25,18 +25,17 @@
         transform: rotateY(180deg);
     }
 
-    .ccard-wrapper > div {
-        width: 400px;
-    }
-
     .ccard-front,
     .ccard-back {
+        aspect-ratio: 24/15;
         background-image: linear-gradient(to right, var(--color-darkgrey), #212428);
         padding: 3rem;
         border-radius: 8px;
         display: flex;
         flex-direction: column;
-        height: 250px;
+        width: 100%;
+        max-width: 400px;
+        max-height: 280px;
         justify-content: space-between;
         white-space: nowrap;
         box-shadow: 0 1px 10px 1px rgb(0 0 0 / 30%);
@@ -114,6 +113,7 @@
 
     .ccard-side {
         display: flex;
+        gap: 2rem;
         flex-direction: column;
         text-align: center;
         width: 100%;
@@ -122,6 +122,7 @@
     .ccard-side a {
         text-decoration: none;
         color: cyan !important;
+        height: auto !important;
     }
 
     .ccard-side a:hover {
@@ -150,6 +151,24 @@
         text-align: right;
         text-shadow: 1px 1px 1px black;
         letter-spacing: 1px;
+    }
+
+    @media screen and (max-width: 762px) {
+        .ccard {
+            flex-direction: column;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .ccard-wrapper {
+            min-width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 460px) {
+
     }
 
 </style>
