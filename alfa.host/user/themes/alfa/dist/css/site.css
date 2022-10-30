@@ -2,7 +2,7 @@
 
 /* Write your global styles here, in PostCSS syntax */
 
-/*! tailwindcss v3.0.19 | MIT License | https://tailwindcss.com*/
+/*! tailwindcss v3.2.1 | MIT License | https://tailwindcss.com*/
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -168,6 +168,7 @@ select,
 textarea {
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
+  font-weight: inherit; /* 1 */
   line-height: inherit; /* 1 */
   color: inherit; /* 1 */
   margin: 0; /* 2 */
@@ -321,11 +322,6 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   color: #94a3b8; /* 2 */
 }
 
-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-  opacity: 1; /* 1 */
-  color: #94a3b8; /* 2 */
-}
-
 input::placeholder,
 textarea::placeholder {
   opacity: 1; /* 1 */
@@ -377,9 +373,7 @@ video {
   height: auto;
 }
 
-/*
-Ensure the default browser behavior of the `hidden` attribute.
-*/
+/* Make elements with the HTML hidden attribute stay hidden by default */
 
 [hidden] {
   display: none;
@@ -416,11 +410,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 input::-moz-placeholder, textarea::-moz-placeholder {
-  color: #64748b;
-  opacity: 1;
-}
-
-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   color: #64748b;
   opacity: 1;
 }
@@ -470,7 +459,6 @@ select {
   background-origin: border-box;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   flex-shrink: 0;
   height: 1rem;
@@ -587,8 +575,6 @@ select {
 }
 
 .glide__slide {
-  cursor: grab;
-    cursor: -webkit-grab;
     cursor: grab;
 }
 
@@ -602,13 +588,13 @@ select {
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
 }
 
-.glide__bullets button:hover, .glide__bullets button[class*=active] {
+.glide__bullets button:hover,
+  .glide__bullets button[class*=active] {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
 
 .glide .glide__slide:active {
-    cursor: -webkit-grabbing;
     cursor: grabbing;
   }
 
@@ -702,15 +688,6 @@ input::-moz-placeholder {
     text-transform: none;
 }
 
-input:-ms-input-placeholder {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  font-weight: 400;
-  --tw-text-opacity: 1;
-  color: rgb(148 163 184 / var(--tw-text-opacity));
-    text-transform: none;
-}
-
 input::placeholder {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -721,20 +698,8 @@ input::placeholder {
 }
 
 main {
-    -webkit-animation-duration: .5s;
-            animation-duration: .5s;
-    -webkit-animation-name: onLoadFade;
-            animation-name: onLoadFade;
-  }
-
-@-webkit-keyframes onLoadFade {
-    from {
-      opacity: 0
-    }
-
-    to {
-      opacity: 1
-    }
+    animation-duration: .5s;
+    animation-name: onLoadFade;
   }
 
 @keyframes onLoadFade {
@@ -749,8 +714,7 @@ main {
 
 section>h2,
   section h2.title {
-    -webkit-animation: gradientmove 15s ease infinite;
-            animation: gradientmove 15s ease infinite;
+    animation: gradientmove 15s ease infinite;
     background: linear-gradient(315deg, #000, #000, #000, #1d4ed8, #000, #000, #000);
     -webkit-background-clip: text;
     background-size: 100% 400%;
@@ -760,26 +724,6 @@ section>h2,
     margin-right: auto;
     -webkit-text-fill-color: transparent;
     width: 85%;
-  }
-
-@-webkit-keyframes gradientmove {
-    0% {
-      -webkit-background-clip: text;
-      background-position: 0% 5%;
-      -webkit-text-fill-color: transparent;
-    }
-
-    50% {
-      -webkit-background-clip: text;
-      background-position: 100% 95%;
-      -webkit-text-fill-color: transparent;
-    }
-
-    100% {
-      -webkit-background-clip: text;
-      background-position: 0% 5%;
-      -webkit-text-fill-color: transparent;
-    }
   }
 
 @keyframes gradientmove {
@@ -918,8 +862,7 @@ nav.sticky .logo svg .b {
 }
 
 section.make-entrepreneurs>h2 {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
     background: none;
     -webkit-text-fill-color: unset;
   }
@@ -1041,12 +984,12 @@ footer a:hover {
       content: '\2759' !important;
     }
 
-    .\!dropdown {
+    .dropdown {
       max-height: 0 !important;
       overflow: hidden !important;
     }
 
-    .\!tab:target .\!dropdown {
+    .\!tab:target .dropdown {
       max-height: 100% !important;
       transition: ease 0.7s !important;
     }
@@ -1068,12 +1011,12 @@ footer a:hover {
       content: '\2759' !important;
     }
 
-    .\!dropdown {
+    .dropdown {
       max-height: 0 !important;
       overflow: hidden !important;
     }
 
-    .\!tab:target .\!dropdown {
+    .\!tab:target .dropdown {
       max-height: 100% !important;
       transition: ease 0.7s !important;
     }
@@ -1095,12 +1038,12 @@ footer a:hover {
       content: '\2759' !important;
     }
 
-    .\!dropdown {
+    .dropdown {
       max-height: 0 !important;
       overflow: hidden !important;
     }
 
-    .\!tab:target .\!dropdown {
+    .\!tab:target .dropdown {
       max-height: 100% !important;
       transition: ease 0.7s !important;
     }
@@ -1122,18 +1065,67 @@ footer a:hover {
       content: '\2759' !important;
     }
 
-    .\!dropdown {
+    .dropdown {
       max-height: 0 !important;
       overflow: hidden !important;
     }
 
-    .\!tab:target .\!dropdown {
+    .\!tab:target .dropdown {
       max-height: 100% !important;
       transition: ease 0.7s !important;
     }
   }
 
 *, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+}
+
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -1304,7 +1296,6 @@ footer a:hover {
 }
 
 .sticky {
-  position: -webkit-sticky;
   position: sticky;
 }
 
@@ -1330,6 +1321,14 @@ footer a:hover {
 
 .-left-4 {
   left: -1rem;
+}
+
+.-right-8 {
+  right: -2rem;
+}
+
+.-right-12 {
+  right: -3rem;
 }
 
 .z-10 {
@@ -1361,8 +1360,9 @@ footer a:hover {
   margin-right: auto;
 }
 
-.mb-16 {
-  margin-bottom: 4rem;
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .mt-2 {
@@ -1383,6 +1383,10 @@ footer a:hover {
 
 .mb-4 {
   margin-bottom: 1rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
 }
 
 .ml-auto {
@@ -1459,6 +1463,14 @@ footer a:hover {
 
 .mt-20 {
   margin-top: 5rem;
+}
+
+.-mt-28 {
+  margin-top: -7rem;
+}
+
+.mb-32 {
+  margin-bottom: 8rem;
 }
 
 .mt-auto {
@@ -1602,7 +1614,6 @@ footer a:hover {
 }
 
 .w-min {
-  width: -webkit-min-content;
   width: -moz-min-content;
   width: min-content;
 }
@@ -1649,6 +1660,21 @@ footer a:hover {
 
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.translate-y-2\/4 {
+  --tw-translate-y: 50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-1\/4 {
+  --tw-translate-y: 25%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-2\/3 {
+  --tw-translate-y: 66.666667%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .transform {
@@ -1723,16 +1749,16 @@ footer a:hover {
   justify-items: center;
 }
 
-.gap-2 {
-  gap: 0.5rem;
-}
-
 .gap-8 {
   gap: 2rem;
 }
 
 .gap-6 {
   gap: 1.5rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .gap-4 {
@@ -1759,15 +1785,6 @@ footer a:hover {
   gap: 3rem;
 }
 
-.gap-x-8 {
-  -moz-column-gap: 2rem;
-       column-gap: 2rem;
-}
-
-.gap-y-4 {
-  row-gap: 1rem;
-}
-
 .gap-x-20 {
   -moz-column-gap: 5rem;
        column-gap: 5rem;
@@ -1775,6 +1792,15 @@ footer a:hover {
 
 .gap-y-12 {
   row-gap: 3rem;
+}
+
+.gap-x-8 {
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+}
+
+.gap-y-4 {
+  row-gap: 1rem;
 }
 
 .overflow-hidden {
@@ -1804,6 +1830,21 @@ footer a:hover {
 
 .rounded-b {
   border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.rounded-r-md {
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
+.rounded-r {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.rounded-l {
+  border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
 
@@ -1889,6 +1930,11 @@ footer a:hover {
   border-color: rgb(45 212 191 / var(--tw-border-opacity));
 }
 
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
@@ -1897,11 +1943,6 @@ footer a:hover {
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-gray-100 {
@@ -1975,16 +2016,16 @@ footer a:hover {
   fill: currentColor;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .p-8 {
   padding: 2rem;
 }
 
 .p-2 {
   padding: 0.5rem;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .p-1 {
@@ -2002,21 +2043,6 @@ footer a:hover {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
-}
-
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
 }
 
 .py-24 {
@@ -2039,9 +2065,24 @@ footer a:hover {
   padding-right: 0px;
 }
 
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .py-2 {
@@ -2062,6 +2103,11 @@ footer a:hover {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .pr-8 {
@@ -2100,6 +2146,34 @@ footer a:hover {
   padding-left: 2rem;
 }
 
+.pl-3 {
+  padding-left: 0.75rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
+.pr-2 {
+  padding-right: 0.5rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
+}
+
+.pr-3 {
+  padding-right: 0.75rem;
+}
+
+.pr-1 {
+  padding-right: 0.25rem;
+}
+
+.pl-1 {
+  padding-left: 0.25rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2110,16 +2184,6 @@ footer a:hover {
 
 .text-right {
   text-align: right;
-}
-
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .text-sm {
@@ -2137,6 +2201,11 @@ footer a:hover {
   line-height: 2.5rem;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -2145,6 +2214,11 @@ footer a:hover {
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .text-5xl {
@@ -2157,10 +2231,6 @@ footer a:hover {
   line-height: 1rem;
 }
 
-.font-medium {
-  font-weight: 500;
-}
-
 .font-semibold {
   font-weight: 600;
 }
@@ -2171,6 +2241,10 @@ footer a:hover {
 
 .font-normal {
   font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
 }
 
 .font-light {
@@ -2276,12 +2350,6 @@ footer a:hover {
   opacity: 0.3;
 }
 
-.shadow-md {
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
@@ -2291,6 +2359,12 @@ footer a:hover {
 .shadow-2xl {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -2387,6 +2461,18 @@ footer a:hover {
     position: absolute;
   }
 
+  .md\:right-0 {
+    right: 0px;
+  }
+
+  .md\:-right-12 {
+    right: -3rem;
+  }
+
+  .md\:top-0 {
+    top: 0px;
+  }
+
   .md\:z-0 {
     z-index: 0;
   }
@@ -2427,14 +2513,6 @@ footer a:hover {
     display: inline-flex;
   }
 
-  .md\:w-full {
-    width: 100%;
-  }
-
-  .md\:w-32 {
-    width: 8rem;
-  }
-
   .md\:w-20 {
     width: 5rem;
   }
@@ -2449,6 +2527,14 @@ footer a:hover {
 
   .md\:w-1\/3 {
     width: 33.333333%;
+  }
+
+  .md\:w-full {
+    width: 100%;
+  }
+
+  .md\:w-32 {
+    width: 8rem;
   }
 
   .md\:flex-1 {
@@ -2565,6 +2651,10 @@ footer a:hover {
 
 @media (min-width: 1024px) {
 
+  .lg\:-right-12 {
+    right: -3rem;
+  }
+
   .lg\:mb-16 {
     margin-bottom: 4rem;
   }
@@ -2581,20 +2671,20 @@ footer a:hover {
     display: none;
   }
 
-  .lg\:w-2\/5 {
-    width: 40%;
-  }
-
-  .lg\:w-3\/5 {
-    width: 60%;
-  }
-
   .lg\:w-1\/3 {
     width: 33.333333%;
   }
 
   .lg\:w-2\/3 {
     width: 66.666667%;
+  }
+
+  .lg\:w-2\/5 {
+    width: 40%;
+  }
+
+  .lg\:w-3\/5 {
+    width: 60%;
   }
 
   .lg\:flex-row {
