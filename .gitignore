@@ -1,0 +1,6 @@
+/*
+!/.gitignore
+# Common vendor folders from composer and nodejs
+# (just in case above rules doesn't work)
+vendor
+node_modules
