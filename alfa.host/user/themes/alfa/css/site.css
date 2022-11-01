@@ -106,7 +106,7 @@
 
   html {
     scroll-behavior: smooth;
-
+    animation: onLoadFade .25s;
   }
 
   body {
@@ -119,6 +119,11 @@
     text-transform: none;
   }
 
+  header {
+    background-image: radial-gradient(farthest-corner at 40px 40px,
+        #1d4ed8 0%, #0037ad 100%);
+  }
+
   main {
     animation-duration: .5s;
     animation-name: onLoadFade;
@@ -126,7 +131,7 @@
 
   @keyframes onLoadFade {
     from {
-      opacity: 0
+      opacity: .25
     }
 
     to {
