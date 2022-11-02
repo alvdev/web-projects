@@ -1,17 +1,22 @@
-<section class="p-8 mb-24 text-center features">
+<section class="hosting-features p-8 mb-24 text-center features">
 	<h2 class="mb-12">
 		Todos los planes de<br />alojamiento web incluyen
 	</h2>
 	<div class="grid justify-between grid-cols-2 gap-4 md:grid-cols-5">
-		<div class="uppercase border rounded">
-			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-				{% include 'modular/hosting-features/control-panel.svg' %}
+		<div class="relative uppercase border rounded">
+			<div class="visible">
+				<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+					{% include 'modular/hosting-features/control-panel.svg' %}
+				</div>
+				<div class="p-4">
+					<strong>Panel de control cPanel</strong>
+				</div>
 			</div>
-			<div class="p-4">
-				<strong>Panel de control cPanel</strong>
+			<div class="hosting-features--desc absolute top-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-hidden">
+				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/email-accounts.svg' %}
 			</div>
@@ -19,7 +24,7 @@
 				<strong>Cuentas de email ilimitadas</strong>
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/ddbb.svg' %}
 			</div>
@@ -27,7 +32,7 @@
 				<strong>Bases de datos ilimitadas</strong>
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/ftp-accounts.svg' %}
 			</div>
@@ -35,7 +40,7 @@
 				<strong>Cuentas FTP ilimitadas</strong>
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/subdomains.svg' %}
 			</div>
@@ -43,7 +48,7 @@
 				<strong>Subdominios ilimitados</strong>
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/backups.svg' %}
 			</div>
@@ -51,7 +56,7 @@
 				<strong>Copias de seguridad diarias</strong>
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/ssd.svg' %}
 			</div>
@@ -59,7 +64,7 @@
 				<strong>Discos SSD de alta velocidad</strong>
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/coding.svg' %}
 			</div>
@@ -67,7 +72,7 @@
 				<strong>PHP7/8 en todas sus versiones</strong>
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/autoinstaller.svg' %}
 			</div>
@@ -75,7 +80,7 @@
 				<strong>Autoinstalador de aplicaciones</strong>
 			</div>
 		</div>
-		<div class="uppercase border rounded">
+		<div class="relative uppercase border rounded">
 			<div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
                 {% include 'modular/hosting-features/web-stats.svg' %}
 			</div>
