@@ -74,6 +74,7 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('tailwindcss-debug-screens'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
   ],
   important: false,
 };
