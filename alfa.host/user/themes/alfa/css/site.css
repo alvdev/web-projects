@@ -183,7 +183,21 @@
     clip-path: polygon(50% 100%, 0 0, 100% 0);
   }
 
-  section.services #seotabcontent {
+  section .hosting-features .card--back {
+    visibility: hidden;
+    height: 0%;
+    transition: ease .5s;
+    padding: 0
+  }
+
+  section .hosting-features .card:hover .card--back {
+    visibility: visible;
+    height: 100%;
+    transition: ease .5s;
+    padding: 1rem;
+  }
+
+  section .hosting-features:hover section.services #seotabcontent {
     background: #fff url('../../images/marketing-services/seo.jpg') no-repeat right center;
     background-size: 33% auto;
   }
