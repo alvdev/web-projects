@@ -4,3 +4,12 @@
 # (just in case above rules doesn't work)
 vendor
 node_modules
+cache
+
+# Moon Agency
+!/moon.agency/
+/moon.agency/*
+!/moon.agency/user/
+/moon.agency/user/*
+!/moon.agency/user/themes/
+/moon.agency/user/themes/receptar/
