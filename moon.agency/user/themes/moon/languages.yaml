@@ -1,0 +1,70 @@
+es:
+  SITE:
+    TITLE: Model agency
+    DESCRIPTION: Listado de modelos
+    COPYRIGHT: © Copyright %s tudominio.com
+  SUBSCRIBE: Suscribir
+  TWEET: Twittear
+  SHARE: Compartir
+  MONTHS_OF_THE_YEAR:
+    [
+      Enero,
+      Febrero,
+      Marzo,
+      Abril,
+      Mayo,
+      Junio,
+      Julio,
+      Augosto,
+      Septiembre,
+      Octubre,
+      Noviembre,
+      Diciembre,
+    ]
+  DAYS_OF_THE_WEEK: [Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo]
+  READ_MORE: Ver perfil
+  SEARCH: Buscar
+  RANDOM_ARTICLE: Perfil aleatorio
+  POPULAR_TAGS: Categorías más vistas
+  LATEST_RECIPES: Últimos perfiles
+  RELATED_POSTS: Relacionados
+  SEARCH_FIELD: Buscar chicas...
+  NEXT: Siguiente
+  PREVIOUS: Anterior
+  TOPICS: temas
+
+en:
+  SITE:
+    TITLE: My Blog
+    DESCRIPTION: Blogging about stuff
+    COPYRIGHT: © Copyright %s Your Company
+  SUBSCRIBE: Subscribe
+  TWEET: Tweet
+  SHARE: Share
+  MONTHS_OF_THE_YEAR:
+    [
+      January,
+      February,
+      March,
+      April,
+      May,
+      June,
+      July,
+      August,
+      September,
+      October,
+      November,
+      December,
+    ]
+  DAYS_OF_THE_WEEK:
+    [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
+  READ_MORE: Read More
+  SEARCH: Search
+  RANDOM_ARTICLE: Random Article
+  POPULAR_TAGS: Popular Tags
+  LATEST_RECIPES: Latest Recipes
+  RELATED_POSTS: Related
+  SEARCH_FIELD: Type and press enter...
+  NEXT: Next
+  PREVIOUS: Previous
+  TOPICS: topics
