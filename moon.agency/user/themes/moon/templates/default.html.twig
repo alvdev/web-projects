@@ -21,7 +21,12 @@
                     <h1 class="entry-title">{{ page.header.title }}</h1>
                 </header>
                 <div class="entry-content" itemprop="description">
+                    {% block subheader %}
+                        {% include "partials/_subheader.html.twig" %}
+                    {% endblock %}
+
                     {{ page.content|raw }}
+
                     {% block about_us %}
                         {% include "partials/_about-us.html.twig" %}
                     {% endblock %}
