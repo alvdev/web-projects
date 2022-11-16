@@ -25,6 +25,10 @@
                         {% include "partials/_subheader.html.twig" %}
                     {% endblock %}
 
+                    {% block models %}
+                        {% include "partials/_models.html.twig" %}
+                    {% endblock %}
+
                     {{ page.content|raw }}
 
                     {% block about_us %}
