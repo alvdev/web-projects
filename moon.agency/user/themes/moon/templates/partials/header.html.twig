@@ -10,31 +10,10 @@
                     <img src="{{ url('theme://images/moon-logo.png') }}" alt=""/>
                 </a>
             </div>
-            <div
-                class="col-md-6 text-center">
-                <!-- main nav start -->
-                <nav class="mainmenu_wrapper">
-                    <ul class="mainmenu nav sf-menu">
-                        <li class="active">
-                            <a href="index.html">Inicio</a>
-                        </li>
-
-                        <li>
-                            <a href="models.html">Modelos</a>
-                        </li>
-
-                        <li>
-                            <a href="faq.html">Preguntas y respuestas</a>
-                        </li>
-
-                        <!-- contacts -->
-                        <li>
-                            <a href="#contact">Contacto</a>
-                        </li>
-                        <!-- eof contacts -->
-                    </ul>
-                </nav>
-                <!-- eof main nav -->
+            <div class="col-md-6 text-center">
+                {% block navigation %}
+                    {% include 'partials/navigation.html.twig' %}
+                {% endblock %}
                 <span class="toggle_menu">
                     <span></span>
                 </span>
