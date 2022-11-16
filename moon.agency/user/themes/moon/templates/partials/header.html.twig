@@ -25,3 +25,9 @@
         </div>
     </div>
 </header>
+
+{% if page.template != 'home' %}
+    {% block faq %}
+        {% include "partials/breadcrumb.html.twig" %}
+    {% endblock %}
+{% endif %}
