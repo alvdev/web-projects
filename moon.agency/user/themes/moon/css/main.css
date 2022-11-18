@@ -152,6 +152,7 @@ input[type=email],
 input[type=url],
 input[type=password],
 input[type=search],
+input[type=number],
 input[type=tel],
 textarea,
 select,
@@ -159,9 +160,9 @@ select,
 .select-group {
     min-width: 200px;
     height: 40px;
-    border-color: rgba(0, 0, 0, .1);
+    border: 2px solid rgba(0, 0, 0, .1);
     background-color: #fff;
-    border-radius: 0;
+    border-radius: 2px;
     font-style: italic;
     color: #0d0d0d;
     padding-left: 20px;
@@ -254,7 +255,8 @@ label {
     padding-left: 50px
 }
 
-.form-control+[class*=icon2-] {
+.form-control+[class*=icon2-],
+.form-control[class*=icon2-]:before {
     position: absolute;
     font-size: 16px;
     left: 20px;
@@ -2423,6 +2425,7 @@ body.boxed {
 .ds input[type=url],
 .ds input[type=password],
 .ds input[type=search],
+.ds input[type=number],
 .ds input[type=tel],
 .ds textarea,
 .ds select,

@@ -1,0 +1,46 @@
+<section class="ds section_padding_70">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2 class="big margin_0">Escríbenos</h2>
+                <h2 class="muellerhoff topmargin_5 bottommargin_50 highlight">
+                    Formulario de contacto
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="bottommargin_20">
+                    <span class="grey fontsize_12 text-uppercase bold">dirección:</span>
+                    <br/>
+                    C/ Madrid 00, Madrid, 28000
+                </p>
+                <p class="bottommargin_20">
+                    <span class="grey fontsize_12 text-uppercase bold">teléfono:</span>
+                    <br/>
+                    +34 000 000 000
+                </p>
+                <p class="bottommargin_0">
+                    <span class="grey fontsize_12 text-uppercase bold">Email:</span>
+                    <br/>
+                    <a href="mainto:contacto@chicasmoon.net">
+                        <span class="" data-cfemail="">
+                            <em>contacto@chicasmoon.net</em>
+                        </span>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-8">
+                <form class="contact-form row"
+                    {% block embed_form_core %}{% endblock %}
+                    {% block embed_form_classes %}{% endblock %}
+                    {% block embed_form_custom_attributes %}{% endblock %}>
+                    {% block embed_fields %}{% endblock %}
+                    <div class="col-md-6 topmargin_10">
+                        {% block embed_buttons %}{% endblock %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
