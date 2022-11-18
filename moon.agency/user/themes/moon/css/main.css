@@ -29,7 +29,7 @@
     background-color: #1a1a1a
 }
 
-.breadcrumb>li+li:before {
+.breadcrumb>li+i:before {
     padding: 0 8px;
     font-family: rt-icons-2;
     font-size: 10px;

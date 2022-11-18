@@ -26,8 +26,10 @@
     </div>
 </header>
 
-{% if page.template != 'home' %}
-    {% block faq %}
-        {% include "partials/breadcrumb.html.twig" %}
-    {% endblock %}
+{% if config.plugins.breadcrumbs.enabled %}
+    {% if page.template != 'home' %}
+        {% block breadcrumbs %}
+            {% include "partials/breadcrumbs.html.twig" %}
+        {% endblock %}
+    {% endif %}
 {% endif %}
