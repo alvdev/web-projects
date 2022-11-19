@@ -3661,6 +3661,10 @@ a.logo.vertical_logo img {
     display: none
 }
 
+.testimonials-body blockquote[data-slide="1"] {
+    display: block;
+}
+
 .testimonials-body .blockquote-big {
     margin: 0;
     max-width: 100%
