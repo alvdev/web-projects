@@ -31,13 +31,6 @@
                 </li>
             {% endfor %}
         {% endif %}
-        {% for mitem in site.menu %}
-            <li class="menu-item-{{ loop.index }}">
-                <a href="{{ mitem.url }}">
-                    {{ mitem.text }}
-                </a>
-            </li>
-        {% endfor %}
         {% if config.plugins.login.enabled and grav.user.username %}
             <li>{% include 'partials/login-status.html.twig' %}</li>
         {% endif %}
