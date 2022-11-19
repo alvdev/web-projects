@@ -1,10 +1,14 @@
 es:
   SITE:
-    TITLE: Model agency
+    TITLE: Agencia Moon
     DESCRIPTION: Listado de modelos
-    COPYRIGHT: © Copyright %s tudominio.com
+    COPYRIGHT: © Copyright %s
+  PLUGIN_ERROR:
+    ERROR: "Error"
+    ERROR_MESSAGE: "Esta página no existe o se he movido a otra parte. Puedes realizar una búsqueda o ir a la página principal desde aquí."
+    ROUTE_404: "404 Route"
   SUBSCRIBE: Suscribir
-  TWEET: Twittear
+  TWEET: Twitear
   SHARE: Compartir
   MONTHS_OF_THE_YEAR:
     [
@@ -32,6 +36,8 @@ es:
   NEXT: Siguiente
   PREVIOUS: Anterior
   TOPICS: temas
+  PAGE_NOT_FOUND: Página no encontrada
+  GO_TO_HOME: Ir a la página inicial
 
 en:
   SITE:
@@ -68,3 +74,5 @@ en:
   NEXT: Next
   PREVIOUS: Previous
   TOPICS: topics
+  PAGE_NOT_FOUND: Page not found
+  GO_TO_HOME: Go to home page
