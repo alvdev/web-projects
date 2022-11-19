@@ -4916,9 +4916,10 @@ section .intro_section .slide_description_wrapper {
     margin: 0 0 15px
 }
 
-.not_found+h2+p+.widget_search {
-    max-width: 270px;
-    margin: auto
+.error404 .widget_search .searchform,
+.error404 .theme_button.inverse {
+    width: 270px;
+    margin: auto;
 }
 
 .about-content .side-item.content-padding .item-content {
