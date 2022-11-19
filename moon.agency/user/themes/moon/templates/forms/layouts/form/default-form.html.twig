@@ -31,16 +31,26 @@
                 </p>
             </div>
             <div class="col-md-8">
-                <form class="contact-form row"
-                    {% block embed_form_core %}{% endblock %}
-                    {% block embed_form_classes %}{% endblock %}
-                    {% block embed_form_custom_attributes %}{% endblock %}>
-                    {% block embed_fields %}{% endblock %}
-                    <div class="col-md-6 topmargin_10">
-                        {% block embed_buttons %}{% endblock %}
-                    </div>
-                </form>
+                <form class="contact-form row" {% block embed_form_core %} {% endblock %} {% block embed_form_classes %} {% endblock %} {% block embed_form_custom_attributes %} {% endblock %}> {% block embed_fields %}{% endblock %}
+                    <div class="col-md-6 topmargin_10"> {% block embed_buttons %}{% endblock %}
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="ds map muted_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <div class="teaser text-center">
+                        <div class="teaser_icon black size_normal">
+                            <i class="rt-icon2-location2 highlight"></i>
+                        </div>
+                    </div>
+                    <a href="#" class="theme_button">Madrid, chicasMoon</a>
+                </div>
+            </div>
+        </div>
+    </section>
