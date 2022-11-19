@@ -44,19 +44,9 @@
 
                     <div class="col-xs-6">
                         <h3 class="widget-title">Enlaces</h3>
-                        <div>
-                            <ul class="list2 bottommargin_0">
-                                <li class="">
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li class="">
-                                    <a href="#">Link 2</a>
-                                </li>
-                                <li class="">
-                                    <a href="#">Link 3</a>
-                                </li>
-                            </ul>
-                        </div>
+                        {% block links %}
+                            {% include "partials/legal-links.html.twig" %}
+                        {% endblock %}
                     </div>
                 </div>
             </div>
