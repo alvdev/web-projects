@@ -13,19 +13,19 @@
                 <p class="bottommargin_20">
                     <span class="grey fontsize_12 text-uppercase bold">dirección:</span>
                     <br/>
-                    {{ theme.address }}
+                    {{ theme.address|e }}
                 </p>
                 <p class="bottommargin_20">
                     <span class="grey fontsize_12 text-uppercase bold">teléfono:</span>
                     <br/>
-                    {{ theme.phone }}
+                    {{ theme.phone|e }}
                 </p>
                 <p class="bottommargin_0">
                     <span class="grey fontsize_12 text-uppercase bold">Email:</span>
                     <br/>
-                    <a href="mainto:{{ theme.email }}">
+                    <a href="mainto:{{ theme.email|e }}">
                         <span class="" data-cfemail="">
-                            <em>{{ theme.email }}</em>
+                            <em>{{ theme.email|e }}</em>
                         </span>
                     </a>
                 </p>
@@ -49,7 +49,7 @@
                             <i class="rt-icon2-location2 highlight"></i>
                         </div>
                     </div>
-                    <a href="#" class="theme_button">{{ theme.address }}</a>
+                    <a href="#" class="theme_button">{{ theme.address|e }}</a>
                 </div>
             </div>
         </div>
