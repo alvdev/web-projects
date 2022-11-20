@@ -7,6 +7,7 @@ es:
     EMAIL: Dirección de email
     PHONE: Teléfono de contacto
     ADDRESS: Dirección física
+    INFO: Descripción breve
   PLUGIN_ERROR:
     ERROR: "Error"
     ERROR_MESSAGE: "Esta página no existe o se he movido a otra parte. Puedes realizar una búsqueda o ir a la página principal desde aquí."
@@ -32,10 +33,10 @@ es:
   DAYS_OF_THE_WEEK: [Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo]
   READ_MORE: Ver perfil
   SEARCH: Buscar
-  RANDOM_ARTICLE: Perfil aleatorio
+  RANDOM_PROFILE: Perfil aleatorio
   POPULAR_TAGS: Categorías más vistas
-  LATEST_RECIPES: Últimos perfiles
-  RELATED_POSTS: Relacionados
+  LATEST_PROFILES: Últimos perfiles
+  RELATED_PROFILES: Relacionados
   SEARCH_FIELD: Buscar chicas...
   NEXT: Siguiente
   PREVIOUS: Anterior
@@ -49,9 +50,10 @@ en:
     DESCRIPTION: Luxury Escort Models
     COPYRIGHT: © Copyright %s
   THEME:
-    EMAIL: Email adress
+    EMAIL: Email address
     PHONE: Phone number
     ADDRESS: Street address
+    INFO: Short description
   SUBSCRIBE: Subscribe
   TWEET: Tweet
   SHARE: Share
@@ -74,10 +76,10 @@ en:
     [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
   READ_MORE: Read More
   SEARCH: Search
-  RANDOM_ARTICLE: Random Article
+  RANDOM_PROFILE: Random Profile
   POPULAR_TAGS: Popular Tags
-  LATEST_RECIPES: Latest Recipes
-  RELATED_POSTS: Related
+  LATEST_PROFILES: Latest girls
+  RELATED_PROFILES: Related
   SEARCH_FIELD: Type and press enter...
   NEXT: Next
   PREVIOUS: Previous
