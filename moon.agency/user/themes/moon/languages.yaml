@@ -7,7 +7,7 @@ es:
     EMAIL: Dirección de email
     PHONE: Teléfono de contacto
     ADDRESS: Dirección física
-    INFO: Descripción breve
+    SLOGAN: Eslogan/descripción breve
   PLUGIN_ERROR:
     ERROR: "Error"
     ERROR_MESSAGE: "Esta página no existe o se he movido a otra parte. Puedes realizar una búsqueda o ir a la página principal desde aquí."
@@ -53,7 +53,7 @@ en:
     EMAIL: Email address
     PHONE: Phone number
     ADDRESS: Street address
-    INFO: Short description
+    SLOGAN: Short slogan/description
   SUBSCRIBE: Subscribe
   TWEET: Tweet
   SHARE: Share

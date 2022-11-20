@@ -49,3 +49,9 @@ form:
       label: THEME.ADDRESS
       validate:
         type: text
+
+    slogan:
+      type: textarea
+      label: THEME.SLOGAN
+      validate:
+        type: text
