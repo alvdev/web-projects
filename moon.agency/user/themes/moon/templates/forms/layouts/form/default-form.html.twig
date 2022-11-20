@@ -11,17 +11,17 @@
         <div class="row">
             <div class="col-md-4">
                 <p class="bottommargin_20">
-                    <span class="grey fontsize_12 text-uppercase bold">dirección:</span>
+                    <span class="grey fontsize_12 text-uppercase bold">{{ 'THEME.ADDRESS'|t }}:</span>
                     <br/>
                     {{ theme.address|e }}
                 </p>
                 <p class="bottommargin_20">
-                    <span class="grey fontsize_12 text-uppercase bold">teléfono:</span>
+                    <span class="grey fontsize_12 text-uppercase bold">{{ 'THEME.PHONE'|t }}:</span>
                     <br/>
                     {{ theme.phone|e }}
                 </p>
                 <p class="bottommargin_0">
-                    <span class="grey fontsize_12 text-uppercase bold">Email:</span>
+                    <span class="grey fontsize_12 text-uppercase bold">{{ 'THEME.EMAIL'|t }}:</span>
                     <br/>
                     <a href="mainto:{{ theme.email|e }}">
                         <span class="" data-cfemail="">
