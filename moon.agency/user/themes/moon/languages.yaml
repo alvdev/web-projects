@@ -1,8 +1,12 @@
 es:
   SITE:
     TITLE: Agencia Moon
-    DESCRIPTION: Listado de modelos
+    DESCRIPTION: Agencia de escorts de lujo
     COPYRIGHT: © Copyright %s
+  THEME:
+    EMAIL: Dirección de email
+    PHONE: Teléfono de contacto
+    ADDRESS: Dirección física
   PLUGIN_ERROR:
     ERROR: "Error"
     ERROR_MESSAGE: "Esta página no existe o se he movido a otra parte. Puedes realizar una búsqueda o ir a la página principal desde aquí."
@@ -41,9 +45,13 @@ es:
 
 en:
   SITE:
-    TITLE: My Blog
-    DESCRIPTION: Blogging about stuff
-    COPYRIGHT: © Copyright %s Your Company
+    TITLE: Agencia Moon
+    DESCRIPTION: Luxury Escort Models
+    COPYRIGHT: © Copyright %s
+  THEME:
+    EMAIL: Email adress
+    PHONE: Phone number
+    ADDRESS: Street address
   SUBSCRIBE: Subscribe
   TWEET: Tweet
   SHARE: Share
