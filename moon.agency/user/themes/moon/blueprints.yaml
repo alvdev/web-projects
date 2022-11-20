@@ -2,7 +2,7 @@ name: Moon Agency
 slug: moon
 type: theme
 version: 1.0.0
-description: "Moon is simple, modern, responsive, high-DPI, fully customizable, stylish blog Grav theme. It features split-screen book-like design inspired by a modern cook book with emphasize on beautiful imagery and typography."
+description: "Moon is simple, modern, responsive, high-DPI, fully customizable, stylish models booking Grav theme. It features split-screen book-like design inspired by a modern model site with emphasize on beautiful imagery and typography."
 icon: group
 author:
   name: alv.dev
@@ -10,23 +10,23 @@ author:
   url: https://alv.dev
 homepage: https://github.com/alvdev/web-projects/tree/main/moon.agency
 demo: http://alv.dev/demo/006/models
-keywords: receptar, theme, cookbook, split-screen, fast, responsive, html5, css3
+keywords: models, theme, cookbook, split-screen, fast, responsive, html5, css3
 bugs: https://github.com/alvdev/web-projects/issues
 license: GPL2
 
 dependencies:
-  - { name: grav, version: '>=1.5.10' }
-  
+  - { name: grav, version: ">=1.5.10" }
+
 form:
   validation: loose
   fields:
     showchildpages.enabled:
-        type: toggle
-        label: Show child pages in navbar
-        highlight: 1
-        default: 1
-        options:
-          1: PLUGIN_ADMIN.ENABLED
-          0: PLUGIN_ADMIN.DISABLED
-        validate:
-          type: bool
+      type: toggle
+      label: Show child pages in navbar
+      highlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
