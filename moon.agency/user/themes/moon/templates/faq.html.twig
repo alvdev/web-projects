@@ -1,5 +1,6 @@
 {% extends 'partials/base.html.twig' %}
 {% set template_body_classes = 'is-singular logged-in not-front-page page page-id-2 page-template-default customize-support not-scrolled' %}
+
 {% block content %}
     <main id="main" class="site-main clearfix" role="main">
         <article class="page type-page status-publish hentry">
@@ -12,152 +13,39 @@
                                     <h2 class="big topmargin_0 bottommargin_40">
                                         {{ page.header.title }}
                                     </h2>
-                                    <p class="fontsize_20 maxwidth_570 inline-block">
-                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.
-                                    </p>
+                                    <div class="fontsize_20 maxwidth_570 inline-block">
+                                        {{ page.content|raw }}
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="panel-group" id="accordion1">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
-                                                        <i class="rt-icon2-bubble highlight"></i>
-                                                        Lorem Ipsum
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse1" class="panel-collapse collapse in">
-                                                <div class="panel-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium amet ea dicta neque, ut quis omnis quos nam, pariatur, minus, fugit suscipit aspernatur sint ullam quas explicabo. Alias, officiis, dolor!
+                                {% for col in page.header.faqs|batch(4) %}
+                                    <div class="col-sm-6">
+                                        <div class="panel-group" id="accordion{{ loop.index }}">
+                                            {% for item in col %}
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion{{ loop.parent.loop.index }}" href="#collapse{{ loop.parent.loop.index }}{{ loop.index }}" class="collapsed">
+                                                                <i class="rt-icon2-bubble highlight"></i>
+                                                                {{ item.question }}
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse{{ loop.parent.loop.index }}{{ loop.index }}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            {{ item.answer }}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapse2" class="collapsed">
-                                                        <i class="rt-icon2-bubble highlight"></i>
-                                                        Dolor Sit Amet
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facere doloremque ut dolores laudantium nihil at, repudiandae est numquam fuga tempora totam sequi quidem saepe officiis sint beatae, magni fugit.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapse3" class="collapsed">
-                                                        <i class="rt-icon2-bubble highlight"></i>
-                                                        Corporis Iste
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse3" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At nobis bomnis delectus, asperiores quo obcaecati et iste corporis necessitatibus tempora aspernatur doloribus. Ut deleniti commodi dicta distinctio sit enim quidem!
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapse4" class="collapsed">
-                                                        <i class="rt-icon2-bubble highlight"></i>
-                                                        Adipisicing Elit
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse4" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At nobis omnis delectus, asperiores quo obcaecati et iste corporis necessitatibus tempora aspernatur doloribus. Ut deleniti commodi dicta distinctio sit enim quidem!
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="panel-group" id="accordion2">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion2" href="#collapse21">
-                                                        <i class="rt-icon2-bubble highlight"></i>
-                                                        Lorem Ipsum
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse21" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium amet ea dicta neque, ut quis omnis quos nam, pariatur, minus, fugit suscipit aspernatur sint ullam quas explicabo. Alias, officiis, dolor!
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion2" href="#collapse22" class="collapsed">
-                                                        <i class="rt-icon2-bubble highlight"></i>
-                                                        Dolor Sit Amet
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse22" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facere doloremque ut dolores laudantium nihil at, repudiandae est numquam fuga tempora totam sequi quidem saepe officiis sint beatae, magni fugit.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion2" href="#collapse23" class="collapsed">
-                                                        <i class="rt-icon2-bubble highlight"></i>
-                                                        Corporis Iste
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse23" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At nobis omnis delectus, asperiores quo obcaecati et iste corporis necessitatibus tempora aspernatur doloribus. Ut deleniti commodi dicta distinctio sit enim quidem!
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion2" href="#collapse24" class="collapsed">
-                                                        <i class="rt-icon2-bubble highlight"></i>
-                                                        Adipisicing Elit
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse24" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At nobis omnis delectus, asperiores quo obcaecati et iste corporis necessitatibus tempora aspernatur doloribus. Ut deleniti commodi dicta distinctio sit enim quidem!
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </section>
-
-                    {{ page.content|raw }}
-
                 </div>
             </div>
         </article>
