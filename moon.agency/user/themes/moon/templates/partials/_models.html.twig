@@ -1,267 +1,38 @@
+{% set options = {items: {'@page.children': '/models'}} %}
+{% set models = page.collection(options) %}
+
+{# {% for item in models %}
+    {{ unite_gallery(item.media.images)|raw }}
+{% endfor %} #}
+
 <section class="ds ms page_models models_portrait gorizontal_padding section_padding_70">
     <div class="container-fluid">
         <div class="isotope_container isotope row masonry-layout" data-filters=".isotope_filters">
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/13.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/13.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
+            {% for model in models %}
+                <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
+                    <div class="vertical-item content-absolute">
+                        <div class="item-media">
+                            {% if model.media.images|first %}
+                                {{ model.media.images|first.cropZoom(338, 451).html('', '', 'attachment-receptar-featured size-receptar-featured wp-post-image')|raw }}
+                            {% else %}
+                                <img class="attachment-receptar-featured size-receptar-featured wp-post-image" src="{{ theme_url }}/images/{{ site.global_featured_image }}">
+                            {% endif %}
+                            <div class="media-links">
+                                <div class="links-wrap">
+                                    <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ model.media.images|first.url }}"></a>
+                                    <a class="p-link" title="" href="{{ model.url }}"></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 studio">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/14.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/14.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
+                    <div class="item-title text-center">
+                        <h4>
+                            <a href="{{ model.url }}">
+                                {{ model.title }}</a>
+                        </h4>
                     </div>
                 </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 session">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/15.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/15.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/16.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/16.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 studio">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/17.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/17.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 session">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/18.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/18.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/19.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/19.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 studio">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/20.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/20.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 session">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/21.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/21.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/22.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/22.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 studio">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/23.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/23.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 session">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img src="{{ url('theme://images/models_portrait/24.jpg') }}" alt=""/>
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ url('theme://images/models_portrait/24.jpg') }}"></a>
-                                <a class="p-link" title="" href="model.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="model.html">Britney Spears</a>
-                    </h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12 text-center margin_0">
-                <ul class="pagination">
-                    <li>
-                        <a href="#">
-                            <span class="sr-only">Anterior</span>
-                            <i class="rt-icon2-chevron-thin-left"></i>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="sr-only">Siguiente</span>
-                            <i class="rt-icon2-chevron-thin-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
