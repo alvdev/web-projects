@@ -1,0 +1,34 @@
+Title: FAQ
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+
+          fields:
+            header.media_order:
+              unset@: true
+
+            header.faqs:
+              type: list
+              style: vertical
+
+              fields:
+                .question:
+                  type: text
+                  label: FAQS.QUESTION
+                  validate:
+                    type: textarea
+
+                .answer:
+                  type: textarea
+                  label: FAQS.ANSWER
+                  validate:
+                    type: textarea
