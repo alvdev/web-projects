@@ -44,6 +44,7 @@ es:
   PAGE_NOT_FOUND: Página no encontrada
   GO_TO_HOME: Ir a la página inicial
   MY_NAME_IS: Mi nombre es
+  CONTACT_FORM: Formulario de contacto
 
 en:
   SITE:
@@ -88,3 +89,4 @@ en:
   PAGE_NOT_FOUND: Page not found
   GO_TO_HOME: Go to home page
   MY_NAME_IS: My name is
+  CONTACT_FORM: Contact form
