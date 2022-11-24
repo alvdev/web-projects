@@ -12,6 +12,21 @@ es:
     ERROR: "Error"
     ERROR_MESSAGE: "Esta página no existe o se he movido a otra parte. Puedes realizar una búsqueda o ir a la página principal desde aquí."
     ROUTE_404: "404 Route"
+  PROFILE:
+    MODEL_NAME: Nombre
+    HEIGHT: Altura
+    BUST: Pecho
+    WAIST: Cintura
+    HIPS: Cadera
+    AGE: Edad
+    EYES: Ojos
+    BLACK_EYES: Negros
+    BLUE_EYES: Azules
+    GREEN_EYES: Verdes
+    BROWN_EYES: Marrones
+    AMBER_EYES: Ámbar
+    HAZEL_EYES: Avellana
+    GRAY_EYES: Grises
   SUBSCRIBE: Suscribir
   TWEET: Twitear
   SHARE: Compartir
@@ -56,6 +71,14 @@ en:
     PHONE: Phone number
     ADDRESS: Street address
     SLOGAN: Short slogan/description
+  PROFILE:
+    MODEL_NAME: Name
+    HEIGHT: Height
+    BUST: Bust
+    WAIST: Waist
+    HIPS: Hips
+    AGE: Age
+    EYES: Eyes
   SUBSCRIBE: Subscribe
   TWEET: Tweet
   SHARE: Share
