@@ -14,12 +14,12 @@
                     {{ page.content|raw }}
 
                     <div class="columns_padding_5 topmargin_50">
-                        <div class="row">
+                        <div class="row text-center">
                             {{ photoswipe('photoswipe-gallery-id', 'a') }}
                             <div id="photoswipe-gallery-id">
                                 {% for item in page.media.images %}
                                     <a href="{{ item.url|e }}" class="gallery-item" data-size="{{ item.width ~ 'x' ~ item.height }}">
-                                        <img src="{{ item.cropResize(120, 120).url|e }}" alt=""/>
+                                        <img src="{{ item.cropZoom(120, 120).url|e }}" alt=""/>
                                     </a>
                                 {% endfor %}
                             </div>

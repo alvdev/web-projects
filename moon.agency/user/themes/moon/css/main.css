@@ -10561,6 +10561,17 @@ a.soc-pocket.bg-icon:hover,
 
 .gallery-item {
     text-align: center;
+    margin: 0 4px 4px;
+}
+
+.gallery-item:hover:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: goldenrod;
+    position: absolute;
+    opacity: .4;
 }
 
 .gallery-columns-1 .gallery-item {
