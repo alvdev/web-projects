@@ -5628,6 +5628,12 @@ h2.search-title {
 
 .model-page .model-parameters {
     padding: 15px 20px;
+    position: absolute;
+    bottom: 0;
+}
+
+.model-page .model-parameters.gradient_bg_goriz .bg_overlay {
+    background: linear-gradient(to right, rgb(218, 165, 32, 85%), rgb(218, 165, 32, 85%) 50%, rgb(255, 215, 0, 85%));
 }
 
 .model-page .media-left {

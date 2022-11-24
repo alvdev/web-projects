@@ -2,42 +2,47 @@
     <div class="vertical-item with_background models_square">
         <div class="item-media">
             {{ page.media.images|first|raw }}
-        </div>
-        <div class="model-parameters grey gradient_bg_goriz before_cover">
-            <div class="bg_overlay"></div>
-            <div>
-                <span class="bold">{{ 'PROFILE.HEIGHT'|t }}</span>
-                <br>
-                <span>{{ page.header.height }}</span>
-            </div>
-            <div>
-                <span class="bold">{{ 'PROFILE.BUST'|t }}</span>
-                <br>
-                <span>{{ page.header.bust }}</span>
-            </div>
-            <div>
-                <span class="bold">{{ 'PROFILE.WAIST'|t }}</span>
-                <br>
-                <span>{{ page.header.waist }}</span>
-            </div>
-            <div>
-                <span class="bold">{{ 'PROFILE.HIPS'|t }}</span>
-                <br>
-                <span>{{ page.header.hips }}</span>
-            </div>
-            <div>
-                <span class="bold">{{ 'PROFILE.AGE'|t }}</span>
-                <br>
-                <span>{{ page.header.age }}</span>
-            </div>
-            <div>
-                <span class="bold">{{ 'PROFILE.EYES'|t }}</span>
-                <br>
-                <span>{{ page.header.eyes|t }}</span>
+            <div class="container model-parameters grey gradient_bg_goriz before_cover">
+                <div class="bg_overlay"></div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.HEIGHT'|t }}</span>
+                    <br>
+                    <span>{{ page.header.height }}
+                        cm</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.BUST'|t }}</span>
+                    <br>
+                    <span>{{ page.header.bust }}
+                        cm</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.WAIST'|t }}</span>
+                    <br>
+                    <span>{{ page.header.waist }}
+                        cm</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.HIPS'|t }}</span>
+                    <br>
+                    <span>{{ page.header.hips }}
+                        cm</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.AGE'|t }}</span>
+                    <br>
+                    <span>{{ page.header.age }}
+                        {{ 'PROFILE.YEARS'|t }}</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.EYES'|t }}</span>
+                    <br>
+                    <span>{{ page.header.eyes|t }}</span>
+                </div>
             </div>
         </div>
         <div class="item-content with_padding">
-            <h2 class="bottommargin_30">{{ 'CONTACT_FORM'|t }}</h2>
+            <h2 class="topmargin_0 bottommargin_30">{{ 'CONTACT_FORM'|t }}</h2>
             <form class="model-contact-form" method="post" action="#">
                 <div class="form-group">
                     <label for="model-name" class="sr-only">Full Name

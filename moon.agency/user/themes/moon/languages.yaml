@@ -20,6 +20,7 @@ es:
     HIPS: Cadera
     AGE: Edad
     EYES: Ojos
+    YEARS: años
     BLACK_EYES: Negros
     BLUE_EYES: Azules
     GREEN_EYES: Verdes
@@ -79,6 +80,7 @@ en:
     HIPS: Hips
     AGE: Age
     EYES: Eyes
+    YEARS: years old
   SUBSCRIBE: Subscribe
   TWEET: Tweet
   SHARE: Share
