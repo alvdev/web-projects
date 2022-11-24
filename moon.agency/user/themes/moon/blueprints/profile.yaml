@@ -55,17 +55,16 @@ form:
                       type: select
                       select:
                       options:
-                        - PROFILE.BLACK_EYES
-                        - PROFILE.BROWN_EYES
-                        - PROFILE.BLUE_EYES
-                        - PROFILE.GREEN_EYES
-                        - PROFILE.AMBER_EYES
-                        - PROFILE.HAZEL_EYES
-                        - PROFILE.GRAY_EYES
+                        PROFILE.BLACK_EYES: PROFILE.BLACK_EYES
+                        PROFILE.BROWN_EYES: PROFILE.BROWN_EYES
+                        PROFILE.BLUE_EYES: PROFILE.BLUE_EYES
+                        PROFILE.GREEN_EYES: PROFILE.GREEN_EYES
+                        PROFILE.AMBER_EYES: PROFILE.AMBER_EYES
+                        PROFILE.HAZEL_EYES: PROFILE.HAZEL_EYES
+                        PROFILE.GRAY_EYES: PROFILE.GRAY_EYES
                       label: PROFILE.EYES
 
             header.media_order:
               type: pagemedia
               label: PLUGIN_ADMIN.PAGE_MEDIA
-              help: PROFILE.IMAGE_HELP
               ordering@: 10
