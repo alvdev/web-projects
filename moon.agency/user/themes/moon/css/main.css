@@ -7430,6 +7430,11 @@ aside .widget_tag_cloud a:hover {
     line-height: 0.9;
 }
 
+.medium {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
 @media (max-width: 540px) {
     .extra-big {
         font-size: 50px;
