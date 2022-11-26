@@ -8,28 +8,137 @@
 <section class="ds ms page_models models_portrait gorizontal_padding section_padding_70">
     <div class="container-fluid">
         <div class="isotope_container isotope row masonry-layout" data-filters=".isotope_filters">
+            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
+                <div class="vertical-item content-absolute">
+                    <div class="item-media">
+                        <img class="attachment-receptar-featured size-receptar-featured wp-post-image" src="/moon.agency/images/f/3/0/8/9/f3089d552c0b9fee15ad714956e439a36398bf71-photo.jpg">
+                        <div class="media-links">
+                            <div class="links-wrap">
+                                {% for feature in models %}
+                                    <div>
+                                        <span class="bold">{{ 'PROFILE.HEIGHT'|t }}</span>
+                                        <span>{{ feature.header.height|t }}WWW</span>
+                                    </div>
+                                    <div>
+                                        <span class="bold">Pecho:</span>
+                                        <span>79</span>
+                                    </div>
+                                    <div>
+                                        <span class="bold">Cintura:</span>
+                                        <span>59</span>
+                                    </div>
+                                    <div>
+                                        <span class="bold">Cadera:</span>
+                                        <span>87</span>
+                                    </div>
+                                    <div>
+                                        <span class="bold">Edad:</span>
+                                        <span>39</span>
+                                    </div>
+                                    <div>
+                                        <span class="bold">Ojos:</span>
+                                        <span>Azules</span>
+                                    </div>
+                                    <div>
+                                        <span class="bold">Hair:</span>
+                                        <span>brunet</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-title text-center">
+                    <h4>
+                        <a href="{{ model.url }}">
+                            {{ model.title }}</a>
+                    </h4>
+                </div>
+            </div>
             {% for model in models %}
                 <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
                     <div class="vertical-item content-absolute">
                         <div class="item-media">
-                            {% if model.media.images|first %}
-                                {{ model.media.images|first.cropZoom(338, 451).html('', '', 'attachment-receptar-featured size-receptar-featured wp-post-image')|raw }}
-                            {% else %}
-                                <img class="attachment-receptar-featured size-receptar-featured wp-post-image" src="{{ theme_url }}/images/{{ site.global_featured_image }}">
-                            {% endif %}
-                            <div class="media-links">
-                                <div class="links-wrap">
-                                    <a class="p-view prettyPhoto" title="" data-gal="prettyPhoto[gal]" href="{{ model.media.images|first.url }}"></a>
-                                    <a class="p-link" title="" href="{{ model.url }}"></a>
+                            <a href="{{ model.url }}">
+                                {% if model.media.images|first %}
+                                    {{ model.media.images|first.cropZoom(338, 451).html('', '', 'attachment-receptar-featured size-receptar-featured wp-post-image')|raw }}
+                                {% else %}
+                                    <img class="attachment-receptar-featured size-receptar-featured wp-post-image" src="{{ theme_url }}/images/{{ site.global_featured_image }}">
+                                {% endif %}
+                                <div class="media-links">
+                                    <div class="links-wrap model-parameters">
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.HEIGHT'|t }}</span>
+                                            <span>
+                                                {% if model.header.height %}
+                                                    {{ model.header.height }}
+                                                    cm
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.BUST'|t }}</span>
+                                            <span>
+                                                {% if model.header.bust %}
+                                                    {{ model.header.bust }}
+                                                    cm
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.WAIST'|t }}</span>
+                                            <span>
+                                                {% if model.header.waist %}
+                                                    {{ model.header.waist }}
+                                                    cm
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.HIPS'|t }}</span>
+                                            <span>
+                                                {% if model.header.hips %}
+                                                    {{ model.header.hips }}
+                                                    cm
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.AGE'|t }}</span>
+                                            <span>
+                                                {% if model.header.age %}
+                                                    {{ model.header.age }}
+                                                    {{ 'PROFILE.YEARS'|t }}
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.EYES'|t }}</span>
+                                            <span>
+                                                {% if model.header.eyes %}
+                                                    {{ model.header.eyes|t }}
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="item-title text-center">
-                        <h4>
-                            <a href="{{ model.url }}">
-                                {{ model.title }}</a>
-                        </h4>
+                        <h4>{{ model.title }}</h4>
                     </div>
                 </div>
             {% endfor %}
