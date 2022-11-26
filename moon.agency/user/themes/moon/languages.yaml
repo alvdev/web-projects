@@ -61,6 +61,7 @@ es:
   GO_TO_HOME: Ir a la página inicial
   MY_NAME_IS: Mi nombre es
   CONTACT_FORM: Formulario de contacto
+  NOT_DEFINED: -
 
 en:
   SITE:
@@ -115,3 +116,4 @@ en:
   GO_TO_HOME: Go to home page
   MY_NAME_IS: My name is
   CONTACT_FORM: Contact form
+  NOT_DEFINED: -
