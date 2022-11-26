@@ -8,53 +8,7 @@
 <section class="ds ms page_models models_portrait gorizontal_padding section_padding_70">
     <div class="container-fluid">
         <div class="isotope_container isotope row masonry-layout" data-filters=".isotope_filters">
-            <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
-                <div class="vertical-item content-absolute">
-                    <div class="item-media">
-                        <img class="attachment-receptar-featured size-receptar-featured wp-post-image" src="/moon.agency/images/f/3/0/8/9/f3089d552c0b9fee15ad714956e439a36398bf71-photo.jpg">
-                        <div class="media-links">
-                            <div class="links-wrap">
-                                {% for feature in models %}
-                                    <div>
-                                        <span class="bold">{{ 'PROFILE.HEIGHT'|t }}</span>
-                                        <span>{{ feature.header.height|t }}WWW</span>
-                                    </div>
-                                    <div>
-                                        <span class="bold">Pecho:</span>
-                                        <span>79</span>
-                                    </div>
-                                    <div>
-                                        <span class="bold">Cintura:</span>
-                                        <span>59</span>
-                                    </div>
-                                    <div>
-                                        <span class="bold">Cadera:</span>
-                                        <span>87</span>
-                                    </div>
-                                    <div>
-                                        <span class="bold">Edad:</span>
-                                        <span>39</span>
-                                    </div>
-                                    <div>
-                                        <span class="bold">Ojos:</span>
-                                        <span>Azules</span>
-                                    </div>
-                                    <div>
-                                        <span class="bold">Hair:</span>
-                                        <span>brunet</span>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title text-center">
-                    <h4>
-                        <a href="{{ model.url }}">
-                            {{ model.title }}</a>
-                    </h4>
-                </div>
-            </div>
+
             {% for model in models %}
                 <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
                     <div class="vertical-item content-absolute">
