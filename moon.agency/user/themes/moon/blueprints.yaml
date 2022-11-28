@@ -55,3 +55,15 @@ form:
       label: THEME.SLOGAN
       validate:
         type: text
+
+    about_us:
+      type: editor
+      label: THEME.ABOUT_US
+      process:
+        markdown: true
+      validate:
+        type: string
+
+    our_services:
+      type: editor
+      label: THEME.OUR_SERVICES
