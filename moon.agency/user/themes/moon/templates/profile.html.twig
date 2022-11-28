@@ -29,4 +29,9 @@
             </div>
         </div>
     </section>
+    <section class="ds ms section_padding_70">
+        <div class="container">
+            {% include "forms/form.html.twig" with {form: forms('contact-form')} %}
+        </div>
+    </section>
 {% endblock %}
