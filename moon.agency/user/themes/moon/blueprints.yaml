@@ -2,7 +2,7 @@ name: Moon Agency
 slug: moon
 type: theme
 version: 1.0.0
-description: "Moon is simple, modern, responsive, high-DPI, fully customizable, stylish models booking Grav theme. It features split-screen book-like design inspired by a modern model site with emphasize on beautiful imagery and typography."
+description: "Moon is simple, modern, responsive, high-DPI, fully customizable, stylish models booking theme. It features split-screen book-like design inspired by a modern model site with emphasize on beautiful imagery and typography."
 icon: group
 author:
   name: alv.dev
@@ -67,3 +67,7 @@ form:
     our_services:
       type: editor
       label: THEME.OUR_SERVICES
+      
+    testimonials:
+      type: editor
+      label: THEME.TESTIMONIALS
