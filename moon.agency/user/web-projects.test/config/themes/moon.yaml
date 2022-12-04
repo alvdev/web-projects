@@ -1,0 +1,12 @@
+enabled: true
+showchildpages:
+  enabled: false
+email: contacto@moonagency.net
+phone: '34910000000'
+address: 'C/ Madrid 00, Madrid, 28000'
+info: 'Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl uekt aliquip ex ea commodo consequat duis auhtem.'
+slogan: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius eligendi maiores assumenda, cumque soluta error.'
+about_us: "#### La luna está llena de secretos y de historias que no se pueden contar.\n\nLos llaman inadaptados a los que deciden romper las reglas de experimentar escenas prohibidas para mentes cerrads.\n\nPecado debería de ser no disfrutar de pequeños placeres de la vida.\n\n¿Una copa de buen vino? ¿Un whisky sin hielo? ¿O polvos mágicos?\n\n#### ¿Algo más atrevido? ¡Ufff!\n\nTe declaras culpable al no poder resistirte a esas siluetas que quitan el aliento con la belleza y sensualidad de esos movimientos. Camina semidesnuda y con ganas de descubrir cada parte de su cuerpo.\n\n**Prohibido debería de ser no hacer lo que la gente dice que no puedes hacer**."
+our_services: "### Servicio 1\nAirmod tempor invidunt ut labore et dolore magna aliquyam erat\n\n### Servicio 2\nVero eos et accusam et justo duo dolores et ea rebum\n \n### Servicio 3\nStet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor\n \n### Servicio 4\nLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed"
+test: ''
+testimonials: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa'

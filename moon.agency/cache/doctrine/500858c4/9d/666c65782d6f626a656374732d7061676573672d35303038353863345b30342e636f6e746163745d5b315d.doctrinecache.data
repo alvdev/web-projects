@@ -1,0 +1,80 @@
+1670169899
+O:39:"Grav\Common\Flex\Types\Pages\PageObject":4:{s:4:"type";s:5:"pages";s:3:"key";s:7:"contact";s:8:"elements";a:4:{s:4:"root";b:0;s:6:"header";a:3:{s:5:"title";s:8:"Contacto";s:4:"form";a:4:{s:4:"name";s:12:"contact-form";s:6:"fields";a:2:{s:4:"left";a:3:{s:4:"type";s:8:"fieldset";s:7:"classes";s:8:"col-md-6";s:6:"fields";a:3:{i:0;a:7:{s:4:"name";s:4:"name";s:5:"label";s:6:"Nombre";s:7:"classes";s:36:"form-control with-icon rt-icon2-user";s:9:"autofocus";s:2:"on";s:12:"autocomplete";s:2:"on";s:4:"type";s:4:"text";s:8:"validate";a:1:{s:8:"required";b:1;}}i:1;a:5:{s:4:"name";s:5:"email";s:5:"label";s:5:"Email";s:7:"classes";s:36:"form-control with-icon rt-icon2-mail";s:4:"type";s:5:"email";s:8:"validate";a:2:{s:4:"rule";s:5:"email";s:8:"required";b:1;}}i:2;a:5:{s:4:"name";s:5:"phone";s:5:"label";s:9:"Teléfono";s:7:"classes";s:38:"form-control with-icon rt-icon2-phone5";s:4:"type";s:6:"number";s:8:"validate";a:2:{s:4:"rule";s:3:"tel";s:8:"required";b:0;}}}}s:5:"right";a:3:{s:4:"type";s:8:"fieldset";s:7:"classes";s:8:"col-md-6";s:6:"fields";a:1:{i:0;a:9:{s:4:"name";s:7:"message";s:5:"label";s:7:"Mensaje";s:7:"classes";s:35:"form-control with-icon rt-icon2-pen";s:4:"rows";i:8;s:4:"size";s:4:"long";s:11:"placeholder";s:0:"";s:4:"type";s:8:"textarea";s:2:"id";s:7:"message";s:8:"validate";a:1:{s:8:"required";b:1;}}}}}s:7:"buttons";a:2:{i:0;a:3:{s:4:"type";s:6:"submit";s:5:"value";s:6:"Enviar";s:7:"classes";s:34:"theme_button color1 bottommargin_0";}i:1;a:3:{s:4:"type";s:5:"reset";s:5:"value";s:6:"Borrar";s:7:"classes";s:35:"theme_button inverse bottommargin_0";}}s:7:"process";a:5:{i:0;a:1:{s:9:"turnstile";b:1;}i:1;a:1:{s:5:"email";a:4:{s:4:"from";s:31:"{{ config.plugins.email.from }}";s:2:"to";a:2:{i:0;s:31:"{{ config.plugins.email.from }}";i:1;s:22:"{{ form.value.email }}";}s:7:"subject";s:34:"[Feedback] {{ form.value.name|e }}";s:4:"body";s:36:"{% include 'forms/data.html.twig' %}";}}i:2;a:1:{s:4:"save";a:4:{s:10:"fileprefix";s:9:"feedback-";s:10:"dateformat";s:9:"Ymd-His-u";s:9:"extension";s:3:"txt";s:4:"body";s:35:"{% include 'forms/data.txt.twig' %}";}}i:3;a:1:{s:7:"message";s:88:"Gracias por contactar con nuestra agencia. Le responderemos a la mayor brevedad posible.";}i:4;a:1:{s:7:"display";s:8:"thankyou";}}}s:4:"slug";s:8:"contacto";}s:11:"frontmatter";s:2541:"title: Contacto
+form:
+    name: contact-form
+    fields:
+        left:
+            type: fieldset
+            classes: col-md-6
+            fields:
+                -
+                    name: name
+                    label: Nombre
+                    classes: 'form-control with-icon rt-icon2-user'
+                    autofocus: 'on'
+                    autocomplete: 'on'
+                    type: text
+                    validate:
+                        required: true
+                -
+                    name: email
+                    label: Email
+                    classes: 'form-control with-icon rt-icon2-mail'
+                    type: email
+                    validate:
+                        rule: email
+                        required: true
+                -
+                    name: phone
+                    label: Teléfono
+                    classes: 'form-control with-icon rt-icon2-phone5'
+                    type: number
+                    validate:
+                        rule: tel
+                        required: false
+        right:
+            type: fieldset
+            classes: col-md-6
+            fields:
+                -
+                    name: message
+                    label: Mensaje
+                    classes: 'form-control with-icon rt-icon2-pen'
+                    rows: 8
+                    size: long
+                    placeholder: ''
+                    type: textarea
+                    id: message
+                    validate:
+                        required: true
+    buttons:
+        -
+            type: submit
+            value: Enviar
+            classes: 'theme_button color1 bottommargin_0'
+        -
+            type: reset
+            value: Borrar
+            classes: 'theme_button inverse bottommargin_0'
+    process:
+        -
+            turnstile: true
+        -
+            email:
+                from: '{{ config.plugins.email.from }}'
+                to:
+                    - '{{ config.plugins.email.from }}'
+                    - '{{ form.value.email }}'
+                subject: '[Feedback] {{ form.value.name|e }}'
+                body: '{% include ''forms/data.html.twig'' %}'
+        -
+            save:
+                fileprefix: feedback-
+                dateformat: Ymd-His-u
+                extension: txt
+                body: '{% include ''forms/data.txt.twig'' %}'
+        -
+            message: 'Gracias por contactar con nuestra agencia. Le responderemos a la mayor brevedad posible.'
+        -
+            display: thankyou
+slug: contacto";s:8:"markdown";s:208:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium amet ea dicta neque, ut quis omnis quos nam, pariatur, minus, fugit suscipit aspernatur sint ullam quas explicabo. Alias, officiis, dolor!";}s:7:"storage";a:7:{s:3:"key";s:7:"contact";s:11:"storage_key";s:10:"04.contact";s:8:"template";s:7:"contact";s:17:"storage_timestamp";i:1669480427;s:8:"markdown";a:2:{s:0:"";a:1:{s:7:"contact";i:1669479332;}s:2:"en";a:1:{s:4:"form";i:1669479345;}}s:8:"children";a:1:{s:8:"thankyou";b:0;}s:8:"checksum";s:32:"b249dc303171f2814728defa59a029e2";}}

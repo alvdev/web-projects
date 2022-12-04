@@ -1,0 +1,22 @@
+cache
+vendor
+node_modules
+user/accounts
+user/data
+user/plugins
+user/themes/*
+!user/themes/alfa
+backup
+logs
+tmp
+package-lock.json
+composer.lock
+LICENSE
+*min.*
+**/test.*
+
+# Moved from web-projects root folder
+!_svelte/**
+!user/images/**
+!user/pages/**
+!user/themes/**

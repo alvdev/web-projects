@@ -1,0 +1,3 @@
+object:
+  compat:
+    events: true

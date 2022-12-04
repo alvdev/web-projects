@@ -3627,6 +3627,7 @@ a.logo.vertical_logo img {
 
 .testimonials-carousel.owl-carousel .owl-item.center .author-meta {
     opacity: 1;
+    width: max-content;
 }
 
 .testimonials-carousel.owl-carousel .owl-nav>div {

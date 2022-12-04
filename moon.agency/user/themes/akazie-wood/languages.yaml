@@ -1,0 +1,844 @@
+en:
+  THEME_AKAZIEWOOD:
+    THEME:
+      BLOG:
+        CONTINUE_READING: 'Continue reading'
+        IMAGESIDE: 'Side of Blog Thumbnail'
+        IMAGE_POSITION:
+          LEFT: 'Left'
+          RIGHT: 'Right'
+      SECTION:
+        LAYOUT: 'Site layout'
+        STYLE: 'Custom style (only for admins)'
+      FIELDSET:
+        BLOG: 'Blog'
+        SEO: 'SEO Settings'
+        MOBILENAV: 'Mobile Navigation'
+        HEADER: 'Header'
+        COLS: 'Footer columns right'
+        COL:
+          1: 'First column'
+          2: 'Second column'
+          3: 'Third column'
+        SETTINGS: 'Footer settings'
+        FOOTER: 'Footer'
+        SITE: 'Site'
+        NAV: 'Navigation'
+        NAVI:
+          EXPANDABLE: 'Clickable main nav / expandable mobile'
+          FITTOCONTENT: 'Fit navigation width to content'
+          NAVHEIGHT: 'Navigation height (60-205)'
+          MOBNAVHEIGHT: 'Mobile Navigation height (60-300)'
+          MOBNAVENABLED: 'Mobile Navigation custom height'
+          STICKYBOTTOM: 'Sticky Menü am Bottom einfügen (und Hamburger Menü entfernen!)'
+          STICKYBOTTOMCODE: 'HTML code für sticky bottom'
+          OPTIONS:
+            0: 'No'
+            1: 'yes'
+        COLOR: 'Color'
+        BG_COLOR: 'Background color'
+        TEXT_COLOR: 'Text color'
+        FONT: 'Fonts'
+        VARIOUS: 'Various'
+        MAP: 'Google map'
+      FIELDS:
+        SLICK:
+          LABEL: 'Activate Slick.js? (for testimonials)'
+        TITLE:
+          LABEL: 'Title'
+        URL:
+          LABEL: 'URL'
+        BUTTON:
+          LABEL: 'Custom Nav button'
+          LINK:
+            LABEL: 'Button link'
+          ENABLED:
+            LABEL: 'Custom nav button enabled?'
+          TEXT:
+            LABEL: 'Custom nav button text'
+        MAXWIDTH:
+          LABEL: 'max content width (1000-2000 / default 1280)'
+        CUSTOMCSS:
+          LABEL: 'Use custom CSS file (please create file in theme directory akazie-wood/custom/css/custom.css)'
+        CUSTOMJS:
+          LABEL: 'Use custom JS file (please create file in theme directory akazie-wood/custom/js/custom.js)'
+        IMAGESIZING:
+          LABEL: 'Use dynamic image resizing with picture tag (experimental feature. make sure to activate caching)'
+          HELP: 'For production sites please activate cache and set purge and clear times to every month or longer. Also set "Clear image cache by default" to "No" **If you do not activate cache, you will have very long load times because of the responsive images in the modular/image module.**'
+        PROPERH:
+          LABEL: 'Dont use H tags in header'
+          HELP: 'Replaces standard H entries in header with DIVs so that you have full control over the title structure.'
+        NAV:
+          LENGTH:
+            LABEL: 'Number Max. Navigation points'
+        MARKDOWNTITLE:
+            LABEL: 'Markdown on Apply Title'
+        MARKDOWNTITLENEWLINE:
+          LABEL: 'New line when changing colors'
+        IMPRESSUM:
+          ENABLED:
+            LABEL: 'Show imprint'
+          LINK:
+            LABEL: 'Link to the imprint'
+        DATENSCHUTZ:
+          ENABLED:
+            LABEL: 'Show data policy'
+          LINK:
+            LABEL: 'Link to the policy'
+        VARIOUS:
+          FOOTERLABEL: 'Various footer stuff'
+        FOOTER_JAVASCRIPT:
+          LABEL: 'Add Javascript to footer'
+        HEADER_JAVASCRIPT:
+          LABEL: 'Add (Javascript) tracking code to header'
+        FULLSCREEN:
+          FOOTERLABEL: 'Fullscreen footer'
+          ENABLED:
+            LABEL: 'Show fullscreen footer'
+          LINK:
+            LABEL: 'Link to the footer'
+          BGCOLOR:
+            LABEL: 'Background color for fullscreen footer'
+        MAP_API:
+          LABEL: 'API-key (onle with GoogleMaps)'
+        FAVICON:
+          LABEL: 'Favicon'
+          DESCRIPTION: 'Used instead of `theme: // images / favicon.png`'
+        PARALLAX:
+          LABEL: 'Use parallax full screen background?'
+          HEADER:
+            LABEL: 'Show the background behind header'
+        LOGO:
+          LABEL: 'Own logo'
+          DESCRIPTION: 'Used instead of `theme://images/logo.png`'
+          DISPLAY: 'Display logo?'
+        FIXED:
+          LABEL: 'Fixed Header'
+          HELP: 'If activated, the header will always be at the top of the browser window.'
+        SUBNAV:
+          LABEL: 'Sub navigation'
+          HELP: 'Allows to have another navigation level.'
+        HOME:
+          LABEL: 'Homelink'
+          OPTIONS:
+            0: "Show"
+            1: "Hidden"
+        FOOTER_ADDRESS:
+          LABEL: 'Address in footer'
+        FOOTERCOMPACT:
+          LABEL: 'Compact footer'
+        FOOTER_MAIL:
+          LABEL: 'Mail in footer'
+        COLOR:
+          WHITE:
+            LABEL: 'White'
+          BLACK:
+            LABEL: 'Black'
+          BG:
+            MAIN:
+              LABEL: 'Main'
+            PRIMARY:
+              LABEL: 'Primary'
+            SECONDARY:
+              LABEL: 'Secondary'
+            NAV:
+              LABEL: 'Navigation'
+            NAV_HOVER:
+              LABEL: 'Navigation (hover)'
+          TEXT:
+            MAIN:
+              LABEL: 'Main'
+            PRIMARY:
+              LABEL: 'Primary'
+            SECONDARY:
+              LABEL: 'Secondary'
+            LINKS:
+              LABEL: 'Links'
+            NAV:
+              LABEL: 'Navigation'
+            NAV_HOVER:
+              LABEL: 'Navigation (hover)'
+        FONT:
+          IMPORT:
+            LABEL: 'Font import'
+          GOOGLE:
+            LABEL: 'Faster loading for google fonts'
+          MAIN:
+            LABEL: 'Main'
+          FOOTER:
+            LABEL: 'Footer'
+          TITLE:
+            LABEL: 'Title'
+          NAV:
+            LABEL: 'Navigation'
+          CUSTOMHTML:
+            LABEL: 'Custom HTML in head'
+    FRONTEND:
+      LOAD: "Page is loading"
+    ADMIN:
+      TAB:
+        CONTENT: "Content"
+      SECTION:
+        CONTENT: "Pages content"
+        BUTTONS: "Buttons under image"
+        SETTINGS: "Settings"
+        HIDENSETTINGS: "Settings for Admin"
+        PREVIEW: "Preview"
+        MEDIA: 'Media'
+        MAPSETTINGS: 'Map settings'
+        MAPINFO: 'Map info'
+        CONTINUE: 'Continue text'
+        SECTIONTWO: 'Section 2 right'
+        ROW:
+          ONE: 'Row one'
+          TWO: 'Row two'
+          THREE: 'Row three'
+      FIELDS:
+        TESTIMONIALS:
+          LABEL: 'Testimonials'
+        ZITAT:
+          LABEL: 'Quote'
+        FUNKTION:
+          LABEL: 'Function'
+        BREAKHEIGHT:
+          LABEL: 'Height (if left empty, breaktitle stays responsive)'
+        GOOGLEMAPS:
+          LABEL: 'Map embed link and description'
+        CALENDAREMBED:
+          LABEL: 'Calendar embed code'
+        BACKTEXT:
+          LABEL: 'Text on back link bar'
+        PRICES:
+          LABEL: 'Price list'
+          DESC:
+            LABEL: 'Description'
+          CHF:
+            LABEL: 'Price'
+        SAISON:
+          LABEL: 'Season times'
+          DESC:
+            LABEL: 'Description'
+          VON:
+            LABEL: 'from'
+          BIS:
+            LABEL: 'to'
+        BOX:
+          BGCOLOR:
+            LABEL: 'background color'
+          COLOR:
+            LABEL: 'color'
+          ROUNDCORNERS:
+            LABEL: 'border radius'
+          ENABLED:
+            LABEL: 'show as box'
+        MAP_LAT:
+          LABEL: 'Latitude'
+        MAP_LONG:
+          LABEL: 'Longitude'
+        MAP_ZOOM:
+          LABEL: 'Zoom'
+        MAP_CONTROLS:
+          LABEL: 'Controls'
+        MAP_STYLE:
+          LABEL: 'Map style (only with Google Maps)'
+        MAP_DESC:
+          LABEL: 'Map description'
+        MAP_TITLE:
+          LABEL: 'Marker title'
+        MAP_WINDOW:
+          LABEL: 'Info window'
+        TITLE:
+          LABEL: "Title"
+        ALT:
+          LABEL: "Alt Tag"
+        SUBTITLE:
+          LABEL: "Subtitle"
+        SHOWTITLE:
+          LABEL: "Show title?"
+          OPTIONS:
+            0: "No"
+            1: "Yes"
+            2: "Only placeholder"
+        MASONRYWIDTH:
+          LABEL: "Masonry field width"
+          OPTIONS:
+            1: "normal (33.3%) width"
+            2: "double (66.6%) width"
+            3: "triple (99.9%) width"
+        TITLESIZE:
+          LABEL: 'Title size'
+        TITLEID:
+          LABEL: 'Title id (for html anchors)'
+        CENTERTEXT:
+          LABEL: "Center text"
+        CONTACTBUTTON:
+          LABEL: "Show contact button?"
+          OPTIONS:
+            0: "No"
+            1: "Yes"
+        TEXTPOS:
+          LABEL: "Text position"
+          OPTIONS:
+            0: "right"
+            1: "below"
+        CONTACTTEXT:
+          LABEL: "Contact Button text"
+        GALLERIE:
+          LABEL: "Gallery"
+        TEXT:
+          LABEL: "Text"
+        HEADING:
+          LABEL: "Heading"
+        SLOGAN:
+          LABEL: "Slogan"
+        REDIRECT:
+          LABEL: "Select page"
+        IMAGE:
+          LABEL: "Image"
+        IMAGES:
+          LABEL: "Images"
+        IMAGE_HEADER:
+          LABEL: "Header image"
+        PDF_HEADER:
+          LABEL: "Link to a file instead of a link?"
+          FILE: "File"
+        PDF_SRC:
+          LABEL: "Select file"
+        KUNDENCODE:
+          LABEL: "Client code (leave empty)"
+        CLAIM:
+          LABEL: "Claim"
+        CLAIMSWITCH:
+          LABEL: "Show claim instead of title?"
+        REMOVEHEADER:
+          LABEL: "Remove header entirely?"
+        MASONRY:
+          LABEL: "Activate Masonry? (experimental)"
+        CLAIMASMARKDOWN:
+          LABEL: "Display claim as markdown?"
+        DESCRIPTION:
+          LABEL: "Description"
+        DESCRIPTION_POS:
+          LABEL: 'Position of the image description'
+          OPTIONS:
+            1: 'Description in the picture'
+            2: 'Description under the picture'
+        YOUTUBE:
+          LABEL: "Enter video ID"
+          PLATFORM: "platform"
+          DESCRIPTION: "Example: `VkvUH8vRQfE`"
+        COLUMN:
+          LABEL: 'content width'
+          OPTIONS:
+            1: "One column"
+            2: "two columns"
+            3: "One column centered"
+            4: "1/3 full width"
+            5: "2/3 full width"
+            6: "1/4 full width"
+            7: "1/6 full width"
+        MARGINRIGHT:
+          LABEL: "padding"
+        MASONRYSETTING:
+          LABEL: 'Masonry (experimental. activate on modular page and use imagemasonry or textmasonry module)'
+        SCALE:
+          LABEL: 'Format'
+          OPTIONS:
+            1: '4:3'
+            2: '16:9 (Full HD)'
+            3: '2.35:1 (Widescreen)'
+            4: '1:1 (Square)'
+            5: '3:4 (portrait)'
+        WINDOW:
+          LABEL: 'Open in same window?'
+          OPTIONS:
+            0: 'Same window'
+            1: 'New tab'
+        LINK:
+          LABEL: 'Link URL (no link generated if left empty)'
+        PERSONS:
+          LABEL: 'Persons'
+        BUTTONS:
+          LABEL: 'Buttons'
+        FOOTERTEXT:
+          BGHEIGHTMOBILE:
+            LABEL: 'Mobile height (if left empty, footer height will be used)'
+          LEFT1:
+            LABEL: 'Text left'
+          NONAV:
+            LABEL: 'Show 2nd row?'
+          NOSOC:
+            LABEL: 'Show content instead of social media (if left empty, links are shown)'
+          RIGHTNAV:
+            LABEL: 'Title'
+            CONTENT:
+              LABEL: 'Show content instead of navigation (if left empty, there is a navigation shown)'
+          UPSIGN:
+            LABEL: 'Scroll up text'
+          FOOTERBG:
+            LABEL: 'Custom background image'
+            DESCRIPTION: 'Replace the page bg image with a custom image'
+          NOFULLSCREEN:
+            LABEL: 'Fullscreen'
+          BGHEIGHT:
+            LABEL: 'Footer height'
+          RIGHTCONTACT:
+            LABEL: 'Contact title'
+            CONTENT:
+              LABEL: 'Contact Content'
+          SOCIALMEDIA:
+            LABEL: 'Social media / links title'
+            DESC:
+              LABEL: 'Social Media links'
+            TITLE:
+              LABEL: 'Title'
+            LINK:
+              LABEL: 'Link'
+          RIGHTSIDEDIV:
+            LABEL: 'Width of right side div'
+        STYLING:
+          LABEL: 'Style as button?'
+          OPTIONS:
+            0: 'yes'
+            1: 'no'
+        BLOCK:
+          LABEL: 'Display as block?'
+          OPTIONS:
+            0: 'no'
+            1: 'yes'
+        NEWWINDOW:
+          LABEL: 'Open in new Window?'
+          OPTIONS:
+            0: 'no'
+            1: 'yes'
+        URLS:
+          LABEL: 'URL'
+        NAME:
+          LABEL: 'Name'
+        POSITION:
+          LABEL: 'Position'
+        EMAIL:
+          LABEL: 'Mail'
+        FIXWIDTH:
+          LABEL: "Fixe Breite"
+de:
+  THEME_AKAZIEWOOD:
+    THEME:
+      BLOG:
+        CONTINUE_READING: 'Weiterlesen'
+        IMAGESIDE: 'Position des Thumbnails'
+        IMAGE_POSITION:
+          LEFT: 'Links'
+          RIGHT: 'Rechts'
+      SECTION:
+        LAYOUT: 'Seiten Design'
+        STYLE: 'Benutzerdefinierte Anpassungen (nur für Superadmins)'
+      FIELDSET:
+        BLOG: 'Blog'
+        MOBILENAV: 'Mobile Navigation'
+        COLS: 'Footer Spalten rechts'
+        SEO: 'SEO Einstellungen'
+        COL:
+          1: 'Erste Spalte'
+          2: 'Zweite Spalte'
+          3: 'Dritte Spalte'
+        SETTINGS: 'Footer Einstellungen'
+        HEADER: 'Kopfbereich'
+        FOOTER: 'Fussbereich'
+        SITE: 'Seite'
+        NAV: 'Navigation'
+        NAVI:
+          EXPANDABLE: 'Klickbare Main Nav / Expandable auf Mobile'
+          FITTOCONTENT: 'Breite der Navigation auf Contentbreite'
+          NAVHEIGHT: 'Navigation Höhe (60-205)'
+          MOBNAVHEIGHT: 'Mobile Nav Höhe (60-300)'
+          MOBNAVENABLED: 'Separate Höhe für Mobile Nav'
+          STICKYBOTTOM: 'Add sticky Menu to bottom (and remove hamburger top left!)'
+          STICKYBOTTOMCODE: 'HTML code for sticky bottom'
+          OPTIONS:
+            0: 'Nein'
+            1: 'Ja'
+        COLOR: 'Farben'
+        BG_COLOR: 'Hintergrundfarben'
+        TEXT_COLOR: 'Textfarben'
+        FONT: 'Schriften'
+        VARIOUS: 'Diverses'
+        MAP: 'Google Map'
+      FIELDS:
+        SLICK:
+          LABEL: 'Activate Slick.js? (for testimonials)'
+        TITLE:
+          LABEL: 'Titel'
+        URL:
+          LABEL: 'URL'
+        BUTTON:
+          LABEL: 'Spezialbutton in der Navigation'
+          LINK:
+            LABEL: 'Spezialbutton Link'
+          ENABLED:
+            LABEL: 'Spezialbutton aktiviert?'
+          TEXT:
+            LABEL: 'Spezialbutton Text'
+        MAXWIDTH:
+          LABEL: 'Maximale Breite des Contents (1000-2000 / Standard 1280)'
+        CUSTOMCSS:
+          LABEL: 'Benutzerdefinierte CSS Datei (bitte zuerst folgende Datei erstellen im theme directory: akazie-wood/custom/css/custom.css)'
+        CUSTOMJS:
+          LABEL: 'Benutzerdefinierte JS Datei (bitte zuerst folgende Datei erstellen im theme directory: akazie-wood/custom/js/custom.js)'
+        IMAGESIZING:
+          LABEL: 'Image Resizing mit picture Tag (cache aktivieren! Experimentelles Feature)'
+          HELP: 'Für Live-Seiten aktivieren Sie bitte den Cache und stellen Sie die Purge-Zeiten auf jeden Monat oder länger ein. Stellen Sie außerdem "Bild-Cache standardmäßig löschen" auf "Nein" **Wenn Sie den Cache nicht aktivieren, haben Sie aufgrund der responsiven Bilder sehr lange Ladezeiten.**'
+        PROPERH:
+          LABEL: 'Keine H Tags im Header brauchen'
+          HELP: 'Ersetzt H Tags mit DIVs damit Sie die volle Kontrolle haben bei der Titelstruktur.'
+        NAV:
+          LENGTH:
+            LABEL: 'Anzahl Max. Navigationspunkte'
+        MARKDOWNTITLE:
+            LABEL: 'Markdown beim Titel Anwenden'
+        MARKDOWNTITLENEWLINE:
+          LABEL: 'Bei Farbwechsel neue Zeile'
+        IMPRESSUM:
+          ENABLED:
+            LABEL: 'Impressum anzeigen?'
+          LINK:
+            LABEL: 'Link zum Impressum'
+        DATENSCHUTZ:
+          ENABLED:
+            LABEL: 'Datenschutz anzeigen?'
+          LINK:
+            LABEL: 'Link zum Datenschutz'
+        VARIOUS:
+          FOOTERLABEL: 'Verschiedene Footer-Funktionen'
+        FOOTER_JAVASCRIPT:
+          LABEL: 'Javascript-Code zum Footer hinzufügen'
+        HEADER_JAVASCRIPT:
+          LABEL: '(Javascript-) TrackingCode zum Header hinzufügen'
+        FULLSCREEN:
+          FOOTERLABEL: 'Fullscreen footer'
+          ENABLED:
+            LABEL: 'Fullscreen Footer anzeigen?'
+          LINK:
+            LABEL: 'Link zum Footer'
+          BGCOLOR:
+            LABEL: 'Hintergrundfarbe für Vollbild-Footer'
+        MAP_API:
+          LABEL: 'API-Schlüssel (nur wenn Google Maps)'
+        FAVICON:
+          LABEL: 'Favicon'
+          DESCRIPTION: 'Benutzen anstelle von `theme://images/favicon.png`'
+        PARALLAX:
+          LABEL: 'Full Screen Parallax Background benutzen?'
+          HEADER:
+            LABEL: 'Show the background behind header'
+        LOGO:
+          LABEL: 'Eigenes Logo'
+          DESCRIPTION: 'Benutzen anstelle von `theme://images/logo.png` verwendet'
+          DISPLAY: 'Logo anzeigen?'
+        FIXED:
+          LABEL: 'Fixierte Navigation'
+          HELP: 'Wenn aktiviert wird die Navigation immer oben im Browser angezeigt.'
+        SUBNAV:
+          LABEL: 'Unternavigation'
+          HELP: 'Ermöglicht es eine weitere Navigations Ebene zu haben.'
+        HOME:
+          LABEL: 'Startseiten-Link'
+          OPTIONS:
+            0: "Anzeigen"
+            1: "Verstecken"
+        FOOTER_ADDRESS:
+          LABEL: 'Adresse im Footer'
+        FOOTERCOMPACT:
+          LABEL: 'Kompakter Footer'
+        FOOTER_MAIL:
+          LABEL: 'Mail im Footer'
+        COLOR:
+          WHITE:
+            LABEL: 'Weiss'
+          BLACK:
+            LABEL: 'Schwarz'
+          BG:
+            MAIN:
+              LABEL: 'Hauptfarbe'
+            PRIMARY:
+              LABEL: 'Erste Farbe'
+            SECONDARY:
+              LABEL: 'Zweite Farbe'
+            NAV:
+              LABEL: 'Navigation'
+            NAV_HOVER:
+              LABEL: 'Navigation (hover)'
+          TEXT:
+            MAIN:
+              LABEL: 'Hauptfarbe'
+            PRIMARY:
+              LABEL: 'Erste Farbe'
+            SECONDARY:
+              LABEL: 'Zweite Farbe'
+            LINKS:
+              LABEL: 'Links'
+            NAV:
+              LABEL: 'Navigation'
+            NAV_HOVER:
+              LABEL: 'Navigation (hover)'
+        FONT:
+          IMPORT:
+            LABEL: 'Schriften import'
+          GOOGLE:
+            LABEL: 'Schnelleres Laden für Google Fonts?'
+          MAIN:
+            LABEL: 'Hauptschrift'
+          FOOTER:
+            LABEL: 'Footer'
+          TITLE:
+            LABEL: 'Überschriften'
+          NAV:
+            LABEL: 'Navigation'
+          CUSTOMHTML:
+            LABEL: 'Custom HTML im head'
+    FRONTEND:
+      LOAD: "Seite wird geladen"
+    ADMIN:
+      TAB:
+        CONTENT: "Inhalt"
+      SECTION:
+        CONTENT: "Seiteninhalt"
+        BUTTONS: "Buttons unter dem Bild"
+        SETTINGS: "Einstellungen"
+        HIDENSETTINGS: "Administrator Einstellungen"
+        PREVIEW: "Vorschau"
+        MEDIA: 'Medien'
+        MAPSETTINGS: 'Map Einstellungen'
+        MAPINFO: 'Map Info'
+        CONTINUE: 'Weiter Text'
+        SECTIONTWO: 'Sektion 2 rechts'
+        ROW:
+          ONE: 'Zeile eins'
+          TWO: 'Zeile zwei'
+          THREE: 'Zeile drei'
+      FIELDS:
+        TESTIMONIALS:
+          LABEL: 'Testimonials'
+        ZITAT:
+          LABEL: 'Zitat'
+        FUNKTION:
+          LABEL: 'Funktion'
+        BREAKHEIGHT:
+          LABEL: 'Höhe (wenn leer gelassen wird die Höhe automatisch definiert)'
+        GOOGLEMAPS:
+          LABEL: 'Map Embed Link und Beschreibung'
+        CALENDAREMBED:
+          LABEL: 'Kalender Embed Code'
+        BACKTEXT:
+          LABEL: 'Text auf Zurück-Balken'
+        PRICES:
+          LABEL: 'Preisliste'
+          DESC:
+            LABEL: 'Beschreibung'
+          CHF:
+            LABEL: 'Preis'
+        SAISON:
+          LABEL: 'Saisonzeiten'
+          DESC:
+            LABEL: 'Beschreibung'
+          VON:
+            LABEL: 'von'
+          BIS:
+            LABEL: 'bis'
+        BOX:
+          BGCOLOR:
+            LABEL: 'Hintergrundfarbe'
+          COLOR:
+            LABEL: 'Textfarbe'
+          ROUNDCORNERS:
+            LABEL: 'Box Radius (in Pixel angeben)'
+          ENABLED:
+            LABEL: 'Als Box darstellen'
+        MAP_LAT:
+          LABEL: 'Breitengrad'
+        MAP_LONG:
+          LABEL: 'Längengrad'
+        MAP_ZOOM:
+          LABEL: 'Zoom'
+        MAP_CONTROLS:
+          LABEL: 'Schaltflächen'
+        MAP_STYLE:
+          LABEL: 'Map Style (nur wenn Google Map)'
+        MAP_DESC:
+          LABEL: 'Map Beschreibung'
+        MAP_TITLE:
+          LABEL: 'Marker Titel'
+        MAP_WINDOW:
+          LABEL: 'Info Fenster'
+        TITLE:
+          LABEL: "Titel"
+        ALT:
+          LABEL: "Alt Tag"
+        SHOWTITLE:
+          LABEL: "Titel anzeigen?"
+        MASONRYWIDTH:
+          LABEL: "Masonryfeld Breite"
+          OPTIONS:
+            1: "normale Breite (33.3%)"
+            2: "doppelte Breite (66.6%)"
+            3: "dreifache Breite (99.9%)"
+        TITLESIZE:
+          LABEL: 'Titelgrösse'
+          OPTIONS:
+            0: "Nein"
+            1: "Ja"
+            2: "Nur Abstand benutzen"
+        TITLEID:
+          LABEL: 'Titel id (für html Anker)'
+        CENTERTEXT:
+          LABEL: "Text zentrieren"
+        CONTACTBUTTON:
+          LABEL: "Kontaktbutton anzeigen"
+          OPTIONS:
+            0: "Nein"
+            1: "Ja"
+        TEXTPOS:
+          LABEL: "Text Position"
+          OPTIONS:
+            0: "rechts"
+            1: "darunter"
+        CONTACTTEXT:
+          LABEL: "Kontaktbutton Text"
+        GALLERIE:
+          LABEL: "Bildergalerie"
+        TEXT:
+          LABEL: "Text"
+        HEADING:
+          LABEL: "Überschrift"
+        SLOGAN:
+          LABEL: "Slogan"
+        REDIRECT:
+          LABEL: "Seite auswählen"
+        IMAGE:
+          LABEL: "Bild"
+        IMAGES:
+          LABEL: "Bilder"
+        IMAGE_HEADER:
+          LABEL: "Titelbild"
+        PDF_HEADER:
+          LABEL: "Datei anstatt Link?"
+          FILE: "Datei"
+        PDF_SRC:
+          LABEL: "Datei auswählen"
+        KUNDENCODE:
+          LABEL: "Kundencode (leer lassen)"
+        CLAIM:
+          LABEL: "Claim"
+        CLAIMSWITCH:
+          LABEL: "Claim anstelle Titel anzeigen?"
+        REMOVEHEADER:
+          LABEL: "Header ganz ausblenden?"
+        MASONRY:
+          LABEL: "Masonry aktivieren? (experimentelles Feature)"
+        CLAIMASMARKDOWN:
+        LABEL: "Claim als Markdown anzeigen?"
+        DESCRIPTION:
+          LABEL: "Beschreibung"
+        DESCRIPTION_POS:
+          LABEL: 'Position der Bildbeschreibung'
+          OPTIONS:
+            1: 'Beschreibung im Bild'
+            2: 'Beschreibung unter dem Bild'
+        YOUTUBE:
+          LABEL: "Video ID eingeben"
+          PLATFORM: "Plattform"
+          DESCRIPTION: "Beispiel: `VkvUH8vRQfE`"
+        COLUMN:
+          LABEL: 'Element Breite'
+          OPTIONS:
+            1: "Halbe Breite"
+            2: "Volle Breite"
+            3: "Eine Spalte zentriert"
+            4: "1/3 von voller Breite"
+            5: "2/3 von voller Breite"
+            6: "1/4 von voller Breite"
+            7: "1/6 von voller Breite"
+        MARGINRIGHT:
+          LABEL: "Padding"
+        MASONRYSETTING:
+          LABEL: 'Masonry (experimentell. Auf modularer Seite aktivieren und Imagemasonry oder Textmasonry Modul verwenden)'
+        SCALE:
+          LABEL: 'Format'
+          OPTIONS:
+            1: 'Querformat 1 (4:3)'
+            2: 'Querformat 2 (16:9)'
+            3: 'Querformat 3 (2.35:1)'
+            4: 'Quadratisch (1:1)'
+            5: 'Hochformat(3:4)'
+        WINDOW:
+          LABEL: 'Im gleichen Fenster öffnen?'
+          OPTIONS:
+            0: 'Gleiches Fenster'
+            1: 'Neuer Tab'
+        LINK:
+          LABEL: 'Link URL (es wird kein Link generiert, wenn leer gelassen)'
+        PERSONS:
+          LABEL: 'Personen'
+        BUTTONS:
+          LABEL: 'Buttons'
+        FOOTERTEXT:
+          BGHEIGHTMOBILE:
+            LABEL: 'Mobile Höhe (wenn leer gelassen wird die Footer Höhe verwendet)'
+          LEFT1:
+            LABEL: 'Text links'
+          NONAV:
+            LABEL: '2. Spalte anzeigen?'
+          NOSOC:
+            LABEL: 'Content zeigen anstelle von Social Media (wenn leer gelassen, werden die Social Media Links generiert)'
+          RIGHTNAV:
+            LABEL: 'Titel'
+            CONTENT:
+              LABEL: 'Content anstatt Navigation anzeigen (wenn leer gelassen, wird eine Navigation generiert)'
+          UPSIGN:
+            LABEL: 'Scroll up text'
+          FOOTERBG:
+            LABEL: 'Eigenes Backgroundbild'
+            DESCRIPTION: 'Das Seiten-Backgroundbild mit eigenem Bild ersetzen'
+          NOFULLSCREEN:
+            LABEL: 'Fullscreen'
+          BGHEIGHT:
+            LABEL: 'Footer Höhe'
+          RIGHTCONTACT:
+            LABEL: 'Kontakt Titel'
+            CONTENT:
+              LABEL: 'Kontakt Text'
+          SOCIALMEDIA:
+            LABEL: 'Social Media / Links Titel'
+            DESC:
+              LABEL: 'Social Media Links'
+            TITLE:
+              LABEL: 'Titel'
+            LINK:
+              LABEL: 'Link'
+          RIGHTSIDEDIV:
+            LABEL: 'Breite des div auf der rechten Seite'
+        STYLING:
+          LABEL: 'Als Button stylen?'
+          OPTIONS:
+            0: 'Ja'
+            1: 'Nein'
+        BLOCK:
+          LABEL: 'Als Block darstellen? (eine Zeile pro Button)'
+          OPTIONS:
+            0: 'Nein'
+            1: 'Ja'
+        NEWWINDOW:
+          LABEL: 'In neuem Fenster oeffnen?'
+          OPTIONS:
+            0: 'Nein'
+            1: 'Ja'
+        URLS:
+          LABEL: 'URL'
+        NAME:
+          LABEL: 'Name'
+        POSITION:
+          LABEL: 'Position'
+        EMAIL:
+          LABEL: 'Mail'
+        FIXWIDTH:
+          LABEL: "Fixe Breite"

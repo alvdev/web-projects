@@ -1,0 +1,160 @@
+title: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        inhalt:
+          type: tab
+          title: THEME_AKAZIEWOOD.ADMIN.TAB.CONTENT
+          fields:
+            header.leftsize1:
+              type: markdown
+              validate:
+              label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.LEFT1.LABEL
+            cols:
+              type: fieldset
+              title: THEME_AKAZIEWOOD.THEME.FIELDSET.COLS
+              collapsed: false
+              collapsible: true
+              fields:
+                col1:
+                  type: fieldset
+                  title: THEME_AKAZIEWOOD.THEME.FIELDSET.COL.1
+                  collapsed: false
+                  collapsible: true
+                  fields:
+                    header.row1titel:
+                      type: text
+                      label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.SOCIALMEDIA.LABEL
+                    header.row1content:
+                      name: zeile1
+                      type: list
+                      label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.SOCIALMEDIA.DESC.LABEL
+                      collapsed: true
+                      fields:
+                        .text:
+                          type: text
+                          label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.SOCIALMEDIA.TITLE.LABEL
+                        .link:
+                          type: text
+                          label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.SOCIALMEDIA.LINK.LABEL
+                    header.row1text:
+                      type: markdown
+                      validate:
+                      label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.NOSOC.LABEL
+                col2:
+                  type: fieldset
+                  title: THEME_AKAZIEWOOD.THEME.FIELDSET.COL.2
+                  collapsed: false
+                  collapsible: true
+                  fields:
+                    header.row2show:
+                      type: toggle
+                      label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.NONAV.LABEL
+                      highlight: 0
+                      default: 0
+                      options:
+                        1: PLUGIN_ADMIN.DISABLED
+                        0: PLUGIN_ADMIN.ENABLED
+                      validate:
+                        type: bool
+                    header.row2titel:
+                      type: text
+                      label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.RIGHTNAV.LABEL
+                    header.row2content:
+                      type: markdown
+                      validate:
+                      label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.RIGHTNAV.CONTENT.LABEL
+                col3:
+                  type: fieldset
+                  title: THEME_AKAZIEWOOD.THEME.FIELDSET.COL.3
+                  collapsed: false
+                  collapsible: true
+                  fields:
+                    header.row3titel:
+                      type: text
+                      label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.RIGHTCONTACT.LABEL
+                    header.row3content:
+                      type: markdown
+                      validate:
+                      label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.RIGHTCONTACT.CONTENT.LABEL
+            settings:
+              type: fieldset
+              title: THEME_AKAZIEWOOD.THEME.FIELDSET.SETTINGS
+              collapsed: false
+              collapsible: true
+              fields:
+                header.upsignon:
+                  type: toggle
+                  label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.UPSIGN.LABEL
+                  highlight: 1
+                  default: 1
+                  options:
+                    1: THEME_AKAZIEWOOD.THEME.FIELDS.HOME.OPTIONS.1
+                    0: THEME_AKAZIEWOOD.THEME.FIELDS.HOME.OPTIONS.0
+                  validate:
+                    type: bool
+                header.upsign:
+                  type: text
+                  label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.UPSIGN.LABEL
+                header.footerbg:
+                  type: file
+                  label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.FOOTERBG.LABEL
+                  size: large
+                  destination: 'theme://custom/logo'
+                  multiple: false
+                  markdown: true
+                  description: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.FOOTERBG.DESCRIPTION
+                  accept:
+                    - image/*
+                header.nofullscreen:
+                  type: toggle
+                  label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.NOFULLSCREEN.LABEL
+                  highlight: 0
+                  default: 0
+                  options:
+                    1: PLUGIN_ADMIN.DISABLED
+                    0: PLUGIN_ADMIN.ENABLED
+                  validate:
+                    type: bool
+                header.bgheight:
+                  type: text
+                  label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.BGHEIGHT.LABEL
+                header.bgheightmobile:
+                  type: text
+                  label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.BGHEIGHTMOBILE.LABEL
+                header.rightsidediv:
+                  type: toggle
+                  label: THEME_AKAZIEWOOD.ADMIN.FIELDS.FOOTERTEXT.RIGHTSIDEDIV.LABEL
+                  highlight: 0
+                  default: 0
+                  options:
+                    1: '2/3'
+                    0: '1/2'
+                  validate:
+                    type: bool
+            lower:
+              type: fieldset
+              title: 'lower footer'
+              collapsed: false
+              collapsible: true
+              fields:
+                header.lowerfooteron:
+                  type: toggle
+                  label: 'turn lower footer on'
+                  highlight: 0
+                  default: 0
+                  options:
+                    0: 'off'
+                    1: 'on'
+                  validate:
+                    type: bool
+                header.lowerfooterleft:
+                  type: markdown
+                  label: 'left markdown'
+                header.lowerfooterright:
+                  type: markdown
+                  label: 'right markdown'

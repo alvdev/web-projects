@@ -1,0 +1,19 @@
+title: 'Alfa Host'
+default_lang: es
+author:
+  name: alv.dev
+  email: soy@alv.dev
+taxonomies:
+  - category
+  - tag
+metadata:
+  description: 'Alfa Grav is an easy to use, yet powerful, open source flat-file CMS'
+summary:
+  enabled: true
+  format: short
+  size: 300
+  delimiter: '==='
+redirects: null
+routes: null
+blog:
+  route: /blog
