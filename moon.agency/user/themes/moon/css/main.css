@@ -3103,13 +3103,8 @@ a.logo {
     z-index: 2;
 }
 
-header a.logo img {
-    margin-left: 80px;
-}
-
 .home a.logo img,
 footer a.logo img {
-    margin-left: 118px;
     max-width: 100%;
 }
 
@@ -3240,17 +3235,9 @@ a.logo.vertical_logo img {
 }
 
 .page_header.affix a.logo.logo_image {
-    height: 61px;
-    margin: 14px 0 5px;
-    width: 150px;
-}
-
-.page_header.affix a.logo.logo_image h1 {
-    font-size: 35px;
-}
-
-.page_header.affix a.logo.logo_image h1 span {
-    font-size: 41px;
+    height: 60px;
+    margin: 9px 0;
+    width: 100%;
 }
 
 .page_header.affix .header-contacts {
