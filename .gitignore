@@ -1,0 +1,18 @@
+/*
+!/.gitignore
+
+# Ignore common files/folders (just in case)
+cache
+vendor
+node_modules
+backup
+logs
+tmp
+package-lock.json
+composer.lock
+LICENSE
+*min.*
+**/test.*
+
+# Include projects folders
+!/alfa.host/
