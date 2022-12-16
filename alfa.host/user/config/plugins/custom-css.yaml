@@ -1,2 +1,0 @@
-enabled: true
-css_inline: "#body-wrapper {\n    animation-duration: .5s;\n    animation-name: fadeload;\n}\n\n@keyframes fadeload {\n    from { opacity: 0 }\n    to { opacity: 1 }\n\n"

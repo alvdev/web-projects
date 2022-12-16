@@ -1,7 +1,0 @@
-enabled: false
-route: /search
-template: simplesearch_results
-filters: null
-order:
-  by: date
-  dir: desc
