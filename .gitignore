@@ -1,39 +1,18 @@
 /*
 !/.gitignore
 
-# Common vendor folders from composer and nodejs
-# (just in case above rules doesn't work)
+# Ignore common files/folders (just in case)
 cache
 vendor
 node_modules
-
-# Common vendor folders from grav
 backup
 logs
 tmp
-system
 package-lock.json
 composer.lock
 LICENSE
 *min.*
 **/test.*
 
-# Alfa Host
+# Include projects folders
 !/alfa.host/
-/alfa.host/*
-!/alfa.host/user/
-/alfa.host/user/*
-!/alfa.host/user/themes/alfa/
-
-# Moved from web-projects root folder
-!/alfa.host/_svelte/**
-!/alfa.host/user/images/**
-!/alfa.host/user/pages/**
-!/alfa.host/user/themes/**
-
-# Moon Agency
-!/moon.agency/
-/moon.agency/*
-!/moon.agency/user/
-/moon.agency/user/*
-!/moon.agency/user/themes/moon/
