@@ -1,0 +1,37 @@
+{% extends 'partials/base.html.twig' %}
+{% set template_body_classes = 'is-singular logged-in not-front-page page page-id-2 page-template-default customize-support not-scrolled' %}
+
+{% block content %}
+    <section class="ds model-page section_padding_70 section_padding_bottom_60 columns_padding_25">
+        <div class="container">
+            <div class="row">
+                {% include 'partials/profile-sidebar.html.twig' %}
+                <div class="col-md-7 col-md-pull-5">
+                    <h1 class="topmargin_0 bottommargin_30">
+                        {{ 'MY_NAME_IS'|t }}
+                        {{ page.title }}
+                    </h1>
+                    {{ page.content|raw }}
+
+                    <div class="columns_padding_5 topmargin_50">
+                        <div class="row text-center">
+                            {{ photoswipe('photoswipe-gallery-id', 'a') }}
+                            <div id="photoswipe-gallery-id">
+                                {% for item in page.media.images %}
+                                    <a href="{{ item.url|e }}" class="gallery-item" data-size="{{ item.width ~ 'x' ~ item.height }}">
+                                        <img src="{{ item.cropZoom(120, 120).url|e }}" alt=""/>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ds ms section_padding_70">
+        <div class="container">
+            {% include "forms/form.html.twig" with {form: forms('contact-form')} %}
+        </div>
+    </section>
+{% endblock %}

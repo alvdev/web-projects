@@ -1,0 +1,70 @@
+title: PLUGIN_ADMIN.PROFILE
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+
+          fields:
+            header.title:
+              label: PROFILE.MODEL_NAME
+              autofocus: true
+
+            columns:
+              type: columns
+              fields:
+                olumn1:
+                  type: column
+                  fields:
+                    header.height:
+                      type: number
+                      label: PROFILE.HEIGHT
+                      autofocus: true
+                      validate:
+                        type: number
+
+                    header.bust:
+                      type: number
+                      label: PROFILE.BUST
+
+                    header.waist:
+                      type: number
+                      label: PROFILE.WAIST
+
+                column2:
+                  type: column
+                  fields:
+                    header.hips:
+                      type: number
+                      label: PROFILE.HIPS
+
+                    header.age:
+                      type: number
+                      label: PROFILE.AGE
+                      validate:
+                        min: 18
+                        max: 99
+
+                    header.eyes:
+                      type: select
+                      select:
+                      options:
+                        PROFILE.BLACK_EYES: PROFILE.BLACK_EYES
+                        PROFILE.BROWN_EYES: PROFILE.BROWN_EYES
+                        PROFILE.BLUE_EYES: PROFILE.BLUE_EYES
+                        PROFILE.GREEN_EYES: PROFILE.GREEN_EYES
+                        PROFILE.AMBER_EYES: PROFILE.AMBER_EYES
+                        PROFILE.HAZEL_EYES: PROFILE.HAZEL_EYES
+                        PROFILE.GRAY_EYES: PROFILE.GRAY_EYES
+                      label: PROFILE.EYES
+
+            header.media_order:
+              type: pagemedia
+              label: PLUGIN_ADMIN.PAGE_MEDIA
+              ordering@: 10

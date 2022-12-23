@@ -1,0 +1,45 @@
+<aside class="col-md-5 col-md-push-7">
+    <div class="vertical-item with_background models_square">
+        <div class="item-media">
+            {{ page.media.images|first|raw }}
+            <div class="container model-parameters grey gradient_bg_goriz before_cover">
+                <div class="bg_overlay"></div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.HEIGHT'|t }}</span>
+                    <br>
+                    <span>{{ page.header.height }}
+                        cm</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.BUST'|t }}</span>
+                    <br>
+                    <span>{{ page.header.bust }}
+                        cm</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.WAIST'|t }}</span>
+                    <br>
+                    <span>{{ page.header.waist }}
+                        cm</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.HIPS'|t }}</span>
+                    <br>
+                    <span>{{ page.header.hips }}
+                        cm</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.AGE'|t }}</span>
+                    <br>
+                    <span>{{ page.header.age }}
+                        {{ 'PROFILE.YEARS'|t }}</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="bold">{{ 'PROFILE.EYES'|t }}</span>
+                    <br>
+                    <span>{{ page.header.eyes|t }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

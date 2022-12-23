@@ -1,0 +1,101 @@
+{% set options = {items: {'@page.children': '/models'}} %}
+{% set models = page.collection(options) %}
+
+{# {% for item in models %}
+    {{ unite_gallery(item.media.images)|raw }}
+{% endfor %} #}
+
+<section class="ds ms page_models models_portrait gorizontal_padding section_padding_70">
+    <div class="container-fluid">
+        <div class="isotope_container isotope row masonry-layout" data-filters=".isotope_filters">
+
+            {% for model in models %}
+                <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
+                    <div class="vertical-item content-absolute">
+                        <div class="item-media">
+                            <a href="{{ model.url }}">
+                                {% if model.media.images|first %}
+                                    {{ model.media.images|first.cropZoom(338, 451).html('', '', 'attachment-receptar-featured size-receptar-featured wp-post-image')|raw }}
+                                {% else %}
+                                    <img class="attachment-receptar-featured size-receptar-featured wp-post-image" src="{{ theme_url }}/images/{{ site.global_featured_image }}">
+                                {% endif %}
+                                <div class="media-links">
+                                    <div class="links-wrap model-parameters">
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.HEIGHT'|t }}</span>
+                                            <span>
+                                                {% if model.header.height %}
+                                                    {{ model.header.height }}
+                                                    cm
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.BUST'|t }}</span>
+                                            <span>
+                                                {% if model.header.bust %}
+                                                    {{ model.header.bust }}
+                                                    cm
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.WAIST'|t }}</span>
+                                            <span>
+                                                {% if model.header.waist %}
+                                                    {{ model.header.waist }}
+                                                    cm
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.HIPS'|t }}</span>
+                                            <span>
+                                                {% if model.header.hips %}
+                                                    {{ model.header.hips }}
+                                                    cm
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.AGE'|t }}</span>
+                                            <span>
+                                                {% if model.header.age %}
+                                                    {{ model.header.age }}
+                                                    {{ 'PROFILE.YEARS'|t }}
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="bold">{{ 'PROFILE.EYES'|t }}</span>
+                                            <span>
+                                                {% if model.header.eyes %}
+                                                    {{ model.header.eyes|t }}
+                                                {% else %}
+                                                    {{ 'NOT_DEFINED'|t }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item-title text-center">
+                        <h4>{{ model.title }}</h4>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,53 @@
+{% extends 'partials/base.html.twig' %}
+{% set template_body_classes = 'is-singular logged-in not-front-page page page-id-2 page-template-default customize-support not-scrolled' %}
+
+{% block content %}
+    <main id="main" class="site-main clearfix" role="main">
+        <article class="page type-page status-publish hentry">
+            <div class="entry-inner">
+                <div class="entry-content" itemprop="description">
+                    <section class="ds section_padding_70 section_padding_bottom_50">
+                        <div class="container">
+                            <div class="row bottommargin_20">
+                                <div class="col-sm-12 text-center">
+                                    <h2 class="big topmargin_0 bottommargin_40">
+                                        {{ page.header.title }}
+                                    </h2>
+                                    <div class="fontsize_20 maxwidth_570 inline-block">
+                                        {{ page.content|raw }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                {% for col in page.header.faqs|batch(4) %}
+                                    <div class="col-sm-6">
+                                        <div class="panel-group" id="accordion{{ loop.index }}">
+                                            {% for item in col %}
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion{{ loop.parent.loop.index }}" href="#collapse{{ loop.parent.loop.index }}{{ loop.index }}" class="collapsed">
+                                                                <i class="rt-icon2-bubble highlight"></i>
+                                                                {{ item.question }}
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse{{ loop.parent.loop.index }}{{ loop.index }}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            {{ item.answer }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock %}
