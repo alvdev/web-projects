@@ -7,6 +7,7 @@ vendor
 node_modules
 backup
 logs
+*.log
 tmp
 package-lock.json
 composer.lock
