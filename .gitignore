@@ -14,7 +14,9 @@ composer.lock
 LICENSE
 *min.*
 **/test.*
+*.swp
 
 # Include projects folders
 !/alfa.host/
+!/contradefensa/
 !/moon.agency/
