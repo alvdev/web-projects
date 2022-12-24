@@ -3,6 +3,7 @@
 !/user
 !_svelte
 /user/*
+!/user/pages/
 !/user/themes
 /user/themes/*
 !/user/themes/alfa
