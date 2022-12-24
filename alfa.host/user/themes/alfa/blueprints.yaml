@@ -40,3 +40,16 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
             validate:
                 type: bool
+
+        email:
+            type: text
+            label: THEME.EMAIL
+            validate:
+                type: email
+
+        phone:
+            type: number
+            label: THEME.PHONE
+            pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}"
+            validate:
+                type: tel
