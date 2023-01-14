@@ -2,8 +2,14 @@
 !.gitignore
 !/user
 !_svelte
+
 /user/*
 !/user/pages/
-!/user/themes
+
+!/user/plugins/
+/user/plugins/*
+!/user/plugins/admin/
+
+!/user/themes/
 /user/themes/*
 !/user/themes/alfa
