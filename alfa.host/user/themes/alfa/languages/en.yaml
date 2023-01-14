@@ -1,0 +1,4 @@
+THEME:
+    EMAIL: 'Email'
+    PHONE: 'Phone number'
+    ERROR: 'Error!'

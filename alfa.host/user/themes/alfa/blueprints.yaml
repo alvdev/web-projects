@@ -1,0 +1,55 @@
+name: Alfa
+slug: alfa
+type: theme
+version: 0.1.0
+description: The Alfa Host website
+icon: rebel
+author:
+  name: alv.dev
+  email: soy@alv.dev
+homepage: https://github.com/alvdev/grav-theme-alfa
+demo: http://alv.dev
+keywords: alfa, theme, etc
+bugs: https://github.com/alvdev/grav-theme-alfa/issues
+readme: https://github.com/alvdev/grav-theme-alfa/blob/develop/README.md
+license: MIT
+
+dependencies:
+  - { name: grav, version: '>=1.6.0' }
+
+form:
+    validation: loose
+    fields:
+        dropdown.enabled:
+            type: toggle
+            label: Dropdown in Menu
+            highlight: 1
+            default: 1
+            options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+            validate:
+                type: bool
+        production:
+            type: toggle
+            label: Production Mode
+            highlight: 1
+            default: 1
+            options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+            validate:
+                type: bool
+
+        email:
+            type: text
+            label: THEME.EMAIL
+            validate:
+                type: email
+
+        phone:
+            type: number
+            label: THEME.PHONE
+            pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}"
+            validate:
+                type: tel
