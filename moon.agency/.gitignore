@@ -1,5 +1,6 @@
 /*
 !.gitignore
+!.htaccess
 !/user
 /user/*
 !/user/themes
