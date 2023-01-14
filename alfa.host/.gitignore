@@ -9,6 +9,7 @@
 !/user/plugins/
 /user/plugins/*
 !/user/plugins/admin/
+!/user/plugins/alfa-admin/
 
 !/user/themes/
 /user/themes/*
