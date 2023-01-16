@@ -1,8 +1,8 @@
 ---
 title: Inicio
-body_classes: 'title-center title-h1'
+body_classes: "title-center title-h1"
 content:
-    items: '@self.modular'
+    items: "@self.modular"
     order:
         by: default
         dir: asc
@@ -21,8 +21,6 @@ content:
             - _marketing-services
             - _hosting-apps
             - _posts-faqs
-            - _footer
-            - _copyright
             - _totop
-admin: {  }
+admin: {}
 ---
