@@ -32,11 +32,11 @@
                 {% include 'partials/navigation.html.twig' %}
             {% endblock %}
 
-            {% block slideshow %}
-                {% include 'modular/header-slideshow.html.twig' %}
-            {% endblock %}
-
             {% if page.home %}
+                {% block slideshow %}
+                    {% include 'modular/header-slideshow.html.twig' %}
+                {% endblock %}
+
                 {% block domain_search %}
                     {% include 'partials/domain-search.html.twig' %}
                 {% endblock %}
