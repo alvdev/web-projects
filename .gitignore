@@ -16,7 +16,6 @@ LICENSE
 **/test.*
 *.swp
 test/
-dist/
 
 # Include projects folders
 !/alfa.host/
