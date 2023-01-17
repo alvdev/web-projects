@@ -14,8 +14,9 @@ composer.lock
 LICENSE
 *min.*
 **/test.*
-test/
 *.swp
+test/
+dist/
 
 # Include projects folders
 !/alfa.host/
