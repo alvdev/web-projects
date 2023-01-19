@@ -349,6 +349,15 @@
     opacity: 1;
   }
 
+  footer .ccards path {
+    stroke: white;
+  }
+
+  footer .ccards g,
+  footer .ccards path + path {
+    fill: white
+  }
+
   /* Accordion */
   @media screen and (max-width: 768px) {
     .tab h3 a {
