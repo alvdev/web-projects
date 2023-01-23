@@ -1405,11 +1405,6 @@ footer .ccards g,
   margin-right: 2rem;
 }
 
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -1740,10 +1735,6 @@ footer .ccards g,
   grid-template-rows: repeat(4, minmax(0, 1fr));
 }
 
-.flex-row {
-  flex-direction: row;
-}
-
 .flex-col {
   flex-direction: column;
 }
@@ -1844,12 +1835,6 @@ footer .ccards g,
 
 .gap-y-4 {
   row-gap: 1rem;
-}
-
-.space-x-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .overflow-hidden {
