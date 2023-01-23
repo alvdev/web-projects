@@ -11,7 +11,9 @@
     "prod": "postcss css/site.css -o dist/css/site.min.css --env production --verbose"
   },
   "dependencies": {
-    "@glidejs/glide": "^3.5.2"
+    "@glidejs/glide": "^3.5.2",
+    "npm": "^9.3.1",
+    "nvm": "^0.0.4"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",
