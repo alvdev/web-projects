@@ -1,0 +1,35 @@
+{{!-- This is a partial file used to generate a header post "card"
+which templates loop over to generate a list of posts. --}}
+
+<article>
+    <a href="{{url}}">
+    {{#if feature_image}}
+        <img class="post-card-image"
+            srcset="{{img_url feature_image size="s"}} 150w,
+                    {{img_url feature_image size="m"}} 300w,
+                    {{img_url feature_image size="l"}} 500w,
+                    {{img_url feature_image size="xl"}} 1000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="{{img_url feature_image size="m"}}"
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+            loading="lazy"
+        />
+    {{else}}
+        <img class="post-card-image"
+            srcset="{{asset 'img/ciberseguridad.webp'}}"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="{{asset 'img/ciberseguridad.webp'}}"
+            alt="{{title}}"
+            loading="lazy"
+        />
+    {{/if}}
+        <h2>
+            {{#if primary_tag}}
+                {{#primary_tag}}
+                <div class="post-card-primary-tag">{{name}}</div>
+                {{/primary_tag}}
+            {{/if}}
+            {{title}}
+        </h2>
+    </a>
+</article>
