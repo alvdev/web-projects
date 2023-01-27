@@ -3,6 +3,7 @@
 !.htaccess
 !/user
 /user/*
+!/user/pages
 !/user/themes
 /user/themes/*
 !/user/themes/moon
