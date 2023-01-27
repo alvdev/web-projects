@@ -19,7 +19,7 @@ form:
             columns:
               type: columns
               fields:
-                olumn1:
+                column1:
                   type: column
                   fields:
                     header.height:
