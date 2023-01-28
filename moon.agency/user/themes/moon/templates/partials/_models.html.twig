@@ -15,76 +15,44 @@
                         <div class="item-media">
                             <a href="{{ model.url }}">
                                 {% if model.media.images|first %}
+                                    {% set total_pics = model.media.images|length %}
                                     {{ model.media.images|first.cropZoom(338, 451).html('', '', 'attachment-receptar-featured size-receptar-featured wp-post-image')|raw }}
                                 {% else %}
                                     <img class="attachment-receptar-featured size-receptar-featured wp-post-image" src="{{ theme_url }}/images/{{ site.global_featured_image }}">
                                 {% endif %}
                                 <div class="media-links">
-                                    <div class="links-wrap model-parameters">
+                                    <div class="model-pics">
+                                        {% if total_pics %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" viewbox="0 0 16 16">
+                                                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                                <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                                            </svg>
+                                            <span>{{ total_pics }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="model-parameters">
                                         <div>
-                                            <span class="bold">{{ 'PROFILE.HEIGHT'|t }}</span>
-                                            <span>
-                                                {% if model.header.height %}
-                                                    {{ model.header.height }}
-                                                    cm
-                                                {% else %}
-                                                    {{ 'NOT_DEFINED'|t }}
-                                                {% endif %}
-                                            </span>
+                                            {% if model.header.age %}
+                                                {{ model.header.age }}
+                                                {{ 'PROFILE.YEARS'|t }}
+                                            {% else %}
+                                                {{ 'NOT_DEFINED'|t }}
+                                            {% endif %}
                                         </div>
                                         <div>
-                                            <span class="bold">{{ 'PROFILE.BUST'|t }}</span>
-                                            <span>
-                                                {% if model.header.bust %}
-                                                    {{ model.header.bust }}
-                                                    cm
-                                                {% else %}
-                                                    {{ 'NOT_DEFINED'|t }}
-                                                {% endif %}
-                                            </span>
+                                            {% if model.header.nationality %}
+                                                {{ model.header.nationality|t }}
+                                            {% else %}
+                                                {{ 'NOT_DEFINED'|t }}
+                                            {% endif %}
                                         </div>
                                         <div>
-                                            <span class="bold">{{ 'PROFILE.WAIST'|t }}</span>
-                                            <span>
-                                                {% if model.header.waist %}
-                                                    {{ model.header.waist }}
-                                                    cm
-                                                {% else %}
-                                                    {{ 'NOT_DEFINED'|t }}
-                                                {% endif %}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <span class="bold">{{ 'PROFILE.HIPS'|t }}</span>
-                                            <span>
-                                                {% if model.header.hips %}
-                                                    {{ model.header.hips }}
-                                                    cm
-                                                {% else %}
-                                                    {{ 'NOT_DEFINED'|t }}
-                                                {% endif %}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <span class="bold">{{ 'PROFILE.AGE'|t }}</span>
-                                            <span>
-                                                {% if model.header.age %}
-                                                    {{ model.header.age }}
-                                                    {{ 'PROFILE.YEARS'|t }}
-                                                {% else %}
-                                                    {{ 'NOT_DEFINED'|t }}
-                                                {% endif %}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <span class="bold">{{ 'PROFILE.EYES'|t }}</span>
-                                            <span>
-                                                {% if model.header.eyes %}
-                                                    {{ model.header.eyes|t }}
-                                                {% else %}
-                                                    {{ 'NOT_DEFINED'|t }}
-                                                {% endif %}
-                                            </span>
+                                            {% if model.header.height %}
+                                                {{ model.header.height }}
+                                                cm
+                                            {% else %}
+                                                {{ 'NOT_DEFINED'|t }}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

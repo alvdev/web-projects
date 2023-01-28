@@ -18,17 +18,17 @@
 
 .breadcrumb>li>a {
     background-color: #fff;
+    border-radius: 2px;
     color: #1a1a1a;
     padding: 2px 20px;
-    border-radius: 2px;
 }
 
 .breadcrumb>li>a:hover,
 .breadcrumb>li.active>span {
     background-color: #1a1a1a;
+    border-radius: 2px;
     color: #fff;
     padding: 2px 20px;
-    border-radius: 2px;
 }
 
 .breadcrumb>li+i:before {
@@ -3489,9 +3489,13 @@ a.logo.vertical_logo img {
 }
 
 .template-home .model-parameters {
-    display: grid;
-    place-items: center;
+    display: flex;
+    place-content: space-between;
     grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    top: auto;
+    bottom: 0;
+    background-image: linear-gradient(to right, rgba(218, 165, 32, .85), rgba(218, 165, 32, .85) 50%, rgba(255, 215, 0, .85));
 }
 
 .intro_section.page_mainslider .model-parameters div,
@@ -3501,16 +3505,17 @@ a.logo.vertical_logo img {
     line-height: 20px;
     margin: 5px 0;
     padding: 5px 3.5%;
+    position: relative;
 }
 
 .template-home .model-parameters div {
-    color: white;
     background: none;
     border: none;
-    width: min-content;
+    color: white;
     display: flex;
     flex-direction: column;
     white-space: nowrap;
+    width: min-content;
 }
 
 .intro_section.page_mainslider .flexslider .model-parameters {
@@ -3737,8 +3742,20 @@ a.logo.vertical_logo img {
     color: #fff;
 }
 
+.models_portrait .isotope-item .model-pics {
+    border-radius: 4px;
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem;
+    padding: 0.25rem 0.75rem;
+    place-items: center;
+    width: auto;
+    top: 0;
+    background: rgb(0, 0, 0, 0.55);
+}
+
 .models_portrait .isotope-item .links-wrap {
-    bottom: 40px;
+    bottom: 0;
     top: auto;
 }
 
@@ -5637,9 +5654,9 @@ h2.search-title {
 }
 
 .model-page .model-parameters {
+    bottom: 0;
     padding: 15px 20px;
     position: absolute;
-    bottom: 0;
     width: 100%;
 }
 
@@ -8033,14 +8050,16 @@ h2 .muellerhoff {
 }
 
 .media-links {
+    border-radius: 4px;
     bottom: 0;
+    color: #ffffff;
+    font-weight: 500;
     left: 0;
+    overflow: hidden;
     position: absolute;
     right: 0;
     text-align: center;
     top: 0;
-    border-radius: 4px;
-    overflow: hidden;
 }
 
 .media-links div {
@@ -10590,18 +10609,18 @@ a.soc-pocket.bg-icon:hover,
 }
 
 .gallery-item {
-    text-align: center;
     margin: 0 4px 4px;
+    text-align: center;
 }
 
 .gallery-item:hover:before {
+    background-color: goldenrod;
     content: "";
     display: block;
-    width: 100%;
     height: 100%;
-    background-color: goldenrod;
-    position: absolute;
     opacity: .4;
+    position: absolute;
+    width: 100%;
 }
 
 .gallery-columns-1 .gallery-item {
