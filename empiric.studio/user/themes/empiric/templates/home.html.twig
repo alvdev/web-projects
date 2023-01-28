@@ -1,0 +1,22 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block header %}
+		<nav class="flex place-content-between">
+				<div class="logo">
+						<img src="{{ url('image://empiric.svg') }}">
+				</div>
+
+				<ul class="flex gap-12 items-center content-center uppercase font-bold">
+						<li><a href="#">Agencia</a></li>
+						<li><a href="#">Web</a></li>
+						<li><a href="#">App</a></li>
+						<li><a href="#">SEO</a></li>
+						<li><a href="#">PPC</a></li>
+				</ul>
+		</nav>
+{% endblock %}
+
+{% block content %}
+    {#{{ page.content|raw }}#}
+{% endblock %}
+
