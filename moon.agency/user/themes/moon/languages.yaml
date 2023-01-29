@@ -21,6 +21,7 @@ es:
     AGE: Edad
     EYES: Ojos
     YEARS: años
+    NATIONALITY: Nacionalidad
     BLACK_EYES: Negros
     BLUE_EYES: Azules
     GREEN_EYES: Verdes
@@ -82,6 +83,7 @@ en:
     AGE: Age
     EYES: Eyes
     YEARS: years old
+    NATIONALITY: Nationality
   SUBSCRIBE: Subscribe
   TWEET: Tweet
   SHARE: Share

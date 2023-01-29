@@ -41,7 +41,7 @@
                                         </div>
                                         <div>
                                             {% if model.header.nationality %}
-                                                {{ model.header.nationality|t }}
+                                                {{ model.header.nationality|capitalize|t }}
                                             {% else %}
                                                 {{ 'NOT_DEFINED'|t }}
                                             {% endif %}

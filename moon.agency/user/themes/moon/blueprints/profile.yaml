@@ -37,6 +37,11 @@ form:
                       type: number
                       label: PROFILE.WAIST
 
+                    header.nationality:
+                      type: taxonomy
+                      label: PROFILE.NATIONALITY
+                      multiple: false
+
                 column2:
                   type: column
                   fields:

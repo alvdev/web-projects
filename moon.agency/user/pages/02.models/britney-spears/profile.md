@@ -5,6 +5,7 @@ date: '14:55 11/03/2022'
 height: 21
 hips: 22
 age: 19
+nationality: españa
 bust: 333
 waist: 33
 eyes: PROFILE.HAZEL_EYES
