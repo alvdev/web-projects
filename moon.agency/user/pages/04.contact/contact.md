@@ -67,6 +67,7 @@ form:
         - message: "Gracias por contactar con nuestra agencia. Le responderemos a la mayor brevedad posible."
         - display: thankyou
 slug: contacto
+menu: Casting
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium amet ea dicta neque, ut quis omnis quos nam, pariatur, minus, fugit suscipit aspernatur sint ullam quas explicabo. Alias, officiis, dolor!

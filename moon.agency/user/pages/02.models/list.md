@@ -16,5 +16,6 @@ feed:
     limit: 10
 pagination: true
 slug: masajistas-eroticas
+menu: Girls
 ---
 
