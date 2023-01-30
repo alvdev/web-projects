@@ -38,9 +38,11 @@ form:
                       label: PROFILE.WAIST
 
                     header.nationality:
-                      type: taxonomy
+                      type: text
+                      autocomplete: on
                       label: PROFILE.NATIONALITY
-                      multiple: false
+                      validate:
+                        type: text
 
                 column2:
                   type: column
@@ -68,6 +70,18 @@ form:
                         PROFILE.HAZEL_EYES: PROFILE.HAZEL_EYES
                         PROFILE.GRAY_EYES: PROFILE.GRAY_EYES
                       label: PROFILE.EYES
+
+                    header.available:
+                      type: toggle
+                      toggleable: true
+                      label: 'Disponible'
+                      highlight: 1
+                      default: 0
+                      options:
+                        1: Yes
+                        0: No
+                      validate:
+                        type: bool
 
             header.media_order:
               type: pagemedia
