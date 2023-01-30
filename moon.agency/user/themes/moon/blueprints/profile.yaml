@@ -73,15 +73,12 @@ form:
 
                     header.available:
                       type: toggle
-                      toggleable: true
                       label: 'Disponible'
                       highlight: 1
-                      default: 0
+                      default: 1
                       options:
                         1: Yes
                         0: No
-                      validate:
-                        type: bool
 
             header.media_order:
               type: pagemedia

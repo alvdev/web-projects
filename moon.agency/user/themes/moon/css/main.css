@@ -3489,13 +3489,14 @@ a.logo.vertical_logo img {
 }
 
 .template-home .model-parameters {
+    background-image: linear-gradient(to right, rgba(218, 165, 32, .85), rgba(218, 165, 32, .85) 50%, rgba(255, 215, 0, .85));
+    bottom: 0;
     display: flex;
-    place-content: space-between;
     grid-template-columns: repeat(3, 1fr);
+    place-content: space-between;
     place-items: center;
     top: auto;
-    bottom: 0;
-    background-image: linear-gradient(to right, rgba(218, 165, 32, .85), rgba(218, 165, 32, .85) 50%, rgba(255, 215, 0, .85));
+    z-index: 5;
 }
 
 .intro_section.page_mainslider .model-parameters div,
@@ -3516,6 +3517,13 @@ a.logo.vertical_logo img {
     flex-direction: column;
     white-space: nowrap;
     width: min-content;
+}
+
+.media-links .available {
+    background: rgb(0, 0, 0, 55%);
+    height: 100%;
+    margin: 0;
+    top: 0;
 }
 
 .intro_section.page_mainslider .flexslider .model-parameters {
@@ -3742,15 +3750,16 @@ a.logo.vertical_logo img {
 }
 
 .models_portrait .isotope-item .model-pics {
+    background: rgb(0, 0, 0, 0.55);
     border-radius: 4px;
     display: flex;
     gap: 0.5rem;
     margin: 1rem;
     padding: 0.25rem 0.75rem;
     place-items: center;
-    width: auto;
     top: 0;
-    background: rgb(0, 0, 0, 0.55);
+    width: auto;
+    z-index: 5;
 }
 
 .models_portrait .isotope-item .links-wrap {

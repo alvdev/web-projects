@@ -9,6 +9,7 @@ taxonomy:
         - cookies
 media_order: 'depositphotos_9193225_original-450x672 (2).jpg'
 eyes: PROFILE.BLACK_EYES
+available: '0'
 ---
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.

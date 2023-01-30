@@ -55,6 +55,11 @@
                                             {% endif %}
                                         </div>
                                     </div>
+
+                                    {# Zero is needed to fix previous empty values because empty == false #}
+                                    {% if model.header.available == '0' %}
+                                        <div class="available"></div>
+                                    {% endif %}
                                 </div>
                             </a>
                         </div>
