@@ -73,7 +73,3 @@ form:
     our_services:
       type: editor
       label: THEME.OUR_SERVICES
-
-    testimonials:
-      type: editor
-      label: THEME.TESTIMONIALS

@@ -1,0 +1,47 @@
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+
+          fields:
+            header.title:
+              unset@: true
+            content:
+              unset@: true
+            header.media_order:
+              unset@: true
+
+            heading:
+              type: section
+              title: HOME.HEADING
+              underline: true
+
+              fields:
+                header.title:
+                  type: text
+                  autofocus: true
+                  style: vertical
+                  label: PLUGIN_ADMIN.TITLE
+
+                header.subtitle:
+                  ordering@: header.title
+                  type: text
+                  label: HOME.SUBTITLE
+                  style: vertical
+                  validate:
+                    type: text
+
+                content:
+                  type: textarea
+                  label: HOME.DESCRIPTION
+                  style: vertical
+                  validate:
+                    type: textarea

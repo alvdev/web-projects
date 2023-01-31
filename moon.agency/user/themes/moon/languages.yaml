@@ -9,6 +9,10 @@ es:
     SCHEDULE: Horario
     ADDRESS: Dirección física
     SLOGAN: Eslogan/descripción breve
+  HOME:
+    HEADING: Encabezado
+    SUBTITLE: Subtítulo
+    DESCRIPTION: Descripción
   PLUGIN_ERROR:
     ERROR: "Error"
     ERROR_MESSAGE: "Esta página no existe o se he movido a otra parte. Puedes realizar una búsqueda o ir a la página principal desde aquí."
@@ -76,6 +80,10 @@ en:
     SCHEDULE: Schedule
     ADDRESS: Street address
     SLOGAN: Short slogan/description
+  HOME:
+    HEADING: Heading
+    SUBTITLE: Subtitle
+    DESCRIPTION: Description
   PROFILE:
     MODEL_NAME: Name
     HEIGHT: Height
