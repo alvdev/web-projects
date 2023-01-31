@@ -1,13 +1,16 @@
 {% set options = {items: {'@page.children': '/legal'}} %}
 {% set links = page.collection(options) %}
 
-<ul class="list2 bottommargin_0">
-    {% for link in links.visible %}
-        {% set current_page = (page.active or page.activeChild) ? 'active' : '' %}
-        <li class="menu-item-{{ loop.index }} {{ current_page }}">
-            <a href="{{ link.url }}">
-                {{ link.menu }}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+{% block footer %}
+    <h3 class="widget-title">Enlaces</h3>
+    <ul class="list2 bottommargin_0">
+        {% for link in links.visible %}
+            {% set current_page = (page.active or page.activeChild) ? 'active' : '' %}
+            <li class="menu-item-{{ loop.index }} {{ current_page }}">
+                <a href="{{ link.url }}">
+                    {{ link.menu }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
