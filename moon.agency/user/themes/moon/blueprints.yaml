@@ -44,6 +44,12 @@ form:
       validate:
         type: tel
 
+    schedule:
+      type: text
+      label: THEME.SCHEDULE
+      validate:
+        type: text
+
     address:
       type: text
       label: THEME.ADDRESS
@@ -67,7 +73,7 @@ form:
     our_services:
       type: editor
       label: THEME.OUR_SERVICES
-      
+
     testimonials:
       type: editor
       label: THEME.TESTIMONIALS

@@ -6,6 +6,7 @@ es:
   THEME:
     EMAIL: Dirección de email
     PHONE: Teléfono de contacto
+    SCHEDULE: Horario
     ADDRESS: Dirección física
     SLOGAN: Eslogan/descripción breve
   PLUGIN_ERROR:
@@ -72,6 +73,7 @@ en:
   THEME:
     EMAIL: Email address
     PHONE: Phone number
+    SCHEDULE: Schedule
     ADDRESS: Street address
     SLOGAN: Short slogan/description
   PROFILE:
