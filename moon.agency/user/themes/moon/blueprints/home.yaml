@@ -45,3 +45,30 @@ form:
                   style: vertical
                   validate:
                     type: textarea
+
+            about_us:
+              type: section
+              title: HOME.ABOUTUS
+              underline: Yes
+
+              fields:
+                header.aboutus_title:
+                  type: text
+                  label: PLUGIN_ADMIN.TITLE
+                  style: vertical
+                  validate:
+                    type: text
+
+                header.aboutus_subtitle:
+                  type: text
+                  label: HOME.SUBTITLE
+                  style: vertical
+                  validate:
+                    type: text
+
+                header.aboutus_description:
+                  type: editor
+                  label: HOME.DESCRIPTION
+                  style: vertical
+                  validate:
+                    type: texarea
