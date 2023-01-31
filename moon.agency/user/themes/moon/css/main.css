@@ -3489,7 +3489,7 @@ a.logo.vertical_logo img {
 }
 
 .template-home .model-parameters {
-    background-image: linear-gradient(to right, rgba(218, 165, 32, .85), rgba(218, 165, 32, .85) 50%, rgba(255, 215, 0, .85));
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1));
     bottom: 0;
     display: flex;
     grid-template-columns: repeat(3, 1fr);
@@ -3497,6 +3497,9 @@ a.logo.vertical_logo img {
     place-items: center;
     top: auto;
     z-index: 5;
+    box-shadow: 0 -25px 50px white;
+    opacity: .8;
+    padding: 0 0.5rem;
 }
 
 .intro_section.page_mainslider .model-parameters div,
@@ -3512,9 +3515,10 @@ a.logo.vertical_logo img {
 .template-home .model-parameters div {
     background: none;
     border: none;
-    color: white;
+    color: #000;
     display: flex;
     flex-direction: column;
+    font-weight: 600;
     white-space: nowrap;
     width: min-content;
 }
