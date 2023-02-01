@@ -22,73 +22,62 @@ form:
             heading:
               type: section
               title: HOME.HEADING
-              underline: true
 
               fields:
                 header.title:
                   type: text
                   autofocus: true
-                  style: vertical
                   label: PLUGIN_ADMIN.TITLE
 
                 header.subtitle:
                   ordering@: header.title
                   type: text
                   label: HOME.SUBTITLE
-                  style: vertical
                   validate:
                     type: text
 
                 content:
                   type: textarea
                   label: HOME.DESCRIPTION
-                  style: vertical
                   validate:
                     type: textarea
 
             about_us:
               type: section
               title: HOME.ABOUTUS
-              underline: Yes
 
               fields:
                 header.aboutus_title:
                   type: text
                   label: PLUGIN_ADMIN.TITLE
-                  style: vertical
                   validate:
                     type: text
 
                 header.aboutus_subtitle:
                   type: text
                   label: HOME.SUBTITLE
-                  style: vertical
                   validate:
                     type: text
 
                 header.aboutus_description:
                   type: editor
                   label: HOME.DESCRIPTION
-                  style: vertical
                   validate:
                     type: textarea
 
             work_withus:
               type: section
               title: HOME.WORK_WITHUS
-              underline: Yes
 
               fields:
                 header.work_withus_title:
                   type: text
                   label: PLUGIN_ADMIN.TITLE
-                  style: vertical
                   validate:
                     type: text
 
                 header.work_withus_description:
                   type: textarea
                   label: HOME.DESCRIPTION
-                  style: vertical
                   validate:
                     type: texarea
