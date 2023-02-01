@@ -1,4 +1,4 @@
-name: Moon Agency
+name: Agency Moon
 slug: moon
 type: theme
 version: 1.0.0
@@ -20,44 +20,52 @@ dependencies:
 form:
   validation: loose
   fields:
-    showchildpages.enabled:
-      type: toggle
-      label: Show child pages in navbar
-      highlight: 1
-      default: 1
-      options:
-        1: PLUGIN_ADMIN.ENABLED
-        0: PLUGIN_ADMIN.DISABLED
-      validate:
-        type: bool
+    siteinfo:
+      type: section
+      title: THEME.INFO
+      fields:
+        email:
+          type: text
+          label: THEME.EMAIL
+          validate:
+            type: email
 
-    email:
-      type: text
-      label: THEME.EMAIL
-      validate:
-        type: email
+        phone:
+          type: number
+          pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}"
+          label: THEME.PHONE
+          validate:
+            type: tel
 
-    phone:
-      type: number
-      pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}"
-      label: THEME.PHONE
-      validate:
-        type: tel
+        schedule:
+          type: text
+          label: THEME.SCHEDULE
+          validate:
+            type: text
 
-    schedule:
-      type: text
-      label: THEME.SCHEDULE
-      validate:
-        type: text
+        address:
+          type: text
+          label: THEME.ADDRESS
+          validate:
+            type: text
 
-    address:
-      type: text
-      label: THEME.ADDRESS
-      validate:
-        type: text
+        slogan:
+          type: textarea
+          label: THEME.SLOGAN
+          validate:
+            type: text
 
-    slogan:
-      type: textarea
-      label: THEME.SLOGAN
-      validate:
-        type: text
+    siteconfig:
+      type: section
+      title: THEME.CONFIG
+      fields:
+        showchildpages.enabled:
+          type: toggle
+          label: Show child pages in navbar
+          highlight: 1
+          default: 1
+          options:
+            1: PLUGIN_ADMIN.ENABLED
+            0: PLUGIN_ADMIN.DISABLED
+          validate:
+            type: bool

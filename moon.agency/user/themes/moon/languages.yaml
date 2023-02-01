@@ -4,11 +4,13 @@ es:
     DESCRIPTION: Agencia de escorts de lujo
     COPYRIGHT: © Copyright %s
   THEME:
+    INFO: Información del sitio
     EMAIL: Dirección de email
     PHONE: Teléfono de contacto
     SCHEDULE: Horario
     ADDRESS: Dirección física
     SLOGAN: Eslogan/descripción breve
+    CONFIG: Configuración
   HOME:
     HEADING: Encabezado
     SUBTITLE: Subtítulo
