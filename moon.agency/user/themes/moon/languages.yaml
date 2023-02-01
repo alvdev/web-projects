@@ -15,6 +15,7 @@ es:
     HEADING: Encabezado
     SUBTITLE: Subtítulo
     DESCRIPTION: Descripción
+    WORK_WITHUS: Trabajo
   PLUGIN_ERROR:
     ERROR: "Error"
     ERROR_MESSAGE: "Esta página no existe o se he movido a otra parte. Puedes realizar una búsqueda o ir a la página principal desde aquí."
@@ -86,6 +87,7 @@ en:
     HEADING: Heading
     SUBTITLE: Subtitle
     DESCRIPTION: Description
+    WORK_WITHUS: Work with us
   PROFILE:
     MODEL_NAME: Name
     HEIGHT: Height

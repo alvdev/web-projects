@@ -71,4 +71,24 @@ form:
                   label: HOME.DESCRIPTION
                   style: vertical
                   validate:
+                    type: textarea
+
+            work_withus:
+              type: section
+              title: HOME.WORK_WITHUS
+              underline: Yes
+
+              fields:
+                header.work_withus_title:
+                  type: text
+                  label: PLUGIN_ADMIN.TITLE
+                  style: vertical
+                  validate:
+                    type: text
+
+                header.work_withus_description:
+                  type: textarea
+                  label: HOME.DESCRIPTION
+                  style: vertical
+                  validate:
                     type: texarea
