@@ -6286,7 +6286,8 @@ aside .widget_tag_cloud a:hover {
 }
 
 .widget_text p {
-    line-height: 21px;
+    line-height: 2rem;
+    font-size: 1.4rem;
 }
 
 .widget_tabs .nav-tabs>li>a {
