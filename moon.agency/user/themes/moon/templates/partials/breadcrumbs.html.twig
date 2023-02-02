@@ -56,42 +56,12 @@
                     </ol>
                 </div>
                 <div class="col-sm-2 text-center text-sm-right">
-                    <ul class="inline-dropdown inline-block">
-
-                        <li class="dropdown login-dropdown">
-                            <a class="topline-button" id="login" data-target="#" href="index.html" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                <i class="rt-icon2-user"></i>
-                            </a>
-                            <div class="dropdown-menu ds" aria-labelledby="login">
-                                <form role="form" action="https://html.modernwebtemplates.com/">
-                                    <div class="form-group">
-                                        <label for="login_email" class="sr-only">Email</label>
-                                        <input type="email" class="form-control" id="login_email" placeholder="{{ 'THEME.ADDRESS'|t }} de email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="login_password" class="sr-only">Contraseña</label>
-                                        <input type="password" class="form-control" id="login_password" placeholder="Contraseña">
-                                    </div>
-                                    <button type="button" class="theme_button color1 bottommargin_0">
-                                        Acceder
-                                    </button>
-                                    <div class="checkbox-inline">
-                                        <input type="checkbox" id="remember">
-                                        <label for="remember" class="bottommargin_0">
-                                            Recordar sesión</label>
-                                    </div>
-                                </form>
-                                <div class="topmargin_25">
-                                    <a href="register.html" class="text-uppercase">¿Olvidaste tu contraseña?</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="search_modal_button topline-button">
-                                <i class="rt-icon2-search2"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="whatsapp">
+                        <a href="https://wa.me/{{ theme.phone|e }}?text={{ theme.whatsapp|url_encode }}" target="_blank">
+                            <img src="{{ url('image://whatsapp-icon.svg') }}">
+                            <span>Whatsapp</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

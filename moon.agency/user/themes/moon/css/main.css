@@ -4165,6 +4165,37 @@ a.logo.vertical_logo img {
     text-align: center;
 }
 
+.page_breadcrumbs .whatsapp {
+    color: #ffffff;
+}
+
+
+.page_breadcrumbs .whatsapp a {
+    display: flex;
+    color: #ffffff;
+    gap: 1rem;
+    place-content: end;
+    place-items: center;
+}
+
+.page_breadcrumbs .whatsapp img {
+    max-height: 31px;
+}
+
+.page_breadcrumbs .whatsapp span {
+    border: 3px solid #ededed;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    padding: 0 2rem;
+    font-weight: bold;
+}
+
+.page_breadcrumbs .whatsapp a:hover span {
+    background-color: #47ca6f;
+}
+
 .page_portfolio {
     overflow: hidden;
 }

@@ -10,6 +10,7 @@ es:
     SCHEDULE: Horario
     ADDRESS: Dirección física
     SLOGAN: Eslogan/descripción breve
+    WHATSAPP: Mensaje de Whatsapp
     CONFIG: Configuración
   HOME:
     HEADING: Encabezado
@@ -83,6 +84,7 @@ en:
     PHONE: Phone number
     SCHEDULE: Schedule
     ADDRESS: Street address
+    WHATSAPP: Whatsapp message
     SLOGAN: Short slogan/description
   HOME:
     HEADING: Heading
