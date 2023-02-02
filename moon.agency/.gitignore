@@ -4,6 +4,7 @@
 !/user
 /user/*
 !/user/pages
+!/user/images
 !/user/themes
 /user/themes/*
 !/user/themes/moon
