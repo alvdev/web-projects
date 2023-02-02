@@ -408,7 +408,7 @@ input[type="checkbox"]:checked+label:before {
 }
 
 .panel-heading .panel-title>a.collapsed {
-    background-color: #f2f2f2;
+    background-color: #333333;
 }
 
 .panel-heading .panel-title>a:after {
@@ -427,10 +427,6 @@ input[type="checkbox"]:checked+label:before {
 
 .panel-heading .panel-title>a.collapsed:after {
     content: "-";
-}
-
-.panel-heading .panel-title>a.collapsed {
-    color: #1a1a1a;
 }
 
 .panel-heading .panel-title>a.collapsed>i {
