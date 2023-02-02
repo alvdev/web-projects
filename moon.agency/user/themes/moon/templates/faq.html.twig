@@ -13,9 +13,11 @@
                                     <h2 class="big topmargin_0 bottommargin_40">
                                         {{ page.header.title }}
                                     </h2>
-                                    <div class="fontsize_20 maxwidth_570 inline-block">
-                                        {{ page.content|raw }}
-                                    </div>
+                                    {% if page.content %}
+                                        <div class="fontsize_20 maxwidth_570 inline-block">
+                                            {{ page.content|raw }}
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
 
