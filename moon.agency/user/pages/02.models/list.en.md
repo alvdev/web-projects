@@ -1,5 +1,5 @@
 ---
-title: 'Erotic masseurs'
+title: 'Blog'
 blog_url: blog
 sitemap:
     changefreq: monthly
@@ -12,9 +12,7 @@ content:
     limit: 6
     pagination: true
 feed:
-    description: 'Sample Blog Description'
+    description: ''
     limit: 10
 pagination: true
-slug: erotic-masseurs
 ---
-
