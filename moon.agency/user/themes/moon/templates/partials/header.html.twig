@@ -24,8 +24,8 @@
 
 {% if config.plugins.breadcrumbs.enabled %}
     {% if page.template != 'home' %}
-        {% block breadcrumbs %}
+        {# {% block breadcrumbs %}
             {% include "partials/breadcrumbs.html.twig" %}
-        {% endblock %}
+        {% endblock %} #}
     {% endif %}
 {% endif %}
