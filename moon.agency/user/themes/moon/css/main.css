@@ -380,11 +380,11 @@ input[type="checkbox"]:checked+label:before {
 }
 
 .panel-heading .panel-title>a {
-    background-color: goldenrod;
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
     border: none;
-    color: #fff;
+    color: black;
     display: flex;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 24px;
     padding: 18px 65px 18px 40px;
     word-wrap: break-word;
@@ -395,14 +395,14 @@ input[type="checkbox"]:checked+label:before {
 .panel-heading .panel-title>a.collapsed:hover,
 .panel-heading .panel-title>a:hover {
     background-color: goldenrod;
-    color: #fff;
+    color: black;
 }
 
 .panel-heading .panel-title>a.collapsed:hover>i,
 .panel-heading .panel-title>a.collapsed:hover:after,
 .panel-heading .panel-title>a:hover>i,
 .panel-heading .panel-title>a:hover:after {
-    color: #fff;
+    /* color: #fff; */
 }
 
 .panel-heading .panel-title>a.collapsed {
@@ -429,7 +429,7 @@ input[type="checkbox"]:checked+label:before {
 }
 
 .panel-heading .panel-title>a.collapsed>i {
-    color: goldenrod;
+    /* color: goldenrod; */
 }
 
 .panel-heading .panel-title>a.collapsed:after {
@@ -437,11 +437,11 @@ input[type="checkbox"]:checked+label:before {
 }
 
 .panel-heading .panel-title>a>i {
-    color: #fff;
+    color: black;
     font-size: 16px;
     padding-right: 12px;
     position: relative;
-    top: 1px;
+    top: 2px;
 }
 
 .panel {
@@ -1725,6 +1725,9 @@ p>[class*="rt-icon"]+[class*="rt-icon"] {
     background: -webkit-linear-gradient(left, darkgoldenrod 50%, goldenrod 100%);
     background: linear-gradient(to right, darkgoldenrod 50%, goldenrod 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$mainColor2', endColorstr='$mainColor3', GradientType=1);
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    border-radius: 30px;
+    /* box-shadow: 0 0 50px #FCF6BA */;
 }
 
 .vertical_gradient:before {
@@ -4084,6 +4087,7 @@ a.logo.vertical_logo img {
 
 .page_breadcrumbs.gradient {
     color: #fff;
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
 }
 
 .page_breadcrumbs.gradient a.topline-button {
@@ -4096,7 +4100,8 @@ a.logo.vertical_logo img {
 }
 
 .page_breadcrumbs.gradient .darklinks a {
-    color: #fff;
+    /* color: #fff; */
+    font-weight: 500;
 }
 
 .page_breadcrumbs.gradient .darklinks a:hover {
@@ -4158,37 +4163,6 @@ a.logo.vertical_logo img {
     margin: 0 0 -26px;
     padding: 0 20px;
     text-align: center;
-}
-
-.page_breadcrumbs .whatsapp {
-    color: #ffffff;
-}
-
-
-.page_breadcrumbs .whatsapp a {
-    display: flex;
-    color: #ffffff;
-    gap: 1rem;
-    place-content: end;
-    place-items: center;
-}
-
-.page_breadcrumbs .whatsapp img {
-    max-height: 31px;
-}
-
-.page_breadcrumbs .whatsapp span {
-    border: 3px solid #ededed;
-    border-radius: 50px;
-    display: flex;
-    flex-direction: column;
-    place-content: center;
-    padding: 0 2rem;
-    font-weight: bold;
-}
-
-.page_breadcrumbs .whatsapp a:hover span {
-    background-color: #47ca6f;
 }
 
 .page_portfolio {
