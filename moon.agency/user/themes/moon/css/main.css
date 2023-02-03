@@ -4204,6 +4204,41 @@ a.logo.vertical_logo img {
     background-color: #0d0d0d;
 }
 
+.whatsapp {
+    position: fixed;
+    left: 2rem;
+    bottom: 2rem;
+    z-index: 5;
+}
+
+.whatsapp a {
+    display: flex;
+    color: #ffffff;
+    gap: 1rem;
+    place-content: end;
+    place-items: center;
+}
+
+.whatsapp img {
+    max-height: 31px;
+}
+
+.whatsapp span {
+    border: 3px solid #ededed;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    padding: 0 2rem;
+    font-weight: 500;
+    background: rgb(0, 0, 0, 60%);
+}
+
+.whatsapp a:hover span {
+    background-color: #47ca6f;
+    color: #ffffff;
+}
+
 #featured {
     background: url(../images/parallax/featured.html) no-repeat 50% 50%;
     background-size: cover;
