@@ -4242,7 +4242,7 @@ a.logo.vertical_logo img {
 }
 
 .whatsapp img {
-    max-height: 31px;
+    max-height: 48px;
 }
 
 .whatsapp span {
@@ -4254,6 +4254,7 @@ a.logo.vertical_logo img {
     padding: 0 2rem;
     font-weight: 500;
     background: rgb(0, 0, 0, 60%);
+    visibility: hidden;
 }
 
 .whatsapp a:hover span {
