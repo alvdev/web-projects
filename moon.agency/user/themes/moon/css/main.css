@@ -3076,7 +3076,7 @@ a.topline-button:hover {
 }
 
 .header_darkgrey {
-    background-color: #0d0d0d;
+    background: linear-gradient(to bottom, #0d0d0d 50%, #1a1a1a);
 }
 
 .header_darkgrey h1,
@@ -3207,6 +3207,10 @@ a.logo.vertical_logo img {
     -webkit-transition: background 0.2s ease-in-out 0s;
     transition: background 0.2s ease-in-out 0s;
     z-index: 1000;
+    border-width: 0 0 5px;
+    border-style: solid;
+    border-image-source: linear-gradient(to right, #1a1a1a 0.5%, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C, #1a1a1a 99.5%);
+    border-image-slice: 1;
 }
 
 .page_header.mobile-active {
@@ -4087,7 +4091,8 @@ a.logo.vertical_logo img {
 
 .page_breadcrumbs.gradient {
     color: #fff;
-    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+    background: transparent;
+    margin: 0 2rem;
 }
 
 .page_breadcrumbs.gradient a.topline-button {
