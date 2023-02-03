@@ -2378,6 +2378,11 @@ body.boxed {
 
 .ds .highlight {
     color: goldenrod;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 3px goldenrod;
 }
 
 .ds .highlight2 {
@@ -3207,10 +3212,22 @@ a.logo.vertical_logo img {
     -webkit-transition: background 0.2s ease-in-out 0s;
     transition: background 0.2s ease-in-out 0s;
     z-index: 1000;
-    border-width: 0 0 5px;
-    border-style: solid;
-    border-image-source: linear-gradient(to right, #1a1a1a 0.5%, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C, #1a1a1a 99.5%);
-    border-image-slice: 1;
+}
+
+.golden-sep {
+    height: 4px;
+    background: linear-gradient(to right, #1a1a1a 0.5%, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C, #1a1a1a 99.5%);
+}
+
+.golden-sep:before {
+    content: "";
+    height: 4px;
+    border-radius: 50%;
+    width: 90%;
+    box-shadow: 0 0 6px gold;
+    display: block;
+    margin: 0px 5%;
+    position: absolute;
 }
 
 .page_header.mobile-active {
@@ -3227,7 +3244,7 @@ a.logo.vertical_logo img {
 
 @media (min-width: 600px) {
     .page_header.affix {
-        padding: 0 60px;
+        /* padding: 0 60px; */
     }
 }
 
@@ -3264,7 +3281,7 @@ a.logo.vertical_logo img {
 }
 
 @media (max-width: 1399px) and (min-width: 600px) {
-    .page_header {
+    .page_header .container-fluid {
         padding: 0 60px;
     }
 }
