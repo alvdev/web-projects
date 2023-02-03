@@ -55,7 +55,14 @@
                         {% endfor %}
                     </ol>
                 </div>
-                <div class="col-sm-2 text-center text-sm-right"></div>
+                <div class="col-sm-2 text-center text-sm-right">
+                    <div class="whatsapp">
+                        <a href="https://wa.me/{{ theme.phone|e }}?text={{ theme.whatsapp|url_encode }}" target="_blank">
+                            <img src="{{ url('image://whatsapp-icon.svg') }}">
+                            <span>Whatsapp</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
