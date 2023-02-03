@@ -3,52 +3,58 @@
         <div class="row">
             <div class="col-md-3 col-lg-3 to_animate" data-animation="scaleAppear">
                 <div class="widget widget_text">
-                    <a href="index.html" class="logo logo_image bottommargin_10">
-                        <img src="{{ url('theme://images/moon-logo.webp') }}" alt=""/>
-                    </a>
-                    <p>
-                        {{ theme.slogan }}
-                    </p>
-                    <div class="size_small">
-                        <i class="fa fa-cc-visa"></i>
-                        <i class="fa fa-cc-discover"></i>
-                        <i class="fa fa-cc-mastercard"></i>
-                        <i class="fa fa-cc-amex"></i>
-                        <i class="fa fa-cc-paypal"></i>
-                    </div>
+                    {{ theme.slogan }}
                 </div>
             </div>
-            <div class="col-md-6 col-lg-offset-1 col-lg-4 to_animate" data-animation="scaleAppear">
+            <div class="col-md-7 to_animate" data-animation="scaleAppear">
                 <div class="row footer_lists">
-                    <div class="col-xs-6">
-                        <h3 class="widget-title">Navegación</h3>
+                    <div class="col-xs-12">
+                        <h3 class="widget-title">Servicios</h3>
                         <div>
                             <ul class="list2 bottommargin_0">
                                 <li class="">
-                                    <a href="index.html">Presentación</a>
+                                    <a href="#">Escort masajista</a>
                                 </li>
                                 <li class="">
-                                    <a href="about.html">Modelos</a>
+                                    <a href="#">Chicas de compañía</a>
                                 </li>
 
                                 <li class="">
-                                    <a href="contact.html">Preguntas y respuestas</a>
+                                    <a href="#">Hoteles utilizados</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-
-                    <div class="col-xs-6">
-                        {% block links %}
-                            {% include "partials/legal-links.html.twig" %}
-                        {% endblock %}
-                    </div>
                 </div>
             </div>
-            <div class="col-md-3 col-lg-offset-1 col-lg-3 to_animate" data-animation="scaleAppear"></div>
+            <div class="col-xs-12 col-md-2 text-right">
+                <div class="size_small">
+                    <i class="fa fa-cc-visa"></i>
+                    <i class="fa fa-cc-discover"></i><br>
+                    <i class="fa fa-cc-mastercard"></i>
+                    <i class="fa fa-cc-amex"></i>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
+
+<div class="ds copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                Copyright ©
+                {{ "now"|date("Y") }}
+                Agency Moon - Todos los Derechos Reservados
+            </div>
+            <div class="col-md-6 text-right">
+                {% block links %}
+                    {% include "partials/legal-links.html.twig" %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="whatsapp">
     <a href="https://wa.me/{{ theme.phone|e }}?text={{ theme.whatsapp|url_encode }}" target="_blank">

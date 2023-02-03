@@ -1361,6 +1361,14 @@ ul.list2 {
     padding-left: 20px;
 }
 
+.page_footer ul.list2 {
+    list-style: none;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    display: flex;
+    gap: 6rem;
+}
+
 ul.list2 li {
     padding: 5px 0;
     position: relative;
@@ -3223,11 +3231,12 @@ a.logo.vertical_logo img {
     content: "";
     height: 4px;
     border-radius: 50%;
-    width: 90%;
+    width: 88%;
     box-shadow: 0 0 6px gold;
     display: block;
-    margin: 0px 5%;
+    margin: 0px 6%;
     position: absolute;
+    left: 0;
 }
 
 .page_header.mobile-active {
@@ -5819,6 +5828,11 @@ aside .widget+.widget {
     margin-left: 1px !important;
 }
 
+.page_footer > .container > .row {
+    display: flex;
+    place-items: center;
+}
+
 .page_footer .widget li,
 .page_footer .widget ul {
     border: none;
@@ -5827,6 +5841,13 @@ aside .widget+.widget {
 .page_footer .widget-title {
     font-size: 30px;
     margin-bottom: 20px;
+}
+
+.copyright {
+    background-color: #0d0d0d;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    font-size: 90%;
 }
 
 .widget_mailchimp {
