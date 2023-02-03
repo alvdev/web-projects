@@ -44,6 +44,15 @@ form:
                       validate:
                         type: text
 
+                    header.available:
+                      type: toggle
+                      label: "Disponible"
+                      highlight: 1
+                      default: 1
+                      options:
+                        1: Yes
+                        0: No
+
                 column2:
                   type: column
                   fields:
@@ -71,14 +80,11 @@ form:
                         PROFILE.GRAY_EYES: PROFILE.GRAY_EYES
                       label: PROFILE.EYES
 
-                    header.available:
-                      type: toggle
-                      label: 'Disponible'
-                      highlight: 1
-                      default: 1
-                      options:
-                        1: Yes
-                        0: No
+                    header.price:
+                      type: number
+                      label: PROFILE.PRICE
+                      validate:
+                        type: number
 
             header.media_order:
               type: pagemedia

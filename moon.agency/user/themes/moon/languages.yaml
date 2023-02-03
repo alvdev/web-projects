@@ -39,6 +39,7 @@ es:
     AMBER_EYES: Ámbar
     HAZEL_EYES: Avellana
     GRAY_EYES: Grises
+    PRICE: Tarifa
   SUBSCRIBE: Suscribir
   TWEET: Twitear
   SHARE: Compartir
@@ -102,6 +103,7 @@ en:
     EYES: Eyes
     YEARS: years old
     NATIONALITY: Nationality
+    PRICE: price
   SUBSCRIBE: Subscribe
   TWEET: Tweet
   SHARE: Share
