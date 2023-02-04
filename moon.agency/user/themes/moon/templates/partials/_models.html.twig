@@ -1,15 +1,16 @@
 {% set options = {items: {'@page.children': '/models'}} %}
 {% set models = page.collection(options) %}
+{% set models = models.shuffle() %}
 
-{% if page.template == 'list' %}
-    {% set models = models.shuffle() %}
+{% if page.template == 'home' %}
+    {% set models = models|slice(0, 4) %}
 {% endif %}
 
 {# {% for item in models %}
     {{ unite_gallery(item.media.images)|raw }}
 {% endfor %} #}
 
-<section class="ds ms page_models models_portrait gorizontal_padding section_padding_70">
+<section class="ds ms page_models models_portrait gorizontal_padding section_padding_70 section_padding_bottom_20 {% if page.template == 'home' %}section_padding_80{% endif %}">
     <div class="container-fluid">
         <div class="isotope_container isotope row masonry-layout" data-filters=".isotope_filters">
 
