@@ -456,6 +456,7 @@ input[type="checkbox"]:checked+label:before {
     padding-right: 12px;
     position: relative;
     top: 2px;
+    -webkit-text-fill-color: black;
 }
 
 .panel {
