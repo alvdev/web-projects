@@ -1,6 +1,10 @@
 {% set options = {items: {'@page.children': '/models'}} %}
 {% set models = page.collection(options) %}
 
+{% if page.template == 'list' %}
+    {% set models = models.shuffle() %}
+{% endif %}
+
 {# {% for item in models %}
     {{ unite_gallery(item.media.images)|raw }}
 {% endfor %} #}
