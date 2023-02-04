@@ -1,39 +1,13 @@
 {% extends 'partials/base.html.twig' %}
-{% set template_body_classes = 'is-singular logged-in not-front-page page page-id-2 page-template-default customize-support not-scrolled' %}
-
-{% set options = {items: {'@page.children': '/models'}} %}
-{% set models = page.collection(options) %}
 
 {% block content %}
     <main id="main" class="site-main clearfix" role="main">
         <article class="page type-page status-publish hentry">
             <div class="entry-inner">
                 <div class="entry-content" itemprop="description">
-                    <section class="ds page_models models_portrait gorizontal_padding section_padding_70 section_padding_bottom_0">
-                        <div class="container-fluid">
-                            <div class="isotope_container isotope row masonry-layout" data-filters=".isotope_filters">
-                                {% for model in models %}
-                                    <div class="isotope-item col-lg-3 col-md-4 col-sm-6 fashion">
-                                        <div class="vertical-item content-absolute">
-                                            <div class="item-media">
-                                                {% if model.media.images|first %}
-                                                    {{ model.media.images|first.cropZoom(338, 451).html('', '', 'attachment-receptar-featured size-receptar-featured wp-post-image')|raw }}
-                                                {% else %}
-                                                    <img class="attachment-receptar-featured size-receptar-featured wp-post-image" src="{{ theme_url }}/images/{{ site.global_featured_image }}">
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        <div class="item-title text-center">
-                                            <h4>
-                                                <a href="{{ model.url }}">{{ model.title }}</a>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </section>
-                    </div>
+                    {% include "partials/_models.html.twig" %}
                 </div>
-            </article>
-        </main>
-    {% endblock %}
+            </div>
+        </article>
+    </main>
+{% endblock %}
