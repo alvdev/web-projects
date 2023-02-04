@@ -4252,7 +4252,8 @@ a.logo.vertical_logo img {
 .whatsapp {
     position: fixed;
     left: 2rem;
-    bottom: 2rem;
+    bottom: 50%;
+    top: 50%;
     z-index: 5;
 }
 
