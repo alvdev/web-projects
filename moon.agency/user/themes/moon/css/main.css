@@ -2637,7 +2637,7 @@ body.boxed {
 .ds .widget_nav_menu li,
 .ds .widget_pages li,
 .ds .widget_popular_entries li,
-.ds.model-page .media-list li {
+.ds.page-profile .media-list li {
     border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
@@ -3529,7 +3529,7 @@ a.logo.vertical_logo img {
     z-index: 1;
 }
 
-.template-home .model-parameters {
+[class^="page-"]:not(.page-profile) .model-parameters {
     background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1));
     bottom: 0;
     display: flex;
@@ -3544,7 +3544,7 @@ a.logo.vertical_logo img {
 }
 
 .intro_section.page_mainslider .model-parameters div,
-.template-home .model-parameters div {
+[class^="page-"]:not(.page-profile) .model-parameters div {
     display: inline-block;
     font-size: 14px;
     line-height: 20px;
@@ -3553,7 +3553,7 @@ a.logo.vertical_logo img {
     position: relative;
 }
 
-.template-home .model-parameters div {
+[class^="page-"]:not(.page-profile) .model-parameters div {
     background: none;
     border: none;
     color: #000;
@@ -5732,42 +5732,42 @@ h2.search-title {
 }
 
 @media (min-width: 1200px) {
-    .model-page .isotope-item {
+    .page-profile .isotope-item {
         width: 20%;
     }
 }
 
-.model-page .filters {
+.page-profile .filters {
     margin-bottom: 30px;
 }
 
-.model-page .columns_padding_5 .row {
+.page-profile .columns_padding_5 .row {
     margin-left: -5px;
     margin-right: -5px;
 }
 
-.model-page .model-parameters {
+.page-profile .model-parameters {
     bottom: 0;
     padding: 15px 20px;
     position: absolute;
     width: 100%;
 }
 
-.model-page .model-parameters.gradient_bg_goriz .bg_overlay {
+.page-profile .model-parameters.gradient_bg_goriz .bg_overlay {
     background: linear-gradient(to right, rgb(218, 165, 32, 85%), rgb(218, 165, 32, 85%) 50%, rgb(255, 215, 0, 85%));
 }
 
-.model-page .media-left {
+.page-profile .media-left {
     font-size: 16px;
     padding-right: 10px;
 }
 
-.model-page .media-list li {
+.page-profile .media-list li {
     margin: 0;
     padding: 15px 0 10px;
 }
 
-.model-page .media-list li+li {
+.page-profile .media-list li+li {
     border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
