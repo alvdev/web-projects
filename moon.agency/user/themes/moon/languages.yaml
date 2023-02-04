@@ -31,7 +31,7 @@ es:
     AGE: Edad
     EYES: Ojos
     YEARS: años
-    NATIONALITY: Nacionalidad
+    NATIONALITY: País
     BLACK_EYES: Negros
     BLUE_EYES: Azules
     GREEN_EYES: Verdes
@@ -102,7 +102,7 @@ en:
     AGE: Age
     EYES: Eyes
     YEARS: years old
-    NATIONALITY: Nationality
+    NATIONALITY: Country
     PRICE: price
   SUBSCRIBE: Subscribe
   TWEET: Tweet
