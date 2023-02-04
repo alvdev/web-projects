@@ -7,6 +7,20 @@
     opacity: 0.8;
 }
 
+li {
+    margin-bottom: 1rem;
+}
+
+.description li {
+    list-style-position: inside;
+    margin-top: 1rem;
+}
+
+.flex-direction-nav li,
+li.flex-active-slide {
+    margin-bottom: 0
+}
+
 .breadcrumb {
     background-color: transparent;
     border-radius: 0;
