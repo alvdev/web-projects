@@ -16,7 +16,6 @@ LICENSE
 **/test.*
 *.swp
 test/
-*:Zone.Identifier
 
 # Include projects folders
 !/alfa.host/
