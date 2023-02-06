@@ -1,4 +1,4 @@
-<nav class="grid items-center justify-between grid-cols-2 py-6 lg:flex lg:px-8 lg:gap-4 z-10">
+<nav class="relative grid items-center justify-between grid-cols-2 py-6 lg:flex lg:px-8 lg:gap-4 z-10">
     <div class="pl-8 logo md:pl-0">
         <a href="{{ home_url|e }}" title="{{ config.site.title|e }}">
             {% include "partials/header/logo.svg" %}
@@ -64,4 +64,54 @@
             </li>
         {% endfor %}
     </ul>
+
+    <div id="megamenu" class="top-28 hosting absolute left-0 right-0 mx-8 z-10 bg-white bg-opacity-80 bg-blur-lg rounded-md p-8 flex">
+        <div class="w-4/6">
+            <ul class="grid grid-cols-2">
+                <li class="flex items-center divide-x-2 divide-gray-600">
+                    <div>Icon</div>
+                    <div>
+                        <p>Hosting emprendedores</p>
+                        <p>Hosting description</p>
+                    </div>
+                </li>
+                <li class="flex items-center divide-x-2 divide-gray-600">
+                    <div>Icon</div>
+                    <div>
+                        <p>Hosting eCommerce</p>
+                        <p>Hosting description</p>
+                    </div>
+                </li>
+                <li class="flex items-center divide-x-2 divide-gray-600">
+                    <div>Icon</div>
+                    <div>
+                        <p>Hosting Hosting gratis</p>
+                        <p>Hosting description</p>
+                    </div>
+                </li>
+                <li class="flex items-center divide-x-2 divide-gray-600">
+                    <div>Icon</div>
+                    <div>
+                        <p>Hosting empresarios</p>
+                        <p>Hosting description</p>
+                    </div>
+                </li>
+                <li class="flex items-center divide-x-2 divide-gray-600">
+                    <div>Icon</div>
+                    <div>
+                        <p>Servidores dedicados</p>
+                        <p>Hosting description</p>
+                    </div>
+                </li>
+                <li class="flex items-center divide-x-2 divide-gray-600">
+                    <div>Icon</div>
+                    <div>
+                        <p>Certificados SSL</p>
+                        <p>Hosting description</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="bg-cyan-400 rounded p-8 flex-1">Featured</div>
+    </div>
 </nav>
