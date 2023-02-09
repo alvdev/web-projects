@@ -4281,13 +4281,18 @@ a.logo.vertical_logo img {
 .whatsapp span {
     border: 3px solid #ededed;
     border-radius: 50px;
-    display: flex;
     flex-direction: column;
     place-content: center;
     padding: 0 2rem;
     font-weight: 500;
     background: rgb(0, 0, 0, 60%);
-    visibility: hidden;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .whatsapp span {
+        display: flex;
+    }
 }
 
 .whatsapp a:hover span {
