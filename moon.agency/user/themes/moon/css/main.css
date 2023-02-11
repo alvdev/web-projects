@@ -4278,7 +4278,8 @@ a.logo.vertical_logo img {
     max-height: 42px;
 }
 
-.whatsapp span {
+.whatsapp span,
+.whatsapp.phone {
     border: 3px solid #ededed;
     border-radius: 50px;
     flex-direction: column;
@@ -4290,8 +4291,13 @@ a.logo.vertical_logo img {
 }
 
 @media (max-width: 768px) {
-    .whatsapp span {
-        display: flex;
+    .whatsapp.phone {
+        display: block;
+        top: 10rem;
+        position: fixed;
+        height: fit-content;
+        left: 2rem;
+        color: #fff;
     }
 }
 

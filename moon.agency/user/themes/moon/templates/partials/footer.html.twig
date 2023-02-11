@@ -56,6 +56,8 @@
     </div>
 </div>
 
+<div class="whatsapp phone">{{ theme.phone }}</div>
+
 <div class="whatsapp">
     <a href="https://wa.me/{{ theme.phone|e }}?text={{ theme.whatsapp|url_encode }}" target="_blank">
         <img src="{{ url('image://whatsapp-icon.svg') }}">
