@@ -67,7 +67,7 @@
         {% endfor %}
     </ul>
 
-    <div id="hosting" class="megamnu top-28 hosting absolute left-0 right-0 mx-8 z-10 bg-white bg-opacity-80 backdrop-blur-xl rounded-md p-12 flex">
+    <div id="hosting" class="megamnu hidden top-28 hosting absolute left-0 right-0 mx-8 z-10 bg-white bg-opacity-80 backdrop-blur-xl rounded-md p-12 flex">
         <div class="w-4/6">
             <ul class="grid grid-cols-2 gap-8">
                 <li class="flex items-center divide-x-2 divide-gray-400">
@@ -117,7 +117,7 @@
         <div class="bg-cyan-400 rounded p-8 flex-1">Featured</div>
     </div>
 
-    <div id="domains" class="megamenu top-28 hosting absolute left-0 right-0 mx-8 z-10 bg-white bg-opacity-80 backdrop-blur-xl rounded-md p-12 grid gap-8">
+    <div id="domains" class="megamenu hidden top-28 hosting absolute left-0 right-0 mx-8 z-10 bg-white bg-opacity-80 backdrop-blur-xl rounded-md p-12 grid gap-8">
         <ul class="flex w-full place-content-between gap-8">
             <li class="flex items-center divide-x-2 divide-gray-400">
                 <div class="pr-4"><img src="{{ icon }}" alt="" class="w-12">
@@ -200,5 +200,38 @@
                 <div class="font-bold text-xl text-gray-600">4.95</div>
             </li>
         </ul>
+    </div>
+
+    <div id="marketing" class="megamenu top-28 hosting absolute left-0 right-0 mx-8 z-10 bg-white bg-opacity-80 backdrop-blur-xl rounded-md p-12 grid gap-8">
+        <ul class="grid grid-cols-3 gap-8 border-b-2 border-gray-400 pb-8">
+            <li class="flex items-center divide-x-2 divide-gray-400">
+                <div class="pr-4"><img src="{{ icon }}" alt="" class="w-12"></div>
+                <div class="pl-4">
+                    <p class="text-gray-900 font-medium">Email marketing</p>
+                    <p class="text-base">Email marketing</p>
+                </div>
+            </li>
+            <li class="flex items-center divide-x-2 divide-gray-400">
+                <div class="pr-4"><img src="{{ icon }}" alt="" class="w-12"></div>
+                <div class="pl-4">
+                    <p class="text-gray-900 font-medium">Posicionamiento web</p>
+                    <p class="text-base">Posicionamiento web</p>
+                </div>
+            </li>
+            <li class="flex items-center divide-x-2 divide-gray-400">
+                <div class="pr-4"><img src="{{ icon }}" alt="" class="w-12"></div>
+                <div class="pl-4">
+                    <p class="text-gray-900 font-medium">Social Media Marketing</p>
+                    <p class="text-base">Social Media Marketing</p>
+                </div>
+            </li>
+        </ul>
+        <div class="flex place-content-between">
+            Servicios complementarios:
+            <a href="#">Diseño web</a>
+            <a href="#">Integraciones web</a>
+            <a href="#">Mantenimiento web</a>
+            <a href="#">Creación de contenidos</a>
+        </div>
     </div>
 </nav>
