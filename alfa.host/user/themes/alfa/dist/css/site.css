@@ -1637,6 +1637,11 @@ footer .ccards g,
   height: 1rem;
 }
 
+.min-h-fit {
+  min-height: -moz-fit-content;
+  min-height: fit-content;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -1710,6 +1715,10 @@ footer .ccards g,
   width: 3rem;
 }
 
+.w-8 {
+  width: 2rem;
+}
+
 .w-40 {
   width: 10rem;
 }
@@ -1718,22 +1727,20 @@ footer .ccards g,
   width: 5rem;
 }
 
-.w-8 {
-  width: 2rem;
-}
-
 .w-auto {
   width: auto;
 }
 
-.flex-1 {
-  flex: 1 1 0%;
+.w-3 {
+  width: 0.75rem;
 }
 
-.border-spacing-4 {
-  --tw-border-spacing-x: 1rem;
-  --tw-border-spacing-y: 1rem;
-  border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+.w-4\/5 {
+  width: 80%;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
 }
 
 .translate-y-2\/4 {
@@ -1745,12 +1752,49 @@ footer .ccards g,
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.columns-2 {
+  -moz-columns: 2;
+       columns: 2;
+}
+
+.auto-cols-min {
+  grid-auto-columns: min-content;
+}
+
+.auto-cols-max {
+  grid-auto-columns: max-content;
+}
+
+.auto-cols-fr {
+  grid-auto-columns: minmax(0, 1fr);
+}
+
 .grid-flow-col {
   grid-auto-flow: column;
 }
 
+.grid-flow-dense {
+  grid-auto-flow: dense;
+}
+
+.grid-flow-row-dense {
+  grid-auto-flow: row dense;
+}
+
 .grid-flow-col-dense {
   grid-auto-flow: column dense;
+}
+
+.auto-rows-auto {
+  grid-auto-rows: auto;
+}
+
+.auto-rows-min {
+  grid-auto-rows: min-content;
+}
+
+.auto-rows-max {
+  grid-auto-rows: max-content;
 }
 
 .grid-cols-2 {
@@ -1769,6 +1813,10 @@ footer .ccards g,
   grid-template-rows: repeat(4, minmax(0, 1fr));
 }
 
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -1783,6 +1831,10 @@ footer .ccards g,
 
 .place-content-center {
   place-content: center;
+}
+
+.place-content-start {
+  place-content: start;
 }
 
 .place-content-between {
@@ -1890,6 +1942,11 @@ footer .ccards g,
   border-color: rgb(148 163 184 / var(--tw-divide-opacity));
 }
 
+.divide-gray-600 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(71 85 105 / var(--tw-divide-opacity));
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1900,6 +1957,10 @@ footer .ccards g,
 
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .rounded {
@@ -1970,6 +2031,14 @@ footer .ccards g,
   border-top-width: 2px;
 }
 
+.border-r {
+  border-right-width: 1px;
+}
+
+.border-r-2 {
+  border-right-width: 2px;
+}
+
 .border-none {
   border-style: none;
 }
@@ -2024,14 +2093,9 @@ footer .ccards g,
   border-color: rgb(45 212 191 / var(--tw-border-opacity));
 }
 
-.border-blue-500 {
+.border-gray-300 {
   --tw-border-opacity: 1;
-  border-color: rgb(59 130 246 / var(--tw-border-opacity));
-}
-
-.border-teal-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(20 184 166 / var(--tw-border-opacity));
+  border-color: rgb(203 213 225 / var(--tw-border-opacity));
 }
 
 .bg-white {
@@ -2481,6 +2545,11 @@ footer .ccards g,
   color: rgb(71 85 105 / var(--tw-text-opacity));
 }
 
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
 .line-through {
   text-decoration-line: line-through;
 }
@@ -2513,12 +2582,6 @@ footer .ccards g,
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow {
-  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .shadow-gray-100 {
   --tw-shadow-color: #f1f5f9;
   --tw-shadow: var(--tw-shadow-colored);
@@ -2526,11 +2589,6 @@ footer .ccards g,
 
 .shadow-gray-500 {
   --tw-shadow-color: #64748b;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
-.shadow-blue-500 {
-  --tw-shadow-color: #3b82f6;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
