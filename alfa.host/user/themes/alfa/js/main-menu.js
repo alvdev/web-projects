@@ -46,3 +46,29 @@ function burgerMenu() {
   //for (link of menuLinks) link.classList.toggle('lg:text-black');
 }
 burgerMenu();
+
+function megamenu() {
+  const menuItems = document.querySelectorAll('nav ul li a');
+
+  for (let item of menuItems) {
+    item.addEventListener('click', e => {
+      if (item.id === 'hosting') {
+        e.preventDefault();
+        document.querySelector('#hosting-menu').classList.remove('hidden');
+      }
+      if (item.id === 'dominios') {
+        e.preventDefault();
+        document.querySelector('#domains-menu').classList.remove('hidden');
+      }
+      if (item.id === 'marketing') {
+        e.preventDefault();
+        document.querySelector('#marketing-menu').classList.remove('hidden');
+      }
+      if (item.id === 'recursos') {
+        e.preventDefault();
+        document.querySelector('#resources-menu').classList.remove('hidden');
+      }
+    });
+  }
+}
+megamenu();
