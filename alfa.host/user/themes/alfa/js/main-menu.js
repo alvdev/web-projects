@@ -49,23 +49,35 @@ burgerMenu();
 
 function megamenu() {
   const menuItems = document.querySelectorAll('nav ul li a');
+  const menuItemsContent = document.querySelectorAll('[id*="-menu"');
+  console.log(menuItemsContent);
+
+  const closeMenuItemsContent = () => {
+    menuItemsContent.forEach(item => {
+      item.classList.add('hidden');
+    });
+  };
 
   for (let item of menuItems) {
     item.addEventListener('click', e => {
       if (item.id === 'hosting') {
         e.preventDefault();
+        closeMenuItemsContent();
         document.querySelector('#hosting-menu').classList.remove('hidden');
       }
       if (item.id === 'dominios') {
         e.preventDefault();
+        closeMenuItemsContent();
         document.querySelector('#domains-menu').classList.remove('hidden');
       }
       if (item.id === 'marketing') {
         e.preventDefault();
+        closeMenuItemsContent();
         document.querySelector('#marketing-menu').classList.remove('hidden');
       }
       if (item.id === 'recursos') {
         e.preventDefault();
+        closeMenuItemsContent();
         document.querySelector('#resources-menu').classList.remove('hidden');
       }
     });
