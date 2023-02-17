@@ -1637,11 +1637,6 @@ footer .ccards g,
   height: 1rem;
 }
 
-.min-h-fit {
-  min-height: -moz-fit-content;
-  min-height: fit-content;
-}
-
 .w-1\/2 {
   width: 50%;
 }
@@ -1715,10 +1710,6 @@ footer .ccards g,
   width: 3rem;
 }
 
-.w-8 {
-  width: 2rem;
-}
-
 .w-40 {
   width: 10rem;
 }
@@ -1727,16 +1718,12 @@ footer .ccards g,
   width: 5rem;
 }
 
+.w-8 {
+  width: 2rem;
+}
+
 .w-auto {
   width: auto;
-}
-
-.w-3 {
-  width: 0.75rem;
-}
-
-.w-4\/5 {
-  width: 80%;
 }
 
 .flex-1 {
@@ -1752,49 +1739,12 @@ footer .ccards g,
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.columns-2 {
-  -moz-columns: 2;
-       columns: 2;
-}
-
-.auto-cols-min {
-  grid-auto-columns: min-content;
-}
-
-.auto-cols-max {
-  grid-auto-columns: max-content;
-}
-
-.auto-cols-fr {
-  grid-auto-columns: minmax(0, 1fr);
-}
-
 .grid-flow-col {
   grid-auto-flow: column;
 }
 
-.grid-flow-dense {
-  grid-auto-flow: dense;
-}
-
-.grid-flow-row-dense {
-  grid-auto-flow: row dense;
-}
-
 .grid-flow-col-dense {
   grid-auto-flow: column dense;
-}
-
-.auto-rows-auto {
-  grid-auto-rows: auto;
-}
-
-.auto-rows-min {
-  grid-auto-rows: min-content;
-}
-
-.auto-rows-max {
-  grid-auto-rows: max-content;
 }
 
 .grid-cols-2 {
@@ -1813,10 +1763,6 @@ footer .ccards g,
   grid-template-rows: repeat(4, minmax(0, 1fr));
 }
 
-.grid-rows-2 {
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-}
-
 .flex-row {
   flex-direction: row;
 }
@@ -1831,10 +1777,6 @@ footer .ccards g,
 
 .place-content-center {
   place-content: center;
-}
-
-.place-content-start {
-  place-content: start;
 }
 
 .place-content-between {
@@ -1942,11 +1884,6 @@ footer .ccards g,
   border-color: rgb(148 163 184 / var(--tw-divide-opacity));
 }
 
-.divide-gray-600 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(71 85 105 / var(--tw-divide-opacity));
-}
-
 .overflow-hidden {
   overflow: hidden;
 }
@@ -2029,10 +1966,6 @@ footer .ccards g,
 
 .border-t-2 {
   border-top-width: 2px;
-}
-
-.border-r {
-  border-right-width: 1px;
 }
 
 .border-r-2 {
@@ -2543,11 +2476,6 @@ footer .ccards g,
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(71 85 105 / var(--tw-text-opacity));
-}
-
-.text-gray-400 {
-  --tw-text-opacity: 1;
-  color: rgb(148 163 184 / var(--tw-text-opacity));
 }
 
 .line-through {
