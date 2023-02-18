@@ -58,6 +58,18 @@ function megamenu() {
         item.classList.add('hidden');
       });
     });
+
+    document.addEventListener('click', e => {
+      if (
+        !e.target.closest('[id$="-submenu"]') &&
+        !e.target.closest('[id="main-menu"]')
+      )
+        closeMenuItemsContent();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeMenuItemsContent();
+    });
   };
 
   for (let item of menuItems) {
