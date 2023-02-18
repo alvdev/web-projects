@@ -55,6 +55,9 @@ function megamenu() {
   const closeMenuItemsContent = () => {
     menuItemsContent.forEach(item => {
       item.classList.add('hidden');
+      item.querySelector('.close-menu').addEventListener('click', () => {
+        closeMenuItemsContent();
+      });
     });
   };
 
