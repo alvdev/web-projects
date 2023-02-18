@@ -48,15 +48,14 @@ function burgerMenu() {
 burgerMenu();
 
 function megamenu() {
-  const menuItems = document.querySelectorAll('nav ul li a');
-  const menuItemsContent = document.querySelectorAll('[id*="-menu"');
-  console.log(menuItemsContent);
+  const menuItems = document.querySelectorAll('#main-menu a');
+  const submenuItems = document.querySelectorAll('[id$="-submenu"]');
 
   const closeMenuItemsContent = () => {
-    menuItemsContent.forEach(item => {
+    submenuItems.forEach(item => {
       item.classList.add('hidden');
-      item.querySelector('.close-menu').addEventListener('click', () => {
-        closeMenuItemsContent();
+      item.querySelector('.close-submenu').addEventListener('click', () => {
+        item.classList.add('hidden');
       });
     });
   };
@@ -66,22 +65,22 @@ function megamenu() {
       if (item.id === 'hosting') {
         e.preventDefault();
         closeMenuItemsContent();
-        document.querySelector('#hosting-menu').classList.remove('hidden');
+        document.querySelector('#hosting-submenu').classList.remove('hidden');
       }
       if (item.id === 'dominios') {
         e.preventDefault();
         closeMenuItemsContent();
-        document.querySelector('#domains-menu').classList.remove('hidden');
+        document.querySelector('#domains-submenu').classList.remove('hidden');
       }
       if (item.id === 'marketing') {
         e.preventDefault();
         closeMenuItemsContent();
-        document.querySelector('#marketing-menu').classList.remove('hidden');
+        document.querySelector('#marketing-submenu').classList.remove('hidden');
       }
       if (item.id === 'recursos') {
         e.preventDefault();
         closeMenuItemsContent();
-        document.querySelector('#resources-menu').classList.remove('hidden');
+        document.querySelector('#resources-submenu').classList.remove('hidden');
       }
     });
   }
