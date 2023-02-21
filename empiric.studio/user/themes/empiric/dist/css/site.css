@@ -1,6 +1,6 @@
 /*@import 'yourcssfile.css';*/
 
-/*! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com*/
+/*! tailwindcss v3.2.7 | MIT License | https://tailwindcss.com*/
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -703,11 +703,18 @@ select {
 .visible {
   visibility: visible;
 }
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
 .block {
   display: block;
 }
 .flex {
   display: flex;
+}
+.w-11\/12 {
+  width: 91.666667%;
 }
 .place-content-between {
   place-content: space-between;
@@ -717,12 +724,6 @@ select {
 }
 .items-center {
   align-items: center;
-}
-.gap-4 {
-  gap: 1rem;
-}
-.gap-8 {
-  gap: 2rem;
 }
 .gap-12 {
   gap: 3rem;
