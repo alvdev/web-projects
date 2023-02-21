@@ -17,6 +17,7 @@ LICENSE
 *.swp
 test/
 *Zone.Identifier
+*.bak
 
 # Include projects folders
 !/alfa.host/
