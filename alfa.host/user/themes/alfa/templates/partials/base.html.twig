@@ -34,7 +34,11 @@
 
     <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
         {% block header %}
-            {% include 'partials/header.html.twig' %}
+            <header class="relative z-10 bg-blue-700 shadow-2xl shadow-gray-500">
+                {% include 'partials/header.html.twig' %}
+
+                {% block header_title %}{% endblock %}
+            </header>
         {% endblock %}
 
         {% block body %}
