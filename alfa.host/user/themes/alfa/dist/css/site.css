@@ -2336,6 +2336,22 @@ footer .ccards g,
   padding-bottom: 2rem;
 }
 
+.pb-16 {
+  padding-bottom: 4rem;
+}
+
+.pt-6 {
+  padding-top: 1.5rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
+}
+
+.pb-20 {
+  padding-bottom: 5rem;
+}
+
 .text-left {
   text-align: left;
 }

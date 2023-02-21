@@ -1,8 +1,10 @@
 {% extends "partials/base.html.twig" %}
 
-{% block content %}
-    <h1 class="p-8 text-6xl font-semibold mb-12">{{ page.title }}</h1>
+{% block header_title %}
+    <h1 class="pt-4 pb-20 text-6xl font-semibold mb-16 text-white text-center">{{ page.title }}</h1>
+{% endblock %}
 
+{% block content %}
     {{ page.content|raw }}
 
     <section class="p-8 mb-24 text-center">
