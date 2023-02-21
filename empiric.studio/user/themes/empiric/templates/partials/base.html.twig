@@ -30,7 +30,7 @@
 <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
 
 {% block header %}
-    <div class="header">
+    <header class="header">
         <div class="">
             <a class="logo" href="{{ home_url|e }}">
                 {{ config.site.title|e }}
@@ -41,15 +41,15 @@
                 </nav>
             {% endblock %}
         </div>
-    </div>
+    </header>
 {% endblock %}
 
 {% block body %}
-    <section id="body">
+    <main id="body" style:"height: 100%">
         <div class="prose">
             {% block content %}{% endblock %}
         </div>
-    </section>
+    </main>
 {% endblock %}
 
 {% block footer %}
