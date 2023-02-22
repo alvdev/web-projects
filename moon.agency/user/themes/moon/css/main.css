@@ -4431,6 +4431,13 @@ section .intro_section .slide_description_wrapper {
     text-align: left;
 }
 
+.slide_description.overlay {
+    background: rgb(0, 0, 0, 60%);
+    color: white;
+    padding: 2rem 4rem;
+    border-radius: 6px;
+}
+
 @media (min-width: 992px) {
     .intro_section .slide_description {
         max-width: 50%;
