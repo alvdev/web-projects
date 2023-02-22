@@ -7847,6 +7847,10 @@ h2 .muellerhoff {
     margin-top: 10px;
 }
 
+h2.muellerhoff.highlight {
+    font-size: 5rem;
+}
+
 h2 .muellerhoff {
     display: inline-block;
 }
