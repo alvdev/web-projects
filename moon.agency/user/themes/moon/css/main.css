@@ -12,13 +12,13 @@ li {
 }
 
 .description ul {
-    margin-left: 0;
+    padding-left: 0;
     list-style-type: disc;
 }
 
 .description li {
     list-style-position: inside;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .flex-direction-nav li,
@@ -4447,6 +4447,15 @@ section .intro_section .slide_description_wrapper {
         color: white;
         padding: 2rem 4rem;
         border-radius: 6px;
+    }
+
+    .slide_description ul {
+        padding-left: 1rem;
+    }
+
+    .slide_description li {
+        list-style-position: outside;
+        padding-left: 1rem;
     }
 }
 
