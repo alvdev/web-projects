@@ -11,9 +11,14 @@ li {
     margin-bottom: 1rem;
 }
 
+.description ul {
+    margin-left: 0;
+    list-style-type: disc;
+}
+
 .description li {
     list-style-position: inside;
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .flex-direction-nav li,
