@@ -713,8 +713,20 @@ select {
 .flex {
   display: flex;
 }
+.h-1 {
+  height: 0.25rem;
+}
+.h-full {
+  height: 100%;
+}
 .w-11\/12 {
   width: 91.666667%;
+}
+.flex-1 {
+  flex: 1 1 0%;
+}
+.flex-col {
+  flex-direction: column;
 }
 .place-content-between {
   place-content: space-between;
