@@ -1,7 +1,19 @@
 {% extends "partials/base.html.twig" %}
 
-{% block content %}
-    <h1 class="text-6xl font-semibold mb-12 md:mb-20">{{ page.title }}</h1>
+{% block header_title %}
+    <div class="pt-4 pb-36 text-white text-center">
+        <h1 class="text-6xl font-semibold">{{ page.title }}</h1>
+        {% if page.content %}
+            <div class="text-xl w-1/2 mx-auto mt-8">{{ page.content|raw }}</div>
+        {% endif %}
+    </div>
+{% endblock %}
 
-    {{ page.content|raw }}
+{% block content %}
+    <section class="featured flex gap-8 w-11/12 mx-auto -mt-16 relative z-10">
+        <div><img class="rounded" src="https://picsum.photos/600/400.webp?random=1" alt=""></div>
+        <div><img class="rounded" src="https://picsum.photos/600/400.webp?random=2" alt=""></div>
+        <div><img class="rounded" src="https://picsum.photos/600/400.webp?random=3" alt=""></div>
+        <div><img class="rounded" src="https://picsum.photos/600/400.webp?random=4" alt=""></div>
+    </section>
 {% endblock %}

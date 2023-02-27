@@ -1541,6 +1541,14 @@ footer .ccards g,
   margin-top: auto;
 }
 
+.-mb-16 {
+  margin-bottom: -4rem;
+}
+
+.-mt-16 {
+  margin-top: -4rem;
+}
+
 .block {
   display: block;
 }
@@ -1736,6 +1744,14 @@ footer .ccards g,
 
 .w-auto {
   width: auto;
+}
+
+.w-1 {
+  width: 0.25rem;
+}
+
+.w-11\/12 {
+  width: 91.666667%;
 }
 
 .flex-1 {
@@ -2321,6 +2337,10 @@ footer .ccards g,
 
 .pb-8 {
   padding-bottom: 2rem;
+}
+
+.pb-36 {
+  padding-bottom: 9rem;
 }
 
 .text-left {
