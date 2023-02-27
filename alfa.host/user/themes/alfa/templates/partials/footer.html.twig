@@ -1,6 +1,9 @@
 {% do assets.addJs('theme://js/totop.js', {loading: 'defer', id: 'custom-css'}) %}
+{% if page.template == 'blog' %}
+    {% set footer_margin_top = 'mt-24' %}
+{% endif %}
 
-<footer class="bg-blue-600 bg-bottom bg-cover md:bg-auto shadow-2xl">
+<footer class="bg-blue-600 bg-bottom bg-cover md:bg-auto shadow-2xl {{ footer_margin_top }}">
     <div class="items-center justify-center gap-8 p-8 news md:flex">
         <h2 class="text-6xl font-normal text-white uppercase">
             Alfa News
@@ -160,8 +163,7 @@
                     Sociales y sociables
                 </h3>
                 <p class="mb-6 text-sm text-white">
-                    Mantente al día de la actualidad de iWolf Host siguiéndonos en las redes sociales y
-                                                                                                                                                                                                                                                                                                                                                                        uniéndote a nuestra comunidad.
+                    Mantente al día de la actualidad de iWolf Host siguiéndonos en las redes sociales y uniéndote a nuestra comunidad.
                 </p>
                 <div class="flex items-center gap-4">
                     <div class="p-3 bg-black rounded-full">
