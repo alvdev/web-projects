@@ -1342,6 +1342,10 @@ footer .ccards g,
   position: sticky;
 }
 
+.top-8 {
+  top: 2rem;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -1376,18 +1380,6 @@ footer .ccards g,
 
 .left-0 {
   left: 0px;
-}
-
-.top-2 {
-  top: 0.5rem;
-}
-
-.top-4 {
-  top: 1rem;
-}
-
-.top-8 {
-  top: 2rem;
 }
 
 .z-10 {
@@ -1449,6 +1441,14 @@ footer .ccards g,
   margin-top: 3rem;
 }
 
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
 .mb-24 {
   margin-bottom: 6rem;
 }
@@ -1461,10 +1461,6 @@ footer .ccards g,
   margin-top: 2rem;
 }
 
-.mb-16 {
-  margin-bottom: 4rem;
-}
-
 .ml-auto {
   margin-left: auto;
 }
@@ -1475,10 +1471,6 @@ footer .ccards g,
 
 .mb-28 {
   margin-bottom: 7rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
 }
 
 .ml-2 {
@@ -1583,11 +1575,6 @@ footer .ccards g,
 
 .aspect-auto {
   aspect-ratio: auto;
-}
-
-.h-fit {
-  height: -moz-fit-content;
-  height: fit-content;
 }
 
 .h-pxx {
@@ -1913,20 +1900,12 @@ footer .ccards g,
   align-self: flex-start;
 }
 
-.self-center {
-  align-self: center;
-}
-
 .overflow-hidden {
   overflow: hidden;
 }
 
 .overflow-y-auto {
   overflow-y: auto;
-}
-
-.overflow-x-hidden {
-  overflow-x: hidden;
 }
 
 .whitespace-nowrap {
@@ -2280,6 +2259,14 @@ footer .ccards g,
   padding-bottom: 1.5rem;
 }
 
+.pt-4 {
+  padding-top: 1rem;
+}
+
+.pb-20 {
+  padding-bottom: 5rem;
+}
+
 .pr-8 {
   padding-right: 2rem;
 }
@@ -2334,22 +2321,6 @@ footer .ccards g,
 
 .pb-8 {
   padding-bottom: 2rem;
-}
-
-.pb-16 {
-  padding-bottom: 4rem;
-}
-
-.pt-6 {
-  padding-top: 1.5rem;
-}
-
-.pt-4 {
-  padding-top: 1rem;
-}
-
-.pb-20 {
-  padding-bottom: 5rem;
 }
 
 .text-left {
@@ -2613,10 +2584,6 @@ footer .ccards g,
   --tw-backdrop-blur: blur(24px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
-
-.scrollbar.overflow-x-hidden {
-  overflow-x: hidden;
 }
 
 .scrollbar-thin {
