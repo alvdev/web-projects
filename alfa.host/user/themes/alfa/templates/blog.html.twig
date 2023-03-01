@@ -12,31 +12,34 @@
 {% block content %}
     <section id="posts-feat" class="text-white featured grid grid-cols-2 gap-8 w-11/12 mx-auto -mt-16 relative z-10">
         <article class="relative">
-            <img class="rounded" src="https://picsum.photos/600/300.webp?random=1" alt="">
+            <img class="rounded" src="https://picsum.photos/1000/500.webp?random=1" alt="">
             <div class="-mt-2 p-6 absolute bottom-0 bg-black/50 rounded">
                 <h2 class="text-xl font-medium">Lorem ipsum dolor</h2>
                 <p class="text-gray-300 mt-2 text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nemo neque aperiam aspernatur, nam minima modi architecto laboriosam illo, et id sequi?</p>
             </div>
             <div class="text-xs uppercase absolute right-2 top-2 bg-cyan-500/75 rounded-sm py-1 px-2">category: tags</div>
         </article>
+
         <article class="relative">
-            <img class="rounded" src="https://picsum.photos/600/300.webp?random=2" alt="">
+            <img class="rounded" src="https://picsum.photos/1000/500.webp?random=2" alt="">
             <div class="-mt-2 p-6 absolute bottom-0 bg-black/50 rounded">
                 <h2 class="text-xl font-medium">Lorem ipsum dolor</h2>
                 <p class="text-gray-300 mt-2 text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nemo neque aperiam aspernatur, nam minima modi architecto laboriosam illo, et id sequi?</p>
             </div>
             <div class="text-xs uppercase absolute right-2 top-2 bg-cyan-500/75 rounded-sm py-1 px-2">category: tags</div>
         </article>
+
         <article class="relative">
-            <img class="rounded" src="https://picsum.photos/600/300.webp?random=3" alt="">
+            <img class="rounded" src="https://picsum.photos/1000/500.webp?random=3" alt="">
             <div class="-mt-2 p-6 absolute bottom-0 bg-black/50 rounded">
                 <h2 class="text-xl font-medium">Lorem ipsum dolor</h2>
                 <p class="text-gray-300 mt-2 text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nemo neque aperiam aspernatur, nam minima modi architecto laboriosam illo, et id sequi?</p>
             </div>
             <div class="text-xs uppercase absolute right-2 top-2 bg-cyan-500/75 rounded-sm py-1 px-2">category: tags</div>
         </article>
+
         <article class="relative">
-            <img class="rounded" src="https://picsum.photos/600/300.webp?random=4" alt="">
+            <img class="rounded" src="https://picsum.photos/1000/500.webp?random=4" alt="">
             <div class="-mt-2 p-6 absolute bottom-0 bg-black/50 rounded">
                 <h2 class="text-xl font-medium">Lorem ipsum dolor</h2>
                 <p class="text-gray-300 mt-2 text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nemo neque aperiam aspernatur, nam minima modi architecto laboriosam illo, et id sequi?</p>
@@ -45,20 +48,29 @@
         </article>
     </section>
 
-    <aside id="aside-right" class="mr-1/12">ASIDE RIGHT Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat, harum!</aside>
+    <div class="flex gap-8 w-11/12 mx-auto mt-16">
+        <div class="flex flex-col gap-8">
+            <section id="banner-top" class="bg-blue-200">BANNER TOP Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, commodi.</section>
 
-    <section id="banner-top">BANNER TOP Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, commodi.</section>
+            <section id="posts-top" class="bg-blue-200">POSTS TOP Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit autem dignissimos nobis nulla vel. Ducimus ex voluptates consequuntur quod provident, consequatur minus asperiores numquam doloribus, eius ut, sed eaque autem.</section>
 
-    <section id="posts-top">POSTS TOP Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit autem dignissimos nobis nulla vel. Ducimus ex voluptates consequuntur quod provident, consequatur minus asperiores numquam doloribus, eius ut, sed eaque autem.</section>
+            <div id="banner-mid" class="bg-blue-200">BANNER MID Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et suscipit nam soluta earum, quo animi totam sapiente eaque minus blanditiis accusantium assumenda sed voluptate, molestias est veniam maxime tempore aliquid.</div>
+        </div>
 
-    <div id="banner-mid">BANNER MID Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et suscipit nam soluta earum, quo animi totam sapiente eaque minus blanditiis accusantium assumenda sed voluptate, molestias est veniam maxime tempore aliquid.</div>
+        <aside id="aside-right" class="w-2/3 bg-blue-200">ASIDE RIGHT Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat, harum!</aside>
+    </div>
 
-    <section id="posts-mid">POSTS MID Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero eligendi illo officiis! Amet totam est eveniet ducimus iste distinctio explicabo laboriosam quia esse, omnis ullam repellat accusantium autem sunt facere.</section>
+    <section id="posts-mid" class="mt-16 py-8 bg-blue-200">
+        <div class="w-11/12 mx-auto">POSTS MID Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero eligendi illo officiis! Amet totam est eveniet ducimus iste distinctio explicabo laboriosam quia esse, omnis ullam repellat accusantium autem sunt facere.</div>
+    </section>
 
-    <aside id="aside-left">ASIDE-LEFT Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto qui similique exercitationem commodi beatae ab eveniet ipsa dicta corporis corrupti voluptates rem vitae, facilis, repellat voluptatem aliquam placeat velit quos?</aside>
+    <div class="flex gap-8 w-11/12 mx-auto mt-16">
+        <aside id="aside-left" class="w-2/3 bg-blue-200">ASIDE-LEFT Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto qui similique exercitationem commodi beatae ab eveniet ipsa dicta corporis corrupti voluptates rem vitae, facilis, repellat voluptatem aliquam placeat velit quos?</aside>
 
-    <section id="posts-bot">POSTS BOT Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo nisi tempora eaque voluptate iste corrupti perferendis aliquam dolores eum officiis aspernatur placeat porro est omnis voluptates vel deleniti, necessitatibus fuga.</section>
+        <div class="flex flex-col gap-8">
+            <section id="posts-bot" class="bg-blue-200">POSTS BOT Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo nisi tempora eaque voluptate iste corrupti perferendis aliquam dolores eum officiis aspernatur placeat porro est omnis voluptates vel deleniti, necessitatibus fuga.</section>
 
-    <div id="banner-bot">BANNER BOT Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus ratione molestias ea ullam ex eius quasi cum maxime minima necessitatibus, at asperiores, quod cumque cupiditate quis voluptas labore rem corrupti!</div>
-    
+            <div id="banner-bot" class="bg-blue-200">BANNER BOT Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus ratione molestias ea ullam ex eius quasi cum maxime minima necessitatibus, at asperiores, quod cumque cupiditate quis voluptas labore rem corrupti!</div>
+        </div>
+    </div>
 {% endblock %}
