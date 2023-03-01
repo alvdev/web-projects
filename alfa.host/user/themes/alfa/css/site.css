@@ -367,6 +367,64 @@
     fill: white
   }
 
+  /* Blog template page */
+  .blog-page > main {
+    display: grid;
+    gap: 2rem;
+    grid-template-areas: 
+      "posts-feat   posts-feat    posts-feat"
+      "banner-top   banner-top    aside-right"
+      "posts-top    posts-top     aside-right"
+      "banner-mid   banner-mid    aside-right"
+      "posts-mid    posts-mid     posts-mid"
+      "aside-left   posts-bot     posts-bot"
+      "aside-left   banner-bot    banner-bot";
+  }
+
+  #posts-feat {
+    grid-area: posts-feat;
+  }
+
+  #banner-top {
+    grid-area: banner-top;
+    background-color: cyan;
+  }
+
+  #posts-top {
+    grid-area: posts-top;
+    background-color: lightcoral;
+  }
+
+  #aside-right {
+    grid-area: aside-right;
+    background-color: violet;
+  }
+
+  #banner-mid {
+    grid-area: banner-mid;
+    background-color: forestgreen;
+  }
+
+  #aside-left {
+    grid-area: aside-left;
+    background-color: crimson;
+  }
+  
+  #posts-mid {
+    grid-area: posts-mid;
+    background-color: lime;
+  }
+  
+  #posts-bot {
+    grid-area: posts-bot;
+    background-color: yellow;
+  }
+
+  #banner-bot {
+    grid-area: banner-bot;
+    background-color: blueviolet;
+  }
+
   /* Accordion */
   @media screen and (max-width: 768px) {
     .tab h3 a {
