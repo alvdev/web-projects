@@ -54,10 +54,35 @@
     </section>
 
     <div class="flex gap-8 w-11/12 mx-auto mt-16">
-        <div class="flex flex-col gap-8 flex-1">
+        <div class="flex flex-col gap-16 flex-1">
             {{ banner_top|raw }}
 
-            <section id="posts-top" class="bg-blue-200">POSTS TOPXXX Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit autem dignissimos nobis nulla vel. Ducimus ex voluptates consequuntur quod provident, consequatur minus asperiores numquam doloribus, eius ut, sed eaque autem. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo neque officia nobis repudiandae placeat ipsam, cumque, tenetur, sit fugit autem totam voluptatum amet facere magni deleniti tempora odit ab quis consequatur accusantium excepturi assumenda ipsa! Culpa error ratione inventore molestias in, ad eligendi? Tempora voluptatibus tenetur, autem illum suscipit quod iste enim impedit numquam cum fugit, blanditiis quaerat! Esse quisquam tempora repellat cumque voluptatibus, modi voluptatum natus amet dolorum. Consectetur, temporibus accusantium sapiente reiciendis deleniti ipsa, eius illum voluptate natus sequi reprehenderit ullam earum fugit quas. Harum omnis sit cum illo nisi veritatis, repudiandae, ad, dignissimos ab molestiae neque adipisci!</section>
+            <section id="posts-top" class="grid grid-cols-2 gap-8">
+                <article class="relative">
+                    <img class="rounded shadow-2xl" src="https://picsum.photos/600/300.webp?random=1" alt="">
+                    <div class="relative overflow-hidden border p-6 pb-8 mx-2 -mt-4 rounded bg-white shadow-2xl">
+                        <h2 class="text-xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
+                        <div class="mt-2 flex gap-4 text-gray-400 text-sm">
+                            <span>June 14, 2023</span>
+                            <span>tags</span>
+                        </div>
+                        <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
+                        <a href="#" class="absolute right-0 bottom-0 uppercase text-sm bg-cyan-200 py-1 px-4 rounded-tl">More</a>
+                    </div>
+                </article>
+                <article class="relative">
+                    <img class="rounded shadow-2xl" src="https://picsum.photos/600/300.webp?random=2" alt="">
+                    <div class="relative overflow-hidden border p-6 pb-8 mx-2 -mt-4 rounded bg-white shadow-2xl">
+                        <h2 class="text-xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
+                        <div class="mt-2 flex gap-4 text-gray-400 text-sm">
+                            <span>June 14, 2023</span>
+                            <span>tags</span>
+                        </div>
+                        <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
+                        <a href="#" class="absolute right-0 bottom-0 uppercase text-sm bg-cyan-200 py-1 px-4 rounded-tl">More</a>
+                    </div>
+                </article>
+            </section>
 
             {{ banner_mid|raw }}
         </div>
