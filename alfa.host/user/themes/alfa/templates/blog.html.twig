@@ -4,6 +4,7 @@
 {% set banner_top = '<img src="' ~ url('image://') ~ '/banners/970x90-5.png"' ~ banner_classes ~ '>'  %}
 {% set banner_mid = '<img src=\"' ~ url('image://') ~ '/banners/970x90-5.png\"' ~ banner_classes ~ '>'  %}
 {% set banner_bot = '<img src=\"' ~ url('image://') ~ '/banners/970x90-5.png\"' ~ banner_classes ~ '>'  %}
+{% set ceed_img = '<img src=\"' ~ url('image://') ~ '/banners/empresario-digital-155.png\"' ~ '>'  %}
 
 {% block header_title %}
     <div class="pt-4 pb-36 text-white text-center">
@@ -84,6 +85,23 @@
                 </article>
             </section>
 
+            <section id="library" class="grid grid-cols-2 gap-8">
+                <div class="flex">
+                    <div class="text-center w-2/3">
+                        <span class="block text-2xl text-gray-400">Conoce...</span>
+                        <span class="block text-4xl text-blue-600">El Camino</span>
+                        <span class="block text-3xl leading-none">de emprendedor a empresario digital</span>
+                        <a href="#" class="mt-4 inline-block bg-blue-600 text-white py-4 px-8 uppercase rounded">Descargar el camino</a>
+                    </div>
+                    <div class="flex-auto self-end">{{ ceed_img|raw }}</div>
+                </div>
+                <div>
+                    <article>
+                        <div><img class="rounded shadow-2xl" src="https://picsum.photos/100/100.webp?random=1" alt=""></div>
+                        <div></div>
+                    </article>
+                </div>
+            </section>
             {{ banner_mid|raw }}
         </div>
 
@@ -95,7 +113,7 @@
     </section>
 
     <div class="flex gap-8 w-11/12 mx-auto mt-16">
-        <aside id="aside-left" class="w-1/3 bg-blue-200 self-start sticky top-24">ASIDE-LEFT Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto qui similique exercitationem commodi beatae ab eveniet ipsa dicta corporis corrupti voluptates rem vitae, facilis, repellat voluptatem aliquam placeat velit quos?</aside>
+        <aside id="aside-left" class="w-1/5 bg-blue-200 self-start sticky top-24">ASIDE-LEFT Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto qui similique exercitationem commodi beatae ab eveniet ipsa dicta corporis corrupti voluptates rem vitae, facilis, repellat voluptatem aliquam placeat velit quos?</aside>
 
         <div class="flex flex-col gap-8 flex-1">
             <section id="posts-bot" class="bg-blue-200">POSTS BOT Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo nisi tempora eaque voluptate iste corrupti perferendis aliquam dolores eum officiis aspernatur placeat porro est omnis voluptates vel deleniti, necessitatibus fuga. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi similique tempore aspernatur, sed fugit pariatur nobis. Eos fugiat atque, quae magni ullam, asperiores reprehenderit nihil, error maiores doloribus similique enim! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat fuga ipsa dolore repellendus totam, animi dolorum fugit, eum alias aut voluptates nesciunt recusandae tempore exercitationem qui provident molestias nostrum quibusdam dignissimos ad officiis perspiciatis! Vero cum similique inventore cupiditate totam id sit rem laboriosam minima nesciunt fugit itaque vel, dolorem sint voluptatum libero mollitia temporibus facilis sequi hic adipisci ullam. Totam sit odit aliquam voluptatibus labore necessitatibus ex iure excepturi deleniti ea quis obcaecati, accusantium autem impedit tempora perspiciatis saepe quidem ipsa? Aliquam adipisci, ut temporibus, quas iusto explicabo pariatur officia voluptate voluptas animi atque. Repudiandae laudantium qui suscipit unde.</section>
