@@ -1818,6 +1818,10 @@ footer .ccards g,
   width: 50%;
 }
 
+.w-1\/6 {
+  width: 16.666667%;
+}
+
 .max-w-fit {
   max-width: -moz-fit-content;
   max-width: fit-content;
@@ -1886,6 +1890,10 @@ footer .ccards g,
 
 .place-items-center {
   place-items: center;
+}
+
+.content-between {
+  align-content: space-between;
 }
 
 .items-start {
@@ -2567,6 +2575,10 @@ footer .ccards g,
 
 .leading-8 {
   line-height: 2rem;
+}
+
+.leading-normal {
+  line-height: 1.5;
 }
 
 .text-white {
