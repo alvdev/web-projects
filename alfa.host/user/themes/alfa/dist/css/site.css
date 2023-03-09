@@ -1380,6 +1380,10 @@ footer .ccards g,
   top: 2rem;
 }
 
+.bottom-24 {
+  bottom: 6rem;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -1700,6 +1704,10 @@ footer .ccards g,
   width: 91.666667%;
 }
 
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .w-1\/5 {
   width: 20%;
 }
@@ -1708,16 +1716,8 @@ footer .ccards g,
   width: 100%;
 }
 
-.w-1\/4 {
-  width: 25%;
-}
-
 .w-3\/5 {
   width: 60%;
-}
-
-.w-2\/3 {
-  width: 66.666667%;
 }
 
 .w-2 {
@@ -1791,40 +1791,6 @@ footer .ccards g,
 
 .w-auto {
   width: auto;
-}
-
-.w-fit {
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.w-10\/12 {
-  width: 83.333333%;
-}
-
-.w-3\/12 {
-  width: 25%;
-}
-
-.w-4\/12 {
-  width: 33.333333%;
-}
-
-.w-2\/5 {
-  width: 40%;
-}
-
-.w-2\/4 {
-  width: 50%;
-}
-
-.w-1\/6 {
-  width: 16.666667%;
-}
-
-.max-w-fit {
-  max-width: -moz-fit-content;
-  max-width: fit-content;
 }
 
 .flex-1 {
@@ -1940,6 +1906,10 @@ footer .ccards g,
   gap: 1rem;
 }
 
+.gap-1 {
+  gap: 0.25rem;
+}
+
 .gap-12 {
   gap: 3rem;
 }
@@ -1954,10 +1924,6 @@ footer .ccards g,
 
 .gap-24 {
   gap: 6rem;
-}
-
-.gap-1 {
-  gap: 0.25rem;
 }
 
 .gap-3 {
@@ -2557,12 +2523,12 @@ footer .ccards g,
   line-height: 1;
 }
 
-.leading-4 {
-  line-height: 1rem;
-}
-
 .leading-tight {
   line-height: 1.25;
+}
+
+.leading-4 {
+  line-height: 1rem;
 }
 
 .leading-snug {
@@ -2575,10 +2541,6 @@ footer .ccards g,
 
 .leading-8 {
   line-height: 2rem;
-}
-
-.leading-normal {
-  line-height: 1.5;
 }
 
 .text-white {
