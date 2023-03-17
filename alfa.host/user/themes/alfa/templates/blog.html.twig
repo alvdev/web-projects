@@ -68,12 +68,12 @@
                             <span>tags</span>
                         </div>
                         <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
-                        <a href="#" class="absolute right-0 bottom-0 uppercase text-sm bg-cyan-200 py-1 px-4 rounded-tl">More</a>
+                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded py-1 px-4">More</a>
                     </div>
                 </article>
 
                 <article class="relative">
-                    <img class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=1" alt="">
+                    <img class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=2" alt="">
                     <div class="relative mt-8">
                         <h2 class="text-2xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
                         <div class="mt-2 flex gap-4 text-gray-400 text-sm">
@@ -81,7 +81,7 @@
                             <span>tags</span>
                         </div>
                         <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
-                        <a href="#" class="absolute right-0 bottom-0 uppercase text-sm bg-cyan-200 py-1 px-4 rounded-tl">More</a>
+                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded py-1 px-4">More</a>
                     </div>
                 </article>
             </section>
@@ -147,8 +147,46 @@
         {% include 'modular/blog-categories.html.twig' %}
     </div>
 
-    <section id="posts-mid" class="mt-16 py-8 bg-black text-white">
-        <div class="w-11/12 mx-auto">POSTS MID Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero eligendi illo officiis! Amet totam est eveniet ducimus iste distinctio explicabo laboriosam quia esse, omnis ullam repellat accusantium autem sunt facere.</div>
+    <section id="posts-mid" class="mt-16 bg-gradient-to-r from-black to-gray-600 flex flex-col gap-12 justify-between text-white md:flex-row">
+        <div class="md:flex-1">
+            <div class="flex flex-col gap-12 py-12 pl-[4.16vw] h-full">
+                <hgroup class="flex flex-col gap-6 flex-1 font-extralight">
+                    <h2 class="text-2xl md:text-3xl">Alfa CMS</h2>
+                    <p class="my-auto text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, fugit?</p>
+                </hgroup>
+                <div class="flex gap-8">
+                    <div>
+                        <img class="rounded-lg shadow-xl border-4 border-gray-800" src="https://picsum.photos/200/300.webp?random=1" alt="">
+                    </div>
+                    <div>
+                        <img class="rounded-lg shadow-xl border-4 border-gray-800" src="https://picsum.photos/200/300.webp?random=2" alt="">
+                    </div>
+                    <div>
+                        <img class="rounded-lg shadow-xl border-4 border-gray-800" src="https://picsum.photos/200/300.webp?random=3" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border border-gray-600 rounded-xl my-4"></div>
+        <div class="md:flex-1">
+            <div class="flex flex-col gap-12 py-12 pr-[4.16vw] h-full">
+                <hgroup class="flex flex-col gap-6 flex-1 font-extralight">
+                    <h2 class="text-2xl md:text-3xl">Alfa Mailer</h2>
+                    <p class="my-auto text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, fugit?</p>
+                </hgroup>
+                <div class="flex gap-8">
+                    <div>
+                        <img class="rounded-lg shadow-xl border-4 border-gray-600" src="https://picsum.photos/200/300.webp?random=1" alt="">
+                    </div>
+                    <div>
+                        <img class="rounded-lg shadow-xl border-4 border-gray-600" src="https://picsum.photos/200/300.webp?random=2" alt="">
+                    </div>
+                    <div>
+                        <img class="rounded-lg shadow-xl border-4 border-gray-600" src="https://picsum.photos/200/300.webp?random=3" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <div class="flex gap-8 w-11/12 mx-auto mt-16">
