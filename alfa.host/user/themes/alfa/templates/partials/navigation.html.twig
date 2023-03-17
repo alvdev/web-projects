@@ -12,6 +12,10 @@
 {% set domain_prices_icon_url = url('theme://images/svg/megamenu/precio-dominios.svg') %}
 {% set domain_top_level_icon_url = url('theme://images/svg/megamenu/dominios-nivel-superior.svg') %}
 
+{% set email_marketing_icon_url = url('theme://images/svg/megamenu/email-marketing.svg') %}
+{% set seo_icon_url = url('theme://images/svg/megamenu/posicionamiento-web.svg') %}
+{% set social_media_icon_url = url('theme://images/svg/megamenu/social-media-marketing.svg') %}
+
 <nav class="relative grid items-center justify-between grid-cols-2 py-6 lg:flex lg:px-8 lg:gap-4 z-20">
     <div class="pl-8 logo md:pl-0">
         <a href="{{ home_url|e }}" title="{{ config.site.title|e }}">
@@ -226,21 +230,21 @@
         </div>
         <ul class="grid grid-cols-3 gap-8 border-b-2 border-gray-400 pb-8">
             <li class="flex items-center divide-x-2 divide-gray-400">
-                <div class="pr-4"><img src="{{ icon }}" alt="" class="w-12"></div>
+                <div class="pr-4"><img src="{{ email_marketing_icon_url }}" alt="" class="w-12"></div>
                 <div class="pl-4">
                     <p class="text-gray-900 font-medium">Email marketing</p>
                     <p class="text-base">Email marketing</p>
                 </div>
             </li>
             <li class="flex items-center divide-x-2 divide-gray-400">
-                <div class="pr-4"><img src="{{ icon }}" alt="" class="w-12"></div>
+                <div class="pr-4"><img src="{{ seo_icon_url }}" alt="" class="w-12"></div>
                 <div class="pl-4">
                     <p class="text-gray-900 font-medium">Posicionamiento web</p>
                     <p class="text-base">Posicionamiento web</p>
                 </div>
             </li>
             <li class="flex items-center divide-x-2 divide-gray-400">
-                <div class="pr-4"><img src="{{ icon }}" alt="" class="w-12"></div>
+                <div class="pr-4"><img src="{{ social_media_icon_url }}" alt="" class="w-12"></div>
                 <div class="pl-4">
                     <p class="text-gray-900 font-medium">Social Media Marketing</p>
                     <p class="text-base">Social Media Marketing</p>
