@@ -193,7 +193,33 @@
         <aside id="aside-left" class="w-1/5 bg-blue-200 self-start sticky top-24">ASIDE-LEFT Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto qui similique exercitationem commodi beatae ab eveniet ipsa dicta corporis corrupti voluptates rem vitae, facilis, repellat voluptatem aliquam placeat velit quos?</aside>
 
         <div class="flex flex-col gap-8 flex-1">
-            <section id="posts-bot" class="bg-blue-200">POSTS BOT Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo nisi tempora eaque voluptate iste corrupti perferendis aliquam dolores eum officiis aspernatur placeat porro est omnis voluptates vel deleniti, necessitatibus fuga. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi similique tempore aspernatur, sed fugit pariatur nobis. Eos fugiat atque, quae magni ullam, asperiores reprehenderit nihil, error maiores doloribus similique enim! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat fuga ipsa dolore repellendus totam, animi dolorum fugit, eum alias aut voluptates nesciunt recusandae tempore exercitationem qui provident molestias nostrum quibusdam dignissimos ad officiis perspiciatis! Vero cum similique inventore cupiditate totam id sit rem laboriosam minima nesciunt fugit itaque vel, dolorem sint voluptatum libero mollitia temporibus facilis sequi hic adipisci ullam. Totam sit odit aliquam voluptatibus labore necessitatibus ex iure excepturi deleniti ea quis obcaecati, accusantium autem impedit tempora perspiciatis saepe quidem ipsa? Aliquam adipisci, ut temporibus, quas iusto explicabo pariatur officia voluptate voluptas animi atque. Repudiandae laudantium qui suscipit unde.</section>
+            <section id="posts-bot" class="grid grid-cols-2 gap-8">
+                <article class="relative">
+                    <img class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=1" alt="">
+                    <div class="relative mt-8">
+                        <h2 class="text-2xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
+                        <div class="mt-2 flex gap-4 text-gray-400 text-sm">
+                            <span>June 14, 2023</span>
+                            <span>tags</span>
+                        </div>
+                        <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
+                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded py-1 px-4">More</a>
+                    </div>
+                </article>
+
+                <article class="relative">
+                    <img class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=2" alt="">
+                    <div class="relative mt-8">
+                        <h2 class="text-2xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
+                        <div class="mt-2 flex gap-4 text-gray-400 text-sm">
+                            <span>June 14, 2023</span>
+                            <span>tags</span>
+                        </div>
+                        <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
+                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded py-1 px-4">More</a>
+                    </div>
+                </article>
+            </section>
 
             <div id="banner-bot">{{ banner_bot|raw }}</div>
         </div>
