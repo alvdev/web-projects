@@ -1380,10 +1380,6 @@ footer .ccards g,
   top: 2rem;
 }
 
-.bottom-24 {
-  bottom: 6rem;
-}
-
 .top-0 {
   top: 0px;
 }
@@ -1410,6 +1406,10 @@ footer .ccards g,
 
 .left-0 {
   left: 0px;
+}
+
+.top-12 {
+  top: 3rem;
 }
 
 .z-10 {
@@ -1482,6 +1482,10 @@ footer .ccards g,
 
 .mt-16 {
   margin-top: 4rem;
+}
+
+.-mb-2 {
+  margin-bottom: -0.5rem;
 }
 
 .-mt-4 {
@@ -1793,6 +1797,16 @@ footer .ccards g,
   width: auto;
 }
 
+.w-max {
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1993,6 +2007,14 @@ footer .ccards g,
 
 .rounded-md {
   border-radius: 0.375rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .rounded-t {
@@ -2624,6 +2646,10 @@ footer .ccards g,
 
 .opacity-30 {
   opacity: 0.3;
+}
+
+.bg-blend-hard-light {
+  background-blend-mode: hard-light;
 }
 
 .shadow {
