@@ -1340,6 +1340,10 @@ footer .ccards g,
   visibility: visible;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .fixed {
   position: fixed;
 }
@@ -1797,6 +1801,10 @@ footer .ccards g,
 
 .w-auto {
   width: auto;
+}
+
+.w-11 {
+  width: 2.75rem;
 }
 
 .flex-1 {
@@ -2684,6 +2692,11 @@ footer .ccards g,
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(71 85 105 / var(--tw-text-opacity));
+}
+
+.text-blue-200 {
+  --tw-text-opacity: 1;
+  color: rgb(191 219 254 / var(--tw-text-opacity));
 }
 
 .line-through {
