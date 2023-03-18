@@ -1,9 +1,9 @@
 {% do assets.addJs('theme://js/totop.js', {loading: 'defer', id: 'custom-css'}) %}
-{% if page.template == 'blog' %}
+{# {% if page.template == 'blog' %}
     {% set footer_margin_top = 'mt-24' %}
-{% endif %}
+{% endif %} #}
 
-<footer class="bg-blue-600 bg-bottom bg-cover md:bg-auto shadow-2xl {{ footer_margin_top }}">
+<footer class="bg-blue-600 bg-bottom bg-cover md:bg-auto shadow-2xl {#{{ footer_margin_top }}#}">
     <div class="items-center justify-center gap-8 p-8 news md:flex">
         <h2 class="text-6xl font-normal text-white uppercase">
             Alfa News
