@@ -17,12 +17,12 @@
 {% set social_media_icon_url = url('theme://images/svg/megamenu/social-media-marketing.svg') %}
 
 <nav class="relative grid px-[4.16%] items-center justify-between grid-cols-2 py-6 lg:flex lg:gap-4 z-20">
-    <div class="pl-8 logo md:pl-0">
+    <div class="logo">
         <a href="{{ home_url|e }}" title="{{ config.site.title|e }}">
             {% include "partials/header/logo.svg" %}
         </a>
     </div>
-    <div id="burger" class="block pr-8 text-right md:pr-0 lg:hidden">
+    <div id="burger" class="block text-right lg:hidden">
         <span class="text-4xl font-bold text-white">
             &#9776;
         </span>
