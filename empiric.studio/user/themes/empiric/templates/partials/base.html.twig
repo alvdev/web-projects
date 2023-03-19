@@ -32,7 +32,11 @@
             {{ assets.js()|raw }}
         {% endblock %}
     </head>
-    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }} flex flex-col h-full">
+    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens'}} pl-40">
+
+        {% block aside %}
+            {% include 'partials/aside.html.twig' %}
+        {% endblock %}
 
         {% block header %}
             <header class="header">
