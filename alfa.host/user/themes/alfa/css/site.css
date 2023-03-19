@@ -261,6 +261,8 @@
 
     nav.sticky [id$="-submenu"] {
         @apply top-16 ease-linear duration-300 w-full -mt-[2px] rounded-none border-x-0;
+        padding-left: 4.16%;
+        padding-right: 4.16%;
     }
 
     nav .logo svg .a {

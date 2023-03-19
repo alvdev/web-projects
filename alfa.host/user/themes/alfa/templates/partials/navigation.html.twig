@@ -16,7 +16,7 @@
 {% set seo_icon_url = url('theme://images/svg/megamenu/posicionamiento-web.svg') %}
 {% set social_media_icon_url = url('theme://images/svg/megamenu/social-media-marketing.svg') %}
 
-<nav class="relative grid items-center justify-between grid-cols-2 py-6 lg:flex lg:px-8 lg:gap-4 z-20">
+<nav class="relative grid px-[4.16%] items-center justify-between grid-cols-2 py-6 lg:flex lg:gap-4 z-20">
     <div class="pl-8 logo md:pl-0">
         <a href="{{ home_url|e }}" title="{{ config.site.title|e }}">
             {% include "partials/header/logo.svg" %}
@@ -83,7 +83,7 @@
         {% endfor %}
     </ul>
 
-    <div id="hosting-submenu" class="top-28 absolute left-0 right-0 w-11/12 mx-auto z-10 bg-white bg-opacity-90 backdrop-blur-xl rounded-md p-12 flex shadow-2xl border-b-[3px] border-b-gray-300">
+    <div id="hosting-submenu" class="hidden top-28 absolute left-0 right-0 w-11/12 mx-auto z-10 bg-white bg-opacity-90 backdrop-blur-xl rounded-md p-12 flex shadow-2xl border-b-[3px] border-b-gray-300">
         <div class="close-submenu absolute right-0 top-0 bg-gray-300 p-2 aspect-auto w-8 h-8 flex items-center justify-center rounded-tr rounded-bl hover:cursor-pointer">
             <span class="hover:rotate-6">&#10008;</span>
         </div>
