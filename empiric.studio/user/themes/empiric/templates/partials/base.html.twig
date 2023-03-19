@@ -39,18 +39,7 @@
         {% endblock %}
 
         {% block header %}
-            <header class="header">
-                <div class="">
-                    <a class="logo" href="{{ home_url|e }}">
-                        {{ config.site.title|e }}
-                    </a>
-                    {% block header_navigation %}
-                        <nav class="main-nav">
-                            {% include 'partials/navigation.html.twig' %}
-                        </nav>
-                    {% endblock %}
-                </div>
-            </header>
+            {% include 'partials/header.html.twig' %}
         {% endblock %}
 
         {% block body %}
