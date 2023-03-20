@@ -32,7 +32,7 @@
             {{ assets.js()|raw }}
         {% endblock %}
     </head>
-    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens'}} pl-40">
+    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens'}} pl-40 h-full flex flex-col">
 
         {% block aside %}
             {% include 'partials/aside.html.twig' %}
@@ -43,7 +43,7 @@
         {% endblock %}
 
         {% block body %}
-            <main id="body" class="flex-1">
+            <main id="body" class="flex-1 border-2">
                 <div class="prose">
                     {% block content %}{% endblock %}
                 </div>
@@ -55,7 +55,8 @@
                 <div class="">
                     <p>
                         <a href="#">empiric.studio</a>, by
-                        <a href="https://alv.dev">alv.dev</a>.</p>
+                        <a href="https://alv.dev">alv.dev</a>.
+                    </p>
                 </div>
             </div>
         {% endblock %}

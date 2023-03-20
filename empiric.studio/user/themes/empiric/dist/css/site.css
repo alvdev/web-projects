@@ -787,6 +787,9 @@ select {
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.flex-col {
+  flex-direction: column;
+}
 .place-content-between {
   place-content: space-between;
 }
@@ -801,6 +804,9 @@ select {
 }
 .gap-8 {
   gap: 2rem;
+}
+.border-2 {
+  border-width: 2px;
 }
 .pl-40 {
   padding-left: 10rem;
@@ -818,6 +824,10 @@ select {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+.text-9xl {
+  font-size: 8rem;
+  line-height: 1;
 }
 .font-bold {
   font-weight: 700;
