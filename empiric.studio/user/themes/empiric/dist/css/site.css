@@ -566,6 +566,13 @@ select {
         font-style: normal;
     }
 
+body {
+  font-family: Mont, Sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  line-height: 1.625;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -793,11 +800,11 @@ select {
 .gap-12 {
   gap: 3rem;
 }
-.gap-8 {
-  gap: 2rem;
-}
 .gap-16 {
   gap: 4rem;
+}
+.gap-8 {
+  gap: 2rem;
 }
 .py-8 {
   padding-top: 2rem;
