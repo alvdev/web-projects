@@ -1979,12 +1979,9 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0___default().start();
 /*!**********************!*\
   !*** ./css/site.css ***!
   \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/postcss-loader/dist/cjs.js):\nSyntaxError: Unexpected token (32:6)\n    at pp$4.raise (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn/dist/acorn.js:2927:15)\n    at pp.unexpected (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn/dist/acorn.js:698:10)\n    at pp.expect (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn/dist/acorn.js:692:28)\n    at pp$3.parseObj (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn/dist/acorn.js:2563:14)\n    at pp$3.parseExprAtom (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn/dist/acorn.js:2302:19)\n    at _class.parseExprAtom (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn-node/lib/dynamic-import/index.js:77:117)\n    at pp$3.parseExprSubscripts (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn/dist/acorn.js:2129:21)\n    at pp$3.parseMaybeUnary (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn/dist/acorn.js:2106:19)\n    at _class.parseMaybeUnary (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn-node/lib/private-class-elements/index.js:122:54)\n    at pp$3.parseExprOps (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/acorn/dist/acorn.js:2041:21)\n    at processResult (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/webpack/lib/NormalModule.js:758:19)\n    at /home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/webpack/lib/NormalModule.js:860:5\n    at /home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/loader-runner/lib/LoaderRunner.js:400:11\n    at /home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/loader-runner/lib/LoaderRunner.js:252:18\n    at context.callback (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/loader-runner/lib/LoaderRunner.js:124:13)\n    at Object.loader (/home/alvdev/dev/www/web-projects/empiric.studio/user/themes/empiric/node_modules/postcss-loader/dist/index.js:142:7)");
 
 /***/ })
 
@@ -2014,42 +2011,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					var r = fn();
-/******/ 					if (r !== undefined) result = r;
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
@@ -2090,68 +2052,13 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"/js/main": 0,
-/******/ 			"css/site": 0
-/******/ 		};
-/******/ 		
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 			return __webpack_require__.O(result);
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkempiric"] = self["webpackChunkempiric"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/site"], () => (__webpack_require__("./js/main.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/site"], () => (__webpack_require__("./css/site.css")))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	__webpack_require__("./js/main.js");
+/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./css/site.css");
 /******/ 	
 /******/ })()
 ;
