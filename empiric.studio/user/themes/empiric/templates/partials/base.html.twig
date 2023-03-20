@@ -32,7 +32,7 @@
             {{ assets.js()|raw }}
         {% endblock %}
     </head>
-    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens'}} pl-40 h-full flex flex-col">
+    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens'}} pl-40 pr-12 h-full flex flex-col">
 
         {% block aside %}
             {% include 'partials/aside.html.twig' %}
@@ -43,7 +43,7 @@
         {% endblock %}
 
         {% block body %}
-            <main id="body" class="flex-1 border-2">
+            <main id="body" class="flex-1">
                 <div class="prose">
                     {% block content %}{% endblock %}
                 </div>
