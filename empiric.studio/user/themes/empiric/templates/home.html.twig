@@ -2,6 +2,60 @@
 
 {% block content %}
     {#{{ page.content|raw }}#}
-    <video loop controls src="https://previews.customer.envatousercontent.com/h264-video-previews/6ecdfd5b-1a34-4e9a-8618-388ad76be438/28890326.mp4"></video>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum harum nam rem illo facere saepe neque facilis possimus, dolores, omnis corporis atque. Repudiandae quia aperiam, magni fuga quisquam amet tenetur ea unde ratione optio voluptas magnam consequuntur eligendi officiis? Illum culpa nulla totam magnam, eius ipsa recusandae ut inventore voluptas delectus aperiam nam ipsam, odit expedita natus, repudiandae aspernatur veritatis tempora ducimus aut? Reprehenderit debitis obcaecati, id odit, ab asperiores quod provident facere porro accusamus eius dicta. Excepturi atque aliquam consequatur ratione id, nihil odio commodi quae itaque sapiente rerum labore neque, officia veritatis cum nulla consequuntur impedit iure dolorum?</p>
+    <section class="intro mt-16">
+        <video loop controls src="https://previews.customer.envatousercontent.com/h264-video-previews/6ecdfd5b-1a34-4e9a-8618-388ad76be438/28890326.mp4"></video>
+        <p class="mt-16">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum harum nam rem illo facere saepe neque facilis possimus, dolores, omnis corporis atque. Repudiandae quia aperiam, magni fuga quisquam amet tenetur ea unde ratione optio voluptas magnam consequuntur eligendi officiis? Illum culpa nulla totam magnam, eius ipsa recusandae ut inventore voluptas delectus aperiam nam ipsam, odit expedita natus, repudiandae aspernatur veritatis tempora ducimus aut? Reprehenderit debitis obcaecati, id odit, ab asperiores quod provident facere porro accusamus eius dicta. Excepturi atque aliquam consequatur ratione id, nihil odio commodi quae itaque sapiente rerum labore neque, officia veritatis cum nulla consequuntur impedit iure dolorum?</p>
+    </section>
+
+    <section class="demos mt-16">
+        <ul class="grid">
+            <li class="grid grid-cols-2 items-center gap-24">
+                <div class="-mt-24">
+                    <p>1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, asperiores!</p>
+                    <div class="flex justify-center mt-16">
+                        <a class="text-white bg-gray-800 py-4 px-12 inline-flex gap-4 hover:gap-6" href="#">
+                            Button<span>&#10141;</span>
+                        </a>
+                    </div>
+                </div>
+                <img src="https://picsum.photos/600/750.webp?random=1" alt="">
+            </li>
+
+            <li class="grid grid-cols-2 items-center gap-24 -mt-24">
+                <img src="https://picsum.photos/600/750.webp?random=2" alt="">
+                <div>
+                    <p>2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, asperiores!</p>
+                    <div class="flex justify-center mt-16">
+                        <a class="text-white bg-gray-800 py-4 px-12 inline-flex gap-4 mt-4 float-right hover:gap-6" href="#">
+                            <span class="-rotate-180 relative -top-[3px]">&#10141;</span>Button
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="grid grid-cols-2 items-center gap-24 -mt-24">
+                <div>
+                    <p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, asperiores!</p>
+                    <div class="flex justify-center mt-16">
+                        <a class="text-white bg-gray-800 py-4 px-12 inline-flex gap-4 mt-4 hover:gap-6" href="#">
+                            Button<span>&#10141;</span>
+                        </a>
+                    </div>
+                </div>
+                <img src="https://picsum.photos/600/750.webp?random=3" alt="">
+            </li>
+
+            <li class="grid grid-cols-2 items-center gap-24 -mt-24">
+                <img src="https://picsum.photos/600/750.webp?random=4" alt="">
+                <div class="mt-24">
+                    <p>4. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, asperiores!</p>
+                    <div class="flex justify-center mt-16">
+                        <a class="text-white bg-gray-800 py-4 px-12 inline-flex gap-4 mt-4 hover:gap-6" href="#">
+                            <span class="-rotate-180 relative -top-[3px]">&#10141;</span>Button
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
 {% endblock %}
