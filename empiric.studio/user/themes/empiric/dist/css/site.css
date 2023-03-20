@@ -545,6 +545,33 @@ select {
   outline: 1px auto -webkit-focus-ring-color;
 }
 
+@font-face {
+        font-family: "Mont";
+        src: url(../../fonts/Mont-Regular.eot?a1e30ae24988f34a66c753bfeccb3665);
+        src: local("☺"), url(../../fonts/Mont-Regular.woff?87edc44cdb50725f6c1a5f457390d6ec) format("woff"),
+            url(../../fonts/Mont-Regular.ttf?48fedf56dfaee955e6a24d58fba8e53a) format("truetype"), url(../../fonts/Mont-Regular.svg?729153475b5ac29dfb570377663dc1f7) format("svg");
+        font-weight: 400;
+        font-style: normal;
+    }
+
+@font-face {
+        font-family: "Mont";
+        src: url(../../fonts/Mont-Bold.eot?d02c27d3394dd52e1ed4cd59174dac72);
+        src: local("☺"), url(../../fonts/Mont-Bold.woff?48462dfb86756ec844d0316f7c9d8aa2) format("woff"), url(../../fonts/Mont-Bold.ttf?55f2f911d04f1bbf1328ba42133622f6) format("truetype"),
+            url(../../fonts/Mont-Bold.svg?ce1ae6c93978e9fc4620fd19f608ba41) format("svg");
+        font-weight: 600;
+        font-style: normal;
+    }
+
+@font-face {
+        font-family: "Mont";
+        src: url(../../fonts/Mont-Heavy.eot?6a37e206fcea87ad61870ee0af861a37);
+        src: local("☺"), url(../../fonts/Mont-Heavy.woff?51883ea3b305f1f5d88782789ba4e5fb) format("woff"),
+            url(../../fonts/Mont-Heavy.ttf?4f630ce585e17a2df0492bc7abb0ede5) format("truetype"), url(../../fonts/Mont-Heavy.svg?f682153c7ef71b828e10101f4cc63ad8) format("svg");
+        font-weight: 800;
+        font-style: normal;
+    }
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -732,6 +759,12 @@ select {
 .flex {
   display: flex;
 }
+.table {
+  display: table;
+}
+.hidden {
+  display: none;
+}
 .h-full {
   height: 100%;
 }
@@ -749,6 +782,9 @@ select {
 }
 .-rotate-90 {
   --tw-rotate: -90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .place-content-between {
@@ -772,6 +808,9 @@ select {
 .text-center {
   text-align: center;
 }
+.font-mont {
+  font-family: Mont, Sans-serif;
+}
 .text-8xl {
   font-size: 6rem;
   line-height: 1;
@@ -783,14 +822,26 @@ select {
 .font-bold {
   font-weight: 700;
 }
-.font-extrabold {
-  font-weight: 800;
-}
 .uppercase {
   text-transform: uppercase;
 }
 .text-gray-900 {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 

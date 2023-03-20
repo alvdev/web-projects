@@ -21,6 +21,9 @@ module.exports = {
                 "2xl": "1536px",
             },
         },
+        fontFamily: {
+            mont: ["Mont", "Sans-serif"],
+        },
         colors: {
             primary: {
                 lighter: colors.yellow["300"],
