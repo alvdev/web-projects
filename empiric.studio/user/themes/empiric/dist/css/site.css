@@ -796,6 +796,9 @@ select {
 .gap-8 {
   gap: 2rem;
 }
+.gap-16 {
+  gap: 4rem;
+}
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;

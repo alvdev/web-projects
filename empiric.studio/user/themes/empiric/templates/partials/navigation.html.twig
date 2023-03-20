@@ -4,7 +4,9 @@
         {% if p.children.visible.count > 0 %}
             <li class="has-children {{ current_page|e }}">
                 <a href="{{ p.url|e }}">
-                    {% if p.header.icon %}<i class="fa fa-{{ p.header.icon|e }}"></i>{% endif %}
+                    {% if p.header.icon %}
+                        <i class="fa fa-{{ p.header.icon|e }}"></i>
+                    {% endif %}
                     {{ p.menu|e }}
                 </a>
                 <ul>
@@ -14,7 +16,9 @@
         {% else %}
             <li class="{{ current_page|e }}">
                 <a href="{{ p.url|e }}">
-                    {% if p.header.icon %}<i class="fa fa-{{ p.header.icon|e }}"></i>{% endif %}
+                    {% if p.header.icon %}
+                        <i class="fa fa-{{ p.header.icon|e }}"></i>
+                    {% endif %}
                     {{ p.menu|e }}
                 </a>
             </li>
@@ -30,7 +34,9 @@
             {% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
             <li class="{{ current_page|e }}">
                 <a href="{{ page.url|e }}">
-                    {% if page.header.icon %}<i class="fa fa-{{ page.header.icon|e }}"></i>{% endif %}
+                    {% if page.header.icon %}
+                        <i class="fa fa-{{ page.header.icon|e }}"></i>
+                    {% endif %}
                     {{ page.menu|e }}
                 </a>
             </li>
@@ -39,7 +45,9 @@
     {% for mitem in site.menu %}
         <li>
             <a href="{{ mitem.url|e }}">
-                {% if mitem.icon %}<i class="fa fa-{{ mitem.icon|e }}"></i>{% endif %}
+                {% if mitem.icon %}
+                    <i class="fa fa-{{ mitem.icon|e }}"></i>
+                {% endif %}
                 {{ mitem.text|e }}
             </a>
         </li>
