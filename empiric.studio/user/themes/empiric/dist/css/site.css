@@ -547,27 +547,21 @@ select {
 
 @font-face {
         font-family: "Mont";
-        src: url(../../fonts/Mont-Regular.eot?a1e30ae24988f34a66c753bfeccb3665);
-        src: local("☺"), url(../../fonts/Mont-Regular.woff?87edc44cdb50725f6c1a5f457390d6ec) format("woff"),
-            url(../../fonts/Mont-Regular.ttf?48fedf56dfaee955e6a24d58fba8e53a) format("truetype"), url(../../fonts/Mont-Regular.svg?729153475b5ac29dfb570377663dc1f7) format("svg");
+        src: url(../../fonts/Mont-Regular.woff?87edc44cdb50725f6c1a5f457390d6ec) format("woff");
         font-weight: 400;
         font-style: normal;
     }
 
 @font-face {
         font-family: "Mont";
-        src: url(../../fonts/Mont-Bold.eot?d02c27d3394dd52e1ed4cd59174dac72);
-        src: local("☺"), url(../../fonts/Mont-Bold.woff?48462dfb86756ec844d0316f7c9d8aa2) format("woff"), url(../../fonts/Mont-Bold.ttf?55f2f911d04f1bbf1328ba42133622f6) format("truetype"),
-            url(../../fonts/Mont-Bold.svg?ce1ae6c93978e9fc4620fd19f608ba41) format("svg");
+        src: local("☺"), url(../../fonts/Mont-Bold.woff?48462dfb86756ec844d0316f7c9d8aa2) format("woff");
         font-weight: 600;
         font-style: normal;
     }
 
 @font-face {
         font-family: "Mont";
-        src: url(../../fonts/Mont-Heavy.eot?6a37e206fcea87ad61870ee0af861a37);
-        src: local("☺"), url(../../fonts/Mont-Heavy.woff?51883ea3b305f1f5d88782789ba4e5fb) format("woff"),
-            url(../../fonts/Mont-Heavy.ttf?4f630ce585e17a2df0492bc7abb0ede5) format("truetype"), url(../../fonts/Mont-Heavy.svg?f682153c7ef71b828e10101f4cc63ad8) format("svg");
+        src: local("☺"), url(../../fonts/Mont-Heavy.woff?51883ea3b305f1f5d88782789ba4e5fb) format("woff");
         font-weight: 800;
         font-style: normal;
     }
@@ -768,9 +762,6 @@ select {
 .h-full {
   height: 100%;
 }
-.w-11\/12 {
-  width: 91.666667%;
-}
 .w-16 {
   width: 4rem;
 }
@@ -805,11 +796,15 @@ select {
 .gap-8 {
   gap: 2rem;
 }
-.border-2 {
-  border-width: 2px;
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .pl-40 {
   padding-left: 10rem;
+}
+.pr-12 {
+  padding-right: 3rem;
 }
 .text-center {
   text-align: center;
@@ -824,10 +819,6 @@ select {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-.text-9xl {
-  font-size: 8rem;
-  line-height: 1;
 }
 .font-bold {
   font-weight: 700;
