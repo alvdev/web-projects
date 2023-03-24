@@ -1,10 +1,10 @@
 {% block aside %}
     <aside class="left-side w-40 h-full fixed top-0 left-0  place-content-between">
-        <div class="h-full">
+        <div class="h-full flex flex-col place-content-between place-items-center">
             <div class="logo flex mx-auto mt-8 w-16">
                 <img src="{{ url('image://empiric.svg') }}" alt="Image">
             </div>
-            <ul class="-rotate-90 mt-[50vh] font-semibold text-sm flex gap-8 uppercase">
+            <ul class="-rotate-90 font-semibold text-sm flex gap-8 uppercase">
                 <li>
                     <a href="#">LinkedIn</a>
                 </li>
@@ -15,7 +15,7 @@
                     <a href="#">Twitter</a>
                 </li>
             </ul>
-            <a href="#top" class="gotop" style="display: none;"><img src="images/icon-gotop.svg" alt="Image"></a>
+            <a href="#top" class="gotop mb-8"><img src="{{ url('theme://images/svg/gotop.svg') }}" alt="Image"></a>
         </div>
     </aside>
 {% endblock %}
