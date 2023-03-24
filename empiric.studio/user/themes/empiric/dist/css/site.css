@@ -780,6 +780,9 @@ body {
 .mt-\[50vh\] {
   margin-top: 50vh;
 }
+.mt-20 {
+  margin-top: 5rem;
+}
 .block {
   display: block;
 }
@@ -863,6 +866,9 @@ body {
 .gap-8 {
   gap: 2rem;
 }
+.gap-20 {
+  gap: 5rem;
+}
 .border-0 {
   border-width: 0px;
 }
@@ -896,6 +902,22 @@ body {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
+.py-28 {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+.py-48 {
+  padding-top: 12rem;
+  padding-bottom: 12rem;
+}
+.py-60 {
+  padding-top: 15rem;
+  padding-bottom: 15rem;
+}
+.py-72 {
+  padding-top: 18rem;
+  padding-bottom: 18rem;
+}
 .pl-40 {
   padding-left: 10rem;
 }
@@ -916,6 +938,30 @@ body {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -924,6 +970,12 @@ body {
 }
 .uppercase {
   text-transform: uppercase;
+}
+.leading-relaxed {
+  line-height: 1.625;
+}
+.leading-normal {
+  line-height: 1.5;
 }
 .text-gray-500 {
   --tw-text-opacity: 1;
