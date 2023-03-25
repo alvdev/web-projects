@@ -31,7 +31,7 @@ module.exports = {
                 darker: colors.yellow["500"],
             },
             black: colors.black,
-            gray: colors.gray,
+            gray: colors.zinc,
             white: colors.white,
             red: colors.red,
             green: colors.green,
