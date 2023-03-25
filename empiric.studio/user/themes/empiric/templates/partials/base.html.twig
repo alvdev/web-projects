@@ -1,4 +1,5 @@
 {% set extension = config.theme.production ? '.min' : '' %}
+
 <!DOCTYPE html>
 <html lang="{{ (grav.language.getActive ?: grav.config.site.default_lang)|e }}" class="h-full">
     <head>
@@ -24,7 +25,7 @@
         {% endblock %}
 
         {% block javascripts %}
-            {% do assets.addJs('theme://dist/js/main' ~ extension ~ '.js', 98) %}
+            {% do assets.addJs('theme://js/scroll-bgcolor' ~ extension ~ '.js', { loading: 'defer' }) %}
         {% endblock %}
 
         {% block assets deferred %}
@@ -32,8 +33,8 @@
             {{ assets.js()|raw }}
         {% endblock %}
     </head>
-    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens'}} pl-40 pr-12 h-full flex flex-col">
 
+    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens'}} pl-40 pr-12 h-full flex flex-col text-gray-900 transition duration-500">
         {% block aside %}
             {% include 'partials/aside.html.twig' %}
         {% endblock %}
@@ -64,6 +65,5 @@
         {% block bottom %}
             {{ assets.js('bottom')|raw }}
         {% endblock %}
-
     </body>
 </html>
