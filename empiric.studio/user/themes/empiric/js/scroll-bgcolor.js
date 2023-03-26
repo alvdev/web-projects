@@ -1,4 +1,4 @@
-const darkElems = document.querySelectorAll(".scrolldark");
+const darkElems = document.querySelectorAll(".dark");
 
 window.addEventListener("scroll", () => {
   for (let i of darkElems) {
