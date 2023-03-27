@@ -771,14 +771,14 @@ section.hosting-plans .triangle {
                 clip-path: polygon(50% 100%, 0 0, 100% 0);
     }
 
-section .hosting-features .card--back {
+section .hosting-features .card__back {
         visibility: hidden;
         height: 0%;
         transition: ease 0.5s;
         padding: 0;
     }
 
-section .hosting-features .card:hover .card--back {
+section .hosting-features .card:hover .card__back {
         visibility: visible;
         height: 100%;
         transition: ease 0.5s;
@@ -2496,10 +2496,6 @@ footer .ccards g,
   padding-bottom: 1rem;
 }
 
-.pl-8 {
-  padding-left: 2rem;
-}
-
 .pr-4 {
   padding-right: 1rem;
 }
@@ -3093,14 +3089,6 @@ footer .ccards g,
 
   .md\:pr-8 {
     padding-right: 2rem;
-  }
-
-  .md\:pl-0 {
-    padding-left: 0px;
-  }
-
-  .md\:pr-0 {
-    padding-right: 0px;
   }
 
   .md\:text-left {
