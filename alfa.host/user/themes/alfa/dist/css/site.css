@@ -1841,6 +1841,10 @@ footer .ccards g,
   width: min-content;
 }
 
+.w-10\/12 {
+  width: 83.333333%;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -2482,6 +2486,21 @@ footer .ccards g,
   padding-bottom: 2rem;
 }
 
+.px-\[2\%\] {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.px-\[4\%\] {
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+.px-\[10\%\] {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 .pb-12 {
   padding-bottom: 3rem;
 }
@@ -2800,6 +2819,11 @@ footer .ccards g,
 
 .shadow-gray-500 {
   --tw-shadow-color: #64748b;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.shadow-gray-200 {
+  --tw-shadow-color: #e2e8f0;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
