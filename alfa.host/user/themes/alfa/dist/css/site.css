@@ -1735,6 +1735,16 @@ footer .ccards g,
   height: 2px;
 }
 
+.max-h-max {
+  max-height: -moz-max-content;
+  max-height: max-content;
+}
+
+.min-h-max {
+  min-height: -moz-max-content;
+  min-height: max-content;
+}
+
 .w-1\/12 {
   width: 8.333333%;
 }
