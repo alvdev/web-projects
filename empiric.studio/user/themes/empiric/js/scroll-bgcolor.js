@@ -1,12 +1,17 @@
-const darkElems = document.querySelectorAll(".dark");
+const sections = document.querySelectorAll("[data-color]");
 
 window.addEventListener("scroll", () => {
-  for (let i of darkElems) {
-    const classes = i.dataset.color.split(" ");
-    console.log(classes);
-    window.scrollY >= i.offsetTop - window.innerHeight / 3 &&
-    window.scrollY <= i.offsetTop + i.clientHeight - window.innerHeight / 3
-      ? document.body.classList.add(...classes)
-      : document.body.classList.remove(...classes);
+  for (let section of sections) {
+    const classes = section.dataset.color.split(" ");
+    if (
+      window.scrollY >= section.offsetTop - window.innerHeight / 3 &&
+      window.scrollY <=
+        section.offsetTop + section.clientHeight - window.innerHeight / 3
+    ) {
+      document.body.classList.add(...classes);
+      break;
+    } else {
+      document.body.classList.remove(...classes);
+    }
   }
 });
