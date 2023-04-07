@@ -17,7 +17,9 @@
                     <a href="#">Twitter</a>
                 </li>
             </ul>
-            <a href="#top" id="totop" class="mb-8 invisible"><img src="{{ url('theme://images/svg/gotop.svg') }}" alt="Image"></a>
+            <a href="#top" id="totop" class="mb-8 invisible">
+                {{ svg('theme://images/svg/gotop.svg')|raw }}
+            </a>
         </div>
     </aside>
 {% endblock %}
