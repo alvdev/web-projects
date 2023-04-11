@@ -21,4 +21,8 @@
 
         </section>
     </section>
+
+    {% for child in collection %}
+        {% include 'partials/blog-post.html.twig' with {'blog': page, 'page': child, 'truncate': true} %}
+    {% endfor %}
 {% endblock %}
