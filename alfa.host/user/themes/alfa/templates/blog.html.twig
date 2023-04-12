@@ -1,6 +1,6 @@
 {% extends "partials/base.html.twig" %}
 
-{% set banner_classes = 'class="rounded shadow"' %}
+{% set banner_classes = 'class="rounded shadow w-full"' %}
 {% set banner_top = '<img src="' ~ url('image://') ~ '/banners/970x90-5.png"' ~ banner_classes ~ '>'  %}
 {% set banner_mid = '<img src=\"' ~ url('image://') ~ '/banners/970x90-5.png\"' ~ banner_classes ~ '>'  %}
 {% set banner_bot = '<img src=\"' ~ url('image://') ~ '/banners/970x90-5.png\"' ~ banner_classes ~ '>'  %}
@@ -50,10 +50,10 @@
         </article>
     </section>
 
+    <div class="w-11/12 mx-auto mt-8">{{ banner_top|raw }}</div>
+
     <div class="flex gap-8 w-11/12 mx-auto mt-16">
         <div class="flex flex-col gap-16 flex-1">
-            {{ banner_top|raw }}
-
             <section id="posts-top" class="grid grid-cols-2 gap-8">
                 <article class="relative">
                     <img class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=1" alt="">
