@@ -1,7 +1,7 @@
 const totop = document.querySelector('#totop');
 
 window.addEventListener('scroll', () => {
-  totop.hidden = window.scrollY > 500 ? false : true;
+  totop.hidden = window.scrollY > window.innerHeight ? false : true;
 });
 
 totop.addEventListener('click', () => {
