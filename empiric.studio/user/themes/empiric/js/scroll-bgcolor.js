@@ -1,20 +1,21 @@
 const sections = document.querySelectorAll('[data-color]');
 const arrow = document.querySelector('#totop svg path');
 
-window.addEventListener('scroll', () => {
-  for (let section of sections) {
-    const classes = section.dataset.color.split(' ');
-    if (
-      window.scrollY >= section.offsetTop - window.innerHeight / 3 &&
-      window.scrollY <=
-        section.offsetTop + section.clientHeight - window.innerHeight / 3
-    ) {
+const sectionObserver = function (entries) {
+  entries.forEach(entry => {
+    const classes = entry.target.dataset.color.split(' ');
+    if (entry.isIntersecting) {
       document.body.classList.add(...classes);
       arrow.style.fill = 'white';
-      break;
     } else {
       document.body.classList.remove(...classes);
       arrow.style.fill = 'black';
     }
-  }
+  });
+};
+
+const observer = new IntersectionObserver(sectionObserver, {
+  threshold: 0.5,
 });
+
+sections.forEach(section => observer.observe(section));
