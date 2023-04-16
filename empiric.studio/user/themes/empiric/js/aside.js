@@ -1,4 +1,4 @@
-const invisibles = document.querySelectorAll('.invisible');
+const invisibles = document.querySelectorAll('aside .invisible');
 
 document.addEventListener('scroll', () => {
   window.scrollY >= window.innerHeight / 1.5
