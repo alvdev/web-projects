@@ -936,6 +936,15 @@ body {
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
 }
+.fill-purple-500 {
+  fill: #a855f7;
+}
+.fill-purple-700 {
+  fill: #7e22ce;
+}
+.fill-white {
+  fill: #fff;
+}
 .p-4 {
   padding: 1rem;
 }
@@ -1025,6 +1034,9 @@ body {
 }
 .duration-500 {
   transition-duration: 500ms;
+}
+.duration-300 {
+  transition-duration: 300ms;
 }
 
 .hover\:gap-6:hover {
