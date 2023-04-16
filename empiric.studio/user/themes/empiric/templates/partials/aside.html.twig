@@ -4,7 +4,7 @@
     <aside class="left-side w-40 h-full fixed top-0 left-0  place-content-between">
         <div class="h-full flex flex-col place-content-between place-items-center">
             <div class="logo flex mx-auto mt-8 w-16">
-                <img src="{{ url('image://empiric.svg') }}" alt="Image">
+                {{ svg('image://empiric.svg')|raw }}
             </div>
             {% if page.template == 'blog' or page.template == 'blog-item' %}
                 <ul class="text-sm flex flex-col gap-8 uppercase">
