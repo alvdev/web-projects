@@ -1,7 +1,7 @@
-const totop = document.querySelector("#totop");
+const invisibles = document.querySelectorAll('.invisible');
 
-document.addEventListener("scroll", () => {
+document.addEventListener('scroll', () => {
   window.scrollY >= window.innerHeight / 1.5
-    ? totop.classList.remove("invisible")
-    : totop.classList.add("invisible");
+    ? invisibles.forEach(i => i.classList.remove('invisible'))
+    : invisibles.forEach(i => i.classList.add('invisible'));
 });
