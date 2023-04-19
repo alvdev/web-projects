@@ -1,0 +1,18 @@
+{
+  "name": "moon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postcss.config.js",
+  "scripts": {
+    "build": "purgecss --css css/fonts.css --content templates/**/*.twig --output dist/css/",
+    "watch": "postcss css/**/*.css -d dist/css/ --verbose",
+    "prod": "purgecss --css css/main.css --output dist/css/main.min.css --env production --verbose"
+  },
+  "author": "alv.dev",
+  "license": "ISC",
+  "devDependencies": {
+    "postcss": "^8.4.21",
+    "postcss-cli": "^10.1.0",
+    "purgecss": "^5.0.0"
+  }
+}
