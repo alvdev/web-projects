@@ -25,7 +25,7 @@
                         <div class="{{ layout_form_field_wrapper_classes }} {{ field.size }}">
                             {% block prepend %}{% endblock prepend %}
                             {% set input_value = value is iterable ? value|join(',') : value|string %}
-                            <input name="{{ (scope ~ field.name)|fieldName }}" value="{{ input_value|e }}"
+                            <input name="{{ (scope ~ field.name)|fieldName }}" value="{{ input_value|e }}" aria-label="{{ field.name }}"
                             {% block input_attributes %} {% endblock %}/>
                                 {% block append %}{% endblock append %}
                                 {% if inline_errors and errors %}
