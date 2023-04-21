@@ -5333,3 +5333,14 @@ div.ppt {
 .checkbox-slider--b-flat input + span:before {
     box-shadow: none;
 }
+
+/* Patches */
+.w-100 {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.nopad {
+    padding: 0 !important;
+}
