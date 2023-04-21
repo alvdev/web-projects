@@ -4,8 +4,8 @@
   "description": "",
   "main": "postcss.config.js",
   "scripts": {
-    "build": "purgecss --css css/fonts.css --content templates/**/*.twig --output dist/css/",
-    "watch": "postcss css/**/*.css -d dist/css/ --verbose",
+    "watch": "postcss css/**/*.css -d dist/css/ --watch --verbose",
+    "build": "postcss css/**/*.css -d dist/css/ --verbose",
     "prod": "purgecss --css css/main.css --output dist/css/main.min.css --env production --verbose"
   },
   "author": "alv.dev",
