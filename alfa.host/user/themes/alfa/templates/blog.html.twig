@@ -1,10 +1,10 @@
 {% extends "partials/base.html.twig" %}
 
-{% set banner_classes = 'class="rounded shadow w-full"' %}
-{% set banner_top = '<img src="' ~ url('image://') ~ '/banners/970x90-5.png"' ~ banner_classes ~ '>'  %}
-{% set banner_mid = '<img src=\"' ~ url('image://') ~ '/banners/970x90-5.png\"' ~ banner_classes ~ '>'  %}
-{% set banner_bot = '<img src=\"' ~ url('image://') ~ '/banners/970x90-5.png\"' ~ banner_classes ~ '>'  %}
-{% set ceed_img = '<img src=\"' ~ url('image://') ~ '/banners/empresario-digital-155.png\"' ~ '>'  %}
+{% set banner_classes = 'rounded shadow w-full' %}
+{% set banner_top = media['user://images/banners/970x90-5.png'].loading('lazy').html('', 'alt text', banner_classes)|raw  %}
+{% set banner_mid = media['user://images/banners/970x90-5.png'].loading('lazy').html('', 'alt text', banner_classes)|raw  %}
+{% set banner_bot = media['user://images/banners/970x90-5.png'].loading('lazy').html('', 'alt text', banner_classes)|raw  %}
+{% set ceed_img = media['user://images/banners/empresario-digital-155.png'].loading('lazy').html('', 'El camino de emprendedor a empresario digital')|raw  %}
 
 {% block header_title %}
     <div class="pt-4 pb-36 text-white text-center">
