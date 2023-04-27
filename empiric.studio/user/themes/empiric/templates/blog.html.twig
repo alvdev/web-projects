@@ -14,21 +14,19 @@
 {% block body %}
     <section id="body-wrapper" class="section blog-listing">
         <section class="container {{ grid_size }}">
-
             {% if show_breadcrumbs and config.plugins.breadcrumbs.enabled %}
                 {% include 'partials/breadcrumbs.html.twig' %}
             {% endif %}
-
         </section>
     </section>
 
-    <section class="flex flex-col gap-24">
+    <section class="flex flex-col gap-24 mt-32">
         {% for post in collection %}
             <article class="flex place-content-between place-items-center gap-8">
-                <h2 class="font-semibold">
+                <h2 class="font-semibold text-2xl w-full">
                     <a href="{{ post.url }}">{{ post.title }}</a>
                 </h2>
-                <div class="text-gray-500">{{ post.content|raw }}</div>
+                <div class="text-gray-500 text-lg">{{ post.summary|raw }}</div>
                 <img src="https://picsum.photos/300/150.webp?random={{ random() }}" alt="">
             </article>
         {% endfor %}
