@@ -2,7 +2,6 @@ const sections = document.querySelectorAll('[data-color]');
 const arrow = document.querySelector('#totop svg path');
 const empiric = document.querySelectorAll('aside .logo path.c');
 const triangle = document.querySelector('aside .logo polygon.a');
-console.log(triangle);
 
 const sectionObserver = function (entries) {
   entries.forEach(entry => {
