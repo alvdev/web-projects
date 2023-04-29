@@ -35,8 +35,21 @@
             </div>
         </nav>
         <hgroup class="mt-16 ">
-            <h1 class="text-8xl text-gray-900 font-bold">Webs artesanales de alto rendimiento para posicionamiento web</h1>
-            <p class="mt-8 text-gray-500">Dato empírico: Una pirámide es la estructura arquitectónica más sólida y duradera.</p>
+            {% if page.title %}
+                <h1 class="text-8xl text-gray-900 font-bold">{{ page.title }}</h1>
+            {% endif %}
+
+            {% if page.header.subtitle %}
+                <h2 class="mt-8 text-gray-500">{{ page.header.subtitle|raw }}</h2>
+            {% endif %}
+
+            {% if page.header.description %}
+                <p class="mt-8 text-gray-500">{{ page.header.description|raw }}</p>
+            {% endif %}
         </hgroup>
+
+        {% if page.content %}
+            <div class="mt-8 text-gray-500">{{ page.content|raw }}</div>
+        {% endif %}
     </header>
 {% endblock %}
