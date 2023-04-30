@@ -1,5 +1,8 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set options = { items: {'@page.children': '/blog'}, limit: 10 }%}
+{% set posts = page.collection(options) %}
+
 {% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
 {% set collection = page.collection() %}
 {% set blog = page.find(header_var('blog_url')|defined(theme_var('blog-page'))) %}
@@ -21,7 +24,7 @@
     </section>
 
     <section class="flex flex-col gap-24 mt-32">
-        {% for post in collection %}
+        {% for post in posts %}
             <article class="flex place-content-between place-items-center gap-8">
                 <h2 class="font-semibold text-2xl w-full">
                     <a href="{{ post.url }}">{{ post.title }}</a>

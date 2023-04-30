@@ -1,6 +1,4 @@
 ---
-content:
-    items: '@self.children'
 title: 'Blog posts'
 twitterenable: true
 twittercardoptions: summary
