@@ -1,7 +1,8 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set options = { items: {'@page.children': '/blog'}, limit: 10 }%}
+{% set options = { items: {'@self.children': '/blog'}, order: {dir: 'desc'} }%}
 {% set posts = page.collection(options) %}
+{% do paginate(posts, 1) %}
 
 {% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
 {% set collection = page.collection() %}
@@ -30,4 +31,10 @@
             </article>
         {% endfor %}
     </section>
+
+    <nav class="mt-32">
+        {% if config.plugins.pagination.enabled and posts.params.pagination %}
+            {% include 'partials/pagination.html.twig' with {'base_url': page.url, 'pagination': posts.params.pagination} %}
+        {% endif %}
+    </nav>
 {% endblock %}
