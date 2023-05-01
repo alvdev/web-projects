@@ -1,0 +1,45 @@
+{% set pagination = pagination|default(page.collection.params.pagination) %}
+{% set base_url = base_url|default(page.url) %}
+
+{% if pagination|length > 1 %}
+    <div class="flex gap-8 border-t border-gray-500 place-content-between">
+        {% if pagination.hasPrev %}
+            {% set url =  (base_url ~ pagination.params ~ pagination.prevUrl)|replace({'//':'/'}) %}
+            <a class="pt-8 text-purple-700 hover:text-black" rel="prev" href="{{ url }}">
+                <span class="inline-block -rotate-180 relative -top-[3px]">&#10141;</span>
+                {{ 'PREV'|t }}
+            </a>
+        {% else %}
+            <div class="pt-8 text-gray-500">
+                <span class="inline-block -rotate-180 relative -top-[3px]">&#10141;</span>
+                {{ 'PREV'|t }}
+            </div>
+        {% endif %}
+
+        <div class="flex">
+            {% for paginate in pagination %}
+                {% if paginate.isCurrent %}
+                    <div class="pt-8 w-12 text-center text-gray-900 border-t-2 border-gray-400">
+                        <span class="active block -mt-[2px]">{{ paginate.number }}</span>
+                    </div>
+                {% elseif paginate.isInDelta %}
+                    {% set url = (base_url ~ pagination.params ~ paginate.url)|replace({'//':'/'}) %}
+                    <a class="pt-8 w-12 text-center text-purple-700 hover:text-purple-700 hover:border-t-2 hover:border-purple-400 hover:pt-[calc(2rem-1.5px)]" href="{{ url }}">{{ paginate.number }}</a>
+                {% elseif paginate.isDeltaBorder %}
+                    <span>&hellip;</span>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if pagination.hasNext %}
+            {% set url = (base_url ~ pagination.params ~ pagination.nextUrl)|replace({'//':'/'}) %}
+            <a class="pt-8 text-purple-700 hover:text-black" rel="next" href="{{ url }}">
+                {{ 'NEXT'|t }}<span>&#10141;</span>
+            </a>
+        {% else %}
+            <div class="pt-8">
+                {{ 'NEXT'|t }}<span>&#10141;</span>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
