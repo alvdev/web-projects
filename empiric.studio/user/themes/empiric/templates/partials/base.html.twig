@@ -45,13 +45,9 @@
 
         {% block body %}
             <main id="body" class="flex-1">
-                <div class="prose">
-                    {% if content %}
-                        {% block content %}
-                            <div class="mt-8 text-gray-500">{{ content|raw }}</div>
-                        {% endblock %}
-                    {% endif %}
-                </div>
+                {% block content %}
+                    <div class="mt-8 text-gray-500">{{ content|raw }}</div>
+                {% endblock %}
             </main>
         {% endblock %}
 
