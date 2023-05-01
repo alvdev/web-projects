@@ -10,10 +10,6 @@
 {% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true)  %}
 {% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
 
-{% block hero %}
-    {% include 'partials/hero.html.twig' with {id: 'blog-hero', content: page.content, hero_image: blog_image} %}
-{% endblock %}
-
 {% block body %}
     <section id="body-wrapper" class="section blog-listing">
         <section class="container {{ grid_size }}">
