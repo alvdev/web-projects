@@ -1,5 +1,6 @@
 ---
-title: 'Blog posts'
+title: 'Pay Per Click'
+menu: PPC
 twitterenable: true
 twittercardoptions: summary
 articleenabled: false
