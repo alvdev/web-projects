@@ -1,5 +1,5 @@
 {% macro loop(page) %}
-    {% for p in page.children.visible %}
+    {% for p in page.children.visible.order('custom') %}
         {% set current_page = (p.active or p.activeChild) ? 'selected' : '' %}
         {% if p.children.visible.count > 0 %}
             <li class="has-children {{ current_page|e }}">
@@ -26,31 +26,38 @@
     {% endfor %}
 {% endmacro %}
 
-<nav class="flex place-content-between py-8">
+<nav class="flex place-content-between py-8 gap-16">
     <div class="logo">
         {{ svg('image://empiric.svg')|raw }}
     </div>
 
     <div class="flex items-center gap-16">
         <ul class="flex gap-12 items-center content-center font-semibold uppercase">
-            <li>
-                <a href="/">WEB</a>
-            </li>
-            <li>
-                <a href="#">WPO</a>
-            </li>
-            <li>
-                <a href="#">SEO</a>
-            </li>
-            <li>
-                <a href="#">PPC</a>
-            </li>
-            <li>
-                <a href="#">SMM</a>
-            </li>
-            <li>
-                <a href="blog">BLG</a>
-            </li>
+            {% if config.theme.dropdown.enabled %}
+                {{ _self.loop(pages) }}
+            {% else %}
+                {% for page in pages.children.visible %}
+                    {% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
+                    <li class="{{ current_page|e }}">
+                        <a href="{{ page.url|e }}">
+                            {% if page.header.icon %}
+                                <i class="fa fa-{{ page.header.icon|e }}"></i>
+                            {% endif %}
+                            {{ page.menu|e }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+            {% for mitem in site.menu %}
+                <li>
+                    <a href="{{ mitem.url|e }}">
+                        {% if mitem.icon %}
+                            <i class="fa fa-{{ mitem.icon|e }}"></i>
+                        {% endif %}
+                        {{ mitem.text|e }}
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
 
         <div class="burger">
@@ -60,31 +67,3 @@
         </div>
     </div>
 </nav>
-
-<ul>
-    {% if config.theme.dropdown.enabled %}
-        {{ _self.loop(pages) }}
-    {% else %}
-        {% for page in pages.children.visible %}
-            {% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
-            <li class="{{ current_page|e }}">
-                <a href="{{ page.url|e }}">
-                    {% if page.header.icon %}
-                        <i class="fa fa-{{ page.header.icon|e }}"></i>
-                    {% endif %}
-                    {{ page.menu|e }}
-                </a>
-            </li>
-        {% endfor %}
-    {% endif %}
-    {% for mitem in site.menu %}
-        <li>
-            <a href="{{ mitem.url|e }}">
-                {% if mitem.icon %}
-                    <i class="fa fa-{{ mitem.icon|e }}"></i>
-                {% endif %}
-                {{ mitem.text|e }}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
