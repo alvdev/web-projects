@@ -1,8 +1,8 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set options = { items: {'@self.children': '/blog'}, order: {dir: 'desc'} }%}
+{% set options = { items: {'@self.descendants': '/blog'}, order: {dir: 'desc'} }%}
 {% set posts = page.collection(options) %}
-{% do paginate(posts, 1) %}
+{% do paginate(posts, 3) %}
 
 {% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
 {% set collection = page.collection() %}
