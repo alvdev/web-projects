@@ -6,25 +6,58 @@
 
 @layer base {
     @font-face {
-        font-family: "Mont";
-        src: url("../fonts/Mont-Regular.woff") format("woff");
+        font-family: 'Mont';
+        src: url('../fonts/Mont-Regular.woff') format('woff');
         font-weight: 400;
         font-style: normal;
     }
     @font-face {
-        font-family: "Mont";
-        src: local("☺"), url("../fonts/Mont-Bold.woff") format("woff");
+        font-family: 'Mont';
+        src: local('☺'), url('../fonts/Mont-Bold.woff') format('woff');
         font-weight: 600;
         font-style: normal;
     }
     @font-face {
-        font-family: "Mont";
-        src: local("☺"), url("../fonts/Mont-Heavy.woff") format("woff");
+        font-family: 'Mont';
+        src: local('☺'), url('../fonts/Mont-Heavy.woff') format('woff');
         font-weight: 800;
         font-style: normal;
     }
 
     body {
         @apply font-mont text-xl leading-relaxed;
+    }
+
+    strong {
+        @apply font-semibold;
+    }
+
+    p {
+        @apply mt-8;
+    }
+
+    main {
+        @apply text-gray-700;
+    }
+
+    main ul,
+    main ol {
+        @apply ml-16 mt-8 mb-14;
+    }
+
+    main ul li {
+        @apply mt-2 list-disc;
+    }
+
+    main ol li {
+        @apply mt-2 list-decimal;
+    }
+
+    main a {
+        @apply text-purple-700 relative before:duration-150;
+    }
+
+    main a:hover {
+        @apply text-black before:border-b-4 before:border-purple-300 before:absolute before:bottom-0 before:w-[calc(100%+6px)] before:-left-[3px] before:-z-10;
     }
 }
