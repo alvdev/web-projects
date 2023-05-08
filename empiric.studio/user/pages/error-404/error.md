@@ -1,5 +1,5 @@
 ---
-title: 'Page error title'
+title: 'Error 404 ocurred!'
 twitterenable: true
 twittercardoptions: summary
 articleenabled: false
@@ -12,9 +12,9 @@ eventenabled: false
 personenabled: false
 restaurantenabled: false
 restaurant:
-    acceptsReservations: 'no'
+    acceptsReservations: 'yes'
     priceRange: $
 facebookenable: true
+description: 'Error description'
 ---
 
-Page error description
