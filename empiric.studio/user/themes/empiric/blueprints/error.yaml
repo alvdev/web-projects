@@ -1,0 +1,18 @@
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.subtitle:
+              unset@: true
+            content:
+              unset@: true
+            header.media_order:
+              unset@: true
