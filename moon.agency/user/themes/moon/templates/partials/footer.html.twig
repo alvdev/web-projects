@@ -56,7 +56,7 @@
     </div>
 </div>
 
-<div class="whatsapp phone">{{ theme.phone }}</div>
+<a class="whatsapp phone" href="tel:{{ theme.phone|e }}">{{ theme.phone|e }}</a>
 
 <div class="whatsapp">
     <a href="https://wa.me/{{ theme.phone|e }}?text={{ theme.whatsapp|url_encode }}" target="_blank" aria-label="Whatsapp">

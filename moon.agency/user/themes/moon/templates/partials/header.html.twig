@@ -15,7 +15,7 @@
                 </span>
             </div>
             <div class="col-md-2 col-sm-6 header-contacts text-center hidden-xs">
-                <div class="highlight inline-block fontsize_30 thin">{{ theme.phone|e }}</div>
+                <a class="highlight inline-block fontsize_30 thin" href="tel:{{ theme.phone|e }}">{{ theme.phone|e }}</a>
                 <div class="fontsize_20 grey topmargin_-5">{{ theme.schedule|e }}</div>
             </div>
         </div>
@@ -26,7 +26,7 @@
 {% if config.plugins.breadcrumbs.enabled %}
     {% if page.template != 'home' %}
         {# {% block breadcrumbs %}
-            {% include "partials/breadcrumbs.html.twig" %}
-        {% endblock %} #}
+                            {% include "partials/breadcrumbs.html.twig" %}
+                        {% endblock %} #}
     {% endif %}
 {% endif %}
