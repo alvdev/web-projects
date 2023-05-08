@@ -699,24 +699,6 @@ body {
     max-width: 1536px;
   }
 }
-.prose {
-  color: inherit;
-  line-height: inherit;
-  max-width: inherit;
-}
-.prose :where(a):not(:where([class~="not-prose"] *)) {
-  transition: all 500ms;
-  color: #facc15;
-}
-.prose :where(a):not(:where([class~="not-prose"] *)):hover {
-  color: #eab308;
-}
-.prose :where(a):not(:where([class~="not-prose"] *)) {
-  text-decoration: none;
-}
-.prose :where(strong):not(:where([class~="not-prose"] *)) {
-  color: inherit;
-}
 .debug-screens::before {
   position: fixed;
   z-index: 2147483647;
@@ -801,6 +783,9 @@ body {
 .-mt-24 {
   margin-top: -6rem;
 }
+.-mt-\[2px\] {
+  margin-top: -2px;
+}
 .mb-8 {
   margin-bottom: 2rem;
 }
@@ -831,6 +816,9 @@ body {
 .block {
   display: block;
 }
+.inline-block {
+  display: inline-block;
+}
 .inline {
   display: inline;
 }
@@ -848,6 +836,9 @@ body {
 }
 .h-full {
   height: 100%;
+}
+.w-12 {
+  width: 3rem;
 }
 .w-16 {
   width: 4rem;
@@ -916,6 +907,20 @@ body {
 }
 .border-0 {
   border-width: 0px;
+}
+.border-t {
+  border-top-width: 1px;
+}
+.border-t-2 {
+  border-top-width: 2px;
+}
+.border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(161 161 170 / var(--tw-border-opacity));
+}
+.border-gray-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(113 113 122 / var(--tw-border-opacity));
 }
 .border-gray-900 {
   --tw-border-opacity: 1;
@@ -1017,9 +1022,9 @@ body {
   --tw-text-opacity: 1;
   color: rgb(24 24 27 / var(--tw-text-opacity));
 }
-.text-red-900 {
+.text-purple-700 {
   --tw-text-opacity: 1;
-  color: rgb(127 29 29 / var(--tw-text-opacity));
+  color: rgb(126 34 206 / var(--tw-text-opacity));
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -1041,6 +1046,29 @@ body {
 
 .hover\:gap-6:hover {
   gap: 1.5rem;
+}
+
+.hover\:border-t-2:hover {
+  border-top-width: 2px;
+}
+
+.hover\:border-purple-400:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(192 132 252 / var(--tw-border-opacity));
+}
+
+.hover\:pt-\[calc\(2rem-1\.5px\)\]:hover {
+  padding-top: calc(2rem - 1.5px);
+}
+
+.hover\:text-black:hover {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.hover\:text-purple-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(126 34 206 / var(--tw-text-opacity));
 }
 
 .focus\:outline-none:focus {
