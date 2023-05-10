@@ -15,11 +15,12 @@ restaurant:
     acceptsReservations: 'yes'
     priceRange: $
 facebookenable: true
+taxonomy:
+    category:
+        - 'category 1'
+    tag:
+        - 'tag 1'
 ---
-
-# Inamabile pennis penthea resupina linguae et rogis
-
-## Spectans tamen ab domus
 
 *Lorem markdownum petit*. Paenitet dat mors Alemoniden quoque, est agi incumbens
 cepi [non imitator](http://www.lustrant.com/corrumpere) aliter. Sacra viri simus
