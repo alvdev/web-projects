@@ -45,12 +45,20 @@
         @apply ml-16 mt-8 mb-14;
     }
 
+    main ul {
+        @apply list-disc;
+    }
+
+    main ol {
+        @apply list-decimal;
+    }
+
     main ul li {
-        @apply mt-2 list-disc;
+        @apply mt-2;
     }
 
     main ol li {
-        @apply mt-2 list-decimal;
+        @apply mt-2;
     }
 
     main a {
