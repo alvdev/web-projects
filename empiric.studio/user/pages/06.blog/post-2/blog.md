@@ -15,11 +15,15 @@ restaurant:
     acceptsReservations: 'yes'
     priceRange: $
 facebookenable: true
+taxonomy:
+    category:
+        - 'category 1'
+    tag:
+        - 'tag 1'
+        - 'tag 2'
+media_order: mohamed-nohassi-odxB5oIG_iA-unsplash.jpg
+subtitle: 'Post subtitle'
 ---
-
-# Inamabile pennis penthea resupina linguae et rogis
-
-## Spectans tamen ab domus
 
 *Lorem markdownum petit*. Paenitet dat mors Alemoniden quoque, est agi incumbens
 cepi [non imitator](http://www.lustrant.com/corrumpere) aliter. Sacra viri simus

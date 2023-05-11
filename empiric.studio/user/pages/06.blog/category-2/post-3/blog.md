@@ -15,6 +15,11 @@ restaurant:
     acceptsReservations: 'yes'
     priceRange: $
 facebookenable: true
+taxonomy:
+    category:
+        - 'category 1'
+    tag:
+        - 'tag 1'
 ---
 
 # Inamabile pennis penthea resupina linguae et rogis
