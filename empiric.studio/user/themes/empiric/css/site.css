@@ -28,6 +28,13 @@
         @apply font-mont text-xl leading-relaxed;
     }
 
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply text-gray-900;
+    }
+
     strong {
         @apply font-semibold;
     }
@@ -67,5 +74,18 @@
 
     main a:hover {
         @apply text-black before:border-b-4 before:border-purple-300 before:absolute before:bottom-0 before:w-[calc(100%+6px)] before:-left-[3px] before:-z-10;
+    }
+
+    /**
+     * Dark sections
+     */
+
+    .dark main * {
+        @apply text-gray-300;
+    }
+
+    .dark h2,
+    .dark h3 {
+        @apply text-gray-100;
     }
 }
