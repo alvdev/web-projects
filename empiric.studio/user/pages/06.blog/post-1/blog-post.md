@@ -21,6 +21,8 @@ taxonomy:
     tag:
         - 'tag 1'
 media_order: averie-woodard-5d20kdvFCfA-unsplash.jpg
+subtitle: 'Post subtitle'
+description: 'Post description'
 ---
 
 *Lorem markdownum petit*. Paenitet dat mors Alemoniden quoque, est agi incumbens
