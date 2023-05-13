@@ -16,5 +16,6 @@ restaurant:
     priceRange: $
 facebookenable: true
 menu: BLG
+child_type: blog-post
 ---
 
