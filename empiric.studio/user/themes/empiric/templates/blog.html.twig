@@ -27,7 +27,12 @@
                     <a href="{{ post.url }}">{{ post.title }}</a>
                 </h2>
                 <div class="text-gray-500 text-lg">{{ post.summary|striptags('<strong>')|raw }}</div>
-                <img src="https://picsum.photos/300/150.webp?random={{ random() }}" alt="">
+                {% if post.media.images %}
+                    {% set image = post.media|first %}
+                    <img src="/{{ image.url|webp }}" alt="">
+                {% else %}
+                    <img src="https://picsum.photos/300/150.webp?random={{ random() }}" alt="">
+                {% endif %}
             </article>
         {% endfor %}
     </section>
