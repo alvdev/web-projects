@@ -39,9 +39,9 @@
 
                 {% if post.media.images %}
                     {% set image = post.media|first %}
-                    <img class="w-1/4" src="/{{ image.url|webp }}" alt="">
+                    <img class="w-1/4 aspect-video object-cover" src="/{{ image.url|webp }}" alt="">
                 {% else %}
-                    <img class="w-1/4" src="https://picsum.photos/300/150.webp?random={{ random() }}" alt="">
+                    <img class="w-1/4 aspect-video object-cover" src="https://picsum.photos/400/200.webp?random={{ random() }}" alt="">
                 {% endif %}
             </article>
         {% endfor %}

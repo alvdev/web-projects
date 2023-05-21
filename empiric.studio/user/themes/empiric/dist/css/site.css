@@ -925,6 +925,9 @@ main a:hover:not(.btn)::before {
 .grid {
   display: grid;
 }
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
 .h-0 {
   height: 0px;
 }
@@ -1046,6 +1049,10 @@ main a:hover:not(.btn)::before {
 }
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .p-4 {
   padding: 1rem;
@@ -1197,24 +1204,9 @@ main a:hover:not(.btn)::before {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-.focus\:ring-purple-700:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(126 34 206 / var(--tw-ring-opacity));
-}
-
 .focus\:ring-yellow-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(253 224 71 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-purple-300:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(216 180 254 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-yellow-200:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(254 240 138 / var(--tw-ring-opacity));
 }
 
 .group:hover .group-hover\:-left-2 {
