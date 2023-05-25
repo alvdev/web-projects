@@ -1,5 +1,7 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set posts = page.find('/blog').children.published.order('date', 'desc').slice(0, 3) %}
+
 {% block content %}
     {{ content|raw }}
 
@@ -7,6 +9,36 @@
         <section class="mt-16 pt-16">
             <h4 class="text-6xl font-semibold">Related Posts</h4>
             {% include 'partials/relatedpages.html.twig' %}
+        </section>
+    {% else %}
+        <section class="mt-32">
+            <h4 class="text-6xl font-semibold">Latest Posts</h4>
+            <div class="flex flex-col gap-24 mt-16">
+                {% for post in posts %}
+                    <article class="flex place-content-between place-items-center gap-8">
+                        <div class="w-1/4">
+                            <h2 class="font-semibold text-2xl w-full">
+                                <a href="{{ post.url }}">{{ post.title }}</a>
+                            </h2>
+                        </div>
+
+                        <div class="w-2/4 text-gray-500 text-lg">
+                            {% if post.header.description %}
+                                {{ post.header.description }}
+                            {% else %}
+                                {{ post.summary|striptags }}
+                            {% endif %}
+                        </div>
+
+                        {% if post.media.items %}
+                            {% set image = post.media.item|first %}
+                            <img class="w-1/4 aspect-video object-cover" src="/{{ image.url|webp }}" alt="">
+                        {% else %}
+                            <img class="w-1/4 aspect-video object-cover" src="https://picsum.photos/400/200.webp?random={{ random() }}" alt="">
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
         </section>
     {% endif %}
 {% endblock %}
