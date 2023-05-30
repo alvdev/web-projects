@@ -17,5 +17,7 @@ restaurant:
 facebookenable: true
 menu: BLG
 child_type: blog-post
+subtitle: 'Blog page subtitle'
+description: 'Blog page description'
 ---
 

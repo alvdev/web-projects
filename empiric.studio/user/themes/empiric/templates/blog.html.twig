@@ -11,7 +11,7 @@
 {% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true)  %}
 {% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
 
-{% block body %}
+{% block content %}
     <section id="body-wrapper" class="section blog-listing">
         <section class="container {{ grid_size }}">
             {% if show_breadcrumbs and config.plugins.breadcrumbs.enabled %}
