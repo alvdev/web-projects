@@ -3,7 +3,9 @@
 {% set posts = page.find('/blog').children.published.order('date', 'desc').slice(0, 3) %}
 
 {% block content %}
-    {{ content|raw }}
+    <div class="mt-16">
+        {{ content|raw }}
+    </div>
 
     {% if config.plugins.relatedpages.enabled and related_pages|length > 0 %}
         <section class="mt-32">
