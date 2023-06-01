@@ -1,7 +1,16 @@
+{% if page.media %}
+    {% set title_classes = 'relative -mt-32 pt-8 bg-white w-3/4' %}
+    {% set img_classes = 'w-full aspect-video object-cover' %}
+{% endif %}
+
 {% block title %}
     <hgroup class="mt-16 ">
+        {% if page.media %}
+            {{ page.media|first.html('', '', img_classes)|raw }}
+        {% endif %}
+
         {% if page.title %}
-            <h1 class="text-8xl text-gray-900 font-bold">{{ page.title }}</h1>
+            <h1 class="{{ title_classes }} text-8xl text-gray-900 font-bold">{{ page.title }}</h1>
         {% endif %}
 
         {% block subheader%}

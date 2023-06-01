@@ -25,7 +25,7 @@ media_order: mohamed-nohassi-odxB5oIG_iA-unsplash.jpg
 subtitle: 'Post subtitle'
 ---
 
-![mohamed-nohassi-odxB5oIG_iA-unsplash](mohamed-nohassi-odxB5oIG_iA-unsplash.jpg "mohamed-nohassi-odxB5oIG_iA-unsplash")*Lorem markdownum petit*. Paenitet dat mors Alemoniden quoque, est agi incumbens
+*Lorem markdownum petit*. Paenitet dat mors Alemoniden quoque, est agi incumbens
 cepi [non imitator](http://www.lustrant.com/corrumpere) aliter. Sacra viri simus
 populos rigidi Noctem. Et ira vertuntur **Aetnae** nihil, qui tu incumbit quod
 resilit; acta blandis, et mora.
