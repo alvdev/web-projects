@@ -125,11 +125,6 @@
         @apply shadow-md;
     }
 
-    .btn:hover,
-    button:hover {
-        @apply scale-[0.95] shadow-inner;
-    }
-
     input::placeholder {
         @apply text-lg text-gray-400 font-normal;
         text-transform: none;
