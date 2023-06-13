@@ -18,6 +18,7 @@ LICENSE
 test/
 *Zone.Identifier
 *.bak
+*testing*
 
 # Include projects folders
 !/alfa.host/
