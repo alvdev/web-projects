@@ -183,17 +183,26 @@
             </article>
         </div>
     </div>
-    <div class="glide__arrows" data-glide-el="controls">
+    <div class="glide__arrows flex gap-2 justify-center items-center absolute right-0 bottom-14 left-1/2 w-max -translate-x-1/2" data-glide-el="controls[nav]">
+        {# data-glide-dir="<" breaks the code when formatting #}
         <button
-            class="glide__arrow glide__arrow--left absolute top-0 h-full"
+            class="glide__arrow glide__arrow--prev rounded-full w-8 h-8 bg-white bg-opacity-50 hover:bg-opacity-80 text-black backdrop-blur"
             data-glide-dir="<">
-            <span class="bg-white bg-opacity-50 hover:bg-opacity-80 top-0 h-auto text-black w-1/12 text-6xl py-4 pr-1 rounded-r backdrop-blur">&#10092;</span>
+            <span>&#10092;</span>
         </button>
 
+        <div class="slider__bullets glide__bullets leading-[0]" data-glide-el="controls[nav]">
+            <button class="slider__bullet glide__bullet" data-glide-dir="=0"></button>
+            <button class="slider__bullet glide__bullet" data-glide-dir="=1"></button>
+            <button class="slider__bullet glide__bullet" data-glide-dir="=2"></button>
+            <button class="slider__bullet glide__bullet" data-glide-dir="=3"></button>
+        </div>
+    
+        {# data-glide-dir=">" breaks the code when formatting #}
         <button
-            class="glide__arrow glide__arrow--right absolute top-0 right-0 h-full"
+            class="glide__arrow glide__arrow--right rounded-full w-8 h-8 bg-white bg-opacity-50 hover:bg-opacity-80 text-black backdrop-blur"
             data-glide-dir=">">
-            <span class="bg-white bg-opacity-50 hover:bg-opacity-80 top-0 right-0 h-auto text-black w-1/12 text-6xl py-4 pl-1 rounded-l backdrop-blur">&#10093;</span>
+            <span>&#10093;</span>
         </button>
     </div>
 </div>
