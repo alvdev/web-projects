@@ -4,4 +4,41 @@
     <div class="mt-16">
         {{ content|raw }}
     </div>
+
+    <div class="mt-24 [&>*:not(:first-child)]:mt-32">
+        <div>
+            <h2 class="font-semibold text-4xl">{{ "now"|date('d F Y', 'Europe/Madrid') }}</h2>
+            <div class="[&>*:not(:first-child)]:mt-8 [&>*]:pt-8 [&>*:not(:first-child)]:border-t [&>*]:border-gray-400">
+                <div>
+                    <span class="text-sm text-gray-400">{{ "now"|date('H:i') }}</span>
+                    <div>Example task</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
+                    <div>Example task</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
+                    <div>Example task</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h2 class="font-semibold text-4xl">{{ "now"|date('d F Y', 'Europe/Madrid') }}</h2>
+            <div class="[&>*:not(:first-child)]:mt-8 [&>*]:pt-8 [&>*:not(:first-child)]:border-t [&>*]:border-gray-400:not(:first-child)">
+                <div>
+                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
+                    <div>Example task</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
+                    <div>Example task</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
+                    <div>Example task</div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
