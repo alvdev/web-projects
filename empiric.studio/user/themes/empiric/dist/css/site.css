@@ -990,11 +990,17 @@ main a:hover:not(.btn)::before {
 .content-center {
   align-content: center;
 }
+.content-between {
+  align-content: space-between;
+}
 .items-center {
   align-items: center;
 }
 .justify-center {
   justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
 }
 .gap-12 {
   gap: 3rem;

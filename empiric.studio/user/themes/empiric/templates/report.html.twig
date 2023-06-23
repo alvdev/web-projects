@@ -9,10 +9,15 @@
         <div>
             <h2 class="font-semibold text-4xl">{{ "now"|date('d F Y', 'Europe/Madrid') }}</h2>
             <div class="[&>*:not(:first-child)]:mt-8 [&>*]:pt-8 [&>*:not(:first-child)]:border-t [&>*]:border-gray-400">
-                <div>
-                    <span class="text-sm text-gray-400">{{ "now"|date('H:i') }}</span>
-                    <div>Example task</div>
-                    <span class="text-sm py-2 px-3 rounded-full bg-green-400">Finalizado</span>
+                <div class="flex justify-between">
+                    <div>
+                        <span class="text-sm text-gray-400">{{ "now"|date('H:i') }}</span>
+                        <div>Example task</div>
+                        <span class="text-sm py-2 px-3 rounded-full bg-green-400">Finalizado</span>
+                    </div>
+                    <div>
+                        <span class="text-sm">Attached files</span>
+                    </div>
                 </div>
                 <div>
                     <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
