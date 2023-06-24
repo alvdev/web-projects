@@ -32,11 +32,34 @@ form:
               validate:
                 type: textarea
 
-            header.task:
-              type: textarea
-              label: DEFAULT.TASK
+            header.daily_task:
+              type: list
+              name: DEFAULT.TASKS
+              label: DEFAULT.TASKS
               style: vertical
-              ordering@: header.description
+              fields:
+                .task:
+                  type: textarea
+                  label: DEFAULT.TASK
+                  style: vertical
+
+                .attachments:
+                  type: file
+                  label: DEFAULT.ATTACHMENTS
+                  style: vertical
+                  multiple: true
+                  avoid_overwriting: true
+                  accept:
+                    - "*"
+
+                .status:
+                  type: select
+                  label: DEFAULT.STATUS
+                  style: vertical
+                  options:
+                    0: DEFAULT.STARTED
+                    1: DEFAULT.INPROGRESS
+                    2: DEFAULT.COMPLETED
 
             content:
               unset@: true

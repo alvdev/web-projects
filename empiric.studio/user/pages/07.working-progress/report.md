@@ -17,6 +17,16 @@ restaurant:
     acceptsReservations: 'yes'
     priceRange: $
 facebookenable: true
+daily_task:
+    -
+        task: 'Default task demo text'
+        status: '0'
+        attachments:
+            cftic-contratos-publicos.pdf:
+                name: cftic-contratos-publicos.pdf
+                type: application/pdf
+                size: 1100438
+                path: cftic-contratos-publicos.pdf
 ---
 
 Default body
