@@ -1,0 +1,45 @@
+extends@:
+  type: default
+  context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.title:
+              type: text
+              autofocus: true
+
+            header.subtitle:
+              type: textarea
+              label: DEFAULT.SUBTITLE
+              style: vertical
+              ordering@: header.title
+              validate:
+                type: textarea
+
+            header.description:
+              type: textarea
+              label: DEFAULT.DESCRIPTION
+              style: vertical
+              ordering@: header.subtitle
+              validate:
+                type: textarea
+
+            header.task:
+              type: textarea
+              label: DEFAULT.TASK
+              style: vertical
+              ordering@: header.description
+
+            content:
+              unset@: true
+
+            header.media_order:
+              unset@: true
