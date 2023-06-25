@@ -48,14 +48,13 @@ form:
               ordering@: header.description
               fields:
                 .task:
-                  type: textarea
+                  type: text
                   label: DEFAULT.TASK
-                  style: vertical
+                  style: horizontal
 
                 .attachments:
                   type: filepicker
                   label: DEFAULT.ATTACHMENTS
-                  style: vertical
                   preview_images: true
                   accept:
                     - "*"
@@ -63,12 +62,11 @@ form:
                 .status:
                   type: select
                   label: DEFAULT.STATUS
-                  style: vertical
                   options:
                     0: DEFAULT.STARTED
                     1: DEFAULT.INPROGRESS
                     2: DEFAULT.COMPLETED
-
+                    
             header.media_order:
               ordering@: header.daily_task
 
