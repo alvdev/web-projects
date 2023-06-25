@@ -17,11 +17,12 @@ restaurant:
     acceptsReservations: 'yes'
     priceRange: $
 facebookenable: true
+media_order: 'desktop-728x410.jpg,cftic-presupuesto.pdf'
 daily_task:
     -
-        task: 'Default task demo text'
-        attachments: null
+        task: 'Default demos text for task 1'
+        attachments: cftic-presupuesto.pdf
         status: '0'
-media_order: 'cftic-presupuesto.pdf,desktop-728x410.jpg'
+        department: '0'
 ---
 
