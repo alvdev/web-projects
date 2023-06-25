@@ -1,10 +1,8 @@
 {% extends 'partials/base.html.twig' %}
 
-{% block content %}
-    <div class="mt-16">
-        {{ content|raw }}
-    </div>
+{% set attachment = page.url|e ~ '/' ~ page.header.daily_task[0].attachments %}
 
+{% block content %}
     <div class="mt-24 [&>*:not(:first-child)]:mt-32">
         <div>
             <h2 class="font-semibold text-4xl">{{ "now"|date('d F Y', 'Europe/Madrid') }}</h2>
@@ -17,6 +15,9 @@
                     </div>
                     <div>
                         <span class="text-sm">Attached files</span>
+                        <div>
+                            <a href="{{ attachment }}" target="_blank">{{ page.media[page.header.daily_task[0].attachments].cropZoom(75, 75)|raw }}</a>
+                        </div>
                     </div>
                 </div>
                 <div>
