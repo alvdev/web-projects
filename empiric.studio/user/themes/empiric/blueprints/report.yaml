@@ -53,11 +53,10 @@ form:
                   style: vertical
 
                 .attachments:
-                  type: file
+                  type: filepicker
                   label: DEFAULT.ATTACHMENTS
                   style: vertical
-                  multiple: true
-                  avoid_overwriting: true
+                  preview_images: true
                   accept:
                     - "*"
 

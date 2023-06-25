@@ -20,12 +20,8 @@ facebookenable: true
 daily_task:
     -
         task: 'Default task demo text'
+        attachments: null
         status: '0'
-        attachments:
-            cftic-contratos-publicos.pdf:
-                name: cftic-contratos-publicos.pdf
-                type: application/pdf
-                size: 1100438
-                path: cftic-contratos-publicos.pdf
+media_order: 'cftic-presupuesto.pdf,desktop-728x410.jpg'
 ---
 
