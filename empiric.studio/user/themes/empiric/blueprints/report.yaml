@@ -12,6 +12,14 @@ form:
           type: tab
           title: PLUGIN_ADMIN.CONTENT
           fields:
+            pages.dateformat.short:
+              type: dateformat
+              label: DEFAULT.MONTH
+              style: vertical
+              ordering@: pages.dateformat.short
+              options:
+                "F \\d\\e Y": Date1
+
             header.title:
               type: text
               autofocus: true
