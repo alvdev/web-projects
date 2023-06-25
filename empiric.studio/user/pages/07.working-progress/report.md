@@ -29,4 +29,3 @@ daily_task:
                 path: cftic-contratos-publicos.pdf
 ---
 
-Default body

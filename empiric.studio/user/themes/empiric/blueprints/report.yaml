@@ -16,13 +16,13 @@ form:
               type: dateformat
               label: DEFAULT.MONTH
               style: vertical
-              ordering@: pages.dateformat.short
               options:
                 "F \\d\\e Y": Date1
 
             header.title:
               type: text
               autofocus: true
+              ordering@: pages.dateformat.short
 
             header.subtitle:
               type: textarea
@@ -45,6 +45,7 @@ form:
               name: DEFAULT.TASKS
               label: DEFAULT.TASKS
               style: vertical
+              ordering@: header.description
               fields:
                 .task:
                   type: textarea
@@ -69,8 +70,8 @@ form:
                     1: DEFAULT.INPROGRESS
                     2: DEFAULT.COMPLETED
 
-            content:
-              unset@: true
-
             header.media_order:
+              ordering@: header.daily_task
+
+            content:
               unset@: true
