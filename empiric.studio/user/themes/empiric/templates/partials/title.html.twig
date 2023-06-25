@@ -1,11 +1,11 @@
-{% if page.media and page.template == 'blog-post' %}
+{% if page.media.images and page.template == 'blog-post' %}
     {% set title_classes = 'relative -mt-32 pt-8 bg-white w-3/4' %}
     {% set img_classes = 'w-full aspect-video object-cover' %}
 {% endif %}
 
 {% block title %}
     <hgroup class="mt-16 ">
-        {% if page.media %}
+        {% if page.media and page.template != 'report' %}
             {{ page.media|first.html('', '', img_classes)|raw }}
         {% endif %}
 
