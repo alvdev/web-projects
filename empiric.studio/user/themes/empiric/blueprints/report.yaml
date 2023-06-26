@@ -40,7 +40,7 @@ form:
               validate:
                 type: textarea
 
-            header.daily_task:
+            header.tasks:
               type: list
               name: DEFAULT.TASKS
               label: DEFAULT.TASKS
@@ -53,18 +53,18 @@ form:
                     column1:
                       type: column
                       fields:
-                        .task:
+                        .description:
                           type: textarea
-                          label: DEFAULT.TASK
+                          label: DEFAULT.DESCRIPTION
                           style: vertical
 
                     column2:
                       type: column
 
                       fields:
-                        header.attachments:
+                        header.attachment:
                           type: filepicker
-                          label: DEFAULT.ATTACHMENTS
+                          label: DEFAULT.ATTACHMENT
                           preview_images: true
                           accept:
                             - "*"
@@ -74,19 +74,19 @@ form:
                           label: DEFAULT.STATUS
                           value_only: true
                           options:
-                            0: DEFAULT.STARTED
-                            1: DEFAULT.INPROGRESS
-                            2: DEFAULT.COMPLETED
+                            DEFAULT.STARTED: DEFAULT.STARTED
+                            DEFAULT.PENDING: DEFAULT.PENDING
+                            DEFAULT.COMPLETED: DEFAULT.COMPLETED
 
                         .department:
                           type: select
                           label: DEFAULT.DEPT
                           options:
                             0: DEFAULT.SEO
-                            1: DEFAULT.SEARCH
+                            1: DEFAULT.DEPT2
 
             header.media_order:
-              ordering@: header.daily_task
+              ordering@: header.tasks
 
             content:
               unset@: true

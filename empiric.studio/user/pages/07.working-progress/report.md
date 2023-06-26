@@ -18,11 +18,19 @@ restaurant:
     priceRange: $
 facebookenable: true
 media_order: 'desktop-728x410.jpg,cftic-presupuesto.pdf'
-daily_task:
+tasks:
     -
-        task: 'Default demos text for task 1'
-        attachments: cftic-presupuesto.pdf
-        status: '0'
+        description: 'iwyugriufghwdurtgh eu <b>odhgiohdg</b> wsdhfgiodh'
+        status: DEFAULT.STARTED
         department: '0'
+    -
+        description: 'iwuy f9udghfuh eufh e<i>eiohguoehugh</i> udhfguiodhgi'
+        status: DEFAULT.PENDING
+        department: '1'
+    -
+        description: 'ISDG USDHFUH DUOHDU'
+        status: DEFAULT.COMPLETED
+        department: '0'
+attachment: desktop-728x410.jpg
 ---
 
