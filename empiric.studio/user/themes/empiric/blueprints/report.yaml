@@ -47,26 +47,44 @@ form:
               style: vertical
               ordering@: header.description
               fields:
-                .task:
-                  type: text
-                  label: DEFAULT.TASK
-                  style: horizontal
+                .columns:
+                  type: columns
+                  fields:
+                    column1:
+                      type: column
+                      fields:
+                        .task:
+                          type: textarea
+                          label: DEFAULT.TASK
+                          style: vertical
 
-                .attachments:
-                  type: filepicker
-                  label: DEFAULT.ATTACHMENTS
-                  preview_images: true
-                  accept:
-                    - "*"
+                    column2:
+                      type: column
 
-                .status:
-                  type: select
-                  label: DEFAULT.STATUS
-                  options:
-                    0: DEFAULT.STARTED
-                    1: DEFAULT.INPROGRESS
-                    2: DEFAULT.COMPLETED
-                    
+                      fields:
+                        header.attachments:
+                          type: filepicker
+                          label: DEFAULT.ATTACHMENTS
+                          preview_images: true
+                          accept:
+                            - "*"
+
+                        .status:
+                          type: select
+                          label: DEFAULT.STATUS
+                          value_only: true
+                          options:
+                            0: DEFAULT.STARTED
+                            1: DEFAULT.INPROGRESS
+                            2: DEFAULT.COMPLETED
+
+                        .department:
+                          type: select
+                          label: DEFAULT.DEPT
+                          options:
+                            0: DEFAULT.SEO
+                            1: DEFAULT.SEARCH
+
             header.media_order:
               ordering@: header.daily_task
 
