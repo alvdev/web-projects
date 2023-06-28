@@ -61,9 +61,7 @@
         </ul>
 
         {% if config.plugins.login.enabled and grav.user.username %}
-            <div>
-                <i class="fa fa-lock"></i>
-                {% include 'partials/login-status.html.twig' %}</div>
+            {% include 'partials/login-status.html.twig' %}
         {% endif %}
 
         <div class="burger">

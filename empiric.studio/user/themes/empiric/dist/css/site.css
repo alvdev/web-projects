@@ -928,6 +928,9 @@ main a:hover:not(.btn)::before {
 .grid {
   display: grid;
 }
+.hidden {
+  display: none;
+}
 .aspect-video {
   aspect-ratio: 16 / 9;
 }
@@ -1059,9 +1062,9 @@ main a:hover:not(.btn)::before {
   --tw-bg-opacity: 1;
   background-color: rgb(74 222 128 / var(--tw-bg-opacity));
 }
-.bg-purple-400 {
+.bg-purple-300 {
   --tw-bg-opacity: 1;
-  background-color: rgb(192 132 252 / var(--tw-bg-opacity));
+  background-color: rgb(216 180 254 / var(--tw-bg-opacity));
 }
 .bg-white {
   --tw-bg-opacity: 1;
@@ -1070,18 +1073,6 @@ main a:hover:not(.btn)::before {
 .bg-yellow-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
-}
-.bg-orange-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
-}
-.bg-purple-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(216 180 254 / var(--tw-bg-opacity));
-}
-.bg-green-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
 }
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
@@ -1286,4 +1277,3 @@ main a:hover:not(.btn)::before {
 .\[\&\>\*\]\:pt-8>* {
   padding-top: 2rem;
 }
-

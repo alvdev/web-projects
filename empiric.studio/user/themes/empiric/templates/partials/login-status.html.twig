@@ -1,6 +1,8 @@
-<span class="login-status">
+<div class="login-status">
     {% if grav.user.authenticated %}
-        <strong>{{ grav.user.fullname ?: grav.user.username }}</strong>,
-        <a class="logout" href="{{ url(uri.addNonce((uri.path)|trim('/') ~ '/task' ~ config.system.param_sep ~ 'login.logout', 'logout-form', 'logout-nonce'))|e }}">{{ 'PLUGIN_LOGIN.BTN_LOGOUT'|t }}</a>
+        {# {{ grav.user.fullname ?: grav.user.username }} #}
+        <a class="logout" href="{{ url(uri.addNonce((uri.path)|trim('/') ~ '/task' ~ config.system.param_sep ~ 'login.logout', 'logout-form', 'logout-nonce'))|e }}" title="{{ 'PLUGIN_LOGIN.BTN_LOGOUT'|t }}">
+        {{ svg('theme://images/svg/logout.svg')|raw }}
+        </a>
     {% endif %}
-</span>
+</div>
