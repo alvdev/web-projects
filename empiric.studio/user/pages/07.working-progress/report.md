@@ -32,5 +32,11 @@ tasks:
         status: DEFAULT.COMPLETED
         department: '0'
 attachment: desktop-728x410.jpg
+login: {  }
+permissions:
+    authors:
+        - alvdev
+access:
+    admin.login: true
 ---
 
