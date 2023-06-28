@@ -31,7 +31,11 @@
     textarea,
     input[type='text'],
     input[type='password'] {
-        @apply w-full bg-gray-200 p-4 pt-8 transition duration-200 focus:outline-none border-none focus:ring-4 focus:ring-yellow-300;
+        @apply w-full bg-gray-200 p-4 pt-8 transition duration-200 focus:outline-none border-none focus:ring-4 focus:ring-purple-300;
+    }
+
+    input[type='checkbox'] {
+        @apply accent-black;
     }
 
     h1,
