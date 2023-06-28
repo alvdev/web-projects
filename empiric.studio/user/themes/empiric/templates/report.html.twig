@@ -1,50 +1,34 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set attachment = page.url|e ~ '/' ~ page.header.daily_task[0].attachments %}
-
 {% block content %}
     <div class="mt-24 [&>*:not(:first-child)]:mt-32">
         <div>
             <h2 class="font-semibold text-4xl">{{ "now"|date('d F Y', 'Europe/Madrid') }}</h2>
             <div class="[&>*:not(:first-child)]:mt-8 [&>*]:pt-8 [&>*:not(:first-child)]:border-t [&>*]:border-gray-400">
-                <div class="flex justify-between">
-                    <div>
-                        <span class="text-sm text-gray-400">{{ "now"|date('H:i') }}</span>
-                        <div>Example task</div>
-                        <span class="text-sm py-2 px-3 rounded-full bg-green-400">Finalizado</span>
-                    </div>
-                    <div>
-                        <span class="text-sm">Attached files</span>
+                {% for task in header.tasks %}
+                    {% if 'STARTED' in task.status  %}
+                        {% set status_color = 'bg-yellow-300' %}
+                    {% elseif 'PENDING' in task.status %}
+                        {% set status_color = 'bg-purple-300' %}
+                    {% elseif 'COMPLETED' in task.status %}
+                        {% set status_color = 'bg-green-400' %}
+                    {% endif %}
+                    
+                    <div class="flex justify-between">
                         <div>
-                            <a href="{{ attachment }}" target="_blank">{{ page.media[page.header.daily_task[0].attachments].cropZoom(75, 75)|raw }}</a>
+                            <span class="text-sm text-gray-400">{{ "now"|date('H:i') }}</span>
+                            <div>{{ task.description|raw }}</div>
+                            <span class="text-sm py-2 px-3 rounded-full {{  status_color }}">{{ task.status }}</span>
+                        </div>
+
+                        <div>
+                            <span class="text-sm">Attached files</span>
+                            <div>
+                                <a href="{{ page.url|e ~ '/' ~ task.attachment }}" target="_blank">{{ page.media[attachment].cropZoom(75, 75)|first }}</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
-                    <div>Example task</div>
-                    <span class="text-sm py-2 px-3 rounded-full bg-yellow-300">Iniciado</span>
-                </div>
-                <div>
-                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
-                    <div>Example task</div>
-                    <span class="text-sm py-2 px-3 rounded-full bg-green-400">Finalizado</span>
-                </div>
-            </div>
-        </div>
-        <div>
-            <h2 class="font-semibold text-4xl">{{ "now"|date('d F Y', 'Europe/Madrid') }}</h2>
-            <div class="[&>*:not(:first-child)]:mt-8 [&>*]:pt-8 [&>*:not(:first-child)]:border-t [&>*]:border-gray-400:not(:first-child)">
-                <div>
-                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
-                    <div>Example task</div>
-                    <span class="text-sm py-2 px-3 rounded-full bg-yellow-300">Iniciado</span>
-                </div>
-                <div>
-                    <div class="text-sm text-gray-400">{{ "now"|date('H:i') }}</div>
-                    <div>Example task</div>
-                    <span class="text-sm py-2 px-3 rounded-full bg-green-400">Finalizado</span>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
