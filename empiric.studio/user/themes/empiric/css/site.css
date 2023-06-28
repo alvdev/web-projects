@@ -28,6 +28,12 @@
         @apply font-mont text-xl leading-relaxed;
     }
 
+    textarea,
+    input[type='text'],
+    input[type='password'] {
+        @apply w-full bg-gray-200 p-4 pt-8 transition duration-200 focus:outline-none border-none focus:ring-4 focus:ring-yellow-300;
+    }
+
     h1,
     h2,
     h3,
@@ -41,6 +47,22 @@
 
     p {
         @apply mt-8;
+    }
+
+    .btn {
+        @apply ring-1 ring-gray-900 py-4 px-12 mt-4 inline-block transition duration-300 hover:ring-4;
+    }
+
+    .btn--default {
+        @apply bg-gray-900 text-white;
+    }
+
+    .btn--primary {
+        @apply bg-purple-900 ring-purple-900 text-white;
+    }
+
+    .btn--secondary {
+        @apply bg-yellow-400 ring-yellow-400;
     }
 
     main {
