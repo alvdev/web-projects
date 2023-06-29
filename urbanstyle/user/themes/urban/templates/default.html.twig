@@ -1,5 +1,13 @@
 {% extends 'partials/base.html.twig' %}
 
 {% block content %}
+    <h1 class="font-black text-fuchsia-500">XXX</h1>
+    <div x-data="{ open: false }">
+        <button @click="open = true">Expand</button>
+
+        <span x-show="open">
+            Content...
+        </span>
+    </div>
     {{ page.content|raw }}
 {% endblock %}
