@@ -1,13 +1,15 @@
 {% extends 'partials/base.html.twig' %}
 
 {% block content %}
-    <h1 class="font-black text-fuchsia-500">XXX</h1>
-    <div x-data="{ open: false }">
-        <button @click="open = true">Expand</button>
+    <h1 class="font-black text-fuchsia-500">{{ page.title }}</h1>
 
-        <span x-show="open">
-            Content...
-        </span>
+    <div x-data="{ open: false }">
+        <button x-on:click="open = ! open">Toggle</button>
+
+        <div x-show="open" x-transition.duration.1000ms>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum optio totam deserunt ipsum. Perspiciatis, pariatur adipisci? Voluptas, odit corrupti? Architecto, error recusandae porro quod cumque ducimus distinctio alias repudiandae. Ea.
+        </div>
     </div>
+    <button x-data x-on:click="alert('I\'ve been clicked!')">Click Me</button>
     {{ page.content|raw }}
 {% endblock %}
