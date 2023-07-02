@@ -29,7 +29,7 @@
                 method="post" action="{{ (base_url_relative ~ uri.path)|e }}" class="{{ form_outer_classes }} login-form">
 
                 {# OLD WAY OF INCLUDING 3RD PARTY LOGIN OPTIONS #}
-                {% if grav.twig.plugins_hooked_loginPage %}
+                {% if grav.twig.plugins_hgoked_loginPage %}
                     {% for label in grav.twig.plugins_hooked_loginPage %}
                         {% include label %}
                     {% endfor %}
@@ -65,9 +65,9 @@
                     {% set forgot_route = grav.login.getRoute('forgot') %}
                     <div class="flex gap-4 mt-12">
                         {% if forgot_button and forgot_route %}
-                            <a class="{{ form_button_classes ?: 'btn' }}" href="{{ base_url_relative ~ forgot_route }}">
+                            <a class="{{ form_button_classes ?: 'btn btn--default' }}" href="{{ base_url_relative ~ forgot_route }}">
                                 <i class="fa fa-exclamation-circle"></i>
-                                {{ 'PLUGIN_LOGIN.BTN_FORGOT'|t }}
+                                <div>{{ 'PLUGIN_LOGIN.BTN_FORGOT'|t }}</div>
                             </a>
                         {% endif %}
 

@@ -59,7 +59,7 @@
     }
 
     .btn--default {
-        @apply bg-gray-900 text-white;
+        @apply hover:ring-1 hover:scale-105 [&>div]:hover:scale-95 [&>div]:transition [&>div]:duration-300;
     }
 
     .btn--primary {
