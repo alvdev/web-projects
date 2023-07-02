@@ -26,6 +26,7 @@
 
         {% block javascripts %}
             {% do assets.addJs('theme://js/scroll-bgcolor' ~ extension ~ '.js', { loading: 'defer' }) %}
+            {% do assets.addJsModule('theme://js/main' ~ extension ~ '.js', { loading: 'defer' }) %}
         {% endblock %}
 
         {% block assets deferred %}
