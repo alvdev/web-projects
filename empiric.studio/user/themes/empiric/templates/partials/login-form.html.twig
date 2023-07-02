@@ -54,7 +54,7 @@
                 <div class="{{ form_button_outer_classes ?: 'mt-8' }}">
                     {% if config.plugins.login.rememberme.enabled and form.login.rememberme ?? true %}
                         <div class="form-data rememberme" data-grav-default="null" data-grav-disabled="true" data-grav-field="checkbox">
-                            <div class="inline-flex hover:cursor-pointer form-input-wrapper items-baseline gap-2">
+                            <div class="inline-flex hover:cursor-pointer form-input-wrapper gap-2">
                                 <input class="hover:cursor-pointer accent-pink-500" type="checkbox" value="1" name="rememberme" id="#rememberme">
                                 <label class="hover:cursor-pointer inline" for="#rememberme" title="{{ 'PLUGIN_LOGIN.REMEMBER_ME_HELP'|t }}">{{ 'PLUGIN_LOGIN.REMEMBER_ME'|t }}</label>
                             </div>

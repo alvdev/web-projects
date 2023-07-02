@@ -36,7 +36,7 @@
     }
 
     input[type='checkbox'] {
-        @apply accent-black;
+        @apply text-black p-3 border-0 relative top-[2px] bg-gray-400 focus:ring-0 transition;
     }
 
     h1,
