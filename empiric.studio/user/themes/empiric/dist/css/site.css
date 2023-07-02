@@ -617,7 +617,7 @@ strong {
   font-weight: 600;
 }
 
-p {
+p:not(.notices > p:first-child) {
   margin-top: 2rem;
 }
 
@@ -709,6 +709,10 @@ main a:hover:not(.btn)::before {
   content: var(--tw-content);
   --tw-border-opacity: 1;
   border-color: rgb(216 180 254 / var(--tw-border-opacity));
+}
+
+.notices {
+  padding: 2rem;
 }
 
 /**
