@@ -27,6 +27,7 @@
 3. Use a more readable tab size.
 4. Use the user's configured `sans` font-family by default.
 5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
 */
 
 html {
@@ -37,6 +38,7 @@ html {
      tab-size: 4; /* 3 */
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
   font-feature-settings: normal; /* 5 */
+  font-variation-settings: normal; /* 6 */
 }
 
 /*
@@ -575,6 +577,7 @@ body {
 
 textarea,
     input[type='text'],
+    input[type='email'],
     input[type='password'] {
   width: 100%;
   border-style: none;
@@ -591,6 +594,7 @@ textarea,
 
 textarea:focus,
     input[type='text']:focus,
+    input[type='email']:focus,
     input[type='password']:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1065,6 +1069,12 @@ main a:hover:not(.btn)::before {
 }
 .content-center {
   align-content: center;
+}
+.items-start {
+  align-items: flex-start;
+}
+.items-end {
+  align-items: flex-end;
 }
 .items-center {
   align-items: center;

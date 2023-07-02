@@ -30,6 +30,7 @@
 
     textarea,
     input[type='text'],
+    input[type='email'],
     input[type='password'] {
         @apply w-full bg-gray-200 p-4 pt-8 transition duration-200 focus:outline-none border-none focus:ring-4 focus:ring-purple-300;
     }
