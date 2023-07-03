@@ -3,3 +3,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply text-xl leading-relaxed;
+    }
+
+    textarea,
+    input[type='text'],
+    input[type='email'],
+    input[type='password'] {
+        @apply w-full bg-gray-200 p-4 pt-8 transition duration-200 focus:outline-none border-none focus:ring-4 focus:ring-purple-300;
+    }
+
+    input[type='checkbox'] {
+        @apply text-black p-3 border-0 relative top-[2px] bg-gray-400 focus:ring-0 transition;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply text-gray-900;
+    }
+
+    strong {
+        @apply font-semibold;
+    }
+
+    p:not(.notices > p:first-child) {
+        @apply mt-8;
+    }
+
+    .btn {
+        @apply ring-1 ring-gray-900 py-4 px-12 mt-4 inline-block transition duration-300 hover:ring-4;
+    }
+
+    .btn--default {
+        @apply hover:ring-1 hover:scale-105 [&>div]:hover:scale-95 [&>div]:transition [&>div]:duration-300;
+    }
+
+    .btn--primary {
+        @apply bg-purple-900 ring-purple-900 text-white;
+    }
+
+    .btn--secondary {
+        @apply bg-yellow-400 ring-yellow-400;
+    }
+
+    main {
+        @apply text-gray-700;
+    }
+
+    main ul,
+    main ol {
+        @apply ml-16 mt-8 mb-14;
+    }
+
+    main ul {
+        @apply list-disc;
+    }
+
+    main ol {
+        @apply list-decimal;
+    }
+
+    main ul li {
+        @apply mt-2;
+    }
+
+    main ol li {
+        @apply mt-2;
+    }
+
+    main a:not(.btn) {
+        @apply text-purple-700 relative before:duration-150;
+    }
+
+    main a:hover:not(.btn) {
+        @apply text-black before:border-b-4 before:border-purple-300 before:absolute before:bottom-0 before:w-[calc(100%+6px)] before:-left-[3px] before:-z-10;
+    }
+
+    .notices {
+        @apply p-8;
+    }
+    /**
+     * Dark sections
+     */
+
+    .dark main * {
+        @apply text-gray-300;
+    }
+
+    .dark h2,
+    .dark h3 {
+        @apply text-gray-100;
+    }
+}
