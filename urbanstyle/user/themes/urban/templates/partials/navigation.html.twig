@@ -1,10 +1,12 @@
 {% macro loop(page) %}
-    {% for p in page.children.visible %}
+    {% for p in page.children.visible.order('custom') %}
         {% set current_page = (p.active or p.activeChild) ? 'selected' : '' %}
         {% if p.children.visible.count > 0 %}
             <li class="has-children {{ current_page|e }}">
                 <a href="{{ p.url|e }}">
-                    {% if p.header.icon %}<i class="fa fa-{{ p.header.icon|e }}"></i>{% endif %}
+                    {% if p.header.icon %}
+                        <i class="fa fa-{{ p.header.icon|e }}"></i>
+                    {% endif %}
                     {{ p.menu|e }}
                 </a>
                 <ul>
@@ -14,7 +16,9 @@
         {% else %}
             <li class="{{ current_page|e }}">
                 <a href="{{ p.url|e }}">
-                    {% if p.header.icon %}<i class="fa fa-{{ p.header.icon|e }}"></i>{% endif %}
+                    {% if p.header.icon %}
+                        <i class="fa fa-{{ p.header.icon|e }}"></i>
+                    {% endif %}
                     {{ p.menu|e }}
                 </a>
             </li>
@@ -22,26 +26,44 @@
     {% endfor %}
 {% endmacro %}
 
-<ul>
-    {% if config.theme.dropdown.enabled %}
-        {{ _self.loop(pages) }}
-    {% else %}
-        {% for page in pages.children.visible %}
-            {% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
-            <li class="{{ current_page|e }}">
-                <a href="{{ page.url|e }}">
-                    {% if page.header.icon %}<i class="fa fa-{{ page.header.icon|e }}"></i>{% endif %}
-                    {{ page.menu|e }}
-                </a>
-            </li>
-        {% endfor %}
-    {% endif %}
-    {% for mitem in site.menu %}
-        <li>
-            <a href="{{ mitem.url|e }}">
-                {% if mitem.icon %}<i class="fa fa-{{ mitem.icon|e }}"></i>{% endif %}
-                {{ mitem.text|e }}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+<nav class="flex place-content-between py-8 gap-16">
+    <div class="logo">
+        {{ svg('image://empiric.svg')|raw }}
+    </div>
+
+    <div class="flex items-center gap-16">
+        <ul class="flex gap-12 items-center content-center font-semibold uppercase">
+            {% if config.theme.dropdown.enabled %}
+                {{ _self.loop(pages) }}
+            {% else %}
+                {% for page in pages.children.visible %}
+                    {% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
+                    <li class="{{ current_page|e }}">
+                        <a href="{{ page.url|e }}">
+                            {% if page.header.icon %}
+                                <i class="fa fa-{{ page.header.icon|e }}"></i>
+                            {% endif %}
+                            {{ page.menu|e }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+            {% for mitem in site.menu %}
+                <li>
+                    <a href="{{ mitem.url|e }}">
+                        {% if mitem.icon %}
+                            <i class="fa fa-{{ mitem.icon|e }}"></i>
+                        {% endif %}
+                        {{ mitem.text|e }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="burger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewbox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+        </div>
+    </div>
+</nav>
