@@ -7,16 +7,21 @@ module.exports = {
     './js/**/*.js',
     './templates/**/*.twig',
     './urban.yaml',
-    './urban.php'
+    './urban.php',
   ],
   darkMode: 'class', //false or 'media' or 'class'
   theme: {},
   variants: {
-    extend: {}
+    extend: {},
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('tailwindcss-debug-screens')
-  ]
-}
+    require('tailwindcss-debug-screens'),
+  ],
+  theme: {
+    container: {
+      padding: '4%',
+    },
+  },
+};

@@ -35,7 +35,7 @@
     <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
 
         {% block header %}
-            <div class="header">
+            <div class="header container">
                 <div class="">
                     <a class="logo" href="{{ home_url|e }}">
                         {{ config.site.title|e }}
