@@ -1,30 +1,4 @@
-{% macro loop(page) %}
-    {% for p in page.children.visible.order('custom') %}
-        {% set current_page = (p.active or p.activeChild) ? 'selected' : '' %}
-        {% if p.children.visible.count > 0 %}
-            <li class="has-children {{ current_page|e }}">
-                <a href="{{ p.url|e }}">
-                    {% if p.header.icon %}
-                        <i class="fa fa-{{ p.header.icon|e }}"></i>
-                    {% endif %}
-                    {{ p.menu|e }}
-                </a>
-                <ul>
-                    {{ _self.loop(p) }}
-                </ul>
-            </li>
-        {% else %}
-            <li class="{{ current_page|e }}">
-                <a href="{{ p.url|e }}">
-                    {% if p.header.icon %}
-                        <i class="fa fa-{{ p.header.icon|e }}"></i>
-                    {% endif %}
-                    {{ p.menu|e }}
-                </a>
-            </li>
-        {% endif %}
-    {% endfor %}
-{% endmacro %}
+{% import "macros/menu.html.twig" as menu %}
 
 <nav class="flex place-content-between py-8 gap-16">
     <div class="logo">
@@ -34,7 +8,7 @@
     <div class="flex items-center gap-16">
         <ul class="flex gap-12 items-center content-center font-semibold uppercase">
             {% if config.theme.dropdown.enabled %}
-                {{ _self.loop(pages) }}
+                {{ menu.nav_loop(pages) }}
             {% else %}
                 {% for page in pages.children.visible %}
                     {% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
@@ -48,7 +22,7 @@
                     </li>
                 {% endfor %}
             {% endif %}
-            {% for mitem in site.menu %}
+            {% for mitem in maacros.nav_loop.site.menu %}
                 <li>
                     <a href="{{ mitem.url|e }}">
                         {% if mitem.icon %}
