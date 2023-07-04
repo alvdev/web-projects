@@ -5,8 +5,15 @@
         {{ svg('image://empiric.svg')|raw }}
     </div>
 
-    <div class="flex items-center gap-16">
-        <ul class="flex gap-12 items-center content-center font-semibold uppercase">
+    <div class="flex items-center gap-16" x-data="{open: false}">
+        <div class="burger flex flex-col md:hidden" @click="console.log(open)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewbox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            <span class="text-xs">Menu</span>
+        </div>
+
+        <ul class="hidden md:flex gap-12 items-center content-center font-semibold uppercase" :class="'flex' || 'hidden'">
             {% if config.theme.dropdown.enabled %}
                 {{ menu.nav_loop(pages) }}
             {% else %}
@@ -37,11 +44,5 @@
         {% if config.plugins.login.enabled and grav.user.username %}
             {% include 'partials/login-status.html.twig' %}
         {% endif %}
-
-        <div class="burger">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewbox="0 0 16 16">
-                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-            </svg>
-        </div>
     </div>
 </nav>
