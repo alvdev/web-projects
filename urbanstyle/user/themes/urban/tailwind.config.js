@@ -22,6 +22,7 @@ module.exports = {
   theme: {
     container: {
       padding: '4%',
+      center: true,
     },
   },
 };
