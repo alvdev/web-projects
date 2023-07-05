@@ -589,6 +589,9 @@ select {
 }
 
 body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   font-size: 1.25rem;
   line-height: 1.75rem;
   line-height: 1.625;
@@ -1476,12 +1479,12 @@ main a:hover:not(.btn)::before {
   display: inline-flex;
 }
 
-.hidden {
-  display: none;
-}
-
 .h-0 {
   height: 0px;
+}
+
+.h-full {
+  height: 100%;
 }
 
 .h-screen {
@@ -1494,6 +1497,10 @@ main a:hover:not(.btn)::before {
 
 .max-w-none {
   max-width: none;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
 }
 
 .flex-col {
@@ -1524,10 +1531,6 @@ main a:hover:not(.btn)::before {
   justify-content: space-between;
 }
 
-.gap-12 {
-  gap: 3rem;
-}
-
 .gap-16 {
   gap: 4rem;
 }
@@ -1549,10 +1552,6 @@ main a:hover:not(.btn)::before {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
-.bg-opacity-80 {
-  --tw-bg-opacity: 0.8;
-}
-
 .bg-opacity-90 {
   --tw-bg-opacity: 0.9;
 }
@@ -1570,22 +1569,17 @@ main a:hover:not(.btn)::before {
   padding-bottom: 4rem;
 }
 
-.py-32 {
-  padding-top: 8rem;
-  padding-bottom: 8rem;
-}
-
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
 
-.pt-40 {
-  padding-top: 10rem;
-}
-
 .pb-16 {
   padding-bottom: 4rem;
+}
+
+.pt-40 {
+  padding-top: 10rem;
 }
 
 .text-center {
@@ -1637,32 +1631,8 @@ main a:hover:not(.btn)::before {
   accent-color: #ec4899;
 }
 
-.opacity-50 {
-  opacity: 0.5;
-}
-
-.opacity-10 {
-  opacity: 0.1;
-}
-
-.opacity-0 {
-  opacity: 0;
-}
-
 .backdrop-blur-md {
   --tw-backdrop-blur: blur(12px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
-
-.backdrop-opacity-80 {
-  --tw-backdrop-opacity: opacity(0.8);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
-
-.backdrop-opacity-50 {
-  --tw-backdrop-opacity: opacity(0.5);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
@@ -2142,10 +2112,6 @@ main a:hover:not(.btn)::before {
     visibility: visible;
   }
 
-  .md\:flex {
-    display: flex;
-  }
-
   .md\:hidden {
     display: none;
   }
@@ -2154,12 +2120,12 @@ main a:hover:not(.btn)::before {
     flex-direction: row;
   }
 
-  .md\:gap-16 {
-    gap: 4rem;
-  }
-
   .md\:gap-12 {
     gap: 3rem;
+  }
+
+  .md\:gap-16 {
+    gap: 4rem;
   }
 }
 
@@ -2172,27 +2138,7 @@ main a:hover:not(.btn)::before {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.\[\&_a\]\:text-red-300 a {
-  --tw-text-opacity: 1;
-  color: rgb(252 165 165 / var(--tw-text-opacity));
-}
-
-.\[\&_a\]\:text-yellow-300 a {
-  --tw-text-opacity: 1;
-  color: rgb(253 224 71 / var(--tw-text-opacity));
-}
-
 .\[\&_a\]\:text-red-500 a {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-
-.\[\&_a\]\:text-red-400 a {
-  --tw-text-opacity: 1;
-  color: rgb(248 113 113 / var(--tw-text-opacity));
-}
-
-.\[\&_a\]\:text-red-600 a {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
 }

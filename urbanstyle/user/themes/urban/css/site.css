@@ -6,7 +6,7 @@
 
 @layer base {
     body {
-        @apply text-xl leading-relaxed;
+        @apply text-xl leading-relaxed flex flex-col min-h-screen;
     }
 
     textarea,
