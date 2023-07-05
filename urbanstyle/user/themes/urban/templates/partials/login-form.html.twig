@@ -4,7 +4,7 @@
 {% set client_side_validation = form.client_side_validation is not null ? form.client_side_validation : config.plugins.form.client_side_validation|default(true) %}
 {% set inline_errors = form.inline_errors is not null ? form.inline_errors : config.plugins.form.inline_errors(false) %}
 
-<section id="login" class="mt-8">
+<section id="login" class="container mt-8">
 
     {% if page.template == 'login' or show_login_form %}
         {% set user = grav.user %}
@@ -80,9 +80,6 @@
 
                 {{ nonce_field('login-form', 'login-form-nonce')|raw }}
             </form>
-
         {% endif %}
-
     {% endif %}
-
 </section>
