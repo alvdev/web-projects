@@ -1,47 +1,25 @@
 {% import "macros/menu.html.twig" as menu %}
 
-<nav class="flex place-content-between py-8 gap-16" x-data="{ openMenu: false }">
-    <div class="logo">
+<nav class="flex justify-between items-center py-8 gap-16" x-data="{ openMenu: false }" :class="openMenu ? 'container fixed right-0' : 'bg-transparent'">
+    <div class="logo block h-16 w-16 bg-red-900">
         {{ svg('image://empiric.svg')|raw }}
     </div>
 
-    <div class="flex flex-col items-end md:flex-row md:gap-16">
-        <div class="burger flex flex-col content-center hover:cursor-pointer md:hidden relative z-50" @click="openMenu = !openMenu">
+    <div class="flex flex-col md:flex-row items-right">
+        <div class="burger flex flex-col items-end hover:cursor-pointer md:hidden relative z-50" @click="openMenu = !openMenu; window.overlay.classList.toggle('h-screen')">
             <svg :class="openMenu ? 'fill-white' : 'fill-black'" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="transition" viewbox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
             </svg>
             <span class="text-xs transition" :class="openMenu ? 'text-white' : 'text-black'">Menu</span>
         </div>
 
-        <div class="transition" :class="openMenu ? 'bg-black bg-opacity-90 backdrop-blur-md absolute top-0 left-0 h-screen w-full pt-40 pb-16 text-white [&_a]:text-red-500 [&_a:hover]:text-white' : 'invisible h-0 md:visible'" x-cloak>
-            <ul class="container flex flex-col md:flex-row gap-8 md:gap-12 content-center font-semibold uppercase text-right">
-                {% if config.theme.dropdown.enabled %}
-                    {{ menu.nav_loop(pages) }}
-                {% else %}
-                    {% for page in pages.children.visible %}
-                        {% set current_page = (page.active or page.activeChild) ? 'selected' : '' %}
-                        <li class="{{ current_page|e }}">
-                            <a href="{{ page.url|e }}">
-                                {% if page.header.icon %}
-                                    <i class="fa fa-{{ page.header.icon|e }}"></i>
-                                {% endif %}
-                                {{ page.menu|e }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                {% endif %}
-                {% for mitem in maacros.nav_loop.site.menu %}
-                    <li>
-                        <a href="{{ mitem.url|e }}">
-                            {% if mitem.icon %}
-                                <i class="fa fa-{{ mitem.icon|e }}"></i>
-                            {% endif %}
-                            {{ mitem.text|e }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+
+        <ul class="h-0 md:h-full min-w-[50vw] md:min-w-max relative top-4 md:top-auto md:visible md:flex flex-col md:flex-row gap-8 md:gap-12 content-center font-semibold uppercase text-right text-red-500 md:text-black z-50 shadow-8xl" :class="openMenu ? 'block' : 'hidden'">
+            {% if config.theme.dropdown.enabled %}
+                {{ menu.nav_loop(pages) }}
+            {% endif %}
+        </ul>
+        <div class="bg-black fixed w-full h-full top-0 md:invisible" :class="openMenu ? 'visible' : 'invisible'"></div>
 
         {% if config.plugins.login.enabled and grav.user.username %}
             {% include 'partials/login-status.html.twig' %}

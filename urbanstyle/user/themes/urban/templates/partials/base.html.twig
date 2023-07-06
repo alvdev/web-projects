@@ -40,7 +40,7 @@
     </head>
 
     <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
-    <div id="overlay" class="bg-white bg-opacity-50 backdrop-blur w-full fixed"></div>
+    <div id="overlay" class="bg-white bg-opacity-50 backdrop-blur w-full fixed md:hidden"></div>
 
         {% block header %}
             <header class="header container">
