@@ -1,9 +1,7 @@
 {% import "macros/menu.html.twig" as menu %}
 
 <nav class="flex justify-between items-center py-8 gap-16" x-data="{ openMenu: false }" :class="openMenu ? 'container fixed right-0' : 'bg-transparent'">
-    <div class="logo block h-16 w-16 bg-red-900">
-        {{ svg('image://empiric.svg')|raw }}
-    </div>
+    {% include 'partials/logo.html.twig' %}
 
     <div class="flex flex-col md:flex-row items-right">
         <div class="burger flex flex-col items-end hover:cursor-pointer md:hidden relative z-50" @click="openMenu = !openMenu; window.overlay.classList.toggle('h-screen')">

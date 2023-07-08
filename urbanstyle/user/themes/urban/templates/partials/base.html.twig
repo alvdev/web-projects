@@ -44,9 +44,6 @@
 
         {% block header %}
             <header class="header container">
-                <a class="logo" href="{{ home_url|e }}">
-                    {{ config.site.title|e }}
-                </a>
                 {% block header_navigation %}
                     {% include 'partials/navigation.html.twig' %}
                 {% endblock %}

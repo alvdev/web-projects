@@ -1456,6 +1456,10 @@ main a:hover:not(.btn)::before {
   margin-top: 2rem;
 }
 
+.mr-10 {
+  margin-right: 2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -1498,10 +1502,6 @@ main a:hover:not(.btn)::before {
 
 .w-full {
   width: 100%;
-}
-
-.min-w-\[1\/2\] {
-  min-width: 1/2;
 }
 
 .min-w-\[50vw\] {
@@ -1556,10 +1556,6 @@ main a:hover:not(.btn)::before {
   gap: 2rem;
 }
 
-.border {
-  border-width: 1px;
-}
-
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
@@ -1591,18 +1587,9 @@ main a:hover:not(.btn)::before {
   fill: #fff;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .py-16 {
   padding-top: 4rem;
   padding-bottom: 4rem;
-}
-
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 .py-4 {
@@ -1610,8 +1597,9 @@ main a:hover:not(.btn)::before {
   padding-bottom: 1rem;
 }
 
-.pl-8 {
-  padding-left: 2rem;
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .text-center {
@@ -1659,15 +1647,9 @@ main a:hover:not(.btn)::before {
   accent-color: #ec4899;
 }
 
-.shadow-xl {
-  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-2xl {
-  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+.shadow-\[-20px_60px_60px_rgba\(0\2c 0\2c 0\2c 0\.5\)\] {
+  --tw-shadow: -20px 60px 60px rgba(0,0,0,0.5);
+  --tw-shadow-colored: -20px 60px 60px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -1706,10 +1688,6 @@ main a:hover:not(.btn)::before {
     top: auto;
   }
 
-  .md\:mt-0 {
-    margin-top: 0px;
-  }
-
   .md\:flex {
     display: flex;
   }
@@ -1720,11 +1698,6 @@ main a:hover:not(.btn)::before {
 
   .md\:h-full {
     height: 100%;
-  }
-
-  .md\:min-w-min {
-    min-width: -moz-min-content;
-    min-width: min-content;
   }
 
   .md\:min-w-max {
