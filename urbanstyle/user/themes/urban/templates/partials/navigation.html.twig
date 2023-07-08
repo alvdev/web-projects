@@ -13,13 +13,12 @@
             <span class="text-xs transition" :class="openMenu ? 'text-white' : 'text-black'">Menu</span>
         </div>
 
-
-        <ul class="h-0 md:h-full min-w-[50vw] md:min-w-max relative top-4 md:top-auto md:visible md:flex flex-col md:flex-row gap-8 md:gap-12 content-center font-semibold uppercase text-right text-red-500 md:text-black z-50 shadow-8xl" :class="openMenu ? 'block' : 'hidden'">
+        <ul class="h-0 md:h-full min-w-[50vw] md:min-w-max relative top-4 md:top-auto md:visible md:flex flex-col md:flex-row gap-8 md:gap-12 content-center font-semibold uppercase text-right text-red-500 md:text-black z-50" :class="openMenu ? 'block' : 'hidden'">
             {% if config.theme.dropdown.enabled %}
                 {{ menu.nav_loop(pages) }}
             {% endif %}
         </ul>
-        <div class="bg-black fixed w-full h-full top-0 md:invisible" :class="openMenu ? 'visible' : 'invisible'"></div>
+        <div class="bg-black fixed w-full h-full top-0 md:invisible shadow-[-20px_60px_60px_rgba(0,0,0,0.5)] transition duration-500" :class="openMenu ? 'visible' : 'invisible'"></div>
 
         {% if config.plugins.login.enabled and grav.user.username %}
             {% include 'partials/login-status.html.twig' %}
