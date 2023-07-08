@@ -40,14 +40,10 @@
     </head>
 
     <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
-    <div id="overlay" class="bg-white bg-opacity-50 backdrop-blur w-full fixed md:hidden"></div>
+        <div id="overlay" class="bg-white bg-opacity-50 backdrop-blur w-full fixed md:hidden"></div>
 
         {% block header %}
-            <header class="header container">
-                {% block header_navigation %}
-                    {% include 'partials/navigation.html.twig' %}
-                {% endblock %}
-            </header>
+            {% include 'partials/header.html.twig' %}
         {% endblock %}
 
         {% block body %}
