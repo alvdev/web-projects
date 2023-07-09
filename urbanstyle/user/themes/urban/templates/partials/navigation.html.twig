@@ -1,6 +1,6 @@
 {% import "macros/menu.html.twig" as menu %}
 
-<nav class="flex justify-between items-center py-8 gap-16" x-data="{ openMenu: false }" :class="openMenu ? 'container fixed right-0' : 'bg-transparent'">
+<nav class="flex justify-between items-center px-8 py-2 md:gap-16 fixed top-[2vw] z-50 left-0 right-0 mx-auto " x-data="{ openMenu: false }" :class="openMenu ? 'bg-transparent' : 'w-[94vw]  bg-white bg-opacity-50 backdrop-blur-md'">
     {% include 'partials/logo.html.twig' %}
 
     <div class="flex flex-col md:flex-row items-right">
