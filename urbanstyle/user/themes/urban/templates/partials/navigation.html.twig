@@ -1,6 +1,8 @@
 {% import "macros/menu.html.twig" as menu %}
 
-<nav x-data="{ openMenu: false, wideNav: false}" :class="{'bg-transparent top-[2vw]': openMenu, ' bg-white bg-opacity-50 backdrop-blur-md': !openMenu, 'w-full shadow-lg bg-opacity-90': wideNav && !openMenu, 'w-[94vw] top-[2vw]': !wideNav && !openMenu}" class="w-full flex justify-between items-center px-8 py-2 md:gap-16 fixed z-50 left-0 right-0 mx-auto" @scroll.window="wideNav = window.scrollY > 50 ? true : false">
+{% set isFixed = page.home ? 'fixed' : 'static' %}
+
+<nav x-data="{ openMenu: false, wideNav: false}" :class="{'bg-transparent top-[2vw]': openMenu, ' bg-white bg-opacity-50 backdrop-blur-md overflow-hidden': !openMenu, 'w-full shadow-lg bg-opacity-90': wideNav && !openMenu, 'w-[94vw] top-[2vw]': !wideNav && !openMenu}" class="w-full flex justify-between items-center px-8 py-2 md:gap-16 {{ isFixed }} z-50 left-0 right-0 mx-auto" @scroll.window="wideNav = window.scrollY > 100 ? true : false">
     {% include 'partials/logo.html.twig' %}
 
     <div class="flex flex-col md:flex-row items-right">
@@ -16,7 +18,7 @@
                 {{ menu.nav_loop(pages) }}
             {% endif %}
         </ul>
-        <div class="bg-black fixed w-full h-full top-0 md:invisible shadow-[-20px_60px_60px_rgba(0,0,0,0.5)] transition duration-500" :class="openMenu ? 'visible' : 'invisible'"></div>
+        <div class="bg-black fixed w-full h-full top-0 md:invisible shadow-[-20px_60px_60px_rgba(0,0,0,0.5)]" :class="openMenu ? 'visible' : 'invisible'"></div>
 
         {% if config.plugins.login.enabled and grav.user.username %}
             {% include 'partials/login-status.html.twig' %}
