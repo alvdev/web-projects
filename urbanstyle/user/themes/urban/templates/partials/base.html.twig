@@ -6,16 +6,14 @@
             <meta charset="utf-8"/>
             <title>
                 {% if header.title %}
-                    {{ header.title|e }}
-                    |
+                    {{ header.title|e }} |
                 {% endif %}
-                {{ site.title|e }}</title>
-
+                {{ site.title|e }}
+            </title>
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             {% include 'partials/metadata.html.twig' %}
-
-            <link rel="icon" type="image/png" href="{{ url('theme://images/logo.png')|e }}"/>
+            <link rel="icon" type="image/png" href="{{ url('theme://images/logo.png')|e }}">
             <link rel="canonical" href="{{ page.url(true, true)|e }}"/>
         {% endblock head %}
 
