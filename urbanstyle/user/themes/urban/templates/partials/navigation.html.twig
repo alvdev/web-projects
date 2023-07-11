@@ -4,11 +4,9 @@
 
 <nav
     x-data="{ openMenu: false, wideNav: false}"
-    :class="{'bg-transparent top-[2vw]': openMenu, ' bg-white bg-opacity-50
-        backdrop-blur-md overflow-hidden': !openMenu, 'w-full shadow-lg bg-opacity-90':
-        wideNav && !openMenu, 'w-[94vw] top-[2vw]': !wideNav && !openMenu}"
-    class="w-full flex justify-between items-center px-8 py-2 md:gap-16 {{ isFixed }}
-        z-40 left-0 right-0 mx-auto"
+    :class="{'bg-transparent top-[2vw]': openMenu, 'bg-white bg-opacity-50 backdrop-blur-md overflow-hidden': !openMenu,
+        'w-full shadow-lg bg-opacity-90': wideNav && !openMenu, 'w-[94vw] top-[2vw]': !wideNav && !openMenu}"
+    class="w-full flex justify-between items-center px-8 py-2 md:gap-16 {{ isFixed }} z-40 left-0 right-0 mx-auto"
     @scroll.window="wideNav = window.scrollY > 100 ? true : false">
     <div class="z-40">
         {% include 'partials/logo.html.twig' %}
@@ -16,8 +14,7 @@
 
     <div class="flex flex-col md:flex-row items-right">
         <div
-            class="burger flex flex-col items-end hover:cursor-pointer md:hidden relative
-                z-50"
+            class="burger flex flex-col items-end hover:cursor-pointer md:hidden relative z-50"
             @click="openMenu = !openMenu; window.overlay.classList.toggle('h-screen')">
             <svg
                 :class="openMenu ? 'fill-white' : 'fill-black'"
@@ -29,27 +26,22 @@
                 viewbox="0 0 16 16">
                 <path
                     fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1
-                        .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0
-                        1H3a.5.5 0 0 1-.5-.5z"/>
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0
+                        1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
             </svg>
-            <span
-                class="text-xs transition"
-                :class="openMenu ? 'text-white' : 'text-black'">Menu</span>
+            <span class="text-xs transition" :class="openMenu ? 'text-white' : 'text-black'">Menu</span>
         </div>
 
         <ul
-            class="h-0 md:h-full min-w-[50vw] md:min-w-max relative top-4 md:top-auto
-                md:visible md:flex flex-col md:flex-row gap-8 md:gap-12 content-center
-                font-semibold uppercase text-right text-red-500 md:text-black z-50"
+            class="h-0 md:h-full min-w-[50vw] md:min-w-max relative top-4 md:top-auto md:visible md:flex flex-col md:flex-row gap-8
+                md:gap-12 content-center font-semibold uppercase text-right text-red-500 md:text-black z-50"
             :class="openMenu ? 'block' : 'hidden'">
             {% if config.theme.dropdown.enabled %}
                 {{ menu.nav_loop(pages) }}
             {% endif %}
         </ul>
         <div
-            class="bg-black fixed z-40 w-full h-full top-0 md:invisible
-                shadow-[-20px_60px_60px_rgba(0,0,0,0.5)]"
+            class="bg-black fixed z-40 w-full h-full top-0 md:invisible shadow-[-20px_60px_60px_rgba(0,0,0,0.5)]"
             :class="openMenu ? 'visible' : 'invisible'"></div>
 
         {% if config.plugins.login.enabled and grav.user.username %}
