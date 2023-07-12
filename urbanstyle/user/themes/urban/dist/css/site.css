@@ -1630,6 +1630,21 @@ main a:hover:not(.btn)::before {
   }
 }
 
+.looker {
+  position: relative;
+  padding-bottom: 75%;
+}
+
+.looker iframe,
+    .looker object,
+    .looker embed {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+
 .visible {
   visibility: visible;
 }
@@ -1753,10 +1768,6 @@ main a:hover:not(.btn)::before {
 
 .flex-1 {
   flex: 1 1 0%;
-}
-
-.flex-grow {
-  flex-grow: 1;
 }
 
 .flex-col {
@@ -1956,10 +1967,6 @@ main a:hover:not(.btn)::before {
     display: flex;
   }
 
-  .md\:grid {
-    display: grid;
-  }
-
   .md\:hidden {
     display: none;
   }
@@ -1971,10 +1978,6 @@ main a:hover:not(.btn)::before {
   .md\:min-w-max {
     min-width: -moz-max-content;
     min-width: max-content;
-  }
-
-  .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .md\:flex-row {
@@ -1989,15 +1992,6 @@ main a:hover:not(.btn)::before {
     gap: 4rem;
   }
 
-  .md\:gap-24 {
-    gap: 6rem;
-  }
-
-  .md\:gap-x-24 {
-    -moz-column-gap: 6rem;
-         column-gap: 6rem;
-  }
-
   .md\:text-black {
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2007,10 +2001,6 @@ main a:hover:not(.btn)::before {
 @media (min-width: 1024px) {
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .lg\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lg\:gap-x-24 {

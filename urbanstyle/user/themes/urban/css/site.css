@@ -83,6 +83,7 @@
     .notices {
         @apply p-8;
     }
+
     /**
      * Dark sections
      */
@@ -94,5 +95,17 @@
     .dark h2,
     .dark h3 {
         @apply text-gray-100;
+    }
+}
+
+@layer components {
+    .looker {
+        @apply relative pb-[75%];
+    }
+    
+    .looker iframe,
+    .looker object,
+    .looker embed {
+        @apply absolute top-0 left-0 w-full h-full;
     }
 }
