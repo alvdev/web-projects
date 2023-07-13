@@ -1,4 +1,5 @@
 {% set extension = config.theme.production ? '.min' : '' %}
+
 <!DOCTYPE html>
 <html lang="{{ (grav.language.getActive ?: grav.config.site.default_lang)|e }}">
     <head>
@@ -6,7 +7,8 @@
             <meta charset="utf-8"/>
             <title>
                 {% if header.title %}
-                    {{ header.title|e }} |
+                    {{ header.title|e }}
+                    |
                 {% endif %}
                 {{ site.title|e }}
             </title>
@@ -44,11 +46,7 @@
             {% include 'partials/header.html.twig' %}
         {% endblock %}
 
-        {% block body %}
-            <main class="flex-1 prose prose-xl max-w-none mt-32">
-                {% block content %}{% endblock %}
-            </main>
-        {% endblock %}
+        {% block content %}{% endblock %}
 
         {% block footer %}
             {% include "partials/footer.html.twig" %}
