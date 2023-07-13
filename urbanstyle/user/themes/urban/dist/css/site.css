@@ -1693,6 +1693,10 @@ main a:hover:not(.btn)::before {
   z-index: 50;
 }
 
+.float-left {
+  float: left;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1746,8 +1750,16 @@ main a:hover:not(.btn)::before {
   margin-top: -8rem;
 }
 
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .block {
   display: block;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .inline {
@@ -1790,6 +1802,10 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
+.w-1 {
+  width: 0.25rem;
+}
+
 .min-w-\[50vw\] {
   min-width: 50vw;
 }
@@ -1812,8 +1828,21 @@ main a:hover:not(.btn)::before {
        columns: 4;
 }
 
+.columns-6 {
+  -moz-columns: 6;
+       columns: 6;
+}
+
+.grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .content-center {
@@ -1854,6 +1883,16 @@ main a:hover:not(.btn)::before {
 
 .gap-0 {
   gap: 0px;
+}
+
+.gap-x-8 {
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+}
+
+.gap-x-16 {
+  -moz-column-gap: 4rem;
+       column-gap: 4rem;
 }
 
 .overflow-hidden {
@@ -2119,6 +2158,10 @@ main a:hover:not(.btn)::before {
 
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
+}
+
+.\[\&\>div\]\:w-1\/6>div {
+  width: 16.666667%;
 }
 
 .\[\&\>div\]\:border-2>div {
