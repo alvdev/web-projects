@@ -1722,16 +1722,8 @@ main a:hover:not(.btn)::before {
   margin-top: 7rem;
 }
 
-.mt-32 {
-  margin-top: 8rem;
-}
-
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mt-2 {
-  margin-top: 0.5rem;
 }
 
 .block {
