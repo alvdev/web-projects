@@ -767,10 +767,6 @@ main a:hover:not(.btn)::before {
   border-color: rgb(216 180 254 / var(--tw-border-opacity));
 }
 
-.notices {
-  padding: 2rem;
-}
-
 /**
      * Dark sections
      */
@@ -1734,6 +1730,10 @@ main a:hover:not(.btn)::before {
   margin-top: 2rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .block {
   display: block;
 }
@@ -1858,10 +1858,6 @@ main a:hover:not(.btn)::before {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.border {
-  border-width: 1px;
 }
 
 .bg-black {
