@@ -1726,6 +1726,10 @@ main a:hover:not(.btn)::before {
   margin-top: 2rem;
 }
 
+.mt-14 {
+  margin-top: 3.5rem;
+}
+
 .block {
   display: block;
 }
@@ -1754,6 +1758,10 @@ main a:hover:not(.btn)::before {
   height: 0px;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .h-full {
   height: 100%;
 }
@@ -1772,6 +1780,10 @@ main a:hover:not(.btn)::before {
 
 .min-w-\[50vw\] {
   min-width: 50vw;
+}
+
+.max-w-full {
+  max-width: 100%;
 }
 
 .max-w-none {
@@ -1850,6 +1862,10 @@ main a:hover:not(.btn)::before {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .bg-black {
@@ -2029,6 +2045,10 @@ main a:hover:not(.btn)::before {
   .md\:min-w-max {
     min-width: -moz-max-content;
     min-width: max-content;
+  }
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .md\:flex-row {
