@@ -1,7 +1,25 @@
 {% import 'macros/menu.html.twig' as macros %}
 
 <footer class="footer text-center bg-black text-white py-16 mt-28">
-    <div class="container">
+    <div class="container flex justify-between">
+        <ul class="flex gap-4 text-base items-center">
+            <li>
+                <a href="#">
+                    Facebook
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Twitter
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Intagram
+                </a>
+            </li>
+        </ul>
+
         <ul class="flex gap-4 items-center justify-center text-base text-center">
             {{ macros.nav_loop(pages) }}
         </ul>
