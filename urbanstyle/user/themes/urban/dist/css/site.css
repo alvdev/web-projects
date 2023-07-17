@@ -1702,6 +1702,10 @@ main a:hover:not(.btn)::before {
   margin-top: -8rem;
 }
 
+.mb-0 {
+  margin-bottom: 0px;
+}
+
 .mr-10 {
   margin-right: 2.5rem;
 }
@@ -1724,14 +1728,6 @@ main a:hover:not(.btn)::before {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mt-14 {
-  margin-top: 3.5rem;
-}
-
-.mb-0 {
-  margin-bottom: 0px;
 }
 
 .block {
@@ -1866,10 +1862,6 @@ main a:hover:not(.btn)::before {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.rounded-lg {
-  border-radius: 0.5rem;
 }
 
 .bg-black {
