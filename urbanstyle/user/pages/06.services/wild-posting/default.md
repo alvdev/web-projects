@@ -1,0 +1,4 @@
+---
+title: 'Wild posting'
+---
+
