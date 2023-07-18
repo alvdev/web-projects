@@ -1,8 +1,12 @@
 {% extends 'partials/base.html.twig' %}
 
 {% block content %}
-    <div class="prose">
-        <h1>{{ 'THEME_TAILWIND.ERROR'|t }}</h1>
-        {{ page.content|raw }}
-    </div>
+    <main class="flex-1 prose prose-xl max-w-none mt-28">
+        <section class="container">
+            <h1>
+                {{ 'THEME_TAILWIND.ERROR'|t }}
+            </h1>
+            {{ page.content|raw }}
+        </section>
+    </main>
 {% endblock %}
