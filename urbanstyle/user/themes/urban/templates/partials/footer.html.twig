@@ -1,7 +1,7 @@
 {% import 'macros/menu.html.twig' as macros %}
 
-<footer class="footer text-center bg-black text-white py-16 mt-28 text-base">
-    <div class="container flex justify-between">
+<footer class="footer flex flex-col gap-8 text-center bg-black text-white py-24 mt-28 text-base">
+    <div class="container flex justify-between items-center">
         <ul class="flex gap-4 items-center">
             <li>
                 <a href="#">
@@ -20,17 +20,18 @@
             </li>
         </ul>
 
-        <ul class="flex gap-4 items-center justify-center text-center">
+        <ul class="flex gap-8 items-center justify-center text-center">
             {{ macros.nav_loop(pages) }}
         </ul>
     </div>
-    <div class="container flex justify-between">
+
+    <div class="container flex justify-between items-center">
         <div>
             Copyright © 2016 -
             {{ 'now'|date('Y') }}
             Urban Style Publicity, S.L.
         </div>
-        <div class="flex gap-4">
+        <div class="flex gap-8">
             <a href="#">
                 Aviso legal
             </a>

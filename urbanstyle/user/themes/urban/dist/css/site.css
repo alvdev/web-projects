@@ -1964,6 +1964,10 @@ main a:hover:not(.btn)::before {
   padding: 1.5rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
@@ -1982,6 +1986,16 @@ main a:hover:not(.btn)::before {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.py-24 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.py-28 {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 
 .pb-44 {
@@ -2186,7 +2200,27 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
+.\[\&\>a\]\:p-4>a {
+  padding: 1rem;
+}
+
 .\[\&\>div\]\:border-2>div {
+  border-width: 2px;
+}
+
+.\[\&\>li_a\]\:gap-4>li a {
+  gap: 1rem;
+}
+
+.\[\&\>li_a\]\:\!gap-4>li a {
+  gap: 1rem !important;
+}
+
+.\[\&\>li_a\]\:border>li a {
+  border-width: 1px;
+}
+
+.\[\&\>li_a\]\:border-2>li a {
   border-width: 2px;
 }
 
