@@ -628,8 +628,6 @@ textarea:focus,
 }
 
 input[type='checkbox'] {
-  position: relative;
-  top: 2px;
   border-width: 0px;
   --tw-bg-opacity: 1;
   background-color: rgb(156 163 175 / var(--tw-bg-opacity));
@@ -1964,18 +1962,9 @@ main a:hover:not(.btn)::before {
   padding: 1.5rem;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
-}
-
-.py-16 {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
 }
 
 .py-2 {
@@ -1983,19 +1972,14 @@ main a:hover:not(.btn)::before {
   padding-bottom: 0.5rem;
 }
 
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
 .py-24 {
   padding-top: 6rem;
   padding-bottom: 6rem;
 }
 
-.py-28 {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .pb-44 {
@@ -2080,10 +2064,6 @@ main a:hover:not(.btn)::before {
 
 .no-underline {
   text-decoration-line: none;
-}
-
-.accent-pink-500 {
-  accent-color: #ec4899;
 }
 
 .shadow-\[-20px_60px_60px_rgba\(0\2c 0\2c 0\2c 0\.5\)\] {
@@ -2200,27 +2180,7 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
-.\[\&\>a\]\:p-4>a {
-  padding: 1rem;
-}
-
 .\[\&\>div\]\:border-2>div {
-  border-width: 2px;
-}
-
-.\[\&\>li_a\]\:gap-4>li a {
-  gap: 1rem;
-}
-
-.\[\&\>li_a\]\:\!gap-4>li a {
-  gap: 1rem !important;
-}
-
-.\[\&\>li_a\]\:border>li a {
-  border-width: 1px;
-}
-
-.\[\&\>li_a\]\:border-2>li a {
   border-width: 2px;
 }
 
