@@ -12,7 +12,7 @@
         {% include 'partials/logo.html.twig' %}
     </div>
 
-    <div class="flex flex-col md:flex-row items-right">
+    <div class="flex flex-col gap-8 md:flex-row items-right">
         <div
             class="burger flex flex-col items-end hover:cursor-pointer md:hidden relative z-50"
             @click="openMenu = !openMenu; window.overlay.classList.toggle('h-screen')">
@@ -29,7 +29,9 @@
                     d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0
                         1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
             </svg>
-            <span class="text-xs transition" :class="openMenu ? 'text-white' : 'text-black'">Menu</span>
+            <span class="text-xs transition" :class="openMenu ? 'text-white' : 'text-black'">
+                Menu
+            </span>
         </div>
 
         <ul
@@ -44,7 +46,7 @@
             class="bg-black fixed z-40 w-full h-full top-0 md:invisible shadow-[-20px_60px_60px_rgba(0,0,0,0.5)]"
             :class="openMenu ? 'visible' : 'invisible'"></div>
 
-        {% if config.plugins.login.enabled and grav.user.username %}
+        {% if config.plugins.login.enabled %}
             {% include 'partials/login-status.html.twig' %}
         {% endif %}
     </div>
