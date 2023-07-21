@@ -8,8 +8,12 @@
         'w-full shadow-lg bg-opacity-90': wideNav && !openMenu, 'w-[94vw] top-[2vw]': !wideNav && !openMenu}"
     class="w-full flex justify-between items-center px-8 py-2 md:gap-16 {{ isFixed }} z-40 left-0 right-0 mx-auto"
     @scroll.window="wideNav = window.scrollY > 100 ? true : false">
-    <div class="z-40">
+    <div class="flex items-center z-40">
         {% include 'partials/logo.html.twig' %}
+
+        {% if config.plugins.langswitcher.enabled %}
+            {% include 'partials/langswitcher.html.twig' %}
+        {% endif %}
     </div>
 
     <div class="flex flex-col gap-8 md:flex-row items-right">
