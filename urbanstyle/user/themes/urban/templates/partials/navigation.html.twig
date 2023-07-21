@@ -1,14 +1,13 @@
 {% import "macros/menu.html.twig" as menu %}
 
-{% set isFixed = page.home ? 'fixed' : 'static' %}
+{% set hasHero = page.home ? 'fixed' : 'static' %}
 
-<nav
-    x-data="{ openMenu: false, wideNav: false}"
-    :class="{'bg-transparent top-[2vw]': openMenu, 'bg-white bg-opacity-50 backdrop-blur-md overflow-hidden': !openMenu,
-        'w-full shadow-lg bg-opacity-90': wideNav && !openMenu, 'w-[94vw] top-[2vw]': !wideNav && !openMenu}"
-    class="w-full flex justify-between items-center px-8 py-2 md:gap-16 {{ isFixed }} z-40 left-0 right-0 mx-auto"
-    @scroll.window="wideNav = window.scrollY > 100 ? true : false">
-    <div class="flex items-center z-40">
+<nav x-data="{ openMenu: false, wideNav: false}" :class="{
+        'bg-transparent border-0': openMenu,
+        'bg-white bg-opacity-50 backdrop-blur-md overflow-hidden': !openMenu,
+        'shadow-lg bg-opacity-90 top-[1vw] !pr-8 pl-1 py-0': wideNav && !openMenu,
+        }" class="{{ hasHero }} w-[94vw] top-[2vw] mx-auto left-0 right-0 rounded-full border-2 border-black flex justify-between items-center pr-10 pl-2 py-2 md:gap-16 z-40" @scroll.window="wideNav = window.scrollY > 100 ? true : false">
+    <div class="flex items-center z-40 gap-8" :class="{ '[&>a]:w-1/2 !gap-4': wideNav }">
         {% include 'partials/logo.html.twig' %}
 
         {% if config.plugins.langswitcher.enabled %}
