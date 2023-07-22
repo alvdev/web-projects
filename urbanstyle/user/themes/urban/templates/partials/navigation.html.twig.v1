@@ -1,12 +1,12 @@
 {% import "macros/menu.html.twig" as menu %}
 
-<nav class="flex place-content-between py-8 gap-16" x-data="{ openMenu: false }">
+<nav class="flex gap-16 py-8 place-content-between" x-data="{ openMenu: false }">
     <div class="logo">
         {{ svg('image://empiric.svg')|raw }}
     </div>
 
     <div class="flex flex-col items-end md:flex-row md:gap-16">
-        <div class="burger flex flex-col content-center hover:cursor-pointer md:hidden relative z-50" @click="openMenu = !openMenu">
+        <div class="relative z-50 flex flex-col content-center burger hover:cursor-pointer md:hidden" @click="openMenu = !openMenu">
             <svg :class="openMenu ? 'fill-white' : 'fill-black'" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="transition" viewbox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
             </svg>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="transition" :class="openMenu ? 'bg-black bg-opacity-90 backdrop-blur-md absolute top-0 left-0 h-screen w-full pt-40 pb-16 text-white [&_a]:text-red-500 [&_a:hover]:text-white' : 'invisible h-0 md:visible'" x-cloak>
-            <ul class="container flex flex-col md:flex-row gap-8 md:gap-12 content-center font-semibold uppercase text-right">
+            <ul class="container flex flex-col content-center gap-8 font-semibold text-right uppercase md:flex-row md:gap-12">
                 {% if config.theme.dropdown.enabled %}
                     {{ menu.nav_loop(pages) }}
                 {% else %}

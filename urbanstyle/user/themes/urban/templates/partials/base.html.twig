@@ -4,11 +4,10 @@
 <html lang="{{ (grav.language.getLanguage ?: grav.config.site.default_lang)|e }}">
     <head>
         {% block head %}
-            <meta charset="utf-8"/>
+            <meta charset="utf-8" />
             <title>
                 {% if header.title %}
-                    {{ header.title|e }}
-                    |
+                    {{ header.title|e }}|
                 {% endif %}
                 {{ site.title|e }}
             </title>
@@ -20,8 +19,10 @@
                 {% include 'partials/langswitcher.hreflang.html.twig' %}
             {% endif %}
 
-            <link rel="icon" type="image/png" href="{{ url('theme://images/logo.png')|e }}">
-            <link rel="canonical" href="{{ page.url(true, true)|e }}"/>
+            <link rel="icon"
+                  type="image/png"
+                  href="{{ url('theme://images/logo.png')|e }}">
+            <link rel="canonical" href="{{ page.url(true, true)|e }}" />
         {% endblock head %}
 
         {% block stylesheets %}
@@ -44,8 +45,11 @@
         </style>
     </head>
 
-    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
-        <div id="overlay" class="bg-white bg-opacity-50 backdrop-blur w-full fixed z-40 md:hidden"></div>
+    <body id="top"
+          class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
+        <div id="overlay"
+             class="fixed z-40 w-full bg-white bg-opacity-50 backdrop-blur md:hidden">
+        </div>
 
         {% block header %}
             {% include 'partials/header.html.twig' %}
@@ -61,6 +65,5 @@
         {% block bottom %}
             {{ assets.js('bottom')|raw }}
         {% endblock %}
-
     </body>
 </html>

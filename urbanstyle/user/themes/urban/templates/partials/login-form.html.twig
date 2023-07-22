@@ -17,7 +17,8 @@
                     </strong>
                 </h4>
                 <hr>
-                <a class="button logout" href="{{ uri.addNonce(base_url_relative ~ uri.path ~ '/task' ~ config.system.param_sep ~ 'login.logout', 'logout-form', 'logout-nonce')|e }}">
+                <a class="button logout"
+                   href="{{ uri.addNonce(base_url_relative ~ uri.path ~ '/task' ~ config.system.param_sep ~ 'login.logout', 'logout-form', 'logout-nonce')|e }}">
                     {{ 'PLUGIN_LOGIN.BTN_LOGOUT'|t }}
                 </a>
 
@@ -31,8 +32,9 @@
                     {% include template %}
                 {% endfor %}
 
-                <form
-                    method="post" action="{{ (base_url_relative ~ uri.path)|e }}" class="{{ form_outer_classes }} login-form">
+                <form method="post"
+                      action="{{ (base_url_relative ~ uri.path)|e }}"
+                      class="{{ form_outer_classes }} login-form">
 
                     {# OLD WAY OF INCLUDING 3RD PARTY LOGIN OPTIONS #}
                     {% if grav.twig.plugins_hgoked_loginPage %}
@@ -59,10 +61,19 @@
 
                     <div class="{{ form_button_outer_classes ?: 'mt-8' }}">
                         {% if config.plugins.login.rememberme.enabled and form.login.rememberme ?? true %}
-                            <div class="form-data rememberme" data-grav-default="null" data-grav-disabled="true" data-grav-field="checkbox">
-                                <div class="inline-flex items-center hover:cursor-pointer form-input-wrapper gap-2">
-                                    <input class="hover:cursor-pointer top-4" type="checkbox" value="1" name="rememberme" id="#rememberme">
-                                    <label class="hover:cursor-pointer inline" for="#rememberme" title="{{ 'PLUGIN_LOGIN.REMEMBER_ME_HELP'|t }}">
+                            <div class="form-data rememberme"
+                                 data-grav-default="null"
+                                 data-grav-disabled="true"
+                                 data-grav-field="checkbox">
+                                <div class="inline-flex items-center gap-2 hover:cursor-pointer form-input-wrapper">
+                                    <input class="hover:cursor-pointer top-4"
+                                           type="checkbox"
+                                           value="1"
+                                           name="rememberme"
+                                           id="#rememberme">
+                                    <label class="inline hover:cursor-pointer"
+                                           for="#rememberme"
+                                           title="{{ 'PLUGIN_LOGIN.REMEMBER_ME_HELP'|t }}">
                                         {{ 'PLUGIN_LOGIN.REMEMBER_ME'|t }}
                                     </label>
                                 </div>
@@ -73,7 +84,8 @@
                         {% set forgot_route = grav.login.getRoute('forgot') %}
                         <div class="flex gap-4 mt-12">
                             {% if forgot_button and forgot_route %}
-                                <a class="{{ form_button_classes ?: 'btn btn--default' }}" href="{{ base_url_relative ~ forgot_route }}">
+                                <a class="{{ form_button_classes ?: 'btn btn--default' }}"
+                                   href="{{ base_url_relative ~ forgot_route }}">
                                     <i class="fa fa-exclamation-circle"></i>
                                     <div>
                                         {{ 'PLUGIN_LOGIN.BTN_FORGOT'|t }}
@@ -81,7 +93,10 @@
                                 </a>
                             {% endif %}
 
-                            <button class="{{ form_button_classes ?: 'btn btn--primary' }}" type="submit" name="task" value="login.login">
+                            <button class="{{ form_button_classes ?: 'btn btn--primary' }}"
+                                    type="submit"
+                                    name="task"
+                                    value="login.login">
                                 <i class="fa fa-sign-in"></i>
                                 {{ 'PLUGIN_LOGIN.BTN_LOGIN'|t }}
                             </button>

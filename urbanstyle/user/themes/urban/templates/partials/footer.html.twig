@@ -1,8 +1,8 @@
 {% import 'macros/menu.html.twig' as macros %}
 
-<footer class="footer flex flex-col gap-8 text-center bg-black text-white py-24 mt-28 text-base">
-    <div class="container flex justify-between items-center">
-        <ul class="flex gap-4 items-center">
+<footer class="flex flex-col gap-8 py-24 text-base text-center text-white bg-black footer mt-28">
+    <div class="container flex items-center justify-between">
+        <ul class="flex items-center gap-4">
             <li>
                 <a href="#">
                     Facebook
@@ -20,12 +20,12 @@
             </li>
         </ul>
 
-        <ul class="flex gap-8 items-center justify-center text-center">
+        <ul class="flex items-center justify-center gap-8 text-center">
             {{ macros.nav_loop(pages) }}
         </ul>
     </div>
 
-    <div class="container flex justify-between items-center">
+    <div class="container flex items-center justify-between">
         <div>
             Copyright © 2016 -
             {{ 'now'|date('Y') }}

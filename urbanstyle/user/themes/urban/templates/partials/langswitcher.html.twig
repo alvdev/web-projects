@@ -12,7 +12,8 @@
 {% block language_item %}
     {% if show_language %}
         <li>
-            <a href="{{ lang_url ~ uri.params ~ (uri.query|length > 1 ? '?' ~ uri.query) }}" class="external {{ active_class }}">
+            <a href="{{ lang_url ~ uri.params ~ (uri.query|length > 1 ? '?' ~ uri.query) }}"
+               class="external {{ active_class }}">
                 {{ svg(language ~ '-flag', 'w-6 h-auto hover:scale-125 mt-[2px]')|raw }}
                 {# {% include 'partials/langswitcher-' ~ display_format ~ '.html.twig' %} #}
             </a>
