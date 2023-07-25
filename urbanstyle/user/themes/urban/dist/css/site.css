@@ -1663,12 +1663,12 @@ main a:hover:not(.btn)::before {
   position: static;
 }
 
-.fixed {
-  position: fixed;
-}
-
 .\!fixed {
   position: fixed !important;
+}
+
+.fixed {
+  position: fixed;
 }
 
 .relative {
@@ -1689,14 +1689,6 @@ main a:hover:not(.btn)::before {
 
 .top-4 {
   top: 1rem;
-}
-
-.top-\[1vw\] {
-  top: 1vw;
-}
-
-.top-\[2vw\] {
-  top: 2vw;
 }
 
 .z-40 {
@@ -1756,32 +1748,16 @@ main a:hover:not(.btn)::before {
   margin-top: 2rem;
 }
 
-.mt-\[2px\] {
-  margin-top: 2px;
-}
-
-.mt-36 {
-  margin-top: 9rem;
-}
-
-.mt-48 {
-  margin-top: 12rem;
-}
-
-.mt-\[2vw\] {
-  margin-top: 2vw;
-}
-
 .mt-\[1vw\] {
   margin-top: 1vw;
 }
 
-.mt-\[\] {
-  margin-top: ;
+.mt-\[2px\] {
+  margin-top: 2px;
 }
 
-.mt-\[1v\] {
-  margin-top: 1v;
+.mt-\[2vw\] {
+  margin-top: 2vw;
 }
 
 .block {
@@ -1816,6 +1792,10 @@ main a:hover:not(.btn)::before {
   height: 1.5rem;
 }
 
+.h-\[400px\] {
+  height: 400px;
+}
+
 .h-auto {
   height: auto;
 }
@@ -1833,32 +1813,12 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
-.h-\[\] {
-  height: ;
-}
-
-.h-\[300px\] {
-  height: 300px;
-}
-
-.h-\[600px\] {
-  height: 600px;
-}
-
-.h-\[400px\] {
-  height: 400px;
-}
-
 .w-10 {
   width: 2.5rem;
 }
 
 .w-6 {
   width: 1.5rem;
-}
-
-.w-\[94vw\] {
-  width: 94vw;
 }
 
 .w-full {
@@ -1906,10 +1866,6 @@ main a:hover:not(.btn)::before {
 
 .grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
-.flex-row {
-  flex-direction: row;
 }
 
 .flex-row-reverse {
@@ -1997,10 +1953,6 @@ main a:hover:not(.btn)::before {
   border-width: 2px;
 }
 
-.\!border-0 {
-  border-width: 0px !important;
-}
-
 .border-black {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
@@ -2075,9 +2027,14 @@ main a:hover:not(.btn)::before {
   padding-bottom: 1rem;
 }
 
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+.\!py-0 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.\!py-1 {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
 }
 
 .\!pr-8 {
@@ -2102,6 +2059,18 @@ main a:hover:not(.btn)::before {
 
 .pt-28 {
   padding-top: 7rem;
+}
+
+.\!pl-1 {
+  padding-left: 0.25rem !important;
+}
+
+.\!pr-4 {
+  padding-right: 1rem !important;
+}
+
+.\!pr-6 {
+  padding-right: 1.5rem !important;
 }
 
 .text-center {
@@ -2224,14 +2193,12 @@ main a:hover:not(.btn)::before {
   transition-duration: 150ms;
 }
 
-.transition-transform {
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .duration-500 {
   transition-duration: 500ms;
+}
+
+.ease-linear {
+  transition-timing-function: linear;
 }
 
 .before\:border-none::before {
@@ -2295,6 +2262,19 @@ main a:hover:not(.btn)::before {
     gap: 4rem;
   }
 
+  .md\:\!py-0 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .md\:\!pr-8 {
+    padding-right: 2rem !important;
+  }
+
+  .md\:\!pl-1 {
+    padding-left: 0.25rem !important;
+  }
+
   .md\:text-black {
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2318,6 +2298,12 @@ main a:hover:not(.btn)::before {
 
 .\[\&\>a\]\:w-1\/2>a {
   width: 50%;
+}
+
+.\[\&\>a\]\:transition-all>a {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 .\[\&\>div\]\:border-2>div {
