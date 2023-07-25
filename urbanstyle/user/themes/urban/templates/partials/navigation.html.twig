@@ -1,13 +1,17 @@
 {% import "macros/menu.html.twig" as menu %}
 
-{% set hasHero = page.home ? 'fixed' : 'static' %}
+{% set hasHero = page.home or page.template == 'contact' ? '!fixed' : 'static' %}
 
-<nav x-data="{ openMenu: false, wideNav: false}"
-     :class="{ 'bg-transparent border-0': openMenu, 'bg-white bg-opacity-50 backdrop-blur-md overflow-hidden': !openMenu, 'shadow-lg bg-opacity-90 top-[1vw] !pr-8 pl-1 py-0': wideNav && !openMenu, }"
-     class="{{ hasHero }} w-[94vw] top-[2vw] mx-auto left-0 right-0 rounded-full border-2 border-black flex justify-between items-center pr-10 pl-2 py-2 md:gap-16 z-40"
-     @scroll.window="wideNav = window.scrollY > 100 ? true : false">
+<nav x-data="{openMenu: false, wideNav: false}"
+     :class="{
+        'bg-transparent border-0 mt-[2vw]': openMenu,
+        'bg-white bg-opacity-50 backdrop-blur-md overflow-hidden border-2 rounded-full border-black transition-all': !openMenu,
+        'static mt-[2vw]': !wideNav,
+        'fixed shadow-lg bg-opacity-90 mt-[1vw] !pr-8 pl-1 py-0': wideNav && !openMenu, }"
+     class="{{ hasHero }} container mx-auto left-0 right-0 flex justify-between items-center pr-10 pl-2 py-2 md:gap-16 z-40"
+     @scroll.window="wideNav = window.scrollY > 0 ? true : false">
     <div class="z-40 flex items-center gap-8"
-         :class="{ '[&>a]:w-1/2 !gap-4': wideNav }">
+         :class="{ '[&>a]:w-1/2 !gap-4': wideNav && !openMenu }">
         {% include 'partials/logo.html.twig' %}
 
         {% if config.plugins.langswitcher.enabled %}
@@ -15,9 +19,9 @@
         {% endif %}
     </div>
 
-    <div class="flex flex-col gap-8 md:flex-row items-right">
+    <div class="flex gap-8 md:flex-row items-right" :class="openMenu ? 'flex-col' : 'flex-row-reverse'">
         <div class="relative z-50 flex flex-col items-end burger hover:cursor-pointer md:hidden"
-             @click="openMenu = !openMenu; window.overlay.classList.toggle('h-screen')">
+             @click="openMenu = !openMenu; window.overlay.classList.toggle('h-screen')" x-transition>
             <svg :class="openMenu ? 'fill-white' : 'fill-black'"
                  xmlns="http://www.w3.org/2000/svg"
                  width="32"

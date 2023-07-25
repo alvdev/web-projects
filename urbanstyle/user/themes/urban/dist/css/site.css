@@ -1,6 +1,6 @@
 /*@import 'yourcssfile.css';*/
 
-/*! tailwindcss v3.3.2 | MIT License | https://tailwindcss.com*/
+/*! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com*/
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -191,6 +191,10 @@ select,
 textarea {
   font-family: inherit;
   /* 1 */
+  font-feature-settings: inherit;
+  /* 1 */
+  font-variation-settings: inherit;
+  /* 1 */
   font-size: 100%;
   /* 1 */
   font-weight: inherit;
@@ -342,6 +346,14 @@ menu {
 }
 
 /*
+Reset default styling for dialogs.
+*/
+
+dialog {
+  padding: 0;
+}
+
+/*
 Prevent resizing textareas horizontally by default.
 */
 
@@ -422,7 +434,7 @@ video {
   display: none;
 }
 
-[type='text'],[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
+[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -439,7 +451,7 @@ video {
   --tw-shadow: 0 0 #0000;
 }
 
-[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
@@ -485,7 +497,7 @@ select {
           print-color-adjust: exact;
 }
 
-[multiple] {
+[multiple],[size]:where(select:not([size="1"])) {
   background-image: initial;
   background-position: initial;
   background-repeat: unset;
@@ -1655,6 +1667,10 @@ main a:hover:not(.btn)::before {
   position: fixed;
 }
 
+.\!fixed {
+  position: fixed !important;
+}
+
 .relative {
   position: relative;
 }
@@ -1675,16 +1691,12 @@ main a:hover:not(.btn)::before {
   top: 1rem;
 }
 
-.top-\[2vw\] {
-  top: 2vw;
-}
-
-.top-1 {
-  top: 0.25rem;
-}
-
 .top-\[1vw\] {
   top: 1vw;
+}
+
+.top-\[2vw\] {
+  top: 2vw;
 }
 
 .z-40 {
@@ -1710,10 +1722,6 @@ main a:hover:not(.btn)::before {
 
 .mb-0 {
   margin-bottom: 0px;
-}
-
-.mr-10 {
-  margin-right: 2.5rem;
 }
 
 .mt-0 {
@@ -1752,8 +1760,28 @@ main a:hover:not(.btn)::before {
   margin-top: 2px;
 }
 
+.mt-36 {
+  margin-top: 9rem;
+}
+
+.mt-48 {
+  margin-top: 12rem;
+}
+
 .mt-\[2vw\] {
   margin-top: 2vw;
+}
+
+.mt-\[1vw\] {
+  margin-top: 1vw;
+}
+
+.mt-\[\] {
+  margin-top: ;
+}
+
+.mt-\[1v\] {
+  margin-top: 1v;
 }
 
 .block {
@@ -1805,8 +1833,20 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
-.h-8 {
-  height: 2rem;
+.h-\[\] {
+  height: ;
+}
+
+.h-\[300px\] {
+  height: 300px;
+}
+
+.h-\[600px\] {
+  height: 600px;
+}
+
+.h-\[400px\] {
+  height: 400px;
 }
 
 .w-10 {
@@ -1823,18 +1863,6 @@ main a:hover:not(.btn)::before {
 
 .w-full {
   width: 100%;
-}
-
-.w-8 {
-  width: 2rem;
-}
-
-.w-4\/5 {
-  width: 80%;
-}
-
-.w-2\/3 {
-  width: 66.666667%;
 }
 
 .min-w-\[50vw\] {
@@ -1863,12 +1891,6 @@ main a:hover:not(.btn)::before {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.scale-75 {
-  --tw-scale-x: .75;
-  --tw-scale-y: .75;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .columns-4 {
   -moz-columns: 4;
        columns: 4;
@@ -1884,6 +1906,14 @@ main a:hover:not(.btn)::before {
 
 .grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
 }
 
 .flex-col {
@@ -1908,6 +1938,10 @@ main a:hover:not(.btn)::before {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.\!gap-4 {
+  gap: 1rem !important;
 }
 
 .gap-0 {
@@ -1938,18 +1972,6 @@ main a:hover:not(.btn)::before {
   gap: 2rem;
 }
 
-.gap-10 {
-  gap: 2.5rem;
-}
-
-.\!gap-2 {
-  gap: 0.5rem !important;
-}
-
-.\!gap-4 {
-  gap: 1rem !important;
-}
-
 .gap-x-16 {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
@@ -1963,30 +1985,30 @@ main a:hover:not(.btn)::before {
   border-radius: 0.25rem;
 }
 
-.rounded-2xl {
-  border-radius: 1rem;
-}
-
 .rounded-full {
   border-radius: 9999px;
-}
-
-.border-2 {
-  border-width: 2px;
 }
 
 .border-0 {
   border-width: 0px;
 }
 
-.border-gray-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+.border-2 {
+  border-width: 2px;
+}
+
+.\!border-0 {
+  border-width: 0px !important;
 }
 
 .border-black {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
+.border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
 .bg-black {
@@ -2033,9 +2055,9 @@ main a:hover:not(.btn)::before {
   padding: 1.5rem;
 }
 
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .py-2 {
@@ -2053,57 +2075,33 @@ main a:hover:not(.btn)::before {
   padding-bottom: 1rem;
 }
 
-.py-0 {
-  padding-top: 0px;
-  padding-bottom: 0px;
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.\!pr-8 {
+  padding-right: 2rem !important;
 }
 
 .pb-44 {
   padding-bottom: 11rem;
 }
 
-.pt-28 {
-  padding-top: 7rem;
-}
-
-.pr-8 {
-  padding-right: 2rem;
-}
-
-.pr-12 {
-  padding-right: 3rem;
-}
-
-.pr-10 {
-  padding-right: 2.5rem;
+.pl-1 {
+  padding-left: 0.25rem;
 }
 
 .pl-2 {
   padding-left: 0.5rem;
 }
 
-.pl-4 {
-  padding-left: 1rem;
+.pr-10 {
+  padding-right: 2.5rem;
 }
 
-.pl-1 {
-  padding-left: 0.25rem;
-}
-
-.pr-2 {
-  padding-right: 0.5rem;
-}
-
-.pr-4 {
-  padding-right: 1rem;
-}
-
-.pr-6 {
-  padding-right: 1.5rem;
-}
-
-.\!pr-8 {
-  padding-right: 2rem !important;
+.pt-28 {
+  padding-top: 7rem;
 }
 
 .text-center {
@@ -2220,6 +2218,22 @@ main a:hover:not(.btn)::before {
   transition-duration: 150ms;
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
 .before\:border-none::before {
   content: var(--tw-content);
   border-style: none;
@@ -2302,14 +2316,6 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
-.\[\&\>a\]\:w-4\/5>a {
-  width: 80%;
-}
-
-.\[\&\>a\]\:w-2\/3>a {
-  width: 66.666667%;
-}
-
 .\[\&\>a\]\:w-1\/2>a {
   width: 50%;
 }
@@ -2320,40 +2326,4 @@ main a:hover:not(.btn)::before {
 
 .\[\&\>span\]\:mr-1>span {
   margin-right: 0.25rem;
-}
-
-.\[\&_img\]\:h-2 img {
-  height: 0.5rem;
-}
-
-.\[\&_img\]\:h-8 img {
-  height: 2rem;
-}
-
-.\[\&_img\]\:h-6 img {
-  height: 1.5rem;
-}
-
-.\[\&_img\]\:h-2\/3 img {
-  height: 66.666667%;
-}
-
-.\[\&_img\]\:h-4\/5 img {
-  height: 80%;
-}
-
-.\[\&_img\]\:w-4 img {
-  width: 1rem;
-}
-
-.\[\&_img\]\:w-8 img {
-  width: 2rem;
-}
-
-.\[\&_img\]\:w-2\/3 img {
-  width: 66.666667%;
-}
-
-.\[\&_img\]\:w-4\/5 img {
-  width: 80%;
 }
