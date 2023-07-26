@@ -1,35 +1,47 @@
 {% extends 'partials/base.html.twig' %}
 
-{% block content %}
-    <div class="mt-24 [&>*:not(:first-child)]:mt-32">
-        <div>
-            <h2 class="font-semibold text-4xl">{{ "now"|date('d F Y', 'Europe/Madrid') }}</h2>
-            <div class="[&>*:not(:first-child)]:mt-8 [&>*]:pt-8 [&>*:not(:first-child)]:border-t [&>*]:border-gray-400">
-                {% for task in header.tasks %}
-                    {% if 'STARTED' in task.status  %}
-                        {% set status_color = 'bg-yellow-300' %}
-                    {% elseif 'PENDING' in task.status %}
-                        {% set status_color = 'bg-purple-300' %}
-                    {% elseif 'COMPLETED' in task.status %}
-                        {% set status_color = 'bg-green-400' %}
-                    {% endif %}
-                    
-                    <div class="flex justify-between">
-                        <div>
-                            <span class="text-sm text-gray-400">{{ "now"|date('H:i') }}</span>
-                            <div>{{ task.description|raw }}</div>
-                            <span class="text-sm py-2 px-3 rounded-full {{  status_color }}">{{ task.status }}</span>
-                        </div>
+{% set options = {"items": {"@self.children": ""}, "order": {"by": "date"}} %}
+{% set months = page.collection(options) %}
 
-                        <div>
-                            <span class="text-sm">Attached files</span>
-                            <div>
-                                <a href="{{ page.url|e ~ '/' ~ task.attachment }}" target="_blank">{{ page.media[attachment].cropZoom(75, 75)|first }}</a>
-                            </div>
-                        </div>
+{% block content %}
+    {% for month in months %}
+        <h2 class="font-semibold text-4xl mt-24">
+            {{ month.header.title|e }} <span class="text-base">{{ "now"|date('d F Y', 'Europe/Madrid') }}</span>
+        </h2>
+
+        {% for task in month.header.tasks %}
+            {% if 'STARTED' in task.status %}
+                {% set status_color = "bg-yellow-300" %}
+            {% elseif 'PENDING' in task.status %}
+                {% set status_color = "bg-purple-300" %}
+            {% elseif 'COMPLETED' in task.status %}
+                {% set status_color = "bg-green-400" %}
+            {% endif %}
+ 
+            <div class="task flex gap-16 justify-between mt-8 pb-8 border-b first:border-0 border-gray-400">
+                <div class="flex flex-col">
+                    <div class="text-sm text-gray-400">
+                        {{ "now"|date('H:i') }}
                     </div>
-                {% endfor %}
+                    <div>
+                        {{ task.title }}
+                    </div>
+                    <div class="{{ status_color }} text-sm py-2 px-3 rounded-full w-fit leading-none inline-block mt-2">
+                        {{ task.status }}
+                    </div>
+                </div>
+
+                <div class="flex text-lg text-gray-500 flex-1 items-center">
+                    {{ task.description }}
+                </div>
+ 
+                <div>
+                    <span class="text-sm">Attached files</span>
+                    <div>{{ page.url|e ~ '/' ~ task.attachment }}
+                        <a href="{{ page.url|e ~ '/' ~ task.attachment }}" target="_blank">{{ page.media[attachment].cropZoom(75, 75)|first }}</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        {% endfor %}
+    {% endfor %}
 {% endblock %}

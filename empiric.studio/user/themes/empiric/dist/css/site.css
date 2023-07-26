@@ -1037,6 +1037,12 @@ main a:hover:not(.btn)::before {
 .mt-8 {
   margin-top: 2rem;
 }
+.\!mt-0 {
+  margin-top: 0px !important;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
 .block {
   display: block;
 }
@@ -1088,8 +1094,15 @@ main a:hover:not(.btn)::before {
 .w-full {
   width: 100%;
 }
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
 .flex-1 {
   flex: 1 1 0%;
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
 }
 .-rotate-180 {
   --tw-rotate: -180deg;
@@ -1167,6 +1180,9 @@ main a:hover:not(.btn)::before {
 }
 .border-t-2 {
   border-top-width: 2px;
+}
+.border-b {
+  border-bottom-width: 1px;
 }
 .border-gray-400 {
   --tw-border-opacity: 1;
@@ -1249,6 +1265,9 @@ main a:hover:not(.btn)::before {
 .pt-8 {
   padding-top: 2rem;
 }
+.pb-8 {
+  padding-bottom: 2rem;
+}
 .text-center {
   text-align: center;
 }
@@ -1276,6 +1295,10 @@ main a:hover:not(.btn)::before {
   font-size: 6rem;
   line-height: 1;
 }
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -1295,6 +1318,15 @@ main a:hover:not(.btn)::before {
 }
 .leading-normal {
   line-height: 1.5;
+}
+.leading-loose {
+  line-height: 2;
+}
+.leading-none {
+  line-height: 1;
+}
+.leading-tight {
+  line-height: 1.25;
 }
 .text-gray-400 {
   --tw-text-opacity: 1;
@@ -1316,6 +1348,14 @@ main a:hover:not(.btn)::before {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(63 63 70 / var(--tw-text-opacity));
+}
+.text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(82 82 91 / var(--tw-text-opacity));
+}
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -1334,6 +1374,32 @@ main a:hover:not(.btn)::before {
 }
 .duration-500 {
   transition-duration: 500ms;
+}
+
+.first\:border-0:first-child {
+  border-width: 0px;
+}
+
+.first\:border-t-0:first-child {
+  border-top-width: 0px;
+}
+
+.first\:border-red-500:first-child {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
+.last\:border:last-child {
+  border-width: 1px;
+}
+
+.last\:border-0:last-child {
+  border-width: 0px;
+}
+
+.last\:border-red-500:last-child {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .hover\:cursor-pointer:hover {
@@ -1412,7 +1478,15 @@ main a:hover:not(.btn)::before {
   border-color: rgb(161 161 170 / var(--tw-border-opacity));
 }
 
+.\[\&\>\*\]\:p-8>* {
+  padding: 2rem;
+}
+
 .\[\&\>\*\]\:pt-8>* {
   padding-top: 2rem;
+}
+
+.\[\&\>\*\]\:pb-8>* {
+  padding-bottom: 2rem;
 }
 
