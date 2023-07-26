@@ -1,0 +1,92 @@
+extends@:
+  type: default
+  context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            pages.dateformat.short:
+              type: dateformat
+              label: DEFAULT.MONTH
+              style: vertical
+              options:
+                "F \\d\\e Y": Date1
+
+            header.title:
+              type: text
+              autofocus: true
+              ordering@: pages.dateformat.short
+
+            header.subtitle:
+              type: textarea
+              label: DEFAULT.SUBTITLE
+              style: vertical
+              ordering@: header.title
+              validate:
+                type: textarea
+
+            header.description:
+              type: textarea
+              label: DEFAULT.DESCRIPTION
+              style: vertical
+              ordering@: header.subtitle
+              validate:
+                type: textarea
+
+            header.tasks:
+              type: list
+              name: DEFAULT.TASKS
+              label: DEFAULT.TASKS
+              style: vertical
+              ordering@: header.description
+              fields:
+                .columns:
+                  type: columns
+                  fields:
+                    column1:
+                      type: column
+                      fields:
+                        .description:
+                          type: textarea
+                          label: DEFAULT.DESCRIPTION
+                          style: vertical
+
+                    column2:
+                      type: column
+
+                      fields:
+                        header.attachment:
+                          type: filepicker
+                          label: DEFAULT.ATTACHMENT
+                          preview_images: true
+                          accept:
+                            - "*"
+
+                        .status:
+                          type: select
+                          label: DEFAULT.STATUS
+                          value_only: true
+                          options:
+                            DEFAULT.STARTED: DEFAULT.STARTED
+                            DEFAULT.PENDING: DEFAULT.PENDING
+                            DEFAULT.COMPLETED: DEFAULT.COMPLETED
+
+                        .department:
+                          type: select
+                          label: DEFAULT.DEPT
+                          options:
+                            0: DEFAULT.SEO
+                            1: DEFAULT.DEPT2
+
+            header.media_order:
+              ordering@: header.tasks
+
+            content:
+              unset@: true

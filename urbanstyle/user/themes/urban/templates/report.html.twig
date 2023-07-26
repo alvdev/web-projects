@@ -10,12 +10,48 @@
             {{ page.content|raw }}
         </div>
 
-        <section class="container mt-24 looker">
+        <section class="looker container mt-24">
             <iframe width="100%"
                     height="100%"
                     src="https://lookerstudio.google.com/embed/reporting/c0e17222-9e30-42b7-a605-969061c1e22a/page/GDdc"
                     frameborder="0"
                     scrolling="no"></iframe>
+        </section>
+
+        <section class="container mt-24 [&>*:not(:first-child)]:mt-32">
+            <div>
+                <h2 class="font-semibold text-4xl">
+                    {{ "now"|date('d F Y', 'Europe/Madrid') }}
+                </h2>
+                <div class="[&>*:not(:first-child)]:mt-8 [&>*]:pt-8 [&>*:not(:first-child)]:border-t [&>*]:border-gray-400">
+                    {% for task in header.tasks %}
+                        {% if 'STARTED' in task.status %}
+                            {% set status_color = "bg-yellow-300" %}
+                        {% elseif 'PENDING' in task.status %}
+                            {% set status_color = "bg-purple-300" %}
+                        {% elseif 'COMPLETED' in task.status %}
+                            {% set status_color = "bg-green-400" %}
+                        {% endif %}
+ 
+                        <div class="flex justify-between">
+                            <div>
+                                <span class="text-sm text-gray-400">{{ "now"|date('H:i') }}</span>
+                                <div>
+                                    {{ task.description|raw }}
+                                </div>
+                                <span class="text-sm py-2 px-3 rounded-full {{ status_color }}">{{ task.status }}</span>
+                            </div>
+
+                            <div>
+                                <span class="text-sm">Attached files</span>
+                                <div>
+                                    <a href="{{ page.url|e ~ '/' ~ task.attachment }}" target="_blank">{{ page.media[attachment].cropZoom(75, 75)|first }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </section>
     </main>
 {% endblock %}

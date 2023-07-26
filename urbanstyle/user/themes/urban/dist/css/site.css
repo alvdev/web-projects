@@ -1982,6 +1982,21 @@ main a:hover:not(.btn)::before {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
+.bg-purple-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(216 180 254 / var(--tw-bg-opacity));
+}
+
+.bg-yellow-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -2035,6 +2050,11 @@ main a:hover:not(.btn)::before {
 .\!py-1 {
   padding-top: 0.25rem !important;
   padding-bottom: 0.25rem !important;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .\!pr-8 {
@@ -2100,6 +2120,16 @@ main a:hover:not(.btn)::before {
   line-height: 1rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-semibold {
   font-weight: 600;
 }
@@ -2143,6 +2173,11 @@ main a:hover:not(.btn)::before {
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .no-underline {
@@ -2292,8 +2327,29 @@ main a:hover:not(.btn)::before {
   }
 }
 
+.\[\&\>\*\:not\(\:first-child\)\]\:mt-32>*:not(:first-child) {
+  margin-top: 8rem;
+}
+
+.\[\&\>\*\:not\(\:first-child\)\]\:mt-8>*:not(:first-child) {
+  margin-top: 2rem;
+}
+
+.\[\&\>\*\:not\(\:first-child\)\]\:border-t>*:not(:first-child) {
+  border-top-width: 1px;
+}
+
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
+}
+
+.\[\&\>\*\]\:border-gray-400>* {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
+}
+
+.\[\&\>\*\]\:pt-8>* {
+  padding-top: 2rem;
 }
 
 .\[\&\>a\]\:w-1\/2>a {
