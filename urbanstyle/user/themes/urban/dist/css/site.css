@@ -1708,6 +1708,21 @@ main a:hover:not(.btn)::before {
   margin-right: auto;
 }
 
+.mx-\[\] {
+  margin-left: ;
+  margin-right: ;
+}
+
+.mx-\[4\%\] {
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+.mx-\[2\%\] {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
 .-mt-32 {
   margin-top: -8rem;
 }
@@ -1968,6 +1983,16 @@ main a:hover:not(.btn)::before {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
+.bg-purple-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(216 180 254 / var(--tw-bg-opacity));
+}
+
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
@@ -1980,16 +2005,6 @@ main a:hover:not(.btn)::before {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-green-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
-}
-
-.bg-purple-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(216 180 254 / var(--tw-bg-opacity));
 }
 
 .bg-yellow-300 {
@@ -2022,9 +2037,19 @@ main a:hover:not(.btn)::before {
   padding: 1.5rem;
 }
 
-.py-0 {
-  padding-top: 0px;
-  padding-bottom: 0px;
+.\!py-0 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.\!py-1 {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .py-2 {
@@ -2042,31 +2067,16 @@ main a:hover:not(.btn)::before {
   padding-bottom: 1rem;
 }
 
-.\!py-0 {
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
+.\!pl-1 {
+  padding-left: 0.25rem !important;
 }
 
-.\!py-1 {
-  padding-top: 0.25rem !important;
-  padding-bottom: 0.25rem !important;
-}
-
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.\!pr-8 {
-  padding-right: 2rem !important;
+.\!pr-6 {
+  padding-right: 1.5rem !important;
 }
 
 .pb-44 {
   padding-bottom: 11rem;
-}
-
-.pl-1 {
-  padding-left: 0.25rem;
 }
 
 .pl-2 {
@@ -2079,18 +2089,6 @@ main a:hover:not(.btn)::before {
 
 .pt-28 {
   padding-top: 7rem;
-}
-
-.\!pl-1 {
-  padding-left: 0.25rem !important;
-}
-
-.\!pr-4 {
-  padding-right: 1rem !important;
-}
-
-.\!pr-6 {
-  padding-right: 1.5rem !important;
 }
 
 .text-center {
@@ -2106,6 +2104,11 @@ main a:hover:not(.btn)::before {
   line-height: 2rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .text-\[1\.2rem\] {
   font-size: 1.2rem;
 }
@@ -2115,19 +2118,14 @@ main a:hover:not(.btn)::before {
   line-height: 1.5rem;
 }
 
-.text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .font-semibold {
@@ -2155,6 +2153,11 @@ main a:hover:not(.btn)::before {
   color: currentColor;
 }
 
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
@@ -2173,11 +2176,6 @@ main a:hover:not(.btn)::before {
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
-}
-
-.text-gray-400 {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .no-underline {
@@ -2226,14 +2224,6 @@ main a:hover:not(.btn)::before {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-}
-
-.duration-500 {
-  transition-duration: 500ms;
-}
-
-.ease-linear {
-  transition-timing-function: linear;
 }
 
 .before\:border-none::before {
@@ -2306,10 +2296,6 @@ main a:hover:not(.btn)::before {
     padding-right: 2rem !important;
   }
 
-  .md\:\!pl-1 {
-    padding-left: 0.25rem !important;
-  }
-
   .md\:text-black {
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2354,12 +2340,6 @@ main a:hover:not(.btn)::before {
 
 .\[\&\>a\]\:w-1\/2>a {
   width: 50%;
-}
-
-.\[\&\>a\]\:transition-all>a {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }
 
 .\[\&\>div\]\:border-2>div {
