@@ -1828,6 +1828,15 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
+.h-min {
+  height: -moz-min-content;
+  height: min-content;
+}
+
+.h-\[50vh\] {
+  height: 50vh;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -1871,6 +1880,16 @@ main a:hover:not(.btn)::before {
        columns: 4;
 }
 
+.columns-3 {
+  -moz-columns: 3;
+       columns: 3;
+}
+
+.columns-2 {
+  -moz-columns: 2;
+       columns: 2;
+}
+
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1881,6 +1900,10 @@ main a:hover:not(.btn)::before {
 
 .grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .flex-row-reverse {
@@ -1960,12 +1983,24 @@ main a:hover:not(.btn)::before {
   border-radius: 9999px;
 }
 
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
 .border-0 {
   border-width: 0px;
 }
 
 .border-2 {
   border-width: 2px;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .border-black {
@@ -2012,6 +2047,26 @@ main a:hover:not(.btn)::before {
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
+.bg-red-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(153 27 27 / var(--tw-bg-opacity));
+}
+
+.bg-red-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(127 29 29 / var(--tw-bg-opacity));
+}
+
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -2035,6 +2090,10 @@ main a:hover:not(.btn)::before {
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .\!py-0 {
@@ -2128,6 +2187,31 @@ main a:hover:not(.btn)::before {
   line-height: 1rem;
 }
 
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .font-semibold {
   font-weight: 600;
 }
@@ -2200,6 +2284,23 @@ main a:hover:not(.btn)::before {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.drop-shadow-xl {
+  --tw-drop-shadow: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .backdrop-blur {
   --tw-backdrop-blur: blur(8px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -2224,6 +2325,22 @@ main a:hover:not(.btn)::before {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.\[text-shadow\:0_0_10px_black\] {
+  text-shadow: 0 0 10px black;
+}
+
+.\[text-shadow\:_0_0_10px_black\] {
+  text-shadow: 0 0 10px black;
+}
+
+.\[text-shadow\:_0_0_50px_black\] {
+  text-shadow: 0 0 50px black;
+}
+
+.\[text-shadow\:_0_0_100px_black\] {
+  text-shadow: 0 0 100px black;
 }
 
 .before\:border-none::before {
@@ -2269,6 +2386,11 @@ main a:hover:not(.btn)::before {
   .md\:min-w-max {
     min-width: -moz-max-content;
     min-width: max-content;
+  }
+
+  .md\:columns-3 {
+    -moz-columns: 3;
+         columns: 3;
   }
 
   .md\:grid-cols-4 {
