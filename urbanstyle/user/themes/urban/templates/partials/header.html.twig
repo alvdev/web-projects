@@ -1,4 +1,6 @@
-<header class="header">
+{% set isTorn = page.home ? 'torn relative after:absolute after:w-full after:h-8 after:-bottom-6' : '' %}
+
+<header class="{{ isTorn }}">
     {% block header_navigation %}
         {% include 'partials/navigation.html.twig' %}
     {% endblock %}
