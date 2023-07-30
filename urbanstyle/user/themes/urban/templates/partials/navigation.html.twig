@@ -1,14 +1,9 @@
 {% import "macros/menu.html.twig" as menu %}
 
-{% set hasHero = page.home or page.template == 'contact' ? '!fixed' : 'static' %}
+{% set hasHero = page.home or page.template == 'contact' or page.template == 'gallery' ? '!fixed' : 'static' %}
 
 <nav x-data="{openMenu: false, wideNav: false}"
-     :class="{
-        'bg-transparent border-0 mt-[2vw]': openMenu,
-        'bg-white bg-opacity-70 backdrop-blur-md overflow-hidden border rounded-full border-black transition-all': !openMenu,
-        'static mt-[2vw]': !wideNav,
-        'fixed shadow-lg !bg-opacity-80 mt-[1vw] !pr-6 !pl-1 !py-1 md:!pr-8 md:!py-0': wideNav && !openMenu
-        }"
+     :class="{ 'bg-transparent border-0 mt-[2vw]': openMenu, 'bg-white bg-opacity-70 backdrop-blur-md overflow-hidden border rounded-full border-black transition-all': !openMenu, 'static mt-[2vw]': !wideNav, 'fixed shadow-lg !bg-opacity-80 mt-[1vw] !pr-6 !pl-1 !py-1 md:!pr-8 md:!py-0': wideNav && !openMenu }"
      class="{{ hasHero }} container left-0 right-0 w-[96%] flex justify-between items-center pr-10 pl-2 py-2 md:gap-16 z-40"
      @scroll.window="wideNav = window.scrollY > 0 ? true : false">
     <div class="z-40 flex items-center gap-8 transition-all"
@@ -20,9 +15,11 @@
         {% endif %}
     </div>
 
-    <div class="flex gap-8 md:flex-row items-right" :class="openMenu ? 'flex-col' : 'flex-row-reverse'">
+    <div class="flex gap-8 md:flex-row items-right"
+         :class="openMenu ? 'flex-col' : 'flex-row-reverse'">
         <div class="relative z-50 flex flex-col items-end burger hover:cursor-pointer md:hidden"
-             @click="openMenu = !openMenu; window.overlay.classList.toggle('h-screen')" x-transition>
+             @click="openMenu = !openMenu; window.overlay.classList.toggle('h-screen')"
+             x-transition>
             <svg :class="openMenu ? 'fill-white' : 'fill-black'"
                  xmlns="http://www.w3.org/2000/svg"
                  width="32"

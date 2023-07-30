@@ -1,8 +1,16 @@
 {% extends 'partials/base.html.twig' %}
 
 {% block content %}
-    <main class="flex-1 prose prose-xl max-w-none mt-28">
-        <div class="container">
+    <main class="flex-1 prose prose-xl max-w-none">
+        <section class="video torn relative after:absolute after:w-full after:h-8 after:-bottom-6">
+            <video src="{{ url('theme://video/pegada-de-carteles-video.mp4') }}"
+                   autoplay
+                   loop
+                   muted
+                   class="w-full m-0 aspect-video">
+            </video>
+        </section>
+        <div class="container mt-28">
             <h1>
                 {{ page.title }}
             </h1>

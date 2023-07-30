@@ -10,7 +10,8 @@
     }
 
     header.torn:after,
-    footer.torn:before {
+    footer.torn:before,
+    .video.torn:after {
         background: url(../images/torn-paper.svg) repeat-x bottom;
     }
 

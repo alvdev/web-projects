@@ -610,7 +610,8 @@ body {
 }
 
 header.torn:after,
-    footer.torn:before {
+    footer.torn:before,
+    .video.torn:after {
   background: url(../images/torn-paper.svg) repeat-x bottom;
 }
 
@@ -1692,8 +1693,16 @@ main a:hover:not(.btn)::before {
   position: fixed;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .relative {
   position: relative;
+}
+
+.inset-0 {
+  inset: 0px;
 }
 
 .left-0 {
@@ -1722,6 +1731,16 @@ main a:hover:not(.btn)::before {
 
 .m-0 {
   margin: 0px;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .-mt-32 {
@@ -1776,6 +1795,14 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
+.ml-\[2vw\] {
+  margin-left: 2vw;
+}
+
+.ml-\[4\%\] {
+  margin-left: 4%;
+}
+
 .block {
   display: block;
 }
@@ -1798,6 +1825,10 @@ main a:hover:not(.btn)::before {
 
 .hidden {
   display: none;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
 }
 
 .h-0 {
@@ -1833,6 +1864,10 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
+.h-4 {
+  height: 1rem;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -1849,6 +1884,20 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
+.w-4 {
+  width: 1rem;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-max {
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .min-w-\[50vw\] {
   min-width: 50vw;
 }
@@ -1859,6 +1908,16 @@ main a:hover:not(.btn)::before {
 
 .max-w-none {
   max-width: none;
+}
+
+.max-w-max {
+  max-width: -moz-max-content;
+  max-width: max-content;
+}
+
+.max-w-min {
+  max-width: -moz-min-content;
+  max-width: min-content;
 }
 
 .flex-1 {
@@ -1989,6 +2048,11 @@ main a:hover:not(.btn)::before {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .bg-black {
@@ -2289,6 +2353,16 @@ main a:hover:not(.btn)::before {
   bottom: -1.5rem;
 }
 
+.after\:-top-6::after {
+  content: var(--tw-content);
+  top: -1.5rem;
+}
+
+.after\:bottom-6::after {
+  content: var(--tw-content);
+  bottom: 1.5rem;
+}
+
 .after\:h-8::after {
   content: var(--tw-content);
   height: 2rem;
@@ -2297,6 +2371,23 @@ main a:hover:not(.btn)::before {
 .after\:w-full::after {
   content: var(--tw-content);
   width: 100%;
+}
+
+.after\:rotate-180::after {
+  content: var(--tw-content);
+  --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.after\:border-4::after {
+  content: var(--tw-content);
+  border-width: 4px;
+}
+
+.after\:border-red-500::after {
+  content: var(--tw-content);
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .hover\:scale-125:hover {
