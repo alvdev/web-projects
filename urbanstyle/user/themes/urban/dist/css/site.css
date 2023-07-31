@@ -1679,6 +1679,11 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
+.v-stripes {
+  color: white;
+  background: repeating-linear-gradient(90deg, #a1a1aa, #a1a1aa 15px, #fff 15px, #fff 25px);
+}
+
 .visible {
   visibility: visible;
 }
@@ -1748,6 +1753,10 @@ main a:hover:not(.btn)::before {
   margin-bottom: -0.75rem;
 }
 
+.-mb-\[10px\] {
+  margin-bottom: -10px;
+}
+
 .-mt-32 {
   margin-top: -8rem;
 }
@@ -1804,12 +1813,12 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
-.-mb-\[10px\] {
-  margin-bottom: -10px;
-}
-
 .block {
   display: block;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .inline {
@@ -1889,12 +1898,13 @@ main a:hover:not(.btn)::before {
   width: 96%;
 }
 
-.w-full {
-  width: 100%;
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
-.w-1\/2 {
-  width: 50%;
+.w-full {
+  width: 100%;
 }
 
 .min-w-\[50vw\] {
@@ -1926,11 +1936,6 @@ main a:hover:not(.btn)::before {
 .rotate-1 {
   --tw-rotate: 1deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.columns-2 {
-  -moz-columns: 2;
-       columns: 2;
 }
 
 .auto-rows-min {
@@ -1979,10 +1984,6 @@ main a:hover:not(.btn)::before {
 
 .\!gap-4 {
   gap: 1rem !important;
-}
-
-.gap-0 {
-  gap: 0px;
 }
 
 .gap-16 {
@@ -2082,14 +2083,9 @@ main a:hover:not(.btn)::before {
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
-.bg-gray-400 {
+.bg-zinc-400 {
   --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
-}
-
-.bg-gray-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  background-color: rgb(161 161 170 / var(--tw-bg-opacity));
 }
 
 .\!bg-opacity-80 {
@@ -2138,6 +2134,11 @@ main a:hover:not(.btn)::before {
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.px-\[4\%\] {
+  padding-left: 4%;
+  padding-right: 4%;
 }
 
 .py-2 {
@@ -2206,6 +2207,11 @@ main a:hover:not(.btn)::before {
   line-height: 1;
 }
 
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
+}
+
 .text-9xl {
   font-size: 8rem;
   line-height: 1;
@@ -2230,16 +2236,6 @@ main a:hover:not(.btn)::before {
   line-height: 1rem;
 }
 
-.text-8xl {
-  font-size: 6rem;
-  line-height: 1;
-}
-
-.text-7xl {
-  font-size: 4.5rem;
-  line-height: 1;
-}
-
 .font-semibold {
   font-weight: 600;
 }
@@ -2254,6 +2250,10 @@ main a:hover:not(.btn)::before {
 
 .leading-snug {
   line-height: 1.375;
+}
+
+.leading-tight {
+  line-height: 1.25;
 }
 
 .text-black {
@@ -2312,33 +2312,13 @@ main a:hover:not(.btn)::before {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.drop-shadow-\[10px_-10px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
-  --tw-drop-shadow: drop-shadow(10px -10px 20px rgba(0,0,0,0.3));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[0px_-10px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
-  --tw-drop-shadow: drop-shadow(0px -10px 20px rgba(0,0,0,0.3));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[0px_0px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
-  --tw-drop-shadow: drop-shadow(0px 0px 20px rgba(0,0,0,0.3));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[0px_0px_20px_rgba\(0\2c 0\2c 0\2c 1\)\] {
-  --tw-drop-shadow: drop-shadow(0px 0px 20px rgba(0,0,0,1));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[0px_0px_10px_rgba\(0\2c 0\2c 0\2c 1\)\] {
-  --tw-drop-shadow: drop-shadow(0px 0px 10px rgba(0,0,0,1));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .drop-shadow-\[0px_0px_5px_rgba\(0\2c 0\2c 0\2c 1\)\] {
   --tw-drop-shadow: drop-shadow(0px 0px 5px rgba(0,0,0,1));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.drop-shadow-\[10px_-10px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
+  --tw-drop-shadow: drop-shadow(10px -10px 20px rgba(0,0,0,0.3));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -2366,6 +2346,10 @@ main a:hover:not(.btn)::before {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.\[text-wrap\:balance\] {
+  text-wrap: balance;
 }
 
 .before\:absolute::before {
@@ -2454,26 +2438,17 @@ main a:hover:not(.btn)::before {
     height: 100%;
   }
 
-  .md\:w-1\/2 {
-    width: 50%;
-  }
-
   .md\:min-w-max {
     min-width: -moz-max-content;
     min-width: max-content;
   }
 
-  .md\:columns-3 {
-    -moz-columns: 3;
-         columns: 3;
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:flex-row {
@@ -2515,6 +2490,28 @@ main a:hover:not(.btn)::before {
   .lg\:gap-x-24 {
     -moz-column-gap: 6rem;
          column-gap: 6rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:\!m-0 {
+    margin: 0px !important;
+  }
+
+  .xl\:m-0 {
+    margin: 0px;
+  }
+
+  .xl\:flex {
+    display: flex;
+  }
+
+  .xl\:gap-12 {
+    gap: 3rem;
+  }
+
+  .xl\:text-right {
+    text-align: right;
   }
 }
 

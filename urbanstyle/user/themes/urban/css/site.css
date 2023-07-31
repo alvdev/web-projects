@@ -122,4 +122,14 @@
     .looker embed {
         @apply absolute left-0 top-0 h-full w-full;
     }
+
+    .d-stripes {
+        color: white;
+        background: repeating-linear-gradient(45deg, black, black 15px, #fff 15px, #fff 25px);
+    }
+
+    .v-stripes {
+        color: white;
+        background: repeating-linear-gradient(90deg, #a1a1aa, #a1a1aa 15px, #fff 15px, #fff 25px);
+    }
 }
