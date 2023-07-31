@@ -1,2 +1,5 @@
-DEFAULT:
+THEME_URBAN:
+    ERROR: "Error!"
+
+THEME:
     REPORTS: informes
