@@ -1,11 +1,18 @@
 {% extends 'partials/base.html.twig' %}
 
 {% block content %}
-    <main class="flex-1 prose prose-xl max-w-none mt-28">
+    <main class="flex-1 prose prose-xl max-w-none">
+        <section class="video torn relative after:absolute after:w-full after:h-8 after:-bottom-6">
+            <div class="absolute flex items-end h-full align-text-bottom lg:w-1/2 ml-[4%]">
+                <h1 class="text-white text-8xl uppercase -mb-[10px] drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]">
+                    Una pegada de carteles de 5 estrellas
+                </h1>
+            </div>
+            <img class="m-0 h-[75vh] w-full object-cover"
+                 src="{{ url('theme://images/headers/pegando-carteles.webp') }}"
+                 alt="">
+        </section>
         <section class="container">
-            <h1>
-                Una pegada de carteles de 5 estrellas
-            </h1>
             <p>
                 La pegada de carteles es una acción con un gran impacto, ideal para eventos, conciertos, teatros, acciones de marca
                 lanzamientos discográficos, comercios, ferias de muestras, exposiciones, etc. Realizamos la fijación de carteles en el
@@ -54,7 +61,9 @@
                     <h2 class="mt-0 text-white text-6xl">
                         Algunas de nuestras pegadas de carteles
                     </h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda veniam consequuntur, deleniti nam, dolore odio aliquam quia necessitatibus ab ut laboriosam autem debitis provident minus, tenetur quasi. Dolores, cumque molestias!</p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda veniam consequuntur, deleniti nam, dolore odio aliquam quia necessitatibus ab ut laboriosam autem debitis provident minus, tenetur quasi. Dolores, cumque molestias!
+                    </p>
                 </div>
             </div>
             <div class="container -mt-32">
