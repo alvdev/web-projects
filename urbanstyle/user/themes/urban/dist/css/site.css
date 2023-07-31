@@ -1721,18 +1721,6 @@ main a:hover:not(.btn)::before {
   top: 1rem;
 }
 
-.bottom-0 {
-  bottom: 0px;
-}
-
-.bottom-0\.5 {
-  bottom: 0.125rem;
-}
-
-.end-0 {
-  inset-inline-end: 0px;
-}
-
 .z-40 {
   z-index: 40;
 }
@@ -1748,6 +1736,10 @@ main a:hover:not(.btn)::before {
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.-mb-3 {
+  margin-bottom: -0.75rem;
 }
 
 .-mt-32 {
@@ -1806,22 +1798,6 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
-.mt-1 {
-  margin-top: 0.25rem;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.-mb-2 {
-  margin-bottom: -0.5rem;
-}
-
-.-mb-3 {
-  margin-bottom: -0.75rem;
-}
-
 .block {
   display: block;
 }
@@ -1866,8 +1842,12 @@ main a:hover:not(.btn)::before {
   height: 400px;
 }
 
-.h-\[50vh\] {
-  height: 50vh;
+.h-\[40vh\] {
+  height: 40vh;
+}
+
+.h-\[75vh\] {
+  height: 75vh;
 }
 
 .h-auto {
@@ -1887,18 +1867,6 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
-.h-\[25vh\] {
-  height: 25vh;
-}
-
-.h-\[30vh\] {
-  height: 30vh;
-}
-
-.h-\[40vh\] {
-  height: 40vh;
-}
-
 .w-10 {
   width: 2.5rem;
 }
@@ -1913,10 +1881,6 @@ main a:hover:not(.btn)::before {
 
 .w-full {
   width: 100%;
-}
-
-.w-1\/2 {
-  width: 50%;
 }
 
 .min-w-\[50vw\] {
@@ -2044,10 +2008,6 @@ main a:hover:not(.btn)::before {
   border-radius: 9999px;
 }
 
-.rounded-xl {
-  border-radius: 0.75rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -2116,25 +2076,12 @@ main a:hover:not(.btn)::before {
   --tw-bg-opacity: 0.7;
 }
 
-.bg-contain {
-  background-size: contain;
-}
-
-.bg-cover {
-  background-size: cover;
-}
-
 .fill-black {
   fill: #000;
 }
 
 .fill-white {
   fill: #fff;
-}
-
-.object-contain {
-  -o-object-fit: contain;
-     object-fit: contain;
 }
 
 .object-cover {
@@ -2227,6 +2174,11 @@ main a:hover:not(.btn)::before {
   line-height: 1;
 }
 
+.text-9xl {
+  font-size: 8rem;
+  line-height: 1;
+}
+
 .text-\[1\.2rem\] {
   font-size: 1.2rem;
 }
@@ -2246,31 +2198,8 @@ main a:hover:not(.btn)::before {
   line-height: 1rem;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-8xl {
-  font-size: 6rem;
-  line-height: 1;
-}
-
-.text-9xl {
-  font-size: 8rem;
-  line-height: 1;
-}
-
 .font-semibold {
   font-weight: 600;
-}
-
-.font-bold {
-  font-weight: 700;
-}
-
-.font-extrabold {
-  font-weight: 800;
 }
 
 .uppercase {
@@ -2323,10 +2252,6 @@ main a:hover:not(.btn)::before {
   text-decoration-line: none;
 }
 
-.decoration-purple-900 {
-  text-decoration-color: #581c87;
-}
-
 .shadow-\[-20px_60px_60px_rgba\(0\2c 0\2c 0\2c 0\.5\)\] {
   --tw-shadow: -20px 60px 60px rgba(0,0,0,0.5);
   --tw-shadow-colored: -20px 60px 60px var(--tw-shadow-color);
@@ -2343,56 +2268,6 @@ main a:hover:not(.btn)::before {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.drop-shadow {
-  --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-lg {
-  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-xl {
-  --tw-drop-shadow: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[10px_0px_20px_rgba\(0\2c 0\2c 040\%\)\] {
-  --tw-drop-shadow: drop-shadow(10px 0px 20px rgba(0,0,040%));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[10px_0px_20px_rgba\(0\2c 0\2c 0\2c 40\%\)\] {
-  --tw-drop-shadow: drop-shadow(10px 0px 20px rgba(0,0,0,40%));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[10px_0px_20px_rgba\(0\2c 0\2c 0\2c 0\.4\)\] {
-  --tw-drop-shadow: drop-shadow(10px 0px 20px rgba(0,0,0,0.4));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[10px_0px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
-  --tw-drop-shadow: drop-shadow(10px 0px 20px rgba(0,0,0,0.3));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[10px_10px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
-  --tw-drop-shadow: drop-shadow(10px 10px 20px rgba(0,0,0,0.3));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[10px_20px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
-  --tw-drop-shadow: drop-shadow(10px 20px 20px rgba(0,0,0,0.3));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[10px_-20px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
-  --tw-drop-shadow: drop-shadow(10px -20px 20px rgba(0,0,0,0.3));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .drop-shadow-\[10px_-10px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
