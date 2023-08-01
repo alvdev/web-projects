@@ -46,7 +46,6 @@ form:
 
                 .attachment:
                   type: filepicker
-                  folder: self@
                   label: DEFAULT.ATTACHMENT
                   preview_images: true
                   accept:

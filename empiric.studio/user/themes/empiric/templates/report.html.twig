@@ -8,7 +8,7 @@
         <h2 class="font-semibold text-4xl mt-24">
             {{ month.header.title|e }} <span class="text-base">{{ "now"|date('d F Y', 'Europe/Madrid') }}</span>
         </h2>
-
+ 
         {% for task in month.header.tasks %}
             {% if 'STARTED' in task.status %}
                 {% set status_color = "bg-yellow-300" %}
@@ -35,11 +35,12 @@
                     {{ task.description }}
                 </div>
  
-                <div>
-                    <span class="text-sm">Attached files</span>
-                    <div>
-                        {{ page.url|e ~ '/' ~ task.attachment }}
-                        <a href="{{ page.url|e ~ '/' ~ task.attachment }}" target="_blank">{{ page.media[attachment].cropZoom(75, 75)|first }}</a>
+                <div class="flex flex-col items-end place-content-between">
+                    <span class="text-sm text-gray-400">Attached files</span>
+                    <div class="flex justify-end">
+                        <a href="{{ month.media[task.attachment].url }}" class="text-sm">
+                            {{ month.media[task.attachment].cropZoom(50, 50)|raw }}
+                        </a>
                     </div>
                 </div>
             </div>
