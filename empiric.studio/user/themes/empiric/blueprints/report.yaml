@@ -32,9 +32,14 @@ form:
               style: vertical
               ordering@: header.month
               fields:
+                .time:
+                  type: time
+                  label: DEFAULT.TASK.TIME
+
                 .title:
                   type: text
                   label: DEFAULT.TASK.TITLE
+
                 .description:
                   type: textarea
                   label: DEFAULT.TASK.DESCRIPTION
