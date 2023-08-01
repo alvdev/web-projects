@@ -6,7 +6,7 @@
 {% block content %}
     {% for month in months %}
         <h2 class="font-semibold text-4xl mt-24">
-            {{ month.header.title|e }} <span class="text-base">{{ "now"|date('d F Y', 'Europe/Madrid') }}</span>
+            {{ month.header.title|date("F Y") }}
         </h2>
  
         {% for task in month.header.tasks %}

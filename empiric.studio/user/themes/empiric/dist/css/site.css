@@ -1,6 +1,6 @@
 /*@import 'yourcssfile.css';*/
 
-/*! tailwindcss v3.3.2 | MIT License | https://tailwindcss.com*/
+/*! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com*/
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -169,6 +169,8 @@ optgroup,
 select,
 textarea {
   font-family: inherit; /* 1 */
+  font-feature-settings: inherit; /* 1 */
+  font-variation-settings: inherit; /* 1 */
   font-size: 100%; /* 1 */
   font-weight: inherit; /* 1 */
   line-height: inherit; /* 1 */
@@ -307,6 +309,14 @@ menu {
 }
 
 /*
+Reset default styling for dialogs.
+*/
+
+dialog {
+  padding: 0;
+}
+
+/*
 Prevent resizing textareas horizontally by default.
 */
 
@@ -381,7 +391,7 @@ video {
   display: none;
 }
 
-[type='text'],[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
+[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -398,7 +408,7 @@ video {
   --tw-shadow: 0 0 #0000;
 }
 
-[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
@@ -444,7 +454,7 @@ select {
           print-color-adjust: exact;
 }
 
-[multiple] {
+[multiple],[size]:where(select:not([size="1"])) {
   background-image: initial;
   background-position: initial;
   background-repeat: unset;
@@ -1019,6 +1029,9 @@ main a:hover:not(.btn)::before {
 .mt-16 {
   margin-top: 4rem;
 }
+.mt-2 {
+  margin-top: 0.5rem;
+}
 .mt-20 {
   margin-top: 5rem;
 }
@@ -1036,12 +1049,6 @@ main a:hover:not(.btn)::before {
 }
 .mt-8 {
   margin-top: 2rem;
-}
-.\!mt-0 {
-  margin-top: 0px !important;
-}
-.mt-2 {
-  margin-top: 0.5rem;
 }
 .block {
   display: block;
@@ -1091,18 +1098,29 @@ main a:hover:not(.btn)::before {
 .w-40 {
   width: 10rem;
 }
-.w-full {
-  width: 100%;
-}
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
 }
+.w-full {
+  width: 100%;
+}
+.w-1\/3 {
+  width: 33.333333%;
+}
+.w-max {
+  width: -moz-max-content;
+  width: max-content;
+}
+.w-min {
+  width: -moz-min-content;
+  width: min-content;
+}
+.max-w-sm {
+  max-width: 24rem;
+}
 .flex-1 {
   flex: 1 1 0%;
-}
-.flex-shrink-0 {
-  flex-shrink: 0;
 }
 .-rotate-180 {
   --tw-rotate: -180deg;
@@ -1124,6 +1142,9 @@ main a:hover:not(.btn)::before {
 .flex-col {
   flex-direction: column;
 }
+.place-content-end {
+  place-content: end;
+}
 .place-content-between {
   place-content: space-between;
 }
@@ -1133,11 +1154,17 @@ main a:hover:not(.btn)::before {
 .content-center {
   align-content: center;
 }
+.content-between {
+  align-content: space-between;
+}
 .items-end {
   align-items: flex-end;
 }
 .items-center {
   align-items: center;
+}
+.justify-end {
+  justify-content: flex-end;
 }
 .justify-center {
   justify-content: center;
@@ -1175,14 +1202,14 @@ main a:hover:not(.btn)::before {
 .border-0 {
   border-width: 0px;
 }
+.border-b {
+  border-bottom-width: 1px;
+}
 .border-t {
   border-top-width: 1px;
 }
 .border-t-2 {
   border-top-width: 2px;
-}
-.border-b {
-  border-bottom-width: 1px;
 }
 .border-gray-400 {
   --tw-border-opacity: 1;
@@ -1227,6 +1254,10 @@ main a:hover:not(.btn)::before {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.object-right {
+  -o-object-position: right;
+     object-position: right;
+}
 .p-4 {
   padding: 1rem;
 }
@@ -1253,6 +1284,9 @@ main a:hover:not(.btn)::before {
 .pb-36 {
   padding-bottom: 9rem;
 }
+.pb-8 {
+  padding-bottom: 2rem;
+}
 .pl-40 {
   padding-left: 10rem;
 }
@@ -1265,11 +1299,11 @@ main a:hover:not(.btn)::before {
 .pt-8 {
   padding-top: 2rem;
 }
-.pb-8 {
-  padding-bottom: 2rem;
-}
 .text-center {
   text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -1316,17 +1350,11 @@ main a:hover:not(.btn)::before {
 .uppercase {
   text-transform: uppercase;
 }
-.leading-normal {
-  line-height: 1.5;
-}
-.leading-loose {
-  line-height: 2;
-}
 .leading-none {
   line-height: 1;
 }
-.leading-tight {
-  line-height: 1.25;
+.leading-normal {
+  line-height: 1.5;
 }
 .text-gray-400 {
   --tw-text-opacity: 1;
@@ -1348,13 +1376,18 @@ main a:hover:not(.btn)::before {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.text-gray-700 {
-  --tw-text-opacity: 1;
-  color: rgb(63 63 70 / var(--tw-text-opacity));
-}
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(82 82 91 / var(--tw-text-opacity));
+}
+.opacity-50 {
+  opacity: 0.5;
+}
+.opacity-70 {
+  opacity: 0.7;
+}
+.opacity-60 {
+  opacity: 0.6;
 }
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1378,28 +1411,6 @@ main a:hover:not(.btn)::before {
 
 .first\:border-0:first-child {
   border-width: 0px;
-}
-
-.first\:border-t-0:first-child {
-  border-top-width: 0px;
-}
-
-.first\:border-red-500:first-child {
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity));
-}
-
-.last\:border:last-child {
-  border-width: 1px;
-}
-
-.last\:border-0:last-child {
-  border-width: 0px;
-}
-
-.last\:border-red-500:last-child {
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .hover\:cursor-pointer:hover {
@@ -1457,36 +1468,7 @@ main a:hover:not(.btn)::before {
   right: -0.5rem;
 }
 
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-32>*:not(:first-child) {
-  margin-top: 8rem;
-}
-
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-8>*:not(:first-child) {
-  margin-top: 2rem;
-}
-
-.\[\&\>\*\:not\(\:first-child\)\]\:border-t>*:not(:first-child) {
-  border-top-width: 1px;
-}
-
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
-}
-
-.\[\&\>\*\]\:border-gray-400>* {
-  --tw-border-opacity: 1;
-  border-color: rgb(161 161 170 / var(--tw-border-opacity));
-}
-
-.\[\&\>\*\]\:p-8>* {
-  padding: 2rem;
-}
-
-.\[\&\>\*\]\:pt-8>* {
-  padding-top: 2rem;
-}
-
-.\[\&\>\*\]\:pb-8>* {
-  padding-bottom: 2rem;
 }
 

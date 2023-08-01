@@ -16,8 +16,6 @@ form:
               type: month
               label: DEFAULT.TASK.MONTH
               style: horizontal
-              dateformat:
-                default: "m-Y"
 
             header.subtitle:
               unset@: true
