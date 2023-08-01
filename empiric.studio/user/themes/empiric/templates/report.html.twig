@@ -2,7 +2,7 @@
 
 {% set options = {"items": {"@self.children": ""}, "order": {"by": "date"}} %}
 {% set months = page.collection(options) %}
-
+ 
 {% block content %}
     {% for month in months %}
         <h2 class="font-semibold text-4xl mt-24">
@@ -19,10 +19,11 @@
             {% endif %}
  
             <div class="task flex gap-16 justify-between mt-8 pb-8 border-b first:border-0 border-gray-400">
-                <div class="flex flex-col">
+                <div class="flex flex-col w-1/4">
                     <div class="text-sm text-gray-400">
-                        🕓 {{ task.time }}
+                        <span class="opacity-60">🕓</span> {{ task.time }}
                     </div>
+ 
                     <div>
                         {{ task.title }}
                     </div>
@@ -30,12 +31,12 @@
                         {{ task.status }}
                     </div>
                 </div>
-
-                <div class="flex text-lg text-gray-500 flex-1 items-center">
+ 
+                <div class="flex flex-1 text-lg text-gray-500 items-center">
                     {{ task.description }}
                 </div>
  
-                <div class="flex flex-col items-end place-content-between">
+                <div class="flex flex-col gap-4 items-end place-content-end">
                     <span class="text-sm text-gray-400">Attached files</span>
                     <div class="flex justify-end">
                         <a href="{{ month.media[task.attachment].url }}" class="text-sm">
