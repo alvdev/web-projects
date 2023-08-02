@@ -19,32 +19,44 @@
             {% endif %}
  
             <div class="task flex gap-16 justify-between mt-8 pb-8 border-b first:border-0 border-gray-400">
-                <div class="flex flex-col w-1/4">
+                <div class="flex flex-col gap-2 flex-1">
                     <div class="text-sm text-gray-400">
                         <span class="opacity-60">🕓</span> {{ task.time }}
                     </div>
  
-                    <div>
-                        {{ task.title }}
+                    <div class="grid grid-cols-[min-content_1fr] gap-x-8 gap-y-4 items-baseline">
+                        <div class="text-base text-gray-500 font-semibold uppercase">
+                            Tarea:
+                        </div>
+                        <div>
+                            {{ task.title|capitalize }}
+                        </div>
+ 
+                        {% if task.description %}
+                            <div class="text-base text-gray-500 font-semibold uppercase">
+                                Descripción:
+                            </div>
+                            <div class="text-lg text-gray-500">
+                                {{ task.description|capitalize }}
+                            </div>
+                        {% endif %}
                     </div>
+
                     <div class="{{ status_color }} text-sm py-2 px-3 rounded-full w-fit leading-none inline-block mt-2">
                         {{ task.status }}
                     </div>
                 </div>
  
-                <div class="flex flex-1 text-lg text-gray-500 items-center">
-                    {{ task.description }}
-                </div>
- 
                 <div class="flex flex-col gap-4 items-end place-content-end">
-                    <span class="text-sm text-gray-400">Attached files</span>
-                    <div class="flex justify-end">
-                        <a href="{{ month.media[task.attachment].url }}" class="text-sm">
-                            {{ month.media[task.attachment].cropZoom(50, 50)|raw }}
-                        </a>
+                    <div class="text-sm text-gray-400 flex">
+                        Attached files
                     </div>
+                    <a href="{{ month.media[task.attachment].url }}" class="text-sm">
+                        {{ month.media[task.attachment].cropZoom(50, 50)|raw }}
+                    </a>
                 </div>
             </div>
-        {% endfor %}
+        </div>
     {% endfor %}
+{% endfor %}
 {% endblock %}
