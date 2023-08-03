@@ -1,0 +1,24 @@
+{% extends './partials/base.html.twig' %}
+
+{% set options = {"items": {"@page.children": "/services"}, "order": {"by": "date", "dir": "desc"}, "pagination": true} %} {% set my_collection = page.collection(options) %}
+
+{% block content %}
+    <main class="prose prose-xl mt-28 max-w-none flex-1">
+        <div class="container [&>*:not(:first-child)]:mt-28">
+            {% for p in my_collection %}
+ 
+                <div class="flex gap-16 gap-y-16">
+                    <div class="relative w-1/2">
+                        <img src="https://picsum.photos/600/400" alt="" class="m-0 aspect-video" />
+                        <h2 class="m-0 absolute right-0 bottom-0 uppercase leading- text-white w-2/3 text-5xl">
+                            {{ p.title | e }}
+                        </h2>
+                    </div>
+                    <div class="w-1/2">
+                        {{ p.summary | raw }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
