@@ -5,62 +5,72 @@
  
 {% block content %}
     {% for month in months %}
-        <h2 class="font-semibold text-4xl mt-24">
-            {{ month.header.title|date("F Y") }}
-        </h2>
+        <div x-data="{ open: false }" class="mt-28">
+            <div class="flex justify-between items-center mb-16">
+                <h2 class="font-semibold text-4xl">
+                    {{ month.header.title|date("F Y") }}
+                </h2>
+                <button @click="open = !open"
+                        class="flex gap-1 group h-fit items-center text-base pl-2 pr-3 py-2 hover:scale-95 transition-all text-purple-700">
+                    {{ svg('theme:///images/svg/collapse.svg', 'w-6 h-6 -mt-[1px] [&>path]:stroke-purple-700 group-hover:[&>path]:stroke-black')|raw }}
+                    <span class="group-hover:text-black">Mostrar / Ocultar</span>
+                </button>
+            </div>
  
-        {% for task in month.header.tasks %}
-            {% if 'STARTED' in task.status %}
-                {% set status_color = "bg-yellow-300" %}
-            {% elseif 'PENDING' in task.status %}
-                {% set status_color = "bg-purple-300" %}
-            {% elseif 'COMPLETED' in task.status %}
-                {% set status_color = "bg-green-400" %}
-            {% endif %}
+            <div x-show="open" x-cloak x-transition>
+                {% for task in month.header.tasks %}
+                    {% if 'STARTED' in task.status %}
+                        {% set status_color = "bg-yellow-300" %}
+                    {% elseif 'PENDING' in task.status %}
+                        {% set status_color = "bg-purple-300" %}
+                    {% elseif 'COMPLETED' in task.status %}
+                        {% set status_color = "bg-green-400" %}
+                    {% endif %}
  
-            <div class="task flex gap-16 justify-between mt-8 pb-8 border-b first:border-0 border-gray-400">
-                <div class="flex flex-col gap-2 flex-1">
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="absolute opacity-60 [&>svg]:w-5 [&>svg]:h-5">{{ svg('theme:///images/svg/empty-calendar.svg')|raw }}</span>
-                        <div class="relative top-[3.5px] flex gap-2">
-                            <span class="text-gray-500 font-semibold w-[18px] inline-block text-center tracking-tighter">{{ task.day|date('d') }}</span>
-                            <time class="text-gray-400">{{ task.day|date('l, H:m') }}</time>
-                        </div>
-                    </div>
- 
-                    <div class="grid grid-cols-[min-content_1fr] gap-x-8 gap-y-4 items-baseline">
-                        <div class="text-base text-gray-500 font-semibold uppercase">
-                            Tarea:
-                        </div>
-                        <div>
-                            {{ task.title|capitalize }}
-                        </div>
- 
-                        {% if task.description %}
-                            <div class="text-base text-gray-500 font-semibold uppercase">
-                                Descripción:
+                    <div class="task flex gap-16 justify-between mt-8 pb-8 border-b last:border-0 border-gray-400">
+                        <div class="flex flex-col gap-2 flex-1">
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="absolute opacity-60 [&>svg]:w-5 [&>svg]:h-5">{{ svg('theme:///images/svg/empty-calendar.svg')|raw }}</span>
+                                <div class="relative top-[3.5px] flex gap-2">
+                                    <span class="text-gray-500 font-semibold w-[18px] inline-block text-center tracking-tighter">{{ task.day|date('d') }}</span>
+                                    <time class="text-gray-400">{{ task.day|date('l, H:m') }}</time>
+                                </div>
                             </div>
-                            <div class="text-lg text-gray-500">
-                                {{ task.description|capitalize }}
-                            </div>
-                        {% endif %}
-                    </div>
-
-                    <div class="{{ status_color }} text-sm py-2 px-3 rounded-full w-fit leading-none inline-block mt-2">
-                        {{ task.status }}
-                    </div>
-                </div>
  
-                <div class="flex flex-col gap-4 items-end place-content-end">
-                    <div class="text-sm text-gray-400 flex">
-                        Attached files
+                            <div class="grid grid-cols-[min-content_1fr] gap-x-8 gap-y-4 items-baseline">
+                                <div class="text-base text-gray-500 font-semibold uppercase">
+                                    Tarea:
+                                </div>
+                                <div>
+                                    {{ task.title|capitalize }}
+                                </div>
+ 
+                                {% if task.description %}
+                                    <div class="text-base text-gray-500 font-semibold uppercase">
+                                        Descripción:
+                                    </div>
+                                    <div class="text-lg text-gray-500">
+                                        {{ task.description|capitalize }}
+                                    </div>
+                                {% endif %}
+                            </div>
+ 
+                            <div class="{{ status_color }} text-sm py-2 px-3 rounded-full w-fit leading-none inline-block mt-2">
+                                {{ task.status }}
+                            </div>
+                        </div>
+ 
+                        <div class="flex flex-col gap-4 items-end place-content-end">
+                            <div class="text-sm text-gray-400 flex">
+                                Attached files
+                            </div>
+                            <a href="{{ month.media[task.attachment].url }}" class="text-sm">
+                                {{ month.media[task.attachment].cropZoom(50, 50)|raw }}
+                            </a>
+                        </div>
                     </div>
-                    <a href="{{ month.media[task.attachment].url }}" class="text-sm">
-                        {{ month.media[task.attachment].cropZoom(50, 50)|raw }}
-                    </a>
-                </div>
+                {% endfor %}
             </div>
         </div>
     {% endfor %}
-{% endfor %}
 {% endblock %}

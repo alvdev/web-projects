@@ -557,6 +557,10 @@ select {
   outline: 1px auto -webkit-focus-ring-color;
 }
 
+[x-cloak] {
+        display: none !important;
+    }
+
 @font-face {
         font-family: 'Mont';
         src: url(../../fonts/Mont-Regular.woff?87edc44cdb50725f6c1a5f457390d6ec) format('woff');
@@ -997,18 +1001,6 @@ main a:hover:not(.btn)::before {
 .top-\[1px\] {
   top: 1px;
 }
-.top-1 {
-  top: 0.25rem;
-}
-.top-\[2px\] {
-  top: 2px;
-}
-.top-\[4px\] {
-  top: 4px;
-}
-.top-\[3px\] {
-  top: 3px;
-}
 .top-\[3\.5px\] {
   top: 3.5px;
 }
@@ -1029,8 +1021,14 @@ main a:hover:not(.btn)::before {
 .-mt-32 {
   margin-top: -8rem;
 }
+.-mt-\[1px\] {
+  margin-top: -1px;
+}
 .-mt-\[2px\] {
   margin-top: -2px;
+}
+.mb-16 {
+  margin-bottom: 4rem;
 }
 .mb-8 {
   margin-bottom: 2rem;
@@ -1053,6 +1051,9 @@ main a:hover:not(.btn)::before {
 .mt-24 {
   margin-top: 6rem;
 }
+.mt-28 {
+  margin-top: 7rem;
+}
 .mt-32 {
   margin-top: 8rem;
 }
@@ -1064,9 +1065,6 @@ main a:hover:not(.btn)::before {
 }
 .mt-8 {
   margin-top: 2rem;
-}
-.mt-1 {
-  margin-top: 0.25rem;
 }
 .block {
   display: block;
@@ -1095,6 +1093,13 @@ main a:hover:not(.btn)::before {
 .h-0 {
   height: 0px;
 }
+.h-6 {
+  height: 1.5rem;
+}
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
 .h-full {
   height: 100%;
 }
@@ -1107,9 +1112,6 @@ main a:hover:not(.btn)::before {
 .w-16 {
   width: 4rem;
 }
-.w-2 {
-  width: 0.5rem;
-}
 .w-2\/4 {
   width: 50%;
 }
@@ -1119,36 +1121,18 @@ main a:hover:not(.btn)::before {
 .w-40 {
   width: 10rem;
 }
+.w-6 {
+  width: 1.5rem;
+}
+.w-\[18px\] {
+  width: 18px;
+}
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
 }
 .w-full {
   width: 100%;
-}
-.w-6 {
-  width: 1.5rem;
-}
-.w-5 {
-  width: 1.25rem;
-}
-.w-\[20px\] {
-  width: 20px;
-}
-.w-\[24px\] {
-  width: 24px;
-}
-.w-\[22px\] {
-  width: 22px;
-}
-.w-\[23px\] {
-  width: 23px;
-}
-.w-\[18px\] {
-  width: 18px;
-}
-.w-\[19px\] {
-  width: 19px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1202,6 +1186,9 @@ main a:hover:not(.btn)::before {
 }
 .justify-between {
   justify-content: space-between;
+}
+.gap-1 {
+  gap: 0.25rem;
 }
 .gap-12 {
   gap: 3rem;
@@ -1288,6 +1275,18 @@ main a:hover:not(.btn)::before {
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
 }
+.fill-red-500 {
+  fill: #ef4444;
+}
+.stroke-red-500 {
+  stroke: #ef4444;
+}
+.stroke-gray-500 {
+  stroke: #71717a;
+}
+.stroke-1 {
+  stroke-width: 1;
+}
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1321,11 +1320,17 @@ main a:hover:not(.btn)::before {
 .pb-8 {
   padding-bottom: 2rem;
 }
+.pl-2 {
+  padding-left: 0.5rem;
+}
 .pl-40 {
   padding-left: 10rem;
 }
 .pr-12 {
   padding-right: 3rem;
+}
+.pr-3 {
+  padding-right: 0.75rem;
 }
 .pt-32 {
   padding-top: 8rem;
@@ -1378,12 +1383,6 @@ main a:hover:not(.btn)::before {
 .font-semibold {
   font-weight: 600;
 }
-.font-medium {
-  font-weight: 500;
-}
-.font-normal {
-  font-weight: 400;
-}
 .uppercase {
   text-transform: uppercase;
 }
@@ -1395,9 +1394,6 @@ main a:hover:not(.btn)::before {
 }
 .leading-normal {
   line-height: 1.5;
-}
-.tracking-tight {
-  letter-spacing: -0.025em;
 }
 .tracking-tighter {
   letter-spacing: -0.05em;
@@ -1422,9 +1418,17 @@ main a:hover:not(.btn)::before {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.text-gray-600 {
+.text-black {
   --tw-text-opacity: 1;
-  color: rgb(82 82 91 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.text-purple-500 {
+  --tw-text-opacity: 1;
+  color: rgb(168 85 247 / var(--tw-text-opacity));
+}
+.text-purple-600 {
+  --tw-text-opacity: 1;
+  color: rgb(147 51 234 / var(--tw-text-opacity));
 }
 .opacity-60 {
   opacity: 0.6;
@@ -1439,6 +1443,11 @@ main a:hover:not(.btn)::before {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .duration-200 {
   transition-duration: 200ms;
 }
@@ -1449,8 +1458,14 @@ main a:hover:not(.btn)::before {
   transition-duration: 500ms;
 }
 
-.first\:border-0:first-child {
+.last\:border-0:last-child {
   border-width: 0px;
+}
+
+.hover\:scale-95:hover {
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .hover\:cursor-pointer:hover {
@@ -1508,32 +1523,59 @@ main a:hover:not(.btn)::before {
   right: -0.5rem;
 }
 
+.group:hover .group-hover\:fill-black {
+  fill: #000;
+}
+
+.group:hover .group-hover\:fill-red-500 {
+  fill: #ef4444;
+}
+
+.group:hover .group-hover\:text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.group:hover .group-hover\:text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.group:hover .group-hover\:text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(113 113 122 / var(--tw-text-opacity));
+}
+
+.group>path .group-\[\&\>path\]\:stroke-red-500 {
+  stroke: #ef4444;
+}
+
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
 }
 
-.\[\&\>svg\]\:h-4>svg {
-  height: 1rem;
+.\[\&\>path\]\:stroke-red-500>path {
+  stroke: #ef4444;
 }
 
-.\[\&\>svg\]\:h-6>svg {
-  height: 1.5rem;
+.\[\&\>path\]\:stroke-gray-500>path {
+  stroke: #71717a;
+}
+
+.\[\&\>path\]\:stroke-purple-700>path {
+  stroke: #7e22ce;
+}
+
+.group:hover .group-hover\:\[\&\>path\]\:stroke-red-500>path {
+  stroke: #ef4444;
+}
+
+.group:hover .group-hover\:\[\&\>path\]\:stroke-black>path {
+  stroke: #000;
 }
 
 .\[\&\>svg\]\:h-5>svg {
   height: 1.25rem;
-}
-
-.\[\&\>svg\]\:w-2>svg {
-  width: 0.5rem;
-}
-
-.\[\&\>svg\]\:w-4>svg {
-  width: 1rem;
-}
-
-.\[\&\>svg\]\:w-6>svg {
-  width: 1.5rem;
 }
 
 .\[\&\>svg\]\:w-5>svg {
