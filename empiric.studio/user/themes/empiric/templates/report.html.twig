@@ -20,8 +20,12 @@
  
             <div class="task flex gap-16 justify-between mt-8 pb-8 border-b first:border-0 border-gray-400">
                 <div class="flex flex-col gap-2 flex-1">
-                    <div class="text-sm text-gray-400">
-                        <span class="opacity-60">🕓</span> {{ task.time }}
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="absolute opacity-60 [&>svg]:w-5 [&>svg]:h-5">{{ svg('theme:///images/svg/empty-calendar.svg')|raw }}</span>
+                        <div class="relative top-[3.5px] flex gap-2">
+                            <span class="text-gray-500 font-semibold w-[18px] inline-block text-center tracking-tighter">{{ task.day|date('d') }}</span>
+                            <time class="text-gray-400">{{ task.day|date('l, H:m') }}</time>
+                        </div>
                     </div>
  
                     <div class="grid grid-cols-[min-content_1fr] gap-x-8 gap-y-4 items-baseline">

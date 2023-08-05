@@ -30,8 +30,8 @@ form:
               style: vertical
               ordering@: header.month
               fields:
-                .time:
-                  type: time
+                .day:
+                  type: datetime
                   label: DEFAULT.TASK.TIME
 
                 .title:
