@@ -1712,8 +1712,8 @@ main a:hover:not(.btn)::before {
   position: relative;
 }
 
-.inset-0 {
-  inset: 0px;
+.-bottom-1 {
+  bottom: -0.25rem;
 }
 
 .bottom-0 {
@@ -1736,18 +1736,6 @@ main a:hover:not(.btn)::before {
   top: 1rem;
 }
 
-.bottom-40 {
-  bottom: 10rem;
-}
-
-.-bottom-0 {
-  bottom: -0px;
-}
-
-.-bottom-1 {
-  bottom: -0.25rem;
-}
-
 .z-40 {
   z-index: 40;
 }
@@ -1758,11 +1746,6 @@ main a:hover:not(.btn)::before {
 
 .m-0 {
   margin: 0px;
-}
-
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 .-mb-3 {
@@ -1779,10 +1762,6 @@ main a:hover:not(.btn)::before {
 
 .mb-0 {
   margin-bottom: 0px;
-}
-
-.ml-\[4\%\] {
-  margin-left: 4%;
 }
 
 .mt-0 {
@@ -1863,10 +1842,6 @@ main a:hover:not(.btn)::before {
 
 .h-0 {
   height: 0px;
-}
-
-.h-4 {
-  height: 1rem;
 }
 
 .h-6 {
@@ -2123,18 +2098,39 @@ main a:hover:not(.btn)::before {
   --tw-bg-opacity: 0.7;
 }
 
-.bg-gradient-to-r {
-  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
 
-.from-orange-300 {
-  --tw-gradient-from: #fdba74 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(253 186 116 / 0) var(--tw-gradient-to-position);
+.from-red-800 {
+  --tw-gradient-from: #991b1b var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(153 27 27 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.to-orange-200 {
-  --tw-gradient-to: #fed7aa var(--tw-gradient-to-position);
+.from-50\% {
+  --tw-gradient-from-position: 50%;
+}
+
+.via-black {
+  --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #000 var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.via-50\% {
+  --tw-gradient-via-position: 50%;
+}
+
+.to-transparent {
+  --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+
+.to-black {
+  --tw-gradient-to: #000 var(--tw-gradient-to-position);
+}
+
+.to-50\% {
+  --tw-gradient-to-position: 50%;
 }
 
 .fill-black {
@@ -2201,8 +2197,8 @@ main a:hover:not(.btn)::before {
   padding-right: 1.5rem !important;
 }
 
-.pb-44 {
-  padding-bottom: 11rem;
+.pb-56 {
+  padding-bottom: 14rem;
 }
 
 .pl-2 {
@@ -2215,6 +2211,10 @@ main a:hover:not(.btn)::before {
 
 .pt-28 {
   padding-top: 7rem;
+}
+
+.pb-48 {
+  padding-bottom: 12rem;
 }
 
 .text-center {
@@ -2249,6 +2249,11 @@ main a:hover:not(.btn)::before {
   line-height: 1;
 }
 
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
+}
+
 .text-8xl {
   font-size: 6rem;
   line-height: 1;
@@ -2278,17 +2283,12 @@ main a:hover:not(.btn)::before {
   line-height: 1rem;
 }
 
-.text-7xl {
-  font-size: 4.5rem;
-  line-height: 1;
+.font-bold {
+  font-weight: 700;
 }
 
 .font-semibold {
   font-weight: 600;
-}
-
-.font-bold {
-  font-weight: 700;
 }
 
 .uppercase {
@@ -2550,6 +2550,34 @@ main a:hover:not(.btn)::before {
 }
 
 @media (min-width: 1280px) {
+  .xl\:-right-2 {
+    right: -0.5rem;
+  }
+
+  .xl\:right-2 {
+    right: 0.5rem;
+  }
+
+  .xl\:right-8 {
+    right: 2rem;
+  }
+
+  .xl\:right-16 {
+    right: 4rem;
+  }
+
+  .xl\:-right-16 {
+    right: -4rem;
+  }
+
+  .xl\:-right-8 {
+    right: -2rem;
+  }
+
+  .xl\:-right-9 {
+    right: -2.25rem;
+  }
+
   .xl\:\!m-0 {
     margin: 0px !important;
   }
@@ -2558,12 +2586,62 @@ main a:hover:not(.btn)::before {
     margin: 0px;
   }
 
+  .xl\:my-0 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .xl\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .xl\:-mr-1 {
+    margin-right: -0.25rem;
+  }
+
+  .xl\:-mr-2 {
+    margin-right: -0.5rem;
+  }
+
+  .xl\:mr-2 {
+    margin-right: 0.5rem;
+  }
+
+  .xl\:mr-16 {
+    margin-right: 4rem;
+  }
+
   .xl\:flex {
     display: flex;
   }
 
-  .xl\:gap-12 {
-    gap: 3rem;
+  .xl\:w-1\/2 {
+    width: 50%;
+  }
+
+  .xl\:gap-28 {
+    gap: 7rem;
+  }
+
+  .xl\:gap-56 {
+    gap: 14rem;
+  }
+
+  .xl\:gap-48 {
+    gap: 12rem;
+  }
+
+  .xl\:gap-0 {
+    gap: 0px;
+  }
+
+  .xl\:gap-24 {
+    gap: 6rem;
+  }
+
+  .xl\:bg-gradient-to-r {
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
   }
 
   .xl\:text-right {
