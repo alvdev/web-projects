@@ -6,10 +6,12 @@
 
 <main class="flex-1 prose prose-xl max-w-none">
     <section class="video torn relative after:absolute after:w-full after:h-8 after:-bottom-6">
-        <div class="absolute flex items-end h-full align-text-bottom max-w-min ml-[4%]">
-            <h1 class="text-white text-9xl uppercase -mb-3 drop-shadow-[10px_-10px_20px_rgba(0,0,0,0.3)]">
-                {{ 'THEME.REPORTS'|t }}
-            </h1>
+        <div class="container">
+            <div class="absolute flex items-end h-full align-text-bottom max-w-min">
+                <h1 class="text-white text-9xl uppercase -mb-3 drop-shadow-[10px_-10px_20px_rgba(0,0,0,0.3)]">
+                    {{ 'THEME.REPORTS'|t }}
+                </h1>
+            </div>
         </div>
         <img class="m-0 h-[40vh] w-full object-cover"
              src="{{ url('theme://images/headers/informes.webp') }}"

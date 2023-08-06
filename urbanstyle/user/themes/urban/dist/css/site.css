@@ -1716,6 +1716,10 @@ main a:hover:not(.btn)::before {
   inset: 0px;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -1732,8 +1736,16 @@ main a:hover:not(.btn)::before {
   top: 1rem;
 }
 
-.bottom-0 {
-  bottom: 0px;
+.bottom-40 {
+  bottom: 10rem;
+}
+
+.-bottom-0 {
+  bottom: -0px;
+}
+
+.-bottom-1 {
+  bottom: -0.25rem;
 }
 
 .z-40 {
@@ -1742,10 +1754,6 @@ main a:hover:not(.btn)::before {
 
 .z-50 {
   z-index: 50;
-}
-
-.z-10 {
-  z-index: 10;
 }
 
 .m-0 {
@@ -1853,10 +1861,6 @@ main a:hover:not(.btn)::before {
   aspect-ratio: 16 / 9;
 }
 
-.aspect-square {
-  aspect-ratio: 1 / 1;
-}
-
 .h-0 {
   height: 0px;
 }
@@ -1906,6 +1910,10 @@ main a:hover:not(.btn)::before {
   width: 2.5rem;
 }
 
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .w-6 {
   width: 1.5rem;
 }
@@ -1921,10 +1929,6 @@ main a:hover:not(.btn)::before {
 
 .w-full {
   width: 100%;
-}
-
-.w-2\/3 {
-  width: 66.666667%;
 }
 
 .min-w-\[50vw\] {
@@ -2033,10 +2037,6 @@ main a:hover:not(.btn)::before {
 .gap-x-16 {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
-}
-
-.gap-y-1 {
-  row-gap: 0.25rem;
 }
 
 .gap-y-16 {
@@ -2217,14 +2217,6 @@ main a:hover:not(.btn)::before {
   padding-top: 7rem;
 }
 
-.text-left {
-  text-align: left;
-}
-
-.\!text-left {
-  text-align: left !important;
-}
-
 .text-center {
   text-align: center;
 }
@@ -2245,6 +2237,11 @@ main a:hover:not(.btn)::before {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .text-6xl {
@@ -2281,18 +2278,17 @@ main a:hover:not(.btn)::before {
   line-height: 1rem;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-5xl {
-  font-size: 3rem;
+.text-7xl {
+  font-size: 4.5rem;
   line-height: 1;
 }
 
 .font-semibold {
   font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .uppercase {
@@ -2575,6 +2571,10 @@ main a:hover:not(.btn)::before {
   }
 }
 
+.\[\&\>\*\:not\(\:first-child\)\]\:mt-28>*:not(:first-child) {
+  margin-top: 7rem;
+}
+
 .\[\&\>\*\:not\(\:first-child\)\]\:mt-32>*:not(:first-child) {
   margin-top: 8rem;
 }
@@ -2583,28 +2583,8 @@ main a:hover:not(.btn)::before {
   margin-top: 2rem;
 }
 
-.\[\&\>\*\:not\(\:first-child\)\]\:mb-8>*:not(:first-child) {
-  margin-bottom: 2rem;
-}
-
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-16>*:not(:first-child) {
-  margin-top: 4rem;
-}
-
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-24>*:not(:first-child) {
-  margin-top: 6rem;
-}
-
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-28>*:not(:first-child) {
-  margin-top: 7rem;
-}
-
 .\[\&\>\*\:not\(\:first-child\)\]\:border-t>*:not(:first-child) {
   border-top-width: 1px;
-}
-
-.\[\&\>\*\]\:mb-8>* {
-  margin-bottom: 2rem;
 }
 
 .\[\&\>\*\]\:w-full>* {
@@ -2626,10 +2606,6 @@ main a:hover:not(.btn)::before {
 
 .\[\&\>span\]\:mr-1>span {
   margin-right: 0.25rem;
-}
-
-.\[\&_h2\]\:right-0 h2 {
-  right: 0px;
 }
 
 .\[\&_h2\]\:left-0 h2 {
