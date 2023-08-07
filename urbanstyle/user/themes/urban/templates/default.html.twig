@@ -14,13 +14,28 @@
                  src="{{ url('theme://images/headers/pegando-carteles.webp') }}"
                  alt="">
         </section>
-        <section class="container">
-            <p>
-                La pegada de carteles es una acción con un gran impacto, ideal para eventos, conciertos, teatros, acciones de marca
-                lanzamientos discográficos, comercios, ferias de muestras, exposiciones, etc. Realizamos la fijación de carteles en el
-                formato que mejor convenga a tu idea. Contamos con la mayor cobertura de zonas llegando a todo posible consumidor.
-            </p>
-            {% include 'partials/reviews.html.twig' %}
+        <section class="reviews">
+            <div class="container">
+                <h2 class="font-semibold">
+                    Urban Style Publicity se ha convertido en el referente absoluto en la pegada de carteles, avalada por su amplia cartera de clientes y la satisfacción que han demostrado.
+                </h2>
+ 
+                <div class="mt-20 flex flex-wrap justify-center gap-16 uppercase font-semibold text-center">
+                    <div class="">
+                        <span class="text-6xl block text-gray-500">+1000</span> trabajos realizados
+                    </div>
+                    <div class="">
+                        <span class="text-6xl block text-gray-500">+8</span> años pegando carteles
+                    </div>
+                    <div class="">
+                        <span class="text-6xl block text-gray-500">+500</span> clientes satisfechos
+                    </div>
+                </div>
+
+                <div class="mt-24">
+                    {% include 'partials/reviews.html.twig' %}
+                </div>
+            </div>
         </section>
 
         <section class="container grid lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2] mt-24">

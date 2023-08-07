@@ -1748,6 +1748,11 @@ main a:hover:not(.btn)::before {
   margin: 0px;
 }
 
+.my-0 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .-mb-3 {
   margin-bottom: -0.75rem;
 }
@@ -1806,6 +1811,14 @@ main a:hover:not(.btn)::before {
 
 .mt-\[2vw\] {
   margin-top: 2vw;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mt-20 {
+  margin-top: 5rem;
 }
 
 .block {
@@ -1955,6 +1968,10 @@ main a:hover:not(.btn)::before {
 
 .flex-col {
   flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .content-center {
@@ -2156,6 +2173,10 @@ main a:hover:not(.btn)::before {
   padding: 2rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .\!py-0 {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
@@ -2186,6 +2207,16 @@ main a:hover:not(.btn)::before {
   padding-bottom: 1rem;
 }
 
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.px-16 {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
 .\!pl-1 {
   padding-left: 0.25rem !important;
 }
@@ -2212,6 +2243,42 @@ main a:hover:not(.btn)::before {
 
 .pt-28 {
   padding-top: 7rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
+.pb-28 {
+  padding-bottom: 7rem;
+}
+
+.pb-36 {
+  padding-bottom: 9rem;
+}
+
+.pb-32 {
+  padding-bottom: 8rem;
+}
+
+.pt-24 {
+  padding-top: 6rem;
+}
+
+.pb-52 {
+  padding-bottom: 13rem;
+}
+
+.pt-20 {
+  padding-top: 5rem;
+}
+
+.pb-48 {
+  padding-bottom: 12rem;
+}
+
+.pb-40 {
+  padding-bottom: 10rem;
 }
 
 .text-center {
@@ -2280,6 +2347,16 @@ main a:hover:not(.btn)::before {
   line-height: 1rem;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -2336,6 +2413,16 @@ main a:hover:not(.btn)::before {
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
 .no-underline {
@@ -2491,6 +2578,10 @@ main a:hover:not(.btn)::before {
     height: 100%;
   }
 
+  .md\:w-1\/3 {
+    width: 33.333333%;
+  }
+
   .md\:min-w-max {
     min-width: -moz-max-content;
     min-width: max-content;
@@ -2510,6 +2601,14 @@ main a:hover:not(.btn)::before {
 
   .md\:flex-row {
     flex-direction: row;
+  }
+
+  .md\:flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .md\:justify-between {
+    justify-content: space-between;
   }
 
   .md\:gap-12 {
@@ -2579,8 +2678,24 @@ main a:hover:not(.btn)::before {
     gap: 7rem;
   }
 
+  .xl\:gap-24 {
+    gap: 6rem;
+  }
+
+  .xl\:gap-20 {
+    gap: 5rem;
+  }
+
   .xl\:bg-gradient-to-r {
     background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  }
+
+  .xl\:pb-56 {
+    padding-bottom: 14rem;
+  }
+
+  .xl\:pb-48 {
+    padding-bottom: 12rem;
   }
 
   .xl\:text-right {
