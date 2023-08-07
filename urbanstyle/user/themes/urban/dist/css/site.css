@@ -1945,10 +1945,6 @@ main a:hover:not(.btn)::before {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
@@ -2127,16 +2123,8 @@ main a:hover:not(.btn)::before {
   --tw-gradient-stops: var(--tw-gradient-from), #000 var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
-.via-50\% {
-  --tw-gradient-via-position: 50%;
-}
-
 .to-transparent {
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
-}
-
-.to-black {
-  --tw-gradient-to: #000 var(--tw-gradient-to-position);
 }
 
 .to-zinc-400 {
@@ -2183,11 +2171,6 @@ main a:hover:not(.btn)::before {
   padding-right: 0.75rem;
 }
 
-.px-\[4\%\] {
-  padding-left: 4%;
-  padding-right: 4%;
-}
-
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -2219,20 +2202,16 @@ main a:hover:not(.btn)::before {
   padding-left: 0.5rem;
 }
 
+.pl-\[4\%\] {
+  padding-left: 4%;
+}
+
 .pr-10 {
   padding-right: 2.5rem;
 }
 
 .pt-28 {
   padding-top: 7rem;
-}
-
-.pb-48 {
-  padding-bottom: 12rem;
-}
-
-.pl-\[4\%\] {
-  padding-left: 4%;
 }
 
 .text-center {
@@ -2517,6 +2496,10 @@ main a:hover:not(.btn)::before {
     min-width: max-content;
   }
 
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -2553,12 +2536,20 @@ main a:hover:not(.btn)::before {
 }
 
 @media (min-width: 1024px) {
+  .lg\:grid {
+    display: grid;
+  }
+
   .lg\:w-1\/2 {
     width: 50%;
   }
 
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .lg\:gap-x-24 {
@@ -2568,66 +2559,12 @@ main a:hover:not(.btn)::before {
 }
 
 @media (min-width: 1280px) {
-  .xl\:-right-2 {
-    right: -0.5rem;
-  }
-
-  .xl\:right-2 {
-    right: 0.5rem;
-  }
-
-  .xl\:right-8 {
-    right: 2rem;
-  }
-
-  .xl\:right-16 {
-    right: 4rem;
-  }
-
-  .xl\:-right-16 {
-    right: -4rem;
-  }
-
-  .xl\:-right-8 {
-    right: -2rem;
-  }
-
-  .xl\:-right-9 {
-    right: -2.25rem;
-  }
-
   .xl\:\!m-0 {
     margin: 0px !important;
   }
 
   .xl\:m-0 {
     margin: 0px;
-  }
-
-  .xl\:my-0 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-
-  .xl\:mx-0 {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-
-  .xl\:-mr-1 {
-    margin-right: -0.25rem;
-  }
-
-  .xl\:-mr-2 {
-    margin-right: -0.5rem;
-  }
-
-  .xl\:mr-2 {
-    margin-right: 0.5rem;
-  }
-
-  .xl\:mr-16 {
-    margin-right: 4rem;
   }
 
   .xl\:flex {
@@ -2640,22 +2577,6 @@ main a:hover:not(.btn)::before {
 
   .xl\:gap-28 {
     gap: 7rem;
-  }
-
-  .xl\:gap-56 {
-    gap: 14rem;
-  }
-
-  .xl\:gap-48 {
-    gap: 12rem;
-  }
-
-  .xl\:gap-0 {
-    gap: 0px;
-  }
-
-  .xl\:gap-24 {
-    gap: 6rem;
   }
 
   .xl\:bg-gradient-to-r {
