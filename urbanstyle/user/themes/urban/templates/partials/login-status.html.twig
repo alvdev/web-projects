@@ -3,10 +3,13 @@
         {# {{ grav.user.fullname ?: grav.user.username }} #}
         <a class="logout"
            href="{{ url(uri.addNonce((uri.path)|trim('/') ~ '/task' ~ config.system.param_sep ~ 'login.logout', 'logout-form', 'logout-nonce'))|e }}"
-           title="{{ 'PLUGIN_LOGIN.BTN_LOGOUT'|t }}">
+           title="{{ 'PLUGIN_LOGIN.BTN_LOGOUT'|t }}"
+           aria-label="Logout">
             {{ svg('logout', 'w-6 h-6')|raw }}
         </a>
     {% else %}
-        <a href="{{ url('login')|e }}">{{ svg('lock', 'w-6 h-6')|raw }}</a>
+        <a href="{{ url('login')|e }}" aria-label="Login">
+            {{ svg('lock', 'w-6 h-6')|raw }}
+        </a>
     {% endif %}
 </div>
