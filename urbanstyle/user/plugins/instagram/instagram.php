@@ -84,7 +84,7 @@ class InstagramPlugin extends Plugin
 
         // Generate API url
         /* $url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=' . $config->get('feed_parameters.access_token').'&count=' . $config->get('feed_parameters.count'); */
-        $url = 'https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,thumbnail_url,media_type,permalink&access_token=' . $config->get('feed_parameters.access_token');
+        $url = 'https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,thumbnail_url,media_type,permalink&access_token=' . $config->get('feed_parameters.access_token') . '&count=' . $config->get('feed_parameters.count');
 
         // Get the cached results if available
         $results = $this->cache->get($url);
@@ -137,9 +137,10 @@ class InstagramPlugin extends Plugin
                 /* $r[$created_at]['image_width'] = $val['images']['standard_resolution']['width'];
                 $r[$created_at]['thumb'] = $val['images']['low_resolution']['url'];
                 $r[$created_at]['thumb_width'] = $val['images']['low_resolution']['width']; 
-                $r[$created_at]['micro'] = $val['thumbnail_url'];
+                
                 $r[$created_at]['micro_width'] = $val['images']['thumbnail']['width'];
                 $r[$created_at]['user'] = $val['user']['full_name'];*/
+                /* $r[$created_at]['thumb'] = $val['thumbnail_url']; */
                 $r[$created_at]['link'] = $val['permalink'];
                 $r[$created_at]['type'] = $val['media_type'];
                 /* $r[$created_at]['comments'] = $val['comments']['count'];
