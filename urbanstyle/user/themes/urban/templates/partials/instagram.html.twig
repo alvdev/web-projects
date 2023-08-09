@@ -1,7 +1,15 @@
 <div class="container columns-4 gap-8">
     {% for post in feed|slice(0, count) %}
         <a class="w-full block mb-8" href="{{ post.link }}" target="_blank">
-            <img class="m-0" src="{{ post.image }}" alt="">
+            {% if post.type == 'VIDEO' %}
+                <video controls>
+                    <source src="{{ post.image }}" type="video/mp4">
+                </video>
+            {% elseif post.type == 'IMAGE' or post.type == 'CAROUSEL_ALBUM' %}
+                <img class="mt-0 mb-8" src="{{ post.image }}" alt="">
+            {% else %}
+                {{ post.type }}
+            {% endif %}
         </a>
     {% endfor %}
 </div>
