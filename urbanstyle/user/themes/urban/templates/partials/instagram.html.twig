@@ -1,0 +1,7 @@
+<div class="container columns-4 gap-8">
+    {% for post in feed|slice(0, count) %}
+        <a class="w-full block mb-8" href="{{ post.link }}" target="_blank">
+            <img class="m-0" src="{{ post.image }}" alt="">
+        </a>
+    {% endfor %}
+</div>
