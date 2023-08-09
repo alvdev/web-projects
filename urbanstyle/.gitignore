@@ -12,6 +12,9 @@
 /user/plugins/*
 !/user/plugins/admin/
 !/user/plugins/alfa-admin/
+!/user/plugins/instagram/
+/user/plugins/instagram/README.md
+/user/plugins/instagram/CHANGELOG.md
 
 !/user/themes/
 /user/themes/*
