@@ -1,7 +1,22 @@
 {% import 'macros/menu.html.twig' as macros %}
 
-<footer class="torn relative flex flex-col gap-8 py-24 text-base text-center text-white bg-black footer mt-28 before:absolute before:rotate-180 before:w-full before:h-8 before:-top-6">
-    <div class="container flex items-center justify-between">
+{% set options = {"items": {"@page.children": "/services"}, "order": {"dir": "asc"}} %}
+{% set services = page.collection(options) %}
+ 
+<footer class="torn relative flex flex-col gap-8 py-24 text-base text-white bg-black footer mt-28 before:absolute before:rotate-180 before:w-full before:h-8 before:-top-6">
+    <div class="container flex items-center justify-between text-white">
+        <div>
+            <h3 class="text-white text-3xl">
+                {{ services|first.parent.title }}
+            </h3>
+            <ul>
+                {% for service in services %}
+                    <li>
+                        {{ service.title }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
         <ul class="flex items-center gap-4">
             <li>
                 <a href="#">Facebook</a>
