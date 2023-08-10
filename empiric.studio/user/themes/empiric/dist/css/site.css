@@ -1066,6 +1066,9 @@ main a:hover:not(.btn)::before {
 .mt-8 {
   margin-top: 2rem;
 }
+.mt-14 {
+  margin-top: 3.5rem;
+}
 .block {
   display: block;
 }
@@ -1236,6 +1239,15 @@ main a:hover:not(.btn)::before {
 .border-t-2 {
   border-top-width: 2px;
 }
+.border-b-4 {
+  border-bottom-width: 4px;
+}
+.border-b-2 {
+  border-bottom-width: 2px;
+}
+.border-dotted {
+  border-style: dotted;
+}
 .border-gray-400 {
   --tw-border-opacity: 1;
   border-color: rgb(161 161 170 / var(--tw-border-opacity));
@@ -1247,6 +1259,10 @@ main a:hover:not(.btn)::before {
 .border-gray-900 {
   --tw-border-opacity: 1;
   border-color: rgb(24 24 27 / var(--tw-border-opacity));
+}
+.border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(212 212 216 / var(--tw-border-opacity));
 }
 .bg-gray-800 {
   --tw-bg-opacity: 1;
@@ -1337,6 +1353,12 @@ main a:hover:not(.btn)::before {
 }
 .pt-8 {
   padding-top: 2rem;
+}
+.pb-12 {
+  padding-bottom: 3rem;
+}
+.pb-14 {
+  padding-bottom: 3.5rem;
 }
 .text-center {
   text-align: center;
@@ -1458,8 +1480,24 @@ main a:hover:not(.btn)::before {
   transition-duration: 500ms;
 }
 
+.first\:mt-28:first-child {
+  margin-top: 7rem;
+}
+
+.first\:border:first-child {
+  border-width: 1px;
+}
+
+.last\:mt-14:last-child {
+  margin-top: 3.5rem;
+}
+
 .last\:border-0:last-child {
   border-width: 0px;
+}
+
+.last\:border:last-child {
+  border-width: 1px;
 }
 
 .hover\:scale-95:hover {

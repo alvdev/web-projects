@@ -5,7 +5,7 @@
  
 {% block content %}
     {% for month in months %}
-        <div x-data="{ open: false }" class="mt-28">
+        <div x-data="{ open: false }" class="!first:mt-28 mt-14">
             <div class="flex justify-between items-center mb-16">
                 <h2 class="font-semibold text-4xl">
                     {{ month.header.title|date("F Y") }}
@@ -27,7 +27,7 @@
                         {% set status_color = "bg-green-400" %}
                     {% endif %}
  
-                    <div class="task flex gap-16 justify-between mt-8 pb-8 border-b last:border-0 border-gray-400">
+                    <div class="task flex gap-16 justify-between mt-14 pb-14 border-b-4 border-dotted last:border-0 border-gray-300">
                         <div class="flex flex-col gap-2 flex-1">
                             <div class="flex items-center gap-2 text-sm">
                                 <span class="absolute opacity-60 [&>svg]:w-5 [&>svg]:h-5">{{ svg('theme:///images/svg/empty-calendar.svg')|raw }}</span>
