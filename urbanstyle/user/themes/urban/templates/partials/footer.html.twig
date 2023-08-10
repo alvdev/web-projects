@@ -9,39 +9,41 @@
             <h3 class="text-white text-3xl">
                 {{ services|first.parent.title }}
             </h3>
-            <ul>
+            <ul class="columns-2 gap-12 mt-8">
                 {% for service in services %}
-                    <li>
+                    <li class="mb-4">
                         {{ service.title }}
                     </li>
                 {% endfor %}
             </ul>
         </div>
-        <ul class="flex items-center gap-4">
-            <li>
-                <a href="#">Facebook</a>
-            </li>
-            <li>
-                <a href="#">Twitter</a>
-            </li>
-            <li>
-                <a href="#">Intagram</a>
-            </li>
-        </ul>
-
-        <ul class="flex items-center justify-center gap-8 text-center">
-            {{ macros.nav_loop(pages) }}
-        </ul>
-    </div>
-
-    <div class="container flex items-center justify-between">
-        <div>
-            Copyright © 2016 - {{ 'now'|date('Y') }} Urban Style Publicity, S.L.
-        </div>
-        <div class="flex gap-8">
-            <a href="#">Aviso legal</a>
-            <a href="#">Política de privacidad</a>
-            <a href="#">Política de cookies</a>
+        <div class="flex flex-col self-stretch justify-between">
+            <ul class="flex items-center gap-4">
+                <li>
+                    <a href="#">Intagram</a>
+                </li>
+                <li>
+                    <a href="#">Facebook</a>
+                </li>
+                <li>
+                    <a href="#">Twitter</a>
+                </li>
+            </ul>
+ 
+            <ul class="flex items-center justify-center gap-8 text-center">
+                {{ macros.nav_loop(pages) }}
+            </ul>
+ 
+            <div>
+                <div>
+                    Copyright © 2016 - {{ 'now'|date('Y') }} Urban Style Publicity, S.L.
+                </div>
+                <div class="flex gap-8">
+                    <a href="#">Aviso legal</a>
+                    <a href="#">Política de privacidad</a>
+                    <a href="#">Política de cookies</a>
+                </div>
+            </div>
         </div>
     </div>
 </footer>

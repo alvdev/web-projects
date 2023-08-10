@@ -1821,6 +1821,10 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .block {
   display: block;
 }
@@ -1955,6 +1959,11 @@ main a:hover:not(.btn)::before {
        columns: 4;
 }
 
+.columns-2 {
+  -moz-columns: 2;
+       columns: 2;
+}
+
 .auto-rows-min {
   grid-auto-rows: min-content;
 }
@@ -1983,12 +1992,24 @@ main a:hover:not(.btn)::before {
   align-content: center;
 }
 
+.content-between {
+  align-content: space-between;
+}
+
+.content-stretch {
+  align-content: stretch;
+}
+
 .items-end {
   align-items: flex-end;
 }
 
 .items-center {
   align-items: center;
+}
+
+.items-stretch {
+  align-items: stretch;
 }
 
 .justify-center {
@@ -2027,6 +2048,10 @@ main a:hover:not(.btn)::before {
   gap: 2rem;
 }
 
+.gap-12 {
+  gap: 3rem;
+}
+
 .gap-x-16 {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
@@ -2034,6 +2059,10 @@ main a:hover:not(.btn)::before {
 
 .gap-y-16 {
   row-gap: 4rem;
+}
+
+.self-stretch {
+  align-self: stretch;
 }
 
 .overflow-hidden {
@@ -2068,6 +2097,11 @@ main a:hover:not(.btn)::before {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .bg-black {
