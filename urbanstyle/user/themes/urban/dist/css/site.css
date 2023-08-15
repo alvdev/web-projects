@@ -1968,6 +1968,10 @@ main a:hover:not(.btn)::before {
   grid-auto-rows: min-content;
 }
 
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -2525,6 +2529,10 @@ main a:hover:not(.btn)::before {
     margin-bottom: -4px;
   }
 
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .sm\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
@@ -2610,10 +2618,6 @@ main a:hover:not(.btn)::before {
 }
 
 @media (min-width: 1024px) {
-  .lg\:flex {
-    display: flex;
-  }
-
   .lg\:w-1\/2 {
     width: 50%;
   }
