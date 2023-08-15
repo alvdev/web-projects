@@ -1894,6 +1894,22 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-9 {
+  height: 2.25rem;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -1921,6 +1937,18 @@ main a:hover:not(.btn)::before {
 
 .w-full {
   width: 100%;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.w-9 {
+  width: 2.25rem;
 }
 
 .min-w-\[50vw\] {
@@ -1992,6 +2020,10 @@ main a:hover:not(.btn)::before {
   flex-wrap: wrap;
 }
 
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
 .content-center {
   align-content: center;
 }
@@ -2053,12 +2085,29 @@ main a:hover:not(.btn)::before {
   row-gap: 4rem;
 }
 
+.gap-x-8 {
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+}
+
+.gap-y-4 {
+  row-gap: 1rem;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
 .self-stretch {
   align-self: stretch;
 }
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .rounded {
@@ -2355,6 +2404,10 @@ main a:hover:not(.btn)::before {
 
 .leading-tight {
   line-height: 1.25;
+}
+
+.leading-\[0px\] {
+  line-height: 0px;
 }
 
 .text-black {
