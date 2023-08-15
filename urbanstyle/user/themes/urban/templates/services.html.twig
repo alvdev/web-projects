@@ -7,11 +7,14 @@
         <div class="container [&>*:not(:first-child)]:mt-28">
             {% for p in my_collection %}
                 {% set isReverse = loop.index is even ? 'text-right flex-row-reverse [&_h2]:left-0 [&_h2]:text-left' : '[&_h2]:text-right' %}
+                {% set gradient_dir = loop.index is even ? 'bg-gradient-to-r' : 'bg-gradient-to-l' %}
  
                 <div class="flex items-center gap-16 gap-y-16 {{ isReverse }}">
                     <div class="relative w-1/2">
-                        <img src="https://picsum.photos/600/400" alt="" class="m-0 aspect-video" />
-                        <h2 class="m-0 absolute right-0 bottom-0 uppercase leading- text-white w-2/3 text-5xl">
+                        <img src="https://picsum.photos/600/400"
+                             alt=""
+                             class="m-0 aspect-video w-full" />
+                        <h2 class="absolute right-0 bottom-0 m-0 p-6 uppercase leading- text-white w-2/3 text-5xl {{ gradient_dir }} from-red-900 to-transparent drop-shadow-sm">
                             {{ p.title | e }}
                         </h2>
                     </div>
