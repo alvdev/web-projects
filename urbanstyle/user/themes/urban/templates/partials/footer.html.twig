@@ -4,8 +4,8 @@
 {% set services = page.collection(options) %}
  
 <footer class="torn relative flex flex-col gap-8 py-24 text-base text-white bg-black footer mt-28 before:absolute before:rotate-180 before:w-full before:h-8 before:-top-6">
-    <div class="container flex flex-col gap-12 lg:flex-row items-center justify-between text-white">
-        <div>
+    <div class="container flex flex-col gap-12 lg:flex-row justify-between text-white">
+        <div class="w-fit">
             <h3 class="text-white text-3xl">
                 {{ services|first.parent.title }}
             </h3>
