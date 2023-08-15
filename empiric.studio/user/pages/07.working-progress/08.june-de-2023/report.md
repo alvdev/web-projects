@@ -1,5 +1,4 @@
 ---
-title: 'June de 2023'
 subtitle: 'Default subtitle'
 description: 'Default Description'
 twitterenable: true
@@ -24,6 +23,42 @@ daily_task:
         attachments: desktop-728x410.jpg
         status: '0'
 visible: false
-access: {  }
+tasks:
+    -
+        day: '05-08-2023 17:40'
+        title: 'Task title'
+        description: 'Task 1 description'
+        attachment: desktop-728x410.jpg
+        status: DEFAULT.STARTED
+        department: '0'
+    -
+        day: null
+        title: 'Task title'
+        description: 'Task 2 description'
+        attachment: desktop-728x410.jpg
+        status: DEFAULT.PENDING
+        department: '0'
+    -
+        day: null
+        title: 'Task title'
+        description: 'Task 3 description'
+        attachment: cftic-presupuesto.pdf
+        status: DEFAULT.COMPLETED
+        department: '0'
+attachment: desktop-728x410.jpg
+test: 'Joe Bloggs'
+route: /
+twig_first: false
+title: 2023-03
+slider:
+    -
+        text: aaa
+        image: cftic-presupuesto.pdf
+    -
+        text: bbb
+        image: desktop-728x410.jpg
+    -
+        text: ccc
+        image: cftic-presupuesto.pdf
 ---
 

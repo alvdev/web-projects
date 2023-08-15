@@ -1,6 +1,4 @@
 ---
-title: 'Working progress'
-subtitle: 'Default subtitle'
 description: 'Default Description'
 twitterenable: true
 twittercardoptions: summary
@@ -23,5 +21,9 @@ permissions:
         - alvdev
 access:
     admin.login: true
+test: 'Joe Bloggs'
+route: /
+twig_first: true
+never_cache_twig: true
 ---
 
