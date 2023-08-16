@@ -2383,6 +2383,18 @@ main a:hover:not(.btn)::before {
   line-height: 1.375;
 }
 
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+.leading-tight {
+  line-height: 1.25;
+}
+
+.leading-normal {
+  line-height: 1.5;
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2762,6 +2774,26 @@ main a:hover:not(.btn)::before {
 
 .\[\&\>\*\]\:pt-8>* {
   padding-top: 2rem;
+}
+
+.\[\&\>\*\]\:leading-relaxed>* {
+  line-height: 1.625;
+}
+
+.\[\&\>\*\]\:leading-normal>* {
+  line-height: 1.5;
+}
+
+.\[\&\>\*\]\:leading-snug>* {
+  line-height: 1.375;
+}
+
+.\[\&\>\*\]\:leading-tight>* {
+  line-height: 1.25;
+}
+
+.\[\&\>\*\]\:leading-none>* {
+  line-height: 1;
 }
 
 .\[\&\>a\]\:w-1\/2>a {
