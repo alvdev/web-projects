@@ -1,7 +1,5 @@
 ---
 title: Home
-menu: Inicio
-slug: pegada-de-carteles
 ---
 
 # Say Hello to Grav!

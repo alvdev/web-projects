@@ -15,8 +15,6 @@ tasks:
         description: 'Default task 2 description'
         status: DEFAULT.STARTED
         department: '0'
-slug: informes
-menu: Informes
 ---
 
 This is the body report

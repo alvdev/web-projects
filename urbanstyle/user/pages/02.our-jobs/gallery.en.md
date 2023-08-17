@@ -1,7 +1,5 @@
 ---
 title: 'Our jobs'
-menu: Trabajos
-slug: trabajos
 ---
 
 This is the body
