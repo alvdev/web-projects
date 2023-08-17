@@ -1836,6 +1836,10 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .block {
   display: block;
 }
