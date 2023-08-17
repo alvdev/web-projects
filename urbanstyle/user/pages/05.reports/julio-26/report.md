@@ -1,0 +1,48 @@
+---
+title: 2023-01
+subtitle: 'default subtitle'
+description: 'default description'
+twitterenable: true
+twittercardoptions: summary
+articleenabled: false
+musiceventenabled: false
+orgaenabled: false
+orga:
+    ratingValue: 2.5
+orgaratingenabled: false
+eventenabled: false
+personenabled: false
+restaurantenabled: false
+restaurant:
+    acceptsReservations: 'yes'
+    priceRange: $
+facebookenable: true
+test: 'Joe Bloggs'
+route: /
+media_order: 'empiric-logo2.png,empiric-logo_101.png'
+attachment: empiric-logo_101.png
+tasks:
+    -
+        time: '20:39'
+        title: 'Lorem ipsum dolor sit'
+        description: 'amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a, debitis molestiae iure sequi iste magni.'
+        attachment: null
+        status: DEFAULT.PENDING
+        department: '0'
+    -
+        time: '13:41'
+        title: 'aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a'
+        description: 'debitis molestiae iure sequi iste magni.'
+        attachment: empiric-logo2.png
+        status: DEFAULT.STARTED
+        department: '0'
+    -
+        time: '12:39'
+        title: 'amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt'
+        description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a, debitis molestiae iure sequi iste magni.'
+        attachment: empiric-logo_101.png
+        status: DEFAULT.STARTED
+        department: '0'
+---
+
+default body

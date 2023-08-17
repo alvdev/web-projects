@@ -1,22 +1,29 @@
 ---
-title: Reports
+description: 'Default Description'
+twitterenable: true
+twittercardoptions: summary
+articleenabled: false
+musiceventenabled: false
+orgaenabled: false
+orga:
+    ratingValue: 2.5
+orgaratingenabled: false
+eventenabled: false
+personenabled: false
+restaurantenabled: false
+restaurant:
+    acceptsReservations: 'yes'
+    priceRange: $
+facebookenable: true
+login: {  }
+permissions:
+    authors:
+        - alvdev
 access:
-    site.login: true
-login:
-    visibility_requires_access: true
-subtitle: 'Default subtitle'
-description: 'Default description'
-tasks:
-    -
-        description: 'Default task 1 description'
-        status: DEFAULT.PENDING
-        department: '0'
-    -
-        description: 'Default task 2 description'
-        status: DEFAULT.STARTED
-        department: '0'
-slug: informes
-menu: Informes
+    admin.login: true
+test: 'Joe Bloggs'
+route: /
+twig_first: true
+never_cache_twig: true
 ---
 
-This is the body report

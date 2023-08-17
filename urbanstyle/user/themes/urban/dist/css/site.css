@@ -1731,6 +1731,18 @@ main a:hover:not(.btn)::before {
   top: 1rem;
 }
 
+.top-\[3\.5px\] {
+  top: 3.5px;
+}
+
+.top-\[2px\] {
+  top: 2px;
+}
+
+.top-\[3px\] {
+  top: 3px;
+}
+
 .z-40 {
   z-index: 40;
 }
@@ -1748,10 +1760,6 @@ main a:hover:not(.btn)::before {
   margin-bottom: 0px;
 }
 
-.-mb-3 {
-  margin-bottom: -0.75rem;
-}
-
 .-mb-\[2px\] {
   margin-bottom: -2px;
 }
@@ -1760,8 +1768,16 @@ main a:hover:not(.btn)::before {
   margin-top: -8rem;
 }
 
+.-mt-\[1px\] {
+  margin-top: -1px;
+}
+
 .mb-0 {
   margin-bottom: 0px;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
 }
 
 .mb-4 {
@@ -1893,6 +1909,10 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
+.h-5 {
+  height: 1.25rem;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -1913,6 +1933,10 @@ main a:hover:not(.btn)::before {
   width: 2rem;
 }
 
+.w-\[18px\] {
+  width: 18px;
+}
+
 .w-\[96\%\] {
   width: 96%;
 }
@@ -1924,6 +1948,18 @@ main a:hover:not(.btn)::before {
 
 .w-full {
   width: 100%;
+}
+
+.w-5 {
+  width: 1.25rem;
+}
+
+.w-\[20px\] {
+  width: 20px;
+}
+
+.w-\[19px\] {
+  width: 19px;
 }
 
 .min-w-\[50vw\] {
@@ -1979,6 +2015,10 @@ main a:hover:not(.btn)::before {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.grid-cols-\[min-content_1fr\] {
+  grid-template-columns: min-content 1fr;
+}
+
 .flex-row-reverse {
   flex-direction: row-reverse;
 }
@@ -1989,6 +2029,10 @@ main a:hover:not(.btn)::before {
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.place-content-end {
+  place-content: end;
 }
 
 .content-center {
@@ -2003,6 +2047,10 @@ main a:hover:not(.btn)::before {
   align-items: center;
 }
 
+.items-baseline {
+  align-items: baseline;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -2013,6 +2061,10 @@ main a:hover:not(.btn)::before {
 
 .\!gap-4 {
   gap: 1rem !important;
+}
+
+.gap-1 {
+  gap: 0.25rem;
 }
 
 .gap-12 {
@@ -2091,6 +2143,14 @@ main a:hover:not(.btn)::before {
 
 .border-2 {
   border-width: 2px;
+}
+
+.border-b-4 {
+  border-bottom-width: 4px;
+}
+
+.border-dotted {
+  border-style: dotted;
 }
 
 .border-black {
@@ -2265,6 +2325,10 @@ main a:hover:not(.btn)::before {
   padding-right: 1.5rem !important;
 }
 
+.pb-14 {
+  padding-bottom: 3.5rem;
+}
+
 .pb-24 {
   padding-bottom: 6rem;
 }
@@ -2279,6 +2343,10 @@ main a:hover:not(.btn)::before {
 
 .pr-10 {
   padding-right: 2.5rem;
+}
+
+.pr-3 {
+  padding-right: 0.75rem;
 }
 
 .pr-8 {
@@ -2339,11 +2407,6 @@ main a:hover:not(.btn)::before {
   line-height: 1;
 }
 
-.text-9xl {
-  font-size: 8rem;
-  line-height: 1;
-}
-
 .text-\[1\.2rem\] {
   font-size: 1.2rem;
 }
@@ -2351,6 +2414,11 @@ main a:hover:not(.btn)::before {
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .text-sm {
@@ -2375,24 +2443,28 @@ main a:hover:not(.btn)::before {
   text-transform: uppercase;
 }
 
-.leading-none {
-  line-height: 1;
+.capitalize {
+  text-transform: capitalize;
 }
 
-.leading-snug {
-  line-height: 1.375;
+.leading-none {
+  line-height: 1;
 }
 
 .leading-relaxed {
   line-height: 1.625;
 }
 
+.leading-snug {
+  line-height: 1.375;
+}
+
 .leading-tight {
   line-height: 1.25;
 }
 
-.leading-normal {
-  line-height: 1.5;
+.tracking-tighter {
+  letter-spacing: -0.05em;
 }
 
 .text-black {
@@ -2419,6 +2491,11 @@ main a:hover:not(.btn)::before {
   color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
+.text-purple-700 {
+  --tw-text-opacity: 1;
+  color: rgb(126 34 206 / var(--tw-text-opacity));
+}
+
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
@@ -2441,6 +2518,10 @@ main a:hover:not(.btn)::before {
 
 .no-underline {
   text-decoration-line: none;
+}
+
+.opacity-60 {
+  opacity: 0.6;
 }
 
 .opacity-80 {
@@ -2478,11 +2559,6 @@ main a:hover:not(.btn)::before {
 
 .drop-shadow-\[0px_0px_5px_rgba\(0\2c 0\2c 0\2c 1\)\] {
   --tw-drop-shadow: drop-shadow(0px 0px 5px rgba(0,0,0,1));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow-\[10px_-10px_20px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
-  --tw-drop-shadow: drop-shadow(10px -10px 20px rgba(0,0,0,0.3));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -2573,14 +2649,29 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
+.last\:border-0:last-child {
+  border-width: 0px;
+}
+
 .hover\:scale-125:hover {
   --tw-scale-x: 1.25;
   --tw-scale-y: 1.25;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.hover\:scale-95:hover {
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .hover\:cursor-pointer:hover {
   cursor: pointer;
+}
+
+.group:hover .group-hover\:text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 @media (min-width: 640px) {
@@ -2751,57 +2842,32 @@ main a:hover:not(.btn)::before {
   margin-top: 7rem;
 }
 
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-32>*:not(:first-child) {
-  margin-top: 8rem;
-}
-
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-8>*:not(:first-child) {
-  margin-top: 2rem;
-}
-
-.\[\&\>\*\:not\(\:first-child\)\]\:border-t>*:not(:first-child) {
-  border-top-width: 1px;
-}
-
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
-}
-
-.\[\&\>\*\]\:border-gray-400>* {
-  --tw-border-opacity: 1;
-  border-color: rgb(156 163 175 / var(--tw-border-opacity));
-}
-
-.\[\&\>\*\]\:pt-8>* {
-  padding-top: 2rem;
-}
-
-.\[\&\>\*\]\:leading-relaxed>* {
-  line-height: 1.625;
-}
-
-.\[\&\>\*\]\:leading-normal>* {
-  line-height: 1.5;
-}
-
-.\[\&\>\*\]\:leading-snug>* {
-  line-height: 1.375;
-}
-
-.\[\&\>\*\]\:leading-tight>* {
-  line-height: 1.25;
-}
-
-.\[\&\>\*\]\:leading-none>* {
-  line-height: 1;
 }
 
 .\[\&\>a\]\:w-1\/2>a {
   width: 50%;
 }
 
+.\[\&\>path\]\:stroke-purple-700>path {
+  stroke: #7e22ce;
+}
+
+.group:hover .group-hover\:\[\&\>path\]\:stroke-black>path {
+  stroke: #000;
+}
+
 .\[\&\>span\]\:mr-1>span {
   margin-right: 0.25rem;
+}
+
+.\[\&\>svg\]\:h-5>svg {
+  height: 1.25rem;
+}
+
+.\[\&\>svg\]\:w-5>svg {
+  width: 1.25rem;
 }
 
 .\[\&_h2\]\:left-0 h2 {
