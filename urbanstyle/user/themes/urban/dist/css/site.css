@@ -1735,10 +1735,6 @@ main a:hover:not(.btn)::before {
   top: 3.5px;
 }
 
-.top-\[2px\] {
-  top: 2px;
-}
-
 .top-\[3px\] {
   top: 3px;
 }
@@ -1800,6 +1796,10 @@ main a:hover:not(.btn)::before {
   margin-top: 3.5rem;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -1836,8 +1836,11 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
-.mt-16 {
-  margin-top: 4rem;
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .block {
@@ -1874,6 +1877,10 @@ main a:hover:not(.btn)::before {
 
 .h-0 {
   height: 0px;
+}
+
+.h-5 {
+  height: 1.25rem;
 }
 
 .h-6 {
@@ -1913,8 +1920,8 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
-.h-5 {
-  height: 1.25rem;
+.h-\[50vh\] {
+  height: 50vh;
 }
 
 .w-1\/2 {
@@ -1929,6 +1936,10 @@ main a:hover:not(.btn)::before {
   width: 66.666667%;
 }
 
+.w-5 {
+  width: 1.25rem;
+}
+
 .w-6 {
   width: 1.5rem;
 }
@@ -1937,8 +1948,8 @@ main a:hover:not(.btn)::before {
   width: 2rem;
 }
 
-.w-\[18px\] {
-  width: 18px;
+.w-\[19px\] {
+  width: 19px;
 }
 
 .w-\[96\%\] {
@@ -1952,18 +1963,6 @@ main a:hover:not(.btn)::before {
 
 .w-full {
   width: 100%;
-}
-
-.w-5 {
-  width: 1.25rem;
-}
-
-.w-\[20px\] {
-  width: 20px;
-}
-
-.w-\[19px\] {
-  width: 19px;
 }
 
 .min-w-\[50vw\] {
@@ -2021,6 +2020,10 @@ main a:hover:not(.btn)::before {
 
 .grid-cols-\[min-content_1fr\] {
   grid-template-columns: min-content 1fr;
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-row-reverse {
@@ -2127,6 +2130,14 @@ main a:hover:not(.btn)::before {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.whitespace-break-spaces {
+  white-space: break-spaces;
+}
+
+.break-words {
+  overflow-wrap: break-word;
 }
 
 .rounded {
@@ -2243,6 +2254,24 @@ main a:hover:not(.btn)::before {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-yellow-800 {
+  --tw-gradient-from: #854d0e var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(133 77 14 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-yellow-500 {
+  --tw-gradient-from: #eab308 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(234 179 8 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-yellow-400 {
+  --tw-gradient-from: #facc15 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(250 204 21 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-50\% {
   --tw-gradient-from-position: 50%;
 }
@@ -2250,6 +2279,11 @@ main a:hover:not(.btn)::before {
 .via-black {
   --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #000 var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.via-yellow-500 {
+  --tw-gradient-to: rgb(234 179 8 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #eab308 var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
 .to-transparent {
@@ -2367,6 +2401,10 @@ main a:hover:not(.btn)::before {
 
 .pt-40 {
   padding-top: 10rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -2500,6 +2538,11 @@ main a:hover:not(.btn)::before {
   color: rgb(126 34 206 / var(--tw-text-opacity));
 }
 
+.text-red-300 {
+  --tw-text-opacity: 1;
+  color: rgb(252 165 165 / var(--tw-text-opacity));
+}
+
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
@@ -2510,14 +2553,39 @@ main a:hover:not(.btn)::before {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-yellow-300 {
-  --tw-text-opacity: 1;
-  color: rgb(253 224 71 / var(--tw-text-opacity));
-}
-
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+
+.text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity));
+}
+
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.text-red-200 {
+  --tw-text-opacity: 1;
+  color: rgb(254 202 202 / var(--tw-text-opacity));
+}
+
+.text-yellow-400 {
+  --tw-text-opacity: 1;
+  color: rgb(250 204 21 / var(--tw-text-opacity));
+}
+
+.text-yellow-200 {
+  --tw-text-opacity: 1;
+  color: rgb(254 240 138 / var(--tw-text-opacity));
+}
+
+.text-yellow-100 {
+  --tw-text-opacity: 1;
+  color: rgb(254 249 195 / var(--tw-text-opacity));
 }
 
 .no-underline {
@@ -2722,6 +2790,10 @@ main a:hover:not(.btn)::before {
     height: 100%;
   }
 
+  .md\:h-\[75vh\] {
+    height: 75vh;
+  }
+
   .md\:min-w-max {
     min-width: -moz-max-content;
     min-width: max-content;
@@ -2771,6 +2843,16 @@ main a:hover:not(.btn)::before {
     line-height: 1;
   }
 
+  .md\:text-7xl {
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
   .md\:text-black {
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2778,6 +2860,10 @@ main a:hover:not(.btn)::before {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mt-28 {
+    margin-top: 7rem;
+  }
+
   .lg\:w-1\/2 {
     width: 50%;
   }
@@ -2798,9 +2884,29 @@ main a:hover:not(.btn)::before {
     flex-direction: row;
   }
 
+  .lg\:flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .lg\:gap-16 {
+    gap: 4rem;
+  }
+
   .lg\:gap-x-24 {
     -moz-column-gap: 6rem;
          column-gap: 6rem;
+  }
+
+  .lg\:bg-gradient-to-r {
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  }
+
+  .lg\:bg-gradient-to-l {
+    background-image: linear-gradient(to left, var(--tw-gradient-stops));
+  }
+
+  .lg\:text-right {
+    text-align: right;
   }
 }
 
@@ -2846,6 +2952,16 @@ main a:hover:not(.btn)::before {
   margin-top: 7rem;
 }
 
+.\[\&\>\*\:not\(\:first-child\)\]\:mt-20>*:not(:first-child) {
+  margin-top: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .lg\:\[\&\>\*\:not\(\:first-child\)\]\:mt-28>*:not(:first-child) {
+    margin-top: 7rem;
+  }
+}
+
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
 }
@@ -2866,16 +2982,12 @@ main a:hover:not(.btn)::before {
   margin-right: 0.25rem;
 }
 
-.\[\&\>svg\]\:h-5>svg {
-  height: 1.25rem;
-}
-
-.\[\&\>svg\]\:w-5>svg {
-  width: 1.25rem;
-}
-
 .\[\&_h2\]\:left-0 h2 {
   left: 0px;
+}
+
+.\[\&_h2\]\:right-0 h2 {
+  right: 0px;
 }
 
 .\[\&_h2\]\:text-left h2 {
@@ -2884,4 +2996,14 @@ main a:hover:not(.btn)::before {
 
 .\[\&_h2\]\:text-right h2 {
   text-align: right;
+}
+
+@media (min-width: 1024px) {
+  .lg\:\[\&_h2\]\:left-0 h2 {
+    left: 0px;
+  }
+
+  .lg\:\[\&_h2\]\:text-left h2 {
+    text-align: left;
+  }
 }
