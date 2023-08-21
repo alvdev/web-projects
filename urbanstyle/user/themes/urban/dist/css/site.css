@@ -1836,11 +1836,20 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
-.line-clamp-3 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+.-mt-\[0px\] {
+  margin-top: -0px;
+}
+
+.-mt-\[4px\] {
+  margin-top: -4px;
+}
+
+.-mt-\[2px\] {
+  margin-top: -2px;
+}
+
+.mt-\[1px\] {
+  margin-top: 1px;
 }
 
 .block {
@@ -1899,6 +1908,10 @@ main a:hover:not(.btn)::before {
   height: 40vh;
 }
 
+.h-\[50vh\] {
+  height: 50vh;
+}
+
 .h-\[75vh\] {
   height: 75vh;
 }
@@ -1918,14 +1931,6 @@ main a:hover:not(.btn)::before {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[50vh\] {
-  height: 50vh;
-}
-
-.w-1\/2 {
-  width: 50%;
 }
 
 .w-10 {
@@ -2022,10 +2027,6 @@ main a:hover:not(.btn)::before {
   grid-template-columns: min-content 1fr;
 }
 
-.flex-row {
-  flex-direction: row;
-}
-
 .flex-row-reverse {
   flex-direction: row-reverse;
 }
@@ -2112,10 +2113,6 @@ main a:hover:not(.btn)::before {
        column-gap: 2rem;
 }
 
-.gap-y-16 {
-  row-gap: 4rem;
-}
-
 .gap-y-4 {
   row-gap: 1rem;
 }
@@ -2130,10 +2127,6 @@ main a:hover:not(.btn)::before {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.whitespace-break-spaces {
-  white-space: break-spaces;
 }
 
 .break-words {
@@ -2212,6 +2205,11 @@ main a:hover:not(.btn)::before {
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
+.bg-red-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+
 .\!bg-opacity-80 {
   --tw-bg-opacity: 0.8 !important;
 }
@@ -2254,24 +2252,6 @@ main a:hover:not(.btn)::before {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-yellow-800 {
-  --tw-gradient-from: #854d0e var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(133 77 14 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-yellow-500 {
-  --tw-gradient-from: #eab308 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(234 179 8 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-yellow-400 {
-  --tw-gradient-from: #facc15 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(250 204 21 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .from-50\% {
   --tw-gradient-from-position: 50%;
 }
@@ -2279,11 +2259,6 @@ main a:hover:not(.btn)::before {
 .via-black {
   --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #000 var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-
-.via-yellow-500 {
-  --tw-gradient-to: rgb(234 179 8 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), #eab308 var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
 .to-transparent {
@@ -2403,8 +2378,16 @@ main a:hover:not(.btn)::before {
   padding-top: 10rem;
 }
 
-.text-left {
-  text-align: left;
+.pl-3 {
+  padding-left: 0.75rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
+.pr-5 {
+  padding-right: 1.25rem;
 }
 
 .text-center {
@@ -2533,19 +2516,14 @@ main a:hover:not(.btn)::before {
   color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
-.text-purple-700 {
-  --tw-text-opacity: 1;
-  color: rgb(126 34 206 / var(--tw-text-opacity));
-}
-
-.text-red-300 {
-  --tw-text-opacity: 1;
-  color: rgb(252 165 165 / var(--tw-text-opacity));
-}
-
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
 }
 
 .text-white {
@@ -2553,39 +2531,19 @@ main a:hover:not(.btn)::before {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-yellow-500 {
-  --tw-text-opacity: 1;
-  color: rgb(234 179 8 / var(--tw-text-opacity));
-}
-
-.text-red-400 {
-  --tw-text-opacity: 1;
-  color: rgb(248 113 113 / var(--tw-text-opacity));
-}
-
-.text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
-}
-
-.text-red-200 {
-  --tw-text-opacity: 1;
-  color: rgb(254 202 202 / var(--tw-text-opacity));
-}
-
-.text-yellow-400 {
-  --tw-text-opacity: 1;
-  color: rgb(250 204 21 / var(--tw-text-opacity));
-}
-
 .text-yellow-200 {
   --tw-text-opacity: 1;
   color: rgb(254 240 138 / var(--tw-text-opacity));
 }
 
-.text-yellow-100 {
+.text-yellow-500 {
   --tw-text-opacity: 1;
-  color: rgb(254 249 195 / var(--tw-text-opacity));
+  color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+
+.\!text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
 .no-underline {
@@ -2746,6 +2704,11 @@ main a:hover:not(.btn)::before {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.group:hover .group-hover\:text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 @media (min-width: 640px) {
   .sm\:-mb-\[4px\] {
     margin-bottom: -4px;
@@ -2786,12 +2749,12 @@ main a:hover:not(.btn)::before {
     display: none;
   }
 
-  .md\:h-full {
-    height: 100%;
-  }
-
   .md\:h-\[75vh\] {
     height: 75vh;
+  }
+
+  .md\:h-full {
+    height: 100%;
   }
 
   .md\:min-w-max {
@@ -2843,16 +2806,6 @@ main a:hover:not(.btn)::before {
     line-height: 1;
   }
 
-  .md\:text-7xl {
-    font-size: 4.5rem;
-    line-height: 1;
-  }
-
-  .md\:text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
   .md\:text-black {
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2860,10 +2813,6 @@ main a:hover:not(.btn)::before {
 }
 
 @media (min-width: 1024px) {
-  .lg\:mt-28 {
-    margin-top: 7rem;
-  }
-
   .lg\:w-1\/2 {
     width: 50%;
   }
@@ -2895,14 +2844,6 @@ main a:hover:not(.btn)::before {
   .lg\:gap-x-24 {
     -moz-column-gap: 6rem;
          column-gap: 6rem;
-  }
-
-  .lg\:bg-gradient-to-r {
-    background-image: linear-gradient(to right, var(--tw-gradient-stops));
-  }
-
-  .lg\:bg-gradient-to-l {
-    background-image: linear-gradient(to left, var(--tw-gradient-stops));
   }
 
   .lg\:text-right {
@@ -2948,20 +2889,6 @@ main a:hover:not(.btn)::before {
   }
 }
 
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-28>*:not(:first-child) {
-  margin-top: 7rem;
-}
-
-.\[\&\>\*\:not\(\:first-child\)\]\:mt-20>*:not(:first-child) {
-  margin-top: 5rem;
-}
-
-@media (min-width: 1024px) {
-  .lg\:\[\&\>\*\:not\(\:first-child\)\]\:mt-28>*:not(:first-child) {
-    margin-top: 7rem;
-  }
-}
-
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
 }
@@ -2974,8 +2901,20 @@ main a:hover:not(.btn)::before {
   stroke: #7e22ce;
 }
 
+.\[\&\>path\]\:stroke-red-700>path {
+  stroke: #b91c1c;
+}
+
+.\[\&\>path\]\:stroke-white>path {
+  stroke: #fff;
+}
+
 .group:hover .group-hover\:\[\&\>path\]\:stroke-black>path {
   stroke: #000;
+}
+
+.group:hover .group-hover\:\[\&\>path\]\:stroke-white>path {
+  stroke: #fff;
 }
 
 .\[\&\>span\]\:mr-1>span {
@@ -2986,24 +2925,10 @@ main a:hover:not(.btn)::before {
   left: 0px;
 }
 
-.\[\&_h2\]\:right-0 h2 {
-  right: 0px;
-}
-
 .\[\&_h2\]\:text-left h2 {
   text-align: left;
 }
 
 .\[\&_h2\]\:text-right h2 {
   text-align: right;
-}
-
-@media (min-width: 1024px) {
-  .lg\:\[\&_h2\]\:left-0 h2 {
-    left: 0px;
-  }
-
-  .lg\:\[\&_h2\]\:text-left h2 {
-    text-align: left;
-  }
 }

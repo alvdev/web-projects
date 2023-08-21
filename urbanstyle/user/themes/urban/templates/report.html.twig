@@ -38,9 +38,9 @@
                             {{ month.header.title|date("F Y") }}
                         </h2>
                         <button @click="open = !open"
-                                class="flex gap-1 group h-fit items-center text-base pl-2 pr-3 py-2 hover:scale-95 transition-all text-purple-700">
-                            {{ svg('theme:///images/icons/collapse.svg', 'w-6 h-6 -mt-[1px] [&>path]:stroke-purple-700 group-hover:[&>path]:stroke-black')|raw }}
-                            <span class="group-hover:text-black">Mostrar / Ocultar</span>
+                                class="flex gap-1 group h-fit items-center text-xs pl-3 pr-5 py-2 hover:scale-95 transition-all bg-red-800 !text-white rounded-full uppercase">
+                            {{ svg('theme:///images/icons/collapse.svg', 'w-6 h-6 mt-[1px] [&>path]:stroke-white group-hover:[&>path]:stroke-white')|raw }}
+                            <span class="group-hover:text-white">Mostrar / Ocultar</span>
                         </button>
                     </div>
  
