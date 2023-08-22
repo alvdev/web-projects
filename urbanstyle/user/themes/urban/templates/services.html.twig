@@ -24,7 +24,7 @@
  
                 <div class="flex flex-col lg:flex-row items-center lg:gap-16 {{ isReverse }}">
                     <div class="relative lg:w-1/2">
-                        <img src="https://picsum.photos/800/600"
+                        <img src="https://picsum.photos/800/600?random={{ loop.index + 1 }}"
                              alt=""
                              class="m-0 aspect-video w-full" />
                         <h2 class="absolute right-0 bottom-0 m-0 p-6 uppercase leading- text-white w-2/3 break-words text-5xl {{ gradient_dir }} from-red-900 to-transparent drop-shadow-sm">
