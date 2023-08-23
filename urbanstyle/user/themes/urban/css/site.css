@@ -128,7 +128,7 @@
     }
 
     .wall-half {
-        @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-1/2 before:h-full before:top-0 before:opacity-50 -z-10;
+        @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-1/2 before:h-full before:top-0 before:opacity-50 -z-10 before:shadow-[0_0_200px_#00000099_inset];
     }
 
     .d-stripes {

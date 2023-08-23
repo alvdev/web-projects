@@ -1689,8 +1689,11 @@ main a:hover:not(.btn)::before {
   height: 100%;
   width: 50%;
   background-image: url('../images/wall-pattern.png');
-  content: var(--tw-content);
   opacity: 0.5;
+  content: var(--tw-content);
+  --tw-shadow: 0 0 200px #00000099 inset;
+  --tw-shadow-colored: inset 0 0 200px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .visible {
