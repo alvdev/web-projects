@@ -123,6 +123,10 @@
         @apply absolute left-0 top-0 h-full w-full;
     }
 
+    .wall {
+        @apply before:bg-[url('../images/wall-pattern.png')];
+    }
+
     .d-stripes {
         color: white;
         background: repeating-linear-gradient(45deg, black, black 15px, #fff 15px, #fff 25px);

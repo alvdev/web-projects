@@ -1679,6 +1679,11 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
+.wall::before {
+  content: var(--tw-content);
+  background-image: url('../images/wall-pattern.png');
+}
+
 .visible {
   visibility: visible;
 }
@@ -1764,10 +1769,6 @@ main a:hover:not(.btn)::before {
   margin-top: -8rem;
 }
 
-.-mt-\[1px\] {
-  margin-top: -1px;
-}
-
 .mb-0 {
   margin-bottom: 0px;
 }
@@ -1824,6 +1825,10 @@ main a:hover:not(.btn)::before {
   margin-top: 2rem;
 }
 
+.mt-\[1px\] {
+  margin-top: 1px;
+}
+
 .mt-\[1vw\] {
   margin-top: 1vw;
 }
@@ -1834,22 +1839,6 @@ main a:hover:not(.btn)::before {
 
 .mt-\[2vw\] {
   margin-top: 2vw;
-}
-
-.-mt-\[0px\] {
-  margin-top: -0px;
-}
-
-.-mt-\[4px\] {
-  margin-top: -4px;
-}
-
-.-mt-\[2px\] {
-  margin-top: -2px;
-}
-
-.mt-\[1px\] {
-  margin-top: 1px;
 }
 
 .block {
@@ -2205,11 +2194,6 @@ main a:hover:not(.btn)::before {
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
-.bg-red-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
-}
-
 .\!bg-opacity-80 {
   --tw-bg-opacity: 0.8 !important;
 }
@@ -2354,12 +2338,16 @@ main a:hover:not(.btn)::before {
   padding-left: 0.5rem;
 }
 
+.pl-3 {
+  padding-left: 0.75rem;
+}
+
 .pr-10 {
   padding-right: 2.5rem;
 }
 
-.pr-3 {
-  padding-right: 0.75rem;
+.pr-5 {
+  padding-right: 1.25rem;
 }
 
 .pr-8 {
@@ -2376,18 +2364,6 @@ main a:hover:not(.btn)::before {
 
 .pt-40 {
   padding-top: 10rem;
-}
-
-.pl-3 {
-  padding-left: 0.75rem;
-}
-
-.pr-4 {
-  padding-right: 1rem;
-}
-
-.pr-5 {
-  padding-right: 1.25rem;
 }
 
 .text-center {
@@ -2492,6 +2468,11 @@ main a:hover:not(.btn)::before {
   letter-spacing: -0.05em;
 }
 
+.\!text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2521,11 +2502,6 @@ main a:hover:not(.btn)::before {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
-.text-red-700 {
-  --tw-text-opacity: 1;
-  color: rgb(185 28 28 / var(--tw-text-opacity));
-}
-
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -2539,11 +2515,6 @@ main a:hover:not(.btn)::before {
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
-}
-
-.\!text-white {
-  --tw-text-opacity: 1 !important;
-  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
 .no-underline {
@@ -2697,11 +2668,6 @@ main a:hover:not(.btn)::before {
 
 .hover\:cursor-pointer:hover {
   cursor: pointer;
-}
-
-.group:hover .group-hover\:text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .group:hover .group-hover\:text-white {
@@ -2897,20 +2863,8 @@ main a:hover:not(.btn)::before {
   width: 50%;
 }
 
-.\[\&\>path\]\:stroke-purple-700>path {
-  stroke: #7e22ce;
-}
-
-.\[\&\>path\]\:stroke-red-700>path {
-  stroke: #b91c1c;
-}
-
 .\[\&\>path\]\:stroke-white>path {
   stroke: #fff;
-}
-
-.group:hover .group-hover\:\[\&\>path\]\:stroke-black>path {
-  stroke: #000;
 }
 
 .group:hover .group-hover\:\[\&\>path\]\:stroke-white>path {
