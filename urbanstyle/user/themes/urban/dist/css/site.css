@@ -2707,6 +2707,26 @@ main a:hover:not(.btn)::before {
     margin-bottom: -10px;
   }
 
+  .md\:-mb-\[8px\] {
+    margin-bottom: -8px;
+  }
+
+  .md\:-mb-2 {
+    margin-bottom: -0.5rem;
+  }
+
+  .md\:-mb-3 {
+    margin-bottom: -0.75rem;
+  }
+
+  .md\:-mb-1 {
+    margin-bottom: -0.25rem;
+  }
+
+  .md\:-mb-\[6px\] {
+    margin-bottom: -6px;
+  }
+
   .md\:flex {
     display: flex;
   }
@@ -2764,6 +2784,11 @@ main a:hover:not(.btn)::before {
 
   .md\:text-6xl {
     font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  .md\:text-7xl {
+    font-size: 4.5rem;
     line-height: 1;
   }
 
