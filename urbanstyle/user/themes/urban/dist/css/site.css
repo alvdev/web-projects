@@ -1679,6 +1679,10 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
+.wall-half {
+  z-index: -10;
+}
+
 .wall-half::before {
   position: absolute;
   top: 0px;
@@ -1755,10 +1759,6 @@ main a:hover:not(.btn)::before {
 
 .z-50 {
   z-index: 50;
-}
-
-.z-10 {
-  z-index: 10;
 }
 
 .m-0 {
