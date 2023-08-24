@@ -22,7 +22,7 @@
                 {% set isReverse = loop.index is even ? 'lg:text-right lg:flex-row-reverse [&_h2]:left-0 [&_h2]:text-left' : '[&_h2]:text-right' %}
                 {% set gradient_dir = loop.index is even ? 'bg-gradient-to-r' : 'bg-gradient-to-l' %}
  
-                <div class="flex flex-col lg:flex-row items-center lg:gap-16 {{ isReverse }}">
+                <div class="flex flex-col lg:flex-row items-center lg:gap-16 lg:mt-20 lg:first:mt-0 {{ isReverse }}">
                     <div class="relative lg:w-1/2">
                         <img src="https://picsum.photos/800/600?random={{ loop.index + 1 }}"
                              alt=""
@@ -32,7 +32,7 @@
                         </h2>
                     </div>
                     <div class="lg:w-1/2">
-                        {{ p.summary | raw }}
+                        {{ p.content | raw }}
                     </div>
                 </div>
             {% endfor %}

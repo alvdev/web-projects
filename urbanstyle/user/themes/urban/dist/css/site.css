@@ -2805,6 +2805,18 @@ main a:hover:not(.btn)::before {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mt-16 {
+    margin-top: 4rem;
+  }
+
+  .lg\:mt-24 {
+    margin-top: 6rem;
+  }
+
+  .lg\:mt-20 {
+    margin-top: 5rem;
+  }
+
   .lg\:w-1\/2 {
     width: 50%;
   }
@@ -2840,6 +2852,10 @@ main a:hover:not(.btn)::before {
 
   .lg\:text-right {
     text-align: right;
+  }
+
+  .lg\:first\:mt-0:first-child {
+    margin-top: 0px;
   }
 }
 
