@@ -2,5 +2,4 @@
 title: 'Wild posting'
 ---
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nam ipsam provident eius vitae voluptates alias nemo sed cumque iure itaque sint consequuntur quisquam dolorum asperiores. Dicta tempore alias suscipit!
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nam ipsam provident eius vitae voluptates alias nemo sed cumque iure itaque sint consequuntur quisquam dolorum asperiores. Dicta tempore alias suscipit!
+El Wild Posting es una tendencia dentro del street marketing que actúa como un medio de comunicación visual brindando una visibilidad moderna y destacada en sintonía con las nuevas culturas urbanas. El proceso implica la colocación de carteles en paredes de gran tamaño, cada uno con distintas creatividades, creando una composición con un mensaje global. Este mensaje puede consistir en texto, imágenes de marca o elementos visuales. Por lo general, se juega con una paleta de colores que transmite la identidad de la marca y evoca emociones directas en su público objetivo.

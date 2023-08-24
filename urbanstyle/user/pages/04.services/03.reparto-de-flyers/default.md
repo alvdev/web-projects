@@ -2,5 +2,4 @@
 title: 'Reparto de flyers'
 ---
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nam ipsam provident eius vitae voluptates alias nemo sed cumque iure itaque sint consequuntur quisquam dolorum asperiores. Dicta tempore alias suscipit!
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nam ipsam provident eius vitae voluptates alias nemo sed cumque iure itaque sint consequuntur quisquam dolorum asperiores. Dicta tempore alias suscipit!
+El reparto de flyers es una táctica de marketing altamente efectiva para llevar tu mensaje directamente a tu audiencia. Los flyers o folletos se distribuyen estratégicamente en lugares concurridos, entregándolos en mano a tu público objetivo. Ya sea para promocionar tu negocio, evento especial o nueva oferta, nuestro equipo de promotores se asegurará de que tu mensaje llegue de manera impactante y memorable, generando interés y aumentando la visibilidad de lo que tienes para ofrecer.

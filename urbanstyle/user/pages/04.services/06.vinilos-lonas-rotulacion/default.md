@@ -2,5 +2,4 @@
 title: 'Vinilos, lonas y rotulación'
 ---
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nam ipsam provident eius vitae voluptates alias nemo sed cumque iure itaque sint consequuntur quisquam dolorum asperiores. Dicta tempore alias suscipit!
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nam ipsam provident eius vitae voluptates alias nemo sed cumque iure itaque sint consequuntur quisquam dolorum asperiores. Dicta tempore alias suscipit!
+Transforma tu entorno. Nuestra creatividad se une a la última tecnología para brindarte soluciones visuales impactantes. Desde vinilos decorativos que renuevan espacios y superficies hasta lonas resistentes que destacan tu mensaje en grande. Además, nuestra rotulación personalizada da vida a tu identidad en escaparates y vehículos. Con atención meticulosa a los detalles y materiales de calidad, creamos resultados duraderos y visualmente llamativos. Dale vida a tu visión con Urbab Style Publicity.
