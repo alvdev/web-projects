@@ -13,7 +13,7 @@
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
         </section>
 
-        <section class="container grid items-center grid-cols-2 gap-24 mt-24">
+        <section class="container grid gap-8 items-center lg:grid-cols-2 lg:gap-24 mt-24">
             <div>
                 <h1>
                     Escribe, llama o visítanos en nuestras oficinas
@@ -28,44 +28,48 @@
             </div>
         </section>
 
-        <section class="container grid grid-cols-2 gap-24 mt-24 text-center">
-            <div>
-                <h3>
-                    Madrid
-                </h3>
-                <address>
-                    Avenida Manzanares 202-204
-                    <br>
-                    28026 Madrid, España
-                    <br>
-                    Tel: +34 91 305 29 22 / +34 609 15 17 72
-                    <br>
-                    <a href="mailto:https://aemail.com/0gr3">
-                        produccion@urbanstylepublicity.com
-                    </a>
-                </address>
+        <section class="container grid md:grid-cols-2 gap-24 mt-24">
+            <div class="sm:flex md:block flex-row-reverse gap-16">
+                <div class="text-left">
+                    <h3>
+                        Madrid
+                    </h3>
+                    <address>
+                        Avenida Manzanares 202-204
+                        <br>
+                        28026 Madrid, España
+                        <br>
+                        Tel: +34 91 305 29 22 / +34 609 15 17 72
+                        <br>
+                        <a href="mailto:https://aemail.com/0gr3">
+                            email
+                        </a>
+                    </address>
+                </div>
                 <img src="{{ url('theme://images/madrid.webp') }}"
                      alt="Empresa de pegada de carteles en Madrid"
-                     class="mb-0">
+                     class="mb-0 sm:w-1/2 h-auto md:w-full">
             </div>
-            <div>
-                <h3>
-                    Barcelona
-                </h3>
-                <address>
-                    Calle Tamarit 104 local
-                    <br>
-                    08015 Barcelona, España
-                    <br>
-                    Tel: +34 91 305 29 22 / +34 609 15 17 72
-                    <br>
-                    <a href="mailto:https://aemail.com/0gr3">
-                        produccion@urbanstylepublicity.com
-                    </a>
-                </address>
+            <div class="sm:flex md:block gap-16">
+                <div class="sm:text-right md:text-left">
+                    <h3>
+                        Barcelona
+                    </h3>
+                    <address>
+                        Calle Tamarit 104 local
+                        <br>
+                        08015 Barcelona, España
+                        <br>
+                        Tel: +34 91 305 29 22 / +34 609 15 17 72
+                        <br>
+                        <a href="mailto:https://aemail.com/0gr3">
+                            email
+                        </a>
+                    </address>
+                </div>
                 <img src="{{ url('theme://images/barcelona.webp') }}"
                      alt="Empresa de pegada de carteles en Barcelona"
-                     class="mb-0">
+                     class="mb-0 w-1/2 h-auto block md:w-full">
             </div>
         </section>
     </main>
