@@ -1853,6 +1853,10 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -2050,6 +2054,10 @@ main a:hover:not(.btn)::before {
 
 .content-center {
   align-content: center;
+}
+
+.items-start {
+  align-items: flex-start;
 }
 
 .items-end {
