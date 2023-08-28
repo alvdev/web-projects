@@ -20,6 +20,11 @@ module.exports = {
     require('tailwindcss-debug-screens'),
   ],
   theme: {
+    extend: {
+      ringWidth: {
+        16: '16px',
+      },
+    },
     container: {
       padding: '4%',
       center: true,
