@@ -1,12 +1,12 @@
-<div class="container columns-4 gap-8">
+<div class="container columns-2 lg:columns-3 xl:columns-4 gap-4">
     {% for post in feed|slice(0, count) %}
-        <a class="w-full block mb-8" href="{{ post.link }}" target="_blank">
+        <a class="w-full block" href="{{ post.link }}" target="_blank">
             {% if post.type == 'VIDEO' %}
-                <video controls>
+                <video class="mt-0 mb-4" controls>
                     <source src="{{ post.image }}" type="video/mp4">
                 </video>
             {% elseif post.type == 'IMAGE' or post.type == 'CAROUSEL_ALBUM' %}
-                <img class="mt-0 mb-8" src="{{ post.image }}" alt="">
+                <img class="mt-0 mb-4" src="{{ post.image }}" alt="">
             {% else %}
                 {{ post.type }}
             {% endif %}
