@@ -124,7 +124,7 @@
     }
 
     .wall-full {
-        @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-full before:h-full before:top-0 opacity-50 -z-10;
+        @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-full before:h-full before:top-0 before:opacity-50 -z-10;
     }
 
     .wall-half {

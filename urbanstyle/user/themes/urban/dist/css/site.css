@@ -1679,6 +1679,20 @@ main a:hover:not(.btn)::before {
   width: 100%;
 }
 
+.wall-full {
+  z-index: -10;
+}
+
+.wall-full::before {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background-image: url('../images/wall-pattern.png');
+  content: var(--tw-content);
+  opacity: 0.5;
+}
+
 .wall-half {
   z-index: -10;
 }
@@ -1797,8 +1811,8 @@ main a:hover:not(.btn)::before {
   margin-bottom: 2rem;
 }
 
-.mr-1 {
-  margin-right: 0.25rem;
+.mr-4 {
+  margin-right: 1rem;
 }
 
 .mt-0 {
@@ -1855,10 +1869,6 @@ main a:hover:not(.btn)::before {
 
 .mt-\[2vw\] {
   margin-top: 2vw;
-}
-
-.mr-4 {
-  margin-right: 1rem;
 }
 
 .block {
@@ -2226,6 +2236,22 @@ main a:hover:not(.btn)::before {
   --tw-bg-opacity: 0.7;
 }
 
+.\!bg-opacity-50 {
+  --tw-bg-opacity: 0.5 !important;
+}
+
+.bg-opacity-80 {
+  --tw-bg-opacity: 0.8;
+}
+
+.bg-opacity-60 {
+  --tw-bg-opacity: 0.6;
+}
+
+.bg-opacity-0 {
+  --tw-bg-opacity: 0;
+}
+
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -2265,8 +2291,17 @@ main a:hover:not(.btn)::before {
   --tw-gradient-stops: var(--tw-gradient-from), #000 var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
+.via-red-800 {
+  --tw-gradient-to: rgb(153 27 27 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #991b1b var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
 .to-transparent {
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+
+.to-red-800 {
+  --tw-gradient-to: #991b1b var(--tw-gradient-to-position);
 }
 
 .to-50\% {
@@ -2632,6 +2667,44 @@ main a:hover:not(.btn)::before {
   transition-duration: 150ms;
 }
 
+@media (min-width: 1024px) {
+  .lg\:wall-half {
+    z-index: -10;
+  }
+
+  .lg\:wall-half::before {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 50%;
+    background-image: url('../images/wall-pattern.png');
+    opacity: 0.5;
+    content: var(--tw-content);
+    --tw-shadow: 0 0 200px #00000099 inset;
+    --tw-shadow-colored: inset 0 0 200px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:wall-half {
+    z-index: -10;
+  }
+
+  .xl\:wall-half::before {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 50%;
+    background-image: url('../images/wall-pattern.png');
+    opacity: 0.5;
+    content: var(--tw-content);
+    --tw-shadow: 0 0 200px #00000099 inset;
+    --tw-shadow-colored: inset 0 0 200px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}
+
 .before\:absolute::before {
   content: var(--tw-content);
   position: absolute;
@@ -2927,6 +3000,18 @@ main a:hover:not(.btn)::before {
 
   .xl\:bg-gradient-to-r {
     background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  }
+
+  .xl\:to-transparent {
+    --tw-gradient-to: transparent var(--tw-gradient-to-position);
+  }
+
+  .xl\:to-50\% {
+    --tw-gradient-to-position: 50%;
+  }
+
+  .xl\:p-8 {
+    padding: 2rem;
   }
 
   .xl\:pb-48 {
