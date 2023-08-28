@@ -1797,6 +1797,10 @@ main a:hover:not(.btn)::before {
   margin-bottom: 2rem;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
 .mt-0 {
   margin-top: 0px;
 }
@@ -1853,8 +1857,8 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
-.mt-1 {
-  margin-top: 0.25rem;
+.mr-4 {
+  margin-right: 1rem;
 }
 
 .block {
@@ -1936,10 +1940,6 @@ main a:hover:not(.btn)::before {
 
 .h-screen {
   height: 100vh;
-}
-
-.w-1\/2 {
-  width: 50%;
 }
 
 .w-10 {
@@ -2054,10 +2054,6 @@ main a:hover:not(.btn)::before {
 
 .content-center {
   align-content: center;
-}
-
-.items-start {
-  align-items: flex-start;
 }
 
 .items-end {
@@ -2534,6 +2530,11 @@ main a:hover:not(.btn)::before {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
+.text-red-800 {
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -2547,11 +2548,6 @@ main a:hover:not(.btn)::before {
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
-}
-
-.text-red-800 {
-  --tw-text-opacity: 1;
-  color: rgb(153 27 27 / var(--tw-text-opacity));
 }
 
 .no-underline {
@@ -2710,11 +2706,6 @@ main a:hover:not(.btn)::before {
 
 .hover\:cursor-pointer:hover {
   cursor: pointer;
-}
-
-.hover\:text-red-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(153 27 27 / var(--tw-text-opacity));
 }
 
 .group:hover .group-hover\:text-white {

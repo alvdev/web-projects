@@ -7,7 +7,7 @@
      class="{{ hasHero }} container left-0 right-0 w-[96%] flex justify-between items-center pr-10 pl-2 py-2 md:gap-16 z-40"
      @scroll.window="wideNav = window.scrollY > 0 ? true : false">
     <div class="z-40 flex items-center gap-8 transition-all"
-         :class="{ '[&>a]:w-1/2 !gap-4': wideNav && !openMenu }">
+         :class="{ '[&>a]:w-1/2 !gap-4': wideNav && !openMenu, 'flex-col mr-4': openMenu  }">
         {% include 'partials/logo.html.twig' %}
 
         {% if config.plugins.langswitcher.enabled %}
