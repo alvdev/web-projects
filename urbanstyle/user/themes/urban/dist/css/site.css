@@ -2503,6 +2503,22 @@ main a:hover:not(.btn)::before {
   padding-bottom: 8rem;
 }
 
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.pt-28 {
+  padding-top: 7rem;
+}
+
+.pt-24 {
+  padding-top: 6rem;
+}
+
+.pb-36 {
+  padding-bottom: 9rem;
+}
+
 .text-left {
   text-align: left;
 }
