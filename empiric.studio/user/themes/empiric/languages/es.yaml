@@ -1,0 +1,12 @@
+THEME_EMPIRIC:
+  ERROR: "Error!"
+
+THEME:
+  REPORTS: reports
+
+DEFAULT:
+  STATUS: Estado
+  PENDING: Pendiente
+  COMPLETED: Completado
+  STARTED: Iniciado
+  DEPT: Departamento
