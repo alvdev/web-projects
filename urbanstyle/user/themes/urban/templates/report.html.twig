@@ -48,6 +48,8 @@
                         {% for task in month.header.tasks %}
                             {% if 'STARTED' in task.status %}
                                 {% set status_color = "bg-yellow-300" %}
+                            {% elseif 'INPROGRESS' in task.status %}
+                                {% set status_color = "bg-blue-300" %}
                             {% elseif 'PENDING' in task.status %}
                                 {% set status_color = "bg-purple-300" %}
                             {% elseif 'COMPLETED' in task.status %}
@@ -83,7 +85,7 @@
                                     </div>
  
                                     <div class="{{ status_color }} text-sm py-2 px-3 rounded-full w-fit leading-none inline-block mt-2">
-                                        {{ task.status }}
+                                        {{ task.status|t }}
                                     </div>
                                 </div>
  
