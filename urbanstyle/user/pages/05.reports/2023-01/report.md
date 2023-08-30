@@ -23,21 +23,21 @@ media_order: 'empiric-logo2.png,empiric-logo_101.png'
 attachment: empiric-logo_101.png
 tasks:
     -
-        time: '20:39'
+        day: null
         title: 'Lorem ipsum dolor sit'
         description: 'amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a, debitis molestiae iure sequi iste magni.'
         attachment: null
-        status: DEFAULT.PENDING
+        status: DEFAULT.INPROGRESS
         department: '0'
     -
-        time: '13:41'
+        day: null
         title: 'aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a'
         description: 'debitis molestiae iure sequi iste magni.'
         attachment: empiric-logo2.png
         status: DEFAULT.STARTED
         department: '0'
     -
-        time: '12:39'
+        day: null
         title: 'amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt'
         description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a, debitis molestiae iure sequi iste magni.'
         attachment: empiric-logo_101.png
