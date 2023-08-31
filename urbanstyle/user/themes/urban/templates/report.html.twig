@@ -61,15 +61,13 @@
  
                             <div class="task flex gap-16 justify-between mt-14 pb-14 border-b-4 border-dotted last:border-0 border-gray-300">
                                 <div class="flex flex-col gap-2 flex-1">
- 
- 
                                     <div class="grid grid-cols-[min-content_1fr] gap-x-8 gap-y-4 items-baseline">
                                         <div class="-mb-2">
                                         </div>
                                         <div class="-mb-2 flex items-center gap-2 text-sm">
-                                            <span class="absolute opacity-60">{{ svg('theme:///images/icons/empty-calendar.svg', 'w-5 h-5 relative top-[3px]')|raw }}</span>
+                                            <span class="absolute opacity-50">{{ svg('theme:///images/icons/empty-calendar.svg', 'w-[20px] h-[20px] relative top-[3px]')|raw }}</span>
                                             <div class="relative top-[3.5px] flex gap-2">
-                                                <span class="text-gray-500 font-bold w-[19px] inline-block text-center tracking-tighter">{{ task.day|date('d') }}</span>
+                                                <span class="text-gray-500 font-bold w-[20px] h-[20px] inline-block text-center tracking-tighter opacity-80">{{ task.day|date('d') }}</span>
                                                 <time class="text-gray-400">{{ task.day|date('l, H:m') }}</time>
                                             </div>
                                         </div>
