@@ -3,6 +3,7 @@ THEME_URBAN:
 
 THEME:
     REPORTS: Informes
+    FEATURED_EVENTS: Eventos / tareas destacadas
 
 DEFAULT:
     STARTED: Iniciado

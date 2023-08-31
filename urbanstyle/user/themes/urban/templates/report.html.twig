@@ -31,6 +31,9 @@
         </section>
  
         <section class="container mt-24">
+            <h2 class="text-gray-500 font-semibold pb-4 border-b border-gray-300">
+                {{ "THEME.FEATURED_EVENTS"|t }}
+            </h2>
             {% for month in months %}
                 <div x-data="{ open: false }" class="!first:mt-28 mt-14">
                     <div class="flex justify-between items-center mb-16">
