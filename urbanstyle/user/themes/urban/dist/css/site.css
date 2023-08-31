@@ -1769,6 +1769,10 @@ main a:hover:not(.btn)::before {
   margin: 0px;
 }
 
+.-mb-2 {
+  margin-bottom: -0.5rem;
+}
+
 .-mb-\[2px\] {
   margin-bottom: -2px;
 }
@@ -1853,14 +1857,6 @@ main a:hover:not(.btn)::before {
   margin-top: 2vw;
 }
 
-.-mb-1 {
-  margin-bottom: -0.25rem;
-}
-
-.-mb-2 {
-  margin-bottom: -0.5rem;
-}
-
 .block {
   display: block;
 }
@@ -1897,16 +1893,16 @@ main a:hover:not(.btn)::before {
   height: 0px;
 }
 
-.h-5 {
-  height: 1.25rem;
-}
-
 .h-6 {
   height: 1.5rem;
 }
 
 .h-8 {
   height: 2rem;
+}
+
+.h-\[20px\] {
+  height: 20px;
 }
 
 .h-\[400px\] {
@@ -1942,28 +1938,12 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
-.h-\[19px\] {
-  height: 19px;
-}
-
-.h-\[1\] {
-  height: 1;
-}
-
-.h-\[20px\] {
-  height: 20px;
-}
-
 .w-10 {
   width: 2.5rem;
 }
 
 .w-2\/3 {
   width: 66.666667%;
-}
-
-.w-5 {
-  width: 1.25rem;
 }
 
 .w-6 {
@@ -1974,8 +1954,8 @@ main a:hover:not(.btn)::before {
   width: 2rem;
 }
 
-.w-\[19px\] {
-  width: 19px;
+.w-\[20px\] {
+  width: 20px;
 }
 
 .w-\[96\%\] {
@@ -1989,14 +1969,6 @@ main a:hover:not(.btn)::before {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[1\] {
-  width: 1;
-}
-
-.w-\[20px\] {
-  width: 20px;
 }
 
 .min-w-\[50vw\] {
@@ -2189,12 +2161,12 @@ main a:hover:not(.btn)::before {
   border-width: 4px;
 }
 
-.border-b-4 {
-  border-bottom-width: 4px;
-}
-
 .border-b {
   border-bottom-width: 1px;
+}
+
+.border-b-4 {
+  border-bottom-width: 4px;
 }
 
 .border-dotted {
@@ -2214,16 +2186,6 @@ main a:hover:not(.btn)::before {
 .border-red-700 {
   --tw-border-opacity: 1;
   border-color: rgb(185 28 28 / var(--tw-border-opacity));
-}
-
-.border-gray-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(107 114 128 / var(--tw-border-opacity));
-}
-
-.border-gray-400 {
-  --tw-border-opacity: 1;
-  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
 .bg-black {
@@ -2263,26 +2225,6 @@ main a:hover:not(.btn)::before {
 .bg-yellow-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
-}
-
-.bg-blue-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
-}
-
-.bg-yellow-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 240 138 / var(--tw-bg-opacity));
-}
-
-.bg-purple-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(233 213 255 / var(--tw-bg-opacity));
-}
-
-.bg-green-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
 }
 
 .\!bg-opacity-80 {
@@ -2433,6 +2375,10 @@ main a:hover:not(.btn)::before {
   padding-bottom: 6rem;
 }
 
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
 .pb-40 {
   padding-bottom: 10rem;
 }
@@ -2463,14 +2409,6 @@ main a:hover:not(.btn)::before {
 
 .pt-56 {
   padding-top: 14rem;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
-
-.pb-4 {
-  padding-bottom: 1rem;
 }
 
 .text-left {
@@ -2637,25 +2575,20 @@ main a:hover:not(.btn)::before {
   color: rgb(234 179 8 / var(--tw-text-opacity));
 }
 
-.text-gray-300 {
-  --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity));
-}
-
 .no-underline {
   text-decoration-line: none;
 }
 
-.opacity-60 {
-  opacity: 0.6;
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .opacity-80 {
   opacity: 0.8;
 }
 
-.opacity-50 {
-  opacity: 0.5;
+.opacity-70 {
+  opacity: 0.7;
 }
 
 .shadow-\[-20px_60px_60px_rgba\(0\2c 0\2c 0\2c 0\.5\)\] {
@@ -2821,6 +2754,10 @@ main a:hover:not(.btn)::before {
 
 .hover\:cursor-pointer:hover {
   cursor: pointer;
+}
+
+.hover\:opacity-100:hover {
+  opacity: 1;
 }
 
 .group:hover .group-hover\:text-white {
