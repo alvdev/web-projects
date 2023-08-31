@@ -101,14 +101,18 @@
                                     </div>
                                 </div>
  
-                                <div class="flex flex-col gap-4 items-end place-content-end">
-                                    <div class="text-sm text-gray-400 flex">
-                                        Attached files
+                                {% if task.attachment %}
+                                    <div class="flex flex-col gap-4 items-end place-content-end">
+                                        <div class="text-sm text-gray-400 flex">
+                                            Attached files
+                                        </div>
+                                        <a href="{{ month.media[task.attachment].url }}"
+                                           class="text-sm"
+                                           target="_blank">
+                                            {{ month.media[task.attachment].cropZoom(50, 50)|raw }}
+                                        </a>
                                     </div>
-                                    <a href="{{ month.media[task.attachment].url }}" class="text-sm">
-                                        {{ month.media[task.attachment].cropZoom(50, 50)|raw }}
-                                    </a>
-                                </div>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>
