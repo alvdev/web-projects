@@ -63,8 +63,8 @@ form:
                   type: select
                   label: DEFAULT.DEPT
                   options:
-                    0: DEFAULT.SEO
-                    1: DEFAULT.DEPT2
+                    DEFAULT.DEPT1: DEFAULT.DEPT1
+                    DEFAULT.DEPT2: DEFAULT.DEPT2
 
             header.media_order:
               ordering@: header.tasks

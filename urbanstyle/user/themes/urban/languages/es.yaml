@@ -9,3 +9,6 @@ DEFAULT:
     PENDING: Pendiente
     INPROGRESS: En proceso
     COMPLETED: Finalizado
+
+    DEPT1: SEO
+    DEPT2: WEB

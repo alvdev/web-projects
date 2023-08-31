@@ -82,10 +82,18 @@
                                                 {{ task.description|capitalize }}
                                             </div>
                                         {% endif %}
-                                    </div>
- 
-                                    <div class="{{ status_color }} text-sm py-2 px-3 rounded-full w-fit leading-none inline-block mt-2">
-                                        {{ task.status|t }}
+
+                                        <div class="text-base text-gray-500 font-bold uppercase">
+                                            Estado:
+                                        </div>
+                                        <div>
+                                            <div class="{{ status_color }} text-sm py-2 px-3 rounded-full w-fit leading-none inline-block mt-2">
+                                                {{ task.status|t }}
+                                            </div>
+                                            <div class="text-sm py-2 px-3 rounded-full w-fit leading-none inline-block mt-2">
+                                                <span class="uppercase text-gray-500">Dept:</span> {{ task.department|t }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
  

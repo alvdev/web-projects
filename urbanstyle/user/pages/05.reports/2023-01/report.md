@@ -28,21 +28,21 @@ tasks:
         description: 'amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a, debitis molestiae iure sequi iste magni.'
         attachment: null
         status: DEFAULT.INPROGRESS
-        department: '0'
+        department: DEFAULT.DEPT1
     -
         day: null
         title: 'aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a'
         description: 'debitis molestiae iure sequi iste magni.'
         attachment: empiric-logo2.png
         status: DEFAULT.STARTED
-        department: '0'
+        department: DEFAULT.DEPT1
     -
         day: null
         title: 'amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt'
         description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad nostrum ipsum maiores facere aspernatur sint tempore qui illum unde! Sunt numquam cum blanditiis a, debitis molestiae iure sequi iste magni.'
         attachment: empiric-logo_101.png
         status: DEFAULT.STARTED
-        department: '0'
+        department: DEFAULT.DEPT1
 ---
 
 default body
