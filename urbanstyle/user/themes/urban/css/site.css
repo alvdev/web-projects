@@ -13,6 +13,11 @@
         @apply invisible;
     }
 
+    a,
+    .prose a {
+        @apply no-underline;
+    }
+
     textarea,
     input[type='text'],
     input[type='email'],

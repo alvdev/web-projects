@@ -613,6 +613,11 @@ form label:not([data-grav-field='checkbox'] label) {
   visibility: hidden;
 }
 
+a,
+    .prose a {
+  text-decoration-line: none;
+}
+
 textarea,
     input[type='text'],
     input[type='email'],
@@ -1270,7 +1275,7 @@ main a:hover:not(.btn)::before {
   --tw-prose-body: #374151;
   --tw-prose-headings: #111827;
   --tw-prose-lead: #4b5563;
-  --tw-prose-links: #111827;
+  --tw-prose-links: #dc2626;
   --tw-prose-bold: #111827;
   --tw-prose-counters: #6b7280;
   --tw-prose-bullets: #d1d5db;
@@ -1971,10 +1976,6 @@ main a:hover:not(.btn)::before {
   height: 100vh;
 }
 
-.w-1\/2 {
-  width: 50%;
-}
-
 .w-10 {
   width: 2.5rem;
 }
@@ -2455,10 +2456,6 @@ main a:hover:not(.btn)::before {
 
 .pt-56 {
   padding-top: 14rem;
-}
-
-.pb-48 {
-  padding-bottom: 12rem;
 }
 
 .text-left {
@@ -3094,14 +3091,6 @@ main a:hover:not(.btn)::before {
 
   .xl\:p-0 {
     padding: 0px;
-  }
-
-  .xl\:pb-48 {
-    padding-bottom: 12rem;
-  }
-
-  .xl\:pb-56 {
-    padding-bottom: 14rem;
   }
 
   .xl\:pb-60 {

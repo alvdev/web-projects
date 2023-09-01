@@ -10,7 +10,6 @@ module.exports = {
     './urban.php',
   ],
   darkMode: 'class', //false or 'media' or 'class'
-  theme: {},
   variants: {
     extend: {},
   },
@@ -34,7 +33,16 @@ module.exports = {
       scale: {
         102: '1.02',
       },
+
+      typography: theme => ({
+        DEFAULT: {
+          css: {
+            '--tw-prose-links': theme('colors.red.600'),
+          },
+        },
+      }),
     },
+
     container: {
       padding: '4%',
       center: true,
