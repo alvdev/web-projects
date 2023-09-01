@@ -31,6 +31,9 @@ module.exports = {
       contrast: {
         110: '1.1',
       },
+      scale: {
+        102: '1.02',
+      },
     },
     container: {
       padding: '4%',

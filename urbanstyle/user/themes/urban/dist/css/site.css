@@ -1782,20 +1782,16 @@ main a:hover:not(.btn)::before {
   top: 3px;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
 .z-40 {
   z-index: 40;
 }
 
 .z-50 {
   z-index: 50;
-}
-
-.z-10 {
-  z-index: 10;
-}
-
-.z-0 {
-  z-index: 0;
 }
 
 .\!m-0 {
@@ -1973,6 +1969,10 @@ main a:hover:not(.btn)::before {
 
 .h-screen {
   height: 100vh;
+}
+
+.w-1\/2 {
+  width: 50%;
 }
 
 .w-10 {
@@ -2457,6 +2457,10 @@ main a:hover:not(.btn)::before {
   padding-top: 14rem;
 }
 
+.pb-48 {
+  padding-bottom: 12rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2666,13 +2670,13 @@ main a:hover:not(.btn)::before {
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
 }
 
-.brightness-125 {
-  --tw-brightness: brightness(1.25);
+.brightness-110 {
+  --tw-brightness: brightness(1.1);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.brightness-110 {
-  --tw-brightness: brightness(1.1);
+.brightness-125 {
+  --tw-brightness: brightness(1.25);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -2708,11 +2712,6 @@ main a:hover:not(.btn)::before {
 
 .saturate-125 {
   --tw-saturate: saturate(1.25);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.saturate-150 {
-  --tw-saturate: saturate(1.5);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -2793,6 +2792,12 @@ main a:hover:not(.btn)::before {
 
 .last\:border-0:last-child {
   border-width: 0px;
+}
+
+.hover\:scale-102:hover {
+  --tw-scale-x: 1.02;
+  --tw-scale-y: 1.02;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .hover\:scale-125:hover {
@@ -3093,6 +3098,14 @@ main a:hover:not(.btn)::before {
 
   .xl\:pb-48 {
     padding-bottom: 12rem;
+  }
+
+  .xl\:pb-56 {
+    padding-bottom: 14rem;
+  }
+
+  .xl\:pb-60 {
+    padding-bottom: 15rem;
   }
 
   .xl\:text-right {
