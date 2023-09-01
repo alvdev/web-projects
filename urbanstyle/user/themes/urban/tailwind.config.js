@@ -48,4 +48,6 @@ module.exports = {
       center: true,
     },
   },
+
+  safelist: ['external-link'],
 };
