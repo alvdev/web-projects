@@ -83,7 +83,7 @@
                                                 Descripción:
                                             </div>
                                             <div class="text-lg text-gray-500">
-                                                {{ task.description|capitalize }}
+                                                {{ task.description|capitalize|markdown|external_links }}
                                             </div>
                                         {% endif %}
 

@@ -89,8 +89,12 @@
         @apply mt-2;
     }
 
+    .external-link {
+        @apply inline-flex items-start transition-all after:bg-[url(../icons/ext-link.svg)] after:w-4 after:h-4 after:bg-contain after:opacity-40 hover:after:opacity-60 hover:after:grayscale;
+    }
+
     main a:hover:not(.btn) {
-        @apply text-black before:absolute before:-left-[3px] before:bottom-0 before:-z-10 before:w-[calc(100%+6px)] before:border-b-4 before:border-purple-300;
+        @apply text-black transition-all;
     }
 
     .notices {
