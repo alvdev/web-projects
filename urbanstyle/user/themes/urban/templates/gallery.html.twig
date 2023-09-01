@@ -2,7 +2,7 @@
 
 {% block content %}
     <main class="flex-1 prose prose-xl max-w-none">
-        <section class="video torn relative after:absolute after:w-full after:h-8 after:-bottom-6">
+        <section class="torn-bottom">
             <div class="container">
                 <div class="absolute -bottom-1 uppercase font-bold max-w-min text-white text-7xl">
                     Somos Urban Style Publicity
@@ -23,7 +23,7 @@
             {{ page.content|raw }}
         </div>
 
-        {{ instagram_feed()|raw }}
+        {{ feed_instagram_feed()|raw }}
 
         <section class="container mt-24">
             <div class="grid grid-cols-2 gap-4 md:grid-cols-4">

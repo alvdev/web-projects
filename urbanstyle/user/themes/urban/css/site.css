@@ -9,10 +9,12 @@
         @apply flex min-h-screen flex-col text-xl leading-relaxed;
     }
 
-    header.torn:after,
-    footer.torn:before,
-    .video.torn:after {
-        background: url(../images/torn-paper.svg) repeat-x bottom;
+    .torn-bottom {
+        @apply relative after:absolute after:w-full after:h-8 after:-bottom-6 after:bg-[url(../images/torn-paper.svg)] after:bg-repeat-x after:bg-bottom;
+    }
+
+    .torn-top {
+        @apply relative before:absolute before:rotate-180 before:w-full before:h-8 before:-top-6 before:bg-[url(../images/torn-paper.svg)] before:bg-repeat-x before:bg-bottom;
     }
 
     form label:not([data-grav-field='checkbox'] label) {
