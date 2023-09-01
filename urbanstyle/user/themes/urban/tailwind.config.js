@@ -24,6 +24,13 @@ module.exports = {
       ringWidth: {
         16: '16px',
       },
+      saturate: {
+        110: '1.1',
+        125: '1.25',
+      },
+      contrast: {
+        110: '1.1',
+      },
     },
     container: {
       padding: '4%',
