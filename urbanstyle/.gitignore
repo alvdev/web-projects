@@ -5,6 +5,7 @@
 
 /user/*
 !/user/pages/
+/user/pages/*reports
 
 !/user/images/
 
