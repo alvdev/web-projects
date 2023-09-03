@@ -113,7 +113,7 @@
 
 @layer components {
     .torn-bottom {
-        @apply relative z-10 after:absolute after:z-20 after:w-full after:h-8 after:-bottom-6 after:bg-[url(../images/torn-paper.svg)] after:bg-repeat-x after:bg-bottom;
+        @apply relative z-10 after:absolute after:z-20 after:w-full after:h-8 after:-bottom-6 after:bg-[url(../images/torn-paper.svg)] after:bg-repeat-x after:bg-bottom /* after:drop-shadow-[0px_-4px_2px_rgb(0_0_0_/_0.25)] */;
     }
 
     .torn-top {

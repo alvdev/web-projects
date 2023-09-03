@@ -1983,6 +1983,10 @@ main a:hover:not(.btn) {
   height: 100vh;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -2014,14 +2018,6 @@ main a:hover:not(.btn) {
 
 .w-full {
   width: 100%;
-}
-
-.w-1 {
-  width: 0.25rem;
-}
-
-.w-1\/2 {
-  width: 50%;
 }
 
 .min-w-\[50vw\] {
@@ -2582,6 +2578,14 @@ main a:hover:not(.btn) {
   line-height: 1.375;
 }
 
+.leading-tight {
+  line-height: 1.25;
+}
+
+.leading-\[0\] {
+  line-height: 0;
+}
+
 .tracking-tighter {
   letter-spacing: -0.05em;
 }
@@ -2785,6 +2789,11 @@ main a:hover:not(.btn) {
   border-style: none;
 }
 
+.before\:opacity-100::before {
+  content: var(--tw-content);
+  opacity: 1;
+}
+
 .after\:absolute::after {
   content: var(--tw-content);
   position: absolute;
@@ -2853,8 +2862,34 @@ main a:hover:not(.btn) {
     width: 50%;
   }
 
+  .sm\:w-min {
+    width: -moz-min-content;
+    width: min-content;
+  }
+
+  .sm\:min-w-max {
+    min-width: -moz-max-content;
+    min-width: max-content;
+  }
+
+  .sm\:min-w-full {
+    min-width: 100%;
+  }
+
   .sm\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+
+  .sm\:flex-col {
+    flex-direction: column;
+  }
+
+  .sm\:text-center {
+    text-align: center;
   }
 
   .sm\:text-right {
@@ -2884,8 +2919,8 @@ main a:hover:not(.btn) {
     margin-bottom: -10px;
   }
 
-  .md\:-mb-\[6px\] {
-    margin-bottom: -6px;
+  .md\:-mb-\[8px\] {
+    margin-bottom: -8px;
   }
 
   .md\:block {
@@ -2934,12 +2969,28 @@ main a:hover:not(.btn) {
     flex-direction: row;
   }
 
+  .md\:flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .md\:flex-col {
+    flex-direction: column;
+  }
+
+  .md\:items-center {
+    align-items: center;
+  }
+
   .md\:gap-12 {
     gap: 3rem;
   }
 
   .md\:gap-16 {
     gap: 4rem;
+  }
+
+  .md\:gap-4 {
+    gap: 1rem;
   }
 
   .md\:p-8 {
@@ -2979,14 +3030,17 @@ main a:hover:not(.btn) {
     line-height: 1;
   }
 
-  .md\:text-7xl {
-    font-size: 4.5rem;
-    line-height: 1;
-  }
-
   .md\:text-8xl {
     font-size: 6rem;
     line-height: 1;
+  }
+
+  .md\:text-\[5\.5rem\] {
+    font-size: 5.5rem;
+  }
+
+  .md\:\!leading-tight {
+    line-height: 1.25 !important;
   }
 
   .md\:text-black {
@@ -3006,6 +3060,10 @@ main a:hover:not(.btn) {
 
   .lg\:w-1\/2 {
     width: 50%;
+  }
+
+  .lg\:w-3\/4 {
+    width: 75%;
   }
 
   .lg\:columns-3 {
@@ -3033,6 +3091,10 @@ main a:hover:not(.btn) {
     flex-direction: row-reverse;
   }
 
+  .lg\:items-center {
+    align-items: center;
+  }
+
   .lg\:gap-16 {
     gap: 4rem;
   }
@@ -3041,9 +3103,17 @@ main a:hover:not(.btn) {
     gap: 6rem;
   }
 
+  .lg\:gap-4 {
+    gap: 1rem;
+  }
+
   .lg\:gap-x-24 {
     -moz-column-gap: 6rem;
          column-gap: 6rem;
+  }
+
+  .lg\:whitespace-nowrap {
+    white-space: nowrap;
   }
 
   .lg\:text-right {
@@ -3076,10 +3146,6 @@ main a:hover:not(.btn) {
 
   .xl\:flex-row {
     flex-direction: row;
-  }
-
-  .xl\:flex-row-reverse {
-    flex-direction: row-reverse;
   }
 
   .xl\:gap-36 {
@@ -3124,6 +3190,13 @@ main a:hover:not(.btn) {
   }
 }
 
+@media (min-width: 1536px) {
+  .\32xl\:text-9xl {
+    font-size: 8rem;
+    line-height: 1;
+  }
+}
+
 .\[\&\>\*\:not\(\:first-child\)\]\:mt-4>*:not(:first-child) {
   margin-top: 1rem;
 }
@@ -3139,6 +3212,12 @@ main a:hover:not(.btn) {
 .\[\&\>\*\]\:break-inside-avoid>* {
   -moz-column-break-inside: avoid;
        break-inside: avoid;
+}
+
+@media (min-width: 768px) {
+  .md\:\[\&\>\*\]\:w-1\/2>* {
+    width: 50%;
+  }
 }
 
 .\[\&\>a\]\:w-1\/2>a {
