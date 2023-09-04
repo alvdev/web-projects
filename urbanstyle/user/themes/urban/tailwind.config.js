@@ -49,5 +49,5 @@ module.exports = {
     },
   },
 
-  safelist: ['external-link'],
+  safelist: ['external-link', 'notices'],
 };

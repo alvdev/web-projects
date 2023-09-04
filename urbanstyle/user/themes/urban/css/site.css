@@ -147,4 +147,20 @@
         color: white;
         background: repeating-linear-gradient(90deg, #a1a1aa, #a1a1aa 15px, #fff 15px, #fff 25px);
     }
+
+    #messages {
+        @apply fixed z-50 bottom-0 right-0;
+    }
+
+    .notices {
+        @apply px-6 py-3 shadow-md;
+    }
+
+    .notices.red {
+        @apply bg-red-200 text-red-700;
+    }
+
+    .notices.green {
+        @apply bg-green-200 text-green-700;
+    }
 }
