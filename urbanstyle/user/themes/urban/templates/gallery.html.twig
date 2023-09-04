@@ -17,13 +17,13 @@
                    class="w-full m-0 aspect-video">
             </video>
         </section>
-        <div class="container mt-28">
+        <div class="container my-24">
             {{ page.content|raw }}
         </div>
 
-        {{ feed_instagram_feed()|raw }}
+        {{ instagram_feed()|raw }}
 
-        <section class="container mt-24">
+        {# <section class="container mt-24">
             <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
                 <div class="grid gap-4">
                     <div>
@@ -94,6 +94,6 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> #}
     </main>
 {% endblock %}

@@ -1814,6 +1814,11 @@ main a:hover:not(.btn) {
   margin: 0px;
 }
 
+.my-24 {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
 .-mb-2 {
   margin-bottom: -0.5rem;
 }
@@ -1981,10 +1986,6 @@ main a:hover:not(.btn) {
 
 .h-screen {
   height: 100vh;
-}
-
-.w-1\/2 {
-  width: 50%;
 }
 
 .w-10 {
@@ -2189,10 +2190,6 @@ main a:hover:not(.btn) {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.whitespace-nowrap {
-  white-space: nowrap;
 }
 
 .break-words {
@@ -2582,10 +2579,6 @@ main a:hover:not(.btn) {
   line-height: 1.25;
 }
 
-.leading-\[0\] {
-  line-height: 0;
-}
-
 .tracking-tighter {
   letter-spacing: -0.05em;
 }
@@ -2862,30 +2855,12 @@ main a:hover:not(.btn) {
     width: 50%;
   }
 
-  .sm\:w-min {
-    width: -moz-min-content;
-    width: min-content;
-  }
-
-  .sm\:min-w-max {
-    min-width: -moz-max-content;
-    min-width: max-content;
-  }
-
-  .sm\:min-w-full {
-    min-width: 100%;
-  }
-
   .sm\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .sm\:flex-row {
     flex-direction: row;
-  }
-
-  .sm\:flex-col {
-    flex-direction: column;
   }
 
   .sm\:text-center {
@@ -2989,10 +2964,6 @@ main a:hover:not(.btn) {
     gap: 4rem;
   }
 
-  .md\:gap-4 {
-    gap: 1rem;
-  }
-
   .md\:p-8 {
     padding: 2rem;
   }
@@ -3089,10 +3060,6 @@ main a:hover:not(.btn) {
 
   .lg\:flex-row-reverse {
     flex-direction: row-reverse;
-  }
-
-  .lg\:items-center {
-    align-items: center;
   }
 
   .lg\:gap-16 {
@@ -3199,10 +3166,6 @@ main a:hover:not(.btn) {
 
 .\[\&\>\*\:not\(\:first-child\)\]\:mt-4>*:not(:first-child) {
   margin-top: 1rem;
-}
-
-.\[\&\>\*\]\:w-1\/2>* {
-  width: 50%;
 }
 
 .\[\&\>\*\]\:w-full>* {
