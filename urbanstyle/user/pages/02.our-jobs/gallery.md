@@ -1,7 +1,7 @@
 ---
-title: 'Our jobs'
+title: 'Trabajos realizados'
 menu: Trabajos
 slug: trabajos
 ---
 
-This is the body
+### Para ver todas nuestras pegadas de carteles, [síguenos en Instagram](https://www.instagram.com/urban_style_publicity)
