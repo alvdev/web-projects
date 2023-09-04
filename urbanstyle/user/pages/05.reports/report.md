@@ -15,16 +15,12 @@ restaurant:
     acceptsReservations: 'yes'
     priceRange: $
 facebookenable: true
-login: {  }
-permissions:
-    authors:
-        - alvdev
-access:
-    admin.login: true
-test: 'Joe Bloggs'
+login:
+    visibility_requires_access: true
+permissions: {  }
 route: /
-twig_first: true
-never_cache_twig: true
-title: Informes
+cache_enable: false
+access:
+    site.login: true
 ---
 
