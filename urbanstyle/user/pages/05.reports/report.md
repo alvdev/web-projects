@@ -25,5 +25,6 @@ test: 'Joe Bloggs'
 route: /
 twig_first: true
 never_cache_twig: true
+title: Informes
 ---
 
