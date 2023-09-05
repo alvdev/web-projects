@@ -3,18 +3,52 @@
 {% set posts = page.find('/blog').children.published.order('date', 'desc').slice(0, 3) %}
 
 {% block content %}
-    <div class="mt-16">
-        {{ content|raw }}
+    {% if page.media %}
+        {{ page.media|first.html('', '', 'w-full aspect-video object-cover')|raw }}
+    {% endif %}
+
+    <div class="content flex">
+        <div class="w-3/4 relative -mt-32 bg-white">
+            <hgroup>
+                {% if page.title %}
+                    <h1 class="text-8xl pt-8 pr-8 text-gray-900 font-bold">
+                        {{ page.title }}
+                    </h1>
+                {% endif %}
+         
+                {% if page.header.subtitle %}
+                    <h2 class="mt-8 text-gray-500">
+                        {{ page.header.subtitle|raw }}
+                    </h2>
+                {% endif %}
+         
+                {% if page.header.description %}
+                    <p class="mt-8 text-gray-500">
+                        {{ page.header.description|raw }}
+                    </p>
+                {% endif %}
+            </hgroup>
+         
+            <div class="mt-16 pr-16">
+                {{ content|raw }}
+            </div>
+        </div>
+
+        <div class="w-1/4">{% include 'partials/_side-banner.html.twig' %}</div>
     </div>
 
     {% if config.plugins.relatedpages.enabled and related_pages|length > 0 %}
         <section class="mt-32">
-            <h4 class="text-6xl font-semibold">Related Posts</h4>
+            <h4 class="text-6xl font-semibold">
+                Related Posts
+            </h4>
             {% include 'partials/relatedpages.html.twig' %}
         </section>
     {% else %}
         <section class="mt-32">
-            <h4 class="text-6xl font-semibold">Latest Posts</h4>
+            <h4 class="text-6xl font-semibold">
+                Latest Posts
+            </h4>
             <div class="flex flex-col gap-24 mt-16">
                 {% for post in posts %}
                     <article class="flex place-content-between place-items-center gap-8">
@@ -34,9 +68,13 @@
 
                         {% if post.media.items %}
                             {% set image = post.media.item|first %}
-                            <img class="w-1/4 aspect-video object-cover" src="/{{ image.url|webp }}" alt="">
+                            <img class="w-1/4 aspect-video object-cover"
+                                 src="/{{ image.url|webp }}"
+                                 alt="">
                         {% else %}
-                            <img class="w-1/4 aspect-video object-cover" src="https://picsum.photos/400/200.webp?random={{ random() }}" alt="">
+                            <img class="w-1/4 aspect-video object-cover"
+                                 src="https://picsum.photos/400/200.webp?random={{ random() }}"
+                                 alt="">
                         {% endif %}
                     </article>
                 {% endfor %}
