@@ -99,12 +99,12 @@
         @apply mt-2;
     }
 
-    main a:not(.btn) {
-        @apply text-purple-700 relative before:duration-150;
+    .prose a:not(.btn) {
+        @apply text-purple-700 relative before:duration-150 z-10 inline-block;
     }
 
-    main a:hover:not(.btn) {
-        @apply text-black before:border-b-4 before:border-purple-300 before:absolute before:bottom-0 before:w-[calc(100%+6px)] before:-left-[3px] before:-z-10;
+    .prose a:hover {
+        @apply before:border-b-8 before:border-purple-300 before:absolute before:bottom-1 before:w-[calc(100%+6px)] before:-left-[3px] before:-z-10;
     }
 
     .notices {

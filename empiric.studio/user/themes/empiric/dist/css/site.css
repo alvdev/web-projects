@@ -742,29 +742,26 @@ main ol li {
   margin-top: 0.5rem;
 }
 
-main a:not(.btn) {
+.prose a:not(.btn) {
   position: relative;
+  z-index: 10;
+  display: inline-block;
   --tw-text-opacity: 1;
   color: rgb(126 34 206 / var(--tw-text-opacity));
 }
 
-main a:not(.btn)::before {
+.prose a:not(.btn)::before {
   content: var(--tw-content);
   transition-duration: 150ms;
 }
 
-main a:hover:not(.btn) {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-main a:hover:not(.btn)::before {
+.prose a:hover::before {
   position: absolute;
-  bottom: 0px;
+  bottom: 0.25rem;
   left: -3px;
   z-index: -10;
   width: calc(100% + 6px);
-  border-bottom-width: 4px;
+  border-bottom-width: 8px;
   content: var(--tw-content);
   --tw-border-opacity: 1;
   border-color: rgb(216 180 254 / var(--tw-border-opacity));
@@ -921,6 +918,24 @@ main a:hover:not(.btn)::before {
     max-width: 1536px;
   }
 }
+.prose {
+  color: inherit;
+  line-height: inherit;
+  max-width: inherit;
+}
+.prose :where(a):not(:where([class~="not-prose"] *)) {
+  transition: all 500ms;
+  color: #facc15;
+}
+.prose :where(a):not(:where([class~="not-prose"] *)):hover {
+  color: #eab308;
+}
+.prose :where(a):not(:where([class~="not-prose"] *)) {
+  text-decoration: none;
+}
+.prose :where(strong):not(:where([class~="not-prose"] *)) {
+  color: inherit;
+}
 .debug-screens::before {
   position: fixed;
   z-index: 2147483647;
@@ -1001,17 +1016,14 @@ main a:hover:not(.btn)::before {
 .top-2 {
   top: 0.5rem;
 }
+.top-8 {
+  top: 2rem;
+}
 .top-\[1px\] {
   top: 1px;
 }
 .top-\[3\.5px\] {
   top: 3.5px;
-}
-.top-8 {
-  top: 2rem;
-}
-.top-16 {
-  top: 4rem;
 }
 .m-0 {
   margin: 0px;
@@ -1112,10 +1124,6 @@ main a:hover:not(.btn)::before {
 .h-full {
   height: 100%;
 }
-.h-min {
-  height: -moz-min-content;
-  height: min-content;
-}
 .min-h-\[20rem\] {
   min-height: 20rem;
 }
@@ -1149,18 +1157,6 @@ main a:hover:not(.btn)::before {
 }
 .w-full {
   width: 100%;
-}
-.w-1 {
-  width: 0.25rem;
-}
-.w-1\/3 {
-  width: 33.333333%;
-}
-.w-4\/5 {
-  width: 80%;
-}
-.w-1\/5 {
-  width: 20%;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1307,14 +1303,6 @@ main a:hover:not(.btn)::before {
   --tw-bg-opacity: 1;
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
-.bg-primary-lighter {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
-}
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
 }
@@ -1363,29 +1351,20 @@ main a:hover:not(.btn)::before {
 .pr-12 {
   padding-right: 3rem;
 }
+.pr-16 {
+  padding-right: 4rem;
+}
 .pr-3 {
   padding-right: 0.75rem;
+}
+.pr-8 {
+  padding-right: 2rem;
 }
 .pt-32 {
   padding-top: 8rem;
 }
 .pt-8 {
   padding-top: 2rem;
-}
-.pr-4 {
-  padding-right: 1rem;
-}
-.pr-8 {
-  padding-right: 2rem;
-}
-.pr-16 {
-  padding-right: 4rem;
-}
-.pt-16 {
-  padding-top: 4rem;
-}
-.pt-1 {
-  padding-top: 0.25rem;
 }
 .text-center {
   text-align: center;
@@ -1494,93 +1473,73 @@ main a:hover:not(.btn)::before {
 .duration-500 {
   transition-duration: 500ms;
 }
-
 .last\:border-0:last-child {
   border-width: 0px;
 }
-
 .hover\:scale-95:hover {
   --tw-scale-x: .95;
   --tw-scale-y: .95;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-
 .hover\:cursor-pointer:hover {
   cursor: pointer;
 }
-
 .hover\:gap-6:hover {
   gap: 1.5rem;
 }
-
 .hover\:border-t-2:hover {
   border-top-width: 2px;
 }
-
 .hover\:border-purple-400:hover {
   --tw-border-opacity: 1;
   border-color: rgb(192 132 252 / var(--tw-border-opacity));
 }
-
 .hover\:pt-\[calc\(2rem-1\.5px\)\]:hover {
   padding-top: calc(2rem - 1.5px);
 }
-
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
-
 .hover\:text-purple-700:hover {
   --tw-text-opacity: 1;
   color: rgb(126 34 206 / var(--tw-text-opacity));
 }
-
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
-
 .focus\:ring-4:focus {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
-
 .focus\:ring-yellow-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(253 224 71 / var(--tw-ring-opacity));
 }
-
 .group:hover .group-hover\:-left-2 {
   left: -0.5rem;
 }
-
 .group:hover .group-hover\:-right-2 {
   right: -0.5rem;
 }
-
 .group:hover .group-hover\:text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
-
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
 }
-
 .\[\&\>path\]\:stroke-purple-700>path {
   stroke: #7e22ce;
 }
-
 .group:hover .group-hover\:\[\&\>path\]\:stroke-black>path {
   stroke: #000;
 }
-
 .\[\&\>svg\]\:h-5>svg {
   height: 1.25rem;
 }
-
 .\[\&\>svg\]\:w-5>svg {
   width: 1.25rem;
 }
