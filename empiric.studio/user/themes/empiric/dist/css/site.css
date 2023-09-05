@@ -1010,6 +1010,9 @@ main a:hover:not(.btn)::before {
 .top-8 {
   top: 2rem;
 }
+.top-16 {
+  top: 4rem;
+}
 .m-0 {
   margin: 0px;
 }

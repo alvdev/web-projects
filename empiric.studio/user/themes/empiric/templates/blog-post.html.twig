@@ -3,32 +3,32 @@
 {% set posts = page.find('/blog').children.published.order('date', 'desc').slice(0, 3) %}
 
 {% block content %}
-    {% if page.media %}
+    {% if page.media|first %}
         {{ page.media|first.html('', '', 'w-full aspect-video object-cover')|raw }}
     {% endif %}
 
     <div class="content flex">
-        <div class="w-3/4 relative -mt-32 bg-white">
+        <div class="w-3/4 relative {% if page.media|first %}-mt-32{% endif %} bg-white">
             <hgroup>
                 {% if page.title %}
-                    <h1 class="text-8xl pt-8 pr-8 text-gray-900 font-bold">
+                    <h1 class="text-8xl {% if page.media|first %}pt-8{% endif %} pr-8 text-gray-900 font-bold">
                         {{ page.title }}
                     </h1>
                 {% endif %}
-         
+ 
                 {% if page.header.subtitle %}
                     <h2 class="mt-8 text-gray-500">
                         {{ page.header.subtitle|raw }}
                     </h2>
                 {% endif %}
-         
+ 
                 {% if page.header.description %}
                     <p class="mt-8 text-gray-500">
                         {{ page.header.description|raw }}
                     </p>
                 {% endif %}
             </hgroup>
-         
+ 
             <div class="mt-16 pr-16">
                 {{ content|raw }}
             </div>
