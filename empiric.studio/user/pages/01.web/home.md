@@ -1,5 +1,5 @@
 ---
-title: 'Webs artesanales de alto rendimiento para vender en internet'
+title: 'Webs de competición para PYMES'
 twitterenable: true
 twittercardoptions: summary
 articleenabled: false
@@ -22,4 +22,3 @@ subtitle: 'Default subtitle'
 description: 'Dato empírico: Un vehículo de competición es una máquina artesanal, fabricado exclusivamente para competir, para ir lo más rápido posible, ajustada milimétricamente para llegar el primero. El resto son vehículos utilitarios, fabricados en masa para el mayor público posible, para jóvenes y para adultos, para ir de vacaciones o para hacer una mudanza, para simplemente llegar usándose para todo.'
 menu: WEB
 ---
-
