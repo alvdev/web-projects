@@ -1,10 +1,10 @@
 {% do assets.addJs('theme://js/aside.js', { loading: 'defer' }) %}
 
 {% block aside %}
-    <aside class="left-side w-40 h-full fixed top-0 left-0  place-content-between">
-        <div class="h-full flex flex-col place-content-between place-items-center">
-            <div class="logo invisible flex mx-auto mt-8 w-16">
-                {{ svg('image://empiric.svg')|raw }}
+    <aside class="left-side bg-white w-full lg:w-40 lg:h-full fixed bottom-0 left-0 lg:place-content-between lg:top-0 shadow-[0_0_50px_50px_rgb(255,255,255)] lg:shadow-none g:bg-transparent">
+        <div class="px-8 py-2 lg:p-0 h-full flex place-content-between place-items-center lg:flex-col">
+            <div class="logo invisible flex lg:mx-auto lg:mt-8">
+                {{ svg('image://empiric.svg', 'w-16 h-auto')|raw }}
             </div>
             {% if page.template == 'blog' or page.template == 'blog-item' %}
                 <ul class="text-sm flex flex-col gap-8 uppercase">
@@ -19,7 +19,7 @@
                     </li>
                 </ul>
             {% else %}
-                <ul class="-rotate-90 font-semibold text-sm flex gap-8 uppercase">
+                <ul class="lg:-rotate-90 font-semibold text-sm flex gap-8 uppercase">
                     <li>
                         <a href="#">LinkedIn</a>
                     </li>
@@ -31,7 +31,7 @@
                     </li>
                 </ul>
             {% endif %}
-            <a href="#top" id="totop" class="mb-8 invisible">
+            <a href="#top" id="totop" class="lg:mb-8 invisible">
                 {{ svg('theme://images/svg/gotop.svg')|raw }}
             </a>
         </div>
