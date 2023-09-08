@@ -54,7 +54,7 @@
         @apply font-semibold;
     }
 
-    p:not(.notices > p:first-child) {
+    .prose p:not(.notices > p:first-child) {
         @apply mt-8;
     }
 

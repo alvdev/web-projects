@@ -653,7 +653,7 @@ strong {
   font-weight: 600;
 }
 
-p:not(.notices > p:first-child) {
+.prose p:not(.notices > p:first-child) {
   margin-top: 2rem;
 }
 
@@ -1009,9 +1009,6 @@ main ol li {
 .sticky {
   position: sticky;
 }
-.inset-0 {
-  inset: 0px;
-}
 .-top-\[3px\] {
   top: -3px;
 }
@@ -1249,6 +1246,9 @@ main ol li {
 .gap-2 {
   gap: 0.5rem;
 }
+.gap-20 {
+  gap: 5rem;
+}
 .gap-24 {
   gap: 6rem;
 }
@@ -1260,9 +1260,6 @@ main ol li {
 }
 .gap-8 {
   gap: 2rem;
-}
-.gap-20 {
-  gap: 5rem;
 }
 .gap-x-8 {
   -moz-column-gap: 2rem;
@@ -1369,10 +1366,6 @@ main ol li {
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-}
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 .py-16 {
   padding-top: 4rem;
@@ -1638,11 +1631,6 @@ main ol li {
     justify-content: space-between;
   }
 
-  .sm\:px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
   .sm\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -1669,11 +1657,6 @@ main ol li {
 
   .lg\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
-  .lg\:px-16 {
-    padding-left: 4rem;
-    padding-right: 4rem;
   }
 }
 
