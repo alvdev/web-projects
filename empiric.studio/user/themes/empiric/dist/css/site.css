@@ -1785,6 +1785,14 @@ main ol li {
     padding: 0px;
   }
 
+  .lg\:pl-40 {
+    padding-left: 10rem;
+  }
+
+  .lg\:pr-12 {
+    padding-right: 3rem;
+  }
+
   .lg\:shadow-none {
     --tw-shadow: 0 0 #0000;
     --tw-shadow-colored: 0 0 #0000;

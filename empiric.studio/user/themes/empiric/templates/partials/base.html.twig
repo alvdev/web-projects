@@ -39,7 +39,7 @@
     </head>
 
     <body id="top"
-          class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }} pl-40 pr-12 h-full flex flex-col text-gray-900 transition duration-500">
+          class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }} px-8 lg:pl-40 lg:pr-12 h-full flex flex-col text-gray-900 transition duration-500">
         {% block aside %}
             {% include 'partials/aside.html.twig' %}
         {% endblock %}
@@ -54,7 +54,7 @@
                     {% block title %}
                         {% include 'partials/title.html.twig' %}
                     {% endblock %}
-                    
+ 
                     <div class="mt-8 text-gray-500">
                         {{ content|raw }}
                     </div>
