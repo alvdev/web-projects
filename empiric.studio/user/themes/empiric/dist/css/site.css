@@ -1281,6 +1281,21 @@ main ol li {
 .scroll-smooth {
   scroll-behavior: smooth;
 }
+.whitespace-pre {
+  white-space: pre;
+}
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+.whitespace-break-spaces {
+  white-space: break-spaces;
+}
+.break-words {
+  overflow-wrap: break-word;
+}
+.break-all {
+  word-break: break-all;
+}
 .rounded-full {
   border-radius: 9999px;
 }
@@ -1657,6 +1672,14 @@ main ol li {
 
   .lg\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .xl\:break-normal {
+    overflow-wrap: normal;
+    word-break: normal;
   }
 }
 
