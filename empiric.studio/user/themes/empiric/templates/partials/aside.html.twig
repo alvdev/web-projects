@@ -1,13 +1,13 @@
 {% do assets.addJs('theme://js/aside.js', { loading: 'defer' }) %}
 
 {% block aside %}
-    <aside class="left-side bg-white w-full lg:w-40 lg:h-full fixed bottom-0 left-0 lg:place-content-between lg:top-0 shadow-[0_0_50px_50px_rgb(255,255,255)] lg:shadow-none g:bg-transparent">
+    <aside class="left-side w-full lg:w-40 lg:h-full fixed bottom-0 left-0 lg:place-content-between lg:top-0 lg:bg-transparent lg:shadow-none z-10 transition duration-500">
         <div class="px-8 py-2 lg:p-0 h-full flex place-content-between place-items-center lg:flex-col">
             <div class="logo invisible flex lg:mx-auto lg:mt-8">
                 {{ svg('image://empiric.svg', 'w-16 h-auto')|raw }}
             </div>
             {% if page.template == 'blog' or page.template == 'blog-item' %}
-                <ul class="text-sm flex flex-col gap-8 uppercase">
+                <ul class="text-sm flex flex-col gap-8 uppercase transition duration-0">
                     <li>
                         <a href="#">Category 1</a>
                     </li>
@@ -19,7 +19,7 @@
                     </li>
                 </ul>
             {% else %}
-                <ul class="lg:-rotate-90 font-semibold text-sm flex gap-8 uppercase">
+                <ul class="lg:-rotate-90 font-semibold text-sm flex gap-8 uppercase transition duration-0">
                     <li>
                         <a href="#">LinkedIn</a>
                     </li>
