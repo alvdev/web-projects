@@ -1946,6 +1946,10 @@ main a:hover:not(.btn) {
   margin-top: 2vw;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -2956,6 +2960,10 @@ main a:hover:not(.btn) {
 .after\:to-transparent::after {
   content: var(--tw-content);
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+
+.first\:mt-0:first-child {
+  margin-top: 0px;
 }
 
 .last\:border-0:last-child {
