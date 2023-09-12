@@ -1942,6 +1942,13 @@ main a:hover:not(.btn) {
   margin-top: 2vw;
 }
 
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .block {
   display: block;
 }
@@ -2021,14 +2028,6 @@ main a:hover:not(.btn) {
 
 .h-screen {
   height: 100vh;
-}
-
-.max-h-screen {
-  max-height: 100vh;
-}
-
-.min-h-screen {
-  min-height: 100vh;
 }
 
 .w-10 {
@@ -2633,6 +2632,10 @@ main a:hover:not(.btn) {
 
 .leading-tight {
   line-height: 1.25;
+}
+
+.leading-loose {
+  line-height: 2;
 }
 
 .tracking-tighter {
