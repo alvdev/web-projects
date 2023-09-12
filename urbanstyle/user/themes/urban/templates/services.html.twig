@@ -24,7 +24,7 @@
  
                 <div class="flex flex-col lg:flex-row items-center lg:gap-16 lg:mt-20 lg:first:mt-0 {{ isReverse }}">
                     <div class="relative lg:w-1/2">
-                        {{ p.media|first.cropResize(550, 310).html('', p.title, 'm-0 aspect-video w-full')|raw }}
+                        {{ p.media|first.cropZoom(550, 310).html('', p.title, 'm-0 aspect-video w-full')|raw }}
                         <h2 class="absolute right-0 bottom-0 m-0 p-6 uppercase leading- text-white w-2/3 break-words text-5xl {{ gradient_dir }} from-red-900 to-transparent drop-shadow-sm">
                             {{ p.title | e }}
                         </h2>
