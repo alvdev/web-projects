@@ -1,5 +1,5 @@
 ---
-title: Grafittis
+title: Graffitis
 media_order: publicidad-graffiti.webp
 ---
 
