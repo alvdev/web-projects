@@ -76,3 +76,14 @@ RewriteRule ^(LICENSE\.txt|composer\.lock|composer\.json|\.htaccess)$ error [F]
 Options -Indexes
 DirectoryIndex index.php index.html index.htm
 # End - Prevent Browsing and Set Default Resources
+
+<IfModule mod_expires.c>
+# One year for image files
+<filesMatch ".(jpg|jpeg|png|gif|ico|webp)$">
+   Header set Cache-Control "max-age=31536000, public"
+</filesMatch>
+# One month for css and js
+<filesMatch ".(css|js)$">
+   Header set Cache-Control "max-age=2678400, public"
+</filesMatch>
+</IfModule>
