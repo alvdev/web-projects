@@ -3,5 +3,3 @@ title: Contact
 menu: Contacto
 slug: contacto
 ---
-
-This is the body contact

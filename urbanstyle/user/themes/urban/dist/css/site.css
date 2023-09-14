@@ -1801,6 +1801,14 @@ select {
   --tw-text-opacity: 1;
   color: rgb(21 128 61 / var(--tw-text-opacity));
 }
+.basic-captcha .form-input-wrapper {
+  gap: 0.5rem;
+  border-radius: 0px !important;
+  border-width: 0px !important;
+}
+.basic-captcha * {
+  background-color: transparent !important;
+}
 .visible {
   visibility: visible;
 }

@@ -5,38 +5,39 @@ form:
     fields:
         name:
             label: Name
-            placeholder: 'Enter your name'
+            placeholder: THEME.FORM_NAME
             autocomplete: 'on'
             type: text
             validate:
                 required: true
         email:
             label: Email
-            placeholder: 'Enter your email address'
+            placeholder: THEME.FORM_EMAIL
             type: email
             validate:
                 required: true
         message:
             label: Message
-            placeholder: 'Enter your message'
+            placeholder: THEME.FORM_MESSAGE
             type: textarea
             validate:
                 required: true
-        g-recaptcha-response:
-            label: Captcha
-            type: captcha
-            recaptcha_not_validated: 'Captcha not valid!'
+        basic-captcha:
+            label: THEME.CAPTCHA_LABEL
+            placeholder: THEME.CAPTCHA_PLACEHOLDER
+            type: basic-captcha
     buttons:
         submit:
             type: submit
             value: Submit
-            classes: 'btn btn--default'
+            classes: 'btn btn--primary'
         reset:
             type: reset
             value: Reset
-            classes: btn
+            classes: 'btn btn--default'
     process:
-        captcha: false
+        basic-captcha:
+            message: THEME.CAPTCHA_NOT_VALID
         save:
             fileprefix: contact-
             dateformat: Ymd-His-u
@@ -47,9 +48,4 @@ form:
             body: '{% include ''forms/data.html.twig'' %}'
         message: 'Thank you for getting in touch!'
         display: thankyou
-cache_enable: false
-never_cache_twig: true
-twig_first: true
 ---
-
-This is the body of the contact form on forms folder

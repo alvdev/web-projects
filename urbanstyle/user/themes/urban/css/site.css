@@ -165,4 +165,12 @@
     .notices.green {
         @apply bg-green-200 text-green-700;
     }
+
+    .basic-captcha .form-input-wrapper {
+        @apply !border-0 !rounded-none gap-2;
+    }
+
+    .basic-captcha * {
+        @apply !bg-transparent;
+    }
 }
