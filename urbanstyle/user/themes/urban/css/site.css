@@ -42,19 +42,23 @@
         @apply font-semibold;
     }
 
-    .btn {
-        @apply mt-4 inline-block px-12 py-4 !no-underline !decoration-0 ring-1 ring-gray-900 transition duration-300 hover:ring-4;
+    .btn,
+    a.btn {
+        @apply text-black mt-4 inline-block px-12 py-4 !no-underline !decoration-0 ring-1 ring-gray-900 transition duration-300 hover:ring-4;
     }
 
-    .btn--default {
+    .btn--default,
+    a.btn--default {
         @apply no-underline hover:scale-105 hover:ring-1 [&>div]:transition [&>div]:duration-300 [&>div]:hover:scale-95;
     }
 
-    .btn--primary {
+    .btn--primary,
+    a.btn--primary {
         @apply bg-red-900 text-white ring-red-900;
     }
 
-    .btn--secondary {
+    .btn--secondary,
+    a.btn--secondary {
         @apply bg-yellow-400 ring-yellow-400;
     }
 
