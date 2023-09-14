@@ -9,6 +9,13 @@
 
 !/user/images/
 
+!/user/config/
+/user/config/*
+!/user/config/plugins/
+/user/config/plugins/email.yaml
+/user/config/plugins/instagram.yaml
+/user/config/plugins/login.yaml
+
 !/user/plugins/
 /user/plugins/*
 !/user/plugins/admin/

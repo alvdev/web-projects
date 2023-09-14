@@ -1,0 +1,18 @@
+enabled: true
+trackingId: G-397925943
+position: body
+objectName: gtag
+dnt: true
+blockedIps: null
+blockedIpRanges:
+  - private
+  - loopback
+  - link-local
+blockingCookie: blockGA
+cookieConfig: false
+cookiePrefix: null
+cookieDomain: null
+cookieExpires: 63072000
+optOutEnabled: false
+optOutMessage: 'Google tracking is now disabled.'
+debugMode: true
