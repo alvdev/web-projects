@@ -3,10 +3,10 @@
 {% block content %}
     <main class="flex-1 prose prose-xl max-w-none mt-28">
         <section class="container">
-            <h1>
-                {{ 'THEME_TAILWIND.ERROR'|t }}
+            <h1 class="uppercase">
+                {{ 'DEFAULT.404_TITLE'|t }}
             </h1>
-            {{ page.content|raw }}
+            {{ 'DEFAULT.404_DESC'|t }}
         </section>
     </main>
 {% endblock %}
