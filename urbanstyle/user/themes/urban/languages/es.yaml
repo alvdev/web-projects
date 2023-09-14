@@ -16,3 +16,6 @@ DEFAULT:
 
     404_TITLE: Página no encontrada
     404_DESC: Lo sentimos, la página que estás buscando no existe o ha cambiado de dirección.
+
+SYSTEM:
+    FORGOT_PASSWORD: RECUPERAR CONTRASEÑA
