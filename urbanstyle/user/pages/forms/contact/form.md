@@ -2,7 +2,7 @@
 title: 'Contact form'
 form:
     name: contact
-    action: /forms/contact
+    action: /forms/contact-form
     template: form-messages
     refresh_prevention: true
     fields:
@@ -39,7 +39,7 @@ form:
             value: THEME.FORM_RESET
             classes: 'btn btn--default'
     process:
-        basic-captcha: true  
+        basic-captcha: true
         save:
             fileprefix: contact-
             dateformat: Ymd-His-u
@@ -48,8 +48,11 @@ form:
         email:
             subject: '[Site Contact Form] {{ form.value.name|e }}'
             body: '{% include ''forms/data.html.twig'' %}'
+        message: THEME.MESSAGE_SENT_SUCCESSFULLY
+        remember:
+            - name
+            - email
         reset: true
-        display: thankyou
 cache_enable: false
 twitterenable: false
 twittercardoptions: summary
@@ -59,5 +62,7 @@ orga:
 orgaratingenabled: false
 facebookenable: false
 process:
+    markdown: true
     twig: true
 ---
+
