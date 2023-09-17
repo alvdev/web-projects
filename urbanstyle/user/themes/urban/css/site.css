@@ -95,10 +95,6 @@
         @apply text-black transition-all;
     }
 
-    .notices {
-        @apply p-8;
-    }
-
     /**
      * Dark sections
      */
@@ -151,11 +147,11 @@
     }
 
     #messages {
-        @apply fixed z-50 bottom-0 right-0;
+        @apply fixed z-50 bottom-[1vw] right-[2%] rounded-3xl overflow-hidden shadow border-2 border-white ring-inset ring-2 ring-white;
     }
 
     .notices {
-        @apply px-6 py-3 shadow-md;
+        @apply px-8 py-3 shadow-md;
     }
 
     .notices.red {

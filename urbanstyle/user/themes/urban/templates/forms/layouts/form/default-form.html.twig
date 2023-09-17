@@ -1,8 +1,51 @@
-<form
-    {% block embed_form_core %}{% endblock %}
-    {% block embed_form_classes %}{% endblock %}
-    {% block embed_form_custom_attributes %}{% endblock %}
->
-  {% block embed_fields %}{% endblock %}
-  {% block embed_buttons %}{% endblock %}
+<form {% block embed_form_core %}
+      {% endblock %}
+      {% block embed_form_classes %}
+      {% endblock %}
+      {% block embed_form_custom_attributes %}
+      {% endblock %}>
+    {% block embed_fields %}
+    {% endblock %}
+    {% block embed_buttons %}
+    {% endblock %}
 </form>
+
+<div id="messages">
+</div>
+
+<script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('#contact');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const result = document.querySelector('#messages');
+            const action = form.getAttribute('action');
+            const method = form.getAttribute('method');
+
+            fetch(action, {
+                    method: method,
+                    body: new FormData(form)
+                })
+                .then(function(response) {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(function(output) {
+                    if (result) {
+                        result.innerHTML = output;
+                    }
+                })
+                .catch(function(error) {
+                    if (result) {
+                        result.innerHTML = 'Error: ' + error;
+                    }
+
+                    throw new Error(error);
+                });
+        });
+    });
+</script>

@@ -2,7 +2,6 @@
 title: 'Contact form'
 form:
     name: contact
-    action: /forms/contact-form
     template: form-messages
     refresh_prevention: true
     fields:
@@ -44,14 +43,11 @@ form:
             fileprefix: contact-
             dateformat: Ymd-His-u
             extension: txt
-            body: '{% include ''forms/data.txt.twig'' %}'
+            body: "{% include 'forms/data.txt.twig' %}"
         email:
-            subject: '[Site Contact Form] {{ form.value.name|e }}'
-            body: '{% include ''forms/data.html.twig'' %}'
+            subject: "[Site Contact Form] {{ form.value.name|e }}"
+            body: "{% include 'forms/data.html.twig' %}"
         message: THEME.MESSAGE_SENT_SUCCESSFULLY
-        remember:
-            - name
-            - email
         reset: true
 cache_enable: false
 twitterenable: false
@@ -65,4 +61,3 @@ process:
     markdown: true
     twig: true
 ---
-

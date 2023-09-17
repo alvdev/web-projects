@@ -4,6 +4,14 @@ THEME_URBAN:
 THEME:
     REPORTS: Informes
     FEATURED_EVENTS: Eventos / tareas destacadas
+    FORM_NAME: Dinos tu nombre
+    FORM_EMAIL: Introduce tu email
+    FORM_MESSAGE: Escríbemos tu consulta
+    CAPTCHA_LABEL: ¿Eres una persona real?
+    CAPTCHA_PLACEHOLDER: Introduce el código
+    FORM_SUBMIT: Enviar Consulta
+    FORM_RESET: Reiniciar
+    MESSAGE_SENT_SUCCESSFULLY: Tu consulta ha sido enviada.<br>Te responderemos lo antes posible.<br>Gracias por contactar con Urban Style Publicity.
 
 DEFAULT:
     STARTED: Iniciado
@@ -19,3 +27,6 @@ DEFAULT:
 
 SYSTEM:
     FORGOT_PASSWORD: RECUPERAR CONTRASEÑA
+
+PLUGIN_FORM:
+    ERROR_BASIC_CAPTCHA: "Error al comprobar el Captcha"
