@@ -26,7 +26,7 @@
         {% endblock head %}
 
         {% block stylesheets %}
-            {% do assets.addCss('theme://dist/css/site.min.css', 98) %}
+            {% do assets.addCss('theme://dist/css/site' ~ extension ~ '.css', 98) %}
         {% endblock %}
 
         {% block javascripts %}
