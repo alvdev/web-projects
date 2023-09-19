@@ -5,6 +5,17 @@
 @layer base {
     body {
         @apply flex min-h-screen flex-col text-xl leading-relaxed;
+        animation-duration: 0.5s;
+        animation-name: fadeLoad;
+    }
+
+    @keyframes fadeLoad {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 
     form label:not([data-grav-field='checkbox'] label) {

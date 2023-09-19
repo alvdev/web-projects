@@ -563,7 +563,18 @@ select {
   font-size: 1.25rem;
   line-height: 1.75rem;
   line-height: 1.625;
+        animation-duration: 0.5s;
+        animation-name: fadeLoad;
 }
+
+    @keyframes fadeLoad {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 
     form label:not([data-grav-field='checkbox'] label) {
   visibility: hidden;
@@ -1889,6 +1900,9 @@ select {
 .-mb-\[2px\] {
   margin-bottom: -2px;
 }
+.-mb-\[4px\] {
+  margin-bottom: -4px;
+}
 .-mt-12 {
   margin-top: -3rem;
 }
@@ -1948,18 +1962,6 @@ select {
 }
 .mt-\[2vw\] {
   margin-top: 2vw;
-}
-.-mb-\[\.75rem\] {
-  margin-bottom: -.75rem;
-}
-.-mb-\[\.75vw\] {
-  margin-bottom: -.75vw;
-}
-.-mb-\[4px\] {
-  margin-bottom: -4px;
-}
-.-mb-\[6px\] {
-  margin-bottom: -6px;
 }
 .line-clamp-2 {
   overflow: hidden;
@@ -2724,10 +2726,6 @@ select {
     margin-bottom: -4px;
   }
 
-  .sm\:-mb-\[\.75rem\] {
-    margin-bottom: -.75rem;
-  }
-
   .sm\:flex {
     display: flex;
   }
@@ -2771,16 +2769,8 @@ select {
     top: auto;
   }
 
-  .md\:-mb-\[\.5rem\] {
-    margin-bottom: -.5rem;
-  }
-
   .md\:-mb-\[10px\] {
     margin-bottom: -10px;
-  }
-
-  .md\:-mb-\[\.75rem\] {
-    margin-bottom: -.75rem;
   }
 
   .md\:-mb-\[8px\] {
