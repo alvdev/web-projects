@@ -1,5 +1,5 @@
 enabled: true
-article: false
+article: true
 restaurant: false
 event: false
 organization: true
@@ -7,7 +7,7 @@ musicevent: false
 person: false
 facebookid: null
 twitterid: null
-twitter_default: '0'
-facebook_default: '0'
+twitter_default: '1'
+facebook_default: '1'
 musicalbum: false
 product: false
