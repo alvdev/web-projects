@@ -6,9 +6,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx mix",
-    "watch": "npx mix watch",
-    "prod": "npx mix -p"
+    "build": "bunx mix",
+    "watch": "bunx mix watch",
+    "prod": "bunx mix -p"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
