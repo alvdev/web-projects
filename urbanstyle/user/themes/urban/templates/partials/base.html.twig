@@ -1,5 +1,7 @@
 {% set extension = config.theme.production ? '.min' : '' %}
 
+{% set jsonld = page.home ? include ('jsonld.html') : '' %}
+
 <!DOCTYPE html>
 <html lang="{{ (grav.language.getLanguage ?: grav.config.site.default_lang)|e }}">
     <head>
@@ -44,6 +46,8 @@
                 display: none !important;
             }
         </style>
+ 
+        {{ jsonld|raw }}
     </head>
 
     <body id="top"
