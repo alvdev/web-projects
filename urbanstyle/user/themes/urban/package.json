@@ -23,6 +23,7 @@
     "tailwindcss-debug-screens": "^2.2.1"
   },
   "dependencies": {
+    "@alpinejs/collapse": "^3.13.0",
     "@builder.io/partytown": "^0.8.1",
     "css-loader": "^6.8.1",
     "cssnano": "^6.0.1",
