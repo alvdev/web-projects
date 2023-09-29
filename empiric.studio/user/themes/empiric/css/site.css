@@ -104,7 +104,7 @@
     }
 
     .prose a:hover {
-        @apply before:border-b-8 before:border-purple-300 before:absolute before:bottom-1 before:w-[calc(100%+6px)] before:-left-[3px] before:-z-10;
+        @apply before:border-b-8 before:border-purple-300 before:absolute before:bottom-1 before:w-[calc(100%+6px)] before:-left-[3px] before:-z-10 before:skew-x-12;
     }
 
     .notices {

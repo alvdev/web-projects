@@ -1,0 +1,54 @@
+title: Google reviews
+extends@:
+  type: default
+  context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.reviews:
+              type: list
+              name: MODULE.REVIEWS
+              label: MODULE.REVIEWS
+              style: vertical
+              ordering@: header.month
+              fields:
+                .author:
+                  type: text
+                  label: MODULE.REVIEWS.AUTHOR
+
+                .picture:
+                  type: filepicker
+                  label: MODULE.REVIEWS.AUTHOR_PICTURE
+                  preview_images: true
+
+                .link:
+                  type: url
+                  label: MODULE.REVIEWS.AUTHOR_LINK
+
+                .text:
+                  type: textarea
+                  label: MODULE.REVIEWS.TEXT
+
+                .stars:
+                  type: radio
+                  label: MODULE.REVIEWS.STARS
+                  default: 5
+                  options:
+                    1: 1
+                    2: 2
+                    3: 3
+                    4: 4
+                    5: 5
+
+            header.media_order:
+              ordering@: header.reviews
+            content:
+              unset@: true
