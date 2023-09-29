@@ -17,7 +17,7 @@ mix
     processCssUrls: false,
   });
 // .browserSync({
-//     proxy: 'http://domain.test',
+//     proxy: 'http://urban.local',
 //     files: [
 //         './dist/mix-manifest.json',
 //         '../../pages/**/*.md'
