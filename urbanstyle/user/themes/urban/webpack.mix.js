@@ -15,11 +15,8 @@ mix
   .copy(partytown.libDirPath(), 'dist/~partytown')
   .options({
     processCssUrls: false,
+  })
+  .browserSync({
+    proxy: 'http://urban.local',
+    files: ['./dist/mix-manifest.json', '../../pages/**/*.md'],
   });
-// .browserSync({
-//     proxy: 'http://urban.local',
-//     files: [
-//         './dist/mix-manifest.json',
-//         '../../pages/**/*.md'
-//     ]
-// })
