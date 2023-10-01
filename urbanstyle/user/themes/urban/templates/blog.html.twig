@@ -1,0 +1,67 @@
+{% extends 'partials/base.html.twig' %}
+
+{% set options = {"items": {"@self.descendants": "/blog"}, "order": {"dir": "desc"}} %}
+{% set posts = page.collection(options) %}
+{% do paginate(posts, 3) %}
+
+{% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
+{% set collection = page.collection() %}
+{% set blog = page.find(header_var('blog_url')|defined(theme_var('blog-page'))) %}
+{% set show_breadcrumbs = header_var('show_breadcrumbs', [page, blog])|defined(true) %}
+{% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true) %}
+{% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
+
+{% block content %}
+    <main class="flex-1 max-w-none">
+        <div class="container mt-24">
+            <h1 class="text-6xl font-extrabold uppercase">
+                {{ page.title }}
+            </h1>
+ 
+            <section id="body-wrapper" class="section blog-listing">
+                <section class="container {{ grid_size }}">
+                    {% if show_breadcrumbs and config.plugins.breadcrumbs.enabled %}
+                        {% include 'partials/breadcrumbs.html.twig' %}
+                    {% endif %}
+                </section>
+            </section>
+
+            <section class="flex flex-col gap-24 mt-24">
+                {% for post in posts %}
+                    <article class="flex place-items-center gap-12">
+                        {% if post.media.images %}
+                            {{ post.media.images|first.cropZoom(400, 200).html('', post.title, 'border border-black')|raw }}
+                        {% else %}
+                            <img class="aspect-video object-cover"
+                                 src="https://picsum.photos/400/200.webp?random={{ random() }}"
+                                 alt="">
+                        {% endif %}
+
+                        <div class="text-gray-500 text-lg">
+                            <h2 class="font-bold text-4xl line-clamp-2 pb-1">
+                                <a href="{{ post.url }}">{{ post.title }}</a>
+                            </h2>
+
+                            {% if post.header.description %}
+                                <p class="mt-4">
+                                    {{ post.header.description }}
+                                </p>
+                            {% else %}
+                                <p class="mt-4">
+                                    {{ post.summary|striptags('<strong>')|raw }}
+                                </p>
+                            {% endif %}
+                        </div>
+
+                    </article>
+                {% endfor %}
+            </section>
+
+            <nav class="mt-32">
+                {% if config.plugins.pagination.enabled and posts.params.pagination %}
+                    {% include 'partials/pagination.html.twig' with {'base_url': page.url, 'pagination': posts.params.pagination} %}
+                {% endif %}
+            </nav>
+        </div>
+    </main>
+{% endblock %}
