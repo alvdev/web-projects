@@ -19,6 +19,7 @@ test/
 *Zone.Identifier
 *.bak
 *testing*
+.vscode/
 
 # Include projects folders
 !/alfa.host/
