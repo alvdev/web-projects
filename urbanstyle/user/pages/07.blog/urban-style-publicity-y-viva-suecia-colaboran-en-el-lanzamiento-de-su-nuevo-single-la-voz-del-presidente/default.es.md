@@ -1,0 +1,18 @@
+---
+title: 'Urban Style Publicity y Viva Suecia colaboran en el lanzamiento de su nuevo single La voz del Presidente'
+twitterenable: true
+twittercardoptions: summary
+articleenabled: false
+orgaenabled: false
+orga:
+    ratingValue: 2.5
+orgaratingenabled: false
+facebookenable: true
+media_order: urban-wild-posting.png
+---
+
+La banda indie Viva Suecia  han reactivado su actividad en redes sociales anunciando el lanzamiento de un nuevo single titulado “La Voz del Presidente”, ya disponible en las diferentes plataformas digitales.
+
+Rafa Val, Alberto Cantúa, Jess Fabric y Fernando Campillo son los componentes de Viva Suecia. Un grupo de amigos que poco a poco y trabajando muy duro han logrado colocarse por méritos propios entre las  más importantes bandas de música de la escena del rock indie nacional.
+
+> Urban Style Publicity ha colaborado con ellos con la campaña del nuevo lanzamiento de su nuevo single realizando una pegada de carteles por varias ciudades de España ante el inminente comienzo de su larga y esperada gira que les llevara a muchas ciudades de España ansiosas de recuperar la música en vivo tras la pandemia que nos privó de los espectáculos en directo. En ciudades como Madrid ya han colgado el cartel de ENTRADAS AGOTADAS.
