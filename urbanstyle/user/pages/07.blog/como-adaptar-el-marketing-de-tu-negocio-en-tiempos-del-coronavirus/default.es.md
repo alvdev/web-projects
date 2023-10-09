@@ -1,0 +1,41 @@
+---
+title: 'Cómo adaptar el Marketing de tu negocio en tiempos del Coronavirus'
+twitterenable: true
+twittercardoptions: summary
+articleenabled: false
+orgaenabled: false
+orga:
+    ratingValue: 2.5
+orgaratingenabled: false
+facebookenable: true
+media_order: urban-style-publicity-post-2.jpg
+---
+
+El Covid-19 os ha pillado desprevenidos y prácticamente todo el mundo ha vivido varias fases: incredulidad, parálisis, análisis, acción… En el terreno económico y del trabajo, dependiendo de tu sector de actividad, te habrás visto más o menos afectado. Hostelería, turismo, moda, inmobiliario, mobility, fitness presencial, por ejemplo, han sufrido un parón brutal. Sin embargo, otras actividades han alcanzado picos altos de demanda: fitness y formación online, reparto a domicilio, e-commerce en general, entre otros. En algún momento los primeros volverán a remontar y posiblemente disminuya la demanda de los segundos. En ambos casos, para seguir adelante y contar con liquidez determina la supervivencia.  La comparativa entre sectores de actividad puede observarse en la infografía contenida en el ‘Iº Barómetro Covid 19 y Marketing en España.
+
+He aquí unas cuantas sugerencias.
+
+## Acciones de Buzoneo:
+
+El Buzoneo permite llega directo al posible consumidor con un tiempo de acción-reacción muy efectivo.
+
+Se puede incluir ofertas concretas del producto ofertado es más cercano y alcanzable.
+
+La relación Coste /efectividad, es más alta que en otros medios y es el medio de publicidad directa más económico que existe para llegar al gran público, con costes contenidos y una alta efectividad.
+
+En estos momentos en los cuales pasamos mas tiempo en casa por la pandemia es una forma de publicitar ideal para comercios, hostelería, envíos a domicilio, comida rápida, supermercados, servios profesionales, escuelas, etc…
+
+## Acciones de carteleria exterior:
+
+En las fases de desescaladas y la vuelta a la nueva normalidad todos salimos a la calle para trabajar, realizar compras, visitas medicas, cuidado personal, etc.. y una de las principales razones por las que invertir en pegada de carteles es porque se da una gran publicidad a determinada marca, producto o servicio, permitiendo que sea visto en muchos puntos estratégicos de las ciudades. Con un mensaje bien preparado y distribuido en la vía pública se aumenta la posibilidad de que la campaña llegue al público objetivo de una manera más efectiva. Además, la publicidad exterior permite implementar ideas más creativas que consigan llamar la atención de todo el mundo.
+
+Por otro lado, también hay que destacar que puede llegar a producir un mayor impacto, pudiendo dirigirse a un gran número de segmentos que resultan difíciles de abordar en otros medios. No hay que olvidarse que ayuda al posicionamiento dado que permite la presencia de marca 24/7.
+
+## Acciones online:
+
+Adaptar tu negocio a la venta online. Establecer una tienda web y anunciarse de manera online (Social ads, aplicaciones, Google Adwords, mail marketing, redes sociales). Es una de las adaptaciones mas habituales durante la pandemia.
+
+La imposibilidad en algunos casos de salir a la calle por los confinamientos, decisiones propias o el tele trabajo ha afectado directamente al aumento de ventas o contratación de servios online.
+
+> En lo que respecta al marketing, difícilmente te valdrán ahora tus anteriores planes y estrategias, por lo que se hace necesario repensarlo y adaptarlo a los tiempos que estamos viviendo.
+
