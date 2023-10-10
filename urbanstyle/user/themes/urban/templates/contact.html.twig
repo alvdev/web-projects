@@ -19,8 +19,7 @@
                     Escribe, llama o visítanos en nuestras oficinas
                 </h1>
                 <p>
-                    Contáctanos para poder trabajar juntos y crear una campaña estratégica que se adapte a un presupuesto y a una audiencia
-                    concreta.
+                    Contáctanos para poder trabajar juntos y crear una campaña estratégica que se adapte a un presupuesto y a una audiencia concreta.
                 </p>
             </div>
             <div>
@@ -51,10 +50,9 @@
                         </a>
                     </address>
                 </div>
-                <img src="{{ url('theme://images/madrid.webp') }}"
-                     alt="Empresa de pegada de carteles en Madrid"
-                     class="mb-0 sm:w-1/2 h-auto md:w-full">
+                {{ media['theme://images/madrid.webp'].cropZoom(550, 300).html('', 'Empresa de pegada de carteles en Madrid', 'mb-0 sm:w-1/2 aspect-video md:w-full')|raw }}
             </div>
+
             <div class="sm:flex md:block gap-16">
                 <div class="sm:text-right md:text-left">
                     <h3>
@@ -77,9 +75,7 @@
                         </a>
                     </address>
                 </div>
-                <img src="{{ url('theme://images/barcelona.webp') }}"
-                     alt="Empresa de pegada de carteles en Barcelona"
-                     class="mb-0 sm:w-1/2 h-auto md:w-full">
+                {{ media['theme://images/barcelona.webp'].cropZoom(550, 300).html('', 'Empresa de pegada de carteles en Barcelona', 'mb-0 sm:w-1/2 aspect-video md:w-full')|raw }}
             </div>
         </section>
     </main>
