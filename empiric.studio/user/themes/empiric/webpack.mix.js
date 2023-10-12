@@ -16,5 +16,6 @@ mix
 
   .browserSync({
     proxy: 'http://empiric.local',
+    host: 'empiric.local',
     files: ['./dist/mix-manifest.json', '../../pages/**/*.md'],
   });
