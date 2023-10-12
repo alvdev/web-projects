@@ -6,7 +6,7 @@ const partytown = require('./node_modules/@builder.io/partytown/utils');
 
 mix
   .js('js/main.js', `js/main${extension}.js`)
-  .css('css/site.css', `css/site${extension}.css`)
+  .css('css/site.css', `css/site.min.css`)
   .tailwind()
   .setPublicPath('dist')
   .version()
