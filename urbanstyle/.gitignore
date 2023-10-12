@@ -15,6 +15,7 @@
 /user/config/plugins/email.yaml
 /user/config/plugins/instagram.yaml
 /user/config/plugins/login.yaml
+/user/config/plugins/email-gmail.yaml
 
 !/user/plugins/
 /user/plugins/*
