@@ -128,22 +128,34 @@
             Algunos diseños disponibles
         </h2>
         <ul class="grid grid-cols-3 text-center gap-4 mt-16 mx-0 list-none">
-            <li @click="currentTab = 1" class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
+            <li @click="currentTab = 1"
+                :class="currentTab === 1 ? 'bg-gray-900 text-white' : ''"
+                class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
                 Deportes y fitness
             </li>
-            <li @click="currentTab = 2" class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
+            <li @click="currentTab = 2"
+                :class="currentTab === 2 ? 'bg-gray-900 text-white' : ''"
+                class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
                 Bares y restaurantes
             </li>
-            <li @click="currentTab = 3" class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
+            <li @click="currentTab = 3"
+                :class="currentTab === 3 ? 'bg-gray-900 text-white' : ''"
+                class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
                 Pubs y discotecas
             </li>
-            <li @click="currentTab = 4" class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
+            <li @click="currentTab = 4"
+                :class="currentTab === 4 ? 'bg-gray-900 text-white' : ''"
+                class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
                 Agencias inmobiliarias
             </li>
-            <li @click="currentTab = 5" class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
+            <li @click="currentTab = 5"
+                :class="currentTab === 5 ? 'bg-gray-900 text-white' : ''"
+                class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
                 Estudios de tatuajes
             </li>
-            <li @click="currentTab = 6" class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
+            <li @click="currentTab = 6"
+                :class="currentTab === 6 ? 'bg-gray-900 text-white' : ''"
+                class="border border-gray-900 py-4 px-12 gap-4 mt-4 hover:gap-6 hover:cursor-pointer">
                 Clínicas dentales
             </li>
         </ul>
