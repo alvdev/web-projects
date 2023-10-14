@@ -16,5 +16,7 @@ restaurant:
     acceptsReservations: 'yes'
     priceRange: $
 facebookenable: true
+content:
+    items: '@self.modular'
 ---
 
