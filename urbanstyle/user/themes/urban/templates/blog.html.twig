@@ -57,11 +57,11 @@
                 {% endfor %}
             </section>
 
-            <nav class="mt-32">
-                {% if config.plugins.pagination.enabled and posts.params.pagination %}
+            {% if config.plugins.pagination.enabled and posts.params.pagination %}
+                <nav class="mt-32">
                     {% include 'partials/pagination.html.twig' with {'base_url': page.url, 'pagination': posts.params.pagination} %}
-                {% endif %}
-            </nav>
+                </nav>
+            {% endif %}
         </div>
     </main>
 {% endblock %}
