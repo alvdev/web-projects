@@ -1,0 +1,27 @@
+<section class="mt-16">
+    <div class="flex items-center justify-between">
+        <h2 class="text-6xl">
+            {{ header.title }}
+        </h2>
+ 
+        <div>
+            <div>
+                {{ header.description }}
+            </div>
+ 
+            {% for button in header.buttons %}
+                {% if button.style == 'default' %}
+                    {% set style = "border border-black" %}
+                {% endif %}
+                {% if button.style == 'primary' %}
+                    {% set style = "bg-black text-white" %}
+                {% endif %}
+                {% if button.style == 'secondary' %}
+                    {% set style = "bg-purple-700 text-white" %}
+                {% endif %}
+ 
+                <a href="{{ button.url }}" class="btn {{ style }}">{{ button.text }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,53 @@
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.title:
+              type: text
+              style: horizontal
+              autofocus: true
+
+            header.description:
+              type: textarea
+              label: DEFAULT.DESCRIPTION
+              style: horizontal
+              ordering@: header.subtitle
+              validate:
+                type: textarea
+
+            header.buttons:
+              name: buttons
+              type: list
+              style: horizontal
+              label: DEFAULT.BUTTONS
+              ordering@: header.description
+              fields:
+                .text:
+                  type: text
+                  label: Text
+                .url:
+                  type: text
+                  label: URL
+                .style:
+                  type: radio
+                  label: DEFAULT.STYLE
+                  style: horizontal
+                  default: default
+                  options:
+                      default: 'Default'
+                      primary: 'Primary'
+                      secondary: 'Secondary'
+
+            header.subtitle:
+              unset@: true
+
+            content:
+              unset@: true
