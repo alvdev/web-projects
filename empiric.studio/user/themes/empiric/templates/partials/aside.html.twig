@@ -1,7 +1,7 @@
 {% do assets.addJs('theme://js/aside.js', { loading: 'defer' }) %}
 
 {% block aside %}
-    <aside class="left-side w-full lg:w-40 lg:h-full fixed bottom-0 left-0 lg:place-content-between lg:top-0 lg:bg-transparent lg:shadow-none z-10 transition duration-500">
+    <aside class="left-side w-full lg:w-40 lg:h-full fixed bottom-0 left-0 lg:place-content-between lg:top-0 lg:bg-transparent lg:shadow-none z-10 transition duration-500 bg-white shadow-[0_0_30px_30px_rgb(255,255,255)]">
         <div class="px-8 py-2 lg:p-0 h-full flex place-content-between place-items-center lg:flex-col">
             <div class="logo invisible flex lg:mx-auto lg:mt-8">
                 {{ svg('image://empiric.svg', 'w-16 h-auto')|raw }}
