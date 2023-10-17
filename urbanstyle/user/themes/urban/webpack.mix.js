@@ -18,5 +18,6 @@ mix
   })
   .browserSync({
     proxy: 'http://urban.local',
+    host: 'urban.local',
     files: ['./dist/mix-manifest.json', '../../pages/**/*.md'],
   });
