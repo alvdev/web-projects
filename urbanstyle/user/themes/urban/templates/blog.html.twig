@@ -12,16 +12,16 @@
 {% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
 
 {% block content %}
-    <main class="flex-1 prose prose-xl max-w-none">
+    <main class="flex-1 max-w-none">
         <section class="hero torn-bottom">
             <div class="container">
                 <div class="absolute z-10 flex items-end h-full align-text-bottom lg:w-3/4">
-                    <h1 class="text-white text-5xl -mb-[4px] sm:text-6xl md:text-[5.5rem] 2xl:text-9xl uppercase md:-mb-[8px] drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]">
+                    <h1 class="text-white text-5xl font-extrabold -mb-[4px] sm:text-6xl md:text-[5.5rem] 2xl:text-9xl uppercase md:-mb-[8px] drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]">
                         {{ page.title }}
                     </h1>
                 </div>
             </div>
-            {{ media['theme://images/headers/blog-pegada-de-carteles.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', 'pegada de carteles', 'm-0 h-[50vh] md:h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
+            {{ media['theme://images/headers/blog-pegada-de-carteles.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', 'pegada de carteles', 'm-0 h-[40vh] w-full object-cover brightness-125 contrast-110')|raw }}
         </section>
  
         <div class="container mt-24">
