@@ -23,6 +23,10 @@ taxonomy:
 media_order: averie-woodard-5d20kdvFCfA-unsplash.jpg
 subtitle: 'Post subtitle'
 description: 'Post description'
+page-toc:
+    active: true
+    start: 1
+    depth: 6
 ---
 
 *Lorem markdownum petit*. Paenitet dat mors Alemoniden quoque, est agi incumbens
@@ -30,6 +34,32 @@ cepi [non imitator](http://www.lustrant.com/corrumpere) aliter. Sacra viri simus
 populos rigidi Noctem. Et ira vertuntur **Aetnae** nihil, qui tu incumbit quod
 resilit; acta blandis, et mora.
 
+- Cycladas terra undis manusque pererratis digna pecus
+- Quanto nostraque potita amplexa tractu medium
+- Amissos nec
+
+## Lorem ipsum
+
+*Tamen* partu enim patruelibus telum reditus penetravit itque ignes visa:
+*quoque*. A quarta, sic munera alis pararis: veste et robore **icta** Pelasgos.
+Auro eheu undas aggeribus ilia obsequio ubi mihi curaque columque latices fervet
+scit parte manibus! Eludere feriente fuerant donis tot [perque quaeris
+o](http://www.illotam.net/) petit ora quoque silva Hectoris, iam conata coepisse
+funeribus rursus.
+
+### Lorem ipsum
+- Cycladas terra undis manusque pererratis digna pecus
+- Quanto nostraque potita amplexa tractu medium
+- Amissos nec
+
+*Tamen* partu enim patruelibus telum reditus penetravit itque ignes visa:
+*quoque*. A quarta, sic munera alis pararis: veste et robore **icta** Pelasgos.
+Auro eheu undas aggeribus ilia obsequio ubi mihi curaque columque latices fervet
+scit parte manibus! Eludere feriente fuerant donis tot [perque quaeris
+o](http://www.illotam.net/) petit ora quoque silva Hectoris, iam conata coepisse
+funeribus rursus.
+
+#### Lorem ipsum
 - Cycladas terra undis manusque pererratis digna pecus
 - Quanto nostraque potita amplexa tractu medium
 - Amissos nec
