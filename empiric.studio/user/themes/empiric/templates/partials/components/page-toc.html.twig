@@ -1,0 +1,28 @@
+{% macro toc_loop(items) %}
+    {% import _self as self %}
+    {% for item in items %}
+        {% set class = loop.first ? 'first' : loop.last ? 'last' : null %}
+        <li {% if class %}class="{{ class }} XXX"{% endif %}>
+            <a href="{{ item.uri }}">{{ item.label }}</a>
+            {% if item.children|length > 0 %}
+                <ul class="ml-4 my-0">
+                    {{ _self.toc_loop(item.children) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+{% if config.get('plugins.page-toc.active') or attribute(page.header, 'page-toc').active %}
+    <div class="page-toc snap-y">
+        {% set table_of_contents = toc_items(page.content) %}
+        {% if table_of_contents is not empty %}
+            <h4 class="font-semibold text-sm flex uppercase mb-4">
+                Table of Contents
+            </h4>
+            <ul class="page-toc ml-4 my-0 text-sm list-decimal">
+                {{ _self.toc_loop(table_of_contents.children) }}
+            </ul>
+        {% endif %}
+    </div>
+{% endif %}
