@@ -13,4 +13,4 @@ aura:
     pagetype: website
 ---
 
-Blog content
+Noticias, eventos, anuncios y artículos relacionados con el mundo de la publicidad exterior y las pegadas de carteles.
