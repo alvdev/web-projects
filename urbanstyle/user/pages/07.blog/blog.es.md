@@ -8,8 +8,7 @@ orga:
     ratingValue: 2.5
 orgaratingenabled: false
 facebookenable: true
-admin:
-    children_display_order: collection
+admin: {  }
 aura:
     pagetype: website
 ---
