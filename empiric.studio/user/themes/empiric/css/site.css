@@ -99,6 +99,22 @@
         @apply mt-2;
     }
 
+    main * {
+        @apply scroll-mt-8
+    }
+
+    .prose h2 {
+        @apply text-4xl font-semibold mt-16;
+    }
+
+    .prose h3 {
+         @apply text-3xl font-semibold mt-12;
+    }
+
+    .prose h4 {
+         @apply text-2xl font-semibold mt-8;
+    }
+
     .prose a:not(.btn) {
         @apply text-purple-700 relative before:duration-150 z-10 inline-block;
     }

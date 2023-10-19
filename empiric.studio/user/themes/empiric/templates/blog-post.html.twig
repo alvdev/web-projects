@@ -8,10 +8,18 @@
     {% endif %}
 
     <div class="content flex">
-        <div class="w-3/4 relative {% if page.media|first %}-mt-32{% endif %} bg-white">
+        <div class="w-3/4 relative
+                    {% if page.media|first %}
+                        -mt-32
+                    {% endif %}
+                    bg-white">
             <hgroup>
                 {% if page.title %}
-                    <h1 class="text-8xl {% if page.media|first %}pt-8{% endif %} pr-8 text-gray-900 font-bold">
+                    <h1 class="text-8xl
+                               {% if page.media|first %}
+                                   pt-8
+                               {% endif %}
+                               pr-8 text-gray-900 font-bold">
                         {{ page.title }}
                     </h1>
                 {% endif %}
@@ -34,7 +42,15 @@
             </div>
         </div>
 
-        <div class="w-1/4">{% include 'partials/_side-banner.html.twig' %}</div>
+        <div class="w-1/4">
+ 
+            <div class="sticky top-8 flex flex-col gap-8 items-center justify-center min-h-[20rem]">
+                <div class="flex items-center justify-center p-8 bg-gray-900 text-white w-full min-h-[10rem]">
+                    {% include 'partials/_side-banner.html.twig' %}
+                </div>
+                {% include 'partials/components/page-toc.html.twig' %}
+            </div>
+        </div>
     </div>
 
     {% if config.plugins.relatedpages.enabled and related_pages|length > 0 %}
