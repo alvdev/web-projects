@@ -1,0 +1,22 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+    <main class="flex-1 prose prose-xl max-w-none">
+        <section class="hero torn-bottom">
+            {{ page.media|first.derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', 'pegada de carteles', 'm-0 h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
+        </section>
+
+        <div class="container flex gap-8">
+            <div class="w-1/5 pt-24 hidden md:block">
+            </div>
+            <div class="md:w-3/5 -mt-28 z-10 bg-white px-16 py-12 border border-black">
+                <h1>
+                    {{ page.title }}
+                </h1>
+                {{ content|raw }}
+            </div>
+            <div class="w-1/5 pt-24 hidden md:block">
+            </div>
+        </div>
+    </main>
+{% endblock %}
