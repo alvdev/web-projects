@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: 'the-rolling-stones-sixty-madrid-1536x1002.jpg,Captura-de-pantalla-2022-03-22-a-las-12.23.35.png,cartel-the-rolling-stones-madrid.png'
+aura:
+    pagetype: article
 ---
 
 Madrid es la ciudad elegida por The Rolling Stones para comenzar su próxima gira europea, “SIXTY” (sesenta), con la que celebran sesenta años juntos. Será el próximo 1 de junio en el Wanda Metropolitano, según han anunciado en Twitter.

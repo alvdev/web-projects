@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: portfolio-urban-style-publicity-2.jpg
+aura:
+    pagetype: article
 ---
 
 Para hacernos una idea del alcance al que podría llegar tomamos como referencia el balance sobre la ampliación de aceras en la Gran Vía, que hizo público el Ayuntamiento. Instalaron dos controles de aforo peatonal en los números 13 y 27 de la calle (junto al cruce con la calle Clavel y frente al Primark, respectivamente). Los resultados son espectaculares con puntas de hasta 7.300 personas a la hora paseando por Gran Vía.

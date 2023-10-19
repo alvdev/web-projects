@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: 'urban-style-publicity-post-4.jpg,bbk-live-cartel-768x1086.jpg'
+aura:
+    pagetype: article
 ---
 
 [BBK Live 2022](https://www.bilbaobbklive.com/es) serán tres días de festival en Kobetamendi en los que se darán cita bandas de todos los géneros y cuyos cabezas de cartel serán LCD Soundsystem, The Killers, Placebo,  Stromae, Pet Shop Boys o J Balvin entre muchos mas. Un cartel convincente y muy bailable.

@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: pegada-de-carteles.jpg
+aura:
+    pagetype: article
 ---
 
 La pegada de carteles está considerada como un medio publicitario de gran importancia formado por imágenes o textos cuya función es atrapar la atención percibiendo un claro mensaje a modo de “grito en la pared”. A pesar de los años transcurridos, la pegada de carteles sigue un fenómeno social que ha pasado a formar parte del paisaje urbano de nuestras ciudades.

@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: urban-wild-posting.png
+aura:
+    pagetype: article
 ---
 
 La banda indie Viva Suecia  han reactivado su actividad en redes sociales anunciando el lanzamiento de un nuevo single titulado “La Voz del Presidente”, ya disponible en las diferentes plataformas digitales.

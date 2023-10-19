@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: urban-style-publicity-post.jpg
+aura:
+    pagetype: article
 ---
 
 Aunque hoy en día vivimos rodeados de un ecosistema publicitario dominado por Internet y los diferentes medios de comunicación, la publicidad exterior está pasando por un momento muy especial. Las tendencias publicitarias son cíclicas y actualmente los servicios de pegada de carteles Madrid vuelven a ser otra opción muy a tener en cuenta.

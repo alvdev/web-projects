@@ -10,7 +10,7 @@ orgaratingenabled: false
 facebookenable: true
 media_order: 'wild-posting-madrid.jpg,wild-posting-example-madrid-1024x566.jpg'
 aura:
-    pagetype: website
+    pagetype: article
     image: wild-posting-madrid.jpg
 ---
 

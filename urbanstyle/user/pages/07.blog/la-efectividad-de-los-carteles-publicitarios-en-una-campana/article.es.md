@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: urban_style_publicity_servicios_2.jpg
+aura:
+    pagetype: article
 ---
 
 La publicidad outdoor es muy efectiva y es una forma excelente de hacer llegar a las personas un mensaje, bien sea una promoción de determinado producto, el anuncio de un concierto o evento deportivo o cualquier otra clase de mensaje.

@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: urban-style-publicity-post-2.jpg
+aura:
+    pagetype: article
 ---
 
 El Covid-19 os ha pillado desprevenidos y prácticamente todo el mundo ha vivido varias fases: incredulidad, parálisis, análisis, acción… En el terreno económico y del trabajo, dependiendo de tu sector de actividad, te habrás visto más o menos afectado. Hostelería, turismo, moda, inmobiliario, mobility, fitness presencial, por ejemplo, han sufrido un parón brutal. Sin embargo, otras actividades han alcanzado picos altos de demanda: fitness y formación online, reparto a domicilio, e-commerce en general, entre otros. En algún momento los primeros volverán a remontar y posiblemente disminuya la demanda de los segundos. En ambos casos, para seguir adelante y contar con liquidez determina la supervivencia.  La comparativa entre sectores de actividad puede observarse en la infografía contenida en el ‘Iº Barómetro Covid 19 y Marketing en España.

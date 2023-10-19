@@ -9,6 +9,8 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: 'urban-style-publicity-post-5.jpg,rio-babel-c-tangana-731x1024.jpg,rio-babel-residente-240x300.jpg'
+aura:
+    pagetype: article
 ---
 
 El Festival Rio Babel 2022, que se celebrará del 30 de junio al 2 de julio en La Caja Mágica de Madrid, cuenta ya con tres cabezas de cartel de lo más variadito y con un incuestionable tirón popular.
