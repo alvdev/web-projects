@@ -1,6 +1,6 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set options = {"items": {"@self.descendants": "/blog"}, "order": {"by": "date", "dir": "desc"}} %}
+{% set options = {"items": {"@self.descendants": "/blog"}, "order": {"by": "date", "dir": "asc"}} %}
 {% set posts = page.collection(options) %}
 {% do paginate(posts, 3) %}
 
@@ -41,7 +41,9 @@
                         {% else %}
                             <img class="aspect-video object-cover"
                                  src="https://picsum.photos/400/200.webp?random={{ random() }}"
-                                 alt="">
+                                 alt=""
+                                 width="400"
+                                 height="200">
                         {% endif %}
 
                         <div class="text-gray-500 text-lg">
