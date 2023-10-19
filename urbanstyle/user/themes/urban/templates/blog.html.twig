@@ -1,6 +1,6 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set options = {"items": {"@self.descendants": "/blog"}, "order": {"dir": "desc"}} %}
+{% set options = {"items": {"@self.descendants": "/blog"}, "order": {"by": "date", "dir": "desc"}} %}
 {% set posts = page.collection(options) %}
 {% do paginate(posts, 3) %}
 
