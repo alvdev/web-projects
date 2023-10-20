@@ -33,6 +33,9 @@ module.exports = {
       scale: {
         102: '1.02',
       },
+      backgroundImage: {
+        wall: "url('../images/wall-pattern.png')",
+      },
 
       typography: theme => ({
         DEFAULT: {
