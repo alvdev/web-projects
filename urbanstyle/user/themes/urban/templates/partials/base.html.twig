@@ -35,7 +35,7 @@
 
         {% block javascripts %}
             {% do assets.addJs('theme://dist/~partytown/partytown.js' , 98) %}
-            {% do assets.addJs('theme://dist/js/main' ~ extension ~ '.js', { priority: 98, loading: 'defer'}) %}
+            {% do assets.addJs('theme://dist/js/main.min.js', { priority: 98, loading: 'defer'}) %}
         {% endblock %}
 
         {% block assets deferred %}
