@@ -1,0 +1,47 @@
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.title:
+              type: text
+              style: horizontal
+              autofocus: true
+
+            header.subtitle:
+              style: horizontal
+
+            header.description:
+              type: textarea
+              label: DEFAULT.DESCRIPTION
+              style: horizontal
+              ordering@: header.subtitle
+              validate:
+                type: textarea
+
+            header.milestones:
+              name: milestones
+              type: list
+              style: horizontal
+              label: DEFAULT.MILESTONE
+              ordering@: header.columns
+              fields:
+                .number:
+                  type: number
+                  label: DEFAULT.NUMBER
+                .text:
+                  type: text
+                  label: DEFAULT.TEXT
+
+            content:
+              unset@: true
+
+            header.media_order:
+              unset@: true
