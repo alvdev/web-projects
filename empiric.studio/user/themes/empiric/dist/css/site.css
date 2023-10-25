@@ -1215,20 +1215,8 @@ main * {
 .w-full {
   width: 100%;
 }
-.max-w-lg {
-  max-width: 32rem;
-}
-.max-w-md {
-  max-width: 28rem;
-}
-.max-w-3xl {
-  max-width: 48rem;
-}
 .max-w-xl {
   max-width: 36rem;
-}
-.max-w-2xl {
-  max-width: 42rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1275,6 +1263,9 @@ main * {
 }
 .flex-wrap {
   flex-wrap: wrap;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
 }
 .place-content-end {
   place-content: end;
@@ -1539,9 +1530,6 @@ main * {
 .font-bold {
   font-weight: 700;
 }
-.font-normal {
-  font-weight: 400;
-}
 .font-semibold {
   font-weight: 600;
 }
@@ -1556,6 +1544,9 @@ main * {
 }
 .leading-normal {
   line-height: 1.5;
+}
+.leading-tight {
+  line-height: 1.25;
 }
 .tracking-tighter {
   letter-spacing: -0.05em;
@@ -1629,6 +1620,11 @@ main * {
 }
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.before\:opacity-100::before {
+  content: var(--tw-content);
+  opacity: 1;
 }
 
 .last\:border-0:last-child {
@@ -1715,8 +1711,16 @@ main * {
     display: flex;
   }
 
+  .sm\:w-1\/2 {
+    width: 50%;
+  }
+
   .sm\:grid-cols-\[max-content_auto\] {
     grid-template-columns: max-content auto;
+  }
+
+  .sm\:flex-row {
+    flex-direction: row;
   }
 
   .sm\:items-center {
@@ -1725,6 +1729,34 @@ main * {
 
   .sm\:justify-between {
     justify-content: space-between;
+  }
+
+  .sm\:text-center {
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+
+  .md\:flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .md\:flex-col {
+    flex-direction: column;
+  }
+
+  .md\:items-center {
+    align-items: center;
+  }
+
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .md\:\!leading-tight {
+    line-height: 1.25 !important;
   }
 }
 
@@ -1768,12 +1800,24 @@ main * {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+
   .lg\:flex-col {
     flex-direction: column;
   }
 
   .lg\:place-content-between {
     place-content: space-between;
+  }
+
+  .lg\:gap-4 {
+    gap: 1rem;
+  }
+
+  .lg\:whitespace-nowrap {
+    white-space: nowrap;
   }
 
   .lg\:bg-transparent {
@@ -1790,6 +1834,11 @@ main * {
 
   .lg\:pr-12 {
     padding-right: 3rem;
+  }
+
+  .lg\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 
   .lg\:shadow-none {
@@ -1809,6 +1858,13 @@ main * {
 
 .\[\&\>\*\]\:w-full>* {
   width: 100%;
+}
+
+@media (min-width: 768px) {
+
+  .md\:\[\&\>\*\]\:w-1\/2>* {
+    width: 50%;
+  }
 }
 
 .\[\&\>path\]\:stroke-purple-700>path {
