@@ -18,13 +18,16 @@ form:
             header.subtitle:
               style: horizontal
 
-            header.description:
-              type: textarea
-              label: DEFAULT.DESCRIPTION
-              style: horizontal
+            header.enabled_titles:
+              type: toggle
+              label: DEFAULT.ENABLED_TITLES
+              highlight: 1
               ordering@: header.subtitle
+              options:
+                1: "PLUGIN_ADMIN.ENABLED"
+                0: "PLUGIN_ADMIN.DISABLED"
               validate:
-                type: textarea
+                type: bool
 
             header.milestones:
               name: milestones
@@ -39,6 +42,14 @@ form:
                 .text:
                   type: text
                   label: DEFAULT.TEXT
+
+            header.description:
+              type: textarea
+              label: DEFAULT.DESCRIPTION
+              style: horizontal
+              ordering@: header.milestones
+              validate:
+                type: textarea
 
             content:
               unset@: true
