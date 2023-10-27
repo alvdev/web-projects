@@ -145,189 +145,190 @@
                 </h2>
             </div>
 
-            <div class="grid grid-cols-2 gap-12"
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-4"
                  x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }">
-                <div class="relative w-full flex flex-col gap-2">
+                <div class="relative w-full flex flex-col gap-4">
                     <div x-data="{ id: $id('accordion') }"
-                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-transparent text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
-                         class="duration-200 ease-out bg-white border cursor-pointer group"
+                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+                         class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
                          x-cloak>
                         <button @click="setActiveAccordion(id)"
-                                class="flex items-center justify-between w-full px-5 py-4 font-semibold text-left select-none">
+                                class="flex items-center justify-between w-full pl-7 pr-5 py-4 font-semibold text-left select-none">
                             <span>¿Cobran por diseño de carteles?</span>
                             <div :class="{ 'rotate-90': activeAccordion==id }"
-                                 class="relative flex items-center justify-center w-2.5 h-2.5 duration-300 ease-out">
+                                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
                                 <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                                 <div :class="{ 'rotate-90': activeAccordion==id }"
-                                     class="absolute w-full h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                             </div>
                         </button>
                         <div x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="p-5 pt-0 opacity-70">
+                            <div class="px-7 pt-0 pb-6 opacity-70">
                                 Ofrecemos un servicio completo que incluye diseño básico de carteles a un módico módico. Si requiere diseños más elaborados, podemos presupuestar diseños más personalizados.
                             </div>
                         </div>
                     </div>
                     <div x-data="{ id: $id('accordion') }"
-                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-transparent text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
-                         class="duration-200 ease-out bg-white border cursor-pointer group"
+                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+                         class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
                          x-cloak>
                         <button @click="setActiveAccordion(id)"
-                                class="flex items-center justify-between w-full px-5 py-4 font-semibold text-left select-none">
+                                class="flex items-center justify-between w-full pl-7 pr-5 py-4 font-semibold text-left select-none">
                             <span>¿En qué ciudades trabajan?</span>
                             <div :class="{ 'rotate-90': activeAccordion==id }"
-                                 class="relative flex items-center justify-center w-2.5 h-2.5 duration-300 ease-out">
+                                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
                                 <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                                 <div :class="{ 'rotate-90': activeAccordion==id }"
-                                     class="absolute w-full h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                             </div>
                         </button>
                         <div x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="p-5 pt-0 opacity-70">
+                            <div class="px-7 pt-0 pb-6 opacity-70">
                                 Actualmente podemos brindar nuestros servicios en todo el territorio nacional siendo las principales ciudades como Madrid, Barcelona, Valencia o Sevilla en las que tenemos mayor presencia.
                             </div>
                         </div>
                     </div>
                     <div x-data="{ id: $id('accordion') }"
-                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-transparent text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
-                         class="duration-200 ease-out bg-white border cursor-pointer group"
+                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+                         class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
                          x-cloak>
                         <button @click="setActiveAccordion(id)"
-                                class="flex items-center justify-between w-full px-5 py-4 font-semibold text-left select-none">
+                                class="flex items-center justify-between w-full pl-7 pr-5 py-4 font-semibold text-left select-none">
                             <span>¿Cuánto tiempo se mantienen los carteles puestos?</span>
                             <div :class="{ 'rotate-90': activeAccordion==id }"
-                                 class="relative flex items-center justify-center w-2.5 h-2.5 duration-300 ease-out">
+                                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
                                 <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                                 <div :class="{ 'rotate-90': activeAccordion==id }"
-                                     class="absolute w-full h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                             </div>
                         </button>
                         <div x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="p-5 pt-0 opacity-70">
+                            <div class="px-7 pt-0 pb-6 opacity-70">
                                 Nuestros carteles se mantienen expuestos durante el periodo acordado, que normalmente va de 2 semanas a un mes.
                             </div>
                         </div>
                     </div>
 
                     <div x-data="{ id: $id('accordion') }"
-                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-transparent text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
-                         class="duration-200 ease-out bg-white border cursor-pointer group"
+                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+                         class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
                          x-cloak>
                         <button @click="setActiveAccordion(id)"
-                                class="flex items-center justify-between w-full px-5 py-4 font-semibold text-left select-none">
+                                class="flex items-center justify-between w-full pl-7 pr-5 py-4 font-semibold text-left select-none">
                             <span>¿Ofrecen descuentos por volumen?</span>
                             <div :class="{ 'rotate-90': activeAccordion==id }"
-                                 class="relative flex items-center justify-center w-2.5 h-2.5 duration-300 ease-out">
+                                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
                                 <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                                 <div :class="{ 'rotate-90': activeAccordion==id }"
-                                     class="absolute w-full h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                             </div>
                         </button>
                         <div x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="p-5 pt-0 opacity-70">
+                            <div class="px-7 pt-0 pb-6 opacity-70">
                                 Puede solicitar un presupuesto sin compromiso a través de nuestro <a href="/contacto">formulario de contacto</a>. Indique la ciudad, número de carteles y periodo deseado y nos pondremos en contacto con usted a la mayor brevedad posible.
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative w-full flex flex-col gap-2">
+                <div class="relative w-full flex flex-col gap-4">
                     <div x-data="{ id: $id('accordion') }"
-                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-transparent text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
-                         class="duration-200 ease-out bg-white border cursor-pointer group"
+                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+                         class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
                          x-cloak>
                         <button @click="setActiveAccordion(id)"
-                                class="flex items-center justify-between w-full px-5 py-4 font-semibold text-left select-none">
+                                class="flex items-center justify-between w-full pl-7 pr-5 py-4 font-semibold text-left select-none">
                             <span>¿Qué lugares utilizan para pegar los carteles?</span>
                             <div :class="{ 'rotate-90': activeAccordion==id }"
-                                 class="relative flex items-center justify-center w-2.5 h-2.5 duration-300 ease-out">
+                                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
                                 <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                                 <div :class="{ 'rotate-90': activeAccordion==id }"
-                                     class="absolute w-full h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                             </div>
                         </button>
                         <div x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="p-5 pt-0 opacity-70">
+                            <div class="px-7 pt-0 pb-6 opacity-70">
                                 Pegamos carteles en lugares públicos de alta afluencia como paradas de autobús, calles comerciales, estaciones de metro, entre otros.
                             </div>
                         </div>
                     </div>
 
                     <div x-data="{ id: $id('accordion') }"
-                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-transparent text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
-                         class="duration-200 ease-out bg-white border cursor-pointer group"
+                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+                         class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
                          x-cloak>
                         <button @click="setActiveAccordion(id)"
-                                class="flex items-center justify-between w-full px-5 py-4 font-semibold text-left select-none">
+                                class="flex items-center justify-between w-full pl-7 pr-5 py-4 font-semibold text-left select-none">
                             <span>¿Ofrecen servicio de seguimiento y reposición?</span>
                             <div :class="{ 'rotate-90': activeAccordion==id }"
-                                 class="relative flex items-center justify-center w-2.5 h-2.5 duration-300 ease-out">
+                                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
                                 <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                                 <div :class="{ 'rotate-90': activeAccordion==id }"
-                                     class="absolute w-full h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                             </div>
                         </button>
                         <div x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="p-5 pt-0 opacity-70">
+                            <div class="px-7 pt-0 pb-6 opacity-70">
                                 Sí, como parte de nuestro servicio incluimos seguimiento y reposición de los carteles dañados o extraviados durante el periodo de exhibición contratado.
                             </div>
                         </div>
                     </div>
  
                     <div x-data="{ id: $id('accordion') }"
-                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-transparent text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
-                         class="duration-200 ease-out bg-white border cursor-pointer group"
+                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+                         class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
                          x-cloak>
                         <button @click="setActiveAccordion(id)"
-                                class="flex items-center justify-between w-full px-5 py-4 font-semibold text-left select-none">
+                                class="flex items-center justify-between w-full pl-7 pr-5 py-4 font-semibold text-left select-none">
                             <span>¿Cómo puedo solicitar un presupuesto?</span>
                             <div :class="{ 'rotate-90': activeAccordion==id }"
-                                 class="relative flex items-center justify-center w-2.5 h-2.5 duration-300 ease-out">
+                                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
                                 <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                                 <div :class="{ 'rotate-90': activeAccordion==id }"
-                                     class="absolute w-full h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                             </div>
                         </button>
                         <div x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="p-5 pt-0 opacity-70">
+                            <div class="px-7 pt-0 pb-6 opacity-70">
                                 Puede solicitar un presupuesto sin compromiso a través de nuestro <a href="/contacto">formulario de contacto</a>. Indique la ciudad, número de carteles y periodo deseado y nos pondremos en contacto con usted a la mayor brevedad posible.
                             </div>
                         </div>
                     </div>
 
                     <div x-data="{ id: $id('accordion') }"
-                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-transparent text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
-                         class="duration-200 ease-out bg-white border cursor-pointer group"
+                         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+                         class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
                          x-cloak>
                         <button @click="setActiveAccordion(id)"
-                                class="flex items-center justify-between w-full px-5 py-4 font-semibold text-left select-none">
-                            <span>¿Cómo puedo solicitar un presupuesto?</span>
+                                class="flex items-center justify-between w-full pl-7 pr-5 py-4 font-semibold text-left select-none">
+                            <span>¿Cómo verifico que pegaron mis carteles?
+                            </span>
                             <div :class="{ 'rotate-90': activeAccordion==id }"
-                                 class="relative flex items-center justify-center w-2.5 h-2.5 duration-300 ease-out">
+                                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
                                 <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                                 <div :class="{ 'rotate-90': activeAccordion==id }"
-                                     class="absolute w-full h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
                                 </div>
                             </div>
                         </button>
                         <div x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="p-5 pt-0 opacity-70">
-                                Puede solicitar un presupuesto sin compromiso a través de nuestro <a href="/contacto">formulario de contacto</a>. Indique la ciudad, número de carteles y periodo deseado y nos pondremos en contacto con usted a la mayor brevedad posible.
+                            <div class="px-7 pt-0 pb-6 opacity-70">
+                                Le proporcionaremos un reporte fotográfico una vez finalizada la colocación, para que pueda verificar la colocación de los carteles.
                             </div>
                         </div>
                     </div>
