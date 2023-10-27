@@ -1,28 +1,28 @@
 {% set desc_tag = header.enabled_titles ? 'p' : 'h2' %}
 
-<section class="mt-20 relative before:opacity-100">
-    <div class="container">
-        {% if header.enabled_titles %}
+<section class="container mt-20 relative before:opacity-100">
+    {% if header.enabled_titles %}
+        <hgroup class="mb-16">
             <h2 class="font-semibold md:!leading-tight m-0 text-2xl md:text-3xl lg:text-4xl">
                 {{ page.title }}
             </h2>
             <h3>
                 {{ header.subtitle }}
             </h3>
-        {% endif %}
+        </hgroup>
+    {% endif %}
 
-        <div class="flex flex-col md:items-center md:flex-row-reverse gap-16 md:[&>*]:w-1/2">
-            <{{ desc_tag }} class="font-semibold md:!leading-tight m-0 text-2xl md:text-3xl lg:text-4xl">
-                {{ header.description }}
-            </{{ desc_tag }}>
+    <div class="flex flex-col md:items-center md:flex-row-reverse gap-16 md:[&>*]:w-1/2">
+        <{{ desc_tag }} class="font-semibold md:!leading-tight m-0 text-2xl md:text-3xl lg:text-4xl">
+            {{ header.description }}
+        </{{ desc_tag }}>
  
-            <div class="flex flex-col lg:whitespace-nowrap justify-center gap-8 uppercase font-semibold sm:text-center">
-                {% for milestone in header.milestones %}
-                    <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row flex-nowrap items-center lg:gap-4 leading-tight">
-                        <span class="text-6xl block text-gray-500 sm:w-1/2">{{ milestone.number }}</span> {{ milestone.text }}
-                    </div>
-                {% endfor %}
-            </div>
+        <div class="flex flex-col lg:whitespace-nowrap justify-center gap-8 uppercase font-semibold sm:text-center">
+            {% for milestone in header.milestones %}
+                <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row flex-nowrap items-center lg:gap-4 leading-tight">
+                    <span class="text-6xl block text-gray-500 sm:w-1/2">{{ milestone.number }}</span> {{ milestone.text }}
+                </div>
+            {% endfor %}
         </div>
     </div>
 </section>
