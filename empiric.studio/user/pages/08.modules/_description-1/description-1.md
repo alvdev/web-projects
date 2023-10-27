@@ -15,7 +15,5 @@ titles:
     enabled: '0'
 title: 'Title description 1'
 subtitle: 'Subtitle description module 1'
-enable_titles: true
-enabled_titles: true
+enabled_titles: false
 ---
-
