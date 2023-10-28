@@ -1,4 +1,5 @@
 <?php
+
 namespace Grav\Plugin;
 
 require_once 'interface.php';
@@ -40,6 +41,9 @@ class GDAdapter implements ResizeAdapterInterface
         } else if ($extension == 'png') {
             $this->image = imagecreatefrompng($source);
             $this->format = 'PNG';
+        } else if ($extension == 'webp') {
+            $this->image = imagecreatefromwebp($source);
+            $this->format = 'webp';
         }
 
         return $this;
@@ -66,6 +70,14 @@ class GDAdapter implements ResizeAdapterInterface
         $format = $this->getFormat();
 
         if ($format == 'PNG') {
+            $transparent = imagecolorallocatealpha($this->target, 255, 255, 255, 127);
+
+            imagealphablending($this->target, false);
+            imagesavealpha($this->target, true);
+            imagefilledrectangle($this->target, 0, 0, $width, $height, $transparent);
+        }
+
+        if ($format == 'webp') {
             $transparent = imagecolorallocatealpha($this->target, 255, 255, 255, 127);
 
             imagealphablending($this->target, false);
@@ -103,6 +115,8 @@ class GDAdapter implements ResizeAdapterInterface
             $result = imagejpeg($this->target, $filename, $this->quality);
         } else if ($format == 'PNG') {
             $result = imagepng($this->target, $filename, 9);
+        } else if ($format == 'webp') {
+            $result = imagewebp($this->target, $filename, 9);
         }
 
         imagedestroy($this->image);
