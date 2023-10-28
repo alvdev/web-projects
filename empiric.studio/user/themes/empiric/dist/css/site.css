@@ -1138,11 +1138,11 @@ main * {
 .mt-8 {
   margin-top: 2rem;
 }
-.mb-24 {
-  margin-bottom: 6rem;
+.mt-28 {
+  margin-top: 7rem;
 }
-.mb-8 {
-  margin-bottom: 2rem;
+.mt-3 {
+  margin-top: 0.75rem;
 }
 .block {
   display: block;
@@ -1327,6 +1327,22 @@ main * {
 }
 .gap-y-2 {
   row-gap: 0.5rem;
+}
+.gap-x-16 {
+  -moz-column-gap: 4rem;
+       column-gap: 4rem;
+}
+.gap-y-8 {
+  row-gap: 2rem;
+}
+.gap-y-16 {
+  row-gap: 4rem;
+}
+.gap-y-24 {
+  row-gap: 6rem;
+}
+.gap-y-20 {
+  row-gap: 5rem;
 }
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -1725,6 +1741,10 @@ main * {
     grid-template-columns: max-content auto;
   }
 
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .sm\:flex-row {
     flex-direction: row;
   }
@@ -1743,6 +1763,10 @@ main * {
 }
 
 @media (min-width: 768px) {
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 
   .md\:flex-row-reverse {
     flex-direction: row-reverse;
@@ -1804,6 +1828,10 @@ main * {
 
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .lg\:flex-row {
