@@ -1,0 +1,34 @@
+title: Indexer
+extends@:
+  type: default
+  context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.links:
+              type: list
+              name: MODULE.REVIEWS
+              label: MODULE.REVIEWS
+              style: vertical
+              fields:
+                .url:
+                  type: url
+                  label: DEFAULT.URL
+
+                .anchor:
+                  type: text
+                  label: DEFAULT.ANCHOR_TEXT
+
+            content:
+              unset@: true
+
+            header.media_order:
+              unset@: true
