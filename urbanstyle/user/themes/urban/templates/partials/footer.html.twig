@@ -7,7 +7,7 @@
 
 <footer class="torn-top flex flex-col gap-8 {{ margin }} pt-32 pb-24 text-base text-white bg-black">
     <div class="container flex flex-col gap-12 lg:flex-row justify-between text-white">
-        <div class="w-fit">
+        <div class="min-w-max">
             <h3 class="text-white text-3xl">
                 {{ services|first.parent.title }}
             </h3>
@@ -23,17 +23,20 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="flex flex-col self-stretch justify-between">
+
+        <div class="flex flex-col min-w-max self-stretch justify-between">
             <div>
                 <h3 class="text-white text-3xl">
                     Redes sociales
                 </h3>
                 <ul class="flex items-center gap-4 mt-8">
                     <li>
-                        <a href="https://instagram.com/urban_style_publicity" title="Pegada de carteles en Instagram">Instagram</a>
+                        <a href="https://instagram.com/urban_style_publicity"
+                           title="Pegada de carteles en Instagram">Instagram</a>
                     </li>
                     <li>
-                        <a href="https://youtube.com/@pegadadecarteles" title="Pegada de carteles en Youtube">Youtube</a>
+                        <a href="https://youtube.com/@pegadadecarteles"
+                           title="Pegada de carteles en Youtube">Youtube</a>
                     </li>
                     {# <li>
                         <a href="#">Facebook</a>
@@ -57,5 +60,9 @@
                 </div>
             </div>
         </div>
+    </div>
+ 
+    <div class="container mt-4">
+        {% include 'partials/indexer-links.html.twig' %}
     </div>
 </footer>
