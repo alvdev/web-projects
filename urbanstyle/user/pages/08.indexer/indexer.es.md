@@ -15,7 +15,7 @@ links:
         url: 'https://pegadadecarteles7.wordpress.com/'
         anchor: 'La pegada de carteles es costumbre en Madrid desde el siglo XIX'
     -
-        url: 'https://www.linkedin.com/pulse/las-pegadas-de-carteles-en-madrid-como-forma-marketing-samuel-tolosa-tgz3f%3F/'
+        url: 'https://es.linkedin.com/pulse/las-pegadas-de-carteles-en-madrid-como-forma-marketing-samuel-tolosa-tgz3f?trk=public_post_feed-article-content'
         anchor: 'Pegadas de carteles en Madrid como forma de Marketing'
 sitemap:
     ignore: true
