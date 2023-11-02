@@ -1,12 +1,19 @@
 {% set page = pages.find('/indexer') %}
+{% set links = [] %}
 
-<h3 class="text-white text-xl w-auto">
-    {{ 'DEFAULT.LATEST_POSTS'|t }}
-</h3>
-<div class="[&>*:not(:last-child)]:mr-4 mt-4">
-    {% for link in page.header.links %}
-        <a class="opacity-70 hover:opacity-100 inline-block py-[4px]"
-           href="{{ link.url }}"
-           target="_blank">{{ link.anchor }}</a>
-    {% endfor %}
-</div>
+{% for link in page.header.links %}
+    {% set links = links|merge([link]) %} 
+{% endfor %}
+
+{% if links is not empty %}
+    <div class="container mt-4">
+        <h3 class="text-white text-xl w-auto">{{ 'DEFAULT.LATEST_POSTS'|t }}</h3>
+        <div class="[&>*:not(:last-child)]:mr-4 mt-4">
+            {% for link in links %}
+                <a class="opacity-70 hover:opacity-100 inline-block py-[4px]"
+                href="{{ link.url }}"
+                target="_blank">{{ link.anchor }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
