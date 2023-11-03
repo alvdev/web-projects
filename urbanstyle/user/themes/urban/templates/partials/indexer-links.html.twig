@@ -8,11 +8,14 @@
 {% if links is not empty %}
     <div class="container mt-4">
         <h3 class="text-white text-xl w-auto">{{ 'DEFAULT.LATEST_POSTS'|t }}</h3>
+
         <div class="[&>*:not(:last-child)]:mr-4 mt-4">
             {% for link in links %}
-                <a class="opacity-70 hover:opacity-100 inline-block py-[4px]"
-                href="{{ link.url }}"
-                target="_blank">{{ link.anchor }}</a>
+                {% if link.enabled == true %}
+                    <a class="opacity-70 hover:opacity-100 inline-block py-[4px]"
+                    href="{{ link.url }}"
+                    target="_blank">{{ link.anchor }}</a>
+                {% endif %}
             {% endfor %}
         </div>
     </div>

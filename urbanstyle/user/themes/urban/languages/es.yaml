@@ -27,6 +27,9 @@ DEFAULT:
 
     LATEST_POSTS: Últimos artículos
 
+    ENABLED: Activado
+    DISABLED: Desactivado
+
 SYSTEM:
     FORGOT_PASSWORD: RECUPERAR CONTRASEÑA
 

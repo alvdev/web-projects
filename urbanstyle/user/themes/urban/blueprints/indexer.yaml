@@ -27,6 +27,16 @@ form:
                   type: text
                   label: DEFAULT.ANCHOR_TEXT
 
+                .enabled:
+                  type: toggle
+                  label: DEFAULT.ENABLED
+                  highlight: 1 
+                  options:
+                    1: DEFAULT.ENABLED 
+                    0: DEFAULT.DISABLED 
+                  validate:
+                    bool: true
+                    
             content:
               unset@: true
 
