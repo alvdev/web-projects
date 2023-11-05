@@ -2,7 +2,8 @@
 {% set links = page.collection(options) %}
 
 {% for link in links %}
-    <a class="opacity-70 hover:opacity-100" href="{{ link.url }}">
+    <a class="opacity-70 whitespace-nowrap hover:opacity-100"
+       href="{{ link.url }}">
         {{ link.title }}
     </a>
 {% endfor %}
