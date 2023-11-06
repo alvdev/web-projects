@@ -1123,6 +1123,9 @@ main * {
 .mt-24 {
   margin-top: 6rem;
 }
+.mt-28 {
+  margin-top: 7rem;
+}
 .mt-32 {
   margin-top: 8rem;
 }
@@ -1137,12 +1140,6 @@ main * {
 }
 .mt-8 {
   margin-top: 2rem;
-}
-.mt-28 {
-  margin-top: 7rem;
-}
-.mt-3 {
-  margin-top: 0.75rem;
 }
 .block {
   display: block;
@@ -1321,25 +1318,16 @@ main * {
 .gap-8 {
   gap: 2rem;
 }
+.gap-x-16 {
+  -moz-column-gap: 4rem;
+       column-gap: 4rem;
+}
 .gap-x-8 {
   -moz-column-gap: 2rem;
        column-gap: 2rem;
 }
 .gap-y-2 {
   row-gap: 0.5rem;
-}
-.gap-x-16 {
-  -moz-column-gap: 4rem;
-       column-gap: 4rem;
-}
-.gap-y-8 {
-  row-gap: 2rem;
-}
-.gap-y-16 {
-  row-gap: 4rem;
-}
-.gap-y-24 {
-  row-gap: 6rem;
 }
 .gap-y-20 {
   row-gap: 5rem;
@@ -1502,6 +1490,15 @@ main * {
 }
 .pt-8 {
   padding-top: 2rem;
+}
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+.pb-4 {
+  padding-bottom: 1rem;
+}
+.pb-8 {
+  padding-bottom: 2rem;
 }
 .text-left {
   text-align: left;
@@ -1737,12 +1734,12 @@ main * {
     width: 50%;
   }
 
-  .sm\:grid-cols-\[max-content_auto\] {
-    grid-template-columns: max-content auto;
-  }
-
   .sm\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-\[max-content_auto\] {
+    grid-template-columns: max-content auto;
   }
 
   .sm\:flex-row {
@@ -1850,6 +1847,10 @@ main * {
     gap: 1rem;
   }
 
+  .lg\:gap-16 {
+    gap: 4rem;
+  }
+
   .lg\:whitespace-nowrap {
     white-space: nowrap;
   }
@@ -1868,6 +1869,14 @@ main * {
 
   .lg\:pr-12 {
     padding-right: 3rem;
+  }
+
+  .lg\:pb-8 {
+    padding-bottom: 2rem;
+  }
+
+  .lg\:pb-4 {
+    padding-bottom: 1rem;
   }
 
   .lg\:text-4xl {
