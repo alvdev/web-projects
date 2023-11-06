@@ -59,6 +59,8 @@ reviews:
         text: 'Buenos precios y muy atentos a la hora de prestar su servicio.'
         stars: '5'
 media_order: 'alejandro-sanchez.webp,beatriz-sanz.webp,julian-fontalvo.webp,justo-sanz.webp,kuke-rey.webp,marta-secos.webp,nieves-ayala.webp,raul-de-la-fuente.webp,raul-garcia.webp'
+aura:
+    pagetype: website
 ---
 
 This is reviews content 1
