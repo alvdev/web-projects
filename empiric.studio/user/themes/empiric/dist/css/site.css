@@ -1072,6 +1072,9 @@ main * {
 .m-0 {
   margin: 0px;
 }
+.\!m-0 {
+  margin: 0px !important;
+}
 .mx-0 {
   margin-left: 0px;
   margin-right: 0px;
@@ -1318,6 +1321,9 @@ main * {
 .gap-8 {
   gap: 2rem;
 }
+.gap-20 {
+  gap: 5rem;
+}
 .gap-x-16 {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
@@ -1546,6 +1552,10 @@ main * {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -1566,6 +1576,9 @@ main * {
 }
 .leading-tight {
   line-height: 1.25;
+}
+.\!leading-tight {
+  line-height: 1.25 !important;
 }
 .tracking-tighter {
   letter-spacing: -0.05em;
@@ -1609,6 +1622,14 @@ main * {
   --tw-shadow: 0 0 30px 30px rgb(255,255,255);
   --tw-shadow-colored: 0 0 30px 30px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.ring-white {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
+}
+.drop-shadow-md {
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1777,9 +1798,23 @@ main * {
     align-items: center;
   }
 
+  .md\:p-8 {
+    padding: 2rem;
+  }
+
   .md\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .md\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
   }
 
   .md\:\!leading-tight {
@@ -1893,9 +1928,41 @@ main * {
 
 @media (min-width: 1280px) {
 
+  .xl\:m-0 {
+    margin: 0px;
+  }
+
+  .xl\:w-1\/2 {
+    width: 50%;
+  }
+
+  .xl\:flex-row {
+    flex-direction: row;
+  }
+
+  .xl\:gap-36 {
+    gap: 9rem;
+  }
+
+  .xl\:gap-16 {
+    gap: 4rem;
+  }
+
   .xl\:break-normal {
     overflow-wrap: normal;
     word-break: normal;
+  }
+
+  .xl\:p-0 {
+    padding: 0px;
+  }
+
+  .xl\:text-center {
+    text-align: center;
+  }
+
+  .xl\:text-right {
+    text-align: right;
   }
 }
 
