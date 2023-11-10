@@ -14,7 +14,7 @@ aura:
     image: wild-posting-madrid.jpg
 ---
 
-Cuando uno piensa en wild posting, probablemente piense en vallas perimetrales de zonas en construcción empapeladas con anuncios de conciertos o servicios. Puede que no pienses en la marca. Pero deberías. El wild posting proporciona una excelente plataforma para promocionar o crear una marca. Permite a las empresas presentar lo que las diferencia de la competencia y las hace únicas.
+Cuando uno piensa en wild posting, probablemente piense en vallas perimetrales de zonas en construcción empapeladas con anuncios de conciertos o servicios. Puede que no pienses en la marca. Pero deberías. El wild posting proporciona una excelente plataforma para promocionar o crear una marca. Permite a las empresas presentar lo que la diferencia de la competencia y las hace únicas.
 
 Cuando te enfocas en la marca en una campaña de wild posting harás mucho más que promocionar sólo un evento o producto. Promocionas tu identidad, lo que va mucho más allá del día exacto en que la gente ve la campaña.
 
@@ -46,7 +46,7 @@ Estos consejos le ayudarán a mantener su mensaje y a lograr los resultados que 
  
 > La estrategia de una campaña de marketing son las cuatro preguntas de la publicidad: qué, dónde, cuándo y quiénes reciben sus mensajes.
 
-Si bien ya sabemos el cómo, ya que has elegido realizar una campaña de wild posting, debes determinar las otros tres preguntas mediante el uso de datos y experiencia.
+Si bien ya sabemos el cómo, ya que has elegido realizar una campaña de wild posting, debes determinar las otras tres preguntas mediante el uso de datos y experiencia.
 
 Por ejemplo, debes orientar tu campaña de wild posting en un área donde llegará a los consumidores que probablemente comprarán su producto. Si estás promocionando un álbum de Lady Gaga o Viva Suecia, por ejemplo, probablemente quieras anunciarlo en algún lugar o entorno urbano donde sea probable que estén sus fans, como en el camino a festivales como el Mad Cool o BBK Live.
 
