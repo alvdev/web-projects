@@ -100,7 +100,7 @@
     }
 
     main * {
-        @apply scroll-mt-8
+        @apply scroll-mt-8;
     }
 
     .prose h2 {
@@ -108,11 +108,11 @@
     }
 
     .prose h3 {
-         @apply text-3xl font-semibold mt-12;
+        @apply text-3xl font-semibold mt-12;
     }
 
     .prose h4 {
-         @apply text-2xl font-semibold mt-8;
+        @apply text-2xl font-semibold mt-8;
     }
 
     .prose a:not(.btn) {
@@ -137,5 +137,40 @@
     .dark h2,
     .dark h3 {
         @apply text-gray-100;
+    }
+}
+
+@layer components {
+    .post-item {
+        grid-template-areas:
+            'title'
+            'image'
+            'description';
+    }
+
+    .post-item__title {
+        grid-area: title;
+    }
+
+    .post-item__description {
+        grid-area: description;
+    }
+
+    .post-item__image {
+        grid-area: image;
+    }
+
+    @media (min-width: 768px) {
+        .post-item {
+            grid-template-areas:
+                'title description'
+                'image description';
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .post-item {
+            grid-template-areas: 'title description image';
+        }
     }
 }
