@@ -39,7 +39,7 @@
 
                 {% if post.media.images %}
                     {% set image = post.media|first %}
-                    <img class="post-item__image aspect-video object-cover" src="/{{ image.url|webp }}" alt="">
+                    {{ image.html('', '', 'post-item__image aspect-video object-cover')|raw }}
                 {% else %}
                     <img class="post-item__image aspect-video object-cover"
                          src="https://picsum.photos/400/200.webp?random={{ random() }}"
