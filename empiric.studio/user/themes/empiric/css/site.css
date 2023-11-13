@@ -142,6 +142,7 @@
 
 @layer components {
     .post-item {
+        display: grid;
         grid-template-areas:
             'title'
             'image'
@@ -160,17 +161,19 @@
         grid-area: image;
     }
 
-    @media (min-width: 640px) {
+    @media (min-width: 639px) {
         .post-item {
             grid-template-areas:
                 'title title image'
                 'description description description ';
+            grid-template-columns: 0 1fr 1fr;
         }
     }
 
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
         .post-item {
             grid-template-areas: 'title description image';
+            grid-template-columns: 0.55fr 1fr 0.5622fr; /* Adjust for w-1/4 */
         }
     }
 }

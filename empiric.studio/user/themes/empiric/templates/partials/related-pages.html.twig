@@ -1,0 +1,28 @@
+{% for related_path, score in related_pages %}
+    {% set related = grav['pages'].get(related_path) %}
+
+    {% if related %}
+        <article class="post-item grid grid-flow-col place-content-between place-items-center gap-8">
+            <h2 class="post-item__title font-semibold text-2xl">
+                <a href="{{ related.url }}">{{ related.title }}</a>
+            </h2>
+
+            <div class="post-item__description text-gray-500 text-lg w-full">
+                {% if related.header.description %}
+                    {{ related.header.description }}
+                {% else %}
+                    {{ related.summary|striptags("<strong>")|raw }}
+                {% endif %}
+            </div>
+
+            {% if related.media|first %}
+                {% set image = related.media|first %}
+                <img class="post-item__image aspect-video object-cover" src="/{{ image.url|webp }}" alt="">
+            {% else %}
+                <img class="post-item__image aspect-video object-cover"
+                     src="https://picsum.photos/400/200.webp?random={{ random() }}"
+                     alt="">
+            {% endif %}
+        </article>
+    {% endif %}
+{% endfor %}
