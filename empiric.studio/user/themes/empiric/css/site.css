@@ -160,15 +160,15 @@
         grid-area: image;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 640px) {
         .post-item {
             grid-template-areas:
-                'title description'
-                'image description';
+                'title title image'
+                'description description description ';
         }
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 1280px) {
         .post-item {
             grid-template-areas: 'title description image';
         }
