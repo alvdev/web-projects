@@ -25,23 +25,23 @@
     <section class="flex flex-col gap-24 mt-32">
         {% for post in posts %}
             <article class="post-item grid grid-flow-col place-content-between place-items-center gap-8">
-                <h2 class="post-item__title xl:col-span-3 font-semibold text-2xl w-full">
+                <h2 class="post-item__title font-semibold text-2xl">
                     <a href="{{ post.url }}">{{ post.title }}</a>
                 </h2>
 
-                <div class="post-item__description xl:col-span-7 text-gray-500 text-lg">
+                <div class="post-item__description text-gray-500 text-lg">
                     {% if post.header.description %}
                         {{ post.header.description }}
                     {% else %}
-                        {{ post.summary|striptags("<strong>") |raw }}
+                        {{ post.summary|striptags("<strong>")|raw }}
                     {% endif %}
                 </div>
 
                 {% if post.media.images %}
                     {% set image = post.media|first %}
-                    <img class="post-item__image xl:col-span-4 aspect-video object-cover" src="/{{ image.url|webp }}" alt="">
+                    <img class="post-item__image aspect-video object-cover" src="/{{ image.url|webp }}" alt="">
                 {% else %}
-                    <img class="post-item__image xl:col-span-4 aspect-video object-cover"
+                    <img class="post-item__image aspect-video object-cover"
                          src="https://picsum.photos/400/200.webp?random={{ random() }}"
                          alt="">
                 {% endif %}
