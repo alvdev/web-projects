@@ -6,20 +6,20 @@ form:
     refresh_prevention: true
     fields:
         name:
-            label: Name
+            label: FORM.EMAIL_NAME
             placeholder: THEME.FORM_NAME
             autocomplete: 'on'
             type: text
             validate:
                 required: true
         email:
-            label: Email
+            label: FORM.EMAIL_ACCOUNT
             placeholder: THEME.FORM_EMAIL
             type: email
             validate:
                 required: true
         message:
-            label: Message
+            label: FORM.EMAIL_MESSAGE
             placeholder: THEME.FORM_MESSAGE
             type: textarea
             validate:
@@ -41,11 +41,11 @@ form:
         basic-captcha: true
         save:
             fileprefix: contact-
-            dateformat: Ymd-His-u
+            dateformat: dmY-His-u
             extension: txt
             body: "{% include 'forms/data.txt.twig' %}"
         email:
-            subject: "[Site Contact Form] {{ form.value.name|e }}"
+            subject: FORM.EMAIL_SUBJECT
             body: "{% include 'forms/data.html.twig' %}"
         message: THEME.MESSAGE_SENT_SUCCESSFULLY
         reset: true
