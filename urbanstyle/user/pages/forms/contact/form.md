@@ -47,6 +47,7 @@ form:
         email:
             subject: FORM.EMAIL_SUBJECT
             body: "{% include 'forms/data.html.twig' %}"
+            reply_to: "{{ form.value.name|e }} <{{ form.value.email|e }}>"
         message: THEME.MESSAGE_SENT_SUCCESSFULLY
         reset: true
 cache_enable: false
