@@ -14,7 +14,7 @@ THEME:
     MESSAGE_SENT_SUCCESSFULLY: Tu consulta ha sido enviada.<br>Te responderemos lo antes posible.<br>Gracias por contactar con Urban Style Publicity.
 
 FORM:
-    EMAIL_SUBJECT: Nuevo contacto desde formulario web
+    EMAIL_SUBJECT: Contacto desde formulario web
     EMAIL_NAME: Nombre
     EMAIL_ACCOUNT: Email
     EMAIL_MESSAGE: Mensaje
