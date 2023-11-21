@@ -32,11 +32,11 @@ form:
         submit:
             type: submit
             value: THEME.FORM_SUBMIT
-            classes: 'btn btn--primary'
+            classes: 'btn btn--primary rounded-full'
         reset:
             type: reset
             value: THEME.FORM_RESET
-            classes: 'btn btn--default'
+            classes: 'btn btn--default rounded-full'
     process:
         basic-captcha: true
         save:
