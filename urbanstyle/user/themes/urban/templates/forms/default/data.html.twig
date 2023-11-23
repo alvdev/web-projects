@@ -15,6 +15,9 @@
                             <div>
                                 {% block field_label %}
                                     <strong>{{ field.label|t|e }}</strong>:
+                                    {% if field.type == 'textarea' %}
+                                        <br>
+                                    {% endif %}
                                 {% endblock %}
 
                                 {% block field_value %}
