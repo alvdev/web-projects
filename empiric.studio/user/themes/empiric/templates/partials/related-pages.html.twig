@@ -16,8 +16,7 @@
             </div>
 
             {% if related.media|first %}
-                {% set image = related.media|first %}
-                {{ image.html('', '', 'post-item__image aspect-video object-cover')|raw }}
+                {{ related.media|first.html('', '', 'post-item__image aspect-video object-cover')|raw }}
             {% else %}
                 <img class="post-item__image aspect-video object-cover"
                      src="https://picsum.photos/400/200.webp?random={{ random() }}"
