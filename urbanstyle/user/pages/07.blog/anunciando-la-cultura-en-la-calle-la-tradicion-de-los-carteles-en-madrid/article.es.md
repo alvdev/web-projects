@@ -11,6 +11,9 @@ orga:
 orgaratingenabled: false
 facebookenable: true
 media_order: 'publicidad-exterior-madrid-antigua-x4.webp,cartel-de-madrid.webp'
+taxonomy:
+    tag:
+        - Madrid
 ---
 
 ## De los inicios artesanales a la profesionalización

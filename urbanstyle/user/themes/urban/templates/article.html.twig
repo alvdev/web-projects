@@ -18,5 +18,46 @@
             <div class="w-1/5 pt-24 hidden md:block">
             </div>
         </div>
+
+        {% if config.plugins.relatedpages.enabled and related_pages|length > 0 %}
+            <section class="container not-prose flex flex-col gap-24 mt-24">
+                <h4 class="text-4xl font-semibold">
+                    Related Posts
+                </h4>
+                {% include 'partials/related-pages.html.twig' %}
+            </section>
+        {% else %}
+            <section class="container md:w-3/5 flex flex-col gap-24">
+                <h4 class="text-4xl font-semibold">
+                    Latest Posts
+                </h4>
+                <div class="flex flex-col gap-24 mt-16">
+                    {% for post in posts %}
+                        <article class="flex place-content-between place-items-center gap-8">
+                            <div class="w-1/4">
+                                <h2 class="font-semibold text-2xl w-full">
+                                    <a href="{{ post.url }}">{{ post.title }}</a>
+                                </h2>
+                            </div>
+
+                            <div class="w-2/4 text-gray-500 text-lg">
+                                {% if post.header.description %}
+                                    {{ post.header.description }}
+                                {% else %}
+                                    {{ post.summary|striptags }}
+                                {% endif %}
+                            </div>
+
+                            {% if post.media.items %}
+                                {% set image = post.media.item|first %}
+                                {{ image.html('', '', 'post-item__image aspect-video object-cover') }}
+                            {% else %}
+                                <img class="w-1/4 aspect-video object-cover" src="https://picsum.photos/400/200.webp?random={{ random() }}" alt="">
+                            {% endif %}
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
     </main>
 {% endblock %}
