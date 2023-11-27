@@ -1,5 +1,5 @@
 enabled: true
-limit: 5
+limit: 2
 show_score: true
 score_threshold: 20
 filter:

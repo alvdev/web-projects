@@ -22,7 +22,9 @@
                         {{ related.header.description }}
                     </p>
                 {% else %}
-                    <p class="mt-4">{{ related.summary|striptags("<strong>")|raw }}</p>
+                    <p class="mt-4">
+                        {{ related.summary|striptags("<strong>")|raw }}
+                    </p>
                 {% endif %}
             </div>
         </article>
