@@ -1,5 +1,5 @@
 THEME_EMPIRIC:
-  ERROR: "Error!"
+  ERROR: 'Error!'
 
 THEME:
   REPORTS: reports
@@ -10,3 +10,4 @@ DEFAULT:
   COMPLETED: Completado
   STARTED: Iniciado
   DEPT: Departamento
+  IMG_ALT: Texto alternativo de la imagen

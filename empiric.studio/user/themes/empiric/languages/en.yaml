@@ -1,12 +1,13 @@
 THEME_EMPIRIC:
-    ERROR: "Error!"
+  ERROR: 'Error!'
 
 THEME:
-    REPORTS: reports
+  REPORTS: reports
 
 DEFAULT:
-    STATUS: Estado
-    PENDING: Pendiente
-    COMPLETED: Completado
-    STARTED: Iniciado
-    DEPT: Departamento
+  STATUS: Estado
+  PENDING: Pendiente
+  COMPLETED: Completado
+  STARTED: Iniciado
+  DEPT: Departamento
+  IMG_ALT: Texto alternativo de la imagen
