@@ -1,0 +1,27 @@
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.title:
+              type: text
+              style: horizontal
+              autofocus: true
+
+            header.alt:
+              type: text
+              label: DEFAULT.IMG_ALT
+              style: horizontal
+              ordering@: header.title
+              validate:
+                type: text
+
+            content:
+              unset@: true
