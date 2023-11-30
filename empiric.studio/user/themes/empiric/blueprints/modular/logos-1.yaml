@@ -24,8 +24,8 @@ form:
               highlight: 1
               ordering@: header.subtitle
               options:
-                1: "PLUGIN_ADMIN.ENABLED"
-                0: "PLUGIN_ADMIN.DISABLED"
+                1: 'PLUGIN_ADMIN.ENABLED'
+                0: 'PLUGIN_ADMIN.DISABLED'
               validate:
                 type: bool
 
@@ -43,6 +43,9 @@ form:
                 .alt:
                   type: text
                   label: DEFAULT.ALT
+
+            header.media_order:
+              ordering@: header.logos
 
             header.description:
               unset@: true
