@@ -1,43 +1,45 @@
 THEME_URBAN:
-    ERROR: "Error!"
+  ERROR: 'Error!'
 
 THEME:
-    REPORTS: Informes
-    FEATURED_EVENTS: Eventos / tareas destacadas
-    FORM_NAME: Dinos tu nombre
-    FORM_EMAIL: Introduce tu email
-    FORM_MESSAGE: Escríbemos tu consulta
-    CAPTCHA_LABEL: ¿Eres una persona real?
-    CAPTCHA_PLACEHOLDER: Introduce el código
-    FORM_SUBMIT: Enviar Consulta
-    FORM_RESET: Reiniciar
-    MESSAGE_SENT_SUCCESSFULLY: Tu consulta ha sido enviada.<br>Te responderemos lo antes posible.<br>Gracias por contactar con Urban Style Publicity.
+  REPORTS: Informes
+  FEATURED_EVENTS: Eventos / tareas destacadas
+  FORM_NAME: Dinos tu nombre
+  FORM_EMAIL: Introduce tu email
+  FORM_MESSAGE: Escríbemos tu consulta
+  CAPTCHA_LABEL: ¿Eres una persona real?
+  CAPTCHA_PLACEHOLDER: Introduce el código
+  FORM_SUBMIT: Enviar Consulta
+  FORM_RESET: Reiniciar
+  MESSAGE_SENT_SUCCESSFULLY: Tu consulta ha sido enviada.<br>Te responderemos lo antes posible.<br>Gracias por contactar con Urban Style Publicity.
+  LATEST_POSTS: Últimos artículos
+  RELATED_POSTS: Artículos relacionados
 
 FORM:
-    EMAIL_SUBJECT: Contacto desde formulario web
-    EMAIL_NAME: Nombre
-    EMAIL_ACCOUNT: Email
-    EMAIL_MESSAGE: Mensaje
+  EMAIL_SUBJECT: Contacto desde formulario web
+  EMAIL_NAME: Nombre
+  EMAIL_ACCOUNT: Email
+  EMAIL_MESSAGE: Mensaje
 
 DEFAULT:
-    STARTED: Iniciado
-    PENDING: Pendiente
-    INPROGRESS: En proceso
-    COMPLETED: Finalizado
+  STARTED: Iniciado
+  PENDING: Pendiente
+  INPROGRESS: En proceso
+  COMPLETED: Finalizado
 
-    DEPT1: SEO
-    DEPT2: WEB
+  DEPT1: SEO
+  DEPT2: WEB
 
-    404_TITLE: Página no encontrada
-    404_DESC: Lo sentimos, la página que estás buscando no existe o ha cambiado de dirección.
+  404_TITLE: Página no encontrada
+  404_DESC: Lo sentimos, la página que estás buscando no existe o ha cambiado de dirección.
 
-    LATEST_POSTS: Últimos artículos
+  LATEST_POSTS: Últimos artículos
 
-    ENABLED: Activado
-    DISABLED: Desactivado
+  ENABLED: Activado
+  DISABLED: Desactivado
 
 SYSTEM:
-    FORGOT_PASSWORD: RECUPERAR CONTRASEÑA
+  FORGOT_PASSWORD: RECUPERAR CONTRASEÑA
 
 PLUGIN_FORM:
-    ERROR_BASIC_CAPTCHA: "Error al comprobar el Captcha"
+  ERROR_BASIC_CAPTCHA: 'Error al comprobar el Captcha'

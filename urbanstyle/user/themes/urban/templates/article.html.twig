@@ -22,7 +22,7 @@
         {% if config.plugins.relatedpages.enabled and related_pages|length > 0 %}
             <section class="container not-prose flex flex-col gap-24 mt-24">
                 <h4 class="text-4xl font-semibold">
-                    Related Posts
+                    {{ 'THEME.RELATED_POSTS'|t }}
                 </h4>
 
                 {% include 'partials/related-pages.html.twig' %}
@@ -33,7 +33,7 @@
 
             <section class="container not-prose flex flex-col gap-24 mt-24">
                 <h4 class="text-4xl font-semibold">
-                    Latest Posts
+                   {{ 'THEME.LATEST_POSTS'|t }} 
                 </h4>
 
                 {% for post in posts %}
