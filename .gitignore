@@ -20,6 +20,17 @@ test/
 *.bak
 *testing*
 .vscode/
+.gitkeep
+
+## Grav
+**/system/
+**/plugins/
+**/themes/
+**/data/
+**/webserver-configs/
+**/images/[0-9a-z]/
+**/bin/
+**/dist/
 
 # Include projects folders
 !/alfa.host/
