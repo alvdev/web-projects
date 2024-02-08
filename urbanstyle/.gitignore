@@ -19,7 +19,6 @@
 
 !/user/plugins/
 /user/plugins/*
-!/user/plugins/admin/
 !/user/plugins/alfa-admin/
 !/user/plugins/instagram/
 !/user/plugins/ganalytics/
