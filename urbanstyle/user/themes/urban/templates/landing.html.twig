@@ -337,26 +337,6 @@
             </div>
         </section>
 
-        <section class="services mt-28">
-            <div class="container flex flex-wrap justify-center lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2]">
-                <div>
-                    <h2 class="">
-                        Wild Posting
-                    </h2>
-                </div>
-                <div>
-                    <h2 class="">
-                        Street Marketing
-                    </h2>
-                </div>
-                <div>
-                    <h2 class="">
-                        Publicidad exterior
-                    </h2>
-                </div>
-            </div>
-        </section>
-
         <section class="logos container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-28 gap-x-16">
             <div>
                 {{ media['theme://images/logos/movistar.png'].cropResize('140', '62').loading().html('', 'logo movistar', '')|raw }}
@@ -393,6 +373,81 @@
             </div>
             <div>
                 {{ media['theme://images/logos/ifema.png'].cropResize('140', '62').loading().html('', 'logo ifema', '')|raw }}
+            </div>
+        </section>
+
+        <section class="posts mt-16">
+            <div class="container flex flex-wrap justify-center lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2]">
+                <div>
+                    <h2>
+                        Wild Posting
+                    </h2>
+                </div>
+                <div>
+                    <h2>
+                        Street Marketing
+                    </h2>
+                </div>
+                <div>
+                    <h2>
+                        Publicidad exterior
+                    </h2>
+                </div>
+            </div>
+
+            {% set articles = page.evaluate({'@page.descendants': '/blog'}) %}
+            {% set cities = ['Madrid', 'Barcelona'] %}
+
+            {% set posts = [] %}
+            {% for article in articles %}
+                {% for tag in article.taxonomy.tag %}
+                    {% if tag in cities and article not in posts %}
+                        {% set posts = posts|merge([article]) %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            <div class="container flex flex-col gap-24 mt-16">
+                {% for post in posts %}
+                    <article class="flex flex-col place-items-center gap-12 md:flex-row">
+                        {% if post.media.images %}
+                            <div class="relative shadow-lg md:w-1/3 after:bg-red-800 after:absolute after:w-full after:h-full after:top-0 after:-z-10 after:rotate-3">
+                                {{ post.media.images|first.cropZoom(600, 300).html('', post.title, 'm-0 border border-black aspect-video object-cover')|raw }}
+                            </div>
+                        {% else %}
+                            <img class="aspect-video object-cover"
+                                 src="https://picsum.photos/400/200.webp?random={{ random() }}"
+                                 alt=""
+                                 width="400"
+                                 height="200">
+                        {% endif %}
+
+                        <div class="md:w-2/3 text-gray-500 text-lg">
+                            <div class="flex items-baseline gap-2">
+                                {{ svg('theme://images/icons/city.svg', 'h-6 fill-red-700')|raw }}
+                                {% for tag in post.taxonomy.tag %}
+                                    {% if tag in cities %}
+                                        <a href="#" class="font-bold uppercase text-sm">{{ tag }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h2 class="font-bold text-3xl text-balance my-2 p-0 md:line-clamp-2 pb-1">
+                                <a href="{{ post.url }}" class="text-gray-800">{{ post.title }}</a>
+                            </h2>
+
+                            {% if post.header.description %}
+                                <p>
+                                    {{ post.page.header.description|striptags|truncate(50) }}
+                                </p>
+                            {% else %}
+                                <p class="mt-4 last:mb-0 inline-block">
+                                    {{ post.summary|striptags('<strong>')|truncate(220)|raw }}
+                                        <a href="{{ post.url }}" class="text-md leading-tight inline-block">Seguir leyendo »</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
             </div>
         </section>
     </main>
