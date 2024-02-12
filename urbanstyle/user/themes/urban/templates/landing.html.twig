@@ -424,7 +424,9 @@
 
                         <div class="md:w-2/3 text-gray-500 text-lg">
                             <div class="flex items-baseline gap-2">
-                                {{ svg('theme://images/icons/city.svg', 'h-6 fill-red-700')|raw }}
+                                {% if cities is not empty %}
+                                    {{ svg('theme://images/icons/city.svg', 'h-6 fill-red-700')|raw }}
+                                {% endif %}
                                 {% for tag in post.taxonomy.tag %}
                                     {% if tag in cities %}
                                         <a href="#" class="font-bold uppercase text-sm">{{ tag }}</a>
