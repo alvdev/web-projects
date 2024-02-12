@@ -147,6 +147,10 @@
         @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-1/2 before:h-full before:top-0 before:opacity-50 -z-10 before:shadow-[0_0_200px_#00000099_inset];
     }
 
+    .bg-skew {
+        @apply relative shadow-lg after:bg-red-800 after:absolute after:w-full after:h-full after:top-0 after:-z-10 after:rotate-3;
+    }
+
     .d-stripes {
         color: white;
         background: repeating-linear-gradient(45deg, black, black 15px, #fff 15px, #fff 25px);
