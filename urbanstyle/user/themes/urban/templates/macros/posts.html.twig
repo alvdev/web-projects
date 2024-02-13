@@ -1,9 +1,12 @@
-{% macro horizontal(page, path, limit = 5) %}
+{% macro horizontal(page, path, limit = 5, cities) %}
     {% set options = {items: {'@page.descendants': path}, order: {'dir': 'desc'}, limit: limit} %}
-    {% set articles = page.collection(options) %}
-    {% set cities = ['Madrid', 'Barcelona'] %}
+    {% set posts = page.collection(options) %}
+    {% set cities = cities %}
 
-    {% set posts = [] %}
+    {% if cities is not empty %}
+        {% set city_posts = [] %}
+    {% endif %}
+
     {% for article in articles %}
         {% for tag in article.taxonomy.tag %}
             {% if tag in cities and article not in posts %}
@@ -12,9 +15,7 @@
         {% endfor %}
     {% endfor %}
 
-    {{ dump(posts) }}
-
-    <div class="container flex flex-col gap-24 mt-16">
+    <section class="container flex flex-col gap-24 mt-24">
         {% for post in posts %}
             <article class="flex flex-col place-items-center gap-12 md:flex-row">
                 {% if post.media.images %}
@@ -42,8 +43,8 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-                    <h2 class="font-bold text-3xl text-balance my-2 p-0 md:line-clamp-2 pb-1">
-                        <a href="{{ post.url }}" class="text-gray-800">{{ post.title }}</a>
+                    <h2 class="text-3xl text-balance my-2 p-0 md:line-clamp-2 pb-1">
+                        <a href="{{ post.url }}" class="font-bold text-gray-800">{{ post.title }}</a>
                     </h2>
 
                     {% if post.header.description %}
@@ -59,5 +60,5 @@
                 </div>
             </article>
         {% endfor %}
-    </div>
+    </section>
 {% endmacro %}

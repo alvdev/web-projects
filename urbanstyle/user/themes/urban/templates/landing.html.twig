@@ -376,7 +376,7 @@
             </div>
         </section>
 
-        <section class="posts mt-16">
+        <section class="services mt-16">
             <div class="container flex flex-wrap justify-center lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2]">
                 <div>
                     <h2>
@@ -394,10 +394,10 @@
                     </h2>
                 </div>
             </div>
-
-            {% from 'macros/posts.html.twig' import horizontal as posts %}               
-            {{ posts(page, '/blog', 2) }}
-
         </section>
+
+        {% from 'macros/posts.html.twig' import horizontal as posts %}
+        {{ posts(page, '/blog', 2, ['Madrid']) }}
+
     </main>
 {% endblock %}
