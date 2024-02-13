@@ -1,5 +1,5 @@
 {% macro horizontal(page, path, limit = 5, cities, classes) %}
-    {% set options = {items: {'@page.descendants': path}, order: {'dir': 'desc'}, limit: limit} %}
+    {% set options = {items: {'@page.descendants': path}, order: {'dir': 'asc'}, limit: limit} %}
     {% set posts = page.collection(options) %}
     {% set cities = cities %}
 
@@ -49,13 +49,14 @@
 
                     {% if post.header.description %}
                         <p class="text-pretty">
-                            {{ post.page.header.description|striptags|truncate(50) }}
+                            {{ post.page.header.description|striptags|truncate(250) }}
                         </p>
+                        <a href="{{ post.url }}" class="text-md text-red-500 font-semibold leading-tight">Seguir leyendo »</a>
                     {% else %}
-                        <p class="mt-4 text-pretty last:mb-0 inline-block">
-                            {{ post.summary|striptags('<strong>')|raw }}
+                        <p class="my-4 text-pretty last:mb-0 inline-block">
+                            {{ post.summary|striptags('<strong>')|truncate(250)|raw }}
                         </p>
-                        <a href="{{ post.url }}" class="text-md leading-tight">Seguir leyendo »</a>
+                        <a href="{{ post.url }}" class="text-md text-red-500 font-semibold leading-tight">Seguir leyendo »</a>
                     {% endif %}
                 </div>
             </article>
