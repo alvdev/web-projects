@@ -48,14 +48,14 @@
                     </h2>
 
                     {% if post.header.description %}
-                        <p>
+                        <p class="text-pretty">
                             {{ post.page.header.description|striptags|truncate(50) }}
                         </p>
                     {% else %}
-                        <p class="mt-4 last:mb-0 inline-block">
-                            {{ post.summary|striptags('<strong>')|truncate(220)|raw }}
-                            <a href="{{ post.url }}" class="text-md leading-tight inline-block">Seguir leyendo »</a>
+                        <p class="mt-4 text-pretty last:mb-0 inline-block">
+                            {{ post.summary|striptags('<strong>')|raw }}
                         </p>
+                        <a href="{{ post.url }}" class="text-md leading-tight">Seguir leyendo »</a>
                     {% endif %}
                 </div>
             </article>
