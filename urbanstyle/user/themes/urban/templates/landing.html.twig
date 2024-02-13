@@ -18,7 +18,7 @@
                 <h2 class="font-semibold md:!leading-tight m-0 text-2xl md:text-3xl lg:text-4xl text-balance">
                     La pegada de carteles es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado.
                 </h2>
- 
+
                 <div class="flex flex-col lg:whitespace-nowrap justify-center gap-8 uppercase font-semibold sm:text-center">
                     <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row flex-nowrap items-center lg:gap-4 leading-tight">
                         <span class="text-6xl block text-gray-500 sm:w-1/2">+10000</span> trabajos realizados
@@ -286,7 +286,7 @@
                             </div>
                         </div>
                     </div>
- 
+
                     <div x-data="{ id: $id('accordion') }"
                          :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
                          class="duration-200 ease-out bg-white border rounded-3xl cursor-pointer group"
@@ -395,64 +395,9 @@
                 </div>
             </div>
 
-            {% set articles = page.evaluate({'@page.descendants': '/blog'}) %}
-            {% set cities = ['Madrid', 'Barcelona'] %}
+            {% from 'macros/posts.html.twig' import horizontal as posts %}               
+            {{ posts(page, '/blog', 2) }}
 
-            {% set posts = [] %}
-            {% for article in articles %}
-                {% for tag in article.taxonomy.tag %}
-                    {% if tag in cities and article not in posts %}
-                        {% set posts = posts|merge([article]) %}
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-
-            <div class="container flex flex-col gap-24 mt-16">
-                {% for post in posts %}
-                    <article class="flex flex-col place-items-center gap-12 md:flex-row">
-                        {% if post.media.images %}
-                            <div class="bg-skew md:w-1/3">
-                                {{ post.media.images|first.cropZoom(600, 300).html('', post.title, 'm-0 border border-black aspect-video object-cover')|raw }}
-                            </div>
-                        {% else %}
-                            <div class="bg-skew">
-                                <img class="aspect-video object-cover"
-                                     src="https://picsum.photos/400/200.webp?random={{ random() }}"
-                                     alt=""
-                                     width="400"
-                                     height="200">
-                            </div>
-                        {% endif %}
-
-                        <div class="md:w-2/3 text-gray-500 text-lg">
-                            <div class="flex items-baseline gap-2">
-                                {% if cities is not empty %}
-                                    {{ svg('theme://images/icons/city.svg', 'h-6 fill-red-700')|raw }}
-                                {% endif %}
-                                {% for tag in post.taxonomy.tag %}
-                                    {% if tag in cities %}
-                                        <a href="#" class="font-bold uppercase text-sm">{{ tag }}</a>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <h2 class="font-bold text-3xl text-balance my-2 p-0 md:line-clamp-2 pb-1">
-                                <a href="{{ post.url }}" class="text-gray-800">{{ post.title }}</a>
-                            </h2>
-
-                            {% if post.header.description %}
-                                <p>
-                                    {{ post.page.header.description|striptags|truncate(50) }}
-                                </p>
-                            {% else %}
-                                <p class="mt-4 last:mb-0 inline-block">
-                                    {{ post.summary|striptags('<strong>')|truncate(220)|raw }}
-                                        <a href="{{ post.url }}" class="text-md leading-tight inline-block">Seguir leyendo »</a>
-                                </p>
-                            {% endif %}
-                        </div>
-                    </article>
-                {% endfor %}
-            </div>
         </section>
     </main>
 {% endblock %}
