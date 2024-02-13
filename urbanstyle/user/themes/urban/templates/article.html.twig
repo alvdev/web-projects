@@ -29,54 +29,21 @@
         </div>
 
         {% if config.plugins.relatedpages.enabled and related_pages|length > 0 %}
-            <section class="container not-prose flex flex-col gap-24 mt-24">
-                <h4 class="text-4xl font-semibold">
+            <section class="container not-prose flex flex-col gap-24 mt-36">
+                <h4 class="text-4xl font-bold uppercase">
                     {{ 'THEME.RELATED_POSTS'|t }}
                 </h4>
 
                 {% include 'partials/related-pages.html.twig' %}
             </section>
         {% else %}
-            {% set options = { items: {'@page.descendants': '/blog'}, order: {dir: 'desc'}, limit: 2 } %}
-            {% set posts = page.collection(options) %}
-
-            <section class="container not-prose flex flex-col gap-24 mt-24">
+            <section class="container not-prose flex flex-col gap-24 mt-36">
                 <h4 class="text-4xl font-semibold">
                     {{ 'THEME.LATEST_POSTS'|t }}
                 </h4>
 
-                {% for post in posts %}
-                    <article class="flex flex-col place-items-center gap-12 md:flex-row">
-                        <div class="bg-skew md:w-1/3">
-                            {% if post.media|first %}
-                                {{ post.media|first.cropZoom(600, 300).html('', post.title, 'border border-black aspect-video object-cover')|raw }}
-                        </div>
-                        {% else %}
-                            <div class="bg-skew md:w-1/3">
-                                <img class="aspect-video object-cover"
-                                     src="https://picsum.photos/400/200.webp?random={{ random() }}"
-                                     alt=""
-                                     width="400"
-                                     height="200">
-                            </div>
-                        {% endif %}
-                        <div class="md:w-2/3 text-gray-500 text-lg">
-                            <h2 class="font-bold text-4xl md:line-clamp-2 pb-1">
-                                <a href="{{ post.url }}">{{ post.title }}</a>
-                            </h2>
-
-                            {% if post.header.description %}
-                                <p class="mt-4">
-                                    {{ post.header.description }}
-                                </p>
-                            {% else %}
-                                <p class="mt-4">
-                                    {{ post.summary|striptags("<strong>")|raw }}
-                                </p>
-                            {% endif %}
-                        </div>
-                    </article>
-                {% endfor %}
+                {% from 'macros/posts.html.twig' import horizontal as posts %}               
+                {{ posts(page, '/blog', 2) }}
             </section>
         {% endif %}
     </main>
