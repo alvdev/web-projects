@@ -20,13 +20,15 @@
                 </h2>
 
                 {% if related.header.description %}
-                    <p class="mt-4 text-pretty">
+                    <p class="my-4 text-pretty last:mb-0 inline-block">
                         {{ related.header.description }}
                     </p>
+                    <a href="{{ post.url }}" class="text-md text-red-500 font-semibold leading-tight">Seguir leyendo »</a>
                 {% else %}
-                    <p class="mt-4 text-pretty">
-                        {{ related.summary|striptags("<strong>")|raw }}
+                    <p class="my-4 text-pretty last:mb-0 inline-block">
+                        {{ related.summary|striptags("<strong>")|truncate(250)|raw }}
                     </p>
+                    <a href="{{ post.url }}" class="text-md text-red-500 font-semibold leading-tight">Seguir leyendo »</a>
                 {% endif %}
             </div>
         </article>
