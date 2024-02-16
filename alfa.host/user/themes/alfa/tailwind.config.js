@@ -23,6 +23,9 @@ module.exports = {
       height: {
         pxx: '2px',
       },
+    container: {
+      center: true,
+      },
     },
     dropShadow: {
       icon: '4px -4px 4px rgba(15, 23, 42, 0.20)',
