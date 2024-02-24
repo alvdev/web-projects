@@ -1,5 +1,8 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set options = {"items": {"@page.children": "/our-jobs"}, "order": {"by": "folder", "dir": "asc"}, "pagination": true} %}
+{% set galleries = page.collection(options) %}
+
 {% block content %}
     <main class="flex-1 prose prose-xl max-w-none">
         <section class="hero torn-bottom">
@@ -10,18 +13,29 @@
                     </h1>
                 </div>
             </div>
-            <video src="{{ url('theme://video/pegada-de-carteles-video.mp4') }}"
-                   autoplay
-                   loop
-                   muted
-                   class="w-full m-0 aspect-video">
+            <video src="{{ url('theme://video/pegada-de-carteles-video.mp4') }}" autoplay loop muted class="w-full m-0 aspect-video">
             </video>
+        </section>
+
+        <section>
+            <div class="container mt-24 flex gap-12">
+                <ul class="m-0 p-0 list-none">
+                    {% for gallery in galleries %}
+                        <li>
+                            <a href="{{ gallery.url }}">{{ gallery.title }}</a>
+                            {% for picture in gallery.media %}
+                                {{ picture|raw }}
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </section>
         <div class="container my-24">
             {{ page.content|raw }}
         </div>
 
-        {{ instagram_feed()|raw }}
+        {# {{ instagram_feed()|raw }} #}
 
         {# <section class="container mt-24">
             <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
