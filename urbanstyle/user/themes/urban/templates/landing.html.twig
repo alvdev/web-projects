@@ -146,7 +146,7 @@
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-4"
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-4 mt-8"
                  x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }">
                 <div class="relative w-full flex flex-col gap-4">
                     <div x-data="{ id: $id('accordion') }"
@@ -337,6 +337,29 @@
             </div>
         </section>
 
+        <section class="posts container mt-16">
+            <div class="container flex flex-wrap justify-center lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2]">
+                <div>
+                    <h2>
+                        Wild Posting
+                    </h2>
+                </div>
+                <div>
+                    <h2>
+                        Street Marketing
+                    </h2>
+                </div>
+                <div>
+                    <h2>
+                        Publicidad exterior
+                    </h2>
+                </div>
+            </div>
+
+            {# {% from 'macros/posts.html.twig' import horizontal as posts %}
+            {{ posts(page, '/blog', 2, ['Madrid'], 'mt-24') }} #}
+        </section>
+
         <section class="logos container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-28 gap-x-16">
             <div>
                 {{ media['theme://images/logos/movistar.png'].cropResize('140', '62').loading().html('', 'logo movistar', '')|raw }}
@@ -374,29 +397,6 @@
             <div>
                 {{ media['theme://images/logos/ifema.png'].cropResize('140', '62').loading().html('', 'logo ifema', '')|raw }}
             </div>
-        </section>
-
-        <section class="posts container mt-16">
-            <div class="container flex flex-wrap justify-center lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2]">
-                <div>
-                    <h2>
-                        Wild Posting
-                    </h2>
-                </div>
-                <div>
-                    <h2>
-                        Street Marketing
-                    </h2>
-                </div>
-                <div>
-                    <h2>
-                        Publicidad exterior
-                    </h2>
-                </div>
-            </div>
-
-            {% from 'macros/posts.html.twig' import horizontal as posts %}
-            {{ posts(page, '/blog', 2, ['Madrid'], 'mt-24') }}
         </section>
 
     </main>
