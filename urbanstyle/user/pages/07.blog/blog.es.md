@@ -11,6 +11,7 @@ facebookenable: true
 admin: {  }
 aura:
     pagetype: website
+child_type: article
 ---
 
 Noticias, eventos, anuncios y artículos relacionados con el mundo de la publicidad exterior y las pegadas de carteles.
