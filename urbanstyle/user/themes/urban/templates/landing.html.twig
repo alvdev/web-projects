@@ -54,7 +54,7 @@
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 [&>div>div]:ring-16 [&>div>div]:ring-white">
                     <div class="grid gap-4 auto-rows-min">
                         <div>
-                            {{ media['theme://images/pages/home/cartel-goiko-burguer.webp'].loading().html('', 'valla publicitaria para GoiKo Burguer', 'h-auto w-full m-0 brightness-110 contrast-110 saturate-125')|raw }}
+                            {{ media['theme://images/pages/home/cartel-goiko-burguer.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', 'valla publicitaria para GoiKo Burguer', 'h-auto w-full m-0 brightness-110 contrast-110 saturate-125')|raw }}
                         </div>
                         <div class="bg-white border border-black p-8">
                             <h3 class="mt-0">
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div>
-                            {{ media['theme://images/pages/home/carteles-teatro.webp'].loading().html('', 'pegada de carteles en Madrid para obras de teatro', 'h-auto w-full m-0 brightness-110 contrast-110 saturate-110')|raw }}
+                            {{ media['theme://images/pages/home/carteles-teatro.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', 'pegada de carteles en Madrid para obras de teatro', 'h-auto w-full m-0 brightness-110 contrast-110 saturate-110')|raw }}
                         </div>
                     </div>
                     <div class="grid gap-4 auto-rows-min">
@@ -78,10 +78,10 @@
                             </div>
                         </div>
                         <div>
-                            {{ media['theme://images/pages/home/carteles-anuncio-teatro.webp'].loading().html('', 'carteles de publicidad para fachada de teatro', 'h-auto w-full m-0 brightness-125 contrast-125 saturate-125')|raw }}
+                            {{ media['theme://images/pages/home/carteles-anuncio-teatro.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', 'carteles de publicidad para fachada de teatro', 'h-auto w-full m-0 brightness-125 contrast-125 saturate-125')|raw }}
                         </div>
                         <div>
-                            {{ media['theme://images/pages/home/carteles-goiko.webp'].loading().html('', 'pegada de carteles en Madrid para goiko burguer', 'h-auto w-full m-0 brightness-125 contrast-110 saturate-110')|raw }}
+                            {{ media['theme://images/pages/home/carteles-goiko.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', 'pegada de carteles en Madrid para goiko burguer', 'h-auto w-full m-0 brightness-125 contrast-110 saturate-110')|raw }}
                         </div>
                         <div class="bg-white border border-black p-8">
                             <h3 class="mt-0">
@@ -94,7 +94,7 @@
                     </div>
                     <div class="grid gap-4 auto-rows-min">
                         <div>
-                            {{ media['theme://images/pages/home/carteles-burguer.webp'].loading().html('', 'pegada de carteles en Madrid para hamburguesería', 'h-auto w-full m-0 brightness-125 contrast-125 saturate-125')|raw }}
+                            {{ media['theme://images/pages/home/carteles-burguer.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', 'pegada de carteles en Madrid para hamburguesería', 'h-auto w-full m-0 brightness-125 contrast-110 saturate-125')|raw }}
                         </div>
                         <div class="bg-white border border-black p-8">
                             <h3 class="mt-0">
@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         <div>
-                            {{ media['theme://images/pages/home/cartel-madrid-teatro-marquina-sm.webp'].loading().html('', 'cartel para la obra El Premio en el Teatro Marquina', 'h-auto w-full m-0 brightness-125 contrast-125 saturate-125')|raw }}
+                            {{ media['theme://images/pages/home/cartel-madrid-teatro-marquina.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', 'cartel para la obra El Premio en el Teatro Marquina', 'h-auto w-full m-0 brightness-125 contrast-125 saturate-125')|raw }}
                         </div>
                     </div>
                 </div>
@@ -337,29 +337,6 @@
             </div>
         </section>
 
-        <section class="posts container mt-16">
-            <div class="container flex flex-wrap justify-center lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2]">
-                <div>
-                    <h2>
-                        Wild Posting
-                    </h2>
-                </div>
-                <div>
-                    <h2>
-                        Street Marketing
-                    </h2>
-                </div>
-                <div>
-                    <h2>
-                        Publicidad exterior
-                    </h2>
-                </div>
-            </div>
-
-            {# {% from 'macros/posts.html.twig' import horizontal as posts %}
-            {{ posts(page, '/blog', 2, ['Madrid'], 'mt-24') }} #}
-        </section>
-
         <section class="logos container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-28 gap-x-16">
             <div>
                 {{ media['theme://images/logos/movistar.png'].cropResize('140', '62').loading().html('', 'logo movistar', '')|raw }}
@@ -399,5 +376,27 @@
             </div>
         </section>
 
+        <section class="posts container mt-16">
+            <div class="container flex flex-wrap justify-center lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2]">
+                <div>
+                    <h2>
+                        Wild Posting
+                    </h2>
+                </div>
+                <div>
+                    <h2>
+                        Street Marketing
+                    </h2>
+                </div>
+                <div>
+                    <h2>
+                        Publicidad exterior
+                    </h2>
+                </div>
+            </div>
+
+            {% from 'macros/posts.html.twig' import horizontal as posts %}
+            {{ posts(page, '/blog', 2, ['Madrid'], 'mt-24') }}
+        </section>
     </main>
 {% endblock %}
