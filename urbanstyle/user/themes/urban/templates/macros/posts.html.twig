@@ -33,17 +33,17 @@
                 {% endif %}
 
                 <div class="md:w-2/3 text-gray-500 text-lg">
-                    <div class="flex items-baseline gap-2">
+                    <div class="flex items-baseline">
                         {% if cities is not empty %}
                             {{ svg('theme://images/icons/city.svg', 'h-6 fill-red-700')|raw }}
                         {% endif %}
                         {% for tag in post.taxonomy.tag %}
                             {% if tag in cities %}
-                                <a href="#" class="font-bold uppercase text-sm">{{ tag }}</a>
+                                <a href="#" class="font-bold uppercase text-sm p-2">{{ tag }}</a>
                             {% endif %}
                         {% endfor %}
                     </div>
-                    <h2 class="text-3xl text-balance my-2 p-0 md:line-clamp-2 pb-1">
+                    <h2 class="text-3xl text-balance my-0 p-0 md:line-clamp-2 pb-1">
                         <a href="{{ post.url }}" class="font-bold text-gray-800">{{ post.title }}</a>
                     </h2>
 
