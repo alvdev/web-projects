@@ -51,12 +51,12 @@
                         <p class="text-pretty">
                             {{ post.page.header.description|striptags|truncate(250) }}
                         </p>
-                        <a href="{{ post.url }}" class="text-md text-red-500 font-semibold leading-tight">Seguir leyendo »</a>
+                        <a href="{{ post.url }}" class="text-md text-red-600 font-semibold leading-tight">Seguir leyendo »</a>
                     {% else %}
                         <p class="my-4 text-pretty last:mb-0 inline-block">
                             {{ post.summary|striptags('<strong>')|truncate(250)|raw }}
                         </p>
-                        <a href="{{ post.url }}" class="text-md text-red-500 font-semibold leading-tight">Seguir leyendo »</a>
+                        <a href="{{ post.url }}" class="text-md text-red-600 font-semibold leading-tight">Seguir leyendo »</a>
                     {% endif %}
                 </div>
             </article>
