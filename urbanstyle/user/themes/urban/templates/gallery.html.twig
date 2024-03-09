@@ -19,95 +19,34 @@
 
         <section>
             <div class="container mt-24 flex gap-12">
-                <ul class="m-0 p-0 list-none">
+                <ul class="m-0 p-0 list-none [&>*:not(:first-child)]:mt-16">
                     {% for gallery in galleries %}
-                        <li>
-                            <a href="{{ gallery.url }}">{{ gallery.title }}</a>
-                            {% for picture in gallery.media %}
-                                {{ picture|raw }}
-                            {% endfor %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </section>
-        <div class="container my-24">
-            {{ page.content|raw }}
-        </div>
+                        <li class="flex gap-12">
+                            <a href="{{ gallery.url }}" class="whitespace-nowrap">{{ gallery.title }}</a>
 
-        {# {{ instagram_feed()|raw }} #}
-
-        {# <section class="container mt-24">
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
-                             alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-                             alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-                             alt="">
-                    </div>
+                            {{ photoswipe('photoswipe-gallery-id-'~loop.index, 'a') }}
+                            <div id="photoswipe-gallery-id-{{ loop.index }}"
+                                 class="columns-1 [&>*]:break-inside-avoid items-center md:columns-3 lg:columns-4 gap-4">
+                                {% for picture in gallery.media %}
+                                    <div>
+                                        <a href="{{ picture.url|e }}"
+                                           class="border border-black max-w inline-block p-1"
+                                           data-size="{{ picture.width ~ 'x' ~ picture.height }}">
+                                            <div class="overflow-hidden">
+                                                {{ picture.cropResize(250, 150).loading().html('', '', 'h-auto max-w-full m-0 hover:scale-110 transition-all duration-500')|raw }}
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-                             alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                             alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-                             alt="">
-                    </div>
-                </div>
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-                             alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-                             alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-                             alt="">
-                    </div>
-                </div>
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
-                             alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
-                             alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full m-0"
-                             src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
-                             alt="">
-                    </div>
-                </div>
+            </section>
+            <div class="container my-24">
+                {{ page.content|raw }}
             </div>
-        </section> #}
-    </main>
-{% endblock %}
+
+            {# {{ instagram_feed()|raw }} #}
+        </main>
+    {% endblock %}
