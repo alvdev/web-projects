@@ -13,8 +13,11 @@
                     </h1>
                 </div>
             </div>
+            {# Overlay to void show Youtube infor on hover #}
+            <div class="overlay before:absolute before:w-full before:h-full">
+            </div>
             <iframe class="w-full m-0 aspect-video"
-                    src="https://www.youtube.com/embed/0_LpZYxl5Iw?si=jENrx_vpb_dAV7us&amp;controls=0&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playsinline=1"></iframe>
+                    src="https://www.youtube.com/embed/0_LpZYxl5Iw?si=WF804HL1jf9_NgDn&amp;controls=0&amp;autoplay=1&amp;mute=1&amp;playsinline=1&amp;loop=1"></iframe>
             {# <video src="{{ url('theme://video/pegada-de-carteles-video.mp4') }}" autoplay loop muted class="w-full m-0 aspect-video">
             </video> #}
         </section>
@@ -35,7 +38,7 @@
                                            class="border border-black max-w inline-block p-1"
                                            data-size="{{ picture.width ~ 'x' ~ picture.height }}">
                                             <div class="overflow-hidden">
-                                                {{ picture.cropResize(250, 150).loading().html('', '', 'h-auto max-w-full m-0 hover:scale-110 transition-all duration-500')|raw }}
+                                                {{ picture.cropResize(250, 150).derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', '', 'h-auto max-w-full m-0 hover:scale-110 transition-all duration-500')|raw }}
                                             </div>
                                         </a>
                                     </div>
