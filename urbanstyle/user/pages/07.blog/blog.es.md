@@ -11,6 +11,7 @@ facebookenable: true
 admin: {  }
 aura:
     pagetype: website
+dateformat: 'd-m-Y H:i'
 child_type: article
 ---
 
