@@ -51,10 +51,9 @@
     {% set city_posts = page.collection(city_options) %}
 
     <div class="{{ classes }} flex flex-col gap-24">
-        {% import _self as item %}
         {% for post in posts %}
             {% if post.header.publish_date %}
-                {{ item.article(post) }}
+                {{ _self.article(post) }}
             {% endif %}
         {% endfor %}
     </div>
