@@ -16,8 +16,6 @@
 
         <div class="md:w-2/3 text-gray-500 text-lg">
             <div class="flex items-baseline">
-                {% if cities is not empty %}
-                {% endif %}
                 {% if item.taxonomy.tag %}
                     {{ svg('theme://images/icons/city.svg', 'h-6 fill-red-700')|raw }}
                     {% for tag in item.taxonomy.tag %}
@@ -28,7 +26,7 @@
             <h2 class="text-3xl text-balance my-0 p-0 md:line-clamp-2 pb-1">
                 <a href="{{ item.url }}" class="font-bold text-gray-800">{{ item.title }}</a>
             </h2>
-
+            <address>{{ item.header.publish_date }}</address>
             {% if item.header.description %}
                 <p class="text-pretty">
                     {{ item.page.header.description|striptags|truncate(250) }}
@@ -45,10 +43,10 @@
 {% endmacro %}
 
 {% macro posts(page, path, limit = 5, cities, classes) %}
-    {% set options = {items: {'@page.descendants': path}, order: {'by': 'header.publish_date', 'dir': 'asc'}, limit: limit} %}
+    {% set options = {items: {'@page.descendants': path}, order: {'by': 'publish_date', 'dir': 'desc'}, limit: limit} %}
     {% set posts = page.collection(options) %}
-    {% set city_options = {items: {'@taxonomy': {'tag': 'Madrid'}}, order: {'by': 'header.publish_date', 'dir': 'desc'}, limit: limit} %}
-    {% set city_posts = page.collection(city_options) %}
+    {# {% set city_options = {items: {'@taxonomy': {'tag': 'Madrid'}}, order: {'by': 'publish_date', 'dir': 'desc'}, limit: limit} %}
+{% set city_posts = page.collection(city_options) %} #}
 
     <div class="{{ classes }} flex flex-col gap-24">
         {% for post in posts %}
