@@ -44,7 +44,7 @@
     </article>
 {% endmacro %}
 
-{% macro horizontal(page, path, limit = 5, cities, classes) %}
+{% macro posts(page, path, limit = 5, cities, classes) %}
     {% set options = {items: {'@page.descendants': path}, order: {'by': 'header.publish_date', 'dir': 'asc'}, limit: limit} %}
     {% set posts = page.collection(options) %}
     {% set city_options = {items: {'@taxonomy': {'tag': 'Madrid'}}, order: {'by': 'header.publish_date', 'dir': 'desc'}, limit: limit} %}
