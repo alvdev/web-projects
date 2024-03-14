@@ -11,6 +11,7 @@ facebookenable: true
 media_order: portfolio-urban-style-pubicity-1.jpg
 aura:
     pagetype: article
+publish_date: '01-10-2021 19:08'
 ---
 
 Una campaña de pegada de carteles Madrid puede enclavarse dentro de lo que se conoce como street marketing, un conjunto de técnicas que se pueden realizar mediante acciones promocionales, de comunicación, etc., que se desarrollan dentro de un entorno urbano.

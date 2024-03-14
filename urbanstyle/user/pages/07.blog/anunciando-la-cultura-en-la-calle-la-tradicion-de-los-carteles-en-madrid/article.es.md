@@ -12,6 +12,8 @@ orgaratingenabled: false
 facebookenable: true
 media_order: 'publicidad-exterior-madrid-antigua-x4.webp,cartel-de-madrid.webp'
 taxonomy:
+    category:
+        - conciertos
     tag:
         - Madrid
 publish_date: '17-01-2024 20:11'

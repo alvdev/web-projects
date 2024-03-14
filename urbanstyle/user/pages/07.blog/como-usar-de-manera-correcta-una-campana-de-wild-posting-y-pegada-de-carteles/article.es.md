@@ -12,6 +12,7 @@ media_order: 'wild-posting-madrid.jpg,wild-posting-example-madrid-1024x566.jpg'
 aura:
     pagetype: article
     image: wild-posting-madrid.jpg
+publish_date: '13-12-2021 19:06'
 ---
 
 Cuando uno piensa en wild posting, probablemente piense en vallas perimetrales de zonas en construcción empapeladas con anuncios de conciertos o servicios. Puede que no pienses en la marca. Pero deberías. El wild posting proporciona una excelente plataforma para promocionar o crear una marca. Permite a las empresas presentar lo que la diferencia de la competencia y las hace únicas.
