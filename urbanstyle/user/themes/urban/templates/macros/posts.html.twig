@@ -23,10 +23,11 @@
                     {% endfor %}
                 {% endif %}
             </div>
+
             <h2 class="text-3xl text-balance my-0 p-0 md:line-clamp-2 pb-1">
                 <a href="{{ item.url }}" class="font-bold text-gray-800">{{ item.title }}</a>
             </h2>
-            <address>{{ item.header.publish_date }}</address>
+
             {% if item.header.description %}
                 <p class="text-pretty">
                     {{ item.page.header.description|striptags|truncate(250) }}
@@ -48,7 +49,7 @@
     {# {% set city_options = {items: {'@taxonomy': {'tag': 'Madrid'}}, order: {'by': 'publish_date', 'dir': 'desc'}, limit: limit} %}
 {% set city_posts = page.collection(city_options) %} #}
 
-    <div class="{{ classes }} flex flex-col gap-24">
+    <div id="records" class="{{ classes }} flex flex-col gap-24" x-data="infiniteScroll()" x-init="init()">
         {% for post in posts %}
             {% if post.header.publish_date %}
                 {{ _self.article(post) }}
