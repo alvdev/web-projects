@@ -33,6 +33,19 @@
                 {% from 'macros/posts.html.twig' import posts %}
                 <div class="md:w-4/5">
                     {{ posts(page, '/blog', 10) }}
+
+                    {# TODO: integrate navigation posts(posts2) with posts macro(post1) #}
+                    {% set options = {items: {'@page.descendants': '/blog'}, pagination: true} %}
+                    {% set posts2 = page.collection(options) %}
+
+                    {% if config.plugins.pagination.enabled and posts2.params.pagination %}
+                        {% do paginate(posts2, 10) %}
+                        <nav class="mt-32">
+                            {% include 'partials/pagination.html.twig' with {'base_url': page.url, 'pagination': posts2.params.pagination} %}
+                        </nav>
+                        <div id="pagination" x-init x-intersect="$ajax({{ page.url }})" x-target="records pagination">
+                        </div>
+                    {% endif %}
                 </div>
 
                 <div class="banner not-prose w-1/5 pt-24 hidden md:block">
@@ -47,12 +60,6 @@
                     </div>
                 </div>
             </div>
-
-            {% if config.plugins.pagination.enabled and posts.params.pagination %}
-                <nav class="mt-32">
-                    {% include 'partials/pagination.html.twig' with {'base_url': page.url, 'pagination': posts.params.pagination} %}
-                </nav>
-            {% endif %}
         </div>
     </main>
 {% endblock %}
