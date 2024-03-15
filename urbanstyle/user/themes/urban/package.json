@@ -26,9 +26,12 @@
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.13.0",
+    "@alpinejs/intersect": "^3.13.7",
     "@builder.io/partytown": "^0.8.1",
+    "@imacrayon/alpine-ajax": "^0.5.1",
     "css-loader": "^6.8.1",
     "cssnano": "^6.0.1",
+    "install": "^0.13.0",
     "laravel-mix": "^6.0.49",
     "mini-css-extract-plugin": "^2.7.6",
     "mix-tailwindcss": "^1.3.0"
