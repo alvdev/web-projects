@@ -21,33 +21,44 @@
             {# <video src="{{ url('theme://video/pegada-de-carteles-video.mp4') }}" autoplay loop muted class="w-full m-0 aspect-video"> </video> #}
         </section>
 
-        <section>
-            <div class="container mt-24 flex gap-12">
-                <ul class="m-0 p-0 list-none [&>*:not(:first-child)]:mt-16">
-                    {% for gallery in galleries %}
-                        <li class="flex gap-12">
-                            <a href="{{ gallery.url }}" class="whitespace-nowrap">{{ gallery.title }}</a>
+        <section class="mt-24">
+            <div class="container flex gap-16">
+                <aside>
+                    <div class="sticky top-40 whitespace-nowrap">
+                        <h3>
+                            Pegadas en...
+                        </h3>
+                        <ul class="mx-0 p-0 list-none">
+                            {% for gallery in galleries %}
+                                <li class="p-0">
+                                    <a href="#{{ gallery.title }}" class="btn !block">{{ gallery.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside>
 
+                <div class="flex flex-col relative overflow-hidden">
+                    {% for gallery in galleries %}
+                        <h2 id="{{ gallery.title }}" class="scroll-mt-40 bg-skew2 left-0 wall-full">
+                            <span class="bg-black text-white px-8 py-4 shadow-[0_0_0_4px_black] border-4 border-white relative left-2 rotate-2 top-1 inline-block">{{ gallery.title }}</span>
+                        </h2>
+                        <div id="photoswipe-gallery-id-{{ loop.index }}"
+                             class="columns-2 [&>*]:break-inside-avoid items-center md:columns-4 lg:columns-6 gap-2">
                             {{ photoswipe('photoswipe-gallery-id-'~loop.index, 'a') }}
-                            <div id="photoswipe-gallery-id-{{ loop.index }}"
-                                 class="columns-1 [&>*]:break-inside-avoid items-center md:columns-3 lg:columns-4 gap-4">
-                                {% for picture in gallery.media %}
-                                    <div>
-                                        <a href="{{ picture.url|e }}"
-                                           class="border border-black max-w inline-block p-1"
-                                           data-size="{{ picture.width ~ 'x' ~ picture.height }}">
-                                            <div class="overflow-hidden">
-                                                {{ picture.cropResize(250, 150).derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', '', 'h-auto max-w-full m-0 hover:scale-110 transition-all duration-500')|raw }}
-                                            </div>
-                                        </a>
+                            {% for picture in gallery.media %}
+                                <a href="{{ picture.url|e }}" class="p-1 inline-block" data-size="{{ picture.width ~ 'x' ~ picture.height }}">
+                                    <div class="overflow-hidden">
+                                        {{ picture.cropResize(250).derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', '', 'h-auto max-w-full m-0 hover:scale-110 transition-all duration-500 brightness-110 contrast-110 saturate-125')|raw }}
                                     </div>
-                                {% endfor %}
-                            </div>
-                        </li>
+                                </a>
+                            {% endfor %}
+                        </div>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         </section>
+
         <div class="container my-24">
             {{ page.content|raw }}
         </div>

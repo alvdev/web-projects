@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        @apply scroll-smooth;
+    }
     body {
         @apply flex min-h-screen flex-col text-xl leading-relaxed;
         animation-duration: 0.5s;
@@ -149,6 +152,10 @@
 
     .bg-skew {
         @apply relative shadow-lg after:bg-red-800 after:absolute after:w-full after:h-full after:top-0 after:-z-10 after:rotate-3;
+    }
+
+    .bg-skew2 {
+        @apply relative after:bg-black after:absolute after:w-full after:h-full after:top-0 after:-z-10 after:-rotate-1;
     }
 
     .d-stripes {
