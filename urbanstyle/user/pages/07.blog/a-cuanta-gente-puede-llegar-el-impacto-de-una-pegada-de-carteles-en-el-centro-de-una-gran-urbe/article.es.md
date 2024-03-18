@@ -12,7 +12,6 @@ media_order: portfolio-urban-style-publicity-2.jpg
 aura:
     pagetype: article
 published: true
-date: '15-11-2023 20:54'
 publish_date: '15-11-2023 20:54'
 ---
 

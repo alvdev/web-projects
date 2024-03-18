@@ -12,7 +12,6 @@ media_order: 'bimba-lola.jpg,bimba-lola-lourdes-leon-768x1152.jpg'
 aura:
     pagetype: article
 publish_date: '05-11-2021 19:00'
-date: '05-11-2021 19:00'
 ---
 
 El otoño-invierno 2021 de Bimba y Lola se tiñe de creatividad futurista en la campaña #thisisTECHNONATURE. Una propuesta para la que la firma de moda y accesorios gallega ha fusionado el talento de nombres como Isamaya Ffrench, Lourdes Leon y Carlos Sáez.
