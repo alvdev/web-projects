@@ -1,0 +1,10 @@
+{% set pagination = pagination|default(page.collection.params.pagination) %}
+
+{% if pagination|length > 1 %}
+    {% if pagination.hasNext %}
+        {% set url = (base_url ~ pagination.params ~ pagination.nextUrl)|replace({'//':'/'}) %}
+
+        <div id="pagination" x-init x-intersect="$ajax('{{ url }}')" x-target="records pagination">
+        </div>
+    {% endif %}
+{% endif %}
