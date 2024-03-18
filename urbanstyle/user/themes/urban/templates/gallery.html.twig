@@ -43,14 +43,15 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </section>
-            <div class="container my-24">
-                {{ page.content|raw }}
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
+        </section>
+        <div class="container my-24">
+            {{ page.content|raw }}
+        </div>
 
-            {# {{ instagram_feed()|raw }} #}
-        </main>
-    {% endblock %}
+        {# {{ instagram_feed()|raw }} #}
+    </main>
+{% endblock %}
