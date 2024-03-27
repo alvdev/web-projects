@@ -42,7 +42,7 @@
                     {{ 'THEME.LATEST_POSTS'|t }}
                 </h4>
 
-                {% from 'macros/posts.html.twig' import horizontal as posts %}               
+                {% from 'macros/posts.html.twig' import posts %}
                 {{ posts(page, '/blog', 2) }}
             </section>
         {% endif %}
