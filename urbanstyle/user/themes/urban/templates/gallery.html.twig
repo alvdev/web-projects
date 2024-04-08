@@ -51,7 +51,7 @@
                             {% for picture in gallery.media.images %}
                                 <a href="{{ picture.url|e }}" class="p-1 inline-block" data-size="{{ picture.width ~ 'x' ~ picture.height }}">
                                     <div class="overflow-hidden">
-                                        {{ picture.cropResize(250).derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', '', 'h-auto max-w-full m-0 hover:scale-110 transition-all duration-500 brightness-110 contrast-110 saturate-125')|raw }}
+                                        {{ picture.cropResize(250).derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').loading().html('', '', 'h-auto w-full max-w-full m-0 hover:scale-110 transition-all duration-500 brightness-110 contrast-110 saturate-125')|raw }}
                                     </div>
                                 </a>
                             {% endfor %}
