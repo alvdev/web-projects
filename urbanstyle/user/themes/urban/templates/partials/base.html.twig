@@ -23,9 +23,7 @@
                 {% include 'partials/langswitcher.hreflang.html.twig' %}
             {% endif %}
 
-            <link rel="icon"
-                  type="image/png"
-                  href="{{ url('theme://images/favicon.png')|e }}">
+            <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png')|e }}">
             <link rel="canonical" href="{{ page.url(true, true)|e }}" />
         {% endblock head %}
 
@@ -48,14 +46,12 @@
                 display: none !important;
             }
         </style>
- 
+
         {{ jsonld|raw }}
     </head>
 
-    <body id="top"
-          class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
-        <div id="overlay"
-             class="fixed z-40 w-full bg-white bg-opacity-50 backdrop-blur md:hidden">
+    <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
+        <div id="overlay" class="fixed z-40 w-full bg-white bg-opacity-50 backdrop-blur md:hidden">
         </div>
 
         {% block header %}
