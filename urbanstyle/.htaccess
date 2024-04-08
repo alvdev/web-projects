@@ -79,11 +79,11 @@ DirectoryIndex index.php index.html index.htm
 
 <IfModule mod_expires.c>
 # One year for image files
-<filesMatch ".(jpg|jpeg|png|gif|ico|webp)$">
+<filesMatch ".(jpg|jpeg|png|gif|ico|webp|svg)$">
    Header set Cache-Control "max-age=31536000, public"
 </filesMatch>
 # One month for css and js
 <filesMatch ".(css|js)$">
-   Header set Cache-Control "max-age=2678400, public"
+   Header set Cache-Control "max-age=31536000, public"
 </filesMatch>
 </IfModule>
