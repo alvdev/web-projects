@@ -1,6 +1,6 @@
 {% set extension = config.theme.production ? '.min' : '' %}
 
-{% set jsonld = page.home ? include ('jsonld.html') : '' %}
+{# {% set jsonld = page.home ? include ('jsonld.html') : '' %} #}
 
 <!DOCTYPE html>
 <html lang="{{ (grav.language.getLanguage ?: grav.config.site.default_lang)|e }}">
@@ -23,7 +23,7 @@
                 {% include 'partials/langswitcher.hreflang.html.twig' %}
             {% endif %}
 
-            <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png')|e }}">
+            <link rel="icon" type="image/png" href="{{ url('theme://images/favicon-128.png')|e }}">
             <link rel="canonical" href="{{ page.url(true, true)|e }}" />
         {% endblock head %}
 
@@ -47,7 +47,7 @@
             }
         </style>
 
-        {{ jsonld|raw }}
+        {# {{ jsonld|raw }} #}
     </head>
 
     <body id="top" class="{{ page.header.body_classes|e }} {{ config.theme.production ?: 'debug-screens' }}">
