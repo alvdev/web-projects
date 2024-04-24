@@ -1,0 +1,21 @@
+extends@:
+  type: default
+  context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.keywords:
+              type: selectize
+              label: DEFAULT.KEYWORDS
+              style: vertical
+              validate:
+                type: commalist
+              ordering@: header.title
