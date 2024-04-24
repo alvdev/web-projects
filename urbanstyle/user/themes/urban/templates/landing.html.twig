@@ -1,5 +1,55 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set publish_date = page.header.publish_date|date("Y-m-d\\TH:i:sP") %}
+{% set modify_date = page.date|date("Y-m-d\\TH:i:sP") %}
+
+{% set schema = '{
+"@context": "https://schema.org",
+"@type": "LocalBusiness",
+"name": "Urban Style Publicity",
+"description": "Empresa especializada en la pegada y colocación de carteles, vallas publicitarias y otros soportes de publicidad exterior en Madrid, Barcelona y el resto de España.",
+"image": "https://urbanstylepublicity.com/images/p/e/g/a/d/pegada-de-carteles-456b2da4.webp",
+"@id": "https://urbanstylepublicity.com",
+"url": "https://urbanstylepublicity.com",
+"telephone": "913052922",
+"address": {
+"@type": "PostalAddress",
+"streetAddress": "Av del Manzanares, 202",
+"addressLocality": "Madrid",
+"postalCode": "28026",
+"addressCountry": "ES"
+},
+"geo": {
+"@type": "GeoCoordinates",
+"latitude": 40.3926834,
+"longitude": -3.702346299999999
+},
+"openingHoursSpecification": [{
+"@type": "OpeningHoursSpecification",
+"dayOfWeek": [
+"Monday",
+"Tuesday",
+"Wednesday",
+"Thursday"
+],
+"opens": "09:00",
+"closes": "18:00"
+},{
+"@type": "OpeningHoursSpecification",
+"dayOfWeek": "Friday",
+"opens": "09:00",
+"closes": "14:00"
+}],
+"sameAs": [
+"https://www.facebook.com/profile.php?id=61557928546519",
+"https://twitter.com/pegadacarteles",
+"https://instagram.com/urban_style_publicity",
+"https://www.youtube.com/@pegadadecarteles",
+"https://www.linkedin.com/in/pedro-jim%C3%A9nez-39671b124/",
+"https://www.wikidata.org/wiki/Q216931"
+]
+}' %}
+
 {% block content %}
     <main class="flex-1 prose prose-xl max-w-none">
         <section class="hero torn-bottom">
@@ -339,40 +389,40 @@
 
         <section class="logos container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-28 gap-x-16">
             <div>
-                {{ media['theme://images/logos/movistar.png'].cropResize('140', '62').loading().html('', 'logo movistar', '')|raw }}
+                {{ media['theme://images/logos/movistar.png'].cropResize('150', '70').loading().html('', 'logo movistar', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/live-nation.png'].cropResize('140', '62').loading().html('', 'logo live nation', '')|raw }}
+                {{ media['theme://images/logos/live-nation.png'].cropResize('150', '70').loading().html('', 'logo live nation', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/bbk.png'].cropResize('140', '62').loading().html('', 'logo bbk', '')|raw }}
+                {{ media['theme://images/logos/bbk.png'].cropResize('150', '70').loading().html('', 'logo bbk', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/dcode.png'].cropResize('140', '62').loading().html('', 'logo dcode', '')|raw }}
+                {{ media['theme://images/logos/dcode.png'].cropResize('150', '70').loading().html('', 'logo dcode', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/warner-music.png'].cropResize('140', '62').loading().html('', 'logo warner music', '')|raw }}
+                {{ media['theme://images/logos/warner-music.png'].cropResize('150', '70').loading().html('', 'logo warner music', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/circo-del-sol.webp'].cropResize('140', '62').loading().html('', 'logo circo del sol', '')|raw }}
+                {{ media['theme://images/logos/circo-del-sol.webp'].cropResize('150', '70').loading().html('', 'logo circo del sol', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/marquina.png'].cropResize('140', '62').loading().html('', 'logo marquina', '')|raw }}
+                {{ media['theme://images/logos/marquina.png'].cropResize('150', '70').loading().html('', 'logo marquina', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/zalando.png'].cropResize('140', '62').loading().html('', 'logo zalando', '')|raw }}
+                {{ media['theme://images/logos/zalando.png'].cropResize('150', '70').loading().html('', 'logo zalando', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/sony-music.png'].cropResize('140', '62').loading().html('', 'logo sony music', '')|raw }}
+                {{ media['theme://images/logos/sony-music.png'].cropResize('150', '70').loading().html('', 'logo sony music', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/noches-del-botanico.png'].cropResize('140', '62').loading().html('', 'logo noches del botánico', '')|raw }}
+                {{ media['theme://images/logos/noches-del-botanico.png'].cropResize('150', '70').loading().html('', 'logo noches del botánico', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/madcool.png'].cropResize('140', '62').loading().html('', 'logo madcool', '')|raw }}
+                {{ media['theme://images/logos/madcool.png'].cropResize('150', '70').loading().html('', 'logo madcool', 'w-full')|raw }}
             </div>
             <div>
-                {{ media['theme://images/logos/ifema.png'].cropResize('140', '62').loading().html('', 'logo ifema', '')|raw }}
+                {{ media['theme://images/logos/ifema.png'].cropResize('150', '70').loading().html('', 'logo ifema', 'w-full')|raw }}
             </div>
         </section>
 
@@ -399,4 +449,7 @@
             {{ posts(page, '/blog', 2, ['Madrid'], 'mt-24') }}
         </section>
     </main>
+
+    {% do assets.addInlineJs(schema, {type: 'application/ld+json', loading: 'defer'}) %}
+
 {% endblock %}
