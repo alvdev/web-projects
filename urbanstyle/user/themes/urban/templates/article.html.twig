@@ -1,9 +1,28 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set word_count = page.content|split(' ')|length + page.title|split(' ')|length + page.summary|split(' ')|length %}
+
+{% if page.media|first.meta.alt %}
+    {% set img_alt = page.alt %}
+{% else %}
+    {% set img_alt = page.header.media_order|replace({'-': ' ' })|split('.')[0] %}
+{% endif %}
+
+{% set keyword_list = [] %}
+{% for k in page.header.keywords %}
+    {% set keyword_list = keyword_list|merge(["\"" ~ k ~ "\""]) %}
+{% endfor %}
+
+{% set keywords = keyword_list|join(', ') %}
+{% set publish_date = page.header.publish_date|date("Y-m-d\\TH:i:sP") %}
+{% set modify_date = page.date|date("Y-m-d\\TH:i:sP") %}
+
+{% set schema = '{"@context": "https://schema.org/","@type": "BlogPosting","@id": "' ~ base_url_absolute ~ page.url ~ '/#BlogPosting","mainEntityOfPage": "' ~ base_url_absolute ~ page.url ~ '","headline": "' ~ page.title ~ '","name": "' ~ page.title ~ '","description": "' ~ page.summary|striptags ~ '","datePublished": "' ~ publish_date ~ '","dateModified": "' ~ modify_date ~ '","image":{"@type": "ImageObject","@id": "' ~ base_url_absolute ~ page.media|first.url ~ '","url": "' ~ base_url_absolute ~ page.media|first.url ~ '","height": "' ~ page.media|first.height ~ '","width": "' ~ page.media|first.width ~ '"},"url": "' ~ base_url_absolute ~ page.url ~ '","keywords": [' ~ keywords ~ ']}' %}
+
 {% block content %}
     <main class="flex-1 prose prose-sm lg:prose-lg max-w-none">
         <section class="hero torn-bottom">
-            {{ page.media|first.derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', 'pegada de carteles', '!m-0 h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
+            {{ page.media|first.derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', img_alt, '!m-0 h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
         </section>
 
         <div class="container flex gap-8">
@@ -47,4 +66,7 @@
             </section>
         {% endif %}
     </main>
-{% endblock %}
+
+    {% do assets.addInlineJs(schema, {type: 'application/ld+json', loading: 'defer'}) %}
+
+{% endblock content %}
