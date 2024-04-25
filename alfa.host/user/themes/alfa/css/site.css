@@ -16,28 +16,28 @@
         font-display: swap;
         font-family: Roboto;
         font-weight: 300;
-        src: url(../../fonts/Roboto-Light-300.ttf) format("truetype");
+        src: url(../../fonts/Roboto-Light-300.ttf) format('truetype');
     }
 
     @font-face {
         font-display: swap;
         font-family: Roboto;
         font-weight: 400;
-        src: url(../../fonts/Roboto-Regular-400.ttf) format("truetype");
+        src: url(../../fonts/Roboto-Regular-400.ttf) format('truetype');
     }
 
     @font-face {
         font-display: swap;
         font-family: Roboto;
         font-weight: 500;
-        src: url(../../fonts/Roboto-Medium-500.ttf) format("truetype");
+        src: url(../../fonts/Roboto-Medium-500.ttf) format('truetype');
     }
 
     @font-face {
         font-display: swap;
         font-family: Roboto;
         font-weight: 700;
-        src: url(../../fonts/Roboto-Bold-700.ttf) format("truetype");
+        src: url(../../fonts/Roboto-Bold-700.ttf) format('truetype');
     }
 
     /* */
@@ -55,7 +55,7 @@
     }
 
     .glide__bullets button:hover,
-    .glide__bullets button[class*="active"] {
+    .glide__bullets button[class*='active'] {
         @apply bg-gray-800;
     }
 
@@ -73,9 +73,9 @@
     }
 
     .glide-header ul li:before {
-        background-image: url("../../images/svg/check-solid.svg");
+        background-image: url('../../images/svg/check-solid.svg');
         background-repeat: no-repeat;
-        content: "";
+        content: '';
         display: block;
         width: 16px;
         height: 16px;
@@ -93,7 +93,7 @@
 
     .glide-email .glide__slide .overlay {
         @apply bg-black bg-opacity-30 h-full w-full absolute z-10 top-0 rounded transition duration-200 shadow-2xl;
-        content: "";
+        content: '';
     }
 
     .glide-email .glide__slide .overlay:hover {
@@ -111,7 +111,7 @@
     }
 
     body {
-        font-family: "Roboto" !important;
+        font-family: 'Roboto' !important;
         overflow-x: hidden;
     }
 
@@ -149,7 +149,7 @@
         }
     }
 
-    section > h2,
+    section h2,
     section h2.title {
         animation: gradientmove 15s ease infinite;
         background: linear-gradient(315deg, #000, #000, #000, #1d4ed8, #000, #000, #000);
@@ -157,10 +157,7 @@
         background-size: 100% 400%;
         font-weight: 600;
         line-height: 1.1;
-        margin-left: auto;
-        margin-right: auto;
         -webkit-text-fill-color: transparent;
-        width: 85%;
     }
 
     @keyframes gradientmove {
@@ -208,7 +205,7 @@
     }
 
     section .hosting-features:hover section.services #seotabcontent {
-        background: #fff url("../../images/marketing-services/seo.jpg") no-repeat right center;
+        background: #fff url('../../images/marketing-services/seo.jpg') no-repeat right center;
         background-size: 33% auto;
     }
 
@@ -223,29 +220,28 @@
         transition: 2s ease;
     }
 
-    section .faqs li[id^="faq"]:target {
+    section .faqs li[id^='faq']:target {
         scroll-margin-top: 6rem;
     }
 
     /* Media queries */
 
     @media only screen and (min-width: 768px) {
-        section > h2,
+        section h2,
         section h2.title {
             font-size: 3.75rem;
         }
     }
 
     @media only screen and (max-width: 768px) {
-        section > h2,
+        section h2,
         section h2.title {
             font-size: 2.2rem;
-            width: 100%;
         }
     }
 
     nav,
-    nav [id$="-submenu"] {
+    nav [id$='-submenu'] {
         @apply ease-linear duration-300;
     }
 
@@ -261,7 +257,7 @@
 
     nav.sticky:before {
         @apply bg-white bg-opacity-90 backdrop-filter backdrop-blur-md;
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         width: 100%;
@@ -269,7 +265,7 @@
         z-index: -1;
     }
 
-    nav.sticky [id$="-submenu"] {
+    nav.sticky [id$='-submenu'] {
         @apply top-16 ease-linear duration-300 w-full -mt-[2px] rounded-none border-x-0;
         padding-left: 4.16%;
         padding-right: 4.16%;
@@ -301,7 +297,7 @@
         @apply stroke-current fill-current text-cyan-500;
     }
 
-    section.make-entrepreneurs > h2 {
+    section.make-entrepreneurs h2 {
         animation: none;
         background: none;
         -webkit-text-fill-color: unset;
@@ -324,7 +320,7 @@
     }
 
     ul.arrow-right li:before {
-        content: "\279C";
+        content: '\279C';
         font-size: 1.5rem;
         left: 0;
         line-height: 1.5rem;
@@ -390,7 +386,7 @@
         }
 
         .tab h3 a:before {
-            content: "\276F";
+            content: '\276F';
             position: absolute;
             right: 2px;
             top: 1px;
@@ -399,7 +395,7 @@
         }
 
         .tab:target h3 a:before {
-            content: "\2759";
+            content: '\2759';
         }
 
         .dropdown {
