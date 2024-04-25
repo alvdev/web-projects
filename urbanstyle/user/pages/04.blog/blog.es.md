@@ -8,7 +8,8 @@ orga:
     ratingValue: 2.5
 orgaratingenabled: false
 facebookenable: true
-admin: {  }
+admin:
+    children_display_order: default
 aura:
     pagetype: website
 dateformat: 'd-m-Y H:i'

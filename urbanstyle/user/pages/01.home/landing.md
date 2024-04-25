@@ -1,5 +1,5 @@
 ---
-title: 'Pegada de carteles de 5 estrellas'
+title: 'Pegada de carteles en Madrid, Barcelona y resto de España'
 menu: Inicio
 slug: pegada-de-carteles
 twitterenable: false
@@ -14,4 +14,4 @@ article:
     image_url: /servicios/street-marketing/publicidad-street-marketing.webp
 ---
 
-Referente absoluto en la pegada de carteles en España, avalada por su amplia cartera de clientes y la satisfacción que han demostrado. Entra y compruébalo.
+Pegada de carteles en Madrid, Barcelona y resto de España. Supervisión 24/7 (día y noche) para la reposición de carteles dañados o tapados.
