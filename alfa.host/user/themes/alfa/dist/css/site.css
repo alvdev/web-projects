@@ -2399,6 +2399,10 @@ footer .ccards g,
   --tw-bg-opacity: 0.9;
 }
 
+.bg-opacity-80 {
+  --tw-bg-opacity: 0.8;
+}
+
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -3377,6 +3381,10 @@ nav.sticky .logo svg .before\:b::before {
     gap: 2rem;
   }
 
+  .md\:gap-5 {
+    gap: 1.25rem;
+  }
+
   .md\:rounded-l {
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
@@ -3415,6 +3423,10 @@ nav.sticky .logo svg .before\:b::before {
 
   .md\:pr-64 {
     padding-right: 16rem;
+  }
+
+  .md\:pr-8 {
+    padding-right: 2rem;
   }
 
   .md\:text-left {
