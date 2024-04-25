@@ -1,24 +1,24 @@
 {% do assets.addJs(
-  'https://cdn.jsdelivr.net/npm/@glidejs/glide',
-  {
-    loading: 'defer',
-    priority: 2,
-    id: 'custom-css'
-  }
+'https://cdn.jsdelivr.net/npm/@glidejs/glide',
+{
+loading: 'defer',
+priority: 2,
+id: 'custom-css'
+}
 ) %}
 {% do assets.addJs(
-  'theme://js/header-slideshow.js',
-  {
-    loading: 'defer',
-    priority: 1,
-    id: 'custom-css'
-  }
+'theme://js/header-slideshow.js',
+{
+loading: 'defer',
+priority: 1,
+id: 'custom-css'
+}
 ) %}
 
 <div class="glide-header relative">
-    <div data-glide-el="track" class="glide__track flex">
+    <div data-glide-el="track" class="glide__track flex overflow-hidden">
         <div class="glide__slides flex text-white">
-            <article class="glide__slide p-8 flex gap-4 relative">
+            <article class="glide__slide py-8 flex gap-4 relative">
                 <div class="w-2/3">
                     <div class="uppercase text-5xl font-semibold mb-4">
                         Despre<span class="text-blue-400">ocúpate</span>
@@ -29,15 +29,14 @@
                     <div class="flex mb-8">
                         <i class="w-4 mt-1 mr-2">
                             <svg aria-hidden="true"
-                                focusable="false"
-                                data-prefix="fas"
-                                data-icon="check-square"
-                                class="svg-inline--fa fa-check-square fa-w-14"
-                                role="img"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewbox="0 0 448 512">
-                                <path fill="currentColor"
-                                    d="M400 480H48c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48 48-48h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48 48zm-204.686-98.059l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.248-16.379-6.249-22.628 0L184 302.745l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.25 16.379 6.25 22.628.001z">
+                                 focusable="false"
+                                 data-prefix="fas"
+                                 data-icon="check-square"
+                                 class="svg-inline--fa fa-check-square fa-w-14"
+                                 role="img"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 viewbox="0 0 448 512">
+                                <path fill="currentColor" d="M400 480H48c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48 48-48h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48 48zm-204.686-98.059l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.248-16.379-6.249-22.628 0L184 302.745l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.25 16.379 6.25 22.628.001z">
                                 </path>
                             </svg>
                         </i>Ahorra gastos en empleados. Rompemos los precios en subcontratación de personal.
@@ -49,8 +48,7 @@
 
                 <div class="w-1/3 relative">
                     <div class="bubbles absolute z-10 -top-4 -left-4">
-                        <div
-                            class="bg-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-32 h-32 absolute z-0">
+                        <div class="bg-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-32 h-32 absolute z-0">
                             <div class="w-min leading-tight mt-4">
                                 <div>
                                     Posicionamiento en buscadores
@@ -61,19 +59,25 @@
                             </div>
                         </div>
 
-                        <div
-                            class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28 absolute z-10 ml-24 mt-16">
+                        <div class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28 absolute z-10 ml-24 mt-16">
                             <div class="w-min leading-tight mt-1">
-                                <div>Diseño y desarrollo</div>
-                                <div class="text-4xl">WEB</div>
+                                <div>
+                                    Diseño y desarrollo
+                                </div>
+                                <div class="text-4xl">
+                                    WEB
+                                </div>
                             </div>
                         </div>
 
-                        <div
-                            class="bg-white text-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-24 h-24 absolute z-20 mt-28 ml-4">
+                        <div class="bg-white text-black text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-24 h-24 absolute z-20 mt-28 ml-4">
                             <div class="w-min mt-1">
-                                <div class="text-xl uppercase leading-none font-medium">Social media</div>
-                                <div class="">marketing</div>
+                                <div class="text-xl uppercase leading-none font-medium">
+                                    Social media
+                                </div>
+                                <div class="">
+                                    marketing
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -83,7 +87,7 @@
                 </div>
             </article>
 
-            <article class="glide__slide p-8 flex gap-4">
+            <article class="glide__slide py-8 flex gap-4">
                 <div class="w-2/3">
                     <div class="uppercase text-2xl font-medium mb-8">
                         <div class="mb-1">
@@ -95,18 +99,42 @@
                         </div>
                     </div>
                     <ul class="text-xs grid grid-rows-4 grid-flow-col gap-4 mb-8">
-                        <li>Tráfico y espacio web ilimitado</li>
-                        <li>Nombre de dominio gratis</li>
-                        <li>99.99% de tiempo de actividad</li>
-                        <li>Atención y soporte 24/7/365</li>
-                        <li>Panel de control cPanel</li>
-                        <li>Constructor web ilimitado</li>
-                        <li>Sistema de email marketing</li>
-                        <li>Guía para principiantes</li>
-                        <li>Informes mensuales SEO</li>
-                        <li>Seguimiento personalizado</li>
-                        <li>10 cuentas Omega adicionales</li>
-                        <li>Asesoría telefónica semanal</li>
+                        <li>
+                            Tráfico y espacio web ilimitado
+                        </li>
+                        <li>
+                            Nombre de dominio gratis
+                        </li>
+                        <li>
+                            99.99% de tiempo de actividad
+                        </li>
+                        <li>
+                            Atención y soporte 24/7/365
+                        </li>
+                        <li>
+                            Panel de control cPanel
+                        </li>
+                        <li>
+                            Constructor web ilimitado
+                        </li>
+                        <li>
+                            Sistema de email marketing
+                        </li>
+                        <li>
+                            Guía para principiantes
+                        </li>
+                        <li>
+                            Informes mensuales SEO
+                        </li>
+                        <li>
+                            Seguimiento personalizado
+                        </li>
+                        <li>
+                            10 cuentas Omega adicionales
+                        </li>
+                        <li>
+                            Asesoría telefónica semanal
+                        </li>
                     </ul>
                     <button class="border-2 rounded p-4 uppercase hover:text-black hover:bg-white font-medium">
                         Ver todos los planes de alojamiento web
@@ -114,11 +142,14 @@
                 </div>
                 <div class="w-1/3 relative">
                     <div class="bubbles absolute z-10 -top-4 -left-4">
-                        <div
-                            class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28 absolute z-10 ml-24 mt-16">
+                        <div class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28 absolute z-10 ml-24 mt-16">
                             <div class="w-min leading-tight mt-1">
-                                <div>Elige el plan</div>
-                                <div class="text-4xl">Alfa</div>
+                                <div>
+                                    Elige el plan
+                                </div>
+                                <div class="text-4xl">
+                                    Alfa
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,7 +159,7 @@
                 </div>
             </article>
 
-            <article class="glide__slide p-8 flex">
+            <article class="glide__slide py-8 flex">
                 <div class="w-2/3">
                     <div class="uppercase text-2xl font-medium mb-1">
                         No necesitas más decepciones
@@ -147,11 +178,14 @@
                 </div>
                 <div class="w-1/3 relative">
                     <div class="bubbles absolute z-10 -top-4 -left-4">
-                        <div
-                            class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28 absolute z-10 ml-24 mt-16">
+                        <div class="bg-blue-600 text-center text-sm p-4 rounded-full place-items-center flex place-content-center w-28 h-28 absolute z-10 ml-24 mt-16">
                             <div class="w-min leading-tight mt-1">
-                                <div>Descarga</div>
-                                <div class="text-4xl">Gratis</div>
+                                <div>
+                                    Descarga
+                                </div>
+                                <div class="text-4xl">
+                                    Gratis
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -161,7 +195,7 @@
                 </div>
             </article>
 
-            <article class="glide__slide p-8 flex relative">
+            <article class="glide__slide py-8 flex relative">
                 <div class="w-2/3">
                     <div class="uppercase text-2xl font-medium mb-1">
                         ¿Sabes realmente lo que significa
@@ -171,7 +205,9 @@
                         por Internet
                     </div>
                     <div class="mb-8">
-                        Cada vez más y más emprendedorees deciden lanzarse a trabajar por internet.<br>No es fácil. Si no eres consciente de lo que significa trabajar online, fracasarás.
+                        Cada vez más y más emprendedorees deciden lanzarse a trabajar por internet.
+                        <br>
+                        No es fácil. Si no eres consciente de lo que significa trabajar online, fracasarás.
                     </div>
                     <button class="border-2 rounded p-4 uppercase hover:text-black hover:bg-white font-medium">
                         Conoce los requisitos y beneficios de trabajar en internet
@@ -183,25 +219,28 @@
             </article>
         </div>
     </div>
-    <div class="glide__arrows flex gap-2 justify-center items-center absolute right-0 bottom-14 left-1/2 w-max -translate-x-1/2" data-glide-el="controls[nav]">
+    <div class="glide__arrows flex gap-2 justify-center items-center absolute right-0 bottom-14 left-1/2 w-max -translate-x-1/2"
+         data-glide-el="controls[nav]">
         {# data-glide-dir="<" breaks the code when formatting #}
-        <button
-            class="glide__arrow glide__arrow--prev rounded-full w-8 h-8 bg-white bg-opacity-50 hover:bg-opacity-80 text-black backdrop-blur"
-            data-glide-dir="<">
+        <button class="glide__arrow glide__arrow--prev rounded-full w-8 h-8 bg-white bg-opacity-50 hover:bg-opacity-80 text-black backdrop-blur"
+                data-glide-dir="<">
             <span>&#10092;</span>
         </button>
 
         <div class="slider__bullets glide__bullets leading-[0]" data-glide-el="controls[nav]">
-            <button class="slider__bullet glide__bullet" data-glide-dir="=0"></button>
-            <button class="slider__bullet glide__bullet" data-glide-dir="=1"></button>
-            <button class="slider__bullet glide__bullet" data-glide-dir="=2"></button>
-            <button class="slider__bullet glide__bullet" data-glide-dir="=3"></button>
+            <button class="slider__bullet glide__bullet" data-glide-dir="=0">
+            </button>
+            <button class="slider__bullet glide__bullet" data-glide-dir="=1">
+            </button>
+            <button class="slider__bullet glide__bullet" data-glide-dir="=2">
+            </button>
+            <button class="slider__bullet glide__bullet" data-glide-dir="=3">
+            </button>
         </div>
-    
+
         {# data-glide-dir=">" breaks the code when formatting #}
-        <button
-            class="glide__arrow glide__arrow--right rounded-full w-8 h-8 bg-white bg-opacity-50 hover:bg-opacity-80 text-black backdrop-blur"
-            data-glide-dir=">">
+        <button class="glide__arrow glide__arrow--right rounded-full w-8 h-8 bg-white bg-opacity-50 hover:bg-opacity-80 text-black backdrop-blur"
+                data-glide-dir=">">
             <span>&#10093;</span>
         </button>
     </div>

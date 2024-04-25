@@ -1,136 +1,169 @@
 <section class="p-8 mb-24 text-center features">
-    <h2 class="mb-12">
-        Todos los planes de<br>alojamiento web incluyen
-    </h2>
-    <div class="hosting-features grid justify-between grid-cols-2 gap-4 md:grid-cols-5">
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 fill-current ">
-                    {% include 'modular/hosting-features/control-panel.svg' %}
+    <div class="container">
+        <h2 class="w-2/3 mx-auto text-balance mb-12 break-words line-clamp-2">
+            Todos los planes de
+            alojamiento web incluyen
+        </h2>
+
+        <div class="hosting-features grid justify-between grid-cols-2 gap-4 md:grid-cols-5">
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 fill-current ">
+                        {% include 'modular/hosting-features/control-panel.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Panel de control cPanel</strong>
+                    </div>
                 </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Panel de control cPanel</strong>
-                </div>
-            </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/email-accounts.svg' %}
-                </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Cuentas de email ilimitadas</strong>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
                 </div>
             </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/ddbb.svg' %}
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/email-accounts.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Cuentas de email ilimitadas</strong>
+                    </div>
                 </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Bases de datos ilimitadas</strong>
-                </div>
-            </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/ftp-accounts.svg' %}
-                </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Cuentas FTP ilimitadas</strong>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
                 </div>
             </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/subdomains.svg' %}
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/ddbb.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Bases de datos ilimitadas</strong>
+                    </div>
                 </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Subdominios ilimitados</strong>
-                </div>
-            </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/backups.svg' %}
-                </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Copias de seguridad diarias</strong>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
                 </div>
             </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/ssd.svg' %}
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/ftp-accounts.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Cuentas FTP ilimitadas</strong>
+                    </div>
                 </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Discos SSD de alta velocidad</strong>
-                </div>
-            </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/coding.svg' %}
-                </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>PHP7/8 en todas sus versiones</strong>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
                 </div>
             </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/autoinstaller.svg' %}
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/subdomains.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Subdominios ilimitados</strong>
+                    </div>
                 </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Autoinstalador de aplicaciones</strong>
-                </div>
-            </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
-            </div>
-        </div>
-        <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
-            <div class="card__front flex flex-col h-full">
-                <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
-                    {% include 'modular/hosting-features/web-stats.svg' %}
-                </div>
-                <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
-                    <strong>Estadísticas web avanzadas</strong>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
                 </div>
             </div>
-            <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/backups.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Copias de seguridad diarias</strong>
+                    </div>
+                </div>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
+                </div>
+            </div>
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/ssd.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Discos SSD de alta velocidad</strong>
+                    </div>
+                </div>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
+                </div>
+            </div>
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/coding.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>PHP7/8 en todas sus versiones</strong>
+                    </div>
+                </div>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
+                </div>
+            </div>
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/autoinstaller.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Autoinstalador de aplicaciones</strong>
+                    </div>
+                </div>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
+                </div>
+            </div>
+
+            <div class="card hover:cursor-help relative uppercase bg-gray-200 shadow-2xl shadow-gray-100 rounded overflow-hidden">
+                <div class="card__front flex flex-col h-full">
+                    <div class="p-8 m-auto text-blue-800 bg-gray-200 fill-current ">
+                        {% include 'modular/hosting-features/web-stats.svg' %}
+                    </div>
+
+                    <div class="p-4 m-1 bg-white rounded flex flex-1 place-items-center place-content-center">
+                        <strong>Estadísticas web avanzadas</strong>
+                    </div>
+                </div>
+
+                <div class="card__back absolute bottom-0 p-4 bg-black bg-opacity-60 text-white normal-case font-normal flex flex-wrap place-items-center h-full w-full backdrop-blur text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-thumb-rounded rounded">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea harum repudiandae laudantium sapiente molestiae ut sit consequuntur distinctio consectetur quos, accusantium dolorum velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum itaque quasi esse ipsum voluptates soluta accusamus, cum ab. Id labore ab distinctio explicabo reiciendis dicta excepturi? Quae maiores cum neque.
+                </div>
             </div>
         </div>
     </div>
