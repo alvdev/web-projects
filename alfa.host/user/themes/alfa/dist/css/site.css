@@ -3087,6 +3087,46 @@ nav.sticky .logo svg .before\:b::before {
   position: absolute;
 }
 
+.before\:bottom-0::before {
+  content: var(--tw-content);
+  bottom: 0px;
+}
+
+.before\:-bottom-8::before {
+  content: var(--tw-content);
+  bottom: -2rem;
+}
+
+.before\:left-8::before {
+  content: var(--tw-content);
+  left: 2rem;
+}
+
+.before\:left-0::before {
+  content: var(--tw-content);
+  left: 0px;
+}
+
+.before\:-bottom-12::before {
+  content: var(--tw-content);
+  bottom: -3rem;
+}
+
+.before\:-bottom-10::before {
+  content: var(--tw-content);
+  bottom: -2.5rem;
+}
+
+.before\:-bottom-7::before {
+  content: var(--tw-content);
+  bottom: -1.75rem;
+}
+
+.before\:-bottom-6::before {
+  content: var(--tw-content);
+  bottom: -1.5rem;
+}
+
 .before\:-z-0::before {
   content: var(--tw-content);
   z-index: 0;
@@ -3095,6 +3135,11 @@ nav.sticky .logo svg .before\:b::before {
 .before\:-z-10::before {
   content: var(--tw-content);
   z-index: -10;
+}
+
+.before\:z-50::before {
+  content: var(--tw-content);
+  z-index: 50;
 }
 
 .before\:block::before {
@@ -3107,6 +3152,36 @@ nav.sticky .logo svg .before\:b::before {
   height: 100%;
 }
 
+.before\:h-2::before {
+  content: var(--tw-content);
+  height: 0.5rem;
+}
+
+.before\:h-8::before {
+  content: var(--tw-content);
+  height: 2rem;
+}
+
+.before\:h-12::before {
+  content: var(--tw-content);
+  height: 3rem;
+}
+
+.before\:h-10::before {
+  content: var(--tw-content);
+  height: 2.5rem;
+}
+
+.before\:h-7::before {
+  content: var(--tw-content);
+  height: 1.75rem;
+}
+
+.before\:h-6::before {
+  content: var(--tw-content);
+  height: 1.5rem;
+}
+
 .before\:w-full::before {
   content: var(--tw-content);
   width: 100%;
@@ -3115,6 +3190,66 @@ nav.sticky .logo svg .before\:b::before {
 .before\:w-1\/2::before {
   content: var(--tw-content);
   width: 50%;
+}
+
+.before\:w-8::before {
+  content: var(--tw-content);
+  width: 2rem;
+}
+
+.before\:w-10::before {
+  content: var(--tw-content);
+  width: 2.5rem;
+}
+
+.before\:w-12::before {
+  content: var(--tw-content);
+  width: 3rem;
+}
+
+.before\:w-7::before {
+  content: var(--tw-content);
+  width: 1.75rem;
+}
+
+.before\:w-6::before {
+  content: var(--tw-content);
+  width: 1.5rem;
+}
+
+.before\:rounded-tl-2xl::before {
+  content: var(--tw-content);
+  border-top-left-radius: 1rem;
+}
+
+.before\:rounded-tl-xl::before {
+  content: var(--tw-content);
+  border-top-left-radius: 0.75rem;
+}
+
+.before\:rounded-tl-\[3rem\]::before {
+  content: var(--tw-content);
+  border-top-left-radius: 3rem;
+}
+
+.before\:rounded-tl-\[2\.5rem\]::before {
+  content: var(--tw-content);
+  border-top-left-radius: 2.5rem;
+}
+
+.before\:rounded-tl-\[2rem\]::before {
+  content: var(--tw-content);
+  border-top-left-radius: 2rem;
+}
+
+.before\:rounded-tl-\[1\.75rem\]::before {
+  content: var(--tw-content);
+  border-top-left-radius: 1.75rem;
+}
+
+.before\:rounded-tl-\[1\.5rem\]::before {
+  content: var(--tw-content);
+  border-top-left-radius: 1.5rem;
 }
 
 .before\:border-4::before {
@@ -3146,6 +3281,171 @@ nav.sticky .logo svg .before\:b::before {
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 
+.before\:bg-red-600::before {
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(225 29 72 / var(--tw-bg-opacity));
+}
+
+.before\:bg-transparent::before {
+  content: var(--tw-content);
+  background-color: transparent;
+}
+
+.before\:shadow-\[-30px_30px_0_30px\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -30px 30px 0 30px;
+  --tw-shadow-colored: -30px 30px 0 30px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-2rem_-2rem_0_2rem\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -2rem -2rem 0 2rem;
+  --tw-shadow-colored: -2rem -2rem 0 2rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-2rem_-2rem_0_2rem_bg-blue-700\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -2rem -2rem 0 2rem bg-blue-700;
+  --tw-shadow-colored: -2rem -2rem 0 2rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-2rem_-2rem_0_2rem_bg-\#093eba\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -2rem -2rem 0 2rem bg-#093eba;
+  --tw-shadow-colored: -2rem -2rem 0 2rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-2rem_-2rem_0_2rem_\#093eba\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -2rem -2rem 0 2rem #093eba;
+  --tw-shadow-colored: -2rem -2rem 0 2rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-3rem_-3rem_0_3rem_\#093eba\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -3rem -3rem 0 3rem #093eba;
+  --tw-shadow-colored: -3rem -3rem 0 3rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-2\.5rem_-2\.5rem_0_2\.5rem_\#093eba\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -2.5rem -2.5rem 0 2.5rem #093eba;
+  --tw-shadow-colored: -2.5rem -2.5rem 0 2.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1\.75rem_-1\.75rem_0_1\.75rem_\#093eba\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1.75rem -1.75rem 0 1.75rem #093eba;
+  --tw-shadow-colored: -1.75rem -1.75rem 0 1.75rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1\.5rem_-1\.5rem_0_1\.5rem_\#093eba\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1.5rem -1.5rem 0 1.5rem #093eba;
+  --tw-shadow-colored: -1.5rem -1.5rem 0 1.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1\.5rem_-1\.5rem_0_1\.5rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1.5rem -1.5rem 0 1.5rem #000;
+  --tw-shadow-colored: -1.5rem -1.5rem 0 1.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1\.5rem_-1\.5rem_0_1\.5rem_\#000_inset\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1.5rem -1.5rem 0 1.5rem #000 inset;
+  --tw-shadow-colored: inset -1.5rem -1.5rem 0 1.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1\.5rem_-1\.5rem_1rem_1\.5rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1.5rem -1.5rem 1rem 1.5rem #000;
+  --tw-shadow-colored: -1.5rem -1.5rem 1rem 1.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1\.5rem_-1\.5rem_1rem_0\.5rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1.5rem -1.5rem 1rem 0.5rem #000;
+  --tw-shadow-colored: -1.5rem -1.5rem 1rem 0.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1rem_-1\.5rem_0_1\.5rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1rem -1.5rem 0 1.5rem #000;
+  --tw-shadow-colored: -1rem -1.5rem 0 1.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1rem_-1rem_0_1\.5rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1rem -1rem 0 1.5rem #000;
+  --tw-shadow-colored: -1rem -1rem 0 1.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-1rem_-1rem_0_1rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -1rem -1rem 0 1rem #000;
+  --tw-shadow-colored: -1rem -1rem 0 1rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-0\.5rem_-0\.5rem_0_0\.5rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -0.5rem -0.5rem 0 0.5rem #000;
+  --tw-shadow-colored: -0.5rem -0.5rem 0 0.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-0\.25rem_-0\.25rem_0_0\.5rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -0.25rem -0.25rem 0 0.5rem #000;
+  --tw-shadow-colored: -0.25rem -0.25rem 0 0.5rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-0\.25rem_-0\.25rem_0_0\.25rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -0.25rem -0.25rem 0 0.25rem #000;
+  --tw-shadow-colored: -0.25rem -0.25rem 0 0.25rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-0\.15rem_-0\.15rem_0_0\.15rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -0.15rem -0.15rem 0 0.15rem #000;
+  --tw-shadow-colored: -0.15rem -0.15rem 0 0.15rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-0\.2rem_-0\.2rem_0_0\.2rem_\#000\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -0.2rem -0.2rem 0 0.2rem #000;
+  --tw-shadow-colored: -0.2rem -0.2rem 0 0.2rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.before\:shadow-\[-0\.25rem_-0\.25rem_0_0\.25rem_\#093eba\]::before {
+  content: var(--tw-content);
+  --tw-shadow: -0.25rem -0.25rem 0 0.25rem #093eba;
+  --tw-shadow-colored: -0.25rem -0.25rem 0 0.25rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .after\:absolute::after {
   content: var(--tw-content);
   position: absolute;
@@ -3159,6 +3459,26 @@ nav.sticky .logo svg .before\:b::before {
 .after\:top-0::after {
   content: var(--tw-content);
   top: 0px;
+}
+
+.after\:-bottom-10::after {
+  content: var(--tw-content);
+  bottom: -2.5rem;
+}
+
+.after\:left-0::after {
+  content: var(--tw-content);
+  left: 0px;
+}
+
+.after\:right-6::after {
+  content: var(--tw-content);
+  right: 1.5rem;
+}
+
+.after\:-bottom-6::after {
+  content: var(--tw-content);
+  bottom: -1.5rem;
 }
 
 .after\:-z-10::after {
@@ -3176,9 +3496,39 @@ nav.sticky .logo svg .before\:b::before {
   height: 100%;
 }
 
+.after\:h-10::after {
+  content: var(--tw-content);
+  height: 2.5rem;
+}
+
+.after\:h-6::after {
+  content: var(--tw-content);
+  height: 1.5rem;
+}
+
 .after\:w-1\/2::after {
   content: var(--tw-content);
   width: 50%;
+}
+
+.after\:w-10::after {
+  content: var(--tw-content);
+  width: 2.5rem;
+}
+
+.after\:w-6::after {
+  content: var(--tw-content);
+  width: 1.5rem;
+}
+
+.after\:rounded-tl-\[3rem\]::after {
+  content: var(--tw-content);
+  border-top-left-radius: 3rem;
+}
+
+.after\:rounded-tr-\[3rem\]::after {
+  content: var(--tw-content);
+  border-top-right-radius: 3rem;
 }
 
 .after\:border-4::after {
@@ -3196,6 +3546,41 @@ nav.sticky .logo svg .before\:b::before {
   content: var(--tw-content);
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
+
+.after\:shadow-\[-3rem_-3rem_0_3rem_\#093eba\]::after {
+  content: var(--tw-content);
+  --tw-shadow: -3rem -3rem 0 3rem #093eba;
+  --tw-shadow-colored: -3rem -3rem 0 3rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.after\:shadow-\[3rem_3rem_0_3rem_\#093eba\]::after {
+  content: var(--tw-content);
+  --tw-shadow: 3rem 3rem 0 3rem #093eba;
+  --tw-shadow-colored: 3rem 3rem 0 3rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.after\:shadow-\[3rem_-3rem_0_3rem_\#093eba\]::after {
+  content: var(--tw-content);
+  --tw-shadow: 3rem -3rem 0 3rem #093eba;
+  --tw-shadow-colored: 3rem -3rem 0 3rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.after\:shadow-\[3rem_-3rem_0_3rem_\#0037ad\]::after {
+  content: var(--tw-content);
+  --tw-shadow: 3rem -3rem 0 3rem #0037ad;
+  --tw-shadow-colored: 3rem -3rem 0 3rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.after\:shadow-\[0\.25rem_-0\.25rem_0_0\.25rem_\#0037ad\]::after {
+  content: var(--tw-content);
+  --tw-shadow: 0.25rem -0.25rem 0 0.25rem #0037ad;
+  --tw-shadow-colored: 0.25rem -0.25rem 0 0.25rem var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .hover\:cursor-help:hover {
