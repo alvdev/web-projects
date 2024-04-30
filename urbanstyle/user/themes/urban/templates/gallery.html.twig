@@ -34,6 +34,9 @@
                                     <a href="#{{ gallery.title }}" class="btn !block text-center">{{ gallery.title }}</a>
                                 </li>
                             {% endfor %}
+                            <li class="p-0">
+                                <a href="#instagram" class="btn !block text-center">Instagram</a>
+                            </li>
                         </ul>
                     </div>
                 </aside>
@@ -75,10 +78,11 @@
             </div>
         </section>
 
-        <div class="container my-24">
+        <div id="instagram" class="container my-24">
             {{ page.content|raw }}
         </div>
 
+        {# {{ deferred_instagram_feed() }} #}
         {# {{ instagram_feed()|raw }} #}
     </main>
 {% endblock %}
