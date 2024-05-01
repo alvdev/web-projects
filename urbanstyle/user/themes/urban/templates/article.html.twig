@@ -17,17 +17,17 @@
 {% set publish_date = page.header.publish_date|date("Y-m-d\\TH:i:sP") %}
 {% set modify_date = page.date|date("Y-m-d\\TH:i:sP") %}
 
-{% set schema = '{"@context": "https://schema.org/","@type": "BlogPosting","@id": "' ~ base_url_absolute ~ page.url ~ '/#BlogPosting","mainEntityOfPage": "' ~ base_url_absolute ~ page.url ~ '","headline": "' ~ page.title ~ '","name": "' ~ page.title ~ '","description": "' ~ page.summary|striptags ~ '","datePublished": "' ~ publish_date ~ '","dateModified": "' ~ modify_date ~ '","image":{"@type": "ImageObject","@id": "' ~ base_url_absolute ~ page.media|first.url ~ '","url": "' ~ base_url_absolute ~ page.media|first.url ~ '","height": "' ~ page.media|first.height ~ '","width": "' ~ page.media|first.width ~ '"},"url": "' ~ base_url_absolute ~ page.url ~ '","keywords": [' ~ keywords ~ ']}' %}
+{% set schema = '{"@context": "https://schema.org/","@type": "BlogPosting","@id": "' ~ base_url_absolute ~ page.url ~ '/#BlogPosting","mainEntityOfPage": "' ~ base_url_absolute ~ page.url ~ '","headline": "' ~ page.title ~ '","name": "' ~ page.title ~ '","description": "' ~ page.summary|striptags|replace({'"': '\''}) ~ '","datePublished": "' ~ publish_date ~ '","dateModified": "' ~ modify_date ~ '","image":{"@type": "ImageObject","@id": "' ~ base_url_absolute ~ page.media|first.url ~ '","url": "' ~ base_url_absolute ~ page.media|first.url ~ '","height": "' ~ page.media|first.height ~ '","width": "' ~ page.media|first.width ~ '"},"url": "' ~ base_url_absolute ~ page.url ~ '","keywords": [' ~ keywords ~ ']}' %}
 
 {% block content %}
-    <main class="flex-1 prose prose-sm lg:prose-lg max-w-none">
+    <main class="flex-1 prose-sm prose lg:prose-lg max-w-none">
         <section class="hero torn-bottom">
             {{ page.media|first.derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', img_alt, '!m-0 h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
         </section>
 
         <div class="container flex gap-8">
-            <div class="not-prose w-1/5 pt-24 hidden md:block">
-                <div class="bg-black text-white text-center sticky top-28 rounded-2xl overflow-hidden">
+            <div class="hidden w-1/5 pt-24 not-prose md:block">
+                <div class="sticky overflow-hidden text-center text-white bg-black top-28 rounded-2xl">
                     <div class="relative p-4 text-2xl">
                         Conoce nuestro servicio de <a href="/"
     class="block text-lg border-2 text-orange-300 border-orange-300 rounded-full mt-2 px-1 pt-1 pb-2 hover:!text-white hover:border-white">pegada de carteles</a>
@@ -37,27 +37,27 @@
                     </div>
                 </div>
             </div>
-            <div class="md:w-3/5 -mt-28 z-10 bg-white px-4 py-4 lg:px-16 lg:py-12 border border-black">
+            <div class="z-10 px-4 py-4 bg-white border border-black md:w-3/5 -mt-28 lg:px-16 lg:py-12">
                 <h1>
                     {{ page.title }}
                 </h1>
                 {{ content|raw }}
             </div>
-            <div class="w-1/5 pt-24 hidden md:block">
+            <div class="hidden w-1/5 pt-24 md:block">
             </div>
         </div>
 
         {% if config.plugins.relatedpages.enabled and related_pages|length > 0 %}
-            <section class="container not-prose flex flex-col gap-24 mt-36">
-                <h4 class="font-bold text-4xl uppercase md:line-clamp-2 pb-1">
+            <section class="container flex flex-col gap-24 not-prose mt-36">
+                <h4 class="pb-1 text-4xl font-bold uppercase md:line-clamp-2">
                     {{ 'THEME.RELATED_POSTS'|t }}
                 </h4>
 
                 {% include 'partials/related-pages.html.twig' %}
             </section>
         {% else %}
-            <section class="container not-prose flex flex-col gap-24 mt-36">
-                <h4 class="font-bold text-4xl uppercase md:line-clamp-2 pb-1">
+            <section class="container flex flex-col gap-24 not-prose mt-36">
+                <h4 class="pb-1 text-4xl font-bold uppercase md:line-clamp-2">
                     {{ 'THEME.LATEST_POSTS'|t }}
                 </h4>
 
