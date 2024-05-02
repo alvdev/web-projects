@@ -28,6 +28,8 @@ form:
             label: THEME.CAPTCHA_LABEL
             placeholder: THEME.CAPTCHA_PLACEHOLDER
             type: basic-captcha
+        honeypot:
+            type: honeypot
     buttons:
         submit:
             type: submit
@@ -41,7 +43,7 @@ form:
         basic-captcha: true
         save:
             fileprefix: contact-
-            dateformat: dmY-His-u
+            dateformat: Ymd-His-u
             extension: txt
             body: "{% include 'forms/data.txt.twig' %}"
         email:
