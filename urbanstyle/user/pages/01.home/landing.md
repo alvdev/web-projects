@@ -2,13 +2,13 @@
 title: 'Pegada de carteles en Madrid, Barcelona y resto de España'
 menu: Inicio
 slug: pegada-de-carteles
-twitterenable: false
+twitterenable: true
 twittercardoptions: summary
 orgaenabled: false
 orga:
     ratingValue: 2.5
 orgaratingenabled: false
-facebookenable: false
+facebookenable: true
 articleenabled: false
 article:
     image_url: /servicios/street-marketing/publicidad-street-marketing.webp
