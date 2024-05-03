@@ -14,6 +14,7 @@ THEME:
   MESSAGE_SENT_SUCCESSFULLY: Tu consulta ha sido enviada.<br>Te responderemos lo antes posible.<br>Gracias por contactar con Urban Style Publicity.
   LATEST_POSTS: Últimos artículos
   RELATED_POSTS: Artículos relacionados
+  DATE: Fecha
 
 FORM:
   EMAIL_SUBJECT: Contacto desde formulario web

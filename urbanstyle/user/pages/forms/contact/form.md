@@ -24,6 +24,10 @@ form:
             type: textarea
             validate:
                 required: true
+        date:
+            label: Fecha
+            type: hidden
+            data-default@: \Grav\Theme\Urban::date
         basic-captcha:
             label: THEME.CAPTCHA_LABEL
             placeholder: THEME.CAPTCHA_PLACEHOLDER
@@ -40,7 +44,10 @@ form:
             value: THEME.FORM_RESET
             classes: 'btn btn--default rounded-full'
     process:
-        basic-captcha: true
+        basic-captcha:
+            message: El código de verificación es incorrecto. Por favor, copia el mensaje que has escrito para no perderlo y actualiza la página para intentarlo de nuevo.
+        timestamp:
+            label: TheTimeStamp
         save:
             fileprefix: contact-
             dateformat: Ymd-His-u

@@ -1,1 +1,15 @@
 enabled: true
+
+types:
+  contact:
+    name: Contact form
+    list:
+      columns:
+        - field: Nombre
+          label: FORM.EMAIL_NAME
+        - field: Email
+          label: FORM.EMAIL_ACCOUNT
+        - field: Mensaje
+          label: FORM.EMAIL_MESSAGE
+        - field: Fecha
+          label: THEME.DATE

@@ -28,4 +28,10 @@ class Urban extends Theme
 
         $twig->twig_vars = array_merge($twig->twig_vars, $form_class_variables);
     }
+
+    public static function date()
+    {
+        date_default_timezone_set('Europe/Madrid');
+        return date('d-m-Y H:i:s');
+    }
 }
