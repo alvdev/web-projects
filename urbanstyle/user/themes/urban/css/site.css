@@ -7,7 +7,7 @@
         @apply scroll-smooth;
     }
     body {
-        @apply flex min-h-screen flex-col text-xl leading-relaxed;
+        @apply flex flex-col min-h-screen text-xl leading-relaxed;
         animation-duration: 0.5s;
         animation-name: fadeLoad;
     }
@@ -27,7 +27,7 @@
 
     a,
     .prose a {
-        @apply no-underline;
+        @apply font-semibold leading-tight text-red-600 no-underline hover:text-black;
     }
 
     textarea,
@@ -42,7 +42,7 @@
     }
 
     input[type='checkbox'] {
-        @apply border-0 bg-gray-400 p-3 text-black transition focus:ring-0;
+        @apply p-3 text-black transition bg-gray-400 border-0 focus:ring-0;
     }
 
     h1,
@@ -79,7 +79,7 @@
 
     .btn--primary,
     a.btn--primary {
-        @apply bg-red-900 text-white ring-red-900;
+        @apply text-white bg-red-900 ring-red-900;
     }
 
     .btn--secondary,
@@ -93,7 +93,7 @@
 
     main ul,
     main ol {
-        @apply mb-14 ml-16 mt-8;
+        @apply mt-8 ml-16 mb-14;
     }
 
     main ul {
@@ -150,7 +150,7 @@
     .looker iframe,
     .looker object,
     .looker embed {
-        @apply absolute left-0 top-0 h-full w-full;
+        @apply absolute top-0 left-0 w-full h-full;
     }
 
     .wall-full {
@@ -188,15 +188,15 @@
     }
 
     .notices.red {
-        @apply bg-red-200 text-red-700;
+        @apply text-red-700 bg-red-200;
     }
 
     .notices.green {
-        @apply bg-green-200 text-green-700;
+        @apply text-green-700 bg-green-200;
     }
 
     .notices.yellow {
-        @apply bg-yellow-200 text-yellow-700;
+        @apply text-yellow-700 bg-yellow-200;
     }
 
     .basic-captcha .form-input-wrapper {
