@@ -1,0 +1,88 @@
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.title:
+              name: title
+              type: text
+              style: horizontal
+              autofocus: true
+
+            header.subtitle:
+              style: horizontal
+
+            header.enabled_titles:
+              type: toggle
+              label: DEFAULT.ENABLED_TITLES
+              highlight: 1
+              ordering@: header.subtitle
+              options:
+                1: 'PLUGIN_ADMIN.ENABLED'
+                0: 'PLUGIN_ADMIN.DISABLED'
+              validate:
+                type: bool
+
+            header.benefits:
+              name: benefits
+              type: list
+              label: DEFAULT.BENEFITS
+              ordering@: header.enabled_titles
+              fields:
+                .title:
+                  type: text
+                  label: DEFAULT.TITLE
+
+                .description:
+                  type: textarea
+                  label: DEFAULT.DESCRIPTION
+
+                .image:
+                  type: filepicker
+                  label: DEFAULT.IMAGE
+                  preview_images: true
+
+                .alt:
+                  type: text
+                  label: DEFAULT.ALT
+
+            header.videos:
+              name: videos
+              type: list
+              style: vertical
+              label: Videos
+              fields:
+                .title:
+                  type: title
+                  label: Titel
+                .url:
+                  type: text
+                  label: URL
+                .show:
+                  type: toggle
+                  label: Zeigen?
+                  highlight: 1
+                  default: 1
+                  options:
+                    1: 'Ja'
+                    0: 'Nein'
+                  validate:
+                    type: bool
+                .a_file:
+                  type: filepicker
+                  folder: '@self'
+                  preview_images: true
+                  label: Select a file
+
+            header.description:
+              unset@: true
+
+            content:
+              unset@: true
