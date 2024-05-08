@@ -2,7 +2,7 @@
     {% for p in page.children.visible %}
         {% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
         <li>
-            <a href="{{ p.url }}" class="{{ active_page }} block py-4">
+            <a href="{{ p.url }}" class="{{ active_page }} block py-4 text-black hover:text-gray-800">
                 {{ p.menu }}
             </a>
             {% if p.children.visible.count > 0 %}
