@@ -5,14 +5,14 @@
 
 {% set margin = page.template == 'report' ? 'mt-16' : 'mt-28' %}
 
-<footer class="torn-top flex flex-col gap-8 {{ margin }} pt-32 pb-24 text-base text-white bg-black">
-    <div class="container flex flex-col gap-12 lg:flex-row justify-between text-white">
-        <div class="">
-            <h3 class="text-white text-3xl">
+<footer class="torn-top flex flex-col gap-8 {{ margin }} pt-32 pb-24 text-base text-gray-200 bg-black">
+    <div class="container flex flex-col justify-between gap-12 lg:flex-row">
+        <div>
+            <h3 class="text-3xl text-gray-200">
                 {{ services|first.parent.title }}
             </h3>
 
-            <ul class="columns-2 gap-12 mt-8">
+            <ul class="gap-12 mt-8 columns-2">
                 <li class="mb-4">
                     <a href="/">Pegada de carteles</a>
                 </li>
@@ -26,7 +26,7 @@
 
         <div class="flex flex-col self-stretch justify-between">
             <div>
-                <h3 class="text-white text-3xl">
+                <h3 class="text-3xl text-gray-200">
                     Redes sociales
                 </h3>
                 <ul class="flex items-center gap-4 mt-8">
@@ -45,11 +45,12 @@
                 </ul>
             </div>
 
-            <h3 class="flex gap-2 items-center text-white text-4xl mt-8">
-                {{ svg('theme://images/icons/phone.svg', 'w-8 h-8 self-end')|raw }} <span class="leading-none">91 305 29 22</span>
+            <h3 class="flex items-center gap-2 mt-8 text-4xl text-gray-200">
+                {{ svg('theme://images/icons/phone.svg', 'w-8 h-8 self-end')|raw }}
+                <span class="leading-none">91 305 29 22</span>
             </h3>
 
-            <address class="mt-4 ml-8 pl-2">
+            <address class="pl-2 mt-4 ml-8">
                 <a href="https://maps.app.goo.gl/DiryCTKNXY3yaZAs8" target="_blank">
                     Av del Manzanares, 202
                     <br>
@@ -61,7 +62,7 @@
                 <div>
                     Copyright © 2016 - {{ 'now'|date("Y") }} Urban Style Publicity, S.L.
                 </div>
-                <div class="flex gap-x-8 gap-y-4 flex-wrap">
+                <div class="flex flex-wrap gap-x-8 gap-y-4">
                     {% include 'partials/legal-links.html.twig' %}
                 </div>
             </div>

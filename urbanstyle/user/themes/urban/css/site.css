@@ -27,7 +27,7 @@
 
     a,
     .prose a {
-        @apply font-semibold leading-tight text-red-600 no-underline hover:text-black;
+        @apply font-semibold leading-tight text-red-600 no-underline transition-all hover:text-black;
     }
 
     textarea,
@@ -120,6 +120,9 @@
         @apply text-black transition-all;
     }
 
+    footer a {
+        @apply font-normal text-red-100 hover:text-white opacity-80 hover:opacity-100;
+    }
     /**
      * Dark sections
      */
