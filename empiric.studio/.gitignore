@@ -18,7 +18,6 @@
 
 !/user/plugins/
 /user/plugins/*
-!/user/plugins/admin/
 !/user/plugins/alfa-admin/
 !/user/plugins/automagic-images/
 
