@@ -1,5 +1,6 @@
 ---
 title: 'Política de Cookies'
+menu: cookies
 ---
 
 La presente Política de Cookies tiene como objetivo informar a los usuarios ("usted", "su") del sitio web www.urbanstylepublicity.es ("nosotros", "nuestro", "sitio") acerca del uso de cookies y tecnologías similares en nuestra plataforma. Al utilizar nuestro sitio, usted acepta el uso de cookies de acuerdo con esta política. Si no está de acuerdo con el uso de cookies, le recomendamos ajustar la configuración de su navegador o abstenerse de utilizar nuestro sitio.

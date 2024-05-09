@@ -1,5 +1,6 @@
 ---
 title: 'Política de privacidad'
+menu: privacidad
 ---
 
 La presente Política de Privacidad describe cómo recopilamos, usamos y protegemos la información personal que usted proporciona al utilizar el sitio web www.urbanstylepublicity.es ("nosotros", "nuestro", "sitio"). Al utilizar nuestro sitio, usted acepta los términos descritos en esta política. Si no está de acuerdo con alguno de los términos, le recomendamos abstenerse de utilizar nuestro sitio.

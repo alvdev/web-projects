@@ -2,7 +2,7 @@
 {% set links = page.collection(options) %}
 
 {% for link in links %}
-    <a class="whitespace-nowrap" href="{{ link.url }}">
-        {{ link.title }}
+    <a class="first-letter:capitalize whitespace-nowrap" href="{{ link.url }}">
+        {{ link.menu ?? link.title }}
     </a>
 {% endfor %}
