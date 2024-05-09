@@ -20,6 +20,16 @@ module.exports = {
         xl: '1280px',
         '2xl': '1536px',
       },
+      saturate: {
+        110: '1.1',
+        125: '1.25',
+      },
+      contrast: {
+        110: '1.1',
+      },
+      scale: {
+        102: '1.02',
+      },
     },
     fontFamily: {
       mont: ['Mont', 'Sans-serif'],
@@ -63,6 +73,15 @@ module.exports = {
         },
       },
     }),
+    animation: {
+      'infinite-scroll': 'infinite-scroll 25s linear infinite',
+    },
+    keyframes: {
+      'infinite-scroll': {
+        from: { transform: 'translateX(0)' },
+        to: { transform: 'translateX(-100%)' },
+      },
+    },
   },
   variants: {
     extend: {},
