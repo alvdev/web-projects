@@ -1,6 +1,6 @@
 ---
 title: 'Pegada de carteles en Madrid, Barcelona y resto de España'
-menu: Inicio
+menu: Carteles
 slug: pegada-de-carteles
 twitterenable: true
 twittercardoptions: summary
