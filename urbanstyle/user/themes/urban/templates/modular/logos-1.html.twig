@@ -9,11 +9,11 @@
             </h3>
         </hgroup>
     {% endif %}
- 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-16 gap-y-20">
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-24 gap-y-20">
         {% for logo in header.logos %}
             <div>
-                {{ media[logo.image].cropResize('140', '62').loading().html('', logo.alt, '')|raw }}
+                {{ media[logo.image].cropResize('140', '62').loading().html('', logo.alt, 'w-full')|raw }}
             </div>
         {% endfor %}
     </div>
