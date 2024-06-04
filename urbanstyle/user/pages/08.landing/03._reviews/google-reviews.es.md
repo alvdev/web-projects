@@ -26,7 +26,7 @@ reviews:
         author: 'Kuke Rey'
         picture: kuke-rey.webp
         link: 'https://g.co/kgs/H2TbfX'
-        text: 'Son un equipo maravilloso, súper trabajadores, serios y resolutivos. Trabajar con ellos te asegura que las cosas van a salir bien y en tiempos,y como personas son para ponerles un monumento. Sois los mejores!!'
+        text: 'Son un equipo maravilloso, súper trabajadores, serios y resolutivos. Trabajar con ellos te asegura que las cosas van a salir bien y a tiempo, y como personas son para ponerles un monumento. Sois los mejores!!'
         stars: '5'
     -
         author: 'Raúl García'
@@ -38,7 +38,7 @@ reviews:
         author: 'Justo Sanz'
         picture: justo-sanz.webp
         link: 'https://g.co/kgs/dW6RB2'
-        text: 'mpresa de las que puedes confiar desde el minuto uno. Atentos, resolutivos y se adaptan con facilidad. Excelentes!!'
+        text: 'Empresa de las que puedes confiar desde el minuto uno. Atentos, resolutivos y se adaptan con facilidad. Excelentes!!'
         stars: '5'
     -
         author: 'Beatriz Sanz Alba'
