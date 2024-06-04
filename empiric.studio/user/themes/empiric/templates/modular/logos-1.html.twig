@@ -1,15 +1,21 @@
 <section class="logos container mt-28">
     {% if header.enabled_titles %}
         <hgroup class="mb-16">
-            <h2 class="font-semibold md:!leading-tight m-0 text-2xl md:text-3xl lg:text-4xl">
-                {{ page.title }}
-            </h2>
-            <h3>
-                {{ header.subtitle }}
-            </h3>
+            {% if page.title %}
+
+                <h2 class="font-semibold md:!leading-tight m-0 text-2xl md:text-3xl lg:text-4xl">
+                    {{ page.title }}
+                </h2>
+            {% endif %}
+
+            {% if header.subtitle %}
+                <h3>
+                    {{ header.subtitle }}
+                </h3>
+            {% endif %}
         </hgroup>
     {% endif %}
- 
+
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-16 gap-y-20">
         {% for logo in header.logos %}
             <div>
