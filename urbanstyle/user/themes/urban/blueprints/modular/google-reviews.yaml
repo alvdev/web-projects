@@ -13,6 +13,27 @@ form:
           type: tab
           title: PLUGIN_ADMIN.CONTENT
           fields:
+            header.title:
+              type: text
+              style: horizontal
+              autofocus: true
+
+            header.subtitle:
+              label: DEFAULT.SUBTITLE
+              type: text
+              style: horizontal
+
+            header.enabled_titles:
+              type: toggle
+              label: DEFAULT.ENABLED_TITLES
+              highlight: 1
+              ordering@: header.subtitle
+              options:
+                1: 'PLUGIN_ADMIN.ENABLED'
+                0: 'PLUGIN_ADMIN.DISABLED'
+              validate:
+                type: bool
+
             header.reviews:
               type: list
               name: MODULE.REVIEWS

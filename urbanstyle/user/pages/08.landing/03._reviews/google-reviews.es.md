@@ -1,5 +1,5 @@
 ---
-title: 'reviews 1'
+title: 'Una pegada de carteles de 5 estrellas'
 body_classes: modular
 twitterenable: true
 twittercardoptions: summary
@@ -61,6 +61,7 @@ reviews:
 media_order: 'alejandro-sanchez.webp,beatriz-sanz.webp,julian-fontalvo.webp,justo-sanz.webp,kuke-rey.webp,marta-secos.webp,nieves-ayala.webp,raul-de-la-fuente.webp,raul-garcia.webp'
 aura:
     pagetype: website
+enabled_titles: true
 ---
 
 This is reviews content 1
