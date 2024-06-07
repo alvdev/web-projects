@@ -1,0 +1,46 @@
+<section class="infinite-scroll-h mt-24">
+    {% if header.enabled_titles %}
+        <hgroup class="container mb-4">
+            {% if page.title %}
+                <h2 class="font-semibold md:!leading-tight m-0 text-2xl md:text-3xl lg:text-4xl">
+                    {{ page.title }}
+                </h2>
+            {% endif %}
+
+            {% if header.subtitle %}
+                <h3>
+                    {{ header.subtitle }}
+                </h3>
+            {% endif %}
+        </hgroup>
+    {% endif %}
+
+    {% if header.description %}
+        <p class="container mb-8 text-gray-500">
+            {{ header.description }}
+        </p>
+    {% endif %}
+
+    <div class="inline-flex w-full overflow-hidden flex-nowrap"
+         x-cloak
+         x-data="{}"
+         x-init="$nextTick(() => { let ul = $refs.items; ul.insertAdjacentHTML('afterend', ul.outerHTML); ul.nextSibling.setAttribute('aria-hidden', 'true'); })">
+        <div class="flex group">
+            <ul class="flex items-center justify-center list-none animate-infinite-scroll group-hover:animate-pause md:justify-start"
+                x-ref="items">
+                {% for item in header.images %}
+                    {% set img_alt = item.alt ?: media[item.image].url|replace({'-': ' ' })|split('/')|last|split('.')[0] %}
+
+                    <li class="mr-4 last-child:mr-0">
+                        {{ media[item.image].cropZoom(600, 400).derivatives(300, 600, 50).loading().html('', img_alt, 'max-w-none brightness-125 saturate-110 contrast-110')|raw }}
+                        {% if item.desc %}
+                            <div class="border border-black w-11/12 mx-auto -mt-2 px-4 py-2 text-sm text-gray-500 bg-white relative">
+                                {{ item.desc }}
+                            </div>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>

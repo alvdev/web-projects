@@ -210,3 +210,9 @@
         @apply !bg-transparent;
     }
 }
+
+@layer utilities {
+    .animate-pause {
+        animation-play-state: paused;
+    }
+}
