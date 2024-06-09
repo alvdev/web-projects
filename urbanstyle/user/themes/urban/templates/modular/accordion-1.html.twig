@@ -15,7 +15,7 @@
 
 <section class="mt-32">
     <div class="container">
-        <hgroup class="mb-16">
+        <hgroup class="mb-16 text-center uppercase">
             <h2 class="mt-5 text-5xl font-bold tracking-tight">
                 {{ page.title }}
             </h2>
@@ -65,13 +65,13 @@
                 <div class="relative w-full">
                     {% for faq in oddFaqs %}
                         <div x-data="{ id: $id('accordion') }"
-                             :class="{ 'text-neutral-900': activeAccordion==id, 'text-neutral-600 hover:text-neutral-900': activeAccordion!=id }"
-                             class="cursor-pointer group">
-                            <button @click="setActiveAccordion(id)" class="flex items-center justify-between w-full py-4 text-left select-none">
+                             :class="{ 'text-neutral-900': activeAccordion==id, 'text-red-100 hover:text-white': activeAccordion!=id }"
+                             class="cursor-pointer group bg-black my-4 rounded-3xl text-white">
+                            <button @click="setActiveAccordion(id)" class="flex items-center justify-between w-full py-4 px-6 text-left select-none">
                                 <span>{{ faq.question }}</span>
                                 <div>
                                     <svg class="w-5 h-5 duration-300 ease-out"
-                                         :class="{ '-rotate-[45deg]': activeAccordion==id }"
+                                         :class="{'-rotate-[45deg]': activeAccordion==id}"
                                          xmlns="http://www.w3.org/2000/svg"
                                          fill="none"
                                          viewBox="0 0 24 24"
@@ -81,8 +81,8 @@
                                     </svg>
                                 </div>
                             </button>
-                            <div x-show="activeAccordion==id" x-collapse x-cloak>
-                                <div class="pb-4 opacity-70">
+                            <div class="pb-1" x-show="activeAccordion==id" x-collapse x-cloak>
+                                <div class="px-6 py-4 bg-white text-black mx-1 rounded-b-[1.3rem]">
                                     {{ faq.answer|markdown }}
                                 </div>
                             </div>
@@ -93,13 +93,13 @@
                 <div class="relative w-full">
                     {% for faq in evenFaqs %}
                         <div x-data="{ id: $id('accordion') }"
-                             :class="{ 'text-neutral-900': activeAccordion==id, 'text-neutral-600 hover:text-neutral-900': activeAccordion!=id }"
-                             class="cursor-pointer group">
-                            <button @click="setActiveAccordion(id)" class="flex items-center justify-between w-full py-4 text-left select-none">
+                             :class="{ 'text-neutral-900': activeAccordion==id, 'text-red-100 hover:text-white': activeAccordion!=id }"
+                             class="cursor-pointer group bg-black my-4 rounded-3xl text-white">
+                            <button @click="setActiveAccordion(id)" class="flex items-center justify-between w-full py-4 px-6 text-left select-none">
                                 <span>{{ faq.question }}</span>
                                 <div>
                                     <svg class="w-5 h-5 duration-300 ease-out"
-                                         :class="{ '-rotate-[45deg]': activeAccordion==id }"
+                                         :class="{'-rotate-[45deg]': activeAccordion==id}"
                                          xmlns="http://www.w3.org/2000/svg"
                                          fill="none"
                                          viewBox="0 0 24 24"
@@ -109,8 +109,8 @@
                                     </svg>
                                 </div>
                             </button>
-                            <div x-show="activeAccordion==id" x-collapse x-cloak>
-                                <div class="pb-4 opacity-70">
+                            <div class="pb-1" x-show="activeAccordion==id" x-collapse x-cloak>
+                                <div class="px-6 py-4 bg-white text-black mx-1 rounded-b-[1.3rem]">
                                     {{ faq.answer|markdown }}
                                 </div>
                             </div>
