@@ -1,0 +1,56 @@
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+          fields:
+            header.title:
+              type: text
+              style: horizontal
+              autofocus: true
+
+            header.subtitle:
+              style: horizontal
+
+            header.enabled_titles:
+              type: toggle
+              label: DEFAULT.ENABLED_TITLES
+              highlight: 1
+              ordering@: header.subtitle
+              options:
+                1: 'PLUGIN_ADMIN.ENABLED'
+                0: 'PLUGIN_ADMIN.DISABLED'
+              validate:
+                type: bool
+
+            header.description:
+              ordering@: header.enabled_titles
+
+            header.images:
+              name: images
+              type: list
+              style: horizontal
+              label: DEFAULT.IMAGES
+              ordering@: header.description
+              fields:
+                .image:
+                  type: filepicker
+                  label: DEFAULT.IMAGE
+                  preview_images: true
+                .desc:
+                  type: text
+                  label: DEFAULT.DESC
+                .alt:
+                  type: text
+                  label: DEFAULT.ALT
+
+            header.media_order:
+              ordering@: header.description
+            content:
+              unset@: true

@@ -15,12 +15,12 @@
          x-cloak
          x-data="{}"
          x-init="$nextTick(() => { let ul = $refs.items; ul.insertAdjacentHTML('afterend', ul.outerHTML); ul.nextSibling.setAttribute('aria-hidden', 'true'); })">
-        <ul class="flex items-center justify-center mx-0 list-none animate-infinite-scroll md:justify-start" x-ref="items">
-            {% for item in page.media %}
+        <ul class="flex items-center justify-center m-0 list-none animate-infinite-scroll md:justify-start" x-ref="items">
+            {% for item in header.images %}
                 {% set img_alt = item.meta.alt ?: item.url|replace({'-': ' ' })|split('/')|last|split('.')[0] %}
 
                 <li class="mr-4 last-child:mr-0">
-                    {{ item.cropZoom(400, 300).loading().html('', img_alt, 'max-w-none brightness-125 saturate-110 contrast-110')|raw }}
+                    {{ media[item.image].cropZoom(400, 300).derivatives(300, 600, 50).loading().html('', img_alt, 'max-w-none brightness-125 saturate-110 contrast-110')|raw }}
                 </li>
             {% endfor %}
         </ul>
