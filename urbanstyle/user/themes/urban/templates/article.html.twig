@@ -26,17 +26,11 @@
         </section>
 
         <div class="container flex gap-8">
-            <div class="hidden w-1/5 pt-24 not-prose md:block">
-                <div class="sticky overflow-hidden text-center text-white bg-black top-28 rounded-2xl">
-                    <div class="relative p-4 text-2xl">
-                        Conoce nuestro servicio de <a href="/"
-    class="block text-lg border-2 !text-orange-300 border-orange-300 rounded-full mt-2 px-1 pt-1 pb-2 hover:!text-white hover:border-white">pegada de carteles</a>
-                    </div>
-                    <div class="relative overflow-hidden before:shadow-[0_0_25px_15px_black] before:w-full before:absolute before:left-0">
-                        {{ media['theme://images/headers/pegada-de-carteles.webp'].cropZoom(300, 200).html('', 'pegada de carteles', 'w-full object-cover brightness-110 contrast-110 relative -z-10')|raw }}
-                    </div>
+            <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
+                <div class="sticky top-28">
+                    {% include 'partials/banner.html.twig' %}
                 </div>
-            </div>
+            </aside>
             <div class="z-10 px-4 py-4 bg-white border border-black md:w-3/5 -mt-28 lg:px-16 lg:py-12">
                 <h1>
                     {{ page.title }}

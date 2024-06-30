@@ -16,25 +16,34 @@
         </section>
 
         <div class="container mt-24">
-            {% for p in my_collection %}
-                {% set isReverse = loop.index is even ? 'lg:text-right lg:flex-row-reverse [&_h2]:left-0 [&_h2]:text-left' : '[&_h2]:right-0 [&_h2]:text-right' %}
-                {% set gradient_dir = loop.index is even ? 'bg-gradient-to-r' : 'bg-gradient-to-l' %}
+            <div class="flex flex-col-reverse xl:flex-row gap-24">
+                <div>
+                    {% for p in my_collection %}
+                        {% set isReverse = loop.index is even ? 'lg:text-right lg:flex-row-reverse [&_h2]:left-0 [&_h2]:text-left' : '[&_h2]:right-0 [&_h2]:text-right' %}
+                        {% set gradient_dir = loop.index is even ? 'bg-gradient-to-r' : 'bg-gradient-to-l' %}
 
-                <div class="flex flex-col items-center gap-4 mt-14 first:mt-0 lg:flex-row lg:gap-24 {{ isReverse }}">
-                    <div class="relative overflow-hidden rounded-md shadow-xl lg:w-1/2">
-                        <a href="{{ p.url }}" class="group">
-                            {{ p.media|first.cropZoom(550, 310).html('', p.title, 'm-0 aspect-video w-full group-hover:scale-105 transition-all duration-700')|raw }}
-                            <h2 class="wall-full z-0 drop-shadow absolute bottom-0 w-full m-0 p-6 uppercase text-white line-clamp-2 break-words text-5xl {{ gradient_dir }} from-red-900 to-transparent before:left-0">
-                                {{ p.title|e }}
-                            </h2>
-                        </a>
-                    </div>
-                    <div class="lg:w-1/2 [&>*]:text-balance">
-                        {{ p.summary|raw }}
-                        <a href="{{ p.url }}">Seguir leyendo</a>
-                    </div>
+                        <div class="flex flex-col items-center gap-4 mt-14 first:mt-0 lg:flex-row lg:gap-16 {{ isReverse }}">
+                            <div class="relative overflow-hidden rounded-md shadow-xl lg:w-1/2">
+                                <a href="{{ p.url }}" class="group">
+                                    {{ p.media|first.cropResize(720).derivatives(360, 720, 60).html('', p.title, 'm-0 aspect-video w-full group-hover:scale-105 transition-all duration-700')|raw }}
+                                    <h2 class="wall-full z-0 drop-shadow absolute bottom-0 w-full m-0 p-6 uppercase text-white line-clamp-2 break-words text-5xl {{ gradient_dir }} from-red-900 to-transparent before:left-0">
+                                        {{ p.title|e }}
+                                    </h2>
+                                </a>
+                            </div>
+                            <div class="lg:w-1/2 [&>*]:text-balance [&>p:first-child]:mt-0">
+                                {{ p.summary|raw }}
+                                <a href="{{ p.url }}">Seguir leyendo</a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+                <aside>
+                    <div class="xl:sticky xl:top-24">
+                        {% include 'partials/banner-dossier.html.twig' %}
+                    </div>
+                </aside>
+            </div>
         </div>
     </main>
 {% endblock %}

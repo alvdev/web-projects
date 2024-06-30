@@ -1,0 +1,14 @@
+<div class="bg-black text-white text-center relative rounded-2xl overflow-hidden">
+    <div class="relative p-4 text-2xl">
+        Conoce nuestro servicio de <a href="/"
+    class="block text-lg border-2 !text-orange-300 border-orange-300 rounded-full mt-2 px-1 pt-1 pb-2 hover:!text-white hover:border-white">pegada de carteles</a>
+    </div>
+    <div class="relative overflow-hidden before:shadow-[0_0_25px_15px_black] before:w-full before:absolute before:left-0">
+        {{ media['theme://images/headers/pegada-de-carteles.webp'].cropZoom(300, 200).html('', 'pegada de carteles', 'w-full object-cover brightness-110 contrast-110 [mask-image:linear-gradient(transparent,#000_30%)]')|raw }}
+    </div>
+</div>
+
+<div class="mt-16 text-center">
+    {{ media['theme://images/banners/urban-dossier-mag04.webp'].cropResize(350).html('', 'dossier para pegadas de carteles', 'w-4/5 mx-auto')|raw }}
+    <a href="/dl/dossier-UrbanStylePublicity.pdf" target="_blank" class="btn text-nowrap">Descargar dossier <span class="rotate-45 inline-block translate-y-[2px]">&#x2794</span></a>
+</div>
