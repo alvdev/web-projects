@@ -5,7 +5,7 @@
 
 {% set margin = page.template == 'report' ? 'mt-16' : 'mt-28' %}
 
-{{ media['theme://images/ciudad-footer.webp'].cropResize().loading('lazy').html('', '', 'w-full')|raw }}
+{{ media['theme://images/ciudad-footer.webp'].derivatives(320, 1920, 240).loading('lazy').html('', '', 'w-full')|raw }}
 <footer class="flex flex-col gap-8  py-24 text-base text-gray-200 bg-black">
     <div class="container flex flex-col justify-between gap-20 lg:flex-row [&>*]:lg:w-1/3 [&>*]:xl:w-auto">
         <div>
