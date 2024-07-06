@@ -1,6 +1,6 @@
 {% import "macros/menu.html.twig" as menu %}
 
-{% set hasHero = page.home or page.template != 'default' ? '!fixed' : 'static' %}
+{% set hasHero = page.home or '/legal/' not in page.url ? '!fixed' : 'static' %}
 
 <nav x-data="{openMenu: false, wideNav: false}"
      x-cloak
