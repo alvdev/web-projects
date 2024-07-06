@@ -11,7 +11,7 @@
                         </h1>
                     </div>
                 </div>
-                {{ media['theme://images/headers/pegada-de-carteles.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', 'pegada de carteles', 'm-0 h-[50vh] md:h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
+                {{ media|first.derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', page.title, 'm-0 h-[50vh] md:h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
             </section>
         {% endif %}
 
