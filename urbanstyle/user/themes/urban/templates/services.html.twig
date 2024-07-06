@@ -1,6 +1,7 @@
 {% extends './partials/base.html.twig' %}
 
-{% set options = {"items": {"@page.children": "/services"}, "order": {"by": "folder", "dir": "asc"}, "pagination": true} %} {% set my_collection = page.collection(options) %}
+{% set options = {"items": {"@page.children": "/services"}, "order": {"by": "folder", "dir": "asc"}, "pagination": true} %}
+{% set my_collection = page.collection(options) %}
 
 {% block content %}
     <main class="flex-1 prose prose-xl max-w-none">
@@ -12,7 +13,7 @@
                     </h1>
                 </div>
             </div>
-            <img class="m-0 h-[50vh] md:h-[75vh] w-full object-cover" src="{{ url("theme://images/headers/tu-publicidad-aqui.webp") }}" alt="">
+            {{ media['theme://images/headers/tu-publicidad-aqui.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', 'publicidad en la calle', 'm-0 h-[50vh] md:h-[75vh] w-full object-cover')|raw }}
         </section>
 
         <section class="mt-20 border-b-4 border-dotted border-gray-400 pb-20">
