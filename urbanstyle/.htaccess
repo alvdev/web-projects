@@ -87,3 +87,13 @@ DirectoryIndex index.php index.html index.htm
    Header set Cache-Control "max-age=31536000, public"
 </filesMatch>
 </IfModule>
+
+# alvdev - Brotli compression
+<IfModule mod_brotli.c>
+	AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css
+	AddOutputFilterByType BROTLI_COMPRESS text/javascript application/x-javascript
+	AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+	AddOutputFilterByType BROTLI_COMPRESS application/x-font-ttf
+	AddOutputFilterByType BROTLI_COMPRESS application/vnd.ms-fontobject
+	AddOutputFilterByType BROTLI_COMPRESS image/webp image/x-icon
+</IfModule>
