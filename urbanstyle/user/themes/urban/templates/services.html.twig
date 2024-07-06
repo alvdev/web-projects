@@ -69,7 +69,7 @@
                             <p>
                                 La pegada de carteles es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado. Deja que nuestro equipo de profesionales se encargue de que tus carteles se vean en los lugares más estratégicos y transitados...
                             </p>
-                            <a href="/servicios/street-marketing">Seguir leyendo</a>
+                            <a class="block" href="/">Seguir leyendo</a>
                         </div>
                     </div>
 
@@ -87,8 +87,8 @@
                                 </a>
                             </div>
                             <div class="lg:w-1/2 text-gray-500 [&>*]:text-balance [&>p:first-child]:mt-0">
-                                {{ p.summary|raw }}
-                                <a href="{{ p.url }}">Seguir leyendo</a>
+                                {{ p.summary|striptags|raw }}
+                                <a class="inline-block" href="{{ p.url }}">Seguir leyendo</a>
                             </div>
                         </div>
                     {% endfor %}
