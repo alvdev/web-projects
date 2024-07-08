@@ -20,7 +20,7 @@
 {% set schema = '{"@context": "https://schema.org/","@type": "BlogPosting","@id": "' ~ base_url_absolute ~ page.url ~ '/#BlogPosting","mainEntityOfPage": "' ~ base_url_absolute ~ page.url ~ '","headline": "' ~ page.title ~ '","name": "' ~ page.title ~ '","description": "' ~ page.summary|striptags|replace({'"': '\''}) ~ '","datePublished": "' ~ publish_date ~ '","dateModified": "' ~ modify_date ~ '","image":{"@type": "ImageObject","@id": "' ~ base_url_absolute ~ page.media|first.url ~ '","url": "' ~ base_url_absolute ~ page.media|first.url ~ '","height": "' ~ page.media|first.height ~ '","width": "' ~ page.media|first.width ~ '"},"url": "' ~ base_url_absolute ~ page.url ~ '","keywords": [' ~ keywords ~ ']}' %}
 
 {% block content %}
-    <main class="flex-1 prose lg:prose-lg max-w-none">
+    <main class="flex-1 max-w-none">
         <section class="hero torn-bottom">
             {{ page.media|first.derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', img_alt, '!m-0 h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
         </section>
@@ -31,7 +31,7 @@
                     {% include 'partials/banner.html.twig' %}
                 </div>
             </aside>
-            <div class="relative shadow-xl px-4 py-4 bg-white border border-black md:w-3/5 -mt-28 lg:px-16 lg:py-12 after:absolute after:w-full after:h-full after:left-1 after:top-1.5 after:border after:border-black after:bg-white after:-z-20">
+            <div class="prose-xl prose-h1:text-5xl prose-h1:font-extrabold prose-h2:text-3xl prose-h2:font-bold prose-h3:text-2xl prose-h3:font-semibold prose-p:text-gray-600 prose-ul:ml-0 prose-ol:ml-0 relative shadow-xl px-4 py-4 bg-white border border-black md:w-3/5 -mt-28 lg:px-16 lg:py-12 after:absolute after:w-full after:h-full after:left-1 after:top-1.5 after:border after:border-black after:bg-white after:-z-20">
                 <h1>
                     {{ page.title }}
                 </h1>
@@ -42,16 +42,16 @@
         </div>
 
         {% if config.plugins.relatedpages.enabled and related_pages|length > 0 %}
-            <section class="container flex flex-col gap-24 not-prose mt-36">
-                <h4 class="pb-1 text-5xl font-bold uppercase md:line-clamp-2">
+            <section class="container flex flex-col gap-16 mt-36">
+                <h4 class="pb-1 text-5xl font-bold md:line-clamp-2">
                     {{ 'THEME.RELATED_POSTS'|t }}
                 </h4>
 
                 {% include 'partials/related-pages.html.twig' %}
             </section>
         {% else %}
-            <section class="container flex flex-col gap-24 not-prose mt-36">
-                <h4 class="pb-1 text-5xl font-bold uppercase md:line-clamp-2">
+            <section class="container flex flex-col gap-16 mt-36">
+                <h4 class="pb-1 text-5xl font-bold md:line-clamp-2">
                     {{ 'THEME.LATEST_POSTS'|t }}
                 </h4>
 
