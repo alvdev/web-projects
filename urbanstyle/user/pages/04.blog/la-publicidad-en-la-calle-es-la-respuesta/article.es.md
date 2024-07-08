@@ -23,7 +23,7 @@ La publicidad en la calle, también conocida como publicidad exterior o outdoor,
 
 En un mundo saturado de mensajes digitales, la cartelería y las campañas callejeras se han convertido en una alternativa fresca y llamativa para captar la atención de los consumidores.
 
-### La fuerza del impacto visual
+## La fuerza del impacto visual
 
 Una de las principales fortalezas de la publicidad en la calle es su capacidad para generar un impacto visual contundente. 
 
@@ -31,7 +31,7 @@ Los carteles, vallas publicitarias y anuncios estratégicamente ubicados en espa
 
 Esta presencia constante en el entorno urbano crea una conexión directa con el público objetivo, reforzando la marca y el mensaje publicitario.
 
-### Creatividad sin límites
+## Creatividad sin límites
 
 La publicidad en la calle ofrece un lienzo en blanco para la creatividad de los publicistas.
 
@@ -39,37 +39,37 @@ Desde campañas impactantes con carteles gigantes hasta intervenciones artístic
 
 Los anunciantes más audaces han logrado sorprender y cautivar al público con ideas ingeniosas y disruptivas que desafían las convenciones publicitarias tradicionales.
 
-### Tipos de publicidad en la calle
+## Tipos de publicidad en la calle
 
-- #### Vallas publicitarias
+- ### Vallas publicitarias
   Las vallas publicitarias son uno de los *formatos más comunes de publicidad en la calle*. Estos carteles de gran formato se ubican estratégicamente en carreteras, autopistas y zonas de alto tráfico peatonal, ofreciendo una exposición constante a un público masivo.
 
-- #### Mobiliario urbano
+- ### Mobiliario urbano
   El mobiliario urbano, como marquesinas de autobús, quioscos de prensa y cabinas telefónicas, también se ha convertido en un lienzo publicitario. Las marcas aprovechan estos espacios para colocar anuncios creativos que se integran en el entorno urbano.
 
-- #### Publicidad en transporte público
+- ### Publicidad en transporte público
   Los autobuses, taxis y vagones de metro son excelentes soportes publicitarios en movimiento. Estos anuncios acompañan a los viajeros en su trayecto, reforzando la presencia de marca en la ciudad.
 
-- #### Intervenciones artísticas
+- ### Intervenciones artísticas
   Las intervenciones artísticas en espacios públicos son una forma innovadora de publicidad en la calle. Desde instalaciones temporales hasta performances callejeras, estas acciones generan un impacto duradero en la mente del público.
 
-- #### Publicidad digital
+- ### Publicidad digital
   Las pantallas digitales y proyecciones en edificios también forman parte de la publicidad en la calle. Estos formatos permiten una mayor interactividad y la posibilidad de actualizar contenidos en tiempo real.
 
-### Segmentación y alcance
+## Segmentación y alcance
 
 Una de las ventajas clave de la publicidad en la calle es su capacidad para segmentar y alcanzar audiencias específicas. 
 
 Al colocar anuncios en ubicaciones estratégicas, las empresas pueden dirigirse a determinados grupos demográficos, áreas geográficas o perfiles de consumidores.  
 Esto permite una mayor efectividad en la entrega del mensaje y un mejor retorno de la inversión publicitaria.
 
-### Casos de éxito
+## Casos de éxito
 
 Numerosas marcas han aprovechado con éxito el potencial de la publicidad en la calle. 
 
 Campañas icónicas como las de Absolut Vodka, con sus creativas botellas gigantes en espacios públicos, o las de Nike, con sus potentes mensajes inspiradores en vallas publicitarias, han dejado una huella imborrable en la mente de los consumidores.
 
-### Desafíos y regulaciones
+## Desafíos y regulaciones
 
 Aunque la publicidad en la calle ofrece oportunidades únicas, también enfrenta desafíos y regulaciones.
 
@@ -77,7 +77,7 @@ Las autoridades locales suelen establecer normas sobre la ubicación, el tamaño
 
 Además, las empresas debemos tener en cuenta el impacto ambiental de tus campañas y adoptar prácticas sostenibles.
 
-### El futuro de la publicidad exterior
+## El futuro de la publicidad exterior
 
 A medida que la tecnología avanza, la publicidad en la calle también evoluciona. 
 
@@ -85,7 +85,7 @@ Los anuncios digitales interactivos, las proyecciones holográficas y la integra
 
 En un mundo cada vez más conectado, la combinación de lo físico y lo digital será clave para captar la atención de los consumidores en constante movimiento.
 
-### Conclusión
+## Conclusión
 
 **La publicidad en la calle es una herramienta con muchísimo potencial** para las marcas que buscan destacar en un entorno publicitario saturado.
 
