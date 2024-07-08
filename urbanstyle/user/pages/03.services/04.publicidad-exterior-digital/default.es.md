@@ -130,7 +130,7 @@ Aunque la inversión inicial puede ser mayor, a largo plazo la publicidad exteri
 
 Las métricas clave incluyen impresiones, tiempo de visualización, interacciones (si es aplicable) y conversiones atribuibles a la exposición al anuncio.
 
-## Conclusión
+## En resumen...
 
 La publicidad exterior digital representa una evolución significativa en el mundo del marketing y la comunicación de marca.
 
