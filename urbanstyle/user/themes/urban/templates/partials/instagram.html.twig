@@ -1,4 +1,4 @@
-<div class="container columns-2 lg:columns-3 xl:columns-4 gap-4">
+<div class="columns-2 lg:columns-3 xl:columns-4 gap-4">
     {% for post in feed|slice(0, count) %}
         <a class="w-full block" href="{{ post.link }}" target="_blank">
             {% if post.type == 'VIDEO' %}

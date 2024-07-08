@@ -13,4 +13,4 @@ facebookenable: true
 published: true
 ---
 
-### Para ver todas nuestras pegadas de carteles, [síguenos en Instagram](https://www.instagram.com/urban_style_publicity)
+### [Síguenos en Instagram](https://www.instagram.com/urban_style_publicity) para ver nuestras pegadas de carteles más recientes. 
