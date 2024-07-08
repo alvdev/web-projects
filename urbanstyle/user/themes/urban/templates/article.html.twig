@@ -20,7 +20,7 @@
 {% set schema = '{"@context": "https://schema.org/","@type": "BlogPosting","@id": "' ~ base_url_absolute ~ page.url ~ '/#BlogPosting","mainEntityOfPage": "' ~ base_url_absolute ~ page.url ~ '","headline": "' ~ page.title ~ '","name": "' ~ page.title ~ '","description": "' ~ page.summary|striptags|replace({'"': '\''}) ~ '","datePublished": "' ~ publish_date ~ '","dateModified": "' ~ modify_date ~ '","image":{"@type": "ImageObject","@id": "' ~ base_url_absolute ~ page.media|first.url ~ '","url": "' ~ base_url_absolute ~ page.media|first.url ~ '","height": "' ~ page.media|first.height ~ '","width": "' ~ page.media|first.width ~ '"},"url": "' ~ base_url_absolute ~ page.url ~ '","keywords": [' ~ keywords ~ ']}' %}
 
 {% block content %}
-    <main class="flex-1 prose-sm prose lg:prose-lg max-w-none">
+    <main class="flex-1 prose lg:prose-lg max-w-none">
         <section class="hero torn-bottom">
             {{ page.media|first.derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', img_alt, '!m-0 h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
         </section>
