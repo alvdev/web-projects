@@ -88,6 +88,16 @@ DirectoryIndex index.php index.html index.htm
 </filesMatch>
 </IfModule>
 
+# alvdev - Deflate compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE text/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE image/webp image/x-icon
+</IfModule>
+
 # alvdev - Brotli compression
 <IfModule mod_brotli.c>
 	AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css
