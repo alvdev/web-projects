@@ -1,0 +1,11 @@
+title: favicon
+type: files
+multiple: false
+accept: image/png, image/ico, image/svg
+minWidth: 16
+minHeight: 16
+cover: false
+image:
+  back: white
+  ratio: 2/3
+  focus: false

@@ -1,0 +1,30 @@
+{
+  "assets/css/main.css": {
+    "file": "assets/main-CJl4f8TU.css",
+    "src": "assets/css/main.css",
+    "isEntry": true
+  },
+  "assets/css/prism.css": {
+    "file": "assets/prism-jRiRAEwM.css",
+    "src": "assets/css/prism.css",
+    "isEntry": true
+  },
+  "assets/fonts/light.woff2": {
+    "file": "assets/light-PAwfyaay.woff2",
+    "src": "assets/fonts/light.woff2"
+  },
+  "assets/fonts/regular.woff2": {
+    "file": "assets/regular-Chr7uwKk.woff2",
+    "src": "assets/fonts/regular.woff2"
+  },
+  "assets/fonts/semibold.woff2": {
+    "file": "assets/semibold-CJ0c0D_v.woff2",
+    "src": "assets/fonts/semibold.woff2"
+  },
+  "assets/js/main.js": {
+    "file": "assets/main-ypYVmfzW.js",
+    "name": "main",
+    "src": "assets/js/main.js",
+    "isEntry": true
+  }
+}

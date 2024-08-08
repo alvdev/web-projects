@@ -1,0 +1,9 @@
+title: Form Block
+icon: survey
+preview: fields
+wysiwyg: true
+
+fields:
+  newsletter:
+    label: Select your form
+    extends: dreamform/fields/form
