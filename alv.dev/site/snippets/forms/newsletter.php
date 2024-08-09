@@ -3,7 +3,11 @@
 snippet('dreamform/form', [
     'form' => $site->find('forms/newsletter'),
     'attr' => [
-        'form' => ['class' => 'flex flex-col items-center', 'x-data' => '{ hasError: false }'],
+        'form' => [
+            'class' => 'flex flex-col items-center',
+            'x-init',
+            'x-target' => 'newsletter-message'
+        ],
         'row' => ['class' => 'w-full mb-8 last:mb-0'],
         'field' => ['class' => 'group flex flex-col items-start'],
         'label' => ['class' => 'hidden text-sm font-medium text-slate-600 mb-1'],
@@ -22,6 +26,8 @@ snippet('dreamform/form', [
             'error' => ['class' => 'group-has-[:checked]:hidden text-red-500 text-sm'],
             'row' => ['class' => 'flex items-center mb-1 text-sm'],
         ],
-        'success' => ['class' => 'text-green-500 border-2 border-green-500 px-4 py-8 text-center text-sm']
+        'success' => [
+            'class' => 'text-green-500 border-2 border-green-500 px-4 py-8 text-center text-sm'
+            ]
     ]
 ]);

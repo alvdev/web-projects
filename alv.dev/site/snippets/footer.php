@@ -11,7 +11,7 @@
                     Facilis, totam vero culpa consequatur, porro incidunt officia.</p>
             </div>
 
-            <div class="w-1/2">
+            <div id="newsletter-message" class=" w-1/2" x-merge.transition>
                 <?php snippet('forms/newsletter') ?>
             </div>
         </div>
