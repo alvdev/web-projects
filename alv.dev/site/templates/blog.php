@@ -34,53 +34,58 @@ snippet('head') ?>
                         </div>
                     </header>
 
-                    <div class="container">
-                        <?php snippet('blocks/categories') ?>
-                    </div>
-
-                    <div class="container pl-0 flex flex-1 mt-24">
+                    <div class="pl-0 flex flex-1 mt-24">
                         <div id="content" class="scroll-mt-16 w-5/6">
-                            <?php if ($articles->isNotEmpty()) : ?>
-                                <div id="results" class="glass-pr grid grid-cols-2 gap-16 border-y border-r border-gray-900 !pl-[5vw] rounded-l-none sm:[&>*:nth-child(n+3)]:before:absolute sm:[&>*]:before:border-t sm:[&>*]:before:border-gray-950 sm:before:[&>*]:w-full sm:before:[&>*]:-top-8 sm:after:[&>*:nth-child(odd)]:absolute sm:after:[&>*:nth-child(odd)]:border-r sm:after:[&>*:nth-child(odd)]:-right-8 sm:after:[&>*:nth-child(odd)]:top-0 sm:after:[&>*:nth-child(odd)]:h-full sm:after:[&>*:nth-child(odd)]:border-gray-950" x-merge="append">
+                            <div class="bg-white bg-opacity-90 backdrop-blur-md border-y border-r border-gray-900 rounded-r">
+                                <div class="container py-16">
+                                    <?php snippet('blocks/categories') ?>
+                                </div>
 
-                                    <?php foreach ($articles as $key => $article) : ?>
-                                        <article class="relative">
-                                            <div class="flex justify-between gap-4 text-sm text-gray-500">
-                                                <div class="flex gap-4">
-                                                    <?php if ($article->category()->isNotEmpty()) : ?>
-                                                        <span class="flex items-center gap-1 [&>svg]:w-3 [&>svg]:h-3">
-                                                            <?= svg('assets/icons/folder.svg') ?><?= $article->category() ?>
-                                                        </span>
-                                                    <?php endif ?>
+                                <?php if ($articles->isNotEmpty()) : ?>
+                                    <div id="results"
+                                        class="container py-16 border-t border-black grid grid-cols-2 gap-16 rounded-l-none sm:[&>*:nth-child(n+3)]:before:absolute sm:[&>*]:before:border-t sm:[&>*]:before:border-gray-950 sm:before:[&>*]:w-full sm:before:[&>*]:-top-8 sm:after:[&>*:nth-child(odd)]:absolute sm:after:[&>*:nth-child(odd)]:border-r sm:after:[&>*:nth-child(odd)]:-right-8 sm:after:[&>*:nth-child(odd)]:top-0 sm:after:[&>*:nth-child(odd)]:h-full sm:after:[&>*:nth-child(odd)]:border-gray-950"
+                                        x-merge="append">
 
-                                                    <?php if ($article->tags()->isNotEmpty()) : ?>
+                                        <?php foreach ($articles as $key => $article) : ?>
+                                            <article class="relative">
+                                                <div class="flex justify-between gap-4 text-sm text-gray-500">
+                                                    <div class="flex gap-4">
+                                                        <?php if ($article->category()->isNotEmpty()) : ?>
+                                                            <span class="flex items-center gap-1 [&>svg]:w-3 [&>svg]:h-3">
+                                                                <?= svg('assets/icons/folder.svg') ?><?= $article->category() ?>
+                                                            </span>
+                                                        <?php endif ?>
+
+                                                        <?php if ($article->tags()->isNotEmpty()) : ?>
+                                                            <span class="flex items-center gap-1 [&>svg]:w-3 [&>svg]:h-3">
+                                                                <?= svg('assets/icons/tag.svg') ?><?= $article->tags() ?>
+                                                            </span>
+                                                        <?php endif ?>
+                                                    </div>
+
+                                                    <?php if ($article->date()->isNotEmpty()) : ?>
                                                         <span class="flex items-center gap-1 [&>svg]:w-3 [&>svg]:h-3">
-                                                            <?= svg('assets/icons/tag.svg') ?><?= $article->tags() ?>
+                                                            <?= svg('assets/icons/calendar.svg') ?><?= $article->date()->toDate('j/M/Y') ?>
                                                         </span>
                                                     <?php endif ?>
                                                 </div>
 
-                                                <?php if ($article->date()->isNotEmpty()) : ?>
-                                                    <span class="flex items-center gap-1 [&>svg]:w-3 [&>svg]:h-3"><?= svg('assets/icons/calendar.svg') ?><?= $article->date()->toDate('j/M/Y') ?></span>
-                                                <?php endif ?>
-                                            </div>
+                                                <h2 class="font-bold mb-3 first-letter:uppercase sm:text-lg xl:text-2xl">
+                                                    <?= $article->title()->html() ?>
+                                                </h2>
 
-                                            <h2 class="font-bold mb-3 first-letter:uppercase sm:text-lg xl:text-2xl">
-                                                <?= $article->title()->html() ?>
-                                            </h2>
-
-                                            <img class="float-left rounded-md w-2/5 aspect-video my-2 mr-6" src="https://picsum.photos/600/400?random=<?= $key ?>" alt="">
-                                            <div><?= $article->text()->toBlocks()->excerpt(200) ?>
-                                                <a class="link-red" href="<?= $article->url() ?>">
-                                                    🡒<?= t('read_more') ?>
-                                                </a>
-                                            </div>
-                                        </article>
-                                    <?php endforeach ?>
-                                </div>
-                            <?php endif ?>
-
-
+                                                <img class="float-left rounded-md w-2/5 aspect-video my-2 mr-6"
+                                                    src="https://picsum.photos/600/400?random=<?= $key ?>" alt="">
+                                                <div><?= $article->text()->toBlocks()->excerpt(200) ?>
+                                                    <a class="link-red" href="<?= $article->url() ?>">
+                                                        🡒<?= t('read_more') ?>
+                                                    </a>
+                                                </div>
+                                            </article>
+                                        <?php endforeach ?>
+                                    </div>
+                                <?php endif ?>
+                            </div>
                         </div>
 
                         <aside class="w-1/6">
