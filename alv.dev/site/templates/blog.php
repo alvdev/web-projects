@@ -34,7 +34,7 @@ snippet('head') ?>
                         </div>
                     </header>
 
-                    <div class="pl-0 flex flex-1 mt-24">
+                    <div class="container pl-0 flex flex-1 mt-24">
                         <div id="content" class="scroll-mt-16 w-5/6">
                             <div class="bg-white bg-opacity-90 backdrop-blur-md border-y border-r border-gray-900 rounded-r">
                                 <div class="container py-16">
@@ -99,8 +99,8 @@ snippet('head') ?>
                         </aside>
                     </div>
 
-                    <div class="w-5/6">
-                        <?php snippet('pagination') ?>
+                    <div class="container w-5/6 py-0">
+                        <?php snippet('pagination-ajax') ?>
                     </div>
 
                 </div>
