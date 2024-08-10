@@ -86,6 +86,8 @@ snippet('head') ?>
                                     </div>
                                 <?php endif ?>
                             </div>
+
+                            <?php snippet('pagination-ajax') ?>
                         </div>
 
                         <aside class="w-1/6">
@@ -98,11 +100,6 @@ snippet('head') ?>
                             </div>
                         </aside>
                     </div>
-
-                    <div class="container w-5/6 py-0">
-                        <?php snippet('pagination-ajax') ?>
-                    </div>
-
                 </div>
             </main>
 

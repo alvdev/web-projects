@@ -1,22 +1,22 @@
-<?php
-/*
-  Snippets are a great way to store code snippets for reuse
-  or to keep your templates clean.
-
-  The pagination snippet renders prev/next links in the
-  blog, when articles spread across multiple pages
-
-  More about snippets:
-  https://getkirby.com/docs/guide/templates/snippets
-*/
-?>
-<div class="mt-28">
-    <?php if ($pagination->hasPages()) : ?>
-        <nav id="pagination" class="relative z-10 text-xl font-bold text-center" x-data="{page: 1}">
-            <!-- Load more -->
-            <a class="rounded-full px-8 py-4 uppercase bg-gray-950 text-[#00ff77] inline-block transition-all hover:animate-wiggle" :href="'/blog/page:' + page + '#results'" x-on:click="page++" :class="page >= <?= $pagination->pages() ?> ? 'hidden' : ''" x-init x-target="results">
-                <?= t('loadMore', 'Load more') ?>
-            </a>
-        </nav>
-    <?php endif ?>
-</div>
+<?php if ($pagination->hasPages()) : ?>
+    <nav id="pagination" class="relative z-10 text-xl font-bold text-center flex justify-center -mt-12" x-data="{page: 1}">
+        <!-- Load more -->
+        <a href="#"
+            class="flex w-24 rounded-full ring-[1rem] ring-white uppercase text-[#00ff77] [&>svg]:hover:animate-[spin_3s_linear_infinite] [svg>svg]:hover:origin-center"
+            :href="'/blog/page:' + page + '#results'" x-on:click="page++"
+            :class="page >= <?= $pagination->pages() ?> ? 'invisible' : ''" x-init x-target="results">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path id="circlePath" fill="white" stroke-width="30" stroke="#030712" d="
+          M 15, 50
+          a 35,35 0 1,1 70,0
+          a 35,35 0 1,1 -70,0
+        " />
+                <text id="text" font-family="monospace" font-size="18" font-weight="bold" fill="#00ff77" letter-spacing="0.3em">
+                    <textPath id="textPath" href="#circlePath" startOffset="0%" textLength="208" lengthAdjust="spacingAndGlyphs">
+                        <tspan dy="5"><?= t('loadMore', 'Cargar más artículos') ?></tspan>
+                    </textPath>
+                </text>
+            </svg>
+        </a>
+    </nav>
+<?php endif ?>
