@@ -12,7 +12,7 @@
                 <?php snippet('header') ?>
     
                 <div class="flex-1 min-h-screen">
-                    <?php snippet('blocks/skills') ?>
+                    <?php snippet('blocks/skills-grid') ?>
                     <?php snippet('blocks/projects') ?>
                     <?php snippet('blocks/contact-form') ?>
                     <?php snippet('blocks/about-me') ?>
