@@ -1,4 +1,4 @@
-<section class="bg-sky-100 py-28" id="projects">
+<section class="bg-sky-100 bg-opacity-90 backdrop-blur-lg border-t-2 border-white py-28" id="projects">
     <div class="container flex gap-24" x-data="{ tab: 1 }">
         <div class="w-2/5">
             <div class="sticky top-8 ">

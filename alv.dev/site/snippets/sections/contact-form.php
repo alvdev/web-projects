@@ -1,4 +1,4 @@
-<section class="bg-emerald-100 py-28 border-t-2 border-white" id="contact">
+<section class="bg-emerald-100 bg-opacity-90 backdrop-blur-lg py-28 border-t-2 border-white" id="contact">
     <div class="container flex gap-24">
         <div class="w-2/5">
             <div class="font-bold leading-none flex flex-wrap flex-col gap-y-2 mb-10">

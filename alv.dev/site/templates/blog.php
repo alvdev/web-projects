@@ -91,7 +91,7 @@ snippet('head') ?>
                         </div>
 
                         <aside class="w-1/6">
-                            <div class="glass-dark sticky top-16 my-2 rounded-l-none p-8">
+                            <div class="glass-dark sticky top-16 mt-2 mb-14 rounded-l-none p-8">
                                 <?php foreach ($page->children()->listed()->pluck('tags', ',', true) as $tag) : ?>
                                     <a href="<?= url('blog/tag/' . $tag . '#content')  ?>">
                                         <?= html($tag) ?>

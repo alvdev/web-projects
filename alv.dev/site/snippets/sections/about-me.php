@@ -1,4 +1,4 @@
-<section id="aboutme" class="py-28 bg-amber-100 bg-opacity-70 border-t-2 border-white">
+<section id="aboutme" class="py-28 bg-amber-100 bg-opacity-90 backdrop-blur-lg border-t-2 border-white">
     <div class="container flex gap-28">
         <div class="w-2/5">
             <hgroup class="sticky top-8 flex flex-wrap flex-col gap-y-2 md:text-center xl:text-left mb-10">
