@@ -20,23 +20,28 @@
                             <?php endif ?>
                         </p>
 
-                        <div class="fixed -z-10 right-0 -top-[25vw] block w-[50vw] h-[50vw] border-t-transparent border-b-transparent border-r-[#00ff77] border-t-[50vw] border-b-[50vw] border-r-[50vw]">
+                        <div
+                            class="fixed -z-10 right-0 -top-[25vw] block w-[50vw] h-[50vw] border-t-transparent border-b-transparent border-r-[#00ff77] border-t-[50vw] border-b-[50vw] border-r-[50vw]">
                         </div>
                     </hgroup>
 
                     <?php if ($page->image()) : ?>
-                        <img class="w-full aspect-video rounded-r mt-8 shadow-xl" src="<?= $page->image()->url() ?>" alt="<?= $page->image()->alt() ?>" srcset="<?= $page->image()->srcset([100, 200, 400, 800]) ?>" height="<?= $page->image()->height() ?>" width="<?= $page->image()->width() ?>">
+                        <img class="w-full aspect-video rounded-r mt-8 shadow-xl" src="<?= $page->image()->url() ?>"
+                            alt="<?= $page->image()->alt() ?>" srcset="<?= $page->image()->srcset([100, 200, 400, 800]) ?>"
+                            height="<?= $page->image()->height() ?>" width="<?= $page->image()->width() ?>">
                     <?php endif ?>
                 </header>
 
                 <div class="container mt-16 flex pl-0">
-                    <div class="prose max-w-full border-y border-r border-gray-900 rounded-r bg-white bg-opacity-90 backdrop-blur-lg py-8 flex-1 [&>h2>a]:no-underline [&>h2>a]:scroll-mt-8 [&>*:not(figure)]:px-[5vw] [&>pre]:!ml-[5vw] [&>pre]:!rounded-r-none">
+                    <div
+                        class="prose max-w-full border-y border-r border-gray-900 rounded-r bg-white bg-opacity-90 backdrop-blur-lg py-8 flex-1 [&>h2>a]:no-underline [&>h2>a]:scroll-mt-8 [&>*:not(figure)]:px-[5vw] [&>pre]:!ml-[5vw] [&>pre]:!rounded-r-none">
                         <?= $page->text()->toBlocks() ?>
                     </div>
 
                     <aside class="w-2/6">
                         <div class="sticky top-8 my-1">
-                            <div class="bg-gray-900 bg-opacity-95 p-12 rounded-r text-base [&>*]:text-white [&_a]:text-green-400" id="toc">
+                            <div class="bg-gray-900 bg-opacity-95 p-12 rounded-r text-base [&>*]:text-white [&_a]:text-green-400"
+                                id="toc">
                                 <h3 class="font-bold uppercase text-lg"><?= t('toc', 'Table of contents') ?></h3>
 
                                 <?php snippet('blocks/toc') ?>
@@ -53,7 +58,8 @@
                             <?= t('related_articles') ?>
                         </h3>
 
-                        <div class="mt-12 grid grid-cols-2 gap-16 sm:[&>*:nth-child(n+3)]:before:absolute sm:[&>*]:before:border-t sm:[&>*]:before:border-gray-950 sm:before:[&>*]:w-full sm:before:[&>*]:-top-8 sm:after:[&>*:nth-child(odd)]:absolute sm:after:[&>*:nth-child(odd)]:border-r sm:after:[&>*:nth-child(odd)]:-right-8 sm:after:[&>*:nth-child(odd)]:top-0 sm:after:[&>*:nth-child(odd)]:h-full sm:after:[&>*:nth-child(odd)]:border-gray-950">
+                        <div
+                            class="mt-12 grid grid-cols-2 gap-16 sm:[&>*:nth-child(n+3)]:before:absolute sm:[&>*]:before:border-t sm:[&>*]:before:border-gray-950 sm:before:[&>*]:w-full sm:before:[&>*]:-top-8 sm:after:[&>*:nth-child(odd)]:absolute sm:after:[&>*:nth-child(odd)]:border-r sm:after:[&>*:nth-child(odd)]:-right-8 sm:after:[&>*:nth-child(odd)]:top-0 sm:after:[&>*:nth-child(odd)]:h-full sm:after:[&>*:nth-child(odd)]:border-gray-950">
 
                             <?php foreach (
                                 $page->similar([
@@ -75,7 +81,7 @@
                         </div>
                     </div>
                 <?php endif ?>
-            </aside>
+            </aside>;
 
             <?= css('assets/css/prism.css') ?>
             <?= js('assets/js/prism.js') ?>

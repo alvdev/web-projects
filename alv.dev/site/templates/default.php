@@ -12,11 +12,11 @@
                 <?php snippet('header') ?>
     
                 <div class="flex-1 min-h-screen">
-                    <?php snippet('blocks/skills-grid') ?>
-                    <?php snippet('blocks/projects') ?>
-                    <?php snippet('blocks/contact-form') ?>
-                    <?php snippet('blocks/about-me') ?>
-                    <?php snippet('blocks/latest-posts') ?>
+                    <?php snippet('sections/skills-grid') ?>
+                    <?php snippet('sections/projects') ?>
+                    <?php snippet('sections/contact-form') ?>
+                    <?php snippet('sections/about-me') ?>
+                    <?php snippet('sections/latest-posts') ?>
                 </div>
             </main>
     
