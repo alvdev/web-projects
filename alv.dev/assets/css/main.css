@@ -37,6 +37,16 @@ select:-webkit-autofill:focus {
   caret-color: #00ff77;
 }
 
+textarea::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+
+  }
+textarea::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #c2c9d2;
+  }
+
 @layer base {
     @font-face {
         font-family: 'mono';
