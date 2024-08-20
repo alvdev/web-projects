@@ -7,6 +7,11 @@
  * This setting must be set to false in production.
  * All config options: https://getkirby.com/docs/reference/system/options
  */
+
+use Kirby\Cms\App;
+use Kirby\Toolkit\A;
+use Kirby\Toolkit\Str;
+
 return [
     'debug' => true,
     'author.seo-audit' => [
@@ -16,18 +21,33 @@ return [
     'panel' => [
         'favicon' => 'assets/favicon.png',
         'menu' => [
-            'site',
+            'site' => [
+                'current' => function (): bool {
+                    $links = ['site'];
+
+                    $path  = App::instance()->path();
+                    return A::every($links, fn($link) => Str::contains($path, $link));
+                },
+            ],
             'blog' => [
                 'label' => 'Blog',
                 'icon' => 'blog',
-                'link' => 'pages/blog'
+                'link' => 'pages/blog',
+                'current' => function (): bool {
+                    $path = App::instance()->path();
+                    return Str::contains($path, 'pages/blog');
+                }
             ],
             '-',
             'users',
             'forms' => [
                 'label' => 'Forms',
                 'icon' => 'form',
-                'link' => 'pages/forms'
+                'link' => 'pages/forms',
+                'current' => function (): bool {
+                    $path = App::instance()->path();
+                    return Str::contains($path, 'pages/forms');
+                }
             ],
             'languages',
             'system',
