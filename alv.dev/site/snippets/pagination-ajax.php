@@ -1,5 +1,5 @@
 <?php if ($pagination->hasPages()) : ?>
-    <nav id="pagination" class="relative z-10 text-xl font-bold text-center flex justify-center -mt-12" x-data="{page: 1}">
+    <nav id="pagination" class="relative z-10 text-xl font-bold text-center flex justify-center -my-12" x-data="{page: 1}">
         <!-- Load more -->
         <a href="#"
             class="flex w-24 rounded-full ring-[1rem] ring-white uppercase text-[#00ff77] [&>svg]:hover:animate-[spin_3s_linear_infinite] [svg>svg]:hover:origin-center"
