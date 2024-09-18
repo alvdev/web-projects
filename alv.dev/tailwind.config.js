@@ -29,6 +29,8 @@ export default {
       },
       borderWidth: {
         3: '3px',
+        5: '5px',
+        6: '6px',
       },
       keyframes: {
         wiggle: {
