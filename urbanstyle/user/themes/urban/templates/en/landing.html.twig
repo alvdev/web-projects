@@ -1,0 +1,374 @@
+{% extends 'partials/base.html.twig' %}
+
+{% set publish_date = page.header.publish_date|date("Y-m-d\\TH:i:sP") %}
+{% set modify_date = page.date|date("Y-m-d\\TH:i:sP") %}
+
+{% set schema = '{
+"@context": "https://schema.org",
+"@type": "LocalBusiness",
+"name": "Urban Style Publicity",
+"description": "Company specialized in posting and placing posters, billboards, and other outdoor advertising supports in Madrid, Barcelona, and the rest of Spain.",
+"image": "https://urbanstylepublicity.com/images/p/e/g/a/d/pegada-de-carteles-456b2da4.webp",
+"@id": "https://urbanstylepublicity.com",
+"url": "https://urbanstylepublicity.com",
+"telephone": "913052922",
+"address": {
+"@type": "PostalAddress",
+"streetAddress": "Av del Manzanares, 202",
+"addressLocality": "Madrid",
+"postalCode": "28026",
+"addressCountry": "ES"
+},
+"geo": {
+"@type": "GeoCoordinates",
+"latitude": 40.3926834,
+"longitude": -3.702346299999999
+},
+"openingHoursSpecification": [{
+"@type": "OpeningHoursSpecification",
+"dayOfWeek": [
+"Monday",
+"Tuesday",
+"Wednesday",
+"Thursday"
+],
+"opens": "09:00",
+"closes": "18:00"
+},{
+"@type": "OpeningHoursSpecification",
+"dayOfWeek": "Friday",
+"opens": "09:00",
+"closes": "14:00"
+}],
+"sameAs": [
+"https://www.facebook.com/profile.php?id=61557928546519",
+"https://twitter.com/pegadacarteles",
+"https://instagram.com/urban_style_publicity",
+"https://www.youtube.com/@pegadadecarteles",
+"https://www.linkedin.com/in/pedro-jim%C3%A9nez-39671b124/",
+"https://www.wikidata.org/wiki/Q216931"
+]
+}' %}
+
+{% block content %}
+    <main class="flex-1 prose prose-xl max-w-none">
+        <section class="hero torn-bottom">
+            <div class="container absolute left-0 right-0 bottom-0 z-10 {#  #}">
+                <h1 class="mb-2 uppercase text-white text-balance text-[2.6rem] leading-[4.3rem] [&>span]:drop-shadow-[0px_0px_5px_rgba(0,0,0,1)] sm:text-[3.2rem] sm:leading-[5.1rem] lg:text-[4rem] lg:leading-[6.2rem] xl:text-7xl xl:leading-[7.7rem] 2xl:text-8xl 2xl:leading-[9.6rem]">
+                    <span class="box-decoration-clone bg-black bg-opacity-60 px-3 pt-1 pb-2 md:px-4 xl:px-8 xl:pt-2 xl:pb-4">{{ page.title }}</span>
+                </h1>
+            </div>
+            {{ media['theme://images/headers/pegada-de-carteles.webp'].derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', 'poster sticking', 'm-0 min-h-[70vh] md:min-h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }}
+        </section>
+
+        <section class="relative mt-16 md:mt-20 before:opacity-100">
+            <div class="container flex flex-col-reverse gap-8 xl:flex-row-reverse xl:gap-16 items-center">
+                <h2 class="text-2xl text-gray-500 text-balance font-semibold m-0 sm:text-4xl xl:w-1/2 bg-white ring-16 ring-white !leading-snug">
+                    Poster sticking is what has made us the current reference in Spain, backed by the large number of clients and the satisfaction they have shown.
+                </h2>
+
+                <p class="text-4xl text-balance text-gray-700 font-semibold m-0 sm:text-6xl uppercase xl:w-1/2 xl:text-center xl:m-0 !leading-tight">
+                    Every day we stick <mark class="after:bg-[url('/user/images/underline.svg')]">90% of the posters</mark> you see on the street
+                </p>
+            </div>
+        </section>
+
+        <section class="mt-24 reviews">
+            <div class="container">
+                {% include 'partials/reviews.html.twig' %}
+            </div>
+        </section>
+
+        <section class="jobs mt-28">
+            <div class="wall-full xl:wall-half relative bg-gradient-to-b xl:bg-gradient-to-r from-red-800 from-50% via-red-800 to-red-800 xl:to-transparent xl:to-50% text-black pt-24 pb-40 xl:pb-60">
+                <div class="container flex flex-col items-center gap-20 xl:flex-row xl:gap-36">
+                    <h2 class="m-0 text-5xl text-white uppercase md:text-6xl xl:w-1/2 xl:text-right xl:m-0 drop-shadow-md">
+                        Some of our poster sticking work
+                    </h2>
+                    <p class="text-3xl md:text-4xl !m-0 p-4 md:p-8 xl:p-0 xl:w-1/2 bg-white ring-16 ring-white !leading-tight font-semibold">
+                        Let our team of professionals ensure your posters are visible in the most strategic and high-traffic locations to boost their visibility and reach.
+                    </p>
+                </div>
+            </div>
+            <div class="container -mt-32">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 [&>div>div]:ring-16 [&>div>div]:ring-white">
+                    <div class="grid gap-4 auto-rows-min">
+                        <div>
+                            {{ media['theme://images/pages/home/cartel-goiko-burguer.webp'].cropResize(640, 640).derivatives(320, 640, 80).loading().html('', 'billboard for Goiko Burguer', 'h-auto w-full m-0 brightness-110 contrast-110 saturate-125')|raw }}
+                        </div>
+                        <div class="p-8 bg-white border border-black">
+                            <h3 class="mt-0">
+                                Geographical segmentation
+                            </h3>
+                            <div class="leading-relaxed">
+                                You can choose specific locations to target your message to local audiences or in areas of specific interest.
+                            </div>
+                        </div>
+                        <div>
+                            {{ media['theme://images/pages/home/carteles-teatro.webp'].cropResize(640, 640).derivatives(320, 640, 80).loading().html('', 'poster sticking in Madrid for theater plays', 'h-auto w-full m-0 brightness-110 contrast-110 saturate-110')|raw }}
+                        </div>
+                    </div>
+                    <div class="grid gap-4 auto-rows-min">
+                        <div class="p-8 bg-white border border-black">
+                            <h3 class="mt-0">
+                                Attracting a local audience
+                            </h3>
+                            <div class="leading-relaxed">
+                                If your business mainly targets the local community, <strong>poster sticking is a very effective action</strong> to reach that target audience.
+                            </div>
+                        </div>
+                        <div>
+                            {{ media['theme://images/pages/home/carteles-anuncio-teatro.webp'].cropResize(640, 640).derivatives(320, 640, 80).loading().html('', 'advertising posters for theater facade', 'h-auto w-full m-0 brightness-125 contrast-125 saturate-125')|raw }}
+                        </div>
+                        <div>
+                            {{ media['theme://images/pages/home/carteles-goiko.webp'].cropResize(640, 640).derivatives(320, 640, 80).loading().html('', 'poster sticking in Madrid for Goiko Burguer', 'h-auto w-full m-0 brightness-125 contrast-110 saturate-110')|raw }}
+                        </div>
+                        <div class="p-8 bg-white border border-black">
+                            <h3 class="mt-0">
+                                Cost-effectiveness
+                            </h3>
+                            <div class="leading-relaxed">
+                                <i>Poster sticking is an economical form</i> of advertising compared to other more expensive media.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid gap-4 auto-rows-min">
+                        <div>
+                            {{ media['theme://images/pages/home/carteles-burguer.webp'].cropResize(640, 640).derivatives(320, 640, 80).loading().html('', 'poster sticking in Madrid for a burger restaurant', 'h-auto w-full m-0 brightness-125 contrast-110 saturate-125')|raw }}
+                        </div>
+                        <div class="p-8 bg-white border border-black">
+                            <h3 class="mt-0">
+                                Environmental permanence
+                            </h3>
+                            <div class="leading-relaxed">
+                                Unlike other temporary media, posters on the streets remain in the environment for an extended period, increasing their exposure.
+                            </div>
+                        </div>
+
+                        <div>
+                            {{ media['theme://images/pages/home/cartel-madrid-teatro-marquina.webp'].cropResize(640, 640).derivatives(320, 640, 80).loading().html('', 'cartel para la obra El Premio en el Teatro Marquina', 'h-auto w-full m-0 brightness-125 contrast-125 saturate-125')|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+            <section class="container faqs mt-28">
+            <div class="flex flex-col items-center">
+                <h2 class="mt-5 text-5xl font-bold tracking-tight">
+                    Preguntas frecuentes
+                </h2>
+            </div>
+
+            <section class="-mt-32">
+            <div class="wall-full xl:wall-half relative bg-gradient-to-b xl:bg-gradient-to-l from-black from-75% xl:from-50% via-black to-white to-75% xl:to-50% text-black pt-56 pb-40 before:right-0">
+                <div class="container flex flex-col-reverse items-center gap-20 xl:flex-row xl:gap-x-36">
+                    <div class="bg-white xl:w-1/2 ring-16 ring-white">
+                        <p class="text-3xl md:text-4xl !m-0 p-4 md:p-8 xl:p-0 xl:text-right !leading-tight font-semibold">
+                            Si deseas realizar una <strong>pegada de carteles para promocionar</strong> algún evento, obra de teatro, negocio local, feria comercial o exposición, un lanzamiento discográfico o un concierto; contáctanos antes de decidirlo.
+                        </p>
+                    </div>
+                    <hgroup class="flex flex-col gap-8 uppercase xl:w-1/2 xl:m-0 drop-shadow-md">
+                        <h2 class="m-0 text-yellow-200">
+                            Pegadas de carteles con gran impacto...
+                        </h2>
+                        <h3 class="m-0 text-5xl font-bold text-white md:text-5xl opacity-80">
+                            porque contamos con la mayor cobertura de zonas para un mayor alcance
+                        </h3>
+                    </hgroup>
+                </div>
+            </div>
+            <div class="container -mt-12 max-w-max">
+                <a href="/contact"
+                   class="bg-red-800 !text-white hover:cursor-pointer font-semibold rounded-full uppercase px-16 py-8 inline-block border-4 border-red-700 w-full text-center ring-16 ring-white hover:scale-102 transition-all"
+                   style="text-wrap: balance">
+                    Pedir presupuesto para tu próxima pegada de carteles
+                </a>
+            </div>
+        </section>
+
+                                    <div class="grid grid-cols-1 mt-8 md:grid-cols-2 md:gap-4"
+                 x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }">
+                <div class="relative flex flex-col w-full gap-4">
+                            <div x-data="{ id: $id('accordion') }"
+     :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+     class="duration-200 ease-out bg-white border cursor-pointer rounded-3xl group"
+     x-cloak>
+    <button @click="setActiveAccordion(id)"
+            class="flex items-center justify-between w-full py-4 pr-5 font-semibold text-left select-none pl-7">
+        <span>Do you offer volume discounts?</span>
+        <div :class="{ 'rotate-90': activeAccordion==id }"
+             class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
+            <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
+            </div>
+            <div :class="{ 'rotate-90': activeAccordion==id }"
+                 class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+            </div>
+        </div>
+    </button>
+    <div x-show="activeAccordion==id" x-collapse x-cloak>
+        <div class="pt-0 pb-6 px-7 opacity-70">
+            You can request a free quote through our <a href="/contact">contact form</a>. Please specify the city, number of posters, and desired period, and we will contact you as soon as possible.
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="relative flex flex-col w-full gap-4 mt-4 md:mt-0">
+    <div x-data="{ id: $id('accordion') }"
+         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+         class="duration-200 ease-out bg-white border cursor-pointer rounded-3xl group"
+         x-cloak>
+        <button @click="setActiveAccordion(id)"
+                class="flex items-center justify-between w-full py-4 pr-5 font-semibold text-left select-none pl-7">
+            <span>What places do you use to post the posters?</span>
+            <div :class="{ 'rotate-90': activeAccordion==id }"
+                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
+                <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                </div>
+                <div :class="{ 'rotate-90': activeAccordion==id }"
+                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                </div>
+            </div>
+        </button>
+        <div x-show="activeAccordion==id" x-collapse x-cloak>
+            <div class="pt-0 pb-6 px-7 opacity-70">
+                We post posters in high-traffic public places such as bus stops, commercial streets, subway stations, among others.
+            </div>
+        </div>
+    </div>
+
+    <div x-data="{ id: $id('accordion') }"
+         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+         class="duration-200 ease-out bg-white border cursor-pointer rounded-3xl group"
+         x-cloak>
+        <button @click="setActiveAccordion(id)"
+                class="flex items-center justify-between w-full py-4 pr-5 font-semibold text-left select-none pl-7">
+            <span>Do you offer tracking and poster replacement services?</span>
+            <div :class="{ 'rotate-90': activeAccordion==id }"
+                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
+                <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                </div>
+                <div :class="{ 'rotate-90': activeAccordion==id }"
+                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                </div>
+            </div>
+        </button>
+        <div x-show="activeAccordion==id" x-collapse x-cloak>
+            <div class="pt-0 pb-6 px-7 opacity-70">
+                Yes, our poster services include tracking and replacement of damaged or covered posters during the contracted exhibition period.
+            </div>
+        </div>
+    </div>
+
+    <div x-data="{ id: $id('accordion') }"
+         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+         class="duration-200 ease-out bg-white border cursor-pointer rounded-3xl group"
+         x-cloak>
+        <button @click="setActiveAccordion(id)"
+                class="flex items-center justify-between w-full py-4 pr-5 font-semibold text-left select-none pl-7">
+            <span>How can I request a quote?</span>
+            <div :class="{ 'rotate-90': activeAccordion==id }"
+                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
+                <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                </div>
+                <div :class="{ 'rotate-90': activeAccordion==id }"
+                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                </div>
+            </div>
+        </button>
+        <div x-show="activeAccordion==id" x-collapse x-cloak>
+            <div class="pt-0 pb-6 px-7 opacity-70">
+                You can request a free quote through our <a href="/contact">contact form</a>. Please specify the city, number of posters, and desired period, and we will contact you as soon as possible.
+            </div>
+        </div>
+    </div>
+
+    <div x-data="{ id: $id('accordion') }"
+         :class="{ 'border-black text-neutral-800' : activeAccordion==id, 'border-gray-500 text-neutral-600 hover:text-neutral-800' : activeAccordion!=id }"
+         class="duration-200 ease-out bg-white border cursor-pointer rounded-3xl group"
+         x-cloak>
+        <button @click="setActiveAccordion(id)"
+                class="flex items-center justify-between w-full py-4 pr-5 font-semibold text-left select-none pl-7">
+            <span>How do I verify that my posters were posted?</span>
+            <div :class="{ 'rotate-90': activeAccordion==id }"
+                 class="relative flex items-center justify-center w-3 h-3 duration-300 ease-out">
+                <div class="absolute w-0.5 h-full bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                </div>
+                <div :class="{ 'rotate-90': activeAccordion==id }"
+                     class="absolute w-3 h-0.5 ease duration-500 bg-red-700 group-hover:bg-neutral-800 rounded-full">
+                </div>
+            </div>
+        </button>
+        <div x-show="activeAccordion==id" x-collapse x-cloak>
+            <div class="pt-0 pb-6 px-7 opacity-70">
+                We will provide photographic reports whenever you need them, either at the start of the campaign, during, or after its completion, so you can verify the placement of the posters.
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<section class="container grid grid-cols-2 logos sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-28 gap-x-16">
+    <div>
+        {{ media['theme://images/logos/movistar.png'].cropResize('150', '70').loading().html('', 'logo movistar', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/live-nation.png'].cropResize('150', '70').loading().html('', 'logo live nation', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/bbk.png'].cropResize('150', '70').loading().html('', 'logo bbk', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/dcode.png'].cropResize('150', '70').loading().html('', 'logo dcode', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/warner-music.png'].cropResize('150', '70').loading().html('', 'logo warner music', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/circo-del-sol.webp'].cropResize('150', '70').loading().html('', 'logo circo del sol', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/marquina.png'].cropResize('150', '70').loading().html('', 'logo marquina', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/zalando.png'].cropResize('150', '70').loading().html('', 'logo zalando', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/sony-music.png'].cropResize('150', '70').loading().html('', 'logo sony music', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/noches-del-botanico.png'].cropResize('150', '70').loading().html('', 'logo noches del botánico', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/madcool.png'].cropResize('150', '70').loading().html('', 'logo madcool', 'w-full')|raw }}
+    </div>
+    <div>
+        {{ media['theme://images/logos/ifema.png'].cropResize('150', '70').loading().html('', 'logo ifema', 'w-full')|raw }}
+    </div>
+</section>
+
+<section class="container mt-16 posts">
+    <div class="container flex flex-wrap justify-center lg:grid-cols-2 lg:gap-x-24 [&>div]:col-span-2]">
+        <div>
+            <h2>
+                Wild Posting
+            </h2>
+        </div>
+        <div>
+            <h2>
+                Street Marketing
+            </h2>
+        </div>
+        <div>
+            <h2>
+                Outdoor Advertising
+            </h2>
+        </div>
+    </div>
+</section>
+</main>
+
+{% do assets.addInlineJs(schema, {type: 'application/ld+json', loading: 'defer'}) %}
+
+{% endblock %}
