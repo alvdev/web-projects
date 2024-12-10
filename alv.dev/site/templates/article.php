@@ -20,9 +20,7 @@
                             <?php endif ?>
                         </p>
 
-                        <div
-                            class="fixed -z-10 right-0 -top-[25vw] block w-[50vw] h-[50vw] border-t-transparent border-b-transparent border-r-[#00ff77] border-t-[50vw] border-b-[50vw] border-r-[50vw]">
-                        </div>
+                        <div class="bg-decoration-square"></div>
                     </hgroup>
 
                     <?php if ($page->image()) : ?>
@@ -32,22 +30,23 @@
                     <?php endif ?>
                 </header>
 
-                <div class="container mt-16 flex pl-0">
-                    <div
-                        class="prose max-w-full border-y border-r border-gray-900 rounded-r bg-white bg-opacity-90 backdrop-blur-lg py-8 flex-1 [&>h2>a]:no-underline [&>h2>a]:scroll-mt-8 [&>*:not(figure)]:px-[5vw] [&>pre]:!ml-[5vw] [&>pre]:!rounded-r-none">
-                        <?= $page->text()->toBlocks() ?>
-                    </div>
-
-                    <aside class="w-2/6">
-                        <div class="sticky top-8 my-1">
-                            <div class="bg-gray-900 bg-opacity-95 p-12 rounded-r text-base [&>*]:text-white [&_a]:text-green-400"
-                                id="toc">
-                                <h3 class="font-bold uppercase text-lg"><?= t('toc', 'Table of contents') ?></h3>
-
-                                <?php snippet('blocks/toc') ?>
-                            </div>
+                <div class="container mt-16 pl-0">
+                    <div class="bg-page flex border-y border-gray-900">
+                        <div class="prose max-w-full bg-white py-8 flex-1 [&>h2>a]:no-underline [&>h2>a]:scroll-mt-8 [&>*:not(figure)]:px-[5vw] [&>pre]:!ml-[5vw] [&>pre]:!rounded-r-none">
+                            <?= $page->text()->toBlocks() ?>
                         </div>
-                    </aside>
+
+                        <aside class="glass-dark w-2/6 rounded-l-none">
+                            <div class="sticky top-8 my-1">
+                                <div class="text-base [&>*]:text-white [&_a]:text-green-400"
+                                    id="toc">
+                                    <h3 class="font-bold uppercase text-lg"><?= t('toc', 'Table of contents') ?></h3>
+
+                                    <?php snippet('blocks/toc') ?>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
                 </div>
             </main>
 
@@ -81,7 +80,7 @@
                         </div>
                     </div>
                 <?php endif ?>
-            </aside>;
+            </aside>
 
             <?= css('assets/css/prism.css') ?>
             <?= js('assets/js/prism.js') ?>

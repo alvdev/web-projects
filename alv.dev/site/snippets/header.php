@@ -45,7 +45,6 @@
             <?= asset('assets/images/header-placeholder.webp') ?>
         </div>
 
-        <div class="fixed -z-10 right-0 -top-[25vw] block w-[50vw] h-[50vw] border-t-transparent border-b-transparent border-r-[#00ff77] border-t-[50vw] border-b-[50vw] border-r-[50vw]">
-        </div>
+     <div class="bg-decoration-square"></div>
     </div>
 </header>

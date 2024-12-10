@@ -29,16 +29,13 @@ snippet('head') ?>
                                 <?= asset('assets/images/header-placeholder.webp') ?>
                             </div>
 
-                            <div
-                                class="fixed -z-10 right-0 -top-[25vw] block w-[50vw] h-[50vw] border-t-transparent border-b-transparent border-r-[#00ff77] border-t-[50vw] border-b-[50vw] border-r-[50vw]">
-                            </div>
+                            <div class="bg-decoration-square"></div>
                         </div>
                     </header>
 
                     <div class="container pl-0 flex flex-1 mt-24">
                         <div id="content" class="scroll-mt-16 w-5/6">
-                            <div
-                                class="bg-white bg-opacity-90 backdrop-blur-md border-y border-r border-gray-900 rounded-r">
+                            <div class="bg-page bg-white border-y border-r border-gray-900">
                                 <div class="container py-16">
                                     <?php snippet('blocks/categories') ?>
                                 </div>
@@ -50,7 +47,18 @@ snippet('head') ?>
 
                                         <?php foreach ($articles as $key => $article) : ?>
                                             <article class="relative">
-                                                <div class="flex justify-between gap-4 text-sm text-gray-500">
+                                                <a href="<?= $article->url() ?>"
+                                                    class="group flex items-center justify-between mb-8 font-bold text-xl transition-all"
+                                                    taget="_blank">
+                                                    <h2 class="font-bold first-letter:uppercase text-2xl">
+                                                        <?= $article->title()->html() ?>
+                                                    </h2>
+                                                    <span class="text-black group-hover:animate-ping">
+                                                        🡭
+                                                    </span>
+                                                </a>
+
+                                                <div class="flex justify-between gap-4 mb-8 bg-gray-950 rounded-full px-3 py-1 text-xs text-gray-400">
                                                     <div class="flex gap-4">
                                                         <?php if ($article->category()->isNotEmpty()) : ?>
                                                             <span class="flex items-center gap-1 [&>svg]:w-3 [&>svg]:h-3">
@@ -71,18 +79,6 @@ snippet('head') ?>
                                                         </span>
                                                     <?php endif ?>
                                                 </div>
-
-                                                <a href="<?= $article->url() ?>"
-                                                    class="group flex items-center justify-between my-4 py-4 font-bold text-xl transition-all"
-                                                    taget="_blank">
-                                                    <h2 class="font-bold first-letter:uppercase text-2xl">
-                                                        <?= $article->title()->html() ?>
-                                                    </h2>
-                                                    <span
-                                                        class="text-black group-hover:animate-ping">
-                                                        🡭
-                                                    </span>
-                                                </a>
 
                                                 <?php if ($article->image()) : ?>
                                                     <img class="float-left rounded-md w-2/5 aspect-video my-2 mr-4 shadow-xl"
@@ -110,8 +106,8 @@ snippet('head') ?>
                             <?php snippet('pagination-ajax') ?>
                         </div>
 
-                        <aside class="w-1/6">
-                            <div class="glass-dark sticky top-16 my-2 rounded-l-none p-8">
+                        <aside class="glass-dark w-1/6 p-0 rounded-l-none">
+                            <div class="sticky top-16 my-2 rounded-l-none p-8">
                                 <?php foreach ($page->children()->listed()->pluck('tags', ',', true) as $tag) : ?>
                                     <a href="<?= url('blog/tag/' . $tag . '#content')  ?>">
                                         <?= html($tag) ?>
