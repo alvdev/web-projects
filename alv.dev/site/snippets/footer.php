@@ -36,6 +36,17 @@
             </ul>
         </div>
 
+        <div class="glass rounded-l-none pl-0 w-2/6 flex flex-col justify-center">
+            <div class="border-l-8 border-dotted border-gray-600 pl-16">
+                <h2 class="text-2xl font-bold">Servicios</h2>
+                <ul class="mt-8 flex flex-col gap-1">
+                    <li><a href="/#projects">Short links</a></li>
+                    <li><a href="/#projects">Email marketing</a></li>
+                    <li><a href="/#projects">Web hosting</a></li>
+                </ul>
+            </div>
+        </div>
+
         <!-- TODO: is it dead code? -->
         <!-- <div id="message"></div> -->
 
