@@ -1,10 +1,10 @@
-<section class="bg-sky-100 bg-opacity-90 backdrop-blur-lg border-t-2 border-white py-28" id="projects">
+<section class="bg-sky-100/90 backdrop-blur-lg border-t-2 border-white py-28" id="projects">
     <div class="container flex gap-24" x-data="{ tab: 1 }">
         <div class="w-2/5">
             <div class="sticky top-8 ">
                 <div class="font-bold leading-none flex flex-wrap flex-col gap-y-2 mb-4">
                     <span class="text-sky-800 text-xl">Proyectos</span>
-                    <h3 class="text-black-800 text-4xl lg:text-5xl xl:text-[64px] tracking-[-1.5px] relative before:rounded-full before:bg-primary before:block before:absolute before:top-[2px] before:left-0 before:-z-[1] before:w-[36px] lg:before:w-[48px] xl:before:w-[64px] before:h-[36px] lg:before:h-[48px] xl:before:h-[64px]">
+                    <h3 class="text-black-800 text-4xl lg:text-5xl xl:text-[64px] tracking-[-1.5px] relative before:rounded-full before:bg-primary before:block before:absolute before:top-[2px] before:left-0 before:-z-1 before:w-[36px] lg:before:w-[48px] xl:before:w-[64px] before:h-[36px] lg:before:h-[48px] xl:before:h-[64px]">
                         Se admiten usuarios
                     </h3>
                 </div>

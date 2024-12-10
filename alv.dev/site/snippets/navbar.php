@@ -24,7 +24,7 @@
             </div>
 
             <div x-data="{ show: false }" x-on:scroll.window="show = window.pageYOffset >= 1000" x-cloak class="fixed bottom-10">
-                <button x-show="show" x-transition x-on:click="window.scrollTo({top: 0})" class="shadow-lg bg-black bg-opacity-60 ring-1 ring-gray-500  w-10 h-10 text-white rounded-full">
+                <button x-show="show" x-transition x-on:click="window.scrollTo({top: 0})" class="shadow-lg bg-black/60 ring-1 ring-gray-500  w-10 h-10 text-white rounded-full">
                     🡱
                 </button>
             </div>

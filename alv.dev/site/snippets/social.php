@@ -16,7 +16,7 @@
     <a href="https://linkedin.com/in/alvdev" target="_blank" class="[&>svg]:fill-white" aria-label="Sígueme en LinkedIn">
       <?= svg('assets/icons/linkedin.svg') ?>
     </a>
-    <a href="https://github.com/alvdev" target="_blank" class="[&>svg]:!fill-white" aria-label="El Github de Alvaro Devesa">
+    <a href="https://github.com/alvdev" target="_blank" class="[&>svg]:fill-white!" aria-label="El Github de Alvaro Devesa">
       <?= svg('assets/icons/github.svg') ?>
     </a>
   </span>

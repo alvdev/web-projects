@@ -1,5 +1,5 @@
 <footer class="container relative mt-28" x-data="{ sent: false }">
-    <div class="relative -z-50 w-full border-6 border-gray-950 rounded"></div>
+    <div class="relative -z-50 w-full border-6 border-gray-950 rounded-xs"></div>
 
     <div class="border border-gray-900 rounded my-20 px-0 flex">
         <div class="glass-dark flex items-center gap-8 w-3/6 rounded-l-none rounded-r-sm">

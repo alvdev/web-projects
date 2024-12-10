@@ -11,8 +11,8 @@
                     <p class="mt-8 text-xl">Además de ser los sectores con los que estoy en contacto constante, son los temas principales de <a class="link-red" href="#">mi blog</a>.</p>
                 </div>
             </div>
-            <div class="bg-page bg-white rounded py-10 px-12 w-3/5 border border-gray-600">
-                <div class="grid grid-cols-2 gap-16 text-base sm:[&>*:nth-child(n+3)]:before:absolute sm:[&>*]:before:border-t sm:[&>*]:before:border-gray-400 sm:before:[&>*]:w-full sm:before:[&>*]:-top-8 sm:after:[&>*:nth-child(odd)]:absolute sm:after:[&>*:nth-child(odd)]:border-r sm:after:[&>*:nth-child(odd)]:-right-8 sm:after:[&>*:nth-child(odd)]:top-0 sm:after:[&>*:nth-child(odd)]:h-full sm:after:[&>*:nth-child(odd)]:border-gray-400">
+            <div class="bg-page bg-white rounded-xs py-10 px-12 w-3/5 border border-gray-600">
+                <div class="grid grid-cols-2 gap-16 text-base sm:[&>*:nth-child(n+3)]:before:absolute sm:*:before:border-t sm:*:before:border-gray-400 sm:*:before:w-full sm:*:before:-top-8 sm:[&>*:nth-child(odd)]:after:absolute sm:[&>*:nth-child(odd)]:after:border-r sm:[&>*:nth-child(odd)]:after:-right-8 sm:[&>*:nth-child(odd)]:after:top-0 sm:[&>*:nth-child(odd)]:after:h-full sm:[&>*:nth-child(odd)]:after:border-gray-400">
                     <div class="relative">
                         <h4>
                             <a href="#" class="flex flex-wrap items-end justify-between font-bold text-xl text-black-800 group-hover:text-orange transition-all">

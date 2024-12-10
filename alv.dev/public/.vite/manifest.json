@@ -1,11 +1,11 @@
 {
   "assets/css/main.css": {
-    "file": "assets/main-CZufXjaC.css",
+    "file": "assets/main-CXRIvtdv.css",
     "src": "assets/css/main.css",
     "isEntry": true
   },
   "assets/css/prism.css": {
-    "file": "assets/prism-jRiRAEwM.css",
+    "file": "assets/prism-BuMDUPsB.css",
     "src": "assets/css/prism.css",
     "isEntry": true
   },
@@ -22,7 +22,7 @@
     "src": "assets/fonts/semibold.woff2"
   },
   "assets/js/main.js": {
-    "file": "assets/main-ypYVmfzW.js",
+    "file": "assets/main-Be0zAMeJ.js",
     "name": "main",
     "src": "assets/js/main.js",
     "isEntry": true

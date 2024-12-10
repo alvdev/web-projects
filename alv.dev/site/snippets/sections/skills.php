@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <div class="bg-white bg-opacity-90 backdrop-blur-lg rounded w-3/5 border border-black">
+            <div class="bg-white/90 backdrop-blur-lg rounded-xs w-3/5 border border-black">
                 <div class="flex flex-col">
                     <div class="relative">
                         <h4 class="bg-gray-900 text-white inline-block px-12 py-2 min-w-[50%]">

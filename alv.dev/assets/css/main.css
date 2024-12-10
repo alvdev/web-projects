@@ -1,69 +1,203 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-[x-cloak] {
+@config '../../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility btn-primary {
+    @apply rounded-lg bg-gray-950 px-6 py-4 text-(--brand-green);
+}
+
+@utility btn-primary-outline {
+  @apply rounded-lg border border-gray-900 px-6 py-4 text-gray-950;
+}
+
+@utility glass {
+  @apply rounded-xs bg-white/90 p-16 backdrop-blur-lg;
+}
+
+@utility glass-pr {
+  @apply glass pl-0!;
+}
+
+@utility glass-pl {
+  @apply glass pl-16;
+}
+
+@utility glass-dark {
+  @apply rounded-xs bg-gray-950/90 p-16 **:text-white/80 backdrop-blur-lg [&_a]:text-lime-400;
+}
+
+@utility bg-page {
+  @apply relative after:block after:bg-gray-950/30 after:w-[calc(50%+1rem)] after:h-[calc(100%+1.5rem)] after:absolute after:-z-10 after:-top-3 after:-right-3 after:rounded-md after:[box-shadow:0_0_50px_rgb(0_0_0_/_30%)];
+}
+
+@utility bg-decoration-square {
+  @apply bg-[#00ff77] h-full right-0 fixed w-1/2 -z-10 top-0;
+}
+
+@utility bg-decoration-triangle {
+  @apply fixed -z-10 right-0 -top-[25vw] block w-[45vw] h-[45vw] border-t-transparent border-b-transparent border-r-[#00ff77] border-t-[45vw] border-b-[45vw] border-r-[45vw];
+}
+
+@utility link {
+  @apply relative z-0 self-start leading-none text-black drop-shadow-md transition-all after:absolute after:-left-[0.2em] after:bottom-0 after:-z-10 after:h-2 after:w-[calc(100%+0.4em)] after:-skew-x-12 after:bg-slate-300 after:transition-all after:duration-300 hover:after:h-full [&>.arrow]:ml-1 [&>.arrow]:text-sm;
+}
+
+@utility link-xl {
+  @apply link text-2xl drop-shadow-lg after:h-3 hover:after:h-[calc(100%-0.1rem)] [&>.arrow]:text-lg;
+}
+
+@utility link-2xl {
+  @apply link text-3xl drop-shadow-xl! after:h-3.25! hover:after:h-[calc(100%-0.05rem)]! [&>.arrow]:text-2xl!;
+}
+
+@utility link-green {
+  @apply link after:bg-[hsl(148,100%,50%)];
+}
+
+@utility link-green-xl {
+  @apply link-xl link-green;
+}
+
+@utility link-green-2xl {
+  @apply link-2xl link-green;
+}
+
+@utility link-blue {
+  @apply link after:bg-sky-300;
+}
+
+@utility link-blue-xl {
+  @apply link-xl link-blue;
+}
+
+@utility link-blue-2xl {
+  @apply link-2xl link-blue;
+}
+
+@utility link-yellow {
+  @apply link after:bg-amber-300;
+}
+
+@utility link-yellow-xl {
+  @apply link-xl link-yellow;
+}
+
+@utility link-yellow-2xl {
+  @apply link-2xl link-yellow;
+}
+
+@utility link-red {
+  @apply link after:bg-rose-300;
+}
+
+@utility link-red-xl {
+  @apply link-xl link-red;
+}
+
+@utility link-red-2xl {
+  @apply link-2xl link-red;
+}
+
+@utility link-violet {
+  @apply link after:bg-violet-300;
+}
+
+@utility link-violet-xl {
+  @apply link-xl link-violet;
+}
+
+@utility link-violet-2xl {
+  @apply link-2xl link-violet;
+}
+
+@utility screen-effect {
+  /*  .glass {
+        @apply relative z-10 bg-opacity-80 after:absolute after:-left-10 after:-top-8 after:-z-10 after:h-[calc(100%+4rem)] after:w-[calc(100%+5rem)] after:rounded-md after:border-2 after:border-white/50 after:bg-white/80 after:backdrop-blur-sm;
+    } */
+  @apply relative [&>img]:backdrop-filter [&>img]:after:absolute [&>img]:after:h-full [&>img]:after:w-full [&>img]:after:border-4 [&>img]:after:bg-[url('/assets/images/screen-effect-overlay.png')];
+}
+
+@layer utilities {
+  [x-cloak] {
     display: none !important;
-}
+  }
 
-@keyframes fade {
+  @keyframes fade {
     from {
-        opacity: 0;
+      opacity: 0;
     }
 
     to {
-        opacity: 1;
+      opacity: 1;
     }
-}
+  }
 
-@keyframes show {
+  @keyframes show {
     from {
-        opacity: 0;
-        scale: 70%;
+      opacity: 0;
+      scale: 70%;
     }
     to {
-        opacity: 1;
-        scale: 100%;
+      opacity: 1;
+      scale: 100%;
     }
-}
+  }
 
-img {
+  img {
     view-timeline-name: --reveal;
     animation-name: show;
     animation-fill-mode: both;
     animation-timeline: --reveal;
-}
+  }
 
-main {
+  main {
     animation: fade 750ms;
-}
+  }
 
-/* Change Autocomplete styles in Chrome*/
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  -webkit-text-fill-color: #00ff77;
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  box-shadow: 0 0 0px 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
-  caret-color: #00ff77;
-}
+  /* Change Autocomplete styles in Chrome*/
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: #00ff77;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    box-shadow: 0 0 0px 1000px transparent inset;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: #00ff77;
+  }
 
-textarea::-webkit-scrollbar {
+  textarea::-webkit-scrollbar {
     width: 8px;
     height: 10px;
-
   }
-textarea::-webkit-scrollbar-thumb {
+  textarea::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background: #c2c9d2;
   }
+}
 
 @layer base {
     @font-face {
@@ -114,7 +248,7 @@ textarea::-webkit-scrollbar-thumb {
     }
 
     .prose {
-        @apply !prose-lg;
+        @apply prose-lg!;
     }
 
     .prose > figure {
@@ -127,115 +261,10 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 @layer components {
-    .btn-primary {
-        @apply rounded-lg bg-gray-950 px-6 py-4 text-[#00ff77];
-    }
-
-    .btn-primary-outline {
-        @apply rounded-lg border border-gray-900 px-6 py-4 text-gray-950;
-    }
 
     :not(pre) > code[class*='language-'],
     pre[class*='language-'] {
-        @apply !bg-gray-950 bg-opacity-90;
-    }
-
-    .glass {
-        @apply rounded bg-white bg-opacity-90 p-16 backdrop-blur-lg;
-    }
-
-    .glass-pr {
-        @apply glass !pl-0;
-    }
-
-    .glass-pl {
-        @apply glass pl-16;
-    }
-
-    .glass-dark {
-        @apply rounded bg-gray-950 bg-opacity-90 p-16 [&_*]:text-white text-opacity-80 backdrop-blur-lg [&_a]:text-lime-400;
-    }
-    
-    .bg-page {
-        @apply relative after:block after:bg-gray-950 after:bg-opacity-30 after:w-[calc(50%+1rem)] after:h-[calc(100%+1.5rem)] after:absolute after:-z-10 after:-top-3 after:-right-3 after:rounded-md after:[box-shadow:0_0_50px_rgb(0_0_0_/_30%)];
-    }
-    
-    .bg-decoration-square {
-        @apply bg-[#00ff77] h-full right-0 fixed w-1/2 -z-10 top-0
-    }
-
-    .bg-decoration-triangle {
-        @apply fixed -z-10 right-0 -top-[25vw] block w-[45vw] h-[45vw] border-t-transparent border-b-transparent border-r-[#00ff77] border-t-[45vw] border-b-[45vw] border-r-[45vw];
-    }
-}
-
-@layer utilities {
-    .link {
-        @apply relative z-0 self-start leading-none text-black drop-shadow-md transition-all after:absolute after:-left-[0.2em] after:bottom-0 after:-z-10 after:h-2 after:w-[calc(100%+0.4em)] after:-skew-x-12 after:bg-slate-300 after:transition-all after:duration-300 hover:after:h-full [&>.arrow]:ml-1 [&>.arrow]:text-sm;
-    }
-    .link-xl {
-        @apply link text-2xl drop-shadow-lg after:bottom-1 after:h-3 hover:after:h-[calc(100%-0.5rem)] [&>.arrow]:text-lg !important;
-    }
-    .link-2xl {
-        @apply link text-3xl drop-shadow-xl after:bottom-0.5 after:h-3.5 hover:after:h-[calc(100%-0.3rem)] [&>.arrow]:text-xl !important;
-    }
-
-    .link-green {
-        @apply link after:bg-[hsl(148,100%,50%)];
-    }
-    .link-green-xl {
-        @apply link-xl link-green;
-    }
-    .link-green-2xl {
-        @apply link-2xl link-green;
-    }
-
-    .link-blue {
-        @apply link after:bg-sky-300;
-    }
-    .link-blue-xl {
-        @apply link-xl link-blue;
-    }
-    .link-blue-2xl {
-        @apply link-2xl link-blue;
-    }
-
-    .link-yellow {
-        @apply link after:bg-amber-300;
-    }
-    .link-yellow-xl {
-        @apply link-xl link-yellow;
-    }
-    .link-yellow-2xl {
-        @apply link-2xl link-yellow;
-    }
-
-    .link-red {
-        @apply link after:bg-rose-300;
-    }
-    .link-red-xl {
-        @apply link-xl link-red;
-    }
-    .link-red-2xl {
-        @apply link-2xl link-red;
-    }
-
-    .link-violet {
-        @apply link after:bg-violet-300;
-    }
-    .link-violet-xl {
-        @apply link-xl link-violet;
-    }
-    .link-violet-2xl {
-        @apply link-2xl link-violet;
-    }
-
-    /*  .glass {
-        @apply relative z-10 bg-opacity-80 after:absolute after:-left-10 after:-top-8 after:-z-10 after:h-[calc(100%+4rem)] after:w-[calc(100%+5rem)] after:rounded-md after:border-2 after:border-white after:border-opacity-50 after:bg-white after:bg-opacity-80 after:backdrop-blur;
-    } */
-
-    .screen-effect {
-        @apply relative [&>img]:backdrop-filter [&>img]:after:absolute [&>img]:after:h-full [&>img]:after:w-full [&>img]:after:border-4 [&>img]:after:bg-[url('/assets/images/screen-effect-overlay.png')];
+        @apply bg-gray-950/90!;
     }
 }
 
@@ -246,6 +275,7 @@ textarea::-webkit-scrollbar-thumb {
     --brand-cyan-dark: #63adf2ff;
     --brand-cyan: #a7ccedff;
     --brand-cyan-light: #82a0bcff;
+    --brand-green: #00ff77ff;
 }
 
 /* CSS HSL */

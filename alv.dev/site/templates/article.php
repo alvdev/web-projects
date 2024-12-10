@@ -7,7 +7,7 @@
     <div class="flex">
         <?php snippet('navbar') ?>
 
-        <div class="">
+        <div>
             <main class="flex flex-col">
                 <header class="container mt-20">
                     <hgroup class="container">
@@ -32,13 +32,13 @@
 
                 <div class="container mt-16 pl-0">
                     <div class="bg-page flex border-y border-gray-900">
-                        <div class="prose max-w-full bg-white py-8 flex-1 [&>h2>a]:no-underline [&>h2>a]:scroll-mt-8 [&>*:not(figure)]:px-[5vw] [&>pre]:!ml-[5vw] [&>pre]:!rounded-r-none">
+                        <div class="prose max-w-full bg-white py-8 flex-1 [&>h2>a]:no-underline [&>h2>a]:scroll-mt-8 [&>*:not(figure)]:px-[5vw] [&>pre]:ml-[5vw]! [&>pre]:rounded-r-none!">
                             <?= $page->text()->toBlocks() ?>
                         </div>
 
                         <aside class="glass-dark w-2/6 rounded-l-none">
                             <div class="sticky top-8 my-1">
-                                <div class="text-base [&>*]:text-white [&_a]:text-green-400"
+                                <div class="text-base *:text-white [&_a]:text-green-400"
                                     id="toc">
                                     <h3 class="font-bold uppercase text-lg"><?= t('toc', 'Table of contents') ?></h3>
 
@@ -52,13 +52,13 @@
 
             <aside class="container mt-28">
                 <?php if ($page->similar()->count() > 0) : ?>
-                    <div class="border border-gray-900 rounded p-16 bg-white bg-opacity-90 backdrop-blur-md">
+                    <div class="border border-gray-900 rounded-xs p-16 bg-white/90 backdrop-blur-md">
                         <h3 class="inline-block font-bold text-5xl">
                             <?= t('related_articles') ?>
                         </h3>
 
                         <div
-                            class="mt-12 grid grid-cols-2 gap-16 sm:[&>*:nth-child(n+3)]:before:absolute sm:[&>*]:before:border-t sm:[&>*]:before:border-gray-950 sm:before:[&>*]:w-full sm:before:[&>*]:-top-8 sm:after:[&>*:nth-child(odd)]:absolute sm:after:[&>*:nth-child(odd)]:border-r sm:after:[&>*:nth-child(odd)]:-right-8 sm:after:[&>*:nth-child(odd)]:top-0 sm:after:[&>*:nth-child(odd)]:h-full sm:after:[&>*:nth-child(odd)]:border-gray-950">
+                            class="mt-12 grid grid-cols-2 gap-16 sm:[&>*:nth-child(n+3)]:before:absolute sm:*:before:border-t sm:*:before:border-gray-950 sm:*:before:w-full sm:*:before:-top-8 sm:[&>*:nth-child(odd)]:after:absolute sm:[&>*:nth-child(odd)]:after:border-r sm:[&>*:nth-child(odd)]:after:-right-8 sm:[&>*:nth-child(odd)]:after:top-0 sm:[&>*:nth-child(odd)]:after:h-full sm:[&>*:nth-child(odd)]:after:border-gray-950">
 
                             <?php foreach (
                                 $page->similar([

@@ -2,7 +2,7 @@
     <nav id="pagination" class="relative z-10 text-xl font-bold text-center flex justify-center -my-12" x-data="{page: 1}">
         <!-- Load more -->
         <a href="#"
-            class="flex w-24 rounded-full ring-[1rem] ring-white uppercase text-[#00ff77] [&>svg]:hover:animate-[spin_3s_linear_infinite] [svg>svg]:hover:origin-center"
+            class="flex w-24 rounded-full ring-[1rem] ring-white uppercase text-[#00ff77] hover:[&>svg]:animate-[spin_3s_linear_infinite] hover:[svg>svg]:origin-center"
             :href="'/blog/page:' + page + '#results'" x-on:click="page++"
             :class="page >= <?= $pagination->pages() ?> ? 'invisible' : ''" x-init x-target="results">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">

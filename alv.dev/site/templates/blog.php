@@ -42,7 +42,7 @@ snippet('head') ?>
 
                                 <?php if ($articles->isNotEmpty()) : ?>
                                     <div id="results"
-                                        class="container py-16 border-t border-black grid grid-cols-2 gap-16 rounded-l-none sm:[&>*:nth-child(n+3)]:before:absolute sm:[&>*]:before:border-t sm:[&>*]:before:border-gray-400 sm:before:[&>*]:w-full sm:before:[&>*]:-top-8 sm:after:[&>*:nth-child(odd)]:absolute sm:after:[&>*:nth-child(odd)]:border-r sm:after:[&>*:nth-child(odd)]:-right-8 sm:after:[&>*:nth-child(odd)]:top-0 sm:after:[&>*:nth-child(odd)]:h-full sm:after:[&>*:nth-child(odd)]:border-gray-400"
+                                        class="container py-16 border-t border-black grid grid-cols-2 gap-16 rounded-l-none sm:[&>*:nth-child(n+3)]:before:absolute sm:*:before:border-t sm:*:before:border-gray-400 sm:*:before:w-full sm:*:before:-top-8 sm:[&>*:nth-child(odd)]:after:absolute sm:[&>*:nth-child(odd)]:after:border-r sm:[&>*:nth-child(odd)]:after:-right-8 sm:[&>*:nth-child(odd)]:after:top-0 sm:[&>*:nth-child(odd)]:after:h-full sm:[&>*:nth-child(odd)]:after:border-gray-400"
                                         x-merge="append">
 
                                         <?php foreach ($articles as $key => $article) : ?>
