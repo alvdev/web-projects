@@ -29,9 +29,9 @@
                             Pegadas en...
                         </h3>
                         <ul class="grid grid-cols-2 gap-2 p-0 m-0 list-none md:grid-cols-3 lg:grid-cols-1 lg:gap-4">
-                            <li class="p-0 m-0">
+                            {# <li class="p-0 m-0">
                                 <a href="#instagram" class="btn !block !m-0 !px-2 !py-1 text-lg lg:text-xl lg:!p-4 text-center">Recientes</a>
-                            </li>
+                            </li> #}
                             {% for gallery in galleries %}
                                 <li class="p-0 m-0">
                                     <a href="#{{ gallery.title }}" class="btn !block !m-0 !px-2 !py-1 text-lg lg:text-xl lg:!p-4 text-center">{{ gallery.title }}</a>
@@ -44,9 +44,9 @@
                 <div class="relative flex flex-col overflow-hidden">
                     <div id="instagram" class="[&>h3]:mt-0 p-0">
                         {{ page.content|raw }}
-                        <h2 id="{{ gallery.title }}" class="lg:mt-16 left-0 scroll-mt-80 md:scroll-mt-72 lg:scroll-mt-40 bg-skew2 wall-full">
+                        {# <h2 id="{{ gallery.title }}" class="lg:mt-16 left-0 scroll-mt-80 md:scroll-mt-72 lg:scroll-mt-40 bg-skew2 wall-full">
                             <span class="bg-black text-white px-8 py-4 shadow-[0_0_0_4px_black] border-4 border-white relative left-2 rotate-2 top-1 inline-block">Recientes</span>
-                        </h2>
+                        </h2> #}
                     </div>
                     {# {{ deferred_instagram_feed() }} #}
                     {# {{ instagram_feed()|raw }} #}
