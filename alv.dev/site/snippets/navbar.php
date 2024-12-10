@@ -1,4 +1,4 @@
-<nav class="relative bg-gray-950 px-8 py-8 text-white text-base text-opacity-80">
+<nav class="relative bg-gray-950 px-16 py-8 text-white text-base text-opacity-80">
     <div class="sticky z-10 top-8">
         <?php
         /* In the menu, we only fetch listed pages, i.e. the pages that have a prepended number in their foldername.  We do not want to display links to unlisted `error`, `home`, or `sandbox` pages.  More about page status: https://getkirby.com/docs/reference/panel/blueprints/page#statuses */
