@@ -52,14 +52,13 @@
 
     </div>
 
-    <div>
-        <ul
-            class="flex justify-end relative -top-9 divide-x divide-black/30 gap-4 *:not-last:pr-4 text-sm [&>li>a]:text-black/70 [&>li>a]:hover:text-black/100">
-            <li><a href="aviso-legal">Legal</a></li>
-            <li><a href="politica-de-privacidad">Privacidad</a></li>
-            <li><a href="politica-de-cookies">Cookies</a></li>
+    <?php if ($pages->find('legal')->hasChildren()) : ?>
+        <ul class="flex justify-end relative -top-9 divide-x divide-black/30 gap-4 *:not-last:pr-4 text-sm [&>li>a]:text-black/70 [&>li>a]:hover:text-black/100">
+            <?php foreach ($pages->find('legal')->children() as $page): ?>
+                <li><a href="<?= $page->url() ?>"><?= $page->title() ?></a></li>
+            <?php endforeach ?>
         </ul>
-    </div>
+    <?php endif ?>
 </footer>
 
 <?=

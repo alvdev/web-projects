@@ -3,7 +3,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= $page->description()->or($site->description())->esc() ?>">
     <title><?= $page->title()->esc() ?> | <?= $site->title()->esc() ?></title>
-    <link rel="shortcut icon" type="image/x-icon" href="<?= $site->files()->findBy('template', 'favicon')->url() ?? '/favicon.ico' ?>">
+    <link rel="shortcut icon" type="image/x-icon"
+          href="<?= $site->files()->findBy('template', 'favicon')->url() ?? '/favicon.ico' ?>">
+
     <?= vite()->css('assets/css/main.css') ?>
     <?= vite()->js('assets/js/main.js') ?>
+
+    <?php if ($page->text()->toBlocks()->filterBy('type', 'code')->isNotEmpty() == 'true'): ?>
+    <?= vite()->css('assets/css/hljs-ir-black.css') ?>
+    <?php endif ?>
 </head>
