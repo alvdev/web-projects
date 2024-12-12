@@ -5,7 +5,7 @@ export default ({ mode }) => ({
   // During development the assets are served directly from vite's dev server
   // e.g. `localhost:5173/index.js`, but for production they are placed inside
   // the `build.outDir`, `/dist/` in this case.
-  base: mode === 'development' ? '/' : '/dist/',
+  base: mode === 'development' ? '/' : '/public/',
 
   build: {
     // Where your manifest an bundled assets will be placed. This example
@@ -19,7 +19,12 @@ export default ({ mode }) => ({
     // `main.js` as an entry and import the CSS in your JS file. In this case
     // you would use the JS file name: `vite()->css('main.js')`.
     rollupOptions: {
-      input: ['assets/js/main.js', 'assets/css/main.css', 'assets/css/prism.css'],
+      input: [
+        'assets/js/main.js',
+        'assets/css/main.css',
+        'assets/css/prism.css',
+        'assets/js/prism.js',
+      ],
     },
   },
 
