@@ -17,3 +17,14 @@
 !/user/themes/
 /user/themes/*
 !/user/themes/alfa
+
+!/area/
+/area/*
+!/area/app/
+/area/app/*
+!/area/app/views/
+/area/app/views/*
+!/area/app/views/client/
+/area/app/views/client/*
+!/area/app/views/client/alfa/
+
