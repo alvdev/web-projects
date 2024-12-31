@@ -294,15 +294,17 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
                 ?>
             </div>
 
-            <div class="container-fluid">
+            <!-- <div class="container-fluid">
                 <div class="row footer">
                     <div class="col-md-12">
                         <hr />
                         <p class="text-center m-3">Powered by <a href="http://www.blesta.com/">Blesta</a>, &copy; Phillips Data, Inc.</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
+        
+        <?php require_once('partials/footer.php'); ?>
 
         <div class="modal fade" id="global_modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
