@@ -22,8 +22,9 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
         }
         ?>
 
-        <link href="<?php echo $this->view_dir;?>css/application.min.css" rel="stylesheet" type="text/css" />
-        <?php
+        <!-- <link href="<?php echo $this->view_dir;?>css/application.min.css" rel="stylesheet" type="text/css" /> -->
+        <link href="<?php echo $this->view_dir;?>dist/main.css" rel="stylesheet" type="text/css" />
+        <!-- <?php
         // Theme CSS
         if (isset($theme_css)) {
         ?>
@@ -35,7 +36,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
         <link href="<?php echo $this->view_dir;?>css/rtl.css" rel="stylesheet" type="text/css" media="screen" />
         <?php
         }
-        ?>
+        ?> -->
         <link href="<?php echo $this->view_dir;?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo $this->view_dir;?>css/font-awesome-shims.min.css" rel="stylesheet" type="text/css" />
 
