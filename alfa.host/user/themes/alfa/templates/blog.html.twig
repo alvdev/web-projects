@@ -1,6 +1,6 @@
 {% extends "partials/base.html.twig" %}
 
-{% set banner_classes = 'rounded shadow w-full' %}
+{% set banner_classes = 'rounded-xs shadow-2xs w-full' %}
 {% set banner_top = media['user://images/banners/970x90-5.png'].loading('lazy').html('', 'alt text', banner_classes)  %}
 {% set banner_mid = media['user://images/banners/970x90-5.png'].loading('lazy').html('', 'alt text', banner_classes)  %}
 {% set banner_bot = media['user://images/banners/970x90-5.png'].loading('lazy').html('', 'alt text', banner_classes)  %}
@@ -15,8 +15,8 @@
 
                 <div class="">
                     <form class="flex flex-col justify-around w-full gap-2 sm:flex-row" action="#">
-                        <input class="w-full px-4 py-3 text-xl font-semibold uppercase rounded focus:outline-none focus:ring focus:ring-gray-300 border-none" type="text" placeholder="¿Qué quieres aprender hoy?">
-                        <button class="flex justify-center items-center w-1/3 p-4 text-white uppercase bg-black rounded shadow-md hover:shadow-inner">
+                        <input class="w-full px-4 py-3 text-xl font-semibold uppercase rounded-xs focus:outline-hidden focus:ring-3 focus:ring-gray-300 border-none" type="text" placeholder="¿Qué quieres aprender hoy?">
+                        <button class="flex justify-center items-center w-1/3 p-4 text-white uppercase bg-black rounded-xs shadow-md hover:shadow-inner">
                             Buscar
                         </button>
                     </form>
@@ -30,23 +30,23 @@
 {% endblock %}
 
 {% block content %}
-    <section id="posts-featured" class="rounded-md overflow-hidden bg-gradient-to-b from-blue-400 via-blue-400/25 to-transparent p-1 text-white flex w-11/12 mx-auto -mt-16 relative">
+    <section id="posts-featured" class="rounded-md overflow-hidden bg-linear-to-b from-blue-400 via-blue-400/25 to-transparent p-1 text-white flex w-11/12 mx-auto -mt-16 relative">
         <article class="relative bg-gray-300 shadow-2xl w-1/2">
-            <img loading="lazy" class="rounded" src="https://picsum.photos/1000/500.webp?random=1" alt="">
-            <div class="p-8 pt-14 absolute bottom-0 bg-gradient-to-t from-black via-black/75 to-transparent">
+            <img loading="lazy" class="rounded-xs" src="https://picsum.photos/1000/500.webp?random=1" alt="">
+            <div class="p-8 pt-14 absolute bottom-0 bg-linear-to-t from-black via-black/75 to-transparent">
                 <h2 class="text-xl font-medium drop-shadow">Lorem ipsum dolor</h2>
                 <p class="text-gray-300 mt-2 text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nemo neque aperiam aspernatur, nam minima modi architecto laboriosam illo, et id sequi?</p>
             </div>
-            <div class="w-full text-xs uppercase absolute top-0 pt-4 pb-12 px-8 bg-gradient-to-b from-blue-400 via-blue-400/75 to-transparent">category: tags</div>
+            <div class="w-full text-xs uppercase absolute top-0 pt-4 pb-12 px-8 bg-linear-to-b from-blue-400 via-blue-400/75 to-transparent">category: tags</div>
         </article>
 
         <article class="relative bg-gray-300 shadow-2xl w-1/2">
-            <img loading="lazy" class="rounded" src="https://picsum.photos/1000/500.webp?random=2" alt="">
-            <div class="p-8 pt-14 absolute bottom-0 bg-gradient-to-t from-black via-black/75 to-transparent">
+            <img loading="lazy" class="rounded-xs" src="https://picsum.photos/1000/500.webp?random=2" alt="">
+            <div class="p-8 pt-14 absolute bottom-0 bg-linear-to-t from-black via-black/75 to-transparent">
                 <h2 class="text-xl font-medium drop-shadow">Lorem ipsum dolor</h2>
                 <p class="text-gray-300 mt-2 text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nemo neque aperiam aspernatur, nam minima modi architecto laboriosam illo, et id sequi?</p>
             </div>
-            <div class="w-full text-xs uppercase absolute top-0 pt-4 pb-12 px-8 bg-gradient-to-b from-blue-400 via-blue-400/75 to-transparent">category: tags</div>
+            <div class="w-full text-xs uppercase absolute top-0 pt-4 pb-12 px-8 bg-linear-to-b from-blue-400 via-blue-400/75 to-transparent">category: tags</div>
         </article>
     </section>
 
@@ -56,7 +56,7 @@
         <div class="flex flex-col gap-16 flex-1">
             <section id="posts-top" class="grid grid-cols-2 gap-8">
                 <article class="relative">
-                    <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=1" alt="">
+                    <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/900/450.webp?random=1" alt="">
                     <div class="relative mt-8">
                         <h2 class="text-2xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
                         <div class="mt-2 flex gap-4 text-gray-400 text-sm">
@@ -64,12 +64,12 @@
                             <span>tags</span>
                         </div>
                         <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
-                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded py-1 px-4">More</a>
+                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded-xs py-1 px-4">More</a>
                     </div>
                 </article>
 
                 <article class="relative">
-                    <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=2" alt="">
+                    <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/900/450.webp?random=2" alt="">
                     <div class="relative mt-8">
                         <h2 class="text-2xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
                         <div class="mt-2 flex gap-4 text-gray-400 text-sm">
@@ -77,7 +77,7 @@
                             <span>tags</span>
                         </div>
                         <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
-                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded py-1 px-4">More</a>
+                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded-xs py-1 px-4">More</a>
                     </div>
                 </article>
             </section>
@@ -89,13 +89,13 @@
                         <span class="block text-4xl text-blue-600">El Camino</span>
                         <span class="block text-3xl leading-none">de emprendedor a empresario digital</span>
                         <div class="mt-8 w-max m-auto">{{ ceed_img|raw }}</div>
-                        <a href="#" class="mt-4 inline-block bg-blue-600 text-white py-4 px-8 uppercase rounded">Descargar el camino</a>
+                        <a href="#" class="mt-4 inline-block bg-blue-600 text-white py-4 px-8 uppercase rounded-xs">Descargar el camino</a>
                     </div>
 
                     <div class="flex flex-col w-1/2 gap-8 self-start sticky top-24">
                         <article class="flex gap-4 content-between">
                             <div class="w-1/2">
-                                <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/400/200.webp?random=1" alt="">
+                                <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/400/200.webp?random=1" alt="">
                             </div>
                             <div class="flex flex-col w-1/2 justify-center gap-1">
                                 <h3 class="text-base font-medium leading-tight">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, dolorem.</h3>
@@ -105,7 +105,7 @@
 
                         <article class="flex gap-4 content-between">
                             <div class="w-1/2">
-                                <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/400/200.webp?random=2" alt="">
+                                <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/400/200.webp?random=2" alt="">
                             </div>
                             <div class="flex flex-col w-1/2 justify-center gap-1">
                                 <h3 class="text-base font-medium leading-tight">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, dolorem.</h3>
@@ -118,7 +118,7 @@
                 <div class="flex gap-12 mt-12">
                     <article class="flex gap-4 content-between">
                         <div class="w-1/2">
-                            <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/400/200.webp?random=3" alt="">
+                            <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/400/200.webp?random=3" alt="">
                         </div>
                         <div class="flex flex-col w-1/2 justify-center gap-1">
                             <h3 class="text-base font-medium leading-tight">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, dolorem.</h3>
@@ -128,7 +128,7 @@
 
                     <article class="flex gap-4 content-between">
                         <div class="w-1/2">
-                            <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/400/200.webp?random=4" alt="">
+                            <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/400/200.webp?random=4" alt="">
                         </div>
                         <div class="flex flex-col w-1/2 justify-center gap-1">
                             <h3 class="text-base font-medium leading-tight">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, dolorem.</h3>
@@ -143,7 +143,7 @@
         {% include 'modular/blog-categories.html.twig' %}
     </div>
 
-    <section id="posts-mid" class="mt-16 bg-gradient-to-r from-black to-gray-600 flex flex-col gap-12 justify-between text-white md:flex-row">
+    <section id="posts-mid" class="mt-16 bg-linear-to-r from-black to-gray-600 flex flex-col gap-12 justify-between text-white md:flex-row">
         <div class="md:flex-1">
             <div class="flex flex-col gap-12 py-12 pl-[4.16vw] h-full">
                 <hgroup class="flex flex-col gap-6 flex-1 font-extralight">
@@ -190,7 +190,7 @@
             <h3 class="leading-tight font-medium">Plugins recomendados</h3>
             <article class="flex gap-4 pt-4 content-between">
                 <div class="w-1/3">
-                    <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/200/200.webp?random=1" alt="" width="200" height="200">
+                    <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/200/200.webp?random=1" alt="" width="200" height="200">
                 </div>
                 <div class="flex flex-col w-1/2 justify-center gap-1">
                     <h3 class="text-base font-medium leading-tight">Lorem ipsum dolor sit amet</h3>
@@ -200,7 +200,7 @@
 
             <article class="flex gap-4 pt-4 content-between">
                 <div class="w-1/3">
-                    <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/200/200.webp?random=2" alt="" width="200" height="200">
+                    <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/200/200.webp?random=2" alt="" width="200" height="200">
                 </div>
                 <div class="flex flex-col w-1/2 justify-center gap-1">
                     <h3 class="text-base font-medium leading-tight">Lorem ipsum dolor sit amet</h3>
@@ -212,7 +212,7 @@
         <div class="flex flex-col gap-8 flex-1">
             <section id="posts-bot" class="grid grid-cols-2 gap-8">
                 <article class="relative">
-                    <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=1" alt="" width="900" height="450">
+                    <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/900/450.webp?random=1" alt="" width="900" height="450">
                     <div class="relative mt-8">
                         <h2 class="text-2xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
                         <div class="mt-2 flex gap-4 text-gray-400 text-sm">
@@ -220,12 +220,12 @@
                             <span>tags</span>
                         </div>
                         <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
-                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded py-1 px-4">More</a>
+                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded-xs py-1 px-4">More</a>
                     </div>
                 </article>
 
                 <article class="relative">
-                    <img loading="lazy" class="rounded shadow-2xl" src="https://picsum.photos/900/450.webp?random=2" alt="" width="900" height="450">
+                    <img loading="lazy" class="rounded-xs shadow-2xl" src="https://picsum.photos/900/450.webp?random=2" alt="" width="900" height="450">
                     <div class="relative mt-8">
                         <h2 class="text-2xl font-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, tempore?</h2>
                         <div class="mt-2 flex gap-4 text-gray-400 text-sm">
@@ -233,7 +233,7 @@
                             <span>tags</span>
                         </div>
                         <p class="text-base mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quis officia numquam voluptatum voluptas dignissimos, incidunt deleniti expedita ex ducimus cumque dolore esse? Dicta architecto doloribus in odit odio eum ea sint ipsa illo molestias corporis, modi ad nemo possimus. Iste officiis sed minima adipisci quia quos velit debitis eum...</p>
-                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded py-1 px-4">More</a>
+                        <a href="#" class="inline-block float-right uppercase text-sm border-2 border-black rounded-xs py-1 px-4">More</a>
                     </div>
                 </article>
             </section>

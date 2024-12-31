@@ -1,14 +1,31 @@
 /*@import 'yourcssfile.css';*/
 
 /* Write your global styles here, in PostCSS syntax */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer utilities {
-    .cursor-grab {
-        cursor: grab;
-    }
+@import 'tailwindcss';
+
+@config "../tailwind.config.js";
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility cursor-grab {
+  cursor: grab;
 }
 
 @layer base {
@@ -51,7 +68,7 @@
     }
 
     .glide__bullets button {
-        @apply w-2 h-2 rounded bg-gray-400 mx-1;
+        @apply w-2 h-2 rounded-sm bg-gray-400 mx-1;
     }
 
     .glide__bullets button:hover,
@@ -84,20 +101,20 @@
     }
 
     .glide-email .glide__slide {
-        @apply bg-black bg-opacity-50 h-full w-full relative rounded-md;
+        @apply bg-black/50 h-full w-full relative rounded-md;
     }
 
     .glide-email img {
-        @apply rounded relative w-full;
+        @apply rounded-sm relative w-full;
     }
 
     .glide-email .glide__slide .overlay {
-        @apply bg-black bg-opacity-30 h-full w-full absolute z-10 top-0 rounded transition duration-200 shadow-2xl;
+        @apply bg-black/30 h-full w-full absolute z-10 top-0 rounded-sm transition duration-200 shadow-2xl;
         content: '';
     }
 
     .glide-email .glide__slide .overlay:hover {
-        @apply bg-opacity-0 shadow-md transition duration-500;
+        @apply bg-black/0 shadow-md transition duration-500;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -256,7 +273,7 @@
     }
 
     nav.sticky:before {
-        @apply bg-white bg-opacity-90 backdrop-filter backdrop-blur-md;
+        @apply bg-white/90 backdrop-filter backdrop-blur-md;
         content: '';
         position: absolute;
         left: 0;
