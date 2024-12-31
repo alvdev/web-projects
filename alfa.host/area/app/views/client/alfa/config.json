@@ -1,14 +1,14 @@
 {
-	"version": "1.0.0",
-	"name": "Alfa",
-	"description": "Built on Tailwind 4",
-	"authors": [
-		{
-			"name": "Alv Dev",
-			"url": "https://alv.dev"
-		}
-	],
-	"require": {
-		"blesta": ">=5.0.0"
-	}
+  "version": "1.0.0",
+  "name": "Alfa",
+  "description": "Built on Tailwind 4",
+  "authors": [
+    {
+      "name": "Alv Dev",
+      "url": "https://alv.dev"
+    }
+  ],
+  "require": {
+    "blesta": ">=5.0.0"
+  }
 }
