@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+@utility container {
+    margin-inline: auto;
+}
+
+[popover] {
+  display: none;
+  opacity: 0;
+  transition:
+    opacity 300ms,
+    display 300ms allow-discrete,
+    overlay 500ms allow-discrete;
+
+  &:popover-open {
+    display: block;
+    opacity: 1;
+  }
+}
+
+header,
+footer {
+  background-image: radial-gradient(farthest-corner at 40px 40px, #1d4ed8 0%, #0037ad 100%);
+}
