@@ -243,7 +243,7 @@
                 <div>
                     LOGO
                 </div>
-                <div class="ccards flex gap-2 w-full">
+                <div class="[&_path]:stroke-white [&_g]:fill-white [&_path+path]:fill-white flex gap-2 w-full">
                     <?php include(dirname(__DIR__, 1) . "/images/footer/paypal.svg") ?>
                     <?php include(dirname(__DIR__, 1) . "/images/footer/visa.svg") ?>
                     <?php include(dirname(__DIR__, 1) . "/images/footer/mastercard.svg") ?>

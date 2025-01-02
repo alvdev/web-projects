@@ -1941,6 +1941,21 @@
       gap: calc(var(--spacing) * 8);
     }
   }
+  .\[\&_g\]\:fill-white {
+    & g {
+      fill: #fff;
+    }
+  }
+  .\[\&_path\]\:stroke-white {
+    & path {
+      stroke: #fff;
+    }
+  }
+  .\[\&_path\+path\]\:fill-white {
+    & path+path {
+      fill: #fff;
+    }
+  }
   .\[\&\>div\]\:w-2\/3 {
     &>div {
       width: calc(2/3 * 100%);
@@ -2287,12 +2302,6 @@
   }
   footer a:hover {
     opacity: 1;
-  }
-  footer .ccards path {
-    stroke: white;
-  }
-  footer .ccards g, footer .ccards path + path {
-    fill: white;
   }
   @media screen and (max-width: 768px) {
     .tab h3 a {
