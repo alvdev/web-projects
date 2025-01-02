@@ -121,8 +121,8 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
             </div>
         </header>
 
-        <div class="header">
-            <div class="container-md">
+        <div class="container">
+            <div class="header">
                 <div class="logo">
                     <a href="<?php echo $this->Html->safe($this->base_uri); ?>">
                         <?php
@@ -188,10 +188,10 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
             </div>
         </div>
 
-        <div class="title">
-            <div class="container-md">
-                <h3><?php echo ((isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true)); ?>
-                </h3>
+        <div class="container">
+            <div class="title">
+                <h1><?php echo ((isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true)); ?>
+                </h1>
             </div>
         </div>
     <?php
@@ -199,7 +199,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     ?>
 
     <!-- Begin Content -->
-    <div class="container-md">
+    <div class="container">
         <div class="row<?php echo (!(isset($show_header) ? $show_header : true) ? ' login' : ''); ?>">
             <?php
             if (!empty($active_nav['secondary'])) {
