@@ -14,226 +14,180 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <meta name="referrer" content="never" />
     <meta charset="UTF-8" />
     <title>
-        <?php echo $this->Html->safe(((isset($page_title) ? $page_title : null) ? $page_title . ' | ' : '') . (isset($system_company->name) ? $system_company->name : null)); ?>
+        <?= $this->Html->safe(((isset($page_title) ? $page_title : null) ? $page_title . ' | ' : '') . (isset($system_company->name) ? $system_company->name : null)); ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php
-    if (!empty($client_icon)) {
-    ?>
-        <link rel="shortcut icon" href="<?php echo $this->Html->safe($client_icon); ?>" />
-    <?php
-    } else {
-    ?>
-        <link rel="shortcut icon" href="<?php echo $this->view_dir; ?>images/favicon.ico" />
-    <?php
-    }
-    ?>
+    <?php if (!empty($client_icon)): ?>
+        <link rel="shortcut icon" href="<?= $this->Html->safe($client_icon); ?>" />
+    <?php else: ?>
+        <link rel="shortcut icon" href="<?= $this->view_dir; ?>images/favicon.ico" />
+    <?php endif ?>
 
-    <!-- <link href="<?php echo $this->view_dir; ?>css/application.min.css" rel="stylesheet" type="text/css" /> -->
-    <link href="<?php echo $this->view_dir; ?>dist/main.css" rel="stylesheet" type="text/css" />
-    <!-- <?php
-            // Theme CSS
-            if (isset($theme_css)) {
-            ?>
+    <!-- <link href="<?= $this->view_dir; ?>css/application.min.css" rel="stylesheet" type="text/css" /> -->
+    <link href="<?= $this->view_dir; ?>dist/main.css" rel="stylesheet" type="text/css" />
+    <!-- <?php if (isset($theme_css)): ?>
         <link href="<?php (print(isset($theme_css) ? $this->Html->safe($theme_css) . '&hash=' . $this->Html->safe($theme_hash ?? '') : null)); ?>" rel="stylesheet" type="text/css" media="screen" />
-        <?php
-            }
-            if ($this->_('AppController.lang.dir', true) == 'rtl') {
-        ?>
-        <link href="<?php echo $this->view_dir; ?>css/rtl.css" rel="stylesheet" type="text/css" media="screen" />
-        <?php
-            }
-        ?> -->
-    <link href="<?php echo $this->view_dir; ?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo $this->view_dir; ?>css/font-awesome-shims.min.css" rel="stylesheet" type="text/css" />
+    <?php endif ?>
+    <?php if ($this->_('AppController.lang.dir', true) == 'rtl'): ?>
+        <link href="<?= $this->view_dir; ?>css/rtl.css" rel="stylesheet" type="text/css" media="screen" />
+    <?php endif ?> -->
+    <link href="<?= $this->view_dir; ?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= $this->view_dir; ?>css/font-awesome-shims.min.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="<?php echo $this->view_dir; ?>javascript/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->view_dir; ?>javascript/jquery-migrate.min.js"></script>
+    <script type="text/javascript" src="<?= $this->view_dir; ?>javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= $this->view_dir; ?>javascript/jquery-migrate.min.js"></script>
     <!--[if lt IE 10]>
-            <script type="text/javascript" src="<?php echo $this->view_dir; ?>javascript/history/json2.js"></script>
+            <script type="text/javascript" src="<?= $this->view_dir; ?>javascript/history/json2.js"></script>
         <![endif]-->
-    <script type="text/javascript" src="<?php echo $this->view_dir; ?>javascript/history/history.adapter.jquery.js">
+    <script type="text/javascript" src="<?= $this->view_dir; ?>javascript/history/history.adapter.jquery.js">
     </script>
-    <script type="text/javascript" src="<?php echo $this->view_dir; ?>javascript/history/history.js"></script>
+    <script type="text/javascript" src="<?= $this->view_dir; ?>javascript/history/history.js"></script>
     <!--[if lt IE 10]>
-            <script type="text/javascript" src="<?php echo $this->view_dir; ?>javascript/history/history.html4.js"></script>
+            <script type="text/javascript" src="<?= $this->view_dir; ?>javascript/history/history.html4.js"></script>
         <![endif]-->
     <script type="text/javascript"
-        src="<?php echo $this->Html->safe($this->view_dir . 'javascript/app.min.js' . (!empty($hash_version) ? '?v=' . $hash_version : '')); ?>">
+        src="<?= $this->Html->safe($this->view_dir . 'javascript/app.min.js' . (!empty($hash_version) ? '?v=' . $hash_version : '')); ?>">
     </script>
 
-    <?php
-    echo $this->Javascript->getFiles('head');
-    echo (isset($custom_head) ? $custom_head : null);
-    ?>
+    <?= $this->Javascript->getFiles('head'); ?>
+    <?= (isset($custom_head) ? $custom_head : null); ?>
 
     <!--[if lt IE 9]>
-            <script src="<?php echo $this->view_dir; ?>javascript/html5shiv.js" type="text/javascript"></script>
-            <script src="<?php echo $this->view_dir; ?>javascript/respond.min.js" type="text/javascript"></script>
+            <script src="<?= $this->view_dir; ?>javascript/html5shiv.js" type="text/javascript"></script>
+            <script src="<?= $this->view_dir; ?>javascript/respond.min.js" type="text/javascript"></script>
         <![endif]-->
-    <?php echo (isset($head) ? $head : null); ?>
+    <?= (isset($head) ? $head : null); ?>
 </head>
 
 <body>
-    <?php echo (isset($body_start) ? $body_start : null); ?>
+    <?= (isset($body_start) ? $body_start : null); ?>
 
-    <?php
-    if ((isset($show_header) ? $show_header : true)) {
-    ?>
-        <header class="relative bg-blue-700 shadow-2xl shadow-gray-500 before:absolute before:w-6 before:h-6 before:left-0 before:-bottom-6 before:shadow-[-0.25rem_-0.25rem_0_0.25rem_#093eba] before:rounded-tl-[1.5rem] after:absolute after:w-6 after:h-6 after:right-0 after:-bottom-6 after:shadow-[0.25rem_-0.25rem_0_0.25rem_#0037ad] after:rounded-tr-[3rem]">
-
-            <div class="container">
-                <div class="items-center justify-between py-3 text-sm bg-opacity-50 topnav md:flex">
-                    <div class="justify-between hidden gap-4 md:inline-flex">
-                        <span>
-                            +1 (307) 622-1377
-                        </span>
-                        <span>
-                            Chat en vivo
-                        </span>
-                    </div>
-                    <div class="grid justify-between grid-flow-col gap-4 text-center md:inline-flex">
-                        <a href="./" class="flex items-center gap-2 px-3 py-1 text-white rounded-xs">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"></path>
-                            </svg>
-                            Web mail
-                        </a>
-                        <a href="./" class="flex items-center gap-2 px-3 py-1 text-white rounded-xs">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                                <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"></path>
-                            </svg>
-                            cPanel
-                        </a>
-                        <a href="./" class="flex items-center gap-2 px-3 py-1 text-white border rounded-xs">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
-                                <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"></path>
-                                <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"></path>
-                            </svg>
-                            Area de clientes
-                        </a>
-                    </div>
-                </div>
-                <?php require_once('partials/menu_main.php'); ?>
-                <?php require_once('partials/menu_area.php') ?>
-            </div>
-        </header>
+    <header class="relative bg-blue-700 shadow-2xl shadow-gray-500 before:absolute before:w-6 before:h-6 before:left-0 before:-bottom-6 before:shadow-[-0.25rem_-0.25rem_0_0.25rem_#093eba] before:rounded-tl-[1.5rem] after:absolute after:w-6 after:h-6 after:right-0 after:-bottom-6 after:shadow-[0.25rem_-0.25rem_0_0.25rem_#0037ad] after:rounded-tr-[3rem]">
 
         <div class="container">
-            <div class="header">
-                <div class="logo">
-                    <a href="<?php echo $this->Html->safe($this->base_uri); ?>">
-                        <?php
-                        if (!empty($theme_logo)) {
-                        ?>
-                            <img<?php echo (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> src="<?php (print(isset($theme_logo) ? $this->Html->safe($theme_logo) : null)); ?>"
-                                alt="<?php echo (isset($system_company->name) ? $system_company->name : null); ?>" />
-                        <?php
-                        } elseif (!empty($blesta_logo)) {
-                        ?>
-                            <img<?php echo (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> class="blesta"
-                                src="<?php (print(isset($blesta_logo) ? $this->Html->safe($blesta_logo) : null)); ?>"
-                                alt="Blesta" />
-                        <?php
-                        } else {
-                        ?>
-                            <img<?php echo (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> class="blesta"
-                                src="<?php echo $this->view_dir; ?>images/logo-color.svg"
-                                alt="Blesta" />
-                        <?php
-                        }
-                        ?>
+            <div class="items-center justify-between py-3 text-sm bg-opacity-50 topnav md:flex">
+                <div class="justify-between hidden gap-4 md:inline-flex">
+                    <span>
+                        +1 (307) 622-1377
+                    </span>
+                    <span>
+                        Chat en vivo
+                    </span>
+                </div>
+                <div class="grid justify-between grid-flow-col gap-4 text-center md:inline-flex">
+                    <a href="./" class="flex items-center gap-2 px-3 py-1 text-white rounded-xs">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"></path>
+                        </svg>
+                        Web mail
+                    </a>
+                    <a href="./" class="flex items-center gap-2 px-3 py-1 text-white rounded-xs">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"></path>
+                        </svg>
+                        cPanel
+                    </a>
+                    <a href="./" class="flex items-center gap-2 px-3 py-1 text-white border rounded-xs">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                            <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"></path>
+                            <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"></path>
+                        </svg>
+                        Area de clientes
                     </a>
                 </div>
-                <?php
-                if ((isset($staff_as_client) ? $staff_as_client : null)) {
-                ?>
-                    <span class="badge badge-pill badge-info float-right"><a
-                            href="<?php echo $this->Html->safe($this->admin_uri . 'clients/logoutasclient/'); ?>"><span
-                                class="fas fa-info-circle"></span>
-                            <?php $this->_('AppController.client_structure.staff_as_client_note'); ?></a></span>
-                <?php
-                } elseif ((isset($show_language) ? $show_language : null) && count((isset($languages) ? $languages : [])) > 1) {
-                ?>
-                    <div class="top-nav float-right">
-                        <?php
-                        $this->Form->create($this->client_uri . 'main/setlanguage/', ['id' => 'language_selector']);
-                        $this->Form->fieldHidden('redirect_uri', (isset($request_uri) ? $request_uri : null));
-                        $this->Form->fieldHidden('language_code', Configure::get('Blesta.language'), ['id' => 'language_code']);
-                        $this->Form->end();
-                        ?>
-                        <ul>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle"
-                                    data-toggle="dropdown"><?php echo (isset($languages[Configure::get('Blesta.language')]) ? $this->Html->safe($languages[Configure::get('Blesta.language')]) : null); ?>
-                                    <b class="caret"></b></a>
-                                <ul class="dropdown-menu dropdown-menu-right" id="language_switcher">
-                                    <?php
-                                    foreach ($languages as $code => $language) {
-                                    ?>
-                                        <li class="language_code" language_code="<?php echo $this->Html->safe($code); ?>"><a
-                                                href="#"><?php echo $this->Html->safe($language); ?></a></li>
-                                    <?php
-                                    }
-                                    ?>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                <?php
-                }
-                ?>
             </div>
+            <?php require_once('partials/menu_main.php'); ?>
+            <?php require_once('partials/menu_area.php') ?>
         </div>
+    </header>
 
-        <div class="container">
-            <div class="title">
-                <h1><?php echo ((isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true)); ?>
-                </h1>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <a href="<?= $this->Html->safe($this->base_uri); ?>">
+                    <?php if (!empty($theme_logo)): ?>
+                        <img <?= (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> src="<?php (print(isset($theme_logo) ? $this->Html->safe($theme_logo) : null)); ?>"
+                            alt="<?= (isset($system_company->name) ? $system_company->name : null); ?>" />
+                    <?php elseif (!empty($blesta_logo)): ?>
+                        <img <?= (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> class="blesta"
+                            src="<?php (print(isset($blesta_logo) ? $this->Html->safe($blesta_logo) : null)); ?>"
+                            alt="Blesta" />
+                    <?php else: ?>
+                        <img <?= (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> class="blesta"
+                            src="<?= $this->view_dir; ?>images/logo-color.svg"
+                            alt="Blesta" />
+                    <?php endif ?>
+                </a>
             </div>
+            <?php if ((isset($staff_as_client) ? $staff_as_client : null)): ?>
+                <span class="badge badge-pill badge-info float-right"><a
+                        href="<?= $this->Html->safe($this->admin_uri . 'clients/logoutasclient/'); ?>"><span
+                            class="fas fa-info-circle"></span>
+                        <?php $this->_('AppController.client_structure.staff_as_client_note'); ?></a></span>
+            <?php elseif ((isset($show_language) ? $show_language : null) && count((isset($languages) ? $languages : [])) > 1): ?>
+                <div class="top-nav float-right">
+                    <?php
+                    $this->Form->create($this->client_uri . 'main/setlanguage/', ['id' => 'language_selector']);
+                    $this->Form->fieldHidden('redirect_uri', (isset($request_uri) ? $request_uri : null));
+                    $this->Form->fieldHidden('language_code', Configure::get('Blesta.language'), ['id' => 'language_code']);
+                    $this->Form->end();
+                    ?>
+                    <ul>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle"
+                                data-toggle="dropdown"><?= (isset($languages[Configure::get('Blesta.language')]) ? $this->Html->safe($languages[Configure::get('Blesta.language')]) : null); ?>
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu dropdown-menu-right" id="language_switcher">
+                                <?php foreach ($languages as $code => $language): ?>
+                                    <li class="language_code" language_code="<?= $this->Html->safe($code); ?>">
+                                        <a href="#"><?= $this->Html->safe($language); ?></a>
+                                    </li>
+                                <?php endforeach ?>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            <?php endif ?>
         </div>
-    <?php
-    }
-    ?>
+    </div>
+
+    <div class="container">
+        <div class="title">
+            <h1>
+                <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
+            </h1>
+        </div>
+    </div>
 
     <!-- Begin Content -->
     <div class="container">
-        <div class="row<?php echo (!(isset($show_header) ? $show_header : true) ? ' login' : ''); ?>">
-            <?php
-            if (!empty($active_nav['secondary'])) {
-            ?>
+        <div class="row<?= (!(isset($show_header) ? $show_header : true) ? ' login' : ''); ?>">
+            <?php if (!empty($active_nav['secondary'])): ?>
                 <div class="col-md-3">
                     <div class="list-group">
-                        <?php
-                        foreach ($active_nav['secondary'] as $link => $value) {
+                        <?php foreach ($active_nav['secondary'] as $link => $value): ?>
+                            <?php
                             $link = $this->Html->safe((isset($link) ? $link : ''));
                             $prefix = !str_contains($link, '://') ? (isset($this->base_uri) ? $this->Html->safe($this->base_uri) : null) : '';
-                        ?>
-                            <a href="<?php echo $prefix . $link; ?>"
-                                class="list-group-item list-group-item-action <?php echo ($value['active'] ? 'active' : ''); ?>">
-                                <i
-                                    class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?> fa-fw"></i>
-                                <?php
-                                (print(isset($value['name']) ? $this->Html->safe($value['name']) : null));
-                                ?>
+                            ?>
+                            <a href="<?= $prefix . $link; ?>"
+                                class="list-group-item list-group-item-action <?= ($value['active'] ? 'active' : ''); ?>">
+                                <i class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?> fa-fw"></i>
+                                <?php (print(isset($value['name']) ? $this->Html->safe($value['name']) : null)); ?>
                             </a>
-                        <?php
-                        }
-                        ?>
+                        <?php endforeach ?>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                        <?php echo $content; ?>
+                        <?= $content; ?>
                     </div>
                 </div>
-            <?php
-            } else {
-                echo $content;
-            }
-            ?>
+            <?php else: ?>
+                <?= $content ?>
+            <?php endif ?>
         </div>
 
         <!-- <div class="container-fluid">
@@ -266,9 +220,8 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
         </div>
     </div>
 
-    <?php echo $this->Javascript->getFiles('body'); ?>
-    <?php echo $this->Javascript->getInline(); ?>
-    <?php echo (isset($body_end) ? $body_end : null); ?>
+    <?= $this->Javascript->getFiles('body'); ?>
+    <?= $this->Javascript->getInline(); ?>
+    <?= (isset($body_end) ? $body_end : null); ?>
 </body>
-
 </html>
