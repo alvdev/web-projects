@@ -998,6 +998,9 @@
     --tw-gradient-position: to top in oklab,;
     background-image: linear-gradient(var(--tw-gradient-stops));
   }
+  .alv-linear-gradient-white {
+    background-image: linear-gradient( to right, rgba(255, 255, 255, 0) 2%, rgba(255, 255, 255, 0.25) 25%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, rgba(255, 255, 255, 0) 98% );
+  }
   .from-black {
     --tw-gradient-from: #000;
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position,) var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
@@ -2286,9 +2289,6 @@
   }
   footer {
     background-image: url(../../images/free-wolf.webp);
-  }
-  footer .news, .topnav {
-    background-image: linear-gradient( to right, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.25) 25%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, rgba(255, 255, 255, 0) 100% );
   }
   footer .tab {
     scroll-margin-top: 6rem;

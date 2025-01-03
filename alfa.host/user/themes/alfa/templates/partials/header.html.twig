@@ -1,8 +1,8 @@
 {% do assets.addJs('theme://js/main-menu.js', {loading: 'defer'}) %}
 
 {% block header %}
-    <div class="container">
-        <div class="items-center justify-between py-3 text-sm bg-opacity-50 topnav md:flex">
+    <div class="alv-linear-gradient-white">
+        <div class="container items-center justify-between py-3 text-sm bg-opacity-50 md:flex">
             <div class="justify-between hidden gap-4 md:inline-flex">
                 <span>
                     +1 (307) 622-1377
@@ -26,19 +26,19 @@
                 </a>
             </div>
         </div>
+    </div>
 
-        {% block header_navigation %}
-            {% include 'partials/navigation.html.twig' %}
+    {% block header_navigation %}
+        {% include 'partials/navigation.html.twig' %}
+    {% endblock %}
+
+    {% if page.home %}
+        {% block slideshow %}
+            {% include 'modular/header-slideshow.html.twig' %}
         {% endblock %}
 
-        {% if page.home %}
-            {% block slideshow %}
-                {% include 'modular/header-slideshow.html.twig' %}
-            {% endblock %}
-
-            {% block domain_search %}
-                {% include 'partials/domain-search.html.twig' %}
-            {% endblock %}
-        {% endif %}
-    </div>
+        {% block domain_search %}
+            {% include 'partials/domain-search.html.twig' %}
+        {% endblock %}
+    {% endif %}
 {% endblock %}

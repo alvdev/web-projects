@@ -28,6 +28,17 @@
   cursor: grab;
 }
 
+@utility alv-linear-gradient-white {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 2%,
+    rgba(255, 255, 255, 0.25) 25%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.25) 75%,
+    rgba(255, 255, 255, 0) 98%
+  );
+}    
+
 @layer base {
     @font-face {
         font-display: swap;
@@ -355,18 +366,6 @@
 
     footer {
         background-image: url(../../images/free-wolf.webp);
-    }
-
-    footer .news,
-    .topnav {
-        background-image: linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0) 0,
-            rgba(255, 255, 255, 0.25) 25%,
-            rgba(255, 255, 255, 0.25) 50%,
-            rgba(255, 255, 255, 0.25) 75%,
-            rgba(255, 255, 255, 0) 100%
-        );
     }
 
     footer .tab {

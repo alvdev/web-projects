@@ -51,7 +51,22 @@ h3 {
   @apply font-semibold;
 }
 
+h1 + * {
+  @apply mt-8 border;
+}
+
 header,
 footer {
   background-image: radial-gradient(farthest-corner at 40px 40px, #1d4ed8 0%, #0037ad 100%);
+}
+
+@utility alv-linear-gradient-white {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 2%,
+    rgba(255, 255, 255, 0.25) 25%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.25) 75%,
+    rgba(255, 255, 255, 0) 98%
+  );
 }

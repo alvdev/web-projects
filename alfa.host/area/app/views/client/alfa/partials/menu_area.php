@@ -1,4 +1,4 @@
-<nav class="flex flex-col items-center relative translate-y-2/4 px-8 py-8 -mt-4 mb-32 bg-gray-200 rounded-xs lg:flex-row gap-x-8 gap-y-4">
+<nav class="container flex flex-col items-center relative translate-y-2/4 px-8 py-8 -mt-4 mb-32 bg-gray-200 rounded-xs lg:flex-row gap-x-8 gap-y-4">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar">
         <span class="navbar-toggler-icon"></span>
     </button>

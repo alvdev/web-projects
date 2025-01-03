@@ -4,8 +4,8 @@
 {% endif %} #}
 
 <footer class="bg-blue-600 bg-bottom bg-cover md:bg-auto shadow-2xl {#{{ footer_margin_top }}#}">
-    <div class="container">
-        <div class="items-center justify-center gap-8 py-8 news md:flex">
+    <div class="alv-linear-gradient-white">
+        <div class="container items-center justify-center gap-8 py-8 md:flex">
             <h2 class="text-6xl font-normal text-white uppercase">
                 Alfa News
                 <span class="hidden md:inline">
@@ -24,236 +24,236 @@
                 </form>
             </div>
         </div>
+    </div>
 
-        <div class="py-12 md:flex">
-            <div class="grid grid-cols-1 gap-8 text-white md:grid-cols-3 md:w-5/6">
-                <section class="tab" id="hosting">
-                    <h3 class="mb-2 text-lg font-semibold">
-                        <a href="#hosting">
-                            Alojamiento web
+    <div class="container py-12 md:flex">
+        <div class="grid grid-cols-1 gap-8 text-white md:grid-cols-3 md:w-5/6">
+            <section class="tab" id="hosting">
+                <h3 class="mb-2 text-lg font-semibold">
+                    <a href="#hosting">
+                        Alojamiento web
+                    </a>
+                </h3>
+                <ul class="dropdown">
+                    <li>
+                        <a class="text-sm leading-8" href="#hosting">
+                            Hosting Alfa 1
                         </a>
-                    </h3>
-                    <ul class="dropdown">
-                        <li>
-                            <a class="text-sm leading-8" href="#hosting">
-                                Hosting Alfa 1
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-sm leading-8" href="#hosting">
-                                Hosting Alfa 2
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-sm leading-8" href="#hosting">
-                                Hosting Alfa 3
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-sm leading-8" href="#hosting">
-                                Hosting Alfa 1 Pro
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-sm leading-8" href="#hosting">
-                                Hosting Alfa 2 Pro
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-sm leading-8" href="#hosting">
-                                Hosting Alfa 3 Pro
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-sm leading-8" href="#hosting">
-                                Tiendas eCommerce
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-                <section class="tab" id="marketing">
-                    <h3 class="mb-2 text-lg font-semibold">
-                        <a href="#marketing">
-                            Marketing y desarrollo
+                    </li>
+                    <li>
+                        <a class="text-sm leading-8" href="#hosting">
+                            Hosting Alfa 2
                         </a>
-                    </h3>
-                    <ul class="dropdown">
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Diseño web
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Email marketing
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Integraciones web
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Mantenimiento web
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Posicionamiento web
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Creación de contenidos
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Social Media Marketing
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-                <section class="tab" id="company">
-                    <h3 class="mb-2 text-lg font-semibold">
-                        <a href="#company">
-                            Nuestra empresa
+                    </li>
+                    <li>
+                        <a class="text-sm leading-8" href="#hosting">
+                            Hosting Alfa 3
                         </a>
-                    </h3>
-                    <ul class="dropdown">
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Sobre nosotros
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Prensa y medios
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Trabaja con nosotros
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Alianzas estratégicas
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Programa de afiliados
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Testimonios de clientes
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Noticias, consejos y blogs
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-                <section id="social">
-                    <h3 class="mb-2 text-lg font-semibold">
-                        Sociales y sociables
-                    </h3>
-                    <p class="mb-6 text-sm text-white">
-                        Mantente al día de la actualidad de iWolf Host siguiéndonos en las redes sociales y uniéndote a
-                        nuestra comunidad.
-                    </p>
-                    <div class="flex items-center gap-4">
-                        <div class="p-3 bg-black rounded-full">
-                            {% include 'partials/footer/facebook.svg' %}
-                        </div>
-
-                        <div class="p-3 bg-black rounded-full">
-                            {% include 'partials/footer/twitter.svg' %}
-                        </div>
-
-                        <div class="p-3 bg-black rounded-full">
-                            {% include 'partials/footer/youtube.svg' %}
-                        </div>
-
-                        <div class="p-3 bg-black rounded-full">
-                            {% include 'partials/footer/linkedin.svg' %}
-                        </div>
+                    </li>
+                    <li>
+                        <a class="text-sm leading-8" href="#hosting">
+                            Hosting Alfa 1 Pro
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-sm leading-8" href="#hosting">
+                            Hosting Alfa 2 Pro
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-sm leading-8" href="#hosting">
+                            Hosting Alfa 3 Pro
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-sm leading-8" href="#hosting">
+                            Tiendas eCommerce
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <section class="tab" id="marketing">
+                <h3 class="mb-2 text-lg font-semibold">
+                    <a href="#marketing">
+                        Marketing y desarrollo
+                    </a>
+                </h3>
+                <ul class="dropdown">
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Diseño web
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Email marketing
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Integraciones web
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Mantenimiento web
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Posicionamiento web
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Creación de contenidos
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Social Media Marketing
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <section class="tab" id="company">
+                <h3 class="mb-2 text-lg font-semibold">
+                    <a href="#company">
+                        Nuestra empresa
+                    </a>
+                </h3>
+                <ul class="dropdown">
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Sobre nosotros
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Prensa y medios
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Trabaja con nosotros
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Alianzas estratégicas
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Programa de afiliados
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Testimonios de clientes
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Noticias, consejos y blogs
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <section id="social">
+                <h3 class="mb-2 text-lg font-semibold">
+                    Sociales y sociables
+                </h3>
+                <p class="mb-6 text-sm text-white">
+                    Mantente al día de la actualidad de iWolf Host siguiéndonos en las redes sociales y uniéndote a
+                    nuestra comunidad.
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-black rounded-full">
+                        {% include 'partials/footer/facebook.svg' %}
                     </div>
-                </section>
-                <section class="tab" id="resources">
-                    <h3 class="mb-2 text-lg font-semibold">
-                        <a href="#resources">
-                            Recursos recomendados
+
+                    <div class="p-3 bg-black rounded-full">
+                        {% include 'partials/footer/twitter.svg' %}
+                    </div>
+
+                    <div class="p-3 bg-black rounded-full">
+                        {% include 'partials/footer/youtube.svg' %}
+                    </div>
+
+                    <div class="p-3 bg-black rounded-full">
+                        {% include 'partials/footer/linkedin.svg' %}
+                    </div>
+                </div>
+            </section>
+            <section class="tab" id="resources">
+                <h3 class="mb-2 text-lg font-semibold">
+                    <a href="#resources">
+                        Recursos recomendados
+                    </a>
+                </h3>
+                <ul class="dropdown">
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Cómo crear un sitio web
                         </a>
-                    </h3>
-                    <ul class="dropdown">
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Cómo crear un sitio web
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Cómo transferir un sitio web
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Comienza tu propio negocio online
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                De emprendedor a empresario digital
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-                <section class="tab" id="support">
-                    <h3 class="mb-2 text-lg font-semibold">
-                        <a href="#support">
-                            Soporte y ayuda
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Cómo transferir un sitio web
                         </a>
-                    </h3>
-                    <ul class="dropdown">
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Asistencia técnica
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Videos y tutoriales
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Base de conocimientos
-                            </a>
-                        </li>
-                        <li class="text-sm leading-8">
-                            <a href="./">
-                                Contacta con nosotros
-                            </a>
-                        </li>
-                    </ul>
-                </section>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Comienza tu propio negocio online
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            De emprendedor a empresario digital
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <section class="tab" id="support">
+                <h3 class="mb-2 text-lg font-semibold">
+                    <a href="#support">
+                        Soporte y ayuda
+                    </a>
+                </h3>
+                <ul class="dropdown">
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Asistencia técnica
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Videos y tutoriales
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Base de conocimientos
+                        </a>
+                    </li>
+                    <li class="text-sm leading-8">
+                        <a href="./">
+                            Contacta con nosotros
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div class="flex flex-col items-center justify-between md:w-1/6">
+            <div>
+                LOGO
             </div>
-            <div class="flex flex-col items-center justify-between md:w-1/6">
-                <div>
-                    LOGO
-                </div>
-                <div class="[&_path]:stroke-white [&_g]:fill-white [&_path+path]:fill-white flex gap-2 w-full">
-                    {% include "partials/footer/paypal.svg" %}
-                    {% include "partials/footer/visa.svg" %}
-                    {% include "partials/footer/mastercard.svg" %}
-                    {% include "partials/footer/amex.svg" %}
-                </div>
+            <div class="[&_path]:stroke-white [&_g]:fill-white [&_path+path]:fill-white flex gap-2 w-full">
+                {% include "partials/footer/paypal.svg" %}
+                {% include "partials/footer/visa.svg" %}
+                {% include "partials/footer/mastercard.svg" %}
+                {% include "partials/footer/amex.svg" %}
             </div>
         </div>
     </div>
