@@ -4,6 +4,21 @@
     margin-inline: auto;
 }
 
+html {
+  @apply scroll-smooth;
+  animation: onLoadFade 0.25s;
+}
+
+@keyframes onLoadFade {
+    from {
+        opacity: 0.25;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 [popover] {
   display: none;
   opacity: 0;
@@ -16,6 +31,24 @@
     display: block;
     opacity: 1;
   }
+}
+
+h1 {
+  @apply text-6xl;
+}
+
+h2 {
+  @apply text-5xl;
+}
+
+h3 {
+  @apply text-4xl
+}
+
+h1,
+h2,
+h3 {
+  @apply font-semibold;
 }
 
 header,
