@@ -2,7 +2,7 @@
     <div class="container grid items-center justify-between grid-cols-2 lg:flex lg:gap-4">
         <div class="logo">
             <a href="/" title="Alfa Host">
-                <?php include_once(dirname(__DIR__, 1) . '/images/logo.svg'); ?>
+                <?php require_once('logo.php'); ?>
             </a>
         </div>
         <div id="burger" class="block text-right lg:hidden">

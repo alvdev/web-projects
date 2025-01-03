@@ -107,18 +107,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
         <div class="header">
             <div class="logo">
                 <a href="<?= $this->Html->safe($this->base_uri); ?>">
-                    <?php if (!empty($theme_logo)): ?>
-                        <img <?= (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> src="<?php (print(isset($theme_logo) ? $this->Html->safe($theme_logo) : null)); ?>"
-                            alt="<?= (isset($system_company->name) ? $system_company->name : null); ?>" />
-                    <?php elseif (!empty($blesta_logo)): ?>
-                        <img <?= (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> class="blesta"
-                            src="<?php (print(isset($blesta_logo) ? $this->Html->safe($blesta_logo) : null)); ?>"
-                            alt="Blesta" />
-                    <?php else: ?>
-                        <img <?= (!empty($client_logo_height) ? ' style="height: ' . $client_logo_height . 'px;"' : ''); ?> class="blesta"
-                            src="<?= $this->view_dir; ?>images/logo-color.svg"
-                            alt="Blesta" />
-                    <?php endif ?>
+                    <?php require_once('partials/logo.php') ?>
                 </a>
             </div>
             <?php if ((isset($staff_as_client) ? $staff_as_client : null)): ?>
@@ -154,11 +143,9 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     </div>
 
     <div class="container">
-        <div class="title">
             <h1>
                 <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
             </h1>
-        </div>
     </div>
 
     <!-- Begin Content -->
@@ -224,4 +211,5 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <?= $this->Javascript->getInline(); ?>
     <?= (isset($body_end) ? $body_end : null); ?>
 </body>
+
 </html>
