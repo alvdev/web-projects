@@ -99,83 +99,76 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
                 </div>
             </div>
         </div>
+
         <?php require_once('partials/menu_main.php'); ?>
+
+        <div class="container mt-4 mb-8">
+            <h1 class="text-white/90">
+                <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
+            </h1>
+        </div>
+
         <?php require_once('partials/menu_area.php') ?>
     </header>
 
     <div class="container">
-        <div class="header">
-            <div class="logo">
-                <a href="<?= $this->Html->safe($this->base_uri); ?>">
-                    <?php require_once('partials/logo.php') ?>
-                </a>
+        <?php if ((isset($staff_as_client) ? $staff_as_client : null)): ?>
+            <span class="badge badge-pill badge-info float-right"><a
+                    href="<?= $this->Html->safe($this->admin_uri . 'clients/logoutasclient/'); ?>"><span
+                        class="fas fa-info-circle"></span>
+                    <?php $this->_('AppController.client_structure.staff_as_client_note'); ?></a></span>
+        <?php elseif ((isset($show_language) ? $show_language : null) && count((isset($languages) ? $languages : [])) > 1): ?>
+            <div class="top-nav float-right">
+                <?php
+                $this->Form->create($this->client_uri . 'main/setlanguage/', ['id' => 'language_selector']);
+                $this->Form->fieldHidden('redirect_uri', (isset($request_uri) ? $request_uri : null));
+                $this->Form->fieldHidden('language_code', Configure::get('Blesta.language'), ['id' => 'language_code']);
+                $this->Form->end();
+                ?>
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                            data-toggle="dropdown"><?= (isset($languages[Configure::get('Blesta.language')]) ? $this->Html->safe($languages[Configure::get('Blesta.language')]) : null); ?>
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu dropdown-menu-right" id="language_switcher">
+                            <?php foreach ($languages as $code => $language): ?>
+                                <li class="language_code" language_code="<?= $this->Html->safe($code); ?>">
+                                    <a href="#"><?= $this->Html->safe($language); ?></a>
+                                </li>
+                            <?php endforeach ?>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <?php if ((isset($staff_as_client) ? $staff_as_client : null)): ?>
-                <span class="badge badge-pill badge-info float-right"><a
-                        href="<?= $this->Html->safe($this->admin_uri . 'clients/logoutasclient/'); ?>"><span
-                            class="fas fa-info-circle"></span>
-                        <?php $this->_('AppController.client_structure.staff_as_client_note'); ?></a></span>
-            <?php elseif ((isset($show_language) ? $show_language : null) && count((isset($languages) ? $languages : [])) > 1): ?>
-                <div class="top-nav float-right">
-                    <?php
-                    $this->Form->create($this->client_uri . 'main/setlanguage/', ['id' => 'language_selector']);
-                    $this->Form->fieldHidden('redirect_uri', (isset($request_uri) ? $request_uri : null));
-                    $this->Form->fieldHidden('language_code', Configure::get('Blesta.language'), ['id' => 'language_code']);
-                    $this->Form->end();
-                    ?>
-                    <ul>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle"
-                                data-toggle="dropdown"><?= (isset($languages[Configure::get('Blesta.language')]) ? $this->Html->safe($languages[Configure::get('Blesta.language')]) : null); ?>
-                                <b class="caret"></b></a>
-                            <ul class="dropdown-menu dropdown-menu-right" id="language_switcher">
-                                <?php foreach ($languages as $code => $language): ?>
-                                    <li class="language_code" language_code="<?= $this->Html->safe($code); ?>">
-                                        <a href="#"><?= $this->Html->safe($language); ?></a>
-                                    </li>
-                                <?php endforeach ?>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            <?php endif ?>
-        </div>
-    </div>
-
-    <div class="container">
-            <h1>
-                <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
-            </h1>
+        <?php endif ?>
     </div>
 
     <!-- Begin Content -->
-    <div class="container">
-        <div class="row<?= (!(isset($show_header) ? $show_header : true) ? ' login' : ''); ?>">
-            <?php if (!empty($active_nav['secondary'])): ?>
-                <div class="col-md-3">
-                    <div class="list-group">
-                        <?php foreach ($active_nav['secondary'] as $link => $value): ?>
-                            <?php
-                            $link = $this->Html->safe((isset($link) ? $link : ''));
-                            $prefix = !str_contains($link, '://') ? (isset($this->base_uri) ? $this->Html->safe($this->base_uri) : null) : '';
-                            ?>
-                            <a href="<?= $prefix . $link; ?>"
-                                class="list-group-item list-group-item-action <?= ($value['active'] ? 'active' : ''); ?>">
-                                <i class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?> fa-fw"></i>
-                                <?php (print(isset($value['name']) ? $this->Html->safe($value['name']) : null)); ?>
-                            </a>
-                        <?php endforeach ?>
-                    </div>
+    <main>
+        <?php if (!empty($active_nav['secondary'])): ?>
+            <div class="col-md-3">
+                <div class="list-group">
+                    <?php foreach ($active_nav['secondary'] as $link => $value): ?>
+                        <?php
+                        $link = $this->Html->safe((isset($link) ? $link : ''));
+                        $prefix = !str_contains($link, '://') ? (isset($this->base_uri) ? $this->Html->safe($this->base_uri) : null) : '';
+                        ?>
+                        <a href="<?= $prefix . $link; ?>"
+                            class="list-group-item list-group-item-action <?= ($value['active'] ? 'active' : ''); ?>">
+                            <i class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?> fa-fw"></i>
+                            <?php (print(isset($value['name']) ? $this->Html->safe($value['name']) : null)); ?>
+                        </a>
+                    <?php endforeach ?>
                 </div>
-                <div class="col-md-9">
-                    <div class="row">
-                        <?= $content; ?>
-                    </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <?= $content; ?>
                 </div>
-            <?php else: ?>
-                <?= $content ?>
-            <?php endif ?>
-        </div>
+            </div>
+        <?php else: ?>
+            <?= $content ?>
+        <?php endif ?>
 
         <!-- <div class="container-fluid">
                 <div class="row footer">
@@ -185,7 +178,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
                     </div>
                 </div>
             </div> -->
-    </div>
+    </main>
 
     <?php require_once('partials/footer.php'); ?>
 
