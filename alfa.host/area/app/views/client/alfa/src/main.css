@@ -51,8 +51,8 @@ h3 {
   @apply font-semibold;
 }
 
-h1 + * {
-  @apply mt-8 border;
+main a {
+  @apply text-blue-600 font-semibold hover:text-black transition-all;
 }
 
 header,
@@ -69,4 +69,8 @@ footer {
     rgba(255, 255, 255, 0.25) 75%,
     rgba(255, 255, 255, 0) 98%
   );
+}
+
+@utility alv-half-gray {
+  @apply bg-gradient-to-r from-white from-50% via-gray-200 to-gray-200 py-32;
 }
