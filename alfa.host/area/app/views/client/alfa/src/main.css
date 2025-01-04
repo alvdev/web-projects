@@ -20,16 +20,14 @@ html {
 }
 
 [popover] {
-  display: none;
-  opacity: 0;
-  transition:
-    opacity 300ms,
-    display 300ms allow-discrete,
-    overlay 500ms allow-discrete;
+  @apply hidden opacity-0 transition-all;
 
   &:popover-open {
-    display: block;
-    opacity: 1;
+    @apply flex flex-col opacity-100 border-2 border-blue-400 rounded-md;
+
+    & a {
+      @apply px-6 py-2 first:pt-4 last:pb-4 hover:bg-blue-100;
+    }
   }
 }
 

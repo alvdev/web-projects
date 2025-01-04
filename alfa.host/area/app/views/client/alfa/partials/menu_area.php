@@ -54,7 +54,7 @@
                         <?php endif ?>
 
                         <?php if ($dropdown): ?>
-                            <div popover id="menu<?= $value['id']; ?>" class="[&:popover-open]:absolute [&:popover-open]:flex [&:popover-open]:flex-col p-6 gap-8 rounded-sm border-2">
+                            <div popover id="menu<?= $value['id']; ?>" class="[&:popover-open]:absolute">
                                 <?php foreach ((isset($value['sub']) ? $value['sub'] : []) as $sub_link => $sub_value): ?>
                                     <a class="dropdown-item"
                                         href="<?php (print(isset($sub_link) ? $this->Html->safe($sub_link) : null)); ?>"><i

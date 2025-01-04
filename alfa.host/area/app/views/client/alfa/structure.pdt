@@ -93,7 +93,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
                                     <div class="font-black float-right ml-0.5">▾</div>
                                 </button>
 
-                                <div popover id="language_switcher" class="[&:popover-open]:absolute rounded-sm border-2">
+                                <div popover id="language_switcher" class="[&:popover-open]:absolute">
                                     <?php foreach ($languages as $code => $language): ?>
                                         <a href="#" class="language_code" language_code="<?= $this->Html->safe($code); ?>"><?= $this->Html->safe($language); ?></a>
                                     <?php endforeach ?>
