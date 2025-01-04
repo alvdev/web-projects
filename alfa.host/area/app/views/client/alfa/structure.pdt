@@ -74,6 +74,33 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
                     <span>
                         Chat en vivo
                     </span>
+                    <div>
+                        <?php if ((isset($staff_as_client) ? $staff_as_client : null)): ?>
+                            <span class="badge badge-pill badge-info float-right"><a
+                                    href="<?= $this->Html->safe($this->admin_uri . 'clients/logoutasclient/'); ?>"><span
+                                        class="fas fa-info-circle"></span>
+                                    <?php $this->_('AppController.client_structure.staff_as_client_note'); ?></a></span>
+                        <?php elseif ((isset($show_language) ? $show_language : null) && count((isset($languages) ? $languages : [])) > 1): ?>
+                            <div>
+                                <?php
+                                $this->Form->create($this->client_uri . 'main/setlanguage/', ['id' => 'language_selector']);
+                                $this->Form->fieldHidden('redirect_uri', (isset($request_uri) ? $request_uri : null));
+                                $this->Form->fieldHidden('language_code', Configure::get('Blesta.language'), ['id' => 'language_code']);
+                                $this->Form->end();
+                                ?>
+                                <button popovertarget="language_switcher">
+                                    <?= (isset($languages[Configure::get('Blesta.language')]) ? $this->Html->safe($languages[Configure::get('Blesta.language')]) : null); ?>
+                                    <div class="font-black float-right ml-0.5">▾</div>
+                                </button>
+
+                                <div popover id="language_switcher" class="[&:popover-open]:absolute rounded-sm border-2">
+                                    <?php foreach ($languages as $code => $language): ?>
+                                        <a href="#" class="language_code" language_code="<?= $this->Html->safe($code); ?>"><?= $this->Html->safe($language); ?></a>
+                                    <?php endforeach ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                    </div>
                 </div>
                 <div class="grid justify-between grid-flow-col gap-4 text-center md:inline-flex">
                     <a href="./" class="flex items-center gap-2 px-3 py-1 text-white rounded-xs">
@@ -110,38 +137,6 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
 
         <?php require_once('partials/menu_area.php') ?>
     </header>
-
-    <div class="container">
-        <?php if ((isset($staff_as_client) ? $staff_as_client : null)): ?>
-            <span class="badge badge-pill badge-info float-right"><a
-                    href="<?= $this->Html->safe($this->admin_uri . 'clients/logoutasclient/'); ?>"><span
-                        class="fas fa-info-circle"></span>
-                    <?php $this->_('AppController.client_structure.staff_as_client_note'); ?></a></span>
-        <?php elseif ((isset($show_language) ? $show_language : null) && count((isset($languages) ? $languages : [])) > 1): ?>
-            <div class="top-nav float-right">
-                <?php
-                $this->Form->create($this->client_uri . 'main/setlanguage/', ['id' => 'language_selector']);
-                $this->Form->fieldHidden('redirect_uri', (isset($request_uri) ? $request_uri : null));
-                $this->Form->fieldHidden('language_code', Configure::get('Blesta.language'), ['id' => 'language_code']);
-                $this->Form->end();
-                ?>
-                <ul>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle"
-                            data-toggle="dropdown"><?= (isset($languages[Configure::get('Blesta.language')]) ? $this->Html->safe($languages[Configure::get('Blesta.language')]) : null); ?>
-                            <b class="caret"></b></a>
-                        <ul class="dropdown-menu dropdown-menu-right" id="language_switcher">
-                            <?php foreach ($languages as $code => $language): ?>
-                                <li class="language_code" language_code="<?= $this->Html->safe($code); ?>">
-                                    <a href="#"><?= $this->Html->safe($language); ?></a>
-                                </li>
-                            <?php endforeach ?>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        <?php endif ?>
-    </div>
 
     <!-- Begin Content -->
     <?php $mt = str_contains($this->Html->safe($request_uri), 'login') ? 'mt-0' : 'mt-32'; ?>
