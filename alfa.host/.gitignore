@@ -28,3 +28,14 @@
 /area/app/views/client/*
 !/area/app/views/client/alfa/
 
+!/area/plugins/
+/area/plugins/*
+!/area/plugins/order/
+/area/plugins/order/*
+!/area/plugins/order/views/
+/area/plugins/order/views/*
+!/area/plugins/order/views/templates/
+/area/plugins/order/views/templates/*
+!/area/plugins/order/views/templates/alfa_standard/
+
+
