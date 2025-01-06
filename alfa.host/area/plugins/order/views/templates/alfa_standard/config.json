@@ -1,0 +1,18 @@
+{
+	"version": "1.0.0",
+	"name": "Alfa Standard Template Pack",
+	"description": "Standard order form template pack for the Order plugin.",
+	"authors": [
+		{
+			"name": "Alv Dev",
+			"url": "https://alv.dev"
+		}
+	],
+	"styles": {
+		"default": {
+			"name": "Alfa Standard",
+			"thumbnail": "images/thumb_default.png",
+			"screenshot": "images/full_default.png"
+		}
+	}
+}
