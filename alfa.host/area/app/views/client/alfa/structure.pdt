@@ -49,6 +49,8 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <script type="text/javascript"
         src="<?= $this->Html->safe($this->view_dir . 'javascript/app.min.js' . (!empty($hash_version) ? '?v=' . $hash_version : '')); ?>">
     </script>
+    
+    <script src="<?= $this->view_dir; ?>js/main-menu.js"></script>
 
     <?= $this->Javascript->getFiles('head'); ?>
     <?= (isset($custom_head) ? $custom_head : null); ?>
