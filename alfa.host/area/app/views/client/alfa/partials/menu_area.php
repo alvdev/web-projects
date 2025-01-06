@@ -44,17 +44,15 @@
 
                             </a>
                         <?php else: ?>
-                            <button popovertarget="menu<?= $value['id']; ?>" href="<?php (print(isset($link) ? $this->Html->safe($link) : null)) ?>"
-                                <?= $this->Html->buildAttributes($link_attributes) ?>>
-                                <i
-                                    class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?>"></i>
+                            <button popovertarget="menu<?= $value['id'] ?>" class="[anchor-name:--menu<?= $value['id']; ?>-btn]">
+                                <i class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?>"></i>
                                 <?php (print(isset($value['name']) ? $this->Html->safe($value['name']) : null)) ?>
-
+                                <div class="font-black float-right ml-0.5">▾</div>
                             </button>
                         <?php endif ?>
 
                         <?php if ($dropdown): ?>
-                            <div popover id="menu<?= $value['id']; ?>" class="[&:popover-open]:absolute">
+                            <div popover id="menu<?= $value['id']; ?>" class="absolute [position-anchor:--menu<?= $value['id']; ?>-btn] [top:anchor(bottom)] [left:anchor(left)] mt-2">
                                 <?php foreach ((isset($value['sub']) ? $value['sub'] : []) as $sub_link => $sub_value): ?>
                                     <a class="dropdown-item"
                                         href="<?php (print(isset($sub_link) ? $this->Html->safe($sub_link) : null)); ?>"><i

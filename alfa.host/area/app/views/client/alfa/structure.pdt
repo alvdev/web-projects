@@ -88,12 +88,12 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
                                 $this->Form->fieldHidden('language_code', Configure::get('Blesta.language'), ['id' => 'language_code']);
                                 $this->Form->end();
                                 ?>
-                                <button popovertarget="language_switcher">
+                                <button popovertarget="language_switcher" class="[anchor-name:--lang-btn]">
                                     <?= (isset($languages[Configure::get('Blesta.language')]) ? $this->Html->safe($languages[Configure::get('Blesta.language')]) : null); ?>
                                     <div class="font-black float-right ml-0.5">▾</div>
                                 </button>
 
-                                <div popover id="language_switcher" class="[&:popover-open]:absolute">
+                                <div popover id="language_switcher" class="absolute [position-anchor:--lang-btn] [top:anchor(bottom)] [left:anchor(left)] mt-2">
                                     <?php foreach ($languages as $code => $language): ?>
                                         <a href="#" class="language_code" language_code="<?= $this->Html->safe($code); ?>"><?= $this->Html->safe($language); ?></a>
                                     <?php endforeach ?>
