@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../../../../../plugins/order/views/templates/alfa_standard/";
 
 @utility container {
     margin-inline: auto;
@@ -35,31 +36,58 @@ html {
   }
 }
 
-h1 {
-  @apply text-6xl;
-}
+@layer base {
+  h1 {
+    @apply text-6xl;
+  }
 
-h2 {
-  @apply text-5xl;
-}
+  h2 {
+    @apply text-5xl;
+  }
 
-h3 {
-  @apply text-4xl
-}
+  h3 {
+    @apply text-4xl;
+  }
 
-h1,
-h2,
-h3 {
-  @apply font-semibold;
-}
+  h4 {
+    @apply text-2xl;
+  }
 
-main a {
-  @apply text-blue-600 font-semibold hover:text-black transition-all;
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-semibold;
+  }
 
-header,
-footer {
-  background-image: radial-gradient(farthest-corner at 40px 40px, #1d4ed8 0%, #0037ad 100%);
+  select,
+  input[type="text"],
+  input[type="textarea"],
+  input[type="password"] {
+    @apply w-full px-3 py-1.5 min-h-10 text-lg text-black font-semibold rounded-xs bg-gray-200 outline-hidden focus:ring-3 focus:ring-blue-200 transition-all;
+  }
+
+  input::placeholder {
+    @apply text-gray-400 font-normal;
+  }
+
+  label {
+    @apply uppercase text-sm font-semibold text-gray-500;
+  }
+
+  label ~ input,
+  label ~ select {
+    @apply mt-1;
+  }
+
+  main a {
+    @apply text-blue-600 font-semibold hover:text-black transition-all;
+  }
+
+  header,
+  footer {
+    background-image: radial-gradient(farthest-corner at 40px 40px, #1d4ed8 0%, #0037ad 100%);
+  }
 }
 
 @utility alv-linear-gradient-white {
@@ -75,4 +103,20 @@ footer {
 
 @utility alv-half-gray {
   @apply bg-gradient-to-r from-white from-50% via-gray-200 to-gray-200 py-32;
+}
+
+@utility alv-input-lg {
+  @apply px-4 py-3 text-xl font-semibold rounded-xs;
+}
+
+@utility alv-input-label-lg {
+  @apply text-sm;
+}
+
+@utility alv-btn-lg {
+  @apply text-xl px-12 py-3 uppercase rounded-md hover:cursor-pointer;
+}
+
+@utility alv-btn-black {
+  @apply text-white bg-black hover:bg-gray-900;
 }
