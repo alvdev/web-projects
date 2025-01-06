@@ -19,6 +19,10 @@ html {
     }
 }
 
+[popovertarget] {
+  @apply cursor-pointer;
+}
+
 [popover] {
   @apply hidden opacity-0 transition-all;
 
