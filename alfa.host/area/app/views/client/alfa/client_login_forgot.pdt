@@ -38,9 +38,7 @@
                             </a>
                         </div>
                     </fieldset>
-                    <?php
-                    $this->Form->end();
-                    ?>
+                    <?php $this->Form->end(); ?>
                 </div>
             </div>
         </div>
