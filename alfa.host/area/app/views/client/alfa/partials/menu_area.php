@@ -41,9 +41,13 @@
                                 <i
                                     class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?>"></i>
                                 <?php (print(isset($value['name']) ? $this->Html->safe($value['name']) : null)) ?>
-
                             </a>
                         <?php else: ?>
+                            <!-- TODO: force tailwind to build dynamic menu classes -->
+                            <div class="hidden [anchor-name:--menu42-btn] [position-anchor:--menu42-btn]"></div>
+                            <div class="hidden [anchor-name:--menu49-btn] [position-anchor:--menu49-btn]"></div>
+                            <!-- end forced tailwind classes -->
+                            <?php ?>
                             <button popovertarget="menu<?= $value['id'] ?>" class="[anchor-name:--menu<?= $value['id']; ?>-btn]">
                                 <i class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?>"></i>
                                 <?php (print(isset($value['name']) ? $this->Html->safe($value['name']) : null)) ?>
@@ -52,7 +56,7 @@
                         <?php endif ?>
 
                         <?php if ($dropdown): ?>
-                            <div popover id="menu<?= $value['id']; ?>" class="absolute [position-anchor:--menu<?= $value['id']; ?>-btn] [top:anchor(bottom)] [left:anchor(left)] mt-2">
+                            <div popover id="menu<?= $value['id']; ?>" class="[position-anchor:--menu<?= $value['id']; ?>-btn] top-[anchor(bottom)] left-[anchor(left)] mt-14 -ml-6">
                                 <?php foreach ((isset($value['sub']) ? $value['sub'] : []) as $sub_link => $sub_value): ?>
                                     <a class="dropdown-item"
                                         href="<?php (print(isset($sub_link) ? $this->Html->safe($sub_link) : null)); ?>"><i
