@@ -44,8 +44,10 @@
                             </a>
                         <?php else: ?>
                             <!-- TODO: force tailwind to build dynamic menu classes -->
-                            <div class="hidden [anchor-name:--menu42-btn] [position-anchor:--menu42-btn]"></div>
-                            <div class="hidden [anchor-name:--menu49-btn] [position-anchor:--menu49-btn]"></div>
+                             <?php $twForcedClasses = '
+                             [anchor-name:--menu42-btn] [position-anchor:--menu42-btn] [anchor-name:--menu45-btn] [position-anchor:--menu45-btn] [anchor-name:--menu49-btn] [position-anchor:--menu49-btn]
+                             [anchor-name:--menu52-btn] [position-anchor:--menu52-btn]'
+                             ?>
                             <!-- end forced tailwind classes -->
                             <?php ?>
                             <button popovertarget="menu<?= $value['id'] ?>" class="[anchor-name:--menu<?= $value['id']; ?>-btn]">
