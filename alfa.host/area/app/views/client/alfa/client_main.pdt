@@ -3,7 +3,7 @@
         <?= (isset($message) ? $message : null); ?>
         <div class="cards flex justify-between"></div>
     </div>
-    
+
     <?= (isset($myinfo) ? $myinfo : null); ?>
 </div>
 
