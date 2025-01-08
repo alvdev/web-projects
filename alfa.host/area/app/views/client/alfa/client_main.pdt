@@ -1,10 +1,12 @@
 <div class="container flex gap-16">
-    <div class="main-content w-2/3">
+    <div class="main-content w-3/4">
         <?= (isset($message) ? $message : null); ?>
         <div class="cards flex justify-between"></div>
     </div>
 
-    <?= (isset($myinfo) ? $myinfo : null); ?>
+    <div class="w-1/4">
+        <?= (isset($myinfo) ? $myinfo : null); ?>
+    </div>
 </div>
 
 <?php
