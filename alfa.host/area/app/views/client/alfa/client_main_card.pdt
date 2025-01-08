@@ -1,14 +1,12 @@
-    <div class="col-md-<?php echo ((isset($num_cards) ? $num_cards : 0) < 4) ? (((isset($num_cards) ? $num_cards : 0) < 3) ? 6 : 4) : 3; ?>">
-        <?php
-        echo !empty($card->uri) ? '<a href="' . $this->Html->safe($card->uri) . '">': '';
+    <div class="w-full rounded-sm overflow-clip text-center">
+        <?= !empty($card->uri) ? '<a href="' . $this->Html->safe($card->uri) . '">' : ''; ?>
 
-        if ((isset($card->callback_type) ? $card->callback_type : null) == 'html') {
-        ?>
-        <div id="<?php (print (isset($card->card_id) ? $this->Html->safe($card->card_id) : null));?>">
-            <?php echo (isset($card->value) ? $card->value : null);?>
-        </div>
-        <?php
-        } else {
+        <?php if ((isset($card->callback_type) ? $card->callback_type : null) == 'html'): ?>
+            <div id="<?php (print(isset($card->card_id) ? $this->Html->safe($card->card_id) : null)); ?>">
+                <?php echo (isset($card->value) ? $card->value : null); ?>
+            </div>
+        <?php else: ?>
+            <?php
             $style = null;
 
             if (isset($card->background)) {
@@ -38,16 +36,15 @@
             if (!is_null($style)) {
                 $style .= '"';
             }
-        ?>
-        <div id="<?php (print (isset($card->card_id) ? $this->Html->safe($card->card_id) : null));?>" class="card"<?php echo (isset($style) ? $style : null);?>>
-            <div class="card-content">
-                <div class="card-value"><?php (print (isset($card->value) ? $this->Html->safe($card->value) : null));?></div>
-                <div class="card-label"><?php (print (isset($card->label) ? $this->Html->safe($card->label) : null));?></div>
+            ?>
+            
+            <div id="<?php (print(isset($card->card_id) ? $this->Html->safe($card->card_id) : null)); ?>" class="card p-4" <?= (isset($style) ? $style : null); ?>>
+                <div class="card-content">
+                    <div class="card-value text-2xl"><?php (print(isset($card->value) ? $this->Html->safe($card->value) : null)); ?></div>
+                    <div class="card-label uppercase text-sm font-semibold"><?php (print(isset($card->label) ? $this->Html->safe($card->label) : null)); ?></div>
+                </div>
             </div>
-        </div>
-        <?php
-        }
 
-        echo !empty($card->link) ? '</a>': '';
-        ?>
+            <?= !empty($card->link) ? '</a>' : ''; ?>
+        <?php endif ?>
     </div>
