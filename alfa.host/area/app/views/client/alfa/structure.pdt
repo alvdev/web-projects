@@ -49,7 +49,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <script type="text/javascript"
         src="<?= $this->Html->safe($this->view_dir . 'javascript/app.min.js' . (!empty($hash_version) ? '?v=' . $hash_version : '')); ?>">
     </script>
-    
+
     <script src="<?= $this->view_dir; ?>js/main-menu.js"></script>
 
     <?= $this->Javascript->getFiles('head'); ?>
@@ -71,13 +71,15 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
 
         <?php require_once('partials/menu_main.php'); ?>
 
-        <div class="container mt-4 mb-8">
-            <h1 class="text-white/90">
-                <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
-            </h1>
+        <div class="container">
+            <div class="w-full mt-8 mb-24 inline-flex items-center justify-between">
+                <h1 class="text-white/90">
+                    <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
+                </h1>
+                
+                <?php require_once('partials/menu_area.php') ?>
+            </div>
         </div>
-
-        <?php require_once('partials/menu_area.php') ?>
     </header>
 
     <!-- Begin Content -->

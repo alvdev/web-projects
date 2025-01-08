@@ -1,4 +1,4 @@
-<nav class="container flex flex-col items-center relative translate-y-2/4 px-8 py-8 -mt-4 bg-white rounded-xs lg:flex-row gap-x-8 gap-y-4">
+<nav class="flex flex-col items-center relative lg:flex-row gap-x-8 gap-y-4 text-white">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -44,10 +44,10 @@
                             </a>
                         <?php else: ?>
                             <!-- TODO: force tailwind to build dynamic menu classes -->
-                             <?php $twForcedClasses = '
+                            <?php $twForcedClasses = '
                              [anchor-name:--menu42-btn] [position-anchor:--menu42-btn] [anchor-name:--menu45-btn] [position-anchor:--menu45-btn] [anchor-name:--menu49-btn] [position-anchor:--menu49-btn]
                              [anchor-name:--menu52-btn] [position-anchor:--menu52-btn]'
-                             ?>
+                            ?>
                             <!-- end forced tailwind classes -->
                             <?php ?>
                             <button popovertarget="menu<?= $value['id'] ?>" class="[anchor-name:--menu<?= $value['id']; ?>-btn]">
@@ -58,7 +58,7 @@
                         <?php endif ?>
 
                         <?php if ($dropdown): ?>
-                            <div popover id="menu<?= $value['id']; ?>" class="[position-anchor:--menu<?= $value['id']; ?>-btn] top-[anchor(bottom)] left-[anchor(left)] mt-14 -ml-6">
+                            <div popover id="menu<?= $value['id']; ?>" class="[position-anchor:--menu<?= $value['id']; ?>-btn] top-[anchor(bottom)] left-[anchor(left)] mt-4 -ml-6">
                                 <?php foreach ((isset($value['sub']) ? $value['sub'] : []) as $sub_link => $sub_value): ?>
                                     <a class="dropdown-item"
                                         href="<?php (print(isset($sub_link) ? $this->Html->safe($sub_link) : null)); ?>"><i
