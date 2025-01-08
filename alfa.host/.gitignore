@@ -28,6 +28,15 @@
 /area/app/views/client/*
 !/area/app/views/client/alfa/
 
+!/area/language/
+/area/language/*
+!/area/language/en_us/
+!/area/language/es_es/
+/area/language/en_us/*
+/area/language/es_es/*
+!/area/language/en_us/_global.php
+!/area/language/es_es/_global.php
+
 !/area/plugins/
 /area/plugins/*
 !/area/plugins/order/
@@ -37,5 +46,3 @@
 !/area/plugins/order/views/templates/
 /area/plugins/order/views/templates/*
 !/area/plugins/order/views/templates/alfa_standard/
-
-
