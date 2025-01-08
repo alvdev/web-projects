@@ -1,8 +1,7 @@
 <div id="my-info" class="flex flex-col gap-8">
     <div class="card">
         <h4 class="border-l-4 border-blue-600 mb-1 pl-4 py-2 uppercase text-xl">
-            <!-- <?php $this->_('ClientMain.myinfo.client_id', false, (isset($client->id_code) ? $this->Html->safe($client->id_code) : null)); ?> -->
-            Cliente
+             <?= $this->_('custom.ClientMain.myinfo.client') ?>
         </h4>
 
         <div class="border-l-4 border-gray-200 mb-1 pl-4 py-2">
