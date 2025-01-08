@@ -253,9 +253,12 @@
             </div>
         </div>
     </div>
+
+    <div class="alv-linear-gradient-white">
+        <?php include_once("copyright.php") ?>
+    </div>
 </footer>
 
-<?php include_once("copyright.php") ?>
 
 <div id="totop" class="w-24 h-24 fixed bottom-4 right-4 opacity-30 hover:opacity-50 hover:cursor-pointer z-50" rel="nofollow">
     <?php include(dirname(__DIR__, 1) . "/images/footer/totop.svg") ?>
