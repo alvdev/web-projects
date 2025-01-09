@@ -37,6 +37,10 @@
 !/area/language/en_us/_global.php
 !/area/language/es_es/_global.php
 
+!/area/helpers/
+/area/helpers/*
+!/area/helpers/widget_client/
+
 !/area/plugins/
 /area/plugins/*
 !/area/plugins/order/
