@@ -2,6 +2,11 @@
 @source "../../../../../plugins/order/views/templates/alfa_standard/";
 @source "../../../../../helpers/widget_client/widget_client.php";
 
+/* source from pagination */
+/* TODO: avoid using this file (side effects in admin area's pagination) */
+@source "../../../../../config/blesta.php";
+
+
 @utility container {
     margin-inline: auto;
 }
@@ -103,6 +108,10 @@
   .alv-tab {
     @apply border-2 border-blue-200 py-4 px-8 w-1/2 text-center rounded-md has-[:checked]:bg-blue-200 has-[:checked]:border-2 has-[:checked]:border-blue-200 hover:cursor-pointer checked:border-2 checked:border-blue-500 [input-radio]:hidden has-[:checked]:after:content-['🞃'] after:absolute after:left-0 after:-bottom-0.25 relative after:w-full after:leading-0 after:text-blue-200 after:text-xl [&_input[type='radio']]:hidden;
   }
+}
+
+@utility disabled {
+  @apply [&_a]:hover:cursor-default [&_a]:border-slate-500 [&_a]:text-slate-500;
 }
 
 @utility alv-linear-gradient-white {
