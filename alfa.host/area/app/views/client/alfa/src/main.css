@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source "../../../../../plugins/order/views/templates/alfa_standard/";
+@source "../../../../../helpers/widget_client/widget_client.php";
 
 @utility container {
     margin-inline: auto;
@@ -95,6 +96,12 @@
   header,
   footer {
     background-image: radial-gradient(farthest-corner at 40px 40px, #1d4ed8 0%, #0037ad 100%);
+  }
+}
+
+@layer components {
+  .alv-tab {
+    @apply border-2 border-blue-200 py-4 px-8 w-1/2 text-center rounded-md has-[:checked]:bg-blue-200 has-[:checked]:border-2 has-[:checked]:border-blue-200 hover:cursor-pointer checked:border-2 checked:border-blue-500 [input-radio]:hidden has-[:checked]:after:content-['🞃'] after:absolute after:left-0 after:-bottom-0.25 relative after:w-full after:leading-0 after:text-blue-200 after:text-xl [&_input[type='radio']]:hidden;
   }
 }
 
