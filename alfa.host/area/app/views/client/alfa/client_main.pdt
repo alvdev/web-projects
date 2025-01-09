@@ -4,7 +4,7 @@
         <div class="cards flex justify-between"></div>
     </div>
 
-    <div class="w-1/4">
+    <div class="w-1/4 sticky top-16 self-start">
         <?= (isset($myinfo) ? $myinfo : null); ?>
     </div>
 </div>
