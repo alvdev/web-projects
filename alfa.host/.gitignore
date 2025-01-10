@@ -50,3 +50,9 @@
 !/area/plugins/order/views/templates/
 /area/plugins/order/views/templates/*
 !/area/plugins/order/views/templates/alfa_standard/
+!/area/plugins/domains/
+/area/plugins/domains/*
+!/area/plugins/domains/domains_controller.php
+!/area/plugins/domains/views/
+/area/plugins/domains/views/*
+!/area/plugins/domains/views/alfa/
