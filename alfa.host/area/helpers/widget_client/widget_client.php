@@ -83,7 +83,7 @@ class WidgetClient extends AbstractWidget
         $output = $this->setOutput(true);
 
         $this->render = ($render == null ? 'full' : $render);
-        $default_attributes = ['class' => 'card card-blesta content_section'];
+        $default_attributes = ['class' => 'card card-blesta content_section mt-16'];
 
         // Set the attributes, don't allow overwriting the default class, concat instead
         if (isset($attributes['class']) && isset($default_attributes['class'])) {
