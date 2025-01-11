@@ -21,9 +21,9 @@ $this->WidgetClient->setAjaxFiltering();
 $this->WidgetClient->create($this->_('ClientServices.index.boxtitle_services', true), ['id' => 'client_services'], (isset($render_section) ? $render_section : null));
 $this->WidgetClient->startBody();
 $this->WidgetClient->buildFilters();
-
-if ((isset($services) ? $services : false) && ($num_services = count($services)) > 0) {
     ?>
+
+    <?php if ((isset($services) ? $services : false) && ($num_services = count($services)) > 0): ?>
         <div class="table-responsive mt-8">
             <table class="table table-curved table-striped-alt table-hover w-full border-separate border-spacing-y-1" id="services">
                 <thead class="[&_th]:text-left [&_th]:pb-4 uppercase">
@@ -148,9 +148,7 @@ if ((isset($services) ? $services : false) && ($num_services = count($services))
                 </tbody>
             </table>
         </div>
-    <?php
-} else {
-    ?>
+    <?php else: ?>
         <div class="alert alert-info mt-12 font-semibold">
             <p>
                 <?php
@@ -159,23 +157,23 @@ if ((isset($services) ? $services : false) && ($num_services = count($services))
                 ?>
             </p>
         </div>
+    <?php endif ?>
+
     <?php
-}
+    $this->WidgetClient->endBody();
+    if ($this->Pagination->hasPages()) {
+        $this->WidgetClient->startFooter();
+        $this->Pagination->build();
+        $this->WidgetClient->endFooter();
+    }
+    $this->WidgetClient->end();
 
-$this->WidgetClient->endBody();
-if ($this->Pagination->hasPages()) {
-    $this->WidgetClient->startFooter();
-    $this->Pagination->build();
-    $this->WidgetClient->endFooter();
-}
-$this->WidgetClient->end();
-
-// Don't show this container when only rendering the widget section
-if (!(isset($render_section) ? $render_section : null) && !(isset($is_ajax) ? $is_ajax : null)) {
+    // Don't show this container when only rendering the widget section
+    if (!(isset($render_section) ? $render_section : null) && !(isset($is_ajax) ? $is_ajax : null)) {
     ?>
     </div>
 <?php
-}
+    }
 ?>
 
 <script type="text/javascript">
