@@ -1,11 +1,12 @@
 @import "tailwindcss";
 @source "../../../../../plugins/order/views/templates/alfa_standard/";
 @source "../../../../../helpers/widget_client/widget_client.php";
+@source "../../../../../plugins/domains/views/alfa/";
+@source "../../../../../plugins/support_manager/views/alfa/";
 
 /* source from pagination */
 /* TODO: avoid using this file (side effects in admin area's pagination) */
 @source "../../../../../config/blesta.php";
-
 
 @utility container {
     margin-inline: auto;
