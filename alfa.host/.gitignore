@@ -56,3 +56,12 @@
 !/area/plugins/domains/views/
 /area/plugins/domains/views/*
 !/area/plugins/domains/views/alfa/
+!/area/plugins/support_manager/
+/area/plugins/support_manager/*
+!/area/plugins/support_manager/support_manager_controller.php
+!/area/plugins/support_manager/views/
+/area/plugins/support_manager/views/*
+!/area/plugins/support_manager/views/alfa/
+/area/plugins/support_manager/views/alfa/*
+!/area/plugins/support_manager/views/alfa/client_main.pdt
+
