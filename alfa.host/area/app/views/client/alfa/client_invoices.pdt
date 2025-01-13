@@ -139,7 +139,7 @@ $this->WidgetClient->buildFilters();
             </table>
         </div>
     <?php else: ?>
-        <div class="alert alert-info">
+        <div class="alert alert-info mt-12 font-semibold">
             <p>
                 <?php
                 $section_language = $this->_('ClientInvoices.index.category_' . (isset($status) ? $status : null), true);
