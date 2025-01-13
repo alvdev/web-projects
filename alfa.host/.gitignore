@@ -64,4 +64,5 @@
 !/area/plugins/support_manager/views/alfa/
 /area/plugins/support_manager/views/alfa/*
 !/area/plugins/support_manager/views/alfa/client_main.pdt
+!/area/plugins/support_manager/views/alfa/client_tickets.pdt
 
