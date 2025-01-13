@@ -57,7 +57,7 @@
                                         $priority_class = 'default';
                                     }
                                 ?>
-                                    <tr class="expand service_info *:py-3 *:first:rounded-l-md *:last:rounded-r-md *:first:pl-4 *:w-1/6 group [&_td:not(:last-child)>div]:group-hover:scale-105">
+                                    <tr class="*:py-3 *:first:rounded-l-md *:last:rounded-r-md *:first:pl-4 *:w-1/6 group [&_td:not(:last-child)>div]:group-hover:scale-105">
                                         <td>
                                             <div><a href="<?php echo $this->Html->safe($this->base_uri . 'plugin/support_manager/client_tickets/reply/' . (isset($ticket->id) ? $ticket->id : null) . '/'); ?>"><?php echo (isset($ticket->code) ? $this->Html->safe($ticket->code) : null); ?></a></div>
                                         </td>
