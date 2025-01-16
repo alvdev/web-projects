@@ -152,14 +152,30 @@
 
 @layer utilities {
   .alert {
-    @apply relative bottom-0 w-full border-l-4 border-slate-400 bg-linear-to-r from-slate-200 to-white text-slate-800 rounded-md overflow-clip px-9 py-7 flex flex-col gap-2 before:absolute before:left-2 [&_~_*]:mt-16;
+    @apply relative bottom-0 w-full flex gap-12 border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-white text-slate-900 rounded-md overflow-clip pl-9 py-7 before:absolute before:left-2 [&_~_*]:mt-16 opacity-100 scale-100;
+
+    & a {
+      @apply  text-white inline-flex items-center gap-2 px-4 py-1 border rounded-full font-semibold uppercase text-sm transition-all;
+    }
+
+    & button.close {
+      @apply flex items-start pt-2 text-2xl opacity-70 leading-2 justify-center font-bold w-7 h-7 hover:cursor-pointer hover:text-black hover:opacity-100 transition-all; 
+      }
+  }
+
+  .alert-success {
+   @apply border-emerald-400 from-emerald-100 before:content-['❗'] text-emerald-900; 
+  }
+
+  .alert-danger {
+   @apply border-rose-400 from-rose-100 before:content-['❗'] text-rose-900; 
   }
 
   .alert-warning {
-   @apply border-rose-400 from-rose-200 rounded-md [&>button.close]:bg-rose-200 [&>button.close]:hover:bg-rose-300 [&>button.close]:hover:rounded-tr-sm before:content-['❗']; 
+   @apply border-amber-400 from-amber-100 before:content-['❗'] text-amber-900; 
   }
 
-  .alert-dismissable > button.close {
-    @apply absolute right-0 top-0 flex items-start pt-2 text-xl leading-2 justify-center font-bold uppercase! rounded-bl-md w-7 h-7 hover:cursor-pointer;    
+  .alert-info {
+   @apply border-sky-400 from-sky-100 before:content-['❗'] text-sky-900; 
   }
 }
