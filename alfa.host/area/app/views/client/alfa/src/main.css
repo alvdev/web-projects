@@ -15,10 +15,14 @@
 @layer base {
   html {
     @apply scroll-smooth;
-    animation: onLoadFade 0.25s;
+    /* animation: onLoadFade 0.25s; */
+  }
+  
+  @view-transition {
+    navigation: auto
   }
 
-  @keyframes onLoadFade {
+/*   @keyframes onLoadFade {
       from {
           opacity: 0.25;
       }
@@ -26,7 +30,7 @@
       to {
           opacity: 1;
       }
-  }
+  } */
 
   [popovertarget] {
     @apply cursor-pointer;
