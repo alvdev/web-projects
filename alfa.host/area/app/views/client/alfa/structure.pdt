@@ -76,15 +76,28 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
                 <h1 class="text-white/90">
                     <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
                 </h1>
-                
+
                 <?php require_once('partials/menu_area.php') ?>
             </div>
         </div>
     </header>
 
+    <!-- Set container or fluid container -->
+    <?php
+    $fluidPages = ['login'];
+    foreach ($fluidPages as $page) {
+        if (str_contains($request_uri, $page)) {
+            $fluidContainer = 'mt-0';
+            break;
+        } else {
+            $container = 'container mt-24';
+            break;
+        }
+    }
+    ?>
+
     <!-- Begin Content -->
-    <?php $mt = str_contains($this->Html->safe($request_uri), 'login') ? 'mt-0' : 'mt-32'; ?>
-    <main class="<?= $mt ?>">
+    <main class="<?= $container ?? $fluidContainer ?>">
         <?php if (!empty($active_nav['secondary'])): ?>
             <div class="col-md-3">
                 <div class="list-group">
