@@ -1,7 +1,6 @@
 <div class="container flex gap-16">
     <div class="main-content w-3/4">
         <?= (isset($message) ? $message : null); ?>
-        <div class="cards flex justify-between"></div>
     </div>
 
     <div class="w-1/4 sticky top-16 self-start">
@@ -14,10 +13,6 @@ $this->Javascript->setInline('
     $(document).ready(function() {
         $(".main-content").blestaLoadWidgets({
             fetch_uri: "' . $this->Html->safe($this->base_uri . 'main/getwidgets/' . (isset($client->id) ? $client->id : null), true) . '"
-        });
-        
-        $(".main-content .cards").blestaLoadCards({
-            fetch_uri: "' . $this->Html->safe($this->base_uri . 'main/getcards/' . (isset($client->id) ? $client->id : null), true) . '"
         });
     });
 ');

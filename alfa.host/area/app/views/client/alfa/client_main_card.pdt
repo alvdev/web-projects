@@ -1,50 +1,67 @@
-    <div class="w-full rounded-sm overflow-clip text-center">
-        <?= !empty($card->uri) ? '<a href="' . $this->Html->safe($card->uri) . '">' : ''; ?>
+<!--     <div class="flex items-center divide-x-2 divide-gray-400">
+        <div class="pr-4 border-4">
+            <img src="/user/themes/alfa/images/svg/megamenu/hosting-web-emprendedor.svg" alt="" class="h-24 w-36">
+        </div>
+        <div class="pl-4">
+            <p class="text-gray-900 font-medium">
+                Hosting emprendedores
+            </p>
+            <p class="text-base">
+                Hosting description
+            </p>
+        </div>
+    </div> -->
 
-        <?php if ((isset($card->callback_type) ? $card->callback_type : null) == 'html'): ?>
-            <div id="<?php (print(isset($card->card_id) ? $this->Html->safe($card->card_id) : null)); ?>">
-                <?php echo (isset($card->value) ? $card->value : null); ?>
+<div class="w-full rounded-sm overflow-clip text-center">
+    <?= !empty($card->uri) ? '<a href="' . $this->Html->safe($card->uri) . '">' : ''; ?>
+
+    <?php if ((isset($card->callback_type) ? $card->callback_type : null) == 'html'): ?>
+        <div id="<?php (print(isset($card->card_id) ? $this->Html->safe($card->card_id) : null)); ?>">
+            <?php echo (isset($card->value) ? $card->value : null); ?>
+        </div>
+    <?php else: ?>
+        <?php
+        $style = null;
+
+        if (isset($card->background)) {
+            if ($card->background_type == 'color') {
+                $background = 'background: ' . (isset($card->background) ? $this->Html->safe($card->background) : null) . ' !important;';
+            } else {
+                $background = 'background-image: url(' . (isset($card->background) ? $this->Html->safe($card->background) : null) . ') !important;';
+            }
+
+            if (is_null($style)) {
+                $style .= ' style="';
+            }
+
+            $style .= $background;
+        }
+
+        if (isset($card->text_color)) {
+            $text_color = 'color: ' . (isset($card->text_color) ? $this->Html->safe($card->text_color) : null) . ' !important;';
+
+            if (is_null($style)) {
+                $style .= ' style="';
+            }
+
+            $style .= $text_color;
+        }
+
+        if (!is_null($style)) {
+            $style .= '"';
+        }
+        ?>
+
+        <div id="<?php (print(isset($card->card_id) ? $this->Html->safe($card->card_id) : null)); ?>" class="card p-4 flex items-center divide-x-2 divide-slate-400" <?= (isset($style) ? $style : null); ?>>
+            <div class="pr-4 w-16">
+                <img src="/user/themes/alfa/images/svg/megamenu/hosting-web-emprendedor.svg" alt="" class="w-12">
             </div>
-        <?php else: ?>
-            <?php
-            $style = null;
-
-            if (isset($card->background)) {
-                if ($card->background_type == 'color') {
-                    $background = 'background: ' . (isset($card->background) ? $this->Html->safe($card->background) : null) . ' !important;';
-                } else {
-                    $background = 'background-image: url(' . (isset($card->background) ? $this->Html->safe($card->background) : null) . ') !important;';
-                }
-
-                if (is_null($style)) {
-                    $style .= ' style="';
-                }
-
-                $style .= $background;
-            }
-
-            if (isset($card->text_color)) {
-                $text_color = 'color: ' . (isset($card->text_color) ? $this->Html->safe($card->text_color) : null) . ' !important;';
-
-                if (is_null($style)) {
-                    $style .= ' style="';
-                }
-
-                $style .= $text_color;
-            }
-
-            if (!is_null($style)) {
-                $style .= '"';
-            }
-            ?>
-            
-            <div id="<?php (print(isset($card->card_id) ? $this->Html->safe($card->card_id) : null)); ?>" class="card p-4" <?= (isset($style) ? $style : null); ?>>
-                <div class="card-content">
-                    <div class="card-value text-2xl"><?php (print(isset($card->value) ? $this->Html->safe($card->value) : null)); ?></div>
-                    <div class="card-label uppercase text-sm font-semibold"><?php (print(isset($card->label) ? $this->Html->safe($card->label) : null)); ?></div>
-                </div>
+            <div class="card-content flex items-center gap-4 pl-4">
+                <div class="card-value text-slate-900 font-semibold text-2xl"><?php (print(isset($card->value) ? $this->Html->safe($card->value) : null)); ?></div>
+                <div class="card-label uppercase"><?= $this->Html->safe($card->label) ?? null; ?></div>
             </div>
+        </div>
 
-            <?= !empty($card->link) ? '</a>' : ''; ?>
-        <?php endif ?>
-    </div>
+        <?= !empty($card->link) ? '</a>' : ''; ?>
+    <?php endif ?>
+</div>
