@@ -1,48 +1,50 @@
-        <div class="col-md-12">
-            <?php
-            echo (isset($message) ? $message : null);
+<div class="col-md-12">
+    <?php
+    echo (isset($message) ? $message : null);
 
-            $this->WidgetClient->clear();
-            $this->WidgetClient->create($this->_('ClientPay.index.boxtitle_pay', true), ['id' => 'client_pay'], (isset($render_section) ? $render_section : null));
-            $this->WidgetClient->startBody();
+    $this->WidgetClient->clear();
+    $this->WidgetClient->create($this->_('ClientPay.index.boxtitle_pay', true), ['id' => 'client_pay'], (isset($render_section) ? $render_section : null));
+    $this->WidgetClient->startBody();
 
-            $this->Form->create(null, ['class' => 'disable-on-submit']);
+    $this->Form->create(null, ['class' => 'disable-on-submit']);
 
-            echo (isset($invoice_info) ? $invoice_info : null);
-            ?>
-            <hr />
-            <div class="row panel-fix">
-                <div class="col-xs-3">
-                    <div class="form-group">
-                        <?php
-                        $this->Form->label($this->_('ClientPay.index.field_credit', true), 'credit');
-                        ?>
-                        <div class="input-group">
-                            <?php
-                            $this->Form->fieldText('credit', (isset($vars->credit) ? $vars->credit : null), ['id' => 'credit', 'class' => 'form-control']);
-                            ?>
-                            <div class="input-group-append">
-                                <span class="input-group-text"><?php (print (isset($currency) ? $this->Html->safe($currency) : null));?></span>
-                            </div>
-                        </div>
+    echo (isset($invoice_info) ? $invoice_info : null);
+    ?>
+
+    <div class="flex items-center gap-16 mt-8">
+        <div class="w-3/4">
+            <div class="form-group flex items-center gap-4 text-lg">
+                <?php
+                $this->Form->label($this->_('ClientPay.index.field_credit', true), 'credit', ['class' => 'text-xl']);
+                ?>
+                <div class="input-group flex grow items-center gap-4">
+                    <?php
+                    $this->Form->fieldText('credit', (isset($vars->credit) ? $vars->credit : null), ['id' => 'credit', 'class' => 'form-control']);
+                    ?>
+                    <div class="input-group-append">
+                        <span
+                            class="input-group-text"><?php (print(isset($currency) ? $this->Html->safe($currency) : null)); ?></span>
                     </div>
                 </div>
             </div>
-
-            <button type="submit" class="btn btn-light float-right">
-                <i class="fas fa-arrow-circle-right"></i> <?php $this->_('ClientPay.index.field_submit');?>
-            </button>
-            <?php
-            $this->Form->end();
-            $this->WidgetClient->endBody();
-            $this->WidgetClient->end();
-            ?>
         </div>
+
+        <div class="w-1/4">
+            <button type="submit" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 text-white px-4 py-4 rounded-md font-semibold uppercase text-lg hover:cursor-pointer hover:bg-emerald-600">
+                <i class="fas fa-arrow-circle-right"></i> <?php $this->_('ClientPay.index.field_submit'); ?>
+            </button>
+        </div>
+    </div>
+    <?php
+    $this->Form->end();
+    $this->WidgetClient->endBody();
+    $this->WidgetClient->end();
+    ?>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function() {
         selectAllPayments();
-
         $("input[name='invoice_id[]']").on("change", function() {
             if ($(this).val() == "all") {
                 if ($(this).is(":checked"))
