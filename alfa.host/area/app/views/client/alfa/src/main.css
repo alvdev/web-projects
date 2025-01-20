@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @source "../../../../../plugins/order/views/templates/alfa_standard/";
 @source "../../../../../helpers/widget_client/widget_client.php";
 @source "../../../../../plugins/domains/views/alfa/";
@@ -13,16 +13,16 @@
 }
 
 @layer base {
-  html {
-    @apply scroll-smooth;
-    /* animation: onLoadFade 0.25s; */
-  }
-  
-  @view-transition {
-    navigation: auto
-  }
+    html {
+        @apply scroll-smooth;
+        /* animation: onLoadFade 0.25s; */
+    }
 
-/*   @keyframes onLoadFade {
+    @view-transition {
+        navigation: auto;
+    }
+
+    /*   @keyframes onLoadFade {
       from {
           opacity: 0.25;
       }
@@ -32,150 +32,150 @@
       }
   } */
 
-  [popovertarget] {
-    @apply cursor-pointer;
-  }
-
-  [popover] {
-    @apply hidden opacity-0 transition-all;
-
-    &:popover-open {
-      @apply flex flex-col text-left opacity-100 border-2 border-blue-400 rounded-md shadow-lg;
-
-      & a {
-        @apply px-6 py-2 first:pt-4 last:pb-4 hover:bg-blue-100;
-      }
+    [popovertarget] {
+        @apply cursor-pointer;
     }
-  }
 
-  h1 {
-    @apply text-6xl;
-  }
+    [popover] {
+        @apply hidden opacity-0 transition-all;
 
-  h2 {
-    @apply text-5xl;
-  }
+        &:popover-open {
+            @apply flex flex-col text-left opacity-100 border-2 border-blue-400 rounded-md shadow-lg;
 
-  h3 {
-    @apply text-4xl;
-  }
+            & a {
+                @apply px-6 py-2 first:pt-4 last:pb-4 hover:bg-blue-100;
+            }
+        }
+    }
 
-  h4 {
-    @apply text-2xl;
-  }
+    h1 {
+        @apply text-6xl;
+    }
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    @apply font-semibold;
-  }
+    h2 {
+        @apply text-5xl;
+    }
 
-  select,
-  input[type="text"],
-  input[type="textarea"],
-  input[type="password"] {
-    @apply w-full px-3 py-1.5 min-h-10 text-lg text-black font-semibold rounded-xs bg-gray-200 outline-hidden focus:ring-3 focus:ring-blue-200 transition-all;
-  }
+    h3 {
+        @apply text-4xl;
+    }
 
-  input::placeholder {
-    @apply text-gray-400 font-normal;
-  }
+    h4 {
+        @apply text-2xl;
+    }
 
-  input[type="radio"] {
-    @apply appearance-none checked:bg-black checked:border-3 checked:border-white bg-white/60 w-4 h-4 ring-2 ring-black rounded-full mr-2 relative top-0.5;
-  }
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-semibold;
+    }
 
-  input[type="checkbox"] {
-  @apply appearance-none relative top-0.5 bg-white/60 w-4 h-4 ring-2 ring-gray-800 rounded-xs mr-2 font-bold text-black text-sm text-center checked:bg-gray-800 checked:after:content-['✓'] checked:ring-2 checked:ring-gray-800 checked:after:text-white checked:after:relative checked:after:-top-[3px];
-  }
+    select,
+    input[type='text'],
+    input[type='textarea'],
+    input[type='password'] {
+        @apply w-full px-3 py-1.5 min-h-10 text-lg text-black font-semibold rounded-xs bg-gray-200 outline-hidden focus:ring-3 focus:ring-blue-200 transition-all;
+    }
 
-  label {
-    @apply uppercase text-sm font-semibold text-gray-500;
-  }
+    input::placeholder {
+        @apply text-gray-400 font-normal;
+    }
 
-  label ~ input,
-  label ~ select {
-    @apply mt-1;
-  }
+    input[type='radio'] {
+        @apply appearance-none checked:bg-black checked:border-3 checked:border-white bg-white/60 w-4 h-4 ring-2 ring-black rounded-full mr-2 relative top-0.5;
+    }
 
-  main a {
-    @apply text-blue-600 font-semibold hover:text-black transition-all;
-  }
+    input[type='checkbox'] {
+        @apply appearance-none relative top-0.5 bg-white/60 w-4 h-4 ring-2 ring-gray-800 rounded-xs mr-2 font-bold text-black text-sm text-center checked:bg-gray-800 checked:after:content-['✓'] checked:ring-2 checked:ring-gray-800 checked:after:text-white checked:after:relative checked:after:-top-[3px];
+    }
 
-  header,
-  footer {
-    background-image: radial-gradient(farthest-corner at 40px 40px, #1d4ed8 0%, #0037ad 100%);
-  }
+    label {
+        @apply uppercase text-sm font-semibold text-gray-500;
+    }
+
+    label ~ input,
+    label ~ select {
+        @apply mt-1;
+    }
+
+    main a {
+        @apply text-blue-600 font-semibold hover:text-black transition-all;
+    }
+
+    header,
+    footer {
+        background-image: radial-gradient(farthest-corner at 40px 40px, #1d4ed8 0%, #0037ad 100%);
+    }
 }
 
 @layer components {
-  .alv-tab {
-    @apply border-2 border-blue-200 py-4 px-8 w-1/2 text-center rounded-md has-[:checked]:bg-blue-200 has-[:checked]:border-2 has-[:checked]:border-blue-200 hover:cursor-pointer checked:border-2 checked:border-blue-500 [input-radio]:hidden has-[:checked]:after:content-['🞃'] after:absolute after:left-0 after:-bottom-0.25 relative after:w-full after:leading-0 after:text-blue-200 after:text-xl [&_input[type='radio']]:hidden;
-  }
+    .alv-tab {
+        @apply border-2 border-blue-200 py-4 px-8 w-1/2 text-center rounded-md has-[:checked]:bg-blue-200 has-[:checked]:border-2 has-[:checked]:border-blue-200 hover:cursor-pointer checked:border-2 checked:border-blue-500 [input-radio]:hidden has-[:checked]:after:content-['🞃'] after:absolute after:left-0 after:-bottom-0.25 relative after:w-full after:leading-0 after:text-blue-200 after:text-xl [&_input[type='radio']]:hidden;
+    }
 }
 
 @utility disabled {
-  @apply [&_a]:hover:cursor-default [&_a]:border-slate-500 [&_a]:text-slate-500;
+    @apply [&_a]:hover:cursor-default [&_a]:border-slate-500 [&_a]:text-slate-500;
 }
 
 @utility alv-linear-gradient-white {
-  background-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 2%,
-    rgba(255, 255, 255, 0.25) 25%,
-    rgba(255, 255, 255, 0.25) 50%,
-    rgba(255, 255, 255, 0.25) 75%,
-    rgba(255, 255, 255, 0) 98%
-  );
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 2%,
+        rgba(255, 255, 255, 0.25) 25%,
+        rgba(255, 255, 255, 0.25) 50%,
+        rgba(255, 255, 255, 0.25) 75%,
+        rgba(255, 255, 255, 0) 98%
+    );
 }
 
 @utility alv-half-gray {
-  @apply bg-gradient-to-r from-white from-50% via-gray-200 to-gray-200 py-32;
+    @apply bg-gradient-to-r from-white from-50% via-gray-200 to-gray-200 py-32;
 }
 
 @utility alv-input-lg {
-  @apply px-4 py-3 text-xl font-semibold rounded-xs;
+    @apply px-4 py-3 text-xl font-semibold rounded-xs;
 }
 
 @utility alv-input-label-lg {
-  @apply text-sm;
+    @apply text-sm;
 }
 
 @utility alv-btn-lg {
-  @apply text-xl px-12 py-3 uppercase rounded-md hover:cursor-pointer;
+    @apply text-xl px-12 py-3 uppercase rounded-md hover:cursor-pointer;
 }
 
 @utility alv-btn-black {
-  @apply text-white bg-black hover:bg-gray-900;
+    @apply text-white bg-black hover:bg-gray-900;
 }
 
 @layer utilities {
-  .alert {
-    @apply relative bottom-0 w-full flex gap-12 border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-white text-slate-900 rounded-md overflow-clip pl-9 py-7 before:absolute before:left-2 [&_~_*]:mt-16 opacity-100 scale-100;
+    .alert {
+        @apply relative bottom-0 w-full flex gap-12 border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-white text-slate-900 rounded-md overflow-clip pl-9 py-7 before:absolute before:left-2 [&_~_*]:mt-16 opacity-100 scale-100;
 
-    & a {
-      @apply  text-white inline-flex items-center gap-2 px-4 py-1 border rounded-full font-semibold uppercase text-sm transition-all;
+        & a {
+            @apply text-white inline-flex items-center gap-2 px-4 py-1 border rounded-full font-semibold uppercase text-sm transition-all;
+        }
+
+        & button.close {
+            @apply flex items-start pt-2 text-2xl opacity-70 leading-2 justify-center font-bold w-7 h-7 hover:cursor-pointer hover:text-black hover:opacity-100 transition-all;
+        }
     }
 
-    & button.close {
-      @apply flex items-start pt-2 text-2xl opacity-70 leading-2 justify-center font-bold w-7 h-7 hover:cursor-pointer hover:text-black hover:opacity-100 transition-all; 
-      }
-  }
+    .alert-success {
+        @apply border-emerald-400 from-emerald-100 before:content-['❗'] text-emerald-900;
+    }
 
-  .alert-success {
-   @apply border-emerald-400 from-emerald-100 before:content-['❗'] text-emerald-900; 
-  }
+    .alert-danger {
+        @apply border-rose-400 from-rose-100 before:content-['❗'] text-rose-900;
+    }
 
-  .alert-danger {
-   @apply border-rose-400 from-rose-100 before:content-['❗'] text-rose-900; 
-  }
+    .alert-warning {
+        @apply border-amber-400 from-amber-100 before:content-['❗'] text-amber-900;
+    }
 
-  .alert-warning {
-   @apply border-amber-400 from-amber-100 before:content-['❗'] text-amber-900; 
-  }
-
-  .alert-info {
-   @apply border-sky-400 from-sky-100 before:content-['❗'] text-sky-900; 
-  }
+    .alert-info {
+        @apply border-sky-400 from-sky-100 before:content-['❗'] text-sky-900;
+    }
 }
