@@ -1,0 +1,28 @@
+{
+	"version": "1.0.0",
+	"name": "Alfa Wizard Template Pack",
+	"description": "Alfa Wizard order form template pack for the Order plugin.",
+	"authors": [
+		{
+			"name": "Alv Dev",
+			"url": "https://alv.dev"
+		}
+	],
+	"styles": {
+		"slider": {
+			"name": "Alfa Wizard Slider",
+			"thumbnail": "images/thumb_slider.png",
+			"screenshot": "images/full_slider.png"
+		},
+		"boxes": {
+			"name": "Alfa Wizard Boxes",
+			"thumbnail": "images/thumb_boxes.png",
+			"screenshot": "images/full_boxes.png"
+		},
+		"list": {
+			"name": "Alfa Wizard List",
+			"thumbnail": "images/thumb_list.png",
+			"screenshot": "images/full_list.png"
+		}
+	}
+}
