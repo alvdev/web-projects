@@ -50,6 +50,7 @@
 !/area/plugins/order/views/templates/
 /area/plugins/order/views/templates/*
 !/area/plugins/order/views/templates/alfa_standard/
+!/area/plugins/order/views/templates/alfa_wizard/
 !/area/plugins/domains/
 /area/plugins/domains/*
 !/area/plugins/domains/domains_controller.php
