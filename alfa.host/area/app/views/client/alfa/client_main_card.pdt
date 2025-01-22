@@ -12,7 +12,7 @@
         </div>
     </div> -->
 
-<div class="w-full rounded-sm overflow-clip text-center">
+<div class="w-full rounded-sm overflow-clip text-center bg-slate-100">
     <?= !empty($card->uri) ? '<a href="' . $this->Html->safe($card->uri) . '">' : ''; ?>
 
     <?php if ((isset($card->callback_type) ? $card->callback_type : null) == 'html'): ?>
@@ -52,7 +52,7 @@
         }
         ?>
 
-        <div id="<?php (print(isset($card->card_id) ? $this->Html->safe($card->card_id) : null)); ?>" class="card p-4 flex items-center divide-x-2 divide-slate-400" <?= (isset($style) ? $style : null); ?>>
+        <div id="<?php (print(isset($card->card_id) ? $this->Html->safe($card->card_id) : null)); ?>" class="card p-4 flex items-center divide-x-2 divide-slate-400">
             <div class="pr-4 w-16">
                 <img src="/user/themes/alfa/images/svg/megamenu/hosting-web-emprendedor.svg" alt="" class="w-12">
             </div>
