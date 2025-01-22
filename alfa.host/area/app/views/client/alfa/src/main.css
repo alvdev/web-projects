@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @source "../../../../../plugins/order/views/templates/alfa_standard/";
+@source "../../../../../plugins/order/views/templates/alfa_wizard/";
 @source "../../../../../helpers/widget_client/widget_client.php";
 @source "../../../../../plugins/domains/views/alfa/";
 @source "../../../../../plugins/support_manager/views/alfa/";
