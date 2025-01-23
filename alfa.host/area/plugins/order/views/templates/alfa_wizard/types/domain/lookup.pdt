@@ -126,12 +126,12 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
         </div>
     <?php endif ?>
 
-    <div class="card bg-light p-3 card-order domains">
-        <div class="table-responsive">
-            <table class="table table-curved">
-                <thead>
+    <div class="domains">
+        <div class="table-responsive mt-8">
+            <table class="table table-curved w-full border-separate border-spacing-y-1">
+                <thead class="[&_th]:text-left [&_th]:pb-4 uppercase">
                     <tr>
-                        <th>
+                        <th class="pl-4">
                             <input type="checkbox" id="all_domains">
                         </th>
                         <th><?php $this->_('Domain.lookup.domains_domain_name'); ?></th>
@@ -139,7 +139,8 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                         <th><?php $this->_('Domain.lookup.domains_term'); ?></th>
                     </tr>
                 </thead>
-                <tbody>
+
+                <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100 *:hover:bg-blue-100">
                     <?php
                     foreach ($domains as $domain => $pack) {
                         $allow = true;
@@ -147,7 +148,7 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                             $allow = false;
                         }
                     ?>
-                        <tr>
+                        <tr class="tld_pricing *:py-3 *:first:rounded-l-md *:last:rounded-r-md *:first:pl-4 *:w-1/6 group [&_td>div]:group-hover:scale-105">
                             <td>
                                 <?php
                                 $attr = ['id' => 'dom_' . $domain];
@@ -179,7 +180,7 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                                 }
                                 ?>
                             </td>
-                            <td>
+                            <td class="pr-4">
                                 <?php
                                 $prices = [];
                                 foreach ($pack->package->pricing as $price) {
@@ -195,7 +196,7 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                                     }
                                 }
 
-                                $attr = ['class' => 'form-control input-sm'];
+                                $attr = ['class' => 'bg-white font-normal'];
                                 if (!$allow) {
                                     $attr['disabled'] = 'disabled';
                                 }
@@ -228,36 +229,45 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
 }
 ?>
 
-<div class="p-3 mb-2 table-responsive">
-    <table class="table table-curved table-striped">
-        <thead>
+<div class="p-3 mb-2 table-responsive mt-8">
+    <table class="table table-curved table-striped w-full border-separate border-spacing-y-1">
+        <thead class="[&_th]:text-left [&_th]:pb-4 uppercase">
             <tr>
-                <th><?php $this->_('Domain.lookup.heading_tld'); ?></th>
+                <th class="pl-4"><?php $this->_('Domain.lookup.heading_tld'); ?></th>
                 <th><?php $this->_('Domain.lookup.heading_price'); ?></th>
                 <th><?php $this->_('Domain.lookup.heading_transfer_price'); ?></th>
                 <th><?php $this->_('Domain.lookup.heading_renew_price'); ?></th>
             </tr>
         </thead>
-        <tbody>
+
+        <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100 *:hover:bg-blue-100">
             <?php
             if (!empty($spotlight_tlds)) {
                 foreach ($spotlight_tlds as $spotlight_tld => $true) {
                     if (array_key_exists($spotlight_tld, $tlds_pricing)) {
                         foreach ($tlds_pricing[$spotlight_tld] as $term) {
             ?>
-                            <tr class="tld_pricing">
-                                <td><?php echo $this->Html->safe($spotlight_tld); ?></td>
-                                <td>
-                                    <?php echo $this->CurrencyFormat->format(($term->price ?? 0), $term->currency); ?>
-                                    <br><small><?php $this->_('Domain.lookup.term_year' . ($term->term > 1 ? 's' : ''), false, $term->term); ?></small>
+                            <tr class="tld_pricing *:py-3 *:first:rounded-l-md *:last:rounded-r-md *:first:pl-4 *:w-1/6 group [&_td>div]:group-hover:scale-105">
+                                <td class="uppercase font-semibold">
+                                    <div><?php echo $this->Html->safe($spotlight_tld); ?></div>
                                 </td>
                                 <td>
-                                    <?php echo $this->CurrencyFormat->format(($term->price_transfer ?? 0), $term->currency); ?>
-                                    <br><small><?php $this->_('Domain.lookup.term_year' . ($term->term > 1 ? 's' : ''), false, $term->term); ?></small>
+                                    <div>
+                                        <?php echo $this->CurrencyFormat->format(($term->price ?? 0), $term->currency); ?>
+                                        <br><small><?php $this->_('Domain.lookup.term_year' . ($term->term > 1 ? 's' : ''), false, $term->term); ?></small>
+                                    </div>
                                 </td>
                                 <td>
-                                    <?php echo $this->CurrencyFormat->format(($term->price_renews ?? 0), $term->currency); ?>
-                                    <br><small><?php $this->_('Domain.lookup.term_year' . ($term->term > 1 ? 's' : ''), false, $term->term); ?></small>
+                                    <div>
+                                        <?php echo $this->CurrencyFormat->format(($term->price_transfer ?? 0), $term->currency); ?>
+                                        <br><small><?php $this->_('Domain.lookup.term_year' . ($term->term > 1 ? 's' : ''), false, $term->term); ?></small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <?php echo $this->CurrencyFormat->format(($term->price_renews ?? 0), $term->currency); ?>
+                                        <br><small><?php $this->_('Domain.lookup.term_year' . ($term->term > 1 ? 's' : ''), false, $term->term); ?></small>
+                                    </div>
                                 </td>
                             </tr>
                 <?php
@@ -272,9 +282,9 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
             $hidden_tlds = array_diff_key($spotlight_tlds ?? $tlds_pricing, $tlds_pricing);
             if (!empty($hidden_tlds)) {
                 ?>
-                <tr class="tld_pricing_show">
+                <tr class=" tld_pricing_show">
                     <td class="bg-white" colspan="5">
-                        <div class="btn btn-light btn-block"><?php $this->_('Domain.lookup.show_all'); ?></div>
+                        <div class="btn flex justify-center w-1/2 mx-auto text-center mt-8 px-4 py-2 border rounded-md uppercase"><?php $this->_('Domain.lookup.show_all'); ?></div>
                     </td>
                 </tr>
             <?php
