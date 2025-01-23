@@ -229,7 +229,7 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
 }
 ?>
 
-<div class="p-3 mb-2 table-responsive mt-8">
+<div class="table-responsive mt-8">
     <table class="table table-curved table-striped w-full border-separate border-spacing-y-1">
         <thead class="[&_th]:text-left [&_th]:pb-4 uppercase">
             <tr>
@@ -240,14 +240,14 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
             </tr>
         </thead>
 
-        <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100 *:hover:bg-blue-100">
+        <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100 *:hover:bg-blue-100 [&>tr]:*:py-3 [&>tr]:*:first:rounded-l-md [&>tr]:*:last:rounded-r-md [&>tr]:*:first:pl-4 [&>tr]:*:first:uppercase [&>tr]:*:first:font-semibold [&>tr]:*:w-1/6">
             <?php
             if (!empty($spotlight_tlds)) {
                 foreach ($spotlight_tlds as $spotlight_tld => $true) {
                     if (array_key_exists($spotlight_tld, $tlds_pricing)) {
                         foreach ($tlds_pricing[$spotlight_tld] as $term) {
             ?>
-                            <tr class="tld_pricing *:py-3 *:first:rounded-l-md *:last:rounded-r-md *:first:pl-4 *:w-1/6 group [&_td>div]:group-hover:scale-105">
+                            <tr class="tld_pricing">
                                 <td class="uppercase font-semibold">
                                     <div><?php echo $this->Html->safe($spotlight_tld); ?></div>
                                 </td>
