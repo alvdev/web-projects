@@ -20,73 +20,6 @@
 	font-style: italic;
 }
 
-.card-order {
-	background-color: #fff;
-	font-size: 12px;
-	padding: 5px 10px;
-	margin-bottom: 15px;
-}
-
-.card-order .row.card-fix {
-	margin: 0px -20px;
-}
-
-.card-order .table {
-	border: none;
-}
-
-.card-order .table > thead > tr > th {
-	background: none;
-	border: none;
-	border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.card-order .table > tbody > tr > td {
-	border: none;
-	padding: 8px 4px 4px 4px;
-}
-
-.card-order .total-due {
-	text-align: right;
-}
-
-.card-order .total-due h4 {
-	margin-top: 5px;
-}
-
-.currency {
-	margin-top: 10px;
-}
-
-.currency form {
-	float: right;
-	margin: 10px 0px;
-}
-
-.currency form * {
-	margin-right: 0px !important;
-	margin-left: 5px;
-	display: flex;
-}
-
-@media (max-width: 768px) {
-	.currency {
-		margin-top: 0px;
-	}
-
-	.currency form {
-		float: none;
-		width: 100%;
-		margin: 0px 0px 15px 0px;
-	}
-
-	.currency form * {
-		width: 100% !important;
-		display: block;
-		margin: 0px !important;
-	}
-}
-
 .gateway-logo {
 	object-fit: cover;
 	max-height: 40px;
@@ -252,20 +185,6 @@
 }
 
 /* Whois styles */
-.card {
-    background-color: inherit;
-}
-
-.whois {
-	margin-top: 15px;
-	margin-bottom: 15px;
-    background: rgba(0, 0, 0, 0.05);
-    background-repeat: no-repeat;
-    background-position: 110% -70px;
-    background-image: url(../images/globe.svg);
-    padding: 25px;
-    border-radius: 8px;
-}
 
 .whois div.checkbox label {
 	padding-right: 5px;
@@ -277,16 +196,8 @@
 	display: block;
 }
 
-.whois div.tlds {
-	margin-bottom: 0;
-}
-
 .whois .show_more {
 	margin-left: 5px;
-}
-
-.domains {
-	font-size: 14px;
 }
 
 #queue_nonempty_btns, #queue_continue_btns {
