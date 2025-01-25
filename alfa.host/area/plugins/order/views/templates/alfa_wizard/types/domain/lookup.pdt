@@ -110,19 +110,19 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
 ?>
     <?php if (!isset($availability) || in_array(true, $availability)): ?>
         <div class="alert alert-success font-semibold text-xl">
-<div class="w-8 h-8">
-    <svg viewBox="0 0 117 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title/>
-    <desc/>
-    <defs/>
-    <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
-    <g fill-rule="nonzero" id="correct">
-    <path d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z" fill="#17AB13" id="Shape"/>
-    <path d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.6,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z" fill="#4A4A4A" id="Shape"/>
-    </g>
-    </g>
-    </svg>
-</div>
+            <div class="w-8 h-8">
+                <svg viewBox="0 0 117 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title />
+                    <desc />
+                    <defs />
+                    <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
+                        <g fill-rule="nonzero" id="correct">
+                            <path d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z" fill="#17AB13" id="Shape" />
+                            <path d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.6,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z" fill="#4A4A4A" id="Shape" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
             <?php $this->_('Domain.lookup.domains_header_available'); ?></p>
         </div>
     <?php else: ?>
@@ -138,8 +138,8 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
         </div>
     <?php endif ?>
 
-    <div class="domains">
-        <div class="table-responsive mt-8">
+    <div class="domains flex gap-8">
+        <div class="table-responsive mt-8 w-5/6">
             <table class="table table-curved w-full border-separate border-spacing-y-1">
                 <thead class="[&_th]:text-left [&_th]:pb-4 uppercase">
                     <tr>
@@ -174,11 +174,11 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                                 <?php
                                 if ($allow) {
                                 ?>
-                                    <span class="badge badge-success mb-2"><i class="fas fa-check-circle"></i> <?php $this->_('Domain.lookup.domain_available'); ?></span>
+                                    <span class="badge badge-success flex items-center gap-2 text-emerald-600 font-semibold"><i class="fas fa-check-circle text-lg"></i> <?php $this->_('Domain.lookup.domain_available'); ?></span>
                                 <?php
                                 } else {
                                 ?>
-                                    <span class="badge badge-danger mb-2"><i class="fas fa-ban"></i> <?php $this->_('Domain.lookup.domain_unavailable'); ?></span>
+                                    <span class="badge badge-danger flex items-center gap-2 text-rose-600 font-semibold"><i class="fas fa-ban"></i> <?php $this->_('Domain.lookup.domain_unavailable'); ?></span>
                                 <?php
                                 }
 
@@ -208,7 +208,7 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                                     }
                                 }
 
-                                $attr = ['class' => 'bg-white font-normal'];
+                                $attr = ['class' => 'bg-transparent font-normal cursor-pointer ring-0 text-sm pl-0'];
                                 if (!$allow) {
                                     $attr['disabled'] = 'disabled';
                                 }
@@ -230,19 +230,18 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                 </tbody>
             </table>
         </div>
-    </div>
 
-    <button type="submit" class="btn btn-lg btn-success float-right">
-        <?php $this->_('Domain.lookup.order_btn'); ?> <i class="fas fa-angle-double-right"></i>
-    </button>
-    <div class="clearfix"></div>
+        <button type="submit" class="btn bg-emerald-500 text-white px-8 py-4 uppercase font-semibold rounded-sm h-fit sticky top-8 mt-20 flex-grow-1">
+            <?php $this->_('Domain.lookup.order_btn'); ?> <i class="fas fa-angle-double-right"></i>
+        </button>
+    </div>
 <?php
     $this->Form->end();
 }
 ?>
 
-<div class="table-responsive mt-8">
-    <table class="table table-curved table-striped w-full border-separate border-spacing-y-1">
+<div class="table-responsive mt-24 flex gap-8">
+    <table class="table table-curved table-striped w-5/6 border-separate border-spacing-y-1">
         <thead class="[&_th]:text-left [&_th]:pb-4 uppercase">
             <tr>
                 <th class="pl-4"><?php $this->_('Domain.lookup.heading_tld'); ?></th>
@@ -294,16 +293,18 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
             $hidden_tlds = array_diff_key($spotlight_tlds ?? $tlds_pricing, $tlds_pricing);
             if (!empty($hidden_tlds)) {
                 ?>
-                <tr class=" tld_pricing_show">
-                    <td class="bg-white" colspan="5">
-                        <div class="btn flex justify-center w-1/2 mx-auto text-center mt-8 px-4 py-2 border rounded-md uppercase"><?php $this->_('Domain.lookup.show_all'); ?></div>
-                    </td>
-                </tr>
+                <tr class="tld_pricing_show"></tr>
             <?php
             }
             ?>
         </tbody>
     </table>
+
+    <div class="tld_pricing_show flex-grow-1">
+        <div class="btn border px-8 py-4 uppercase font-semibold rounded-sm h-fit sticky top-8 mt-20 text-nowrap text-center w-full cursor-pointer">
+            <?php $this->_('Domain.lookup.show_all'); ?>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
