@@ -79,31 +79,6 @@
     <?php $this->Form->end(); ?>
 </section>
 
-<?php if (count((isset($order_form->currencies) ? $order_form->currencies : [])) > 1): ?>
-    <div class="currency float-right relative z-10 top-8">
-        <?php
-        $this->Form->create(null, ['method' => 'POST', 'class' => 'form-inline']);
-        if (!empty($vars->domain)) {
-            $this->Form->fieldHidden('domain', $vars->domain);
-            foreach (($vars->tlds ?? []) as $tld) {
-                $this->Form->fieldHidden('tlds[]', $tld);
-            }
-
-            if (isset($vars->transfer)) {
-                $this->Form->fieldHidden('transfer', 'true');
-            }
-        }
-        ?>
-        <!-- <label for="change_currency">
-            <?php $this->_('Main.index.field_currency'); ?>
-        </label> -->
-        <?php
-        $this->Form->fieldSelect('currency', $this->Form->collapseObjectArray($order_form->currencies, 'currency', 'currency'), (isset($currency) ? $currency : null), ['class' => 'form-control input-sm', 'id' => 'change_currency']);
-        ?>
-        <?php $this->Form->end(); ?>
-    </div>
-<?php endif ?>
-
 <?php
 if ((isset($domains) ? $domains : null) && !empty($domains)) {
     $this->Form->create($this->base_uri . 'order/config/index/' . $order_form->label, ['id' => 'configure_domain', 'class' => 'disable-on-submit']);
@@ -160,7 +135,7 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                             $allow = false;
                         }
                     ?>
-                        <tr class="tld_pricing *:py-3 *:first:rounded-l-md *:last:rounded-r-md *:first:pl-4 *:w-1/6 group [&_td>div]:group-hover:scale-105">
+                        <tr class="tld_pricing *:py-2 *:first:rounded-l-md *:last:rounded-r-md *:first:pl-4 *:w-1/6 group [&_td>div]:group-hover:scale-105">
                             <td>
                                 <?php
                                 $attr = ['id' => 'dom_' . $domain];
@@ -244,14 +219,47 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
     <table class="table table-curved table-striped w-5/6 border-separate border-spacing-y-1">
         <thead class="[&_th]:text-left [&_th]:pb-4 uppercase">
             <tr>
-                <th class="pl-4"><?php $this->_('Domain.lookup.heading_tld'); ?></th>
-                <th><?php $this->_('Domain.lookup.heading_price'); ?></th>
-                <th><?php $this->_('Domain.lookup.heading_transfer_price'); ?></th>
-                <th><?php $this->_('Domain.lookup.heading_renew_price'); ?></th>
+                <th class="pl-4">
+                    <?php $this->_('Domain.lookup.heading_tld'); ?>
+                </th>
+                <th>
+                    <?php $this->_('Domain.lookup.heading_price'); ?>
+                </th>
+                <th>
+                    <?php $this->_('Domain.lookup.heading_transfer_price'); ?>
+                </th>
+                <th class="relative">
+                    <?php $this->_('Domain.lookup.heading_renew_price'); ?>
+
+                    <?php if (count((isset($order_form->currencies) ? $order_form->currencies : [])) > 1): ?>
+                        <div class="currency absolute right-0 -top-2">
+                            <?php
+                            $this->Form->create(null, ['method' => 'POST', 'class' => 'form-inline']);
+                            if (!empty($vars->domain)) {
+                                $this->Form->fieldHidden('domain', $vars->domain);
+                                foreach (($vars->tlds ?? []) as $tld) {
+                                    $this->Form->fieldHidden('tlds[]', $tld);
+                                }
+
+                                if (isset($vars->transfer)) {
+                                    $this->Form->fieldHidden('transfer', 'true');
+                                }
+                            }
+                            ?>
+                            <!-- <label for="change_currency">
+                                <?php // $this->_('Main.index.field_currency'); ?>
+                            </label> -->
+                            <?php
+                            $this->Form->fieldSelect('currency', $this->Form->collapseObjectArray($order_form->currencies, 'currency', 'currency'), (isset($currency) ? $currency : null), ['class' => 'form-control bg-white ring-0 cursor-pointer', 'id' => 'change_currency']);
+                            ?>
+                            <?php $this->Form->end(); ?>
+                        </div>
+                    <?php endif ?>
+                </th>
             </tr>
         </thead>
 
-        <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100 *:hover:bg-blue-100 [&>tr]:*:py-3 [&>tr]:*:first:rounded-l-md [&>tr]:*:last:rounded-r-md [&>tr]:*:first:pl-4 [&>tr]:*:first:uppercase [&>tr]:*:first:font-semibold [&>tr]:*:w-1/6">
+        <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100 *:hover:bg-blue-100 [&>tr]:*:py-2 [&>tr]:*:first:rounded-l-md [&>tr]:*:last:rounded-r-md [&>tr]:*:first:pl-4 [&>tr]:*:first:uppercase [&>tr]:*:first:font-semibold [&>tr]:*:w-1/6">
             <?php
             if (!empty($spotlight_tlds)) {
                 foreach ($spotlight_tlds as $spotlight_tld => $true) {
@@ -301,7 +309,7 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
     </table>
 
     <div class="tld_pricing_show flex-grow-1">
-        <div class="btn border px-8 py-4 uppercase font-semibold rounded-sm h-fit sticky top-8 mt-20 text-nowrap text-center w-full cursor-pointer">
+        <div class="btn border px-8 py-4 uppercase font-semibold rounded-sm h-fit sticky top-8 mt-12 text-nowrap text-center w-full cursor-pointer">
             <?php $this->_('Domain.lookup.show_all'); ?>
         </div>
     </div>
