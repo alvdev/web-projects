@@ -91,6 +91,10 @@
         @apply appearance-none relative top-0.5 bg-white/60 w-4 h-4 ring-2 ring-gray-800 rounded-xs mr-2 font-bold text-black text-sm text-center checked:bg-gray-800 checked:after:content-['✓'] checked:ring-2 checked:ring-gray-800 checked:after:text-white checked:after:relative checked:after:-top-[3px];
     }
 
+    [disabled] {
+        @apply opacity-50 cursor-not-allowed!;
+    }
+
     label {
         @apply uppercase text-sm font-semibold text-gray-500;
     }
