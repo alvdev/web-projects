@@ -11,19 +11,6 @@
     font-style: italic;
 }
 
-.categories div {
-    margin-bottom: 5px;
-}
-
-.categories a {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.categories p {
-    margin-bottom: 0px;
-}
-
 .breadcrumb {
     margin-top: -23px;
     border: 1px solid #e3e3e3;
