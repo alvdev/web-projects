@@ -19,6 +19,10 @@
         /* animation: onLoadFade 0.25s; */
     }
 
+    body {
+        @apply text-slate-800;
+    }
+
     @view-transition {
         navigation: auto;
     }
@@ -41,7 +45,7 @@
         @apply hidden opacity-0 transition-all;
 
         &:popover-open {
-            @apply flex flex-col text-left opacity-100 border-2 border-blue-400 rounded-md shadow-lg;
+            @apply flex flex-col rounded-md border-2 border-blue-400 text-left opacity-100 shadow-lg;
 
             & a {
                 @apply px-6 py-2 first:pt-4 last:pb-4 hover:bg-blue-100;
@@ -76,27 +80,27 @@
     input[type='text'],
     input[type='textarea'],
     input[type='password'] {
-        @apply w-full px-3 py-1.5 min-h-10 text-lg text-black font-semibold rounded-xs bg-gray-200 outline-hidden focus:ring-3 focus:ring-blue-200 transition-all;
+        @apply min-h-10 w-full rounded-xs bg-gray-200 px-3 py-1.5 text-lg font-semibold text-black outline-hidden transition-all focus:ring-3 focus:ring-blue-200;
     }
 
     input::placeholder {
-        @apply text-gray-400 font-normal;
+        @apply font-normal text-gray-400;
     }
 
     input[type='radio'] {
-        @apply appearance-none checked:bg-black checked:border-3 checked:border-white bg-white/60 w-4 h-4 ring-2 ring-black rounded-full mr-2 relative top-0.5;
+        @apply relative top-0.5 mr-2 h-4 w-4 appearance-none rounded-full bg-white/60 ring-2 ring-black checked:border-3 checked:border-white checked:bg-black;
     }
 
     input[type='checkbox'] {
-        @apply appearance-none relative top-0.5 bg-white/60 w-4 h-4 ring-2 ring-gray-800 rounded-xs mr-2 font-bold text-black text-sm text-center checked:bg-gray-800 checked:after:content-['✓'] checked:ring-2 checked:ring-gray-800 checked:after:text-white checked:after:relative checked:after:-top-[3px];
+        @apply relative top-0.5 mr-2 h-4 w-4 appearance-none rounded-xs bg-white/60 text-center text-sm font-bold text-black ring-2 ring-gray-800 checked:bg-gray-800 checked:ring-2 checked:ring-gray-800 checked:after:relative checked:after:-top-[3px] checked:after:text-white checked:after:content-['✓'];
     }
 
     [disabled] {
-        @apply opacity-50 cursor-not-allowed!;
+        @apply cursor-not-allowed! opacity-50;
     }
 
     label {
-        @apply uppercase text-sm font-semibold text-gray-500;
+        @apply text-sm font-semibold text-gray-500 uppercase;
     }
 
     label ~ input,
@@ -105,7 +109,7 @@
     }
 
     main a {
-        @apply text-blue-600 font-semibold hover:text-black transition-all;
+        @apply font-semibold text-blue-600 transition-all hover:text-black;
     }
 
     header,
@@ -116,12 +120,44 @@
 
 @layer components {
     .alv-tab {
-        @apply border-2 border-blue-200 py-4 px-8 w-1/2 text-center rounded-md has-[:checked]:bg-blue-200 has-[:checked]:border-2 has-[:checked]:border-blue-200 hover:cursor-pointer checked:border-2 checked:border-blue-500 [input-radio]:hidden has-[:checked]:after:content-['🞃'] after:absolute after:left-0 after:-bottom-0.25 relative after:w-full after:leading-0 after:text-blue-200 after:text-xl [&_input[type='radio']]:hidden;
+        @apply relative w-1/2 rounded-md border-2 border-blue-200 px-8 py-4 text-center after:absolute after:-bottom-0.25 after:left-0 after:w-full after:text-xl after:leading-0 after:text-blue-200 checked:border-2 checked:border-blue-500 hover:cursor-pointer has-[:checked]:border-2 has-[:checked]:border-blue-200 has-[:checked]:bg-blue-200 has-[:checked]:after:content-['🞃'] [&_input[type='radio']]:hidden [input-radio]:hidden;
+    }
+
+    .btn {
+        @apply rounded-sm px-6 py-2 text-lg font-semibold uppercase ring-2 hover:cursor-pointer transition-all;
+
+    }
+
+    .btn-lg {
+        @apply rounded-md px-8 py-4 text-xl ring-3;
+        
+    }
+    
+    .btn-success {
+        @apply bg-linear-to-br from-emerald-500 to-emerald-600 text-white hover:to-emerald-500 ring-emerald-200;
+        /* @apply bg-emerald-500 text-white hover:bg-emerald-600 ring-emerald-200; */
+    }
+
+    .triangle-right {
+        @apply relative rounded-sm;
+
+        &::after {
+            clip-path: polygon(0% 0%, 10% 50%, 0% 100%);
+            @apply absolute top-0 -right-1/2 -ml-8 z-10 h-full w-1/2 bg-black content-[''] -translate-x-0.25;
+        }
+    }
+
+    .triangle-blue {
+        @apply bg-blue-700 after:bg-blue-700;
+    }
+
+    .triangle-black {
+        @apply bg-slate-950 after:bg-slate-950;
     }
 }
 
 @utility disabled {
-    @apply [&_a]:hover:cursor-default [&_a]:border-slate-500 [&_a]:text-slate-500;
+    @apply [&_a]:border-slate-500 [&_a]:text-slate-500 [&_a]:hover:cursor-default;
 }
 
 @utility alv-linear-gradient-white {
@@ -140,7 +176,7 @@
 }
 
 @utility alv-input-lg {
-    @apply px-4 py-3 text-xl font-semibold rounded-xs;
+    @apply rounded-xs px-4 py-3 text-xl font-semibold;
 }
 
 @utility alv-input-label-lg {
@@ -148,39 +184,39 @@
 }
 
 @utility alv-btn-lg {
-    @apply text-xl px-12 py-3 uppercase rounded-md hover:cursor-pointer;
+    @apply rounded-md px-12 py-3 text-xl uppercase hover:cursor-pointer;
 }
 
 @utility alv-btn-black {
-    @apply text-white bg-black hover:bg-gray-900;
+    @apply bg-black text-white hover:bg-gray-900;
 }
 
 @layer utilities {
     .alert {
-        @apply relative bottom-0 w-full flex gap-12 border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-white text-slate-900 rounded-md overflow-clip pl-9 py-7 before:absolute before:left-2 [&_~_*]:mt-16 opacity-100 scale-100;
+        @apply relative bottom-0 flex w-full scale-100 gap-12 overflow-clip rounded-md border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-white py-7 pl-9 text-slate-900 opacity-100 before:absolute before:left-2 [&_~_*]:mt-16;
 
         & a {
-            @apply text-white inline-flex items-center gap-2 px-4 py-1 border rounded-full font-semibold uppercase text-sm transition-all;
+            @apply inline-flex items-center gap-2 rounded-full border px-4 py-1 text-sm font-semibold text-white uppercase transition-all;
         }
 
         & button.close {
-            @apply flex items-start pt-2 text-2xl opacity-70 leading-2 justify-center font-bold w-7 h-7 hover:cursor-pointer hover:text-black hover:opacity-100 transition-all;
+            @apply flex h-7 w-7 items-start justify-center pt-2 text-2xl leading-2 font-bold opacity-70 transition-all hover:cursor-pointer hover:text-black hover:opacity-100;
         }
     }
 
     .alert-success {
-        @apply border-emerald-400 from-emerald-100 before:content-['❗'] text-emerald-900;
+        @apply border-emerald-400 from-emerald-100 text-emerald-900 before:content-['❗'];
     }
 
     .alert-danger {
-        @apply border-rose-400 from-rose-100 before:content-['❗'] text-rose-900;
+        @apply border-rose-400 from-rose-100 text-rose-900 before:content-['❗'];
     }
 
     .alert-warning {
-        @apply border-amber-400 from-amber-100 before:content-['❗'] text-amber-900;
+        @apply border-amber-400 from-amber-100 text-amber-900 before:content-['❗'];
     }
 
     .alert-info {
-        @apply border-sky-400 from-sky-100 before:content-['❗'] text-sky-900;
+        @apply border-sky-400 from-sky-100 text-sky-900 before:content-['❗'];
     }
 }
