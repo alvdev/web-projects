@@ -124,18 +124,19 @@
     }
 
     .btn {
-        @apply rounded-sm px-6 py-2 text-lg font-semibold uppercase ring-2 hover:cursor-pointer transition-all;
-
+        @apply inline-flex items-center gap-2 rounded-sm border border-blue-400 bg-blue-500 px-6 py-1 text-sm font-semibold uppercase ring-2 ring-blue-200 transition-all hover:cursor-pointer;
     }
 
     .btn-lg {
-        @apply rounded-md px-8 py-4 text-xl ring-3;
-        
+        @apply inline-flex items-center gap-2 rounded-md border border-blue-400 bg-blue-600 px-8 py-4 text-xl font-semibold text-white uppercase ring-3 ring-blue-200 transition-all hover:cursor-pointer;
     }
-    
+
     .btn-success {
-        @apply bg-linear-to-br from-emerald-500 to-emerald-600 text-white hover:to-emerald-500 ring-emerald-200;
-        /* @apply bg-emerald-500 text-white hover:bg-emerald-600 ring-emerald-200; */
+        @apply bg-linear-to-br from-emerald-500 to-emerald-600 text-white ring-emerald-200 hover:to-emerald-500;
+    }
+
+    .btn-danger {
+        @apply border-rose-400 bg-linear-to-br from-rose-500 to-rose-600 text-white ring-rose-200 hover:to-rose-500;
     }
 
     .triangle-right {
@@ -143,7 +144,7 @@
 
         &::after {
             clip-path: polygon(0% 0%, 10% 50%, 0% 100%);
-            @apply absolute top-0 -right-1/2 -ml-8 z-10 h-full w-1/2 bg-black content-[''] -translate-x-0.25;
+            @apply absolute top-0 -right-1/2 z-10 -ml-8 h-full w-1/2 -translate-x-0.25 bg-black content-[''];
         }
     }
 
