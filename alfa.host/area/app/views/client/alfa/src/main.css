@@ -53,6 +53,20 @@
         }
     }
 
+    [data-tooltip] {
+        &:hover {
+            @apply relative z-10;
+
+            &::after {
+                @apply absolute top-full translate-y-2 left-auto rounded-sm bg-black/70 px-3 py-1.5 font-normal text-white normal-case content-[attr(data-tooltip)];
+            }
+
+            &::before {
+                @apply absolute bottom-0 left-auto translate-y-2 border-5 border-transparent border-b-black/70 content-[''];
+            }
+        }
+    }
+
     h1 {
         @apply text-6xl;
     }
