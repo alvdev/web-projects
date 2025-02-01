@@ -123,22 +123,6 @@
         @apply relative w-1/2 rounded-md border-2 border-blue-200 px-8 py-4 text-center after:absolute after:-bottom-0.25 after:left-0 after:w-full after:text-xl after:leading-0 after:text-blue-200 checked:border-2 checked:border-blue-500 hover:cursor-pointer has-[:checked]:border-2 has-[:checked]:border-blue-200 has-[:checked]:bg-blue-200 has-[:checked]:after:content-['🞃'] [&_input[type='radio']]:hidden [input-radio]:hidden;
     }
 
-    .btn {
-        @apply inline-flex items-center gap-2 rounded-sm border border-blue-400 bg-blue-500 px-6 py-1 text-sm font-semibold uppercase ring-2 ring-blue-200 transition-all hover:cursor-pointer;
-    }
-
-    .btn-lg {
-        @apply inline-flex items-center gap-2 rounded-md border border-blue-400 bg-blue-600 px-8 py-4 text-xl font-semibold text-white uppercase ring-3 ring-blue-200 transition-all hover:cursor-pointer;
-    }
-
-    .btn-success {
-        @apply bg-linear-to-br from-emerald-500 to-emerald-600 text-white ring-emerald-200 hover:to-emerald-500;
-    }
-
-    .btn-danger {
-        @apply border-rose-400 bg-linear-to-br from-rose-500 to-rose-600 text-white ring-rose-200 hover:to-rose-500;
-    }
-
     .triangle-right {
         @apply relative rounded-sm;
 
@@ -190,6 +174,80 @@
 
 @utility alv-btn-black {
     @apply bg-black text-white hover:bg-gray-900;
+}
+
+/* Default btn */
+
+@utility btn {
+    @apply inline-flex items-baseline justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 text-sm font-semibold text-white uppercase ring-2 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500;
+}
+
+@utility btn-outline {
+    @apply btn border-slate-600 from-white to-slate-50 text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900;
+}
+
+@utility btn-xl {
+    @apply btn px-8 py-4 text-xl ring-3;
+}
+
+@utility btn-outline-xl {
+    @apply btn-xl text-slate-600;
+}
+
+/* Btn info */
+
+@utility btn-info {
+    @apply btn border-blue-500 bg-linear-to-br from-blue-500 to-blue-600 ring-blue-200 hover:to-blue-500;
+}
+
+@utility btn-info-outline {
+    @apply btn-info border-blue-600 from-white to-blue-50 text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800;
+}
+
+@utility btn-info-xl {
+    @apply btn-info px-8 py-4 text-xl ring-3;
+}
+
+/* Btn success */
+
+@utility btn-success {
+    @apply btn border-emerald-500 bg-linear-to-br from-emerald-500 to-emerald-600 ring-emerald-200 hover:to-emerald-500;
+}
+
+@utility btn-success-outline {
+    @apply btn-success border-emerald-600 from-white to-emerald-50 text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800;
+}
+
+@utility btn-success-xl {
+    @apply btn-success px-8 py-4 text-xl ring-3;
+}
+
+/* Btn warning */
+
+@utility btn-warning {
+    @apply btn border-amber-500 bg-linear-to-br from-amber-500 to-amber-600 ring-amber-200 hover:to-amber-500;
+}
+
+@utility btn-warning-outline {
+    @apply btn-warning border-amber-600 from-white to-amber-50 text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800;
+}
+
+@utility btn-warning-xl {
+    @apply btn-warning px-8 py-4 text-xl ring-3;
+}
+
+/* Btn danger */
+
+@utility btn-danger {
+    @apply btn border-rose-500 bg-linear-to-br from-rose-500 to-rose-600 ring-rose-200 hover:to-rose-500;
+}
+
+@utility btn-danger-outline {
+    @apply btn-danger border-rose-600 from-white to-rose-50 text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800;
+}
+
+@utility btn-danger-xl {
+    @apply btn-danger px-8 py-4 text-xl ring-3;
 }
 
 @layer utilities {
