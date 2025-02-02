@@ -53,12 +53,12 @@
         }
     }
 
-    [data-tooltip] {
+    [title] {
         &:hover {
             @apply relative z-10;
 
             &::after {
-                @apply absolute top-full translate-y-2 left-auto rounded-sm bg-black/70 px-3 py-1.5 font-normal text-white normal-case content-[attr(data-tooltip)];
+                @apply absolute top-full translate-y-2 left-auto rounded-sm bg-black/70 px-3 py-1.5 font-normal text-white normal-case content-[attr(title)];
             }
 
             &::before {
@@ -193,11 +193,11 @@
 /* Default btn */
 
 @utility btn {
-    @apply inline-flex items-baseline justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 text-sm font-semibold text-white uppercase ring-2 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500;
+    @apply inline-flex items-baseline justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 text-sm font-semibold text-white uppercase ring-2 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
 }
 
 @utility btn-outline {
-    @apply btn border-slate-600 from-white to-slate-50 text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900;
+    @apply btn border-slate-600 from-white to-slate-50 text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900 [&>svg]:fill-slate-600 [&>svg]:hover:fill-slate-800;
 }
 
 @utility btn-xl {
@@ -215,7 +215,7 @@
 }
 
 @utility btn-info-outline {
-    @apply btn-info border-blue-600 from-white to-blue-50 text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800;
+    @apply btn-info border-blue-600 from-white to-blue-50 text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800 [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
 }
 
 @utility btn-info-xl {
@@ -229,7 +229,7 @@
 }
 
 @utility btn-success-outline {
-    @apply btn-success border-emerald-600 from-white to-emerald-50 text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800;
+    @apply btn-success border-emerald-600 from-white to-emerald-50 text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
 }
 
 @utility btn-success-xl {
@@ -243,7 +243,7 @@
 }
 
 @utility btn-warning-outline {
-    @apply btn-warning border-amber-600 from-white to-amber-50 text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800;
+    @apply btn-warning border-amber-600 from-white to-amber-50 text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
 }
 
 @utility btn-warning-xl {
@@ -257,7 +257,7 @@
 }
 
 @utility btn-danger-outline {
-    @apply btn-danger border-rose-600 from-white to-rose-50 text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800;
+    @apply btn-danger border-rose-600 from-white to-rose-50 text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
 }
 
 @utility btn-danger-xl {
