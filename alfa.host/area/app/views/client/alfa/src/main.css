@@ -298,30 +298,30 @@
 
 @layer utilities {
     .alert {
-        @apply relative bottom-0 flex w-full scale-100 gap-12 overflow-clip rounded-md border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-white py-7 pl-9 text-slate-900 opacity-100 before:absolute before:left-2 [&_~_*]:mt-16;
+        @apply relative bottom-0 flex w-full scale-100 gap-12 overflow-clip rounded-md border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-slate-50 py-7 pl-9 text-slate-900 opacity-100 before:absolute before:left-2 [&_~_*]:mt-16 *:first:w-full text-left;
 
         & a {
             @apply inline-flex items-center gap-2 rounded-full border px-4 py-1 text-sm font-semibold text-white uppercase transition-all;
         }
 
         & button.close {
-            @apply flex h-7 w-7 items-start justify-center pt-2 text-2xl leading-2 font-bold opacity-70 transition-all hover:cursor-pointer hover:text-black hover:opacity-100;
+            @apply flex h-7 w-7 items-start justify-center pt-2 pr-4 text-2xl leading-2 font-bold opacity-70 transition-all hover:cursor-pointer hover:text-black hover:opacity-100;
         }
     }
 
     .alert-success {
-        @apply border-emerald-400 from-emerald-100 text-emerald-900 before:content-['❗'];
+        @apply border-emerald-400 from-emerald-100 to-emerald-50 text-emerald-900 before:content-['❗'];
     }
 
     .alert-danger {
-        @apply border-rose-400 from-rose-100 text-rose-900 before:content-['❗'];
+        @apply border-rose-400 from-rose-100 to-rose-50 text-rose-900 before:content-['❗'];
     }
 
     .alert-warning {
-        @apply border-amber-400 from-amber-100 text-amber-900 before:content-['❗'];
+        @apply border-amber-400 from-amber-100 to-amber-50 text-amber-900 before:content-['❗'];
     }
 
     .alert-info {
-        @apply border-sky-400 from-sky-100 text-sky-900 before:content-['❗'];
+        @apply border-sky-400 from-sky-100 to-sky-50 text-sky-900 before:content-['❗'];
     }
 }
