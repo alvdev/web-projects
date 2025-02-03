@@ -1,4 +1,4 @@
-<div class="flex items-center gap-2 text-white border rounded-sm relative">
+<div class="flex items-center gap-2 relative">
     <?php if ((isset($logged_in) ? $logged_in : null)): ?>
         <button class="flex items-center gap-2 px-3 py-1 [anchor-name:--user-menu-btn]" popovertarget="user-menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -56,7 +56,7 @@
             </a>
         </div>
     <?php else: ?>
-        <a class="nav-link" href="<?= $this->Html->safe($this->client_uri . 'login/'); ?>">
+    <a class="nav-link btn-outline border-white text-white hover:border-white hover:text-white hover:bg-white/10" href="<?= $this->Html->safe($this->client_uri . 'login/'); ?>">
             <?php $this->_('AppController.client_structure.text_login'); ?>
         </a>
     <?php endif ?>
