@@ -193,7 +193,7 @@
 /* Default btn */
 
 @utility btn {
-    @apply inline-flex items-baseline justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 text-sm font-semibold text-white uppercase ring-2 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
+    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 min-h-7 text-sm font-semibold text-white uppercase ring-2 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
 }
 
 @utility btn-outline {
