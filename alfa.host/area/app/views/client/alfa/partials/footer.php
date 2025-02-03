@@ -1,5 +1,5 @@
 <?php $mt = str_contains($this->Html->safe($request_uri), 'login') ? 'mt-0' : 'mt-24'; ?>
-<footer class="<?= $mt ?> bg-blue-600 bg-bottom bg-cover md:bg-auto shadow-2xl">
+<footer class="<?= $mt ?> bg-blue-600 bg-[url('../images/free-wolf.webp')] bg-bottom bg-cover md:bg-auto 2xl:bg-cover shadow-2xl">
     <div class="alv-linear-gradient-white">
         <div class="container items-center justify-center gap-8 py-8 news md:flex ">
             <h2 class="text-6xl font-normal text-white uppercase">
