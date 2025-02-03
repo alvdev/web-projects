@@ -58,7 +58,7 @@
             @apply relative z-10;
 
             &::after {
-                @apply absolute top-full translate-y-2 left-auto rounded-sm bg-black/70 px-3 py-1.5 font-normal text-white normal-case content-[attr(title)];
+                @apply absolute top-full left-auto translate-y-2 rounded-sm bg-black/70 px-3 py-1.5 font-normal text-white normal-case content-[attr(title)];
             }
 
             &::before {
@@ -94,7 +94,15 @@
     input[type='text'],
     input[type='textarea'],
     input[type='password'] {
-        @apply min-h-10 w-full rounded-xs bg-gray-200 px-3 py-1.5 text-lg font-semibold text-black outline-hidden transition-all focus:ring-3 focus:ring-blue-200;
+        @apply min-h-10 w-full rounded-sm bg-gray-200 px-3 py-1.5 text-lg font-semibold text-black outline-hidden transition-all focus:ring-3 focus:ring-blue-200;
+    }
+
+    select {
+        @apply bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[calc(100%-20px)_calc(1em+0.5px),calc(100%-15px)_calc(1em+0.5px),calc(100%-2.1em)_0.45em] bg-[5px_5px,5px_5px,1px_1.3em] bg-no-repeat appearance-none;
+    }
+
+    option {
+        @apply bg-white;
     }
 
     input::placeholder {
@@ -193,7 +201,7 @@
 /* Default btn */
 
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 min-h-7 text-sm font-semibold text-white uppercase ring-2 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
+    @apply inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 text-sm font-semibold text-white uppercase ring-2 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
 }
 
 @utility btn-outline {
