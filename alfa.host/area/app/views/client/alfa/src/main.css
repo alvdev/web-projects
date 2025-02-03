@@ -205,23 +205,23 @@
 }
 
 @utility btn-outline {
-    @apply btn border-slate-600 from-white to-slate-50 text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900 [&>svg]:fill-slate-600 [&>svg]:hover:fill-slate-800;
+    @apply btn border-slate-600 bg-none text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900 [&>svg]:fill-slate-600 [&>svg]:hover:fill-slate-800;
 }
 
 @utility btn-lg {
     @apply btn px-6 py-2 text-lg ring-2;
 }
 
-@utility btn-outline-lg {
-    @apply btn-lg text-slate-600;
-}
-
 @utility btn-xl {
     @apply btn px-8 py-4 text-xl ring-3;
 }
 
+@utility btn-outline-lg {
+    @apply btn-outline border-2 px-6 py-2 text-lg  text-slate-600;
+}
+
 @utility btn-outline-xl {
-    @apply btn-xl text-slate-600;
+    @apply btn-outline border-3 px-8 py-4 text-xl text-slate-600;
 }
 
 /* Btn info */
@@ -231,15 +231,15 @@
 }
 
 @utility btn-info-outline {
-    @apply btn-info border-blue-600 from-white to-blue-50 text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800 [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
+    @apply btn-info border-blue-600 bg-none text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800 [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
 }
 
-@utility btn-info-lg {
-    @apply btn-info px-6 py-2 text-lg ring-2;
+@utility btn-info-outline-lg {
+    @apply btn-info-outline border-2 px-6 py-2 text-lg  text-blue-600;
 }
 
-@utility btn-info-xl {
-    @apply btn-info px-8 py-4 text-xl ring-3;
+@utility btn-info-outline-xl {
+    @apply btn-info-outline border-3 px-8 py-4 text-xl text-blue-600;
 }
 
 /* Btn success */
@@ -249,15 +249,15 @@
 }
 
 @utility btn-success-outline {
-    @apply btn-success border-emerald-600 from-white to-emerald-50 text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+    @apply btn-success border-emerald-600 bg-none text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
 }
 
-@utility btn-success-lg {
-    @apply btn-success px-6 py-2 text-lg ring-2;
+@utility btn-success-outline-lg {
+    @apply btn-success-outline border-2 px-6 py-2 text-lg  text-emerald-600;
 }
 
-@utility btn-success-xl {
-    @apply btn-success px-8 py-4 text-xl ring-3;
+@utility btn-success-outline-xl {
+    @apply btn-success-outline border-3 px-8 py-4 text-xl text-emerald-600;
 }
 
 /* Btn warning */
@@ -267,15 +267,15 @@
 }
 
 @utility btn-warning-outline {
-    @apply btn-warning border-amber-600 from-white to-amber-50 text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+    @apply btn-warning border-amber-600 bg-none text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
 }
 
-@utility btn-warning-lg {
-    @apply btn-warning px-6 py-2 text-lg ring-2;
+@utility btn-warning-outline-lg {
+    @apply btn-warning-outline border-2 px-6 py-2 text-lg  text-amber-600;
 }
 
-@utility btn-warning-xl {
-    @apply btn-warning px-8 py-4 text-xl ring-3;
+@utility btn-warning-outline-xl {
+    @apply btn-warning-outline border-3 px-8 py-4 text-xl text-amber-600;
 }
 
 /* Btn danger */
@@ -285,15 +285,15 @@
 }
 
 @utility btn-danger-outline {
-    @apply btn-danger border-rose-600 from-white to-rose-50 text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+    @apply btn-danger border-rose-600 bg-none text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
 }
 
-@utility btn-danger-lg {
-    @apply btn-danger px-6 py-2 text-lg ring-2;
+@utility btn-danger-outline-lg {
+    @apply btn-danger-outline border-2 px-6 py-2 text-lg  text-rose-600;
 }
 
-@utility btn-danger-xl {
-    @apply btn-danger px-8 py-4 text-xl ring-3;
+@utility btn-danger-outline-xl {
+    @apply btn-danger-outline border-3 px-8 py-4 text-xl text-rose-600;
 }
 
 @layer utilities {
