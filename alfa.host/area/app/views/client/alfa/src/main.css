@@ -98,7 +98,7 @@
     }
 
     select {
-        @apply bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[calc(100%-20px)_calc(1em+0.5px),calc(100%-15px)_calc(1em+0.5px),calc(100%-2.1em)_0.45em] bg-[5px_5px,5px_5px,1px_1.3em] bg-no-repeat appearance-none;
+        @apply appearance-none bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[5px_5px,5px_5px,1px_1.3em] bg-[calc(100%-20px)_calc(1em+0.5px),calc(100%-15px)_calc(1em+0.5px),calc(100%-2.1em)_0.45em] bg-no-repeat;
     }
 
     option {
@@ -201,11 +201,19 @@
 /* Default btn */
 
 @utility btn {
-    @apply inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 text-sm font-semibold text-white uppercase ring-2 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
+    @apply inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 text-xs font-semibold text-white uppercase ring-1 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
 }
 
 @utility btn-outline {
     @apply btn border-slate-600 from-white to-slate-50 text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900 [&>svg]:fill-slate-600 [&>svg]:hover:fill-slate-800;
+}
+
+@utility btn-lg {
+    @apply btn px-6 py-2 text-lg ring-2;
+}
+
+@utility btn-outline-lg {
+    @apply btn-lg text-slate-600;
 }
 
 @utility btn-xl {
@@ -226,6 +234,10 @@
     @apply btn-info border-blue-600 from-white to-blue-50 text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800 [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
 }
 
+@utility btn-info-lg {
+    @apply btn-info px-6 py-2 text-lg ring-2;
+}
+
 @utility btn-info-xl {
     @apply btn-info px-8 py-4 text-xl ring-3;
 }
@@ -238,6 +250,10 @@
 
 @utility btn-success-outline {
     @apply btn-success border-emerald-600 from-white to-emerald-50 text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+}
+
+@utility btn-success-lg {
+    @apply btn-success px-6 py-2 text-lg ring-2;
 }
 
 @utility btn-success-xl {
@@ -254,6 +270,10 @@
     @apply btn-warning border-amber-600 from-white to-amber-50 text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
 }
 
+@utility btn-warning-lg {
+    @apply btn-warning px-6 py-2 text-lg ring-2;
+}
+
 @utility btn-warning-xl {
     @apply btn-warning px-8 py-4 text-xl ring-3;
 }
@@ -266,6 +286,10 @@
 
 @utility btn-danger-outline {
     @apply btn-danger border-rose-600 from-white to-rose-50 text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+}
+
+@utility btn-danger-lg {
+    @apply btn-danger px-6 py-2 text-lg ring-2;
 }
 
 @utility btn-danger-xl {
