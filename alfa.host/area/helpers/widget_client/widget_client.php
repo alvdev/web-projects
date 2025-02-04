@@ -298,7 +298,7 @@ class WidgetClient extends AbstractWidget
         switch ($this->nav_type) {
             default:
             case 'links':
-                $nav_class = 'card-links flex gap-4';
+                $nav_class = 'card-links flex w-fit border border-slate-500 rounded-full p-0.5';
                 break;
             case 'tabs':
                 $nav_class = 'nav nav-tabs';
@@ -324,7 +324,7 @@ class WidgetClient extends AbstractWidget
                     [
                         'class' => $this->concat(
                             ' ',
-                            ((isset($element['current']) ? $element['current'] : null) ? 'active *:bg-blue-200 *:after:content-["🞃"]' : ''),
+                            ((isset($element['current']) ? $element['current'] : null) ? 'active *:bg-black *:text-white *:after:content-["🞃"] *:after:text-black *:after:bottom-0.5 *:after:drop-shadow-[0_3px_0px_white]' : ''),
                             ((isset($element['highlight']) ? $element['highlight'] : null) && !(isset($element['current']) ? $element['current'] : null)
                                 ? 'highlight'
                                 : '')

@@ -9,8 +9,8 @@
 
             $linksBadgesClasses = 'bg-rose-600 text-white rounded-full text-xs px-2 py-0.5';
             $links = [
-                ['name' => $this->_('ClientMain.index.category_open', true) . ' <span class="' . $linksBadgesClasses . '">' . (isset($status_count['open']) ? $this->Html->safe($status_count['open']) : null) . '</span>', 'current' => ((isset($status) ? $status : null) == 'not_closed' ? true : false), 'attributes' => ['href' => $this->base_uri . 'plugin/support_manager/client_main/index/not_closed/', 'class' => 'ajax alv-tab px-2 pt-1 pb-2']],
-                ['name' => $this->_('ClientMain.index.category_closed', true) . ' <span class="' . $linksBadgesClasses . '">' . (isset($status_count['closed']) ? $this->Html->safe($status_count['closed']) : null) . '</span>', 'current' => ((isset($status) ? $status : null) == 'closed' ? true : false), 'attributes' => ['href' => $this->base_uri . 'plugin/support_manager/client_main/index/closed/', 'class' => 'ajax alv-tab px-2 pt-1 pb-2']]
+                ['name' => $this->_('ClientMain.index.category_open', true) . ' <span class="' . $linksBadgesClasses . '">' . (isset($status_count['open']) ? $this->Html->safe($status_count['open']) : null) . '</span>', 'current' => ((isset($status) ? $status : null) == 'not_closed' ? true : false), 'attributes' => ['href' => $this->base_uri . 'plugin/support_manager/client_main/index/not_closed/', 'class' => 'ajax alv-tab']],
+                ['name' => $this->_('ClientMain.index.category_closed', true) . ' <span class="' . $linksBadgesClasses . '">' . (isset($status_count['closed']) ? $this->Html->safe($status_count['closed']) : null) . '</span>', 'current' => ((isset($status) ? $status : null) == 'closed' ? true : false), 'attributes' => ['href' => $this->base_uri . 'plugin/support_manager/client_main/index/closed/', 'class' => 'ajax alv-tab']]
             ];
             $link_buttons = [
                 ['name' => $this->_('ClientMain.index.categorylink_createticket', true), 'attributes' => ['href' => $this->Html->safe($this->base_uri . 'plugin/support_manager/client_tickets/departments/')]]

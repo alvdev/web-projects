@@ -134,7 +134,10 @@
         @apply font-semibold text-blue-600 transition-all hover:text-black;
     }
 
-    header,
+    header {
+        background-image: radial-gradient(farthest-corner at 40px 40px, var(--color-slate-900) 0%, var(--color-black) 100%);
+    }
+
     footer {
         background-image: radial-gradient(farthest-corner at 40px 40px, #1d4ed8 0%, #0037ad 100%);
     }
@@ -142,7 +145,7 @@
 
 @layer components {
     .alv-tab {
-        @apply relative w-1/2 rounded-md border-2 border-blue-200 px-8 py-4 text-center after:absolute after:-bottom-0.25 after:left-0 after:w-full after:text-xl after:leading-0 after:text-blue-200 checked:border-2 checked:border-blue-500 hover:cursor-pointer has-[:checked]:border-2 has-[:checked]:border-blue-200 has-[:checked]:bg-blue-200 has-[:checked]:after:content-['🞃'] [&_input[type='radio']]:hidden [input-radio]:hidden;
+        @apply relative block rounded-full px-6 pt-1.5 pb-2.5 text-center  text-black font-semibold after:absolute after:-bottom-0.25 after:left-0 after:w-full after:text-xl after:leading-0 after:text-blue-200 checked:border-2 has-[span]:px-6! checked:border-blue-500 hover:cursor-pointer has-[:checked]:border-2 has-[:checked]:border-blue-200 has-[:checked]:bg-blue-200 has-[:checked]:after:content-['🞃'] [&_input[type='radio']]:hidden [input-radio]:hidden;
     }
 
     .triangle-right {
