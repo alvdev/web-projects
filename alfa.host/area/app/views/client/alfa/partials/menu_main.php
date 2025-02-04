@@ -1,6 +1,6 @@
 <nav class="relative left-0 z-20 py-6">
     <div class="container grid items-center justify-between grid-cols-2 lg:flex lg:gap-4">
-        <div class="logo">
+        <div class="logo [&_.color0]:fill-white! [&_.color1]:stroke-white! [&_.color2]:stroke-blue-500! [&_.color3]:stroke-blue-300!">
             <a href="/" title="Alfa Host">
                 <?php require_once('logo.php'); ?>
             </a>
