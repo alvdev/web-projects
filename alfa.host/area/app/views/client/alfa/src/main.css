@@ -98,7 +98,7 @@
     }
 
     select {
-        @apply appearance-none bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[5px_5px,5px_5px,1px_1.3em] bg-[calc(100%-20px)_calc(1em+0.5px),calc(100%-15px)_calc(1em+0.5px),calc(100%-2.1em)_0.45em] bg-no-repeat;
+        @apply appearance-none bg-[linear-gradient(45deg,transparent_50%,var(--color-slate-400)_50%),linear-gradient(135deg,var(--color-slate-400)_50%,transparent_50%),linear-gradient(to_right,var(--color-slate-400),var(--color-slate-400))] bg-[5px_5px,5px_5px,1px_1.3em] bg-[calc(100%-20px)_50%,calc(100%-15px)_50%,calc(100%-2.2em)_50%] bg-no-repeat pr-12 truncate;
     }
 
     option {
@@ -358,5 +358,9 @@
 
     .alert-info {
         @apply border-sky-400 from-sky-100 to-sky-50 text-sky-900 before:content-['❗'];
+    }
+
+    .select-dark {
+        @apply bg-slate-700 text-white text-base focus:ring-1 [&>option]:text-slate-800;
     }
 }
