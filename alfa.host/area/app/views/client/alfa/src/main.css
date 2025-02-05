@@ -237,6 +237,14 @@
     @apply btn-info border-blue-600 bg-none text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800 [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
 }
 
+@utility btn-info-lg {
+    @apply btn-info px-6 py-2 text-lg ring-2;
+}
+
+@utility btn-info-xl {
+    @apply btn-info px-8 py-4 text-xl ring-3;
+}
+
 @utility btn-info-outline-lg {
     @apply btn-info-outline border-2 px-6 py-2 text-lg  text-blue-600;
 }
@@ -253,6 +261,14 @@
 
 @utility btn-success-outline {
     @apply btn-success border-emerald-600 bg-none text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+}
+
+@utility btn-success-lg {
+    @apply btn-success px-6 py-2 text-lg ring-2;
+}
+
+@utility btn-success-xl {
+    @apply btn-success px-8 py-4 text-xl ring-3;
 }
 
 @utility btn-success-outline-lg {
@@ -273,6 +289,14 @@
     @apply btn-warning border-amber-600 bg-none text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
 }
 
+@utility btn-warning-lg {
+    @apply btn-warning px-6 py-2 text-lg ring-2;
+}
+
+@utility btn-warning-xl {
+    @apply btn-warning px-8 py-4 text-xl ring-3;
+}
+
 @utility btn-warning-outline-lg {
     @apply btn-warning-outline border-2 px-6 py-2 text-lg  text-amber-600;
 }
@@ -289,6 +313,14 @@
 
 @utility btn-danger-outline {
     @apply btn-danger border-rose-600 bg-none text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+}
+
+@utility btn-danger-lg {
+    @apply btn-danger px-6 py-2 text-lg ring-2;
+}
+
+@utility btn-danger-xl {
+    @apply btn-danger px-8 py-4 text-xl ring-3;
 }
 
 @utility btn-danger-outline-lg {
