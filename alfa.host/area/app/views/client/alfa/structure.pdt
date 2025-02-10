@@ -26,6 +26,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
 
     <!-- <link href="<?= $this->view_dir; ?>css/application.min.css" rel="stylesheet" type="text/css" /> -->
     <link href="<?= $this->view_dir; ?>dist/main.css" rel="stylesheet" type="text/css" />
+    <script type="module" src="<?= $this->view_dir; ?>src/main.js"></script>
     <!-- <?php if (isset($theme_css)): ?>
         <link href="<?php (print(isset($theme_css) ? $this->Html->safe($theme_css) . '&hash=' . $this->Html->safe($theme_hash ?? '') : null)); ?>" rel="stylesheet" type="text/css" media="screen" />
     <?php endif ?>
