@@ -26,7 +26,7 @@ before:absolute before:w-6 before:h-6 before:left-0 before:-top-6 before:shadow-
 
     <div class="container py-12 md:flex">
         <div class="grid grid-cols-1 gap-8 text-white md:grid-cols-3 md:w-5/6">
-            <section class="tab" id="hosting">
+            <section id="hosting">
                 <h3 class="mb-2 text-lg font-semibold">
                     <a href="#hosting">
                         Alojamiento web
@@ -70,7 +70,7 @@ before:absolute before:w-6 before:h-6 before:left-0 before:-top-6 before:shadow-
                     </li>
                 </ul>
             </section>
-            <section class="tab" id="marketing">
+            <section id="marketing">
                 <h3 class="mb-2 text-lg font-semibold">
                     <a href="#marketing">
                         Marketing y desarrollo
@@ -114,7 +114,7 @@ before:absolute before:w-6 before:h-6 before:left-0 before:-top-6 before:shadow-
                     </li>
                 </ul>
             </section>
-            <section class="tab" id="company">
+            <section id="company">
                 <h3 class="mb-2 text-lg font-semibold">
                     <a href="#company">
                         Nuestra empresa
@@ -184,7 +184,7 @@ before:absolute before:w-6 before:h-6 before:left-0 before:-top-6 before:shadow-
                     </div>
                 </div>
             </section>
-            <section class="tab" id="resources">
+            <section id="resources">
                 <h3 class="mb-2 text-lg font-semibold">
                     <a href="#resources">
                         Recursos recomendados
@@ -213,7 +213,7 @@ before:absolute before:w-6 before:h-6 before:left-0 before:-top-6 before:shadow-
                     </li>
                 </ul>
             </section>
-            <section class="tab" id="support">
+            <section id="support">
                 <h3 class="mb-2 text-lg font-semibold">
                     <a href="#support">
                         Soporte y ayuda
