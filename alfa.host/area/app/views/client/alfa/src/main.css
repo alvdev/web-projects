@@ -98,7 +98,7 @@
     }
 
     select {
-        @apply appearance-none bg-[linear-gradient(45deg,transparent_50%,var(--color-slate-400)_50%),linear-gradient(135deg,var(--color-slate-400)_50%,transparent_50%),linear-gradient(to_right,var(--color-slate-400),var(--color-slate-400))] bg-[5px_5px,5px_5px,1px_1.3em] bg-[calc(100%-20px)_50%,calc(100%-15px)_50%,calc(100%-2.2em)_50%] bg-no-repeat pr-12 truncate;
+        @apply appearance-none truncate bg-[linear-gradient(45deg,transparent_50%,var(--color-slate-400)_50%),linear-gradient(135deg,var(--color-slate-400)_50%,transparent_50%),linear-gradient(to_right,var(--color-slate-400),var(--color-slate-400))] bg-[5px_5px,5px_5px,1px_1.3em] bg-[calc(100%-20px)_50%,calc(100%-15px)_50%,calc(100%-2.2em)_50%] bg-no-repeat pr-12;
     }
 
     option {
@@ -135,7 +135,11 @@
     }
 
     header {
-        background-image: radial-gradient(farthest-corner at 40px 40px, var(--color-slate-900) 0%, var(--color-black) 100%);
+        background-image: radial-gradient(
+            farthest-corner at 40px 40px,
+            var(--color-slate-900) 0%,
+            var(--color-black) 100%
+        );
     }
 
     footer {
@@ -144,8 +148,12 @@
 }
 
 @layer components {
-    .alv-tab {
-        @apply relative block rounded-full px-6 pt-1.5 pb-2.5 text-center  text-black font-semibold after:absolute after:-bottom-0.25 after:left-0 after:w-full after:text-xl after:leading-0 after:text-blue-200 checked:border-2 has-[span]:px-6! checked:border-blue-500 hover:cursor-pointer has-[:checked]:border-2 has-[:checked]:border-blue-200 has-[:checked]:bg-blue-200 has-[:checked]:after:content-['🞃'] [&_input[type='radio']]:hidden [input-radio]:hidden;
+    .tab-group {
+        @apply flex w-fit rounded-full border border-slate-500 p-0.5;
+    }
+
+    .tab {
+        @apply relative flex text-sm uppercase hover:cursor-pointer hover:text-black has-checked:rounded-full has-checked:bg-blue-700 has-checked:text-white has-checked:after:absolute has-checked:after:bottom-0.5 has-checked:after:left-0 has-checked:after:w-full has-checked:after:text-center has-checked:after:text-xl has-checked:after:leading-0 has-checked:after:text-blue-700 has-checked:after:drop-shadow-[0_3px_0px_white] has-checked:after:content-['🞃'] [&_input[type='radio']]:hidden [&.active]:rounded-full [&.active]:bg-blue-700 [&.active]:after:absolute [&.active]:after:bottom-0.5 [&.active]:after:left-0 [&.active]:after:w-full [&.active]:after:text-center [&.active]:after:text-xl [&.active]:after:leading-0 [&.active]:after:text-blue-700 [&.active]:after:drop-shadow-[0_3px_0px_white] [&.active]:after:content-['🞃'] [&.active>a]:text-white! [label]:px-8 [label]:py-3 [&>a]:px-8 [&>a]:py-3 [&>a]:text-slate-500 [&>a]:hover:text-black;
     }
 
     .triangle-right {
@@ -220,11 +228,11 @@
 }
 
 @utility btn-outline-lg {
-    @apply btn-outline border-2 px-6 py-2 text-lg  text-slate-600;
+    @apply btn-outline border-2 px-6 py-2 text-lg;
 }
 
 @utility btn-outline-xl {
-    @apply btn-outline border-3 px-8 py-4 text-xl text-slate-600;
+    @apply btn-outline border-3 px-8 py-4 text-xl;
 }
 
 /* Btn info */
@@ -246,7 +254,7 @@
 }
 
 @utility btn-info-outline-lg {
-    @apply btn-info-outline border-2 px-6 py-2 text-lg  text-blue-600;
+    @apply btn-info-outline border-2 px-6 py-2 text-lg text-blue-600;
 }
 
 @utility btn-info-outline-xl {
@@ -272,7 +280,7 @@
 }
 
 @utility btn-success-outline-lg {
-    @apply btn-success-outline border-2 px-6 py-2 text-lg  text-emerald-600;
+    @apply btn-success-outline border-2 px-6 py-2 text-lg text-emerald-600;
 }
 
 @utility btn-success-outline-xl {
@@ -298,7 +306,7 @@
 }
 
 @utility btn-warning-outline-lg {
-    @apply btn-warning-outline border-2 px-6 py-2 text-lg  text-amber-600;
+    @apply btn-warning-outline border-2 px-6 py-2 text-lg text-amber-600;
 }
 
 @utility btn-warning-outline-xl {
@@ -324,7 +332,7 @@
 }
 
 @utility btn-danger-outline-lg {
-    @apply btn-danger-outline border-2 px-6 py-2 text-lg  text-rose-600;
+    @apply btn-danger-outline border-2 px-6 py-2 text-lg text-rose-600;
 }
 
 @utility btn-danger-outline-xl {
@@ -333,7 +341,7 @@
 
 @layer utilities {
     .alert {
-        @apply relative bottom-0 flex w-full scale-100 gap-12 overflow-clip rounded-md border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-slate-50 py-7 pl-9 text-slate-900 opacity-100 before:absolute before:left-2 [&_~_*]:mt-16 *:first:w-full text-left;
+        @apply relative bottom-0 flex w-full scale-100 gap-12 overflow-clip rounded-md border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-slate-50 py-7 pl-9 text-left text-slate-900 opacity-100 before:absolute before:left-2 *:first:w-full [&_~_*]:mt-16;
 
         & a {
             @apply inline-flex items-center gap-2 rounded-full border px-4 py-1 text-sm font-semibold text-white uppercase transition-all;
@@ -361,6 +369,6 @@
     }
 
     .select-dark {
-        @apply bg-slate-700 text-white text-base focus:ring-1 [&>option]:text-slate-800;
+        @apply bg-slate-700 text-base text-white focus:ring-1 [&>option]:text-slate-800;
     }
 }
