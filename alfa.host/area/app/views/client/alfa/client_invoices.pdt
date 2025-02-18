@@ -10,8 +10,8 @@ $link_buttons = [
 
 $linksBadgesClasses = 'bg-rose-600 text-white rounded-full text-xs px-2 py-0.5';
 $links = [
-    ['name' => $this->_('ClientInvoices.index.category_open', true) . ' <span class="' . $linksBadgesClasses . '">' . (isset($status_count['open']) ? $this->Html->safe($status_count['open']) : null) . '</span>', 'current' => ((isset($status) ? $status : null) == 'open' ? true : false), 'attributes' => ['href' => $this->base_uri . 'invoices/index/open/', 'class' => 'ajax alv-tab']],
-    ['name' => $this->_('ClientInvoices.index.category_closed', true) . ' <span class="' . $linksBadgesClasses . '">' . (isset($status_count['closed']) ? $this->Html->safe($status_count['closed']) : null) . '</span>', 'current' => ((isset($status) ? $status : null) == 'closed' ? true : false), 'attributes' => ['href' => $this->base_uri . 'invoices/index/closed/', 'class' => 'ajax alv-tab']]
+    ['name' => $this->_('ClientInvoices.index.category_open', true) . ' <span class="' . $linksBadgesClasses . '">' . (isset($status_count['open']) ? $this->Html->safe($status_count['open']) : null) . '</span>', 'current' => ((isset($status) ? $status : null) == 'open' ? true : false), 'attributes' => ['href' => $this->base_uri . 'invoices/index/open/', 'class' => 'ajax']],
+    ['name' => $this->_('ClientInvoices.index.category_closed', true) . ' <span class="' . $linksBadgesClasses . '">' . (isset($status_count['closed']) ? $this->Html->safe($status_count['closed']) : null) . '</span>', 'current' => ((isset($status) ? $status : null) == 'closed' ? true : false), 'attributes' => ['href' => $this->base_uri . 'invoices/index/closed/', 'class' => 'ajax']]
 ];
 
 $this->WidgetClient->clear();
@@ -109,16 +109,21 @@ $this->WidgetClient->buildFilters();
                                 <div><?= $this->Date->cast((isset($invoices[$i]->date_due) ? $this->Html->safe($invoices[$i]->date_due) : null)); ?></div>
                             </td>
                             <td class="w-1 pr-4">
-                                <div class="flex float-right gap-2 flex-nowrap">
+                                <div class="flex float-right gap-2 whitespace-nowrap">
                                     <?php if ((isset($status) ? $status : null) == 'open'): ?>
                                         <a href="<?= $this->Html->safe($this->base_uri . 'pay/method/' . (isset($invoices[$i]->id) ? $invoices[$i]->id : null) . '/'); ?>" class="flex items-center gap-1">
                                             <i class="fas fa-plus-circle fa-fw"></i> <?php $this->_('ClientInvoices.index.option_pay'); ?>
                                         </a>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu flex gap-2">
                                             <li>
                                                 <a href="<?= $this->Html->safe($this->base_uri . 'invoices/view/' . (isset($invoices[$i]->id) ? $invoices[$i]->id : null) . '/'); ?>"
                                                     class="flex items-center gap-1">
                                                     <i class=" fas fa-file-invoice-dollar fa-fw"></i> <?php $this->_('ClientInvoices.index.option_view'); ?>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo $this->Html->safe($this->base_uri . 'invoices/download/' . (isset($invoices[$i]->id) ? $invoices[$i]->id : null) . '/'); ?>">
+                                                    <i class="fas fa-download fa-fw"></i> <?php $this->_('ClientInvoices.index.option_download'); ?>
                                                 </a>
                                             </li>
                                         </ul>
@@ -126,6 +131,14 @@ $this->WidgetClient->buildFilters();
                                         <a href="<?= $this->Html->safe($this->base_uri . 'invoices/view/' . (isset($invoices[$i]->id) ? $invoices[$i]->id : null) . '/'); ?>" class="flex items-center gap-1">
                                             <i class="fas fa-file-invoice-dollar fa-fw"></i> <?php $this->_('ClientInvoices.index.option_view'); ?>
                                         </a>
+
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="<?php echo $this->Html->safe($this->base_uri . 'invoices/download/' . (isset($invoices[$i]->id) ? $invoices[$i]->id : null) . '/'); ?>">
+                                                    <i class="fas fa-download fa-fw"></i> <?php $this->_('ClientInvoices.index.option_download'); ?>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     <?php endif ?>
                                 </div>
                             </td>

@@ -6,7 +6,3 @@
             }
             ?>
         </div>
-
-        <?php
-        echo ($option_logic_js ?? null);
-        ?>

@@ -121,7 +121,7 @@ if ((isset($transactions) ? $transactions : false) && ($num_transactions = count
         $this->Pagination->build();
         $this->WidgetClient->endFooter();
     }
-    $this->Widget->end();
+    $this->WidgetClient->end();
     // Don't show this container when only rendering the widget section
     if (!(isset($render_section) ? $render_section : null) && !(isset($is_ajax) ? $is_ajax : null)) {
     ?>

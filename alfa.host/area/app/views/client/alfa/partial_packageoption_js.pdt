@@ -5,6 +5,8 @@
     var defaults = <?php echo ($defaults ?? json_encode([]));?>;
     var pre_logic_element_states = {};
     var pre_logic_values = {};
+    var is_edit = <?php echo $is_edit ? 'true' : 'false';?>;
+    var is_initial_evaluation = true;
 
     $(document).ready(function () {
         // Add events to trigger option display evaluations when one of the appropriate fields change
@@ -26,6 +28,7 @@
             fetchSummary = tempFetchSummary;
             fetchSummary();
         }
+        is_initial_evaluation = false;
     });
     
     function evaluateOptions(e)
@@ -50,6 +53,9 @@
                 var value_ids = options_to_evaluate[i][option_id];
                 var changed = false;
 
+                // Evaluate each option/value pair to see if it is enabled based on the new value of this
+                // field, keeping track of whether the evaluated option was changed due to the option or current
+                // value being disabled
                 for (value_id in value_ids) {
                     changed = evaluateOption(option_id, value_id) || changed;
                 };
@@ -66,6 +72,7 @@
                 // and log or output an notice when the limit is reached
                 options_evaluated++;
                 if (options_evaluated > <?php echo ($maximum_evaluations ?? null);?>) {
+                    console.log('Option logic evaluation limit exceeded');
                     break;
                 }
             };
@@ -465,10 +472,37 @@
     function disablePackageOptionField(target_element, hide)
     {
         var changed = false;
-        $(target_element).prop("disabled", "disabled");
-
         var parent_element = $(target_element).parents("div.form-group");
+        
+        // Use special logic on the initial evaluation for edits to maintain the current values on load
+        if (is_initial_evaluation && is_edit) {
+            // Remain unchanged unless this is a radio or select option
+            if ($(target_element).parent("select").length === 0
+                && $('input[type=radio]', parent_element).length === 0
+            ) {
+                return false;
+            } else {
+                // In here we only handle radio or select options and decide whether to disable
+                // the option based on whether it is currently selected
+                if ($(target_element).parent("select").length !== 0) {
+                    // This is a select option. Don't disable this value if it is currently selected
+                    var selected_option = $("option:selected", parent_element)[0];
+                    if (selected_option.isSameNode($(target_element)[0])) {
+                        return false;
+                    }
+                } else {
+                    // This is a radio option. Don't disable this value if it is currently checked
+                    var selected_option = $(parent_element).find("input[type=radio]:checked")[0];
+                    if (selected_option.isSameNode($(target_element)[0])) {
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        $(target_element).prop("disabled", "disabled");
         if (hide) {
+            // Hide the parant element unless this is a select or radio opion
             if ($(target_element).parent("select").length === 0
                 && $('input[type=radio]', parent_element).length === 0
             ) {

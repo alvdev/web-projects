@@ -157,6 +157,13 @@
                 'button' => 'btn-light',
                 'lang' => 'ClientServices.manage.button_config_options',
                 'link' => $this->base_uri . 'services/manageoptions/' . ($service->id ?? null)
+            ],
+            'manage_parent' => [
+                'enabled' => (!empty($service->parent) && ($service->parent->status ?? null) == 'active' && ($service->status ?? null) == 'active'),
+                'icon' => 'fas fa-cog fa-fw',
+                'button' => 'btn-light',
+                'lang' => 'ClientServices.manage.button_manage_parent',
+                'link' => $this->base_uri . 'services/manage/' . ($service->parent->id ?? null)
             ]
         ];
         $show_options = false;

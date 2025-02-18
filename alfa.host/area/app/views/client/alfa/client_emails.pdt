@@ -36,9 +36,9 @@
                             $summary = (isset($logs[$i]->body_text) ? $this->Html->safe($logs[$i]->body_text) : null);
                             if (strlen($summary) > 40) {
                                 if (function_exists('mb_strimwidth')) {
-                                    $summary = mb_strimwidth($summary, 0, 40) . '...';
+                                    $summary = trim(mb_strimwidth($summary, 0, 40)) . '...';
                                 } else {
-                                    $summary = substr($summary, 0, 40) . '...';
+                                    $summary = trim(substr($summary, 0, 40)) . '...';
                                 }
                             }
                             ?>
@@ -46,47 +46,106 @@
                         </tr>
                         <tr class="expand_details">
                             <td class="subtable" colspan="3">
-                                <div class="table-responsive">
-                                    <table class="table table-curved table-striped multi_heading p-0">
-                                        <thead>
-                                            <tr class="email_header">
-                                                <td><?php $this->_('ClientEmails.index.text_to');?></td>
-                                                <td>
-                                                    <a href="mailto:<?php (print (isset($logs[$i]->to_address) ? $this->Html->safe($logs[$i]->to_address) : null));?>"><?php (print (isset($logs[$i]->to_address) ? $this->Html->safe($logs[$i]->to_address) : null));?></a>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                            // Show CC addresses
-                                            if (!empty($logs[$i]->cc_address)) {
-                                            ?>
-                                            <tr class="email_header">
-                                                <td><?php $this->_('ClientEmails.index.text_cc');?></td>
-                                                <td>
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a href="<?php echo $this->Html->safe('#text_' . $i);?>" class="nav-link active" data-toggle="tab"><?php $this->_('ClientEmails.index.text_text');?></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo $this->Html->safe('#html_' . $i);?>" class="nav-link" data-toggle="tab"><?php $this->_('ClientEmails.index.text_html');?></a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="<?php echo $this->Html->safe('text_' . $i);?>" class="tab-pane fade p-0 active show">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped multi_heading border-top-0 p-0 m-0">
+                                                <thead>
+                                                    <tr class="email_header">
+                                                        <td><?php $this->_('ClientEmails.index.text_to');?></td>
+                                                        <td>
+                                                            <a href="mailto:<?php (print (isset($logs[$i]->to_address) ? $this->Html->safe($logs[$i]->to_address) : null));?>"><?php (print (isset($logs[$i]->to_address) ? $this->Html->safe($logs[$i]->to_address) : null));?></a>
+                                                        </td>
+                                                    </tr>
                                                     <?php
-                                                    $j = 0;
-                                                    foreach ($logs[$i]->cc_address as $cc_address) {
-                                                    ?><?php echo $j++ > 0 ? ', ' : '';?>
-                                                    <a href="mailto:<?php (print (isset($cc_address) ? $this->Html->safe($cc_address) : null));?>"><?php (print (isset($cc_address) ? $this->Html->safe($cc_address) : null));?></a><?php
+                                                    // Show CC addresses
+                                                    if (!empty($logs[$i]->cc_address)) {
+                                                    ?>
+                                                    <tr class="email_header">
+                                                        <td><?php $this->_('ClientEmails.index.text_cc');?></td>
+                                                        <td>
+                                                            <?php
+                                                            $j = 0;
+                                                            foreach ($logs[$i]->cc_address as $cc_address) {
+                                                            ?><?php echo $j++ > 0 ? ', ' : '';?>
+                                                            <a href="mailto:<?php (print (isset($cc_address) ? $this->Html->safe($cc_address) : null));?>"><?php (print (isset($cc_address) ? $this->Html->safe($cc_address) : null));?></a><?php
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
                                                     }
                                                     ?>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                            }
-                                            ?>
-                                            <tr class="email_header">
-                                                <td><?php $this->_('ClientEmails.index.text_from');?></td>
-                                                <td>
-                                                    <a href="mailto:<?php (print (isset($logs[$i]->from_address) ? $this->Html->safe($logs[$i]->from_address) : null));?>"><?php (print (isset($logs[$i]->from_name) ? $this->Html->safe($logs[$i]->from_name) : null));?></a>
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="2" class="body"><?php echo nl2br($this->Html->hyperlink((isset($logs[$i]->body_text) ? $this->Html->safe($logs[$i]->body_text) : null)));?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                    <tr class="email_header">
+                                                        <td><?php $this->_('ClientEmails.index.text_from');?></td>
+                                                        <td>
+                                                            <a href="mailto:<?php (print (isset($logs[$i]->from_address) ? $this->Html->safe($logs[$i]->from_address) : null));?>"><?php (print (isset($logs[$i]->from_name) ? $this->Html->safe($logs[$i]->from_name) : null));?></a>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="2" class="body"><?php echo nl2br($this->Html->hyperlink((isset($logs[$i]->body_text) ? $this->Html->safe($logs[$i]->body_text) : null)));?></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="<?php echo $this->Html->safe('html_' . $i);?>" class="tab-pane fade p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped multi_heading border-top-0 p-0 m-0">
+                                                <thead>
+                                                    <tr class="email_header">
+                                                        <td><?php $this->_('ClientEmails.index.text_to');?></td>
+                                                        <td>
+                                                            <a href="mailto:<?php (print (isset($logs[$i]->to_address) ? $this->Html->safe($logs[$i]->to_address) : null));?>"><?php (print (isset($logs[$i]->to_address) ? $this->Html->safe($logs[$i]->to_address) : null));?></a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                    // Show CC addresses
+                                                    if (!empty($logs[$i]->cc_address)) {
+                                                    ?>
+                                                    <tr class="email_header">
+                                                        <td><?php $this->_('ClientEmails.index.text_cc');?></td>
+                                                        <td>
+                                                            <?php
+                                                            $j = 0;
+                                                            foreach ($logs[$i]->cc_address as $cc_address) {
+                                                            ?><?php echo $j++ > 0 ? ', ' : '';?>
+                                                            <a href="mailto:<?php (print (isset($cc_address) ? $this->Html->safe($cc_address) : null));?>"><?php (print (isset($cc_address) ? $this->Html->safe($cc_address) : null));?></a><?php
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                    <tr class="email_header">
+                                                        <td><?php $this->_('ClientEmails.index.text_from');?></td>
+                                                        <td>
+                                                            <a href="mailto:<?php (print (isset($logs[$i]->from_address) ? $this->Html->safe($logs[$i]->from_address) : null));?>"><?php (print (isset($logs[$i]->from_name) ? $this->Html->safe($logs[$i]->from_name) : null));?></a>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="2" class="body">
+                                                            <iframe class="border-0 w-100" srcdoc="<?php echo $this->Html->safe($logs[$i]->body_html ?? '');?>"></iframe>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -116,3 +175,17 @@
             $this->WidgetClient->end();
             ?>
         </div>
+<?php
+$this->Javascript->setInline('
+	$(document).ready(function() {
+		$(".subtable .nav-link").click(function() {
+            $(".subtable .nav-link").removeClass("active");
+            $(this).addClass("active");
+            
+            var tab = $(this).attr("href");
+            $(".subtable .tab-content .tab-pane").removeClass("active show");
+            $(tab).addClass("active show");
+        });
+	});
+');
+?>
