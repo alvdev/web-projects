@@ -298,7 +298,7 @@ class WidgetClient extends AbstractWidget
         switch ($this->nav_type) {
             default:
             case 'links':
-                $nav_class = 'card-links flex w-fit border border-slate-500 rounded-full p-0.5';
+                $nav_class = 'card-links tab-group';
                 break;
             case 'tabs':
                 $nav_class = 'nav nav-tabs';
@@ -324,7 +324,7 @@ class WidgetClient extends AbstractWidget
                     [
                         'class' => $this->concat(
                             ' ',
-                            ((isset($element['current']) ? $element['current'] : null) ? 'active *:bg-black *:text-white *:after:content-["🞃"] *:after:text-black *:after:bottom-0.5 *:after:drop-shadow-[0_3px_0px_white]' : ''),
+                            ((isset($element['current']) ? $element['current'] : null) ? 'active tab' : 'tab'),
                             ((isset($element['highlight']) ? $element['highlight'] : null) && !(isset($element['current']) ? $element['current'] : null)
                                 ? 'highlight'
                                 : '')
@@ -350,7 +350,7 @@ class WidgetClient extends AbstractWidget
      */
     private function buildLinkButtons(array $attributes = null)
     {
-        $default_attributes = ['class' => 'inline-flex items-center gap-2 border px-4 py-1 rounded-md font-semibold uppercase text-sm'];
+        $default_attributes = ['class' => 'btn-success-outline'];
         // Override default attributes
         $attributes = array_merge($default_attributes, (array)$attributes);
 
@@ -420,7 +420,7 @@ class WidgetClient extends AbstractWidget
                     'class' => 'widget_filter_form'
                 ]
             );
-            $html .= '<div class="card mt-8">';
+            $html .= '<div class="card mt-8 grid gap-4">';
 
             // Set any hidden fields
             foreach ($filter_fields as $index => $field) {
@@ -449,7 +449,7 @@ class WidgetClient extends AbstractWidget
 
                 $i++;
             }
-            $html .= '<div class="bg-black text-white self-end px-4 py-2.5 *:uppercase text-sm rounded-sm *:hover:cursor-pointer">';
+        $html .= '<div class="*:btn-lg self-end">';
             // Add the submit button
             $html .= $this->Form->fieldSubmit(
                 'submit',
@@ -531,7 +531,7 @@ class WidgetClient extends AbstractWidget
      */
     private function buildFilter(InputField $field)
     {
-        $html = '<div class="w-1/3">';
+        $html = '<div class="max-w-1/3">';
 
         // Draw the primary label/field
         $field->params['attributes']['class'] = (array)(isset($field->params['attributes']['class']) ? $field->params['attributes']['class'] : []);
