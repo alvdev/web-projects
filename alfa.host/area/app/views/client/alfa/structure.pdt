@@ -34,11 +34,13 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <?php if ($this->_('AppController.lang.dir', true) == 'rtl'): ?>
         <link href="<?= $this->view_dir; ?>css/rtl.css" rel="stylesheet" type="text/css" media="screen" />
     <?php endif ?> -->
-    <?php if (!empty($custom_css)): ?>
+    
+    <?php // if (!empty($custom_css)): ?>
         <style>
-            <?php echo $custom_css; ?>
+            <?php // echo $custom_css; ?>
         </style>
-    <?php endif ?>
+    <?php // endif ?>
+    
     <link href="<?= $this->view_dir; ?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= $this->view_dir; ?>css/font-awesome-shims.min.css" rel="stylesheet" type="text/css" />
 
