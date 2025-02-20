@@ -1,4 +1,4 @@
-.navfix {
+/* .navfix {
     margin-top: -20px;
 }
 
@@ -9,6 +9,43 @@
 .section-title p {
     margin-top: -10px;
     font-style: italic;
+}
+
+.card-kb {
+    background-color: var(--light);
+    border-color: #e3e3e3;
+    font-size: 12px;
+    text-align: center;
+    padding: 40px;
+    margin-bottom: 20px;
+}
+
+.card-kb .table {
+    border: none;
+}
+
+.card-kb .table > thead > tr > th {
+    background: none;
+    border: none;
+    border-bottom: 2px solid #efefef;
+}
+
+.card-kb .table > tbody > tr > td {
+    border: none;
+    padding: 8px 4px 4px 4px;
+}
+
+.categories div {
+    margin-bottom: 5px;
+}
+
+.categories a {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.categories p {
+    margin-bottom: 0px;
 }
 
 .breadcrumb {
@@ -73,3 +110,4 @@
 div.pagination {
     margin-top: 20px;
 }
+ */
