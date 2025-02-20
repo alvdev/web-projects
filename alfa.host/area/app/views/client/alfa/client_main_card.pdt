@@ -12,7 +12,7 @@
         </div>
     </div> -->
 
-<div class="w-full rounded-sm overflow-clip text-center bg-slate-100">
+<div class="w-full rounded-sm overflow-clip text-center bg-blue-100 text-black">
     <?= !empty($card->uri) ? '<a href="' . $this->Html->safe($card->uri) . '">' : ''; ?>
 
     <?php if ((isset($card->callback_type) ? $card->callback_type : null) == 'html'): ?>
