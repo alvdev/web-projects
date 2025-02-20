@@ -36,6 +36,8 @@
 /area/language/es_es/*
 !/area/language/en_us/_global.php
 !/area/language/es_es/_global.php
+!/area/language/en_us/_override.php
+!/area/language/es_es/_override.php
 
 !/area/helpers/
 /area/helpers/*
