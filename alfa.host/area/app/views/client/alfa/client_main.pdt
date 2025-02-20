@@ -16,4 +16,20 @@ $this->Javascript->setInline('
         });
     });
 ');
+
+$this->Javascript->setInline('
+    $(document).ready(function() {        
+        $(".cards").blestaLoadCards({
+            fetch_uri: "' . $this->Html->safe($this->base_uri . 'main/getcards/' . (isset($client->id) ? $client->id : null), true) . '",
+        });
+    });
+
+    setTimeout(function() {
+            var cardsElement = document.querySelector(".cards");
+                if (cardsElement && cardsElement.innerHTML.trim() !== "") {
+                cardsElement.classList.remove("hidden", "h-0");
+                cardsElement.classList.add("flex", "-mt-16", "p-4", "translate-y-14", "h-auto", "transition-all");
+            }
+    }, 1000);
+');
 ?>
