@@ -119,7 +119,7 @@
                                 <?php $this->_('Main.packages.field_pricing_id'); ?> <i class="fas fa-share fa-rotate-90"></i>
                             </div>
                             <?php
-                            $this->Form->fieldSelect('pricing_id', $prices, (($preset_pricing ?? false) ? $pricing_id : ($default_price->id ?? $lowest_price->id ?? null)), ['class' => 'form-control mt-2 bg-slate-700 text-white text-md focus:ring-1'], (isset($option_attributes) ? $option_attributes : []));
+                            $this->Form->fieldSelect('pricing_id', $prices, (($preset_pricing ?? false) ? $pricing_id : ($default_price->id ?? $lowest_price->id ?? null)), ['class' => 'form-control select-dark mt-2'], (isset($option_attributes) ? $option_attributes : []));
                             ?>
                         </div>
 
