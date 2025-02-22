@@ -1,91 +1,64 @@
 <div class="col-md-12">
-    <div class="row">
-        <div class="col-md-12">
-            <?php
-            echo (isset($search_bar) ? $search_bar : null);
-            echo (isset($bread_crumbs) ? $bread_crumbs : null);
-            ?>
-        </div>
-    </div>
-    <?php
-    // Always show categories when viewing the home category, but only show subcategories when some exist
-    if ((isset($current_category) ? $current_category : null) === null || ((isset($current_category) ? $current_category : null) !== null && !empty($categories))) {
-    ?>
-        <div class="categories">
-            <?php
-            if (!empty($categories)) {
-            ?>
-                <div class="grid grid-cols-3 gap-16">
-                    <?php
-                    foreach ($categories as $category) {
-                    ?>
-                        <article>
-                            <h3 class="text-2xl flex items-baseline gap-4">
-                                <i class="fas fa-folder"></i>
-                                <a href="<?php echo $this->Html->safe($this->base_uri . 'plugin/support_manager/knowledgebase/index/' . (isset($category->id) ? $category->id : null) . '/'); ?>"><?php echo (isset($category->name) ? $this->Html->safe($category->name) : null); ?></a>
-                                <span class="text-lg font-normal text-slate-700">
-                                    <?php $this->_('Knowledgebase.index.category_items', false, (isset($category->total_items) ? $this->Html->safe($category->total_items) : null)); ?>
-                                </span>
-                            </h3>
-                            
-                            <div class="mt-4">
-                                <?= $this->TextParser->encode('markdown', (isset($category->description) ? $category->description : null)); ?>
-                            </div>
-                        </article>
-                    <?php
-                    }
-                    ?>
-                </div>
-            <?php
-            } else {
-            ?>
-                <div class="alert alert-info w-100">
-                    <p><?php $this->_('Knowledgebase.index.categories_no_results'); ?></p>
-                </div>
-            <?php
-            }
-            ?>
-        </div>
-        <div class="clearfix"></div>
-    <?php
-    }
-
-    // Show popular articles and articles
-    $article_types = ['popular_articles', 'articles'];
-    foreach ($article_types as $type) {
-        $popular = ($type == 'popular_articles');
-        $article_list = ($popular ? (isset($popular_articles) ? $popular_articles : []) : (isset($articles) ? $articles : []));
-        if (empty($article_list)) {
-            continue;
-        }
-    ?>
-        <div class="section-title">
-            <h3>
-                <i class="fas <?php echo ($popular ? 'fa-thumbs-up' : 'fa-file-alt'); ?>"></i>
-                <?php echo ($popular ? $this->_('Knowledgebase.index.heading_popular', true) : $this->_('Knowledgebase.index.heading_articles', true)); ?>
-            </h3>
-            <p><?php echo ($popular ? $this->_('Knowledgebase.index.popular_description', true) : $this->_('Knowledgebase.index.articles_description', true, (isset($current_category->name) ? $this->Html->safe($current_category->name) : null))); ?></p>
-        </div>
-        <div class="categories">
-            <div class="row">
-                <?php
-                foreach ($article_list as $article) {
-                ?>
-                    <div class="col-md-12">
-                        <div class="bg-light py-2 px-3 rounded">
-                            <i class="fas fa-file"></i>
-                            <a href="<?php echo $this->Html->safe($this->base_uri . 'plugin/support_manager/knowledgebase/view/' . (isset($article->id) ? $article->id : null) . '/' . (isset($article->uri_title) ? $article->uri_title : null) . '/' . ((isset($current_category) ? $current_category : null) ? (isset($current_category->id) ? $current_category->id : null) . '/' : '')); ?>">
-                                <?php echo (isset($article->title) ? $this->Html->safe($article->title) : null); ?>
-                            </a>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    <?php
-    }
-    ?>
+    <?= (isset($search_bar) ? $search_bar : null); ?>
+    <?= (isset($bread_crumbs) ? $bread_crumbs : null); ?>
 </div>
+<?php
+// Always show categories when viewing the home category, but only show subcategories when some exist
+if ((isset($current_category) ? $current_category : null) === null || ((isset($current_category) ? $current_category : null) !== null && !empty($categories))): ?>
+    <div class="categories">
+        <?php if (!empty($categories)): ?>
+            <div class="grid grid-cols-3 gap-16">
+                <?php foreach ($categories as $category): ?>
+                    <article>
+                        <h3 class="text-2xl flex items-baseline gap-4">
+                            <i class="fas fa-folder"></i>
+                            <a href="<?php echo $this->Html->safe($this->base_uri . 'plugin/support_manager/knowledgebase/index/' . (isset($category->id) ? $category->id : null) . '/'); ?>"><?php echo (isset($category->name) ? $this->Html->safe($category->name) : null); ?></a>
+                            <span class="text-lg font-normal text-slate-700">
+                                <?php $this->_('Knowledgebase.index.category_items', false, (isset($category->total_items) ? $this->Html->safe($category->total_items) : null)); ?>
+                            </span>
+                        </h3>
+
+                        <div class="mt-4">
+                            <?= $this->TextParser->encode('markdown', (isset($category->description) ? $category->description : null)); ?>
+                        </div>
+                    </article>
+                <?php endforeach ?>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-info w-100">
+                <p><?php $this->_('Knowledgebase.index.categories_no_results'); ?></p>
+            </div>
+        <?php endif ?>
+    </div>
+<?php endif ?>
+
+<?php
+// Show popular articles and articles
+$article_types = ['popular_articles', 'articles'];
+foreach ($article_types as $type) {
+    $popular = ($type == 'popular_articles');
+    $article_list = ($popular ? (isset($popular_articles) ? $popular_articles : []) : (isset($articles) ? $articles : []));
+    if (empty($article_list)) {
+        continue;
+    }
+?>
+    <div class="section-title">
+        <h3>
+            <?= ($popular ? $this->_('Knowledgebase.index.heading_popular', true) : $this->_('Knowledgebase.index.heading_articles', true)); ?>
+        </h3>
+        <p><?= ($popular ? $this->_('Knowledgebase.index.popular_description', true) : $this->_('Knowledgebase.index.articles_description', true, (isset($current_category->name) ? $this->Html->safe($current_category->name) : null))); ?></p>
+    </div>
+    <div class="categories grid grid-cols-3 gap-4 mt-8">
+        <?php foreach ($article_list as $article): ?>
+            <a href="<?php echo $this->Html->safe($this->base_uri . 'plugin/support_manager/knowledgebase/view/' . (isset($article->id) ? $article->id : null) . '/' . (isset($article->uri_title) ? $article->uri_title : null) . '/' . ((isset($current_category) ? $current_category : null) ? (isset($current_category->id) ? $current_category->id : null) . '/' : '')); ?>"
+                class="bg-slate-100 px-6 py-4 rounded-sm hover:bg-blue-50">
+                <i class="fas fa-file"></i>
+                <div class="inline-block ml-2">
+                    <?php echo (isset($article->title) ? $this->Html->safe($article->title) : null); ?>
+                </div>
+            </a>
+        <?php endforeach ?>
+    </div>
+<?php
+}
+?>
