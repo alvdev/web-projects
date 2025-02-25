@@ -190,7 +190,7 @@
 }
 
 @utility alv-half-gray {
-    @apply bg-gradient-to-r from-white from-50% via-gray-200 to-gray-200 py-32;
+    @apply relative -z-50 bg-gradient-to-r from-white from-50% via-gray-200 to-gray-200 py-32;
 }
 
 @utility alv-input-lg {
