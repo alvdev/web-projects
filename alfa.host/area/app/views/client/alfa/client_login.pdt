@@ -1,63 +1,61 @@
-<div class="alv-half-gray">
-    <div class="container mt-8 flex items-center">
-        <div class="w-1/2 text-center">
-            <h2><i class="fas fa-lock"></i> <?php (print(isset($company->name) ? $this->Html->safe($company->name) : null)); ?></h2>
-            <div class="mt-8"><?php $this->_('ClientLogin.index.description'); ?></div>
-        </div>
+<div class="flex items-center">
+    <div class="w-1/2 text-center">
+        <h2><i class="fas fa-lock"></i> <?php (print(isset($company->name) ? $this->Html->safe($company->name) : null)); ?></h2>
+        <div class="mt-8"><?php $this->_('ClientLogin.index.description'); ?></div>
+    </div>
 
-        <div class="w-1/2 text-center">
-            <div class="panel panel-blesta px-16">
-                <h3><?php $this->_('ClientLogin.index.login_heading'); ?></h3>
-                <div class="panel-body mt-12">
-                    <?= (isset($message) ? $message : null); ?>
+    <div class="bg-divider w-1/2 text-center before:left-1/2">
+        <div class="panel panel-blesta px-16">
+            <h3><?php $this->_('ClientLogin.index.login_heading'); ?></h3>
+            <div class="panel-body mt-12">
+                <?= (isset($message) ? $message : null); ?>
 
-                    <?php
-                    $this->Form->create(null, ['class' => 'disable-on-submit']);
-                    if ((isset($vars->forward_to) ? $vars->forward_to : null)) {
-                        $this->Form->fieldHidden('forward_to', $vars->forward_to);
-                    }
-                    ?>
-                    <fieldset>
-                        <div class="flex gap-8">
-                            <div class="form-group w-full">
-                                <?php
-                                $this->Form->label($this->_('ClientLogin.index.field_username', true), 'login_username', ['class' => 'uppercase text-sm font-medium text-gray-500 px-1 mb-1 block text-left']);	
-                                $this->Form->fieldText('username', (isset($vars->username) ? $vars->username : null), ['id' => 'login_username', 'class' => 'form-control bg-white w-full px-4 py-3 text-xl font-medium rounded-xs focus:outline-hidden focus:ring-3 focus:ring-gray-300 border-none', 'placeholder' => $this->_('ClientLogin.index.field_username', true)]);
-                                ?>
-                            </div>
-                            <div class="form-group w-full">
-                                <?php
-                                $this->Form->label($this->_('ClientLogin.index.field_password', true), 'login_password', ['class' => 'uppercase text-sm font-medium text-gray-500 px-1 mb-1 block text-left']);
-                                $this->Form->fieldPassword('password', ['id' => 'login_password', 'class' => 'form-control bg-white w-full px-4 py-3 text-xl font-medium rounded-xs focus:outline-hidden focus:ring-3 focus:ring-gray-300 border-none', 'placeholder' => $this->_('ClientLogin.index.field_password', true)]);
-                                ?>
-                            </div>
+                <?php
+                $this->Form->create(null, ['class' => 'disable-on-submit']);
+                if ((isset($vars->forward_to) ? $vars->forward_to : null)) {
+                    $this->Form->fieldHidden('forward_to', $vars->forward_to);
+                }
+                ?>
+                <fieldset>
+                    <div class="flex gap-8">
+                        <div class="form-group w-full">
+                            <?php
+                            $this->Form->label($this->_('ClientLogin.index.field_username', true), 'login_username', ['class' => 'uppercase text-sm font-medium text-gray-500 px-1 mb-1 block text-left']);
+                            $this->Form->fieldText('username', (isset($vars->username) ? $vars->username : null), ['id' => 'login_username', 'class' => 'form-control bg-white w-full px-4 py-3 text-xl font-medium rounded-xs focus:outline-hidden focus:ring-3 focus:ring-gray-300 border-none', 'placeholder' => $this->_('ClientLogin.index.field_username', true)]);
+                            ?>
                         </div>
-                        <div class="checkbox mt-4">
-                            <label for="login_remember_me">
-                                <?php
-                                $this->Form->fieldCheckbox('remember_me', 'true', (isset($vars->remember_me) ? $vars->remember_me : false), ['id' => 'login_remember_me']);
-                                $this->_('ClientLogin.index.field_rememberme');
-                                ?>
-                            </label>
+                        <div class="form-group w-full">
+                            <?php
+                            $this->Form->label($this->_('ClientLogin.index.field_password', true), 'login_password', ['class' => 'uppercase text-sm font-medium text-gray-500 px-1 mb-1 block text-left']);
+                            $this->Form->fieldPassword('password', ['id' => 'login_password', 'class' => 'form-control bg-white w-full px-4 py-3 text-xl font-medium rounded-xs focus:outline-hidden focus:ring-3 focus:ring-gray-300 border-none', 'placeholder' => $this->_('ClientLogin.index.field_password', true)]);
+                            ?>
                         </div>
-                        <?php if ((isset($captcha) ? $captcha : null)): ?>
-                            <div class="form-group mt-8">
-                                <?= $captcha; ?>
-                            </div>
-                        <?php endif ?>
-                        <button type="submit" class="mt-8 w-1/2 p-3 text-white uppercase bg-black rounded-xs"><i class="fas fa-sign-in-alt"></i> <?php $this->_('ClientLogin.index.field_loginsubmit'); ?></button>
-                        <?php
-                        $this->Form->fieldSubmit('login', '', ['class' => 'hidden', 'hidefocus' => 'true']);
-                        ?>
-                    </fieldset>
+                    </div>
+                    <div class="checkbox mt-4">
+                        <label for="login_remember_me">
+                            <?php
+                            $this->Form->fieldCheckbox('remember_me', 'true', (isset($vars->remember_me) ? $vars->remember_me : false), ['id' => 'login_remember_me']);
+                            $this->_('ClientLogin.index.field_rememberme');
+                            ?>
+                        </label>
+                    </div>
+                    <?php if ((isset($captcha) ? $captcha : null)): ?>
+                        <div class="form-group mt-8">
+                            <?= $captcha; ?>
+                        </div>
+                    <?php endif ?>
+                    <button type="submit" class="mt-8 w-1/2 p-3 text-white uppercase bg-black rounded-xs"><i class="fas fa-sign-in-alt"></i> <?php $this->_('ClientLogin.index.field_loginsubmit'); ?></button>
                     <?php
-                    $this->Form->end();
+                    $this->Form->fieldSubmit('login', '', ['class' => 'hidden', 'hidefocus' => 'true']);
                     ?>
-                </div>
-                <div class="panel-footer mt-12 flex justify-center gap-12">
-                    <a href="<?= $this->Html->safe($this->base_uri . 'login/reset/'); ?>"><?php $this->_('ClientLogin.index.link_resetpassword'); ?></a>
-                    <a href="<?= $this->Html->safe($this->base_uri . 'login/forgot/'); ?>"><?php $this->_('ClientLogin.index.link_forgotusername'); ?></a>
-                </div>
+                </fieldset>
+                <?php
+                $this->Form->end();
+                ?>
+            </div>
+            <div class="panel-footer mt-12 flex justify-center gap-12">
+                <a href="<?= $this->Html->safe($this->base_uri . 'login/reset/'); ?>"><?php $this->_('ClientLogin.index.link_resetpassword'); ?></a>
+                <a href="<?= $this->Html->safe($this->base_uri . 'login/forgot/'); ?>"><?php $this->_('ClientLogin.index.link_forgotusername'); ?></a>
             </div>
         </div>
     </div>

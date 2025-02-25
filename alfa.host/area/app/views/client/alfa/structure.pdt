@@ -34,13 +34,16 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <?php if ($this->_('AppController.lang.dir', true) == 'rtl'): ?>
         <link href="<?= $this->view_dir; ?>css/rtl.css" rel="stylesheet" type="text/css" media="screen" />
     <?php endif ?> -->
-    
-    <?php // if (!empty($custom_css)): ?>
-        <style>
-            <?php // echo $custom_css; ?>
-        </style>
-    <?php // endif ?>
-    
+
+    <?php // if (!empty($custom_css)): 
+    ?>
+    <style>
+        <?php // echo $custom_css; 
+        ?>
+    </style>
+    <?php // endif 
+    ?>
+
     <link href="<?= $this->view_dir; ?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= $this->view_dir; ?>css/font-awesome-shims.min.css" rel="stylesheet" type="text/css" />
 
@@ -76,18 +79,8 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
 
     <?php include_once('partials/header.php'); ?>
 
-    <!-- Set main container or fluid container -->
-    <?php
-    $fluidPages = ['login', 'manage'];
-    $container = 'container mt-24';
-    foreach ($fluidPages as $page) {
-        if (str_contains($request_uri, $page)) {
-            $container = 'mt-0 relative z-0';
-            break;
-        }
-    } ?>
     <!-- Begin Content -->
-    <main class="<?= $container ?? $fluidContainer ?>">
+    <main class="relative overflow-clip py-32">
         <?php if (!empty($active_nav['secondary'])): ?>
             <div class="col-md-3">
                 <div class="list-group">
@@ -110,7 +103,9 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
                 </div>
             </div>
         <?php else: ?>
-            <?= $content ?>
+            <div class="container">
+                <?= $content ?>
+            </div>
         <?php endif ?>
 
         <!-- <div class="container-fluid">

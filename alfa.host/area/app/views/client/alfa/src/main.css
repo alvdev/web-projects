@@ -189,8 +189,8 @@
     );
 }
 
-@utility alv-half-gray {
-    @apply relative -z-50 bg-gradient-to-r from-white from-50% via-gray-200 to-gray-200 py-32;
+@utility bg-divider {
+    @apply  before:absolute  before:-z-50 before:content-[''] before:bg-slate-200 before:w-screen before:inset-0;
 }
 
 @utility alv-input-lg {
