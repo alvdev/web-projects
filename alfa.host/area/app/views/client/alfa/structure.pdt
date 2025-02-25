@@ -78,18 +78,14 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
 
     <!-- Set main container or fluid container -->
     <?php
-    $fluidPages = ['login'];
+    $fluidPages = ['login', 'manage'];
+    $container = 'container mt-24';
     foreach ($fluidPages as $page) {
         if (str_contains($request_uri, $page)) {
-            $fluidContainer = 'mt-0';
-            break;
-        } else {
-            $container = 'container mt-24';
+            $container = 'mt-0 relative z-0';
             break;
         }
-    }
-    ?>
-
+    } ?>
     <!-- Begin Content -->
     <main class="<?= $container ?? $fluidContainer ?>">
         <?php if (!empty($active_nav['secondary'])): ?>
