@@ -5,7 +5,7 @@
 
     <!-- Set margin bottom if cards are present -->
     <?php
-    $cardPages = ['client'];
+    /* $cardPages = ['client'];
     foreach ($cardPages as $page) {
         if (str_contains($request_uri, $page)) {
             $cardmb = 'mb-20';
@@ -14,10 +14,18 @@
             $cardmb = 'mb-24';
             break;
         }
+    } */
+    $cardPages = ['client'];
+    $cardmb = 'mb-24';
+    foreach ($cardPages as $page) {
+        if (str_ends_with($request_uri, $page) || str_ends_with($request_uri, $page . '/')) {
+            $cardmb = 'mb-28';
+            break;
+        }
     }
     ?>
     <div class="container">
-        <div class="<?= $cardmb ?> w-full mt-8 inline-flex items-center justify-between">
+        <div class="<?= $cardmb ?> w-full mt-12 inline-flex items-center justify-between">
             <h1 class="text-white/90">
                 <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
             </h1>
@@ -26,7 +34,7 @@
         </div>
     </div>
 
-    <section class="cards h-0 overflow-clip container flex flex-col items-center relative bg-white rounded-sm lg:flex-row gap-x-8 gap-y-4"></section>
+    <section class="cards h-0 overflow-clip container flex flex-col items-center relative z-1 bg-white rounded-sm lg:flex-row gap-x-8 gap-y-4"></section>
 </header>
 
 <?php
