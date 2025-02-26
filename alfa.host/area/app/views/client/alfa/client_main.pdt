@@ -1,5 +1,6 @@
-<div class="container flex gap-16">
-    <div class="main-content w-3/4">
+<div class="flex gap-16">
+    <!-- mt-16 to widgets except the first no matter is the alerts are shown or not -->
+    <div class="main-content w-3/4 [&_[id*=client_]:not(:first-of-type)]:mt-16">
         <?= (isset($message) ? $message : null); ?>
     </div>
 
