@@ -344,7 +344,7 @@
         @apply bg-linear-to-r /* */ relative top-0 flex w-full scale-100 gap-12 rounded-sm border-l-4 border-slate-400 from-slate-100 to-slate-50 py-7 pl-9 text-left text-slate-900 opacity-100 *:first:w-full [&_+_*]:mt-16;
 
         &.alert-dismissable {
-            @apply absolute z-1 border-none rounded-b-none px-0 py-4 inset-x-0 rounded-t-3xl shadow-2xl shadow-black/30 text-white/80 before:absolute before:-bottom-6 before:left-0 before:h-6 before:w-6 before:rounded-tl-[1.5rem] before:shadow-[-0.25rem_-0.25rem_0_0.25rem_var(--color-slate-100)] after:absolute after:-bottom-6 after:right-0 after:h-6 after:w-6 after:rounded-tr-[3rem] after:shadow-[0.25rem_-0.25rem_0_0.25rem_var(--color-slate-50)];
+            @apply z-1 absolute inset-x-0 rounded-b-none rounded-t-3xl border-x-0 border-b border-white px-0 py-4 text-white/80 shadow-[0_50px_50px] shadow-slate-200 before:absolute before:-bottom-6 before:left-0 before:h-6 before:w-6 before:rounded-tl-[1.5rem] before:shadow-[-0.25rem_-0.25rem_0_0.25rem_var(--color-slate-100)] after:absolute after:-bottom-6 after:right-0 after:h-6 after:w-6 after:rounded-tr-[3rem] after:shadow-[0.25rem_-0.25rem_0_0.25rem_var(--color-slate-50)];
         }
 
         & a {
@@ -365,7 +365,7 @@
     }
 
     .alert-warning {
-        @apply border-amber-400 from-amber-800 to-amber-700 before:shadow-amber-800 after:shadow-amber-700;
+        @apply from-amber-800 to-amber-700 before:shadow-amber-800 after:shadow-amber-700;
     }
 
     .alert-info {
