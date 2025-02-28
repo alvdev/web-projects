@@ -76,6 +76,7 @@
 ## cpanel
 !/area/components/modules/cpanel/
 /area/components/modules/cpanel/*
+!/area/components/modules/cpanel/cpanel.php
 !/area/components/modules/cpanel/language/
 /area/components/modules/cpanel/language/*
 !/area/components/modules/cpanel/language/en_us/
