@@ -58,11 +58,11 @@
             @apply relative z-10;
 
             &::after {
-                @apply absolute top-full left-auto translate-y-2 rounded-sm bg-black/70 px-3 py-1.5 font-normal text-white normal-case content-[attr(title)];
+                @apply absolute left-auto top-full translate-y-2 rounded-sm bg-black/70 px-3 py-1.5 font-normal normal-case text-white content-[attr(title)];
             }
 
             &::before {
-                @apply absolute bottom-0 left-auto translate-y-2 border-5 border-transparent border-b-black/70 content-[''];
+                @apply border-5 absolute bottom-0 left-auto translate-y-2 border-transparent border-b-black/70 content-[''];
             }
         }
     }
@@ -94,7 +94,7 @@
     input[type='text'],
     input[type='textarea'],
     input[type='password'] {
-        @apply min-h-10 w-full rounded-sm bg-gray-200 px-3 py-1.5 text-lg font-semibold text-black outline-hidden transition-all focus:ring-3 focus:ring-blue-200;
+        @apply outline-hidden focus:ring-3 min-h-10 w-full rounded-sm bg-gray-200 px-3 py-1.5 text-lg font-semibold text-black transition-all focus:ring-blue-200;
     }
 
     select {
@@ -110,11 +110,11 @@
     }
 
     input[type='radio'] {
-        @apply relative top-0.5 mr-2 h-4 w-4 appearance-none rounded-full bg-white/60 ring-2 ring-black checked:border-3 checked:border-white checked:bg-black;
+        @apply checked:border-3 relative top-0.5 mr-2 h-4 w-4 appearance-none rounded-full bg-white/60 ring-2 ring-black checked:border-white checked:bg-black;
     }
 
     input[type='checkbox'] {
-        @apply relative top-0.5 mr-2 h-4 w-4 appearance-none rounded-xs bg-white/60 text-center text-sm font-bold text-black ring-2 ring-gray-800 checked:bg-gray-800 checked:ring-2 checked:ring-gray-800 checked:after:relative checked:after:-top-[3px] checked:after:text-white checked:after:content-['✓'];
+        @apply rounded-xs relative top-0.5 mr-2 h-4 w-4 appearance-none bg-white/60 text-center text-sm font-bold text-black ring-2 ring-gray-800 checked:bg-gray-800 checked:ring-2 checked:ring-gray-800 checked:after:relative checked:after:-top-[3px] checked:after:text-white checked:after:content-['✓'];
     }
 
     [disabled] {
@@ -122,7 +122,7 @@
     }
 
     label {
-        @apply text-sm font-semibold text-gray-500 uppercase;
+        @apply text-sm font-semibold uppercase text-gray-500;
     }
 
     label ~ input,
@@ -153,7 +153,7 @@
     }
 
     .tab {
-        @apply relative flex text-sm uppercase hover:cursor-pointer hover:text-black has-checked:rounded-full has-checked:bg-blue-700 has-checked:text-white has-checked:after:absolute has-checked:after:bottom-0.5 has-checked:after:left-0 has-checked:after:w-full has-checked:after:text-center has-checked:after:text-xl has-checked:after:leading-0 has-checked:after:text-blue-700 has-checked:after:drop-shadow-[0_3px_0px_white] has-checked:after:content-['🞃'] [&_input[type='radio']]:hidden [&.active]:rounded-full [&.active]:bg-blue-700 [&.active]:after:absolute [&.active]:after:bottom-0.5 [&.active]:after:left-0 [&.active]:after:w-full [&.active]:after:text-center [&.active]:after:text-xl [&.active]:after:leading-0 [&.active]:after:text-blue-700 [&.active]:after:drop-shadow-[0_3px_0px_white] [&.active]:after:content-['🞃'] [&.active>a]:text-white! [label]:px-8 [label]:py-3 [&>a]:px-8 [&>a]:py-3 [&>a]:text-slate-500 [&>a]:hover:text-black;
+        @apply has-checked:rounded-full has-checked:bg-blue-700 has-checked:text-white has-checked:after:absolute has-checked:after:bottom-0.5 has-checked:after:left-0 has-checked:after:w-full has-checked:after:text-center has-checked:after:text-xl has-checked:after:leading-0 has-checked:after:text-blue-700 has-checked:after:drop-shadow-[0_3px_0px_white] has-checked:after:content-['🞃'] [&.active]:after:leading-0 [&.active>a]:text-white! [label]:px-8 [label]:py-3 relative flex text-sm uppercase hover:cursor-pointer hover:text-black [&.active]:rounded-full [&.active]:bg-blue-700 [&.active]:after:absolute [&.active]:after:bottom-0.5 [&.active]:after:left-0 [&.active]:after:w-full [&.active]:after:text-center [&.active]:after:text-xl [&.active]:after:text-blue-700 [&.active]:after:drop-shadow-[0_3px_0px_white] [&.active]:after:content-['🞃'] [&>a]:px-8 [&>a]:py-3 [&>a]:text-slate-500 [&>a]:hover:text-black [&_input[type='radio']]:hidden;
     }
 
     .triangle-right {
@@ -161,7 +161,7 @@
 
         &::after {
             clip-path: polygon(0% 0%, 10% 50%, 0% 100%);
-            @apply absolute top-0 -right-1/2 z-10 -ml-8 h-full w-1/2 -translate-x-0.25 bg-black content-[''];
+            @apply -translate-x-0.25 absolute -right-1/2 top-0 z-10 -ml-8 h-full w-1/2 bg-black content-[''];
         }
     }
 
@@ -190,7 +190,7 @@
 }
 
 @utility bg-divider {
-    @apply  before:absolute  before:-z-50 before:content-[''] before:bg-slate-200 before:w-screen before:inset-0;
+    @apply before:absolute before:inset-y-0 before:-z-50 before:w-screen before:bg-slate-200 before:content-[''];
 }
 
 @utility alv-input-lg {
@@ -212,7 +212,7 @@
 /* Default btn */
 
 @utility btn {
-    @apply inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-400 bg-linear-to-br from-slate-500 to-slate-600 px-4 py-1 text-xs font-semibold text-white uppercase ring-1 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
+    @apply bg-linear-to-br inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-400 from-slate-500 to-slate-600 px-4 py-1 text-xs font-semibold uppercase text-white ring-1 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
 }
 
 @utility btn-outline {
@@ -224,7 +224,7 @@
 }
 
 @utility btn-xl {
-    @apply btn px-8 py-4 text-xl ring-3;
+    @apply btn ring-3 px-8 py-4 text-xl;
 }
 
 @utility btn-outline-lg {
@@ -238,7 +238,7 @@
 /* Btn info */
 
 @utility btn-info {
-    @apply btn border-blue-500 bg-linear-to-br from-blue-500 to-blue-600 ring-blue-200 hover:to-blue-500;
+    @apply btn bg-linear-to-br border-blue-500 from-blue-500 to-blue-600 ring-blue-200 hover:to-blue-500;
 }
 
 @utility btn-info-outline {
@@ -250,7 +250,7 @@
 }
 
 @utility btn-info-xl {
-    @apply btn-info px-8 py-4 text-xl ring-3;
+    @apply btn-info ring-3 px-8 py-4 text-xl;
 }
 
 @utility btn-info-outline-lg {
@@ -264,7 +264,7 @@
 /* Btn success */
 
 @utility btn-success {
-    @apply btn border-emerald-500 bg-linear-to-br from-emerald-500 to-emerald-600 ring-emerald-200 hover:to-emerald-500;
+    @apply btn bg-linear-to-br border-emerald-500 from-emerald-500 to-emerald-600 ring-emerald-200 hover:to-emerald-500;
 }
 
 @utility btn-success-outline {
@@ -276,7 +276,7 @@
 }
 
 @utility btn-success-xl {
-    @apply btn-success px-8 py-4 text-xl ring-3;
+    @apply btn-success ring-3 px-8 py-4 text-xl;
 }
 
 @utility btn-success-outline-lg {
@@ -290,7 +290,7 @@
 /* Btn warning */
 
 @utility btn-warning {
-    @apply btn border-amber-500 bg-linear-to-br from-amber-500 to-amber-600 ring-amber-200 hover:to-amber-500;
+    @apply btn bg-linear-to-br border-amber-500 from-amber-500 to-amber-600 ring-amber-200 hover:to-amber-500;
 }
 
 @utility btn-warning-outline {
@@ -302,7 +302,7 @@
 }
 
 @utility btn-warning-xl {
-    @apply btn-warning px-8 py-4 text-xl ring-3;
+    @apply btn-warning ring-3 px-8 py-4 text-xl;
 }
 
 @utility btn-warning-outline-lg {
@@ -316,7 +316,7 @@
 /* Btn danger */
 
 @utility btn-danger {
-    @apply btn border-rose-500 bg-linear-to-br from-rose-500 to-rose-600 ring-rose-200 hover:to-rose-500;
+    @apply btn bg-linear-to-br border-rose-500 from-rose-500 to-rose-600 ring-rose-200 hover:to-rose-500;
 }
 
 @utility btn-danger-outline {
@@ -328,7 +328,7 @@
 }
 
 @utility btn-danger-xl {
-    @apply btn-danger px-8 py-4 text-xl ring-3;
+    @apply btn-danger ring-3 px-8 py-4 text-xl;
 }
 
 @utility btn-danger-outline-lg {
@@ -341,31 +341,35 @@
 
 @layer utilities {
     .alert {
-        @apply relative bottom-0 flex w-full scale-100 gap-12 overflow-clip rounded-md border-l-4 border-slate-400 bg-linear-to-r from-slate-100 to-slate-50 py-7 pl-9 text-left text-slate-900 opacity-100 before:absolute before:left-2 *:first:w-full [&_~_*]:mt-16;
+        @apply bg-linear-to-r /* */ relative top-0 flex w-full scale-100 gap-12 rounded-sm border-l-4 border-slate-400 from-slate-100 to-slate-50 py-7 pl-9 text-left text-slate-900 opacity-100 *:first:w-full [&_+_*]:mt-16;
+
+        &.alert-dismissable {
+            @apply absolute z-1 border-none rounded-b-none px-0 py-4 inset-x-0 rounded-t-3xl shadow-2xl shadow-black/30 text-white/80 before:absolute before:-bottom-6 before:left-0 before:h-6 before:w-6 before:rounded-tl-[1.5rem] before:shadow-[-0.25rem_-0.25rem_0_0.25rem_var(--color-slate-100)] after:absolute after:-bottom-6 after:right-0 after:h-6 after:w-6 after:rounded-tr-[3rem] after:shadow-[0.25rem_-0.25rem_0_0.25rem_var(--color-slate-50)];
+        }
 
         & a {
-            @apply inline-flex items-center gap-2 rounded-full border px-4 py-1 text-sm font-semibold text-white uppercase transition-all;
+            @apply inline-flex items-center gap-2 rounded-full border px-4 py-1 text-sm font-semibold uppercase text-white transition-all;
         }
 
         & button.close {
-            @apply flex h-7 w-7 items-start justify-center pt-2 pr-4 text-2xl leading-2 font-bold opacity-70 transition-all hover:cursor-pointer hover:text-black hover:opacity-100;
+            @apply leading-2 flex h-7 w-7 items-start justify-center pr-4 pt-2 text-2xl font-bold opacity-70 transition-all hover:cursor-pointer hover:text-black hover:opacity-100;
         }
     }
 
     .alert-success {
-        @apply border-emerald-400 from-emerald-100 to-emerald-50 text-emerald-900 before:content-['❗'];
+        @apply border-emerald-400 from-emerald-100 to-emerald-50 text-emerald-900;
     }
 
     .alert-danger {
-        @apply border-rose-400 from-rose-100 to-rose-50 text-rose-900 before:content-['❗'];
+        @apply border-rose-400 from-rose-800 to-rose-700 before:shadow-rose-800 after:shadow-rose-700;
     }
 
     .alert-warning {
-        @apply border-amber-400 from-amber-100 to-amber-50 text-amber-900 before:content-['❗'];
+        @apply border-amber-400 from-amber-800 to-amber-700 before:shadow-amber-800 after:shadow-amber-700;
     }
 
     .alert-info {
-        @apply border-sky-400 from-sky-100 to-sky-50 text-sky-900 before:content-['❗'];
+        @apply border-sky-400 from-sky-100 to-sky-50 text-sky-900;
     }
 
     .select-dark {
