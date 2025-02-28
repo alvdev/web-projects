@@ -66,3 +66,32 @@
 /area/plugins/support_manager/views/*
 !/area/plugins/support_manager/views/alfa/
 /area/plugins/support_manager/views/alfa/admin*.*
+
+# Components
+!/area/components/
+/area/components/*
+!/area/components/modules/
+/area/components/modules/*
+
+## cpanel
+!/area/components/modules/cpanel/
+/area/components/modules/cpanel/*
+!/area/components/modules/cpanel/language/
+/area/components/modules/cpanel/language/*
+!/area/components/modules/cpanel/language/en_us/
+!/area/components/modules/cpanel/language/es_es/
+### alfa views
+!/area/components/modules/cpanel/views/
+/area/components/modules/cpanel/views/*
+!/area/components/modules/cpanel/views/alfa/
+/area/components/modules/cpanel/views/alfa/*
+!/area/components/modules/cpanel/views/alfa/tab_client_actions.pdt
+
+## direct admin
+!/area/components/modules/direct_admin/
+/area/components/modules/direct_admin/*
+# TODO: For some reason, this language dir is not working
+!/area/components/modules/direct_admin/language/
+# /area/components/modules/direct_admin/language/*
+# !/area/components/modules/direct_admin/language/en_us/
+# !/area/components/modules/direct_admin/language/es_es/
