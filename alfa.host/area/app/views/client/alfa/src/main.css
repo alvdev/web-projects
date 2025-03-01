@@ -141,13 +141,21 @@
             var(--color-black) 100%
         );
 
-        &:has(section) + main:has(.alert-dismissable) {
-            @apply pt-52!;
+        &:has(section > *) + main {
+            @apply pt-32;
+
+            &:has(.alert-dismissable) {
+                @apply pt-52!;
+            }
 
             .alert-dismissable {
                 @apply pt-18!;
             }
         }
+
+        /*         &:has(section > *) + main:has(.alert-dismissable) {
+            @apply pt-52! border-8! border-red-500;
+        } */
     }
 
     footer {
@@ -365,11 +373,11 @@
     }
 
     .alert-success {
-        @apply border-emerald-400 from-emerald-100 to-emerald-50 text-emerald-900;
+        @apply from-emerald-100 to-emerald-50 text-emerald-900;
     }
 
     .alert-danger {
-        @apply border-rose-400 from-rose-800 to-rose-700 before:shadow-rose-800 after:shadow-rose-700;
+        @apply from-rose-800 to-rose-700 before:shadow-rose-800 after:shadow-rose-700;
     }
 
     .alert-warning {
@@ -377,7 +385,7 @@
     }
 
     .alert-info {
-        @apply border-sky-400 from-sky-100 to-sky-50 text-sky-900;
+        @apply from-sky-800 to-sky-700 before:shadow-sky-800 after:shadow-sky-700;
     }
 
     .select-dark {
