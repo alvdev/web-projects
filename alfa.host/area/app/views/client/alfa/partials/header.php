@@ -1,31 +1,10 @@
-<header class="relative bg-blue-700 text-white/95 shadow-2xl shadow-gray-500 before:absolute before:w-6 before:h-6 before:left-0 before:-bottom-6 before:shadow-[-0.25rem_-0.25rem_0_0.25rem_#000102] before:rounded-tl-[1.5rem] after:absolute after:w-6 after:h-6 after:right-0 after:-bottom-6 after:shadow-[0.25rem_-0.25rem_0_0.25rem_#000] after:rounded-tr-[3rem]">
+<header class="relative bg-blue-700 text-white/95 shadow-[0_50px_50px] shadow-slate-200 before:absolute before:w-6 before:h-6 before:left-0 before:-bottom-6 before:shadow-[-0.25rem_-0.25rem_0_0.25rem_#000102] before:rounded-tl-[1.5rem] after:absolute after:w-6 after:h-6 after:right-0 after:-bottom-6 after:shadow-[0.25rem_-0.25rem_0_0.25rem_#000] after:rounded-tr-[3rem]">
 
     <?php require_once('menu_top.php'); ?>
     <?php require_once('menu_main.php'); ?>
 
-    <!-- Set margin bottom if cards are present -->
-    <?php
-    /* $cardPages = ['client'];
-    foreach ($cardPages as $page) {
-        if (str_contains($request_uri, $page)) {
-            $cardmb = 'mb-20';
-            break;
-        } else {
-            $cardmb = 'mb-24';
-            break;
-        }
-    } */
-    $cardPages = ['client'];
-    $cardmb = 'mb-24';
-    foreach ($cardPages as $page) {
-        if (str_ends_with($request_uri, $page) || str_ends_with($request_uri, $page . '/')) {
-            $cardmb = 'mb-28';
-            break;
-        }
-    }
-    ?>
     <div class="container">
-        <div class="<?= $cardmb ?> w-full mt-12 inline-flex items-center justify-between">
+        <div class="mt-12 mb-24 w-full inline-flex items-center justify-between">
             <h1 class="text-white/90">
                 <?= (isset($title) ? $title : null) ? (isset($title) ? $this->Html->safe($title) : null) : $this->_('AppController.client_structure.default_title', true); ?>
             </h1>
@@ -34,7 +13,8 @@
         </div>
     </div>
 
-    <section class="cards h-0 overflow-clip container flex flex-col items-center relative z-1 bg-white rounded-sm lg:flex-row gap-x-8 gap-y-4"></section>
+<section class="cards h-0 overflow-clip container flex flex-col items-center relative z-2 bg-white rounded-sm shadow-2xl shadow-black/5 lg:flex-row gap-x-8 gap-y-4"></section>
+
 </header>
 
 <?php
