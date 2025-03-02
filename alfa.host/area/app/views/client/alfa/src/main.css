@@ -372,19 +372,19 @@
         }
     }
 
-    .alert-success {
+    .alert-success.alert-dismissable {
         @apply from-emerald-100 to-emerald-50 text-emerald-900;
     }
 
-    .alert-danger {
+    .alert-danger.alert-dismissable {
         @apply from-rose-800 to-rose-700 before:shadow-rose-800 after:shadow-rose-700;
     }
 
-    .alert-warning {
+    .alert-warning.alert-dismissable {
         @apply from-amber-800 to-amber-700 before:shadow-amber-800 after:shadow-amber-700;
     }
 
-    .alert-info {
+    .alert-info.alert-dismissable {
         @apply from-sky-800 to-sky-700 before:shadow-sky-800 after:shadow-sky-700;
     }
 
