@@ -1,4 +1,14 @@
-<header class="relative bg-blue-700 text-white/95 shadow-[0_50px_50px] shadow-slate-200 before:absolute before:w-6 before:h-6 before:left-0 before:-bottom-6 before:shadow-[-0.25rem_-0.25rem_0_0.25rem_#000102] before:rounded-tl-[1.5rem] after:absolute after:w-6 after:h-6 after:right-0 after:-bottom-6 after:shadow-[0.25rem_-0.25rem_0_0.25rem_#000] after:rounded-tr-[3rem]">
+<?php
+$shadowPages = ['404'];
+$shadow = 'shadow-slate-200';
+foreach ($shadowPages as $page) {
+    if (str_ends_with($request_uri, $page) || str_ends_with($request_uri, $page . '/')) {
+        $shadow = 'shadow-none';
+    }
+}
+?>
+
+<header class="relative bg-blue-700 text-white/95 shadow-[0_50px_50px] <?= $shadow ?> before:absolute before:w-6 before:h-6 before:left-0 before:-bottom-6 before:shadow-[-0.25rem_-0.25rem_0_0.25rem_#000102] before:rounded-tl-[1.5rem] after:absolute after:w-6 after:h-6 after:right-0 after:-bottom-6 after:shadow-[0.25rem_-0.25rem_0_0.25rem_#000] after:rounded-tr-[3rem]">
 
     <?php require_once('menu_top.php'); ?>
     <?php require_once('menu_main.php'); ?>
@@ -13,7 +23,7 @@
         </div>
     </div>
 
-<section class="cards h-0 overflow-clip container flex flex-col items-center relative z-2 bg-white rounded-sm shadow-2xl shadow-black/5 lg:flex-row gap-x-8 gap-y-4"></section>
+    <section class="cards h-0 overflow-clip container flex flex-col items-center relative z-2 bg-white rounded-sm shadow-2xl shadow-black/5 lg:flex-row gap-x-8 gap-y-4"></section>
 
 </header>
 
