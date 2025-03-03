@@ -392,3 +392,8 @@
         @apply bg-slate-700 text-base text-white focus:ring-1 [&>option]:text-slate-800;
     }
 }
+
+/* jQuery hacks */
+.show {
+    @apply visible;
+}
