@@ -48,7 +48,10 @@
                 </svg>
                 cPanel
             </a>
-            
+
+            <a href="<?= $this->Html->safe($this->base_uri . 'order/cart/index/' . ($order_form->label ?? null)); ?>" class="flex items-center gap-2 px-3 py-1 text-white rounded-xs">
+                <i class="fas fa-shopping-cart"></i> <?php $this->_('Main.packages.show_cart_btn'); ?>
+            </a>
             <?php require_once('menu_login.php'); ?>
         </div>
     </div>
