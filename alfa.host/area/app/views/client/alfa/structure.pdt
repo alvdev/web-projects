@@ -81,18 +81,12 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <?php include_once('partials/header.php'); ?>
 
     <?php
-    $pages = require('partials/urls_with_header_bottom_section.php');
-    $mainPadding = 'pt-24 pb-32 has-[.alert-dismissable]:pt-36';
-    foreach ($pages as $page) {
-        if (str_ends_with($request_uri, $page) || str_ends_with($request_uri, $page . '/')) {
-            $mainPadding = 'pt-28 pb-32';
-            break;
-        }
-    }
+    require_once('partials/main_top_section_position.php');
+    $mainPadding = getMainTopSectionPosition()['main'];
     ?>
 
     <!-- Begin Content -->
-    <main class="<?= $mainPadding ?> relative overflow-clip">
+    <main class="<?= $mainPadding ?> relative">
         <?php if (!empty($active_nav['secondary'])): ?>
             <div class="col-md-3">
                 <div class="list-group">
