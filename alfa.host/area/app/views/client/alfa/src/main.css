@@ -20,7 +20,7 @@
     }
 
     body {
-        @apply text-slate-800;
+        @apply text-slate-800 leading-relaxed font-sans;
     }
 
     @view-transition {
@@ -87,7 +87,11 @@
     h2,
     h3,
     h4 {
-        @apply font-semibold;
+        @apply font-semibold tracking-wide;
+    }
+
+    p {
+        @apply text-lg text-slate-600;
     }
 
     select,
@@ -228,7 +232,7 @@
 /* Default btn */
 
 @utility btn {
-    @apply bg-linear-to-br inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-400 from-slate-500 to-slate-600 px-4 py-1 text-xs font-semibold uppercase text-white ring-1 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-500 [&>svg]:h-4;
+    @apply bg-linear-to-br inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-700 from-slate-800 to-black px-4 py-1 text-xs font-semibold uppercase text-white ring-1 ring-slate-200 transition-all hover:cursor-pointer hover:to-slate-800 [&>svg]:h-4;
 }
 
 @utility btn-outline {
@@ -355,19 +359,33 @@
     @apply btn-danger-outline border-3 px-8 py-4 text-xl text-rose-600;
 }
 
+/* Arbitrary utilities */
+
+@utility border-1.5 {
+    border-width: 1.5px;
+}
+
 @layer utilities {
     .alert {
         @apply bg-linear-to-r /* */ relative top-0 flex w-full scale-100 gap-12 rounded-sm border-l-4 border-slate-400 from-slate-100 to-slate-50 py-7 pl-9 text-left text-slate-900 opacity-100 *:first:w-full;
 
         &.alert-dismissable {
             @apply z-1 absolute inset-x-0 rounded-b-none rounded-t-3xl border-x-0 border-b border-white px-0 py-4 text-white/80 shadow-[0_50px_50px] shadow-slate-200 before:absolute before:-bottom-6 before:left-0 before:h-6 before:w-6 before:rounded-tl-[1.5rem] before:shadow-[-0.25rem_-0.25rem_0_0.25rem_var(--color-slate-100)] after:absolute after:-bottom-6 after:right-0 after:h-6 after:w-6 after:rounded-tr-[3rem] after:shadow-[0.25rem_-0.25rem_0_0.25rem_var(--color-slate-50)];
+
+            a {
+                @apply bg-none bg-transparent ring-0 border-1.5 border-white hover:border-white/80 hover:text-white/80;
+            }
+
+            button.close {
+                @apply hover:text-white
+            }
         }
 
-        & a {
+        a {
             @apply inline-flex items-center gap-2 rounded-full border px-4 py-1 text-sm font-semibold uppercase text-white transition-all;
         }
 
-        & button.close {
+        button.close {
             @apply leading-2 flex h-7 w-7 items-start justify-center pr-4 pt-2 text-2xl font-bold opacity-70 transition-all hover:cursor-pointer hover:text-black hover:opacity-100;
         }
     }
