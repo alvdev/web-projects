@@ -40,7 +40,7 @@ function getMainTopSectionPosition(): array
         }
     }
 
-    $headerPadding = 'pt-24';
+    $headerPadding = 'pb-0';
     $mainPadding .= ' pt-24 pb-32';
     return [
         'header' => $headerPadding,
