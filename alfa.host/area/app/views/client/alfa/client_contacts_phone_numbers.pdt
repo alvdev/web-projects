@@ -1,56 +1,50 @@
-
 <?php
 if (
     in_array('phone', $required_contact_fields ?? []) || in_array('phone', $shown_contact_fields ?? [])
     || in_array('fax', $required_contact_fields ?? []) || in_array('fax', $shown_contact_fields ?? [])
 ) {
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <h4><?php $this->_('ClientContacts.phone_numbers.heading_phone');?></h4>
-        <div class="form-group table-responsive">
-            <table class="table table-curved table-striped">
-                <thead>
+    <div class="mt-16">
+        <h4><?php $this->_('ClientContacts.phone_numbers.heading_phone'); ?></h4>
+        <div class="form-group table-responsive mt-8">
+            <table class="w-full border-separate border-spacing-y-1">
+                <thead class="[&_th]:text-left [&_th]:pb-4 [&_th]:px-4 uppercase">
                     <tr>
-                        <th><?php $this->_('ClientContacts.phone_numbers.field_phonetype');?></th>
-                        <th><?php $this->_('ClientContacts.phone_numbers.field_phonelocation');?></th>
-                        <th><?php $this->_('ClientContacts.phone_numbers.field_phonenumber');?></th>
-                        <th><?php $this->_('ClientContacts.phone_numbers.field_phoneoptions');?></th>
+                        <th><?php $this->_('ClientContacts.phone_numbers.field_phonetype'); ?></th>
+                        <th><?php $this->_('ClientContacts.phone_numbers.field_phonelocation'); ?></th>
+                        <th><?php $this->_('ClientContacts.phone_numbers.field_phonenumber'); ?></th>
+                        <th class="float-right"><?php $this->_('ClientContacts.phone_numbers.field_phoneoptions'); ?></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100">
                     <?php
                     $num_numbers = count((isset($numbers['type']) ? $numbers['type'] : []));
                     for ($i = 0; $i < max(1, $num_numbers); $i++) {
                     ?>
-                    <tr class="phone_row">
-                        <td>
-                            <?php $this->Form->fieldHidden('numbers[id][]', (isset($numbers['id'][$i]) ? $numbers['id'][$i] : null), ['class' => 'phone_id']);?>
-                            <div class="form-group">
-                                <?php $this->Form->fieldSelect('numbers[type][]', (isset($number_types) ? $number_types : null), (isset($numbers['type'][$i]) ? $numbers['type'][$i] : null), ['class' => 'form-control form-control-sm']);?>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <?php $this->Form->fieldSelect('numbers[location][]', (isset($number_locations) ? $number_locations : null), (isset($numbers['location'][$i]) ? $numbers['location'][$i] : null), ['class' => 'form-control form-control-sm']);?>
-                            </div>
-                        </td>
-                        <td>
-                            <?php $this->Form->fieldText('numbers[number][]', (isset($numbers['number'][$i]) ? $numbers['number'][$i] : null), ['type' => 'tel', 'class' => 'form-control form-control-sm', 'placeholder' => $this->_('ClientContacts.phone_numbers.field_phonenumber', true)]);?>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light phone_row_add"><i class="fas fa-plus fa-fw"></i> <?php $this->_('ClientContacts.phone_numbers.categorylink_number');?></button>
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
-                                    <span class="caret"></span>
-                                    <span class="sr-only"><?php $this->_('AppController.sreader.dropdown');?></span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item phone_row_remove" href="#"><i class="fas fa-trash fa-fw"></i> <?php $this->_('ClientContacts.phone_numbers.text_remove');?></a>
+                        <tr class="phone_row *:py-3 *:pl-4 *:first:rounded-l-md *:last:rounded-r-md">
+                            <td class="w-4/12">
+                                <?php $this->Form->fieldHidden('numbers[id][]', (isset($numbers['id'][$i]) ? $numbers['id'][$i] : null), ['class' => 'phone_id']); ?>
+                                <div class="form-group">
+                                    <?php $this->Form->fieldSelect('numbers[type][]', (isset($number_types) ? $number_types : null), (isset($numbers['type'][$i]) ? $numbers['type'][$i] : null), ['class' => 'form-control form-control-sm bg-transparent px-0 transiton-all duration-300 hover:cursor-pointer hover:bg-white hover:px-3 focus:bg-white focus:px-2 focus:outline-none focus:ring-0']); ?>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="w-4/12">
+                                <div class="form-group">
+                                    <?php $this->Form->fieldSelect('numbers[location][]', (isset($number_locations) ? $number_locations : null), (isset($numbers['location'][$i]) ? $numbers['location'][$i] : null), ['class' => 'form-control form-control-sm bg-transparent px-0 transiton-all duration-300 hover:cursor-pointer hover:bg-white hover:px-3 focus:bg-white focus:px-2 focus:outline-none focus:ring-0']); ?>
+                                </div>
+                            </td>
+                            <td class="w-3/12">
+                                <?php $this->Form->fieldText('numbers[number][]', (isset($numbers['number'][$i]) ? $numbers['number'][$i] : null), ['type' => 'tel', 'pattern' => '^[0-9]{3,45}$', 'class' => 'form-control form-control-sm text-lg rounded transiton-all duration-300 hover:bg-white hover:px-3 hover:py-1.5 focus:bg-white focus:px-3 focus:py-1.5 focus:outline-none', 'placeholder' => $this->_('ClientContacts.phone_numbers.field_phonenumber', true)]); ?>
+                            </td>
+                            <td class="w-1/12">
+                                <button type="button" class="phone_row_add btn px-2" title="<?php $this->_('ClientContacts.phone_numbers.categorylink_number'); ?>">
+                                    <i class=" fas fa-plus fa-fw"></i>
+                                </button>
+                                <a class="phone_row_remove btn-danger px-2" href="#" title="<?php $this->_('ClientContacts.phone_numbers.text_remove'); ?>">
+                                    <i class=" fas fa-trash fa-fw"></i>
+                                </a>
+                            </td>
+                        </tr>
                     <?php
                     }
 
@@ -65,39 +59,36 @@ if (
             </table>
         </div>
     </div>
-</div>
 
 <?php
 $this->Javascript->setInline("
-$(document).ready(function() {
-    $('.phone_row_add').click(function() {
-        var fields = $(this).parents('tr').clone(true);
-        // Remove input text/hidden and textarea data
-        fields.find('input:text,input:hidden,textarea').val('');
-        // Remove checkbox/radio data
-        fields.find('input:checkbox,input:radio').prop('checked', false);
-        // Unselect options
-        fields.find('option:selected').prop('selected', false);
+    $(document).ready(function() {
+        $('.phone_row_add').click(function() {
+            var fields = $(this).parents('tr').clone(true);
+            // Remove input text/hidden and textarea data
+            fields.find('input:text,input:hidden,textarea').val('');
+            // Remove checkbox/radio data
+            fields.find('input:checkbox,input:radio').prop('checked', false);
+            // Unselect options
+            fields.find('option:selected').prop('selected', false);
 
-        var last_tr = $(this).parents('tr').last();
-        $(last_tr).after(fields);
-        // Empty the phone ID
-        fields.find('.phone_id').attr('value', '');
+            var last_tr = $(this).parents('tr').last();
+            $(last_tr).after(fields);
+            // Empty the phone ID
+            fields.find('.phone_id').attr('value', '');
 
-        return false;
+            return false;
+        });
+
+        $('.phone_row_remove').click(function() {
+            if ($('tr.phone_row').length > 1) {
+                // Keep ID, remove everything else
+                var tr = $(this).parents('tr');
+                $(tr).parents('table').after($(tr).find('input.phone_id'));
+                $(tr).remove();
+            }
+            return false;
+        });
     });
-
-    $('.phone_row_remove').click(function() {
-        if ($('tr.phone_row').length > 1) {
-            // Keep ID, remove everything else
-            var tr = $(this).parents('tr');
-            $(tr).parents('table').after($(tr).find('input.phone_id'));
-            $(tr).remove();
-        }
-        return false;
-    });
-});
 ");
-
-}
-?>
+}?>
