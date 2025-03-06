@@ -1,4 +1,4 @@
-<section class="whois relative translate-y-2/4 px-8 py-12 -mt-48 mb-32 bg-gray-200 rounded-xs">
+<section class="whois relative px-8 py-12 -mt-48 mb-28 bg-gray-200 rounded-xs">
     <?php $this->Form->create(null, ['class' => 'disable-on-submit']); ?>
     <div class="flex flex-col items-center lg:flex-row gap-x-8 gap-y-4">
         <hgroup class="relative text-balance font-semibold text-center uppercase md:w-full lg:w-2/5">
