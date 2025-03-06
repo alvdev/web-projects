@@ -11,6 +11,14 @@
 /* TODO: avoid using this file (side effects in admin area's pagination) */
 @source "../../../../../config/blesta.php";
 
+@theme {
+    --color-slate-25: #fbfcfd;
+    --color-blue-25: #f7faff;
+    --color-emerald-25: #f5fefa;
+    --color-amber-25: #fffdf5;
+    --color-rose-25: #fff8f8;
+}
+
 @utility container {
     margin-inline: auto;
 }
