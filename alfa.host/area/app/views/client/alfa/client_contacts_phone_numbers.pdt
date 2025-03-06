@@ -4,8 +4,10 @@ if (
     || in_array('fax', $required_contact_fields ?? []) || in_array('fax', $shown_contact_fields ?? [])
 ) {
 ?>
-    <div class="mt-16">
-        <h4><?php $this->_('ClientContacts.phone_numbers.heading_phone'); ?></h4>
+    <div class="mt-20">
+        <h3>
+            <?php $this->_('ClientContacts.phone_numbers.heading_phone'); ?>
+        </h3>
         <div class="form-group table-responsive mt-8">
             <table class="w-full border-separate border-spacing-y-1">
                 <thead class="[&_th]:text-left [&_th]:pb-4 [&_th]:px-4 uppercase">
@@ -22,27 +24,29 @@ if (
                     for ($i = 0; $i < max(1, $num_numbers); $i++) {
                     ?>
                         <tr class="phone_row *:py-3 *:pl-4 *:first:rounded-l-md *:last:rounded-r-md">
-                            <td class="w-4/12">
+                            <td class="w-4/12 [&_select]:py-0">
                                 <?php $this->Form->fieldHidden('numbers[id][]', (isset($numbers['id'][$i]) ? $numbers['id'][$i] : null), ['class' => 'phone_id']); ?>
                                 <div class="form-group">
                                     <?php $this->Form->fieldSelect('numbers[type][]', (isset($number_types) ? $number_types : null), (isset($numbers['type'][$i]) ? $numbers['type'][$i] : null), ['class' => 'form-control form-control-sm bg-transparent px-0 transiton-all duration-300 hover:cursor-pointer hover:bg-white hover:px-3 focus:bg-white focus:px-2 focus:outline-none focus:ring-0']); ?>
                                 </div>
                             </td>
-                            <td class="w-4/12">
+                            <td class="w-4/12 [&_select]:py-0">
                                 <div class="form-group">
                                     <?php $this->Form->fieldSelect('numbers[location][]', (isset($number_locations) ? $number_locations : null), (isset($numbers['location'][$i]) ? $numbers['location'][$i] : null), ['class' => 'form-control form-control-sm bg-transparent px-0 transiton-all duration-300 hover:cursor-pointer hover:bg-white hover:px-3 focus:bg-white focus:px-2 focus:outline-none focus:ring-0']); ?>
                                 </div>
                             </td>
-                            <td class="w-3/12">
+                            <td class="w-3/12 font-semibold">
                                 <?php $this->Form->fieldText('numbers[number][]', (isset($numbers['number'][$i]) ? $numbers['number'][$i] : null), ['type' => 'tel', 'pattern' => '^[0-9]{3,45}$', 'class' => 'form-control form-control-sm text-lg rounded transiton-all duration-300 hover:bg-white hover:px-3 hover:py-1.5 focus:bg-white focus:px-3 focus:py-1.5 focus:outline-none', 'placeholder' => $this->_('ClientContacts.phone_numbers.field_phonenumber', true)]); ?>
                             </td>
-                            <td class="w-1/12">
-                                <button type="button" class="phone_row_add btn px-2" title="<?php $this->_('ClientContacts.phone_numbers.categorylink_number'); ?>">
-                                    <i class=" fas fa-plus fa-fw"></i>
-                                </button>
-                                <a class="phone_row_remove btn-danger px-2" href="#" title="<?php $this->_('ClientContacts.phone_numbers.text_remove'); ?>">
-                                    <i class=" fas fa-trash fa-fw"></i>
-                                </a>
+                            <td class="w-1/12 text-right pr-4">
+                                <div class="inline-flex gap-2">
+                                    <button type="button" class="phone_row_add hover:text-emerald-500" data-title="<?php $this->_('ClientContacts.phone_numbers.categorylink_number'); ?>">
+                                        <i class=" fas fa-plus fa-fw"></i>
+                                    </button>
+                                    <a class="phone_row_remove text-black hover:text-rose-500" href="#" data-title="<?php $this->_('ClientContacts.phone_numbers.text_remove'); ?>">
+                                        <i class=" fas fa-trash fa-fw"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php
@@ -61,7 +65,7 @@ if (
     </div>
 
 <?php
-$this->Javascript->setInline("
+    $this->Javascript->setInline("
     $(document).ready(function() {
         $('.phone_row_add').click(function() {
             var fields = $(this).parents('tr').clone(true);
@@ -91,4 +95,4 @@ $this->Javascript->setInline("
         });
     });
 ");
-}?>
+} ?>
