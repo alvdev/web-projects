@@ -19,8 +19,26 @@
     --color-rose-25: #fff8f8;
 }
 
-@utility container {
-    margin-inline: auto;
+@utility debug-screens {
+  &::before {
+    @apply fixed z-[2147483647] left-0 bottom-0 py-[0.3333333em] px-[0.5em] text-xs leading-none bg-yellow-400 text-black font-bold rounded-tr;
+
+    @variant sm {
+      content: "screen: sm";
+    }
+
+    @variant md {
+      content: "screen: md";
+    }
+
+    @variant lg {
+      content: "screen: lg";
+    }
+
+    @variant xl {
+      content: "screen: xl";
+    }
+  }
 }
 
 @layer base {
@@ -211,6 +229,10 @@
     .triangle-black {
         @apply bg-slate-950 after:bg-slate-950;
     }
+}
+
+@utility container {
+    margin-inline: auto;
 }
 
 @utility disabled {

@@ -75,7 +75,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <?= (isset($head) ? $head : null); ?>
 </head>
 
-<body>
+<body class="debug-screens">
     <?= (isset($body_start) ? $body_start : null); ?>
 
     <?php include_once('partials/header.php'); ?>
