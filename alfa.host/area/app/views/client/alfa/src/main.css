@@ -72,7 +72,7 @@
             }
 
             &::after {
-                @apply absolute left-0 bottom-full -translate-y-2 rounded-sm bg-black/70 px-3 py-1.5 font-normal normal-case text-white content-[attr(data-title)];
+                @apply absolute left-1/2 -translate-x-1/2 bottom-full -translate-y-2 rounded-sm bg-black/70 px-3 py-1.5 text-xs font-normal normal-case text-white content-[attr(data-title)];
             }
         }
     }
