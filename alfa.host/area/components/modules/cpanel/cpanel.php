@@ -1623,7 +1623,7 @@ class Cpanel extends Module
      */
     public function tabClientStats($package, $service, array $get = null, array $post = null, array $files = null)
     {
-        $this->view = new View('tab_client_stats', 'default');
+        $this->view = new View('tab_client_stats', 'alfa');
         // Load the helpers required for this view
         Loader::loadHelpers($this, ['Form', 'Html']);
 
