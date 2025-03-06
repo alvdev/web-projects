@@ -108,9 +108,9 @@ class WidgetClient extends AbstractWidget
         if ($this->render == 'full') {
             $html .= '
                 <div' . $this->buildAttributes($attributes) . '>
-                    <h2 class="card-header text-4xl">
+                    <h1 class="card-header text-5xl">
                         ' . $this->_($title, true) . $this->buildWidgetButtons() . '
-                    </h2>
+                    </h1>
                     <div class="card-content">';
         }
 
