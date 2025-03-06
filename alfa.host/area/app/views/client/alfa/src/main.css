@@ -63,16 +63,16 @@
         }
     }
 
-    [title] {
+    [data-title] {
         &:hover {
             @apply relative z-10;
 
-            &::after {
-                @apply absolute left-auto top-full translate-y-2 rounded-sm bg-black/70 px-3 py-1.5 font-normal normal-case text-white content-[attr(title)];
+            &::before {
+                @apply border-5 absolute top-0 left-1 -translate-y-2 border-transparent border-t-black/70 content-[''];
             }
 
-            &::before {
-                @apply border-5 absolute bottom-0 left-auto translate-y-2 border-transparent border-b-black/70 content-[''];
+            &::after {
+                @apply absolute left-0 bottom-full -translate-y-2 rounded-sm bg-black/70 px-3 py-1.5 font-normal normal-case text-white content-[attr(data-title)];
             }
         }
     }
