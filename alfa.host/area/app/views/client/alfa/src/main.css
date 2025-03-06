@@ -87,6 +87,10 @@
 
     h3 {
         @apply text-4xl;
+
+        &.line-divider {
+            @apply inline-flex items-center bg-white pr-4;
+        }
     }
 
     h4 {
@@ -129,6 +133,11 @@
 
     input[type='checkbox'] {
         @apply rounded-xs relative left-0.5 top-0.5 mr-2 h-4 w-4 appearance-none bg-white/60 text-center text-sm font-bold text-black ring-2 ring-gray-800 checked:bg-gray-800 checked:ring-2 checked:ring-gray-800 checked:after:relative checked:after:-top-[3px] checked:after:text-white checked:after:content-['✓'] hover:cursor-pointer [&+label]:hover:cursor-pointer;
+    }
+
+    a,
+    button {
+        @apply hover:cursor-pointer;
     }
 
     [disabled] {
@@ -219,6 +228,10 @@
     );
 }
 
+@utility line-divider {
+    @apply relative before:absolute before:left-0 before:-z-50 before:h-1 before:w-screen before:bg-slate-600 before:content-[''];
+}
+
 @utility bg-divider {
     @apply before:absolute before:inset-y-0 before:-z-50 before:w-screen before:bg-slate-200 before:shadow-[0_0_50px] before:shadow-white before:content-[''];
 }
@@ -246,32 +259,48 @@
     @apply bg-linear-to-br inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-700 from-slate-800 to-black px-4 py-1 text-xs font-semibold uppercase text-white ring-1 ring-slate-600 transition-all hover:cursor-pointer hover:to-slate-800 [&>svg]:h-4;
 
     &.line-divider {
-        @apply relative before:absolute before:left-0 before:-z-50 before:h-1 before:w-screen before:bg-slate-600 before:content-[''];
+        @apply before:h-0.25 relative before:absolute before:left-1 before:-z-50 before:w-screen before:bg-slate-600 before:content-[''];
     }
 }
 
 @utility btn-outline {
-    @apply btn rounded-full border-slate-600 bg-slate-50 bg-none text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900 [&>svg]:fill-slate-600 [&>svg]:hover:fill-slate-800 has-[.line-divider]:before:bg-slate-400;
+    @apply btn border-slate-600 bg-slate-50 bg-none text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900 has-[.line-divider]:before:bg-slate-400 [&>svg]:fill-slate-600 [&>svg]:hover:fill-slate-800;
+
+    &.line-divider {
+        @apply before:h-[0.5px];
+    }
+}
+
+@utility btn-lg {
+    @apply btn ring-1.5 px-6 py-2 text-lg;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
+}
+
+@utility btn-xl {
+    @apply btn px-8 py-4 text-xl ring-2;
 
     &.line-divider {
         @apply before:h-0.75;
     }
 }
 
-@utility btn-lg {
-    @apply btn px-6 py-2 text-lg ring-2;
-}
-
-@utility btn-xl {
-    @apply btn ring-3 px-8 py-4 text-xl;
-}
-
 @utility btn-outline-lg {
-    @apply btn-outline border-2 px-6 py-2 text-lg;
+    @apply btn-outline border-1.5 px-6 py-2 text-lg;
+
+    &.line-divider {
+        @apply before:h-0.25;
+    }
 }
 
 @utility btn-outline-xl {
-    @apply btn-outline border-3 px-8 py-4 text-xl;
+    @apply btn-outline border-2 px-8 py-4 text-xl;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 /* Btn info */
@@ -285,29 +314,49 @@
 }
 
 @utility btn-info-outline {
-    @apply btn-info border-blue-600 bg-none text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800 [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
+    @apply btn-info bg-blue-25 border-blue-600 bg-none text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800 [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
+
+    &.line-divider {
+        @apply before:h-[0.5px] before:bg-blue-600;
+    }
 }
 
 @utility btn-info-lg {
-    @apply btn-info px-6 py-2 text-lg ring-2;
+    @apply btn-info ring-1.5 px-6 py-2 text-lg;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 @utility btn-info-xl {
-    @apply btn-info ring-3 px-8 py-4 text-xl;
+    @apply btn-info px-8 py-4 text-xl ring-2;
+
+    &.line-divider {
+        @apply before:h-0.75;
+    }
 }
 
 @utility btn-info-outline-lg {
-    @apply btn-info-outline border-2 px-6 py-2 text-lg text-blue-600;
+    @apply btn-info-outline border-1.5 px-6 py-2 text-lg text-blue-600;
+
+    &.line-divider {
+        @apply before:h-0.25;
+    }
 }
 
 @utility btn-info-outline-xl {
-    @apply btn-info-outline border-3 px-8 py-4 text-xl text-blue-600;
+    @apply btn-info-outline border-2 px-8 py-4 text-xl text-blue-600;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 /* Btn success */
 
 @utility btn-success {
-    @apply btn bg-linear-to-br border-emerald-500 from-emerald-500 to-emerald-600 ring-emerald-400 hover:to-emerald-500 ;
+    @apply btn bg-linear-to-br border-emerald-500 from-emerald-500 to-emerald-600 ring-emerald-400 hover:to-emerald-500;
 
     &.line-divider {
         @apply before:bg-emerald-400;
@@ -315,23 +364,43 @@
 }
 
 @utility btn-success-outline {
-    @apply btn-success border-emerald-600 bg-none text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+    @apply btn-success bg-emerald-25 border-emerald-600 bg-none text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+
+    &.line-divider {
+        @apply before:h-[0.5px] before:bg-emerald-600;
+    }
 }
 
 @utility btn-success-lg {
-    @apply btn-success px-6 py-2 text-lg ring-2;
+    @apply btn-success ring-1.5 px-6 py-2 text-lg;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 @utility btn-success-xl {
-    @apply btn-success ring-3 px-8 py-4 text-xl;
+    @apply btn-success px-8 py-4 text-xl ring-2;
+
+    &.line-divider {
+        @apply before:h-0.75;
+    }
 }
 
 @utility btn-success-outline-lg {
-    @apply btn-success-outline border-2 px-6 py-2 text-lg text-emerald-600;
+    @apply btn-success-outline border-1.5 px-6 py-2 text-lg text-emerald-600;
+
+    &.line-divider {
+        @apply before:h-0.25;
+    }
 }
 
 @utility btn-success-outline-xl {
-    @apply btn-success-outline border-3 px-8 py-4 text-xl text-emerald-600;
+    @apply btn-success-outline border-2 px-8 py-4 text-xl text-emerald-600;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 /* Btn warning */
@@ -345,23 +414,43 @@
 }
 
 @utility btn-warning-outline {
-    @apply btn-warning border-amber-600 bg-none text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800 [&>svg]:fill-amber-600 [&>svg]:hover:fill-amber-800;
+    @apply btn-warning bg-amber-25 border-amber-600 bg-none text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800 [&>svg]:fill-amber-600 [&>svg]:hover:fill-amber-800;
+
+    &.line-divider {
+        @apply before:h-[0.5px] before:bg-amber-600;
+    }
 }
 
 @utility btn-warning-lg {
-    @apply btn-warning px-6 py-2 text-lg ring-2;
+    @apply btn-warning ring-1.5 px-6 py-2 text-lg;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 @utility btn-warning-xl {
-    @apply btn-warning ring-3 px-8 py-4 text-xl;
+    @apply btn-warning px-8 py-4 text-xl ring-2;
+
+    &.line-divider {
+        @apply before:h-0.75;
+    }
 }
 
 @utility btn-warning-outline-lg {
-    @apply btn-warning-outline border-2 px-6 py-2 text-lg text-amber-600;
+    @apply btn-warning-outline border-1.5 px-6 py-2 text-lg text-amber-600;
+
+    &.line-divider {
+        @apply before:h-0.25;
+    }
 }
 
 @utility btn-warning-outline-xl {
-    @apply btn-warning-outline border-3 px-8 py-4 text-xl text-amber-600;
+    @apply btn-warning-outline border-2 px-8 py-4 text-xl text-amber-600;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 /* Btn danger */
@@ -375,23 +464,43 @@
 }
 
 @utility btn-danger-outline {
-    @apply btn-danger border-rose-600 bg-none text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+    @apply btn-danger bg-rose-25 border-rose-600 bg-none text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+
+    &.line-divider {
+        @apply before:h-[0.5px] before:bg-rose-600;
+    }
 }
 
 @utility btn-danger-lg {
-    @apply btn-danger px-6 py-2 text-lg ring-2;
+    @apply btn-danger ring-1.5 px-6 py-2 text-lg;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 @utility btn-danger-xl {
-    @apply btn-danger ring-3 px-8 py-4 text-xl;
+    @apply btn-danger px-8 py-4 text-xl ring-2;
+
+    &.line-divider {
+        @apply before:h-0.75;
+    }
 }
 
 @utility btn-danger-outline-lg {
-    @apply btn-danger-outline border-2 px-6 py-2 text-lg text-rose-600;
+    @apply btn-danger-outline border-1.5 px-6 py-2 text-lg text-rose-600;
+
+    &.line-divider {
+        @apply before:h-0.25;
+    }
 }
 
 @utility btn-danger-outline-xl {
-    @apply btn-danger-outline border-3 px-8 py-4 text-xl text-rose-600;
+    @apply btn-danger-outline border-2 px-8 py-4 text-xl text-rose-600;
+
+    &.line-divider {
+        @apply before:h-0.5;
+    }
 }
 
 /* Arbitrary utilities */
