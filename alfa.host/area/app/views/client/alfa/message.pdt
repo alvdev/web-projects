@@ -38,7 +38,7 @@ $types = [
     <div class="alert alert-<?php (print(isset($type) ? $this->Html->safe($type) : null)); ?> alert-dismissable" role="alert">
 
         <div class="container">
-            <div class="flex gap-2">
+            <div class="flex gap-16 text-balance">
                 <div class="w-full">
                     <?php if ((isset($message['title']) ? $message['title'] : false)): ?>
                         <div class="font-semibold">
