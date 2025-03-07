@@ -10,12 +10,12 @@ $this->Form->create(null, ['class' => 'disable-on-submit']);
 
 <div class="flex gap-16">
     <div class="tab-content mt-16 w-4/6">
-        <div id="contact" class="tab-pane fade show active">
+        <div id="contact" class="tab-pane fade show active hidden">
             <?= (isset($contact_info) ? $contact_info : null) ?>
             <?= (isset($phone_numbers) ? $phone_numbers : null) ?>
         </div>
         <?php if ((isset($is_primary) ? $is_primary : null)): ?>
-            <div id="billing" class="tab-pane fade mt-20">
+            <div id="billing" class="tab-pane fade hidden">
                 <h3>
                     <?php $this->_('ClientMain.edit.heading_billing'); ?>
                 </h3>
@@ -55,7 +55,7 @@ $this->Form->create(null, ['class' => 'disable-on-submit']);
                 </div>
             </div>
 
-            <div id="settings" class="tab-pane fade mt-20">
+            <div id="settings" class="tab-pane fade hidden">
                 <?php
                 // Show additional settings, if any
                 if ((isset($show_additional_settings) ? $show_additional_settings : false)) {
@@ -97,7 +97,7 @@ $this->Form->create(null, ['class' => 'disable-on-submit']);
             </div>
         <?php endif ?>
 
-        <div id="authentication" class="tab-pane fade mt-20">
+        <div id="authentication" class="tab-pane fade hidden">
             <h3>
                 <?php $this->_('ClientMain.edit.heading_authentication'); ?>
             </h3>
@@ -105,7 +105,9 @@ $this->Form->create(null, ['class' => 'disable-on-submit']);
             <div class="mt-8 grid grid-cols-2 gap-x-8 gap-y-6">
                 <div class="form-group">
                     <?php $this->Form->label($this->_('ClientMain.edit.field_username', true), 'username'); ?>
-                    <p><?php (print(isset($username) ? $this->Html->safe($username) : null)); ?></p>
+                    <p class="relative mt-1 bg-slate-100 rounded-sm px-4 py-2.5 font-semibold hover:cursor-not-allowed" data-title="<?= $this->_('custom.ClientMain.edit.field_username.not_allowed', true) ?>">
+                        <?php (print(isset($username) ? $this->Html->safe($username) : null)); ?>
+                    </p>
                 </div>
                 <div class="form-group">
                     <?php
