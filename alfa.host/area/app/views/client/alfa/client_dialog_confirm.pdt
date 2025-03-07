@@ -1,27 +1,30 @@
+<div class="flex items-center justify-between p-8">
+    <h5 class="flex items-center gap-4 text-2xl font-semibold uppercase">
+        <?php $this->_('AppController.modal.text_confirm'); ?>
+    </h5>
+    <button type="button" class="block h-8 w-8 cursor-pointer rounded-full border text-2xl hover:bg-black hover:text-white transition-all" data-dismiss="modal" aria-label="Close">
+        <span class="relative -top-[3px] block" aria-hidden="true">×</span>
+    </button>
+</div>
 
-                    <div class="modal-header">
-                        <h5 class="global_modal_title"><i class="fas fa-check-square"></i> <?php $this->_('AppController.modal.text_confirm');?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <?php echo (isset($message) ? $message : null);?>
-                    </div>
-                    <div class="modal-footer">
-                        <?php
-                        if ((isset($confirm_url) ? $confirm_url : null)) {
-                            $this->Form->create($confirm_url);
-                            foreach ((array)(isset($confirm_data) ? $confirm_data : []) as $key => $value) {
-                                $this->Form->fieldHidden($key, $value);
-                            }
+<div class="relative pb-8 text-xl *:[.alert]:relative! *:[.alert]:before:hidden *:[.alert]:after:hidden *:[.alert]:rounded-none! *:[.alert]:px-8! *:[.alert]:bg-none *:[.alert.alert-dismissable]:shadow-none *:[.alert]:text-black!">
+    <?= $message ?? null; ?>
+</div>
 
-                            $this->Form->fieldButton('submit', $this->_('ClientDialog.confirm.text_yes', true), ['class' => 'btn btn-light yes', 'type' => 'submit']);
-                            $this->Form->fieldButton('cancel', $this->_('ClientDialog.confirm.text_no', true), ['class' => 'btn btn-primary', 'data-dismiss' => 'modal']);
-                            $this->Form->end();
-                        } else {
-                            $this->Form->fieldButton('submit', $this->_('ClientDialog.confirm.text_yes', true), ['class' => 'btn btn-light yes', 'type' => 'submit']);
-                            $this->Form->fieldButton('cancel', $this->_('ClientDialog.confirm.text_no', true), ['class' => 'btn btn-primary', 'data-dismiss' => 'modal']);
-                        }
-                        ?>
-                    </div>
+<div class="*:[form]:flex *:[form]:gap-1">
+    <?php
+    if ((isset($confirm_url) ? $confirm_url : null)) {
+        $this->Form->create($confirm_url);
+        foreach ((array)(isset($confirm_data) ? $confirm_data : []) as $key => $value) {
+            $this->Form->fieldHidden($key, $value);
+        }
+
+        $this->Form->fieldButton('submit', $this->_('ClientDialog.confirm.text_yes', true), ['class' => 'yes btn-success-xl w-1/2 rounded-none', 'type' => 'submit']);
+        $this->Form->fieldButton('cancel', $this->_('ClientDialog.confirm.text_no', true), ['class' => 'btn-xl w-1/2 rounded-none', 'data-dismiss' => 'modal']);
+        $this->Form->end();
+    } else {
+        $this->Form->fieldButton('submit', $this->_('ClientDialog.confirm.text_yes', true), ['class' => 'yes btn-success-lg', 'type' => 'submit']);
+        $this->Form->fieldButton('cancel', $this->_('ClientDialog.confirm.text_no', true), ['class' => 'btn btn-primary', 'data-dismiss' => 'modal']);
+    }
+    ?>
+</div>
