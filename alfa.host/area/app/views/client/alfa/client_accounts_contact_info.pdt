@@ -1,82 +1,78 @@
+<?php if (!(isset($edit) ? $edit : false)): ?>
+    <div class="top-focus-box mt-12">
+        <div class="form-group flex items-center gap-8 *:w-1/2">
+            <div class="border-l-4 border-blue-400 py-4 text-center bg-linear-to-r from-blue-50 via-blue-50 rounded-l-md to-transparent" data-title="<?php $this->_('ClientAccounts.contact_info.text_select_contact'); ?>">
+                <i class=" fas fa-lightbulb fa-fw"></i>
+                <?php $this->Form->label($this->_('ClientAccounts.contact_info.field_contact_id', true), 'contact_id'); ?>:
+            </div>
+            <?php $this->Form->fieldSelect('contact_id', (isset($contacts) ? $contacts : null), (isset($vars->contact_id) ? $vars->contact_id : null), ['id' => 'contact_id', 'class' => 'form-control']); ?>
+        </div>
+    </div>
+<?php endif ?>
 
+<h3 class="mt-16">
+    <?php $this->_('ClientAccounts.contact_info.heading_contact'); ?>
+</h3>
+
+<div class="mt-8 grid grid-cols-2 gap-x-8 gap-y-6">
+    <div class="form-group">
         <?php
-        if (!(isset($edit) ? $edit : false)) {
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_first_name', true), 'first_name');
+        $this->Form->fieldText('first_name', (isset($vars->first_name) ? $vars->first_name : null), ['id' => 'first_name', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_first_name', true)]);
         ?>
-        <div class="row panel-fix">
-            <div class="col-md-12 top-focus-box">
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_contact_id', true), 'contact_id');
-                    $this->Form->fieldSelect('contact_id', (isset($contacts) ? $contacts : null), (isset($vars->contact_id) ? $vars->contact_id : null), ['id' => 'contact_id', 'class' => 'form-control']);
-                    ?>
-                    <p class="help-block"><i class="fas fa-lightbulb fa-fw"></i> <?php $this->_('ClientAccounts.contact_info.text_select_contact');?></p>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="form-group">
         <?php
-        }
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_last_name', true), 'last_name');
+        $this->Form->fieldText('last_name', (isset($vars->last_name) ? $vars->last_name : null), ['id' => 'last_name', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_last_name', true)]);
         ?>
-        <h4><?php $this->_('ClientAccounts.contact_info.heading_contact');?></h4>
-        <div class="row panel-fix">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_first_name', true), 'first_name');
-                    $this->Form->fieldText('first_name', (isset($vars->first_name) ? $vars->first_name : null), ['id' => 'first_name', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_first_name', true)]);
-                    ?>
-                </div>
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_last_name', true), 'last_name');
-                    $this->Form->fieldText('last_name', (isset($vars->last_name) ? $vars->last_name : null), ['id' => 'last_name', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_last_name', true)]);
-                    ?>
-                </div>
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_address1', true), 'address1');
-                    $this->Form->fieldText('address1', (isset($vars->address1) ? $vars->address1 : null), ['id' => 'address1', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_address1', true)]);
-                    ?>
-                </div>
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_address2', true), 'address2');
-                    $this->Form->fieldText('address2', (isset($vars->address2) ? $vars->address2 : null), ['id' => 'address2', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_address2', true)]);
-                    ?>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_city', true), 'city');
-                    $this->Form->fieldText('city', (isset($vars->city) ? $vars->city : null), ['id' => 'city', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_city', true)]);
-                    ?>
-                </div>
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_country', true), 'country');
-                    $this->Form->fieldSelect('country', (isset($countries) ? $countries : null), (isset($vars->country) ? $vars->country : null), ['id' => 'country', 'class' => 'form-control']);
-                    ?>
-                </div>
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_state', true), 'state');
-                    $this->Form->fieldSelect('state', (isset($states) ? $states : null), (isset($vars->state) ? $vars->state : null), ['id' => 'state', 'class' => 'form-control']);
-                    ?>
-                </div>
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_zip', true), 'zip');
-                    $this->Form->fieldText('zip', (isset($vars->zip) ? $vars->zip : null), ['id' => 'zip', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_zip', true)]);
-                    ?>
-                </div>
-                <div class="form-group">
-                    <?php
-                    $this->Form->label($this->_('ClientAccounts.contact_info.field_email', true), 'email');
-                    $this->Form->fieldText('email', (isset($vars->email) ? $vars->email : null), ['id' => 'email', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_email', true)]);
-                    ?>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="form-group">
+        <?php
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_address1', true), 'address1');
+        $this->Form->fieldText('address1', (isset($vars->address1) ? $vars->address1 : null), ['id' => 'address1', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_address1', true)]);
+        ?>
+    </div>
+    <div class="form-group">
+        <?php
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_address2', true), 'address2');
+        $this->Form->fieldText('address2', (isset($vars->address2) ? $vars->address2 : null), ['id' => 'address2', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_address2', true)]);
+        ?>
+    </div>
+</div>
+
+<div class="mt-6 grid grid-cols-2 gap-x-8 gap-y-6">
+    <div class="form-group">
+        <?php
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_city', true), 'city');
+        $this->Form->fieldText('city', (isset($vars->city) ? $vars->city : null), ['id' => 'city', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_city', true)]);
+        ?>
+    </div>
+    <div class="form-group">
+        <?php
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_country', true), 'country');
+        $this->Form->fieldSelect('country', (isset($countries) ? $countries : null), (isset($vars->country) ? $vars->country : null), ['id' => 'country', 'class' => 'form-control']);
+        ?>
+    </div>
+    <div class="form-group">
+        <?php
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_state', true), 'state');
+        $this->Form->fieldSelect('state', (isset($states) ? $states : null), (isset($vars->state) ? $vars->state : null), ['id' => 'state', 'class' => 'form-control']);
+        ?>
+    </div>
+    <div class="form-group">
+        <?php
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_zip', true), 'zip');
+        $this->Form->fieldText('zip', (isset($vars->zip) ? $vars->zip : null), ['id' => 'zip', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_zip', true)]);
+        ?>
+    </div>
+    <div class="form-group">
+        <?php
+        $this->Form->label($this->_('ClientAccounts.contact_info.field_email', true), 'email');
+        $this->Form->fieldText('email', (isset($vars->email) ? $vars->email : null), ['id' => 'email', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.contact_info.field_email', true)]);
+        ?>
+    </div>
+</div>
 
 <?php
 $this->Javascript->setInline('
