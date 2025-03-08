@@ -561,7 +561,7 @@
     }
 
     .alert-success.alert-dismissable {
-        @apply from-emerald-100 to-emerald-50 text-emerald-900;
+        @apply from-emerald-800 to-emerald-700 before:shadow-emerald-800 after:shadow-emerald-700;
     }
 
     .alert-danger.alert-dismissable {
