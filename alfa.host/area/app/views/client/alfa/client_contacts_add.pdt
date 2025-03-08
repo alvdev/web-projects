@@ -1,4 +1,3 @@
-
 <div class="col-md-3">
     <?php echo ($navigation ?? null); ?>
 </div>
@@ -125,7 +124,6 @@
                 </div>
 
             </div>
-
 
             <button type="submit" class="btn btn-light float-right">
                 <i class="fas fa-plus-circle"></i> <?php $this->_('ClientContacts.add.field_addsubmit');?>
