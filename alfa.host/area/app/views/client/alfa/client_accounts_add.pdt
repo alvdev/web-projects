@@ -1,61 +1,67 @@
+<?= (isset($message) ? $message : null); ?>
 
-<div class="col-md-3">
-    <?php echo ($navigation ?? null); ?>
-</div>
-<div class="col-md-9">
-    <div class="row">
-        <div class="col-md-12">
-            <?php
-            echo (isset($message) ? $message : null);
+<div class="flex gap-16">
+    <div class="w-4/6">
+        <?php
+        $this->WidgetClient->clear();
+        $this->WidgetClient->create($this->_('ClientAccounts.add.boxtitle_create', true));
+        $this->WidgetClient->startBody();
 
-            $this->WidgetClient->clear();
-            $this->WidgetClient->create($this->_('ClientAccounts.add.boxtitle_create', true));
-            $this->WidgetClient->startBody();
+        $this->Form->create(null, ['class' => 'disable-on-submit']);
 
-            $this->Form->create(null, ['class' => 'disable-on-submit']);
+        if ((isset($step) ? $step : 1) == 1) {
+        ?>
+            <h3 class="mt-16">
+                <?php $this->_('ClientAccounts.add.heading_account_type'); ?>
+            </h3>
 
-            if ((isset($step) ? $step : 1) == 1) {
-            ?>
-            <h4><?php $this->_('ClientAccounts.add.heading_account_type');?></h4>
-            <div class="radio">
-                <label>
-                    <?php
-                    $this->Form->fieldRadio('payment_account_type', 'cc', ((isset($vars->account_type) ? $vars->account_type : 'cc') == 'cc'));
-                    $this->_('ClientAccounts.add.field_cc_type');
-                    ?>
-                </label>
+            <div class="mt-8 flex gap-8">
+                <div class="radio w-1/2">
+                    <label class="border-2 border-slate-300 px-8 py-6 rounded-md block text-center text-lg *:[input]:hidden has-checked:border-blue-500 has-checked:bg-blue-50 hover:border-blue-300">
+                        <?php
+                        $this->Form->fieldRadio('payment_account_type', 'cc', ((isset($vars->account_type) ? $vars->account_type : 'cc') == 'cc'));
+                        $this->_('ClientAccounts.add.field_cc_type');
+                        ?>
+                    </label>
+                </div>
+
+                <div class="radio w-1/2">
+                    <label class="border-2 border-slate-300 px-8 py-6 rounded-md block text-center text-lg *:[input]:hidden has-checked:border-blue-500 has-checked:bg-blue-50 hover:border-blue-300">
+                        <?php
+                        $this->Form->fieldRadio('payment_account_type', 'ach', ((isset($vars->account_type) ? $vars->account_type : null) == 'ach'));
+                        $this->_('ClientAccounts.add.field_ach_type')
+                        ?>
+                    </label>
+                </div>
             </div>
-            <div class="radio">
-                <label>
-                    <?php
-                    $this->Form->fieldRadio('payment_account_type', 'ach', ((isset($vars->account_type) ? $vars->account_type : null) == 'ach'));
-                    $this->_('ClientAccounts.add.field_ach_type')
-                    ?>
-                </label>
-            </div>
-            <button type="submit" class="btn btn-light float-right">
-                <i class="fas fa-arrow-circle-right"></i> <?php $this->_('ClientAccounts.add.field_nextsubmit');?>
-            </button>
-            <?php
-            } else {
-                // Set the account type
-                $this->Form->fieldHidden('account_type', (isset($vars->account_type) ? $vars->account_type : null), ['id' => 'account_type']);
 
-                // Set partials
-                echo (isset($contact_info) ? $contact_info : null);
-            ?>
-            <hr />
-            <?php echo (isset($account_info) ? $account_info : null);?>
-
-            <button type="submit" class="btn btn-light float-right">
-                <i class="fas fa-plus-circle"></i> <?php $this->_('ClientAccounts.add.field_accountsubmit');?>
+            <button type="submit" class="btn-success-lg line-divider mt-24">
+                <i class="fas fa-arrow-circle-right"></i> <?php $this->_('ClientAccounts.add.field_nextsubmit'); ?>
             </button>
-            <?php
-            }
-            $this->Form->end();
-            $this->WidgetClient->endBody();
-            $this->WidgetClient->end();
-            ?>
+        <?php
+        } else {
+            // Set the account type
+            $this->Form->fieldHidden('account_type', (isset($vars->account_type) ? $vars->account_type : null), ['id' => 'account_type']);
+
+            // Set partials
+            echo (isset($contact_info) ? $contact_info : null);
+        ?>
+            <?php echo (isset($account_info) ? $account_info : null); ?>
+
+            <button type="submit" class="btn-success-lg line-divider">
+                <i class="fas fa-plus-circle"></i> <?php $this->_('ClientAccounts.add.field_accountsubmit'); ?>
+            </button>
+        <?php
+        }
+        $this->Form->end();
+        $this->WidgetClient->endBody();
+        $this->WidgetClient->end();
+        ?>
+    </div>
+
+    <div class="w-2/6 bg-divider">
+        <div class="sticky top-8">
+            <?= ($navigation ?? null); ?>
         </div>
     </div>
 </div>
