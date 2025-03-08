@@ -24,7 +24,7 @@
             <?php
             $link = $this->Html->safe((isset($link) ? $link : ''));
             $prefix = !str_contains($link, '://') ? (isset($this->base_uri) ? $this->Html->safe($this->base_uri) : null) : '';
-            $isActive = $prefix . $link === $_SERVER['REQUEST_URI'] ? true : false;
+            $isActive = $prefix . $link === $_SERVER['REQUEST_URI'] || $prefix . $link . 'ach/' === $_SERVER['REQUEST_URI'] ? true : false;
             ?>
             <a href="<?= $prefix . $link; ?>" class="flex items-center px-4 py-3 gap-3 uppercase rounded-full <?= $isActive ? 'active bg-white text-black' : ''; ?>">
                 <i class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?> fa-fw"></i>
