@@ -7,7 +7,8 @@
         ];
 
         $this->WidgetClient->clear();
-        $this->WidgetClient->setLinkButtons($link_buttons);
+        // alvdev: remove 'add payment account' btn. Already exists in aside links
+        // $this->WidgetClient->setLinkButtons($link_buttons);
         $this->WidgetClient->create($this->_('ClientAccounts.index.boxtitle_accounts', true), ['id' => 'client_accounts'], ($render_section ?? null));
         $this->WidgetClient->startBody();
 
@@ -98,7 +99,7 @@
         <?php
         } else {
         ?>
-            <div class="alert alert-info">
+            <div class="alert alert-info mt-16">
                 <p><?php $this->_('ClientAccounts.index.no_results'); ?></p>
             </div>
         <?php
