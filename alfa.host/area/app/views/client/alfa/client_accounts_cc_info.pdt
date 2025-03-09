@@ -1,56 +1,48 @@
+<h3 class="mt-20">
+    <?php $this->_('ClientAccounts.cc_info.heading_cc'); ?>
+</h3>
 
-<div class="row panel-fix">
-    <div class="col-md-12">
-        <h4><?php $this->_('ClientAccounts.cc_info.heading_cc');?></h4>
-    </div>
-    <div class="col-md-6">
-        <?php
-        if ((isset($gateway_form) ? $gateway_form : null)) {
-        ?>
+<div class="mt-8 flex gap-8">
+    <?php if ((isset($gateway_form) ? $gateway_form : null)): ?>
         <div class="form-group">
-            <?php echo $gateway_form;?>
+            <?php echo $gateway_form; ?>
         </div>
-        <?php
-        } else {
-        ?>
-        <div class="form-group">
+    <?php else: ?>
+        <div class="form-group w-6/12">
             <?php
             $this->Form->label($this->_('ClientAccounts.cc_info.field_number', true), 'number');
             $this->Form->fieldText('number', isset($vars->last4) ? str_pad($vars->last4, 16, '*', STR_PAD_LEFT) : (isset($vars->number) ? $vars->number : null), ['id' => 'number', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.cc_info.field_number', true)]);
             ?>
         </div>
-        <div class="form-group">
-            <?php $this->Form->label($this->_('ClientAccounts.cc_info.field_security', true), 'security_code');?>
-            <a href="#" data-toggle="tooltip" title="<?php $this->_('ClientAccounts.cc_info.tooltip_code');?>"><i class="fas fa-question-circle text-info"></i></a>
-            <?php $this->Form->fieldText('security_code', (isset($vars->security_code) ? $vars->security_code : null), ['id' => 'security_code', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.cc_info.field_security', true)]);?>
-        </div>
-        <div class="form-group">
-            <?php $this->Form->label($this->_('ClientAccounts.cc_info.field_expiration', true), 'expiration');?>
-            <div class="form-inline">
-                <?php
-                $this->Form->fieldSelect('expiration_month', (isset($expiration['months']) ? $expiration['months'] : null), (isset($vars->expiration_month) ? $vars->expiration_month : null), ['id' => 'expiration_month', 'class' => 'form-control form-control-sm']);
-                $this->Form->fieldSelect('expiration_year', (isset($expiration['years']) ? $expiration['years'] : null), (isset($vars->expiration_year) ? $vars->expiration_year : null), ['id' => 'expiration_year', 'class' => 'form-control form-control-sm']);
-                ?>
+        <div class="w-6/12 flex gap-4">
+            <div class="form-group w-2/6">
+                <?php $this->Form->label($this->_('ClientAccounts.cc_info.field_security', true), 'security_code'); ?>
+                <a href="#" data-toggle="tooltip" title="<?php $this->_('ClientAccounts.cc_info.tooltip_code'); ?>"><i class="fas fa-question-circle text-info"></i></a>
+                <?php $this->Form->fieldText('security_code', (isset($vars->security_code) ? $vars->security_code : null), ['id' => 'security_code', 'class' => 'form-control', 'placeholder' => $this->_('ClientAccounts.cc_info.field_security', true)]); ?>
+            </div>
+            <div class="form-group w-4/6">
+                <?php $this->Form->label($this->_('ClientAccounts.cc_info.field_expiration', true), 'expiration'); ?>
+                <div class="form-inline mt-1 flex gap-4 *:first:w-7/12 *:last:w-5/12">
+                    <?php
+                    $this->Form->fieldSelect('expiration_month', (isset($expiration['months']) ? $expiration['months'] : null), (isset($vars->expiration_month) ? $vars->expiration_month : null), ['id' => 'expiration_month', 'class' => 'form-control form-control-sm']);
+                    $this->Form->fieldSelect('expiration_year', (isset($expiration['years']) ? $expiration['years'] : null), (isset($vars->expiration_year) ? $vars->expiration_year : null), ['id' => 'expiration_year', 'class' => 'form-control form-control-sm']);
+                    ?>
+                </div>
             </div>
         </div>
-        <?php
-        }
+    <?php endif ?>
 
-        if (isset($save_account) && $save_account) {
-        ?>
+    <?php if (isset($save_account) && $save_account): ?>
         <div class="checkbox">
             <label>
-            <?php
-            $this->Form->fieldCheckbox('save_details', 'true', isset($vars->save_details));
-            $this->_('ClientAccounts.cc_info.field_savedetails');
-            ?>
+                <?php
+                $this->Form->fieldCheckbox('save_details', 'true', isset($vars->save_details));
+                $this->_('ClientAccounts.cc_info.field_savedetails');
+                ?>
             </label>
         </div>
-        <?php
-        }
-        ?>
-    </div>
-    <div class="col-md-3">
-        <?php echo ($navigation ?? null); ?>
-    </div>
+    <?php endif ?>
 </div>
+
+<!-- TODO: find where is the navigation -->
+<?= ($navigation ?? null); ?>
