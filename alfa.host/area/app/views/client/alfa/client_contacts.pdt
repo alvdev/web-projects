@@ -1,117 +1,114 @@
+<?= (isset($message) ? $message : null); ?>
+
 <?php
 // Don't show this container when only rendering the widget section
 if (!(isset($render_section) ? $render_section : null) && !(isset($is_ajax) ? $is_ajax : null)) {
 ?>
-    <div class="col-md-9">
-    <?php
-}
-    ?>
     <div class="flex gap-16">
         <div class="w-4/6">
-            <?= (isset($message) ? $message : null); ?>
-
-            <?php
-            // alvdev: remove add contact button from the top of the table
-            /* $link_buttons = [
+        <?php
+    }
+        ?>
+        <?php
+        // alvdev: remove add contact button from the top of the table
+        /* $link_buttons = [
                 ['name' => $this->_('ClientContacts.index.create_contact', true), 'attributes' => ['href' => $this->base_uri . 'contacts/add/']]
             ]; */
 
-            $this->WidgetClient->clear();
-            // $this->WidgetClient->setLinkButtons($link_buttons);
-            $this->WidgetClient->create($this->_('ClientContacts.index.boxtitle_contacts', true), ['id' => 'client_contacts'], (isset($render_section) ? $render_section : null));
-            $this->WidgetClient->startBody();
-            ?>
+        $this->WidgetClient->clear();
+        // $this->WidgetClient->setLinkButtons($link_buttons);
+        $this->WidgetClient->create($this->_('ClientContacts.index.boxtitle_contacts', true), ['id' => 'client_contacts'], (isset($render_section) ? $render_section : null));
+        $this->WidgetClient->startBody();
+        ?>
 
-            <?php if ((isset($contacts) ? $contacts : false) && (($num_contacts = count($contacts)) > 0)): ?>
-                <div class="table-responsive mt-16">
-                    <table class="w-full border-separate border-spacing-y-1" id="contacts">
-                        <thead class="[&_th]:text-left [&_th]:pb-4 [&_th]:px-4 [&_th]:font-semibold uppercase">
-                            <tr>
-                                <th>
-                                    <a href="<?= $this->Html->safe($this->base_uri . 'contacts/index/?sort=first_name&order=' . ($sort == 'first_name' ? $negate_order : $order)); ?>" class="ajax<?= $this->Html->safe($sort == 'first_name' ? ' ' . $order : ''); ?>">
-                                        <?php $this->_('ClientContacts.index.heading_name'); ?>
-                                    </a>
-                                </th>
-                                <th>
-                                    <a href="<?= $this->Html->safe($this->base_uri . 'contacts/index/?sort=email&order=' . ($sort == 'email' ? $negate_order : $order)); ?>" class="ajax<?= $this->Html->safe($sort == 'email' ? ' ' . $order : ''); ?>">
-                                        <?php $this->_('ClientContacts.index.heading_email'); ?>
-                                    </a>
-                                </th>
-                                <th>
-                                    <?php $this->_('ClientContacts.index.heading_type'); ?>
-                                </th>
-                                <th class="float-right">
-                                    <?php $this->_('ClientContacts.index.heading_options'); ?>
-                                </th>
+        <?php if ((isset($contacts) ? $contacts : false) && (($num_contacts = count($contacts)) > 0)): ?>
+            <div class="table-responsive mt-16">
+                <table class="w-full border-separate border-spacing-y-1" id="contacts">
+                    <thead class="[&_th]:text-left [&_th]:pb-4 [&_th]:px-4 [&_th]:font-semibold uppercase">
+                        <tr>
+                            <th>
+                                <a href="<?= $this->Html->safe($this->base_uri . 'contacts/index/?sort=first_name&order=' . ($sort == 'first_name' ? $negate_order : $order)); ?>" class="ajax<?= $this->Html->safe($sort == 'first_name' ? ' ' . $order : ''); ?>">
+                                    <?php $this->_('ClientContacts.index.heading_name'); ?>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="<?= $this->Html->safe($this->base_uri . 'contacts/index/?sort=email&order=' . ($sort == 'email' ? $negate_order : $order)); ?>" class="ajax<?= $this->Html->safe($sort == 'email' ? ' ' . $order : ''); ?>">
+                                    <?php $this->_('ClientContacts.index.heading_email'); ?>
+                                </a>
+                            </th>
+                            <th>
+                                <?php $this->_('ClientContacts.index.heading_type'); ?>
+                            </th>
+                            <th class="float-right">
+                                <?php $this->_('ClientContacts.index.heading_options'); ?>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100">
+                        <!-- Loop through all contacts -->
+                        <?php for ($i = 0; $i < $num_contacts; $i++): ?>
+                            <tr class="*:py-3 *:px-4 *:first:rounded-l-md *:last:rounded-r-md">
+                                <td>
+                                    <?= $this->Html->concat(' ', (isset($contacts[$i]->first_name) ? $this->Html->safe($contacts[$i]->first_name) : null), (isset($contacts[$i]->last_name) ? $this->Html->safe($contacts[$i]->last_name) : null)); ?>
+                                </td>
+                                <td>
+                                    <?php (print(isset($contacts[$i]->email) ? $this->Html->safe($contacts[$i]->email) : null)); ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    // Set the contact type
+                                    $contact_type = (isset($contact_types[$contacts[$i]->contact_type]) ? $contact_types[$contacts[$i]->contact_type] : null);
+                                    if ((isset($contacts[$i]->contact_type) ? $contacts[$i]->contact_type : null) == 'other') {
+                                        $contact_type = (isset($contact_types[$contacts[$i]->contact_type_id]) ? $contact_types[$contacts[$i]->contact_type_id] : null);
+                                    }
+
+                                    (print(isset($contact_type) ? $this->Html->safe($contact_type) : null));
+                                    ?>
+                                </td>
+                                <td class="text-right">
+                                    <?php
+                                    $this->Form->create($this->base_uri . 'contacts/delete/');
+                                    $this->Form->fieldHidden('id', (isset($contacts[$i]->id) ? $contacts[$i]->id : null));
+                                    ?>
+                                    <div class="inline-flex items-center gap-2">
+                                        <a href="<?= $this->Html->safe($this->base_uri . 'contacts/edit/' . (isset($contacts[$i]->id) ? $this->Html->safe($contacts[$i]->id) : null) . '/'); ?>" class="btn-outline px-2 border-slate-300" data-title="<?php $this->_('ClientContacts.index.option_edit'); ?>">
+                                            <i class=" fas fa-edit fa-fw"></i>
+                                        </a>
+                                        <a class="btn-danger-outline px-2 border-slate-300" href="<?= $this->Html->safe($this->base_uri . 'contacts/delete/' . (isset($contacts[$i]->id) ? $this->Html->safe($contacts[$i]->id) : null) . '/'); ?>" rel="<?= $this->Html->safe($this->_('ClientContacts.index.confirm_delete', true)); ?>" data-title="<?php $this->_('ClientContacts.index.option_delete'); ?>">
+                                            <i class=" fas fa-trash fa-fw"></i>
+                                        </a>
+                                    </div>
+                                    <?php $this->Form->end(); ?>
+                                </td>
                             </tr>
-                        </thead>
+                        <?php endfor ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-info">
+                <p><?php $this->_('ClientContacts.index.no_results'); ?></p>
+            </div>
+        <?php endif ?>
 
-                        <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100">
-                            <!-- Loop through all contacts -->
-                            <?php for ($i = 0; $i < $num_contacts; $i++): ?>
-                                <tr class="*:py-3 *:px-4 *:first:rounded-l-md *:last:rounded-r-md">
-                                    <td>
-                                        <?= $this->Html->concat(' ', (isset($contacts[$i]->first_name) ? $this->Html->safe($contacts[$i]->first_name) : null), (isset($contacts[$i]->last_name) ? $this->Html->safe($contacts[$i]->last_name) : null)); ?>
-                                    </td>
-                                    <td>
-                                        <?php (print(isset($contacts[$i]->email) ? $this->Html->safe($contacts[$i]->email) : null)); ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        // Set the contact type
-                                        $contact_type = (isset($contact_types[$contacts[$i]->contact_type]) ? $contact_types[$contacts[$i]->contact_type] : null);
-                                        if ((isset($contacts[$i]->contact_type) ? $contacts[$i]->contact_type : null) == 'other') {
-                                            $contact_type = (isset($contact_types[$contacts[$i]->contact_type_id]) ? $contact_types[$contacts[$i]->contact_type_id] : null);
-                                        }
-
-                                        (print(isset($contact_type) ? $this->Html->safe($contact_type) : null));
-                                        ?>
-                                    </td>
-                                    <td class="text-right">
-                                        <?php
-                                        $this->Form->create($this->base_uri . 'contacts/delete/');
-                                        $this->Form->fieldHidden('id', (isset($contacts[$i]->id) ? $contacts[$i]->id : null));
-                                        ?>
-                                        <div class="inline-flex items-center gap-2">
-                                            <a href="<?= $this->Html->safe($this->base_uri . 'contacts/edit/' . (isset($contacts[$i]->id) ? $this->Html->safe($contacts[$i]->id) : null) . '/'); ?>" class="btn-outline px-2 border-slate-300" data-title="<?php $this->_('ClientContacts.index.option_edit'); ?>">
-                                                <i class=" fas fa-edit fa-fw"></i>
-                                            </a>
-                                            <a class="btn-danger-outline px-2 border-slate-300" href="<?= $this->Html->safe($this->base_uri . 'contacts/delete/' . (isset($contacts[$i]->id) ? $this->Html->safe($contacts[$i]->id) : null) . '/'); ?>" rel="<?= $this->Html->safe($this->_('ClientContacts.index.confirm_delete', true)); ?>" data-title="<?php $this->_('ClientContacts.index.option_delete'); ?>">
-                                                <i class=" fas fa-trash fa-fw"></i>
-                                            </a>
-                                        </div>
-                                        <?php $this->Form->end(); ?>
-                                    </td>
-                                </tr>
-                            <?php endfor ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php else: ?>
-                <div class="alert alert-info">
-                    <p><?php $this->_('ClientContacts.index.no_results'); ?></p>
-                </div>
-            <?php endif ?>
-
-            <?php
-            $this->WidgetClient->endBody();
-            $this->WidgetClient->end();
-            ?>
+        <?php
+        $this->WidgetClient->endBody();
+        $this->WidgetClient->end();
+        ?>
         </div>
-
+        <?php
+        // Don't show this container when only rendering the widget section
+        if (!($render_section ?? null) && !($is_ajax ?? null)) {
+        ?>
         <aside class="w-2/6 bg-divider">
             <div class="sticky top-8">
                 <?= ($navigation ?? null); ?>
             </div>
         </aside>
     </div>
-    <?php
-    // Don't show this container when only rendering the widget section
-    if (!($render_section ?? null) && !($is_ajax ?? null)) {
-    ?>
-    </div>
 <?php
-    }
+        }
 ?>
 
 <?php
