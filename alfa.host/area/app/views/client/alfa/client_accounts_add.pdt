@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-success-lg line-divider mt-24">
+            <button type="submit" class="mt-24 btn-success-lg w-[calc(50%-1rem)] line-divider">
                 <i class="fas fa-arrow-circle-right"></i> <?php $this->_('ClientAccounts.add.field_nextsubmit'); ?>
             </button>
         <?php
@@ -48,7 +48,7 @@
         ?>
             <?php echo (isset($account_info) ? $account_info : null); ?>
 
-            <button type="submit" class="btn-success-lg line-divider">
+            <button type="submit" class="mt-24 btn-success-lg w-[calc(50%-1rem)] line-divider">
                 <i class="fas fa-plus-circle"></i> <?php $this->_('ClientAccounts.add.field_accountsubmit'); ?>
             </button>
         <?php
