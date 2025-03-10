@@ -7,7 +7,7 @@
     </button>
 </div>
 
-<div class="relative pb-8 text-xl *:[.alert]:relative! *:[.alert]:before:hidden *:[.alert]:after:hidden *:[.alert]:rounded-none! *:[.alert]:px-8! *:[.alert]:bg-none *:[.alert.alert-dismissable]:shadow-none *:[.alert]:text-black!">
+<div class="relative *:relative! **:[.alert.alert-dismissable]:bg-none! **:[.alert.alert-dismissable]:text-black **:[.alert.alert-dismissable]:px-8 **:[.alert.alert-dismissable]:pt-4 **:[.alert.alert-dismissable]:pb-16 **:[.alert.alert-dismissable]:shadow-none **:[.alert.alert-dismissable]:before:hidden **:[.alert.alert-dismissable]:after:hidden **:[.alert.alert-dismissable]:text-2xl **:[.alert.alert-dismissable_.text-balance]:text-center!">
     <?= $message ?? null; ?>
 </div>
 

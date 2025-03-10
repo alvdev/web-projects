@@ -58,20 +58,28 @@ $types = [
                         <?php endif ?>
                     </div>
 
-                    <div class="flex items-center gap-6 text-nowrap">
-                        <?php if ((isset($message['buttons']) ? $message['buttons'] : false) && is_array($message['buttons'])): ?>
-                            <?php foreach ($message['buttons'] as $button): ?>
-                                <a href="<?php (print(isset($button['url']) ? $this->Html->safe($button['url']) : null)); ?>" class="btn-<?php (print(isset($type) ? $this->Html->safe($type) : null)); ?> <?= $message['btnClasses'] ?>">
-                                    <i class="fas fa-fw <?= $this->Html->safe((isset($button['icon_class']) ? $button['icon_class'] : 'fa-exclamation-triangle')); ?>"></i>
-                                    <?php (print(isset($button['label']) ? $this->Html->safe($button['label']) : null)); ?>
-                                </a>
-                            <?php endforeach ?>
-                        <?php endif ?>
+                    <?php if ($message['buttons'] || $show_close): ?>
+                        <!-- open container if there are buttons -->
+                        <div class="flex items-center gap-6 text-nowrap">
+                    <?php endif ?>
 
-                        <?php if ((isset($show_close) ? $show_close : true)): ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <?php endif ?>
-                    </div>
+                    <?php if ((isset($message['buttons']) ? $message['buttons'] : false) && is_array($message['buttons'])): ?>
+                        <?php foreach ($message['buttons'] as $button): ?>
+                            <a href="<?php (print(isset($button['url']) ? $this->Html->safe($button['url']) : null)); ?>" class="btn-<?php (print(isset($type) ? $this->Html->safe($type) : null)); ?> <?= $message['btnClasses'] ?>">
+                                <i class="fas fa-fw <?= $this->Html->safe((isset($button['icon_class']) ? $button['icon_class'] : 'fa-exclamation-triangle')); ?>"></i>
+                                <?php (print(isset($button['label']) ? $this->Html->safe($button['label']) : null)); ?>
+                            </a>
+                        <?php endforeach ?>
+                    <?php endif ?>
+
+                    <?php if ((isset($show_close) ? $show_close : true)): ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php endif ?>
+
+                    <?php if ($message['buttons'] || $show_close): ?>
+                        <!-- close container if there are buttons -->
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
