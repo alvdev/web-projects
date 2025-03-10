@@ -4,8 +4,8 @@
 
 <div class="mt-8 flex gap-8">
     <?php if ((isset($gateway_form) ? $gateway_form : null)): ?>
-        <div class="form-group">
-            <?php echo $gateway_form; ?>
+        <div class="form-group w-full">
+            <?= $gateway_form; ?>
         </div>
     <?php else: ?>
         <div class="form-group w-6/12">
