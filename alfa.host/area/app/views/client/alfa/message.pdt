@@ -32,46 +32,48 @@ $types = [
 ];
 ?>
 
-<?php foreach ($types as $type => $message): ?>
-    <?php if (!$message['show']) continue; ?>
+<div class="has-[.alert-dismissable]:absolute has-[.alert-dismissable]:z-1 has-[.alert-dismissable]:w-full has-[.alert-dismissable]:inset-x-0 top-0">
+    <?php foreach ($types as $type => $message): ?>
+        <?php if (!$message['show']) continue; ?>
 
-    <div class="alert alert-<?php (print(isset($type) ? $this->Html->safe($type) : null)); ?> alert-dismissable" role="alert">
+        <div class="alert alert-<?php (print(isset($type) ? $this->Html->safe($type) : null)); ?> alert-dismissable" role="alert">
 
-        <div class="container">
-            <div class="flex gap-16 text-balance">
-                <div class="w-full">
-                    <?php if ((isset($message['title']) ? $message['title'] : false)): ?>
-                        <div class="font-semibold">
-                            <?php (print(isset($message['title']) ? $this->Html->safe($message['title']) : null)); ?>
-                        </div>
-                    <?php endif ?>
+            <div class="container">
+                <div class="flex gap-16 text-balance">
+                    <div class="w-full">
+                        <?php if ((isset($message['title']) ? $message['title'] : false)): ?>
+                            <div class="font-semibold">
+                                <?php (print(isset($message['title']) ? $this->Html->safe($message['title']) : null)); ?>
+                            </div>
+                        <?php endif ?>
 
-                    <?php if (is_array($message['message'])): ?>
-                        <?php foreach ($message['message'] as $field => $messages): ?>
-                            <?php foreach ($messages as $key => $message_text): ?>
-                                <?= (isset($message_text) ? $this->Html->safe($message_text, (isset($preserve_tags) ? $preserve_tags : false)) : null); ?>
+                        <?php if (is_array($message['message'])): ?>
+                            <?php foreach ($message['message'] as $field => $messages): ?>
+                                <?php foreach ($messages as $key => $message_text): ?>
+                                    <?= (isset($message_text) ? $this->Html->safe($message_text, (isset($preserve_tags) ? $preserve_tags : false)) : null); ?>
+                                <?php endforeach ?>
                             <?php endforeach ?>
-                        <?php endforeach ?>
-                    <?php else: ?>
-                        <?= (isset($message['message']) ? $this->Html->safe($message['message'], (isset($preserve_tags) ? $preserve_tags : false)) : null); ?>
-                    <?php endif ?>
-                </div>
+                        <?php else: ?>
+                            <?= (isset($message['message']) ? $this->Html->safe($message['message'], (isset($preserve_tags) ? $preserve_tags : false)) : null); ?>
+                        <?php endif ?>
+                    </div>
 
-                <div class="flex items-center gap-6 text-nowrap">
-                    <?php if ((isset($message['buttons']) ? $message['buttons'] : false) && is_array($message['buttons'])): ?>
-                        <?php foreach ($message['buttons'] as $button): ?>
-                            <a href="<?php (print(isset($button['url']) ? $this->Html->safe($button['url']) : null)); ?>" class="btn-<?php (print(isset($type) ? $this->Html->safe($type) : null)); ?> <?= $message['btnClasses'] ?>">
-                                <i class="fas fa-fw <?= $this->Html->safe((isset($button['icon_class']) ? $button['icon_class'] : 'fa-exclamation-triangle')); ?>"></i>
-                                <?php (print(isset($button['label']) ? $this->Html->safe($button['label']) : null)); ?>
-                            </a>
-                        <?php endforeach ?>
-                    <?php endif ?>
+                    <div class="flex items-center gap-6 text-nowrap">
+                        <?php if ((isset($message['buttons']) ? $message['buttons'] : false) && is_array($message['buttons'])): ?>
+                            <?php foreach ($message['buttons'] as $button): ?>
+                                <a href="<?php (print(isset($button['url']) ? $this->Html->safe($button['url']) : null)); ?>" class="btn-<?php (print(isset($type) ? $this->Html->safe($type) : null)); ?> <?= $message['btnClasses'] ?>">
+                                    <i class="fas fa-fw <?= $this->Html->safe((isset($button['icon_class']) ? $button['icon_class'] : 'fa-exclamation-triangle')); ?>"></i>
+                                    <?php (print(isset($button['label']) ? $this->Html->safe($button['label']) : null)); ?>
+                                </a>
+                            <?php endforeach ?>
+                        <?php endif ?>
 
-                    <?php if ((isset($show_close) ? $show_close : true)): ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <?php endif ?>
+                        <?php if ((isset($show_close) ? $show_close : true)): ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <?php endif ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-<?php endforeach ?>
+    <?php endforeach ?>
+</div>
