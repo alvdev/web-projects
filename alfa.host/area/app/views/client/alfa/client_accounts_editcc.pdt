@@ -1,33 +1,32 @@
+<div class="flex gap-16">
+    <div class="mt-16 w-4/6">
+        <?= isset($message) ? $message : null; ?>
 
-<div class="col-md-3">
-    <?php echo ($navigation ?? null); ?>
-</div>
-<div class="col-md-9">
-    <div class="row">
-        <div class="col-md-12">
-            <?php
-            echo (isset($message) ? $message : null);
+        <?php
+        $this->WidgetClient->clear();
+        $this->WidgetClient->create($this->_('ClientAccounts.editcc.boxtitle_editcc', true));
+        $this->WidgetClient->startBody();
 
-            $this->WidgetClient->clear();
-            $this->WidgetClient->create($this->_('ClientAccounts.editcc.boxtitle_editcc', true));
-            $this->WidgetClient->startBody();
+        $this->Form->create(null, ['class' => 'disable-on-submit']);
+        ?>
 
-            $this->Form->create(null, ['class' => 'disable-on-submit']);
+        <!-- Set partials -->
+        <?= $contact_info ?? null; ?>
+        <?= $cc_info ?? null; ?>
 
-            // Set partials
-            echo (isset($contact_info) ? $contact_info : null);
-            ?>
-            <hr />
-            <?php echo (isset($cc_info) ? $cc_info : null);?>
-
-            <button type="submit" class="btn btn-light float-right">
-                <i class="fas fa-edit"></i> <?php $this->_('ClientAccounts.editcc.field_accountsubmit');?>
-            </button>
-            <?php
-            $this->Form->end();
-            $this->WidgetClient->endBody();
-            $this->WidgetClient->end();
-            ?>
-        </div>
+        <button type="submit" class="mt-24 btn-success-lg line-divider w-[calc(50%-1rem)]">
+            <i class="fas fa-edit"></i> <?php $this->_('ClientAccounts.editcc.field_accountsubmit'); ?>
+        </button>
+        <?php
+        $this->Form->end();
+        $this->WidgetClient->endBody();
+        $this->WidgetClient->end();
+        ?>
     </div>
+
+    <aside class="w-2/6 bg-divider">
+        <div class="sticky top-8">
+            <?= ($navigation ?? null); ?>
+        </div>
+    </aside>
 </div>
