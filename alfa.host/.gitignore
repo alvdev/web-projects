@@ -72,6 +72,8 @@
 /area/components/*
 !/area/components/modules/
 /area/components/modules/*
+!/area/components/gateways/
+/area/components/gateways/*
 
 ## cpanel
 !/area/components/modules/cpanel/
@@ -96,3 +98,17 @@
 # /area/components/modules/direct_admin/language/*
 # !/area/components/modules/direct_admin/language/en_us/
 # !/area/components/modules/direct_admin/language/es_es/
+
+## gateways
+### stripe
+!/area/components/gateways/merchant/
+/area/components/gateways/merchant/*
+!/area/components/gateways/merchant/stripe_payments/
+/area/components/gateways/merchant/stripe_payments/* 
+!/area/components/gateways/merchant/stripe_payments/stripe_payments.php 
+#### alfa views
+!/area/components/gateways/merchant/stripe_payments/views/
+/area/components/gateways/merchant/stripe_payments/views/*
+!/area/components/gateways/merchant/stripe_payments/views/alfa/ 
+/area/components/gateways/merchant/stripe_payments/views/alfa/* 
+!/area/components/gateways/merchant/stripe_payments/views/alfa/cc_form.pdt
