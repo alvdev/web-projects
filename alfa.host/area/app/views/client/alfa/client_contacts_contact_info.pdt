@@ -1,21 +1,18 @@
-<?php
-if (!(isset($edit) ? $edit : false)) {
-?>
-    <div class="row panel-fix">
-        <div class="col-md-12 top-focus-box">
-            <div class="form-group">
-                <?php
-                $this->Form->label($this->_('ClientContacts.contact_info.field_contact_id', true), 'contact_id');
-                $this->Form->fieldSelect('contact_id', ($contacts ?? null), ($vars->contact_id ?? null), ['id' => 'contact_id', 'class' => 'form-control']);
-                ?>
-                <p class="help-block"><i class="fas fa-lightbulb fa-fw"></i> <?php $this->_('ClientContacts.contact_info.text_select_contact'); ?></p>
+<?php if (!(isset($edit) ? $edit : false)): ?>
+    <!-- alvdev: need mb-16 instead h3.mt-16 because is shared section -->
+    <div class="row panel-fix mt-12 mb-16">
+        <div class="form-group flex items-center gap-8 *:w-1/2">
+            <div class="border-l-4 border-blue-400 py-4 text-center bg-linear-to-r from-blue-50 via-blue-50 rounded-l-md to-transparent" data-title="<?php $this->_('ClientContacts.contact_info.text_select_contact'); ?>">
+                <i class="fas fa-lightbulb fa-fw"></i>
+                <?php $this->Form->label($this->_('ClientContacts.contact_info.field_contact_id', true), 'contact_id'); ?>
             </div>
+            <?php $this->Form->fieldSelect('contact_id', ($contacts ?? null), ($vars->contact_id ?? null), ['id' => 'contact_id', 'class' => 'form-control']);
+            ?>
         </div>
     </div>
-<?php
-}
-?>
-<h3 class="">
+<?php endif ?>
+
+<h3>
     <?php $this->_('ClientContacts.contact_info.heading_contact'); ?>
 </h3>
 
