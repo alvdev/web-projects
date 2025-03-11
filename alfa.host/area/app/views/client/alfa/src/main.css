@@ -113,7 +113,7 @@
     }
 
     h4 {
-        @apply text-2xl;
+        @apply text-3xl;
     }
 
     h1,
@@ -151,7 +151,7 @@
     }
 
     input[type='checkbox'] {
-        @apply rounded-xs relative left-0.5 top-0.5 mr-2 h-4 w-4 appearance-none bg-white/60 text-center text-sm font-bold text-black ring-2 ring-gray-800 checked:bg-gray-800 checked:ring-2 checked:ring-gray-800 checked:after:relative checked:after:-top-[3px] checked:after:text-white checked:after:content-['✓'] hover:cursor-pointer [&+label]:hover:cursor-pointer;
+        @apply rounded-xs relative left-0.5 top-0.5 mr-2 h-4 w-4 min-w-4 min-h-4 appearance-none bg-white/60 text-center text-sm font-bold text-black ring-2 ring-gray-800 checked:bg-gray-800 checked:ring-2 checked:ring-gray-800 checked:after:relative checked:after:-top-[3px] checked:after:text-white checked:after:content-['✓'] hover:cursor-pointer [&+label]:hover:cursor-pointer;
     }
 
     a,
