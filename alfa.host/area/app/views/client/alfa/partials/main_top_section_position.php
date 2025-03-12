@@ -18,7 +18,7 @@ function getMainTopSectionPosition(): array
 
     foreach ($pages['urlContains'] as $url) {
         if (str_contains($request_uri, $url)) {
-            $headerPadding .= ' pb-18';
+            $headerPadding .= '';
             $mainPadding .= ' pt-28 pb-32';
             return [
                 'header' => $headerPadding,

@@ -26,7 +26,7 @@ $headerPadding = getMainTopSectionPosition()['header'];
         </div>
     </div>
 
-    <section class="cards h-0 overflow-clip container flex flex-col items-center relative z-2 bg-white rounded-sm shadow-2xl shadow-black/5 lg:flex-row gap-x-8 gap-y-4"></section>
+    <section id="hero" class="cards h-0 overflow-clip container flex flex-col items-center relative z-2 bg-white rounded-sm shadow-2xl shadow-black/5 lg:flex-row gap-x-8 gap-y-4"></section>
 
 </header>
 

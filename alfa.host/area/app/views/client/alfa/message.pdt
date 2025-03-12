@@ -32,7 +32,7 @@ $types = [
 ];
 ?>
 
-<div class="has-[.alert-dismissable]:absolute has-[.alert-dismissable]:z-1 has-[.alert-dismissable]:w-full has-[.alert-dismissable]:inset-x-0 top-0">
+<div id="alerts" class="">
     <?php foreach ($types as $type => $message): ?>
         <?php if (!$message['show']) continue; ?>
 

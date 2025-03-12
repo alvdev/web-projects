@@ -1,4 +1,4 @@
-<section class="whois relative px-8 py-12 -mt-48 mb-28 bg-gray-200 rounded-xs">
+<section id="hero" class="whois container relative z-1 -mt-28 translate-y-24 px-8 py-12 bg-blue-100 text-black rounded-md">
     <?php $this->Form->create(null, ['class' => 'disable-on-submit']); ?>
     <div class="flex flex-col items-center lg:flex-row gap-x-8 gap-y-4">
         <hgroup class="relative text-balance font-semibold text-center uppercase md:w-full lg:w-2/5">
@@ -247,7 +247,8 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
                             }
                             ?>
                             <!-- <label for="change_currency">
-                                <?php // $this->_('Main.index.field_currency'); ?>
+                                <?php // $this->_('Main.index.field_currency'); 
+                                ?>
                             </label> -->
                             <?php
                             $this->Form->fieldSelect('currency', $this->Form->collapseObjectArray($order_form->currencies, 'currency', 'currency'), (isset($currency) ? $currency : null), ['class' => 'form-control bg-white ring-0 cursor-pointer', 'id' => 'change_currency']);
@@ -259,7 +260,7 @@ if ((isset($domains) ? $domains : null) && !empty($domains)) {
             </tr>
         </thead>
 
-        <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100 *:hover:bg-blue-100 [&>tr]:*:py-2 [&>tr]:*:first:rounded-l-md [&>tr]:*:last:rounded-r-md [&>tr]:*:first:pl-4 [&>tr]:*:first:uppercase [&>tr]:*:first:font-semibold [&>tr]:*:w-1/6">
+        <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100 *:hover:bg-amber-100 [&>tr]:*:py-2 [&>tr]:*:first:rounded-l-md [&>tr]:*:last:rounded-r-md [&>tr]:*:first:pl-4 [&>tr]:*:first:uppercase [&>tr]:*:first:font-semibold [&>tr]:*:w-1/6">
             <?php
             if (!empty($spotlight_tlds)) {
                 foreach ($spotlight_tlds as $spotlight_tld => $true) {

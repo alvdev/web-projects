@@ -149,6 +149,19 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <?= $this->Javascript->getFiles('body'); ?>
     <?= $this->Javascript->getInline(); ?>
     <?= (isset($body_end) ? $body_end : null); ?>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('body > header');
+            const headerHero = document.querySelector('header #hero');
+            const mainHero = document.querySelector('main #hero');
+            const alerts = document.getElementById('alerts');
+
+            if (mainHero) header.appendChild(mainHero);
+            if (alerts) header.appendChild(alerts);
+            if (headerHero && alerts) alerts.classList.add('*:first:pt-18!');
+        })
+    </script>
 </body>
 
 </html>
