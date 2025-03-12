@@ -28,14 +28,14 @@
             </li>
         </ul>
 
-        <div class="tab-content">
-            <div id="contact" class="tab-pane fade show active">
+        <div class="tab-content *:transition-discrete *:duration-500 *:starting:opacity-0">
+            <div id="contact" class="tab-pane fade show active hidden">
                 <!-- Set partials -->
                 <?= $contact_info ?? null; ?>
                 <?= $phone_numbers ?? null; ?>
             </div>
 
-            <div id="settings" class="tab-pane fade">
+            <div id="settings" class="tab-pane fade hidden">
                 <h3 class="mt-16">
                     <?php $this->_('ClientContacts.add.heading_settings'); ?>
                 </h3>
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div id="authentication" class="tab-pane fade">
+            <div id="authentication" class="tab-pane fade hidden">
                 <h3 class="mt-16">
                     <?php $this->_('ClientContacts.add.heading_authentication'); ?>
                 </h3>
@@ -59,7 +59,7 @@
                     </label>
                 </div>
 
-                <div id="login_fields" class="mt-8 collapse<?= ((isset($user) ? $user : false) ? ' in' : ''); ?>">
+                <div id="login_fields" class="mt-8 *:transition-discrete *:duration-300 *:starting:opacity-0 collapse<?= ((isset($user) ? $user : false) ? ' in' : ''); ?>">
                     <div class="grid grid-cols-2 gap-x-8 gap-y-6">
                         <div class="form-group">
                             <?php $this->Form->label($this->_('ClientContacts.add.field_username', true), 'username'); ?>
