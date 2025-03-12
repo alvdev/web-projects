@@ -211,22 +211,6 @@
             var(--color-slate-900) 0%,
             var(--color-black) 100%
         );
-
-        &:has(section > *) + main {
-            @apply pt-32;
-
-            &:has(.alert-dismissable) {
-                @apply pt-52!;
-            }
-
-            .alert-dismissable {
-                @apply pt-18!;
-            }
-        }
-
-        /*         &:has(section > *) + main:has(.alert-dismissable) {
-            @apply pt-52! border-8! border-red-500;
-        } */
     }
 
     footer {
