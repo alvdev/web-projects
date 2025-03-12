@@ -42,6 +42,17 @@
   }
 }
 
+/* .tab-pane {
+    @apply transition-discrete duration-300;
+
+    &.show {
+
+        @starting-style {
+            @apply opacity-0;
+        }
+    }
+} */
+
 @layer base {
     html {
         @apply scroll-smooth;
@@ -71,10 +82,10 @@
     }
 
     [popover] {
-        @apply hidden opacity-0 transition-discrete duration-1000 border-2 border-blue-400 rounded-md text-left shadow-lg;
+        @apply hidden opacity-0 transition-discrete duration-300 border-2 border-blue-400 rounded-md text-left shadow-lg;
             
         a {
-            @apply px-6 py-2 first:pt-4 last:pb-4 hover:bg-blue-100;
+            @apply block px-6 py-2 first:pt-4 last:pb-4 hover:bg-blue-100;
         }
 
         &:popover-open {
