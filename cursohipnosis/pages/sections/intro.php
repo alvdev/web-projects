@@ -2,7 +2,7 @@
     <div class="flex gap-24 justify-between items-center *:w-1/2">
         <hgroup class="text-center">
             <h1>Con el curso de hipnosis terapéutica <span class="font-bold">ayudarás a tus pacientes a curar</span>:</h1>
-            <h2 class="mt-8 opacity-70 text-3xl">fobias, ansiedad, nervios, insomnio, autoestima, dolores, estrés, depresión, y a dejar de fumar</h2>
+            <h2 class="mt-8 opacity-70 text-3xl">fobias, ansiedad, nervios, insomnio, autoestima, dolores, estrés, depresión y tabaquismo.</h2>
             <div class="flex justify-center gap-4 mt-16">
                 <a href="#contact" class="bg-blue-950 text-white px-8 py-4 rounded-lg uppercase flex items-center">
                     Reservar plaza
@@ -27,13 +27,13 @@
 
 <section class="mt-48 relative after:absolute after:-z-10 after:inset-0 after:my-auto after:bg-blue-950 after:h-5/6 after:w-full after:border-4  after:content-['']">
     <div class="container w-1/2 rounded-2xl overflow-clip border-white ring-8 border-6 shadow-2xl">
-        <iframe width="100%" height="" class="aspect-video" src="https://www.youtube.com/embed/EbcM5pXWbK8?si=UKkaaaZfbex0wpzo&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="100%" class="aspect-video" src="https://www.youtube.com/embed/EbcM5pXWbK8?si=UKkaaaZfbex0wpzo&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </section>
 
 <section class="container mt-42">
     <div class="text-center">
-        <h2 class="mb-8 text-5xl">¿<span class="font-bold">Quién te enseñará</span> la terapida de hipnosis?</h2>
+        <h2 class="mb-8 text-5xl">¿<span class="font-bold">Quién te enseñará</span> la terapia de hipnosis?</h2>
         <div class="text-2xl *:text-balance">
             <p>Soy Jaime Velasco, especializado en hipnosis terapéutica, con más de 15 años de experiencia ayudando a pacientes con cualquier tipo de situación de las mencionadas.</p>
             <p>Me encargaré de transmitirte tanto la información teórica como las técnicas a aplicar en el proceso de hipnosis, en función de tus necesidades y de tu perfil.</p>
@@ -43,7 +43,7 @@
     <div class="mt-32 grid grid-cols-4 gap-8 justify-between items-center *:bg-blue-950 **:[p]:text-white **:[p]:opacity-100 *:h-full">
         <img src="<?= asset('images/jaime-velasco.webp') ?>" alt="" class="border-4 rounded-lg">
         <div class="flex flex-col justify-center p-12 rounded-lg">
-            <p>La Hipnosis Terapéutica es una técnica utilizada para ayudar a las personas a explorar y abordar diversos problemas de salud mental, emocionales o físicos.</p>
+            <p>La hipnosis terapéutica es una técnica utilizada para ayudar a las personas a explorar y abordar diversos problemas de salud mental, emocionales o físicos.</p>
         </div>
 
         <div class="flex flex-col justify-center p-12 rounded-lg">
