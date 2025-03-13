@@ -1,0 +1,15 @@
+{
+  "name": "cursohipnosis",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.min.css --watch"
+  } 
+}
