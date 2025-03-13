@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Redirect root requests to the subdirectory
+RewriteRule ^$ pages/ [L]
+
+# Redirect all other requests to the subdirectory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ pages/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
