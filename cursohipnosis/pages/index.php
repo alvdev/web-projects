@@ -6,7 +6,9 @@
     <?php require('partials/nav.php') ?>
 
     <main>
-        <?php require('partials/header.php') ?>
+        <?php require('sections/intro.php') ?>
+        <?php require('sections/testimonials.php') ?>
+        <?php require('sections/contact.php') ?>
     </main>
 
     <?php require('partials/footer.php') ?>
