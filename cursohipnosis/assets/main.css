@@ -1,11 +1,18 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'flowbite/src/themes/default';
+
+@plugin "flowbite/plugin";
+
+@source "../node_modules/flowbite";
 
 @layer base {
     body {
-        @apply bg-gray-200 text-lg text-slate-800 font-sans;
+        @apply bg-gray-200 font-sans text-lg text-slate-800;
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
         @apply font-semibold;
     }
     h1 {
