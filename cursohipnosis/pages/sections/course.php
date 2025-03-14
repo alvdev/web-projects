@@ -73,3 +73,85 @@
         </div>
     </div>
 </section>
+
+<section class="mt-42">
+    <h2 class="container text-5xl text-center">
+        ¿<span class="font-bold">Por qué realizar el curso</span> de hipnosis terapéutica?
+    </h2>
+    <div class="container mt-24 grid grid-cols-2 gap-8">
+        <div class="flex flex-col gap-8">
+            <details class="" name="faq">
+                <summary>Amplía las opciones terapéuticas</summary>
+                <div>
+                    La hipnosis terapéutica es una herramienta adicional que puede brindar a los terapeutas una mayor variedad de opciones para abordar los problemas de sus pacientes. Esto puede ser especialmente útil cuando otras terapias no han tenido éxito o cuando se requiere un enfoque diferente.
+                </div>
+            </details>
+            <details class="" name="faq">
+                <summary>Acceso a recursos subconscientes</summary>
+                <div>
+                    La hipnosis terapéutica permite acceder al subconsciente del paciente, lo que puede ayudar a identificar y abordar problemas arraigados que pueden ser difíciles de abordar con terapias tradicionales. Esto puede ser especialmente útil en el tratamiento de traumas, fobias y otros problemas emocionales profundos.
+                </div>
+            </details>
+            <details class="" name="faq">
+                <summary>Potencia el autocontrol y el cambio de hábitos</summary>
+                <div>
+                    La hipnosis terapéutica puede ser efectiva para ayudar a las personas a cambiar comportamientos no deseados o hábitos perjudiciales, como dejar de fumar, perder peso o superar adicciones.
+                </div>
+            </details>
+            <details class="" name="faq">
+                <summary>Reducción del estrés y la ansiedad</summary>
+                <div>
+                    La hipnosis terapéutica puede ayudar a las personas a relajarse, reducir el estrés y la ansiedad, y mejorar su bienestar general. Esto puede complementar otras terapias destinadas a tratar trastornos de ansiedad, depresión o estrés postraumático.
+                </div>
+            </details>
+        </div>
+        <div class="flex flex-col gap-8">
+            <details class="" name="faq">
+                <summary>Aumento de la autoestima y la confianza</summary>
+                <div>
+                    La hipnosis terapéutica puede ayudar a las personas a desarrollar una mayor autoestima y confianza en sí mismas, lo que puede ser beneficioso en el proceso de recuperación y en la mejora de su calidad de vida.
+                </div>
+            </details>
+            <details class="" name="faq">
+                <summary>Enfoque en problemas específicos</summary>
+                <div>
+                    La hipnosis terapéutica se puede adaptar para abordar problemas específicos de cada paciente, lo que la hace versátil y personalizable para las necesidades individuales.
+                </div>
+            </details>
+            <details class="" name="faq">
+                <summary>Complemento de terapias tradicionales</summary>
+                <div>
+                    La hipnosis terapéutica se puede utilizar en conjunto con otras terapias, como la psicoterapia cognitivo-conductual, la terapia de conversación o la terapia farmacológica. Esto puede aumentar las posibilidades de éxito en el tratamiento.
+                </div>
+            </details>
+            <details class="" name="faq">
+                <summary>Resultados rápidos</summary>
+                <div>
+                    En algunos casos, la hipnosis terapéutica puede producir resultados más rápidos en comparación con otras terapias, lo que puede ser alentador para los pacientes que buscan una mejoría rápida.
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<section class="mt-36 bg-blue-950 py-16 text-white">
+    <div class="container flex items-center gap-16 *:first:w-1/4 *:last:w-3/4">
+        <h2 class="text-5xl">Recuerda siempre que...</h2>
+        <div>
+            <div class="grid grid-cols-3 gap-8 items-center justify-end *:opacity-100 *:h-full *:m-0 *:flex *:items-center *:px-8 *:py-6 *:border *:rounded-lg">
+                <p>
+                    La hipnosis terapéutica debe ser realizada por profesionales debidamente capacitados y muy éticos en su práctica.
+                </p>
+                <p>
+                    No todas las personas son adecuadas para la hipnosis. Es importante evaluar cuidadosamente a los pacientes antes de utilizar esta técnica.
+                </p>
+                <p>
+                    Jaime Velasco tiene una comprensión sólida de las técnicas de hipnosis, así como de la ética y la responsabilidad en la práctica de la terapia.
+                </p>
+            </div>
+            <div class="mt-12 text-2xl leading-normal text-balance text-center">
+                El curso de hipnosis terapéutica será un valioso complemento para para expandir tus habilidades y ofrecer opciones terapéuticas adicionales a tus pacientes, siempre que lo hagas de manera ética y profesional.
+            </div>
+        </div>
+    </div>
+</section>
