@@ -8,6 +8,7 @@
     <main>
         <?php require('sections/intro.php') ?>
         <?php require('sections/testimonials.php') ?>
+        <?php require('sections/course.php') ?>
         <?php require('sections/contact.php') ?>
     </main>
 
