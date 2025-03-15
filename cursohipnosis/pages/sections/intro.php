@@ -60,5 +60,5 @@
 
 <section class="container mt-16 md:mt-24 lg:mt-36 text-center">
     <h2 class="text-4xl md:text-5xl">¿No quieres perder más tiempo?</h2>
-    <a href="#contact" class="mt-8 md:mt-12 lg:mt-16 border-2 inline-flex items-center justify-center md:min-w-1/2 px-12 py-8 text-2xl font-semibold rounded-lg uppercase">Reserva tu plaza ya</a>
+    <a href="#contact" class="mt-8 md:mt-12 lg:mt-16 border-2 inline-flex items-center justify-center md:min-w-1/2 px-12 py-6 md:py-8 text-2xl font-semibold rounded-lg uppercase">Reserva tu plaza ya</a>
 </section>
