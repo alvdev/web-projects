@@ -28,7 +28,7 @@
 </section>
 
 <section class="mt-24 md:mt-36 lg:mt-48 relative after:absolute after:-z-10 after:inset-0 after:my-auto after:bg-blue-950 after:h-5/6 after:w-full after:border-4  after:content-['']">
-    <div class="container w-5/6 lg:w-1/2 rounded-2xl overflow-clip border-white ring-8 border-6 shadow-2xl">
+    <div class="container px-0 w-5/6 lg:w-1/2 rounded-2xl overflow-clip border-white ring-4 md:ring-8 border-6 shadow-2xl">
         <lite-youtube videoid="EbcM5pXWbK8"></lite-youtube>
     </div>
 </section>
