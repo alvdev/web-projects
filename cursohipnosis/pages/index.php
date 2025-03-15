@@ -2,8 +2,8 @@
 <html lang="es" class="scroll-smooth">
 <?php require('partials/head.php') ?>
 
-<body>
-    <?php require('partials/nav.php') ?>
+<body class="debug-screens">
+    <?php require('partials/header.php') ?>
 
     <main>
         <?php require('sections/intro.php') ?>
