@@ -32,7 +32,7 @@
 
     <div class="container mt-8 grid grid-cols-4 gap-8 items-center">
         <div class="relative">
-            <img src="<?= asset('images/fases-curso-hipnosis-1.webp') ?>" alt="" class="rounded-lg">
+            <img loading="lazy" src="<?= asset('images/fases-curso-hipnosis-1.webp') ?>" alt="" class="rounded-lg">
             <div class="absolute z-10 flex flex-col justify-between h-full w-full top-0 p-8 *:fill-white ">
                 <?= asset('icons/check-note.svg', true) ?>
                 <h3 class="text-white text-4xl flex items-center gap-4">
@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="relative">
-            <img src="<?= asset('images/fases-curso-hipnosis-2.webp') ?>" alt="" class="rounded-lg">
+            <img loading="lazy" src="<?= asset('images/fases-curso-hipnosis-2.webp') ?>" alt="" class="rounded-lg">
             <div class="absolute z-10 flex flex-col justify-between h-full w-full top-0 p-8 *:fill-white ">
                 <?= asset('icons/road-plan.svg', true) ?>
                 <h3 class="text-white text-4xl flex items-center gap-4">
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="relative">
-            <img src="<?= asset('images/fases-curso-hipnosis-3.webp') ?>" alt="" class="rounded-lg">
+            <img loading="lazy" src="<?= asset('images/fases-curso-hipnosis-3.webp') ?>" alt="" class="rounded-lg">
             <div class="absolute z-10 flex flex-col justify-between h-full w-full top-0 p-8 *:fill-white ">
                 <?= asset('icons/road-indicators.svg', true) ?>
                 <h3 class="text-white text-4xl flex items-center gap-4">
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="relative">
-            <img src="<?= asset('images/fases-curso-hipnosis-4.webp') ?>" alt="" class="rounded-lg">
+            <img loading="lazy" src="<?= asset('images/fases-curso-hipnosis-4.webp') ?>" alt="" class="rounded-lg">
             <div class="absolute z-10 flex flex-col justify-between h-full w-full top-0 p-8 *:fill-white ">
                 <?= asset('icons/growth-graph.svg', true) ?>
                 <h3 class="text-white text-4xl flex items-center gap-4">
