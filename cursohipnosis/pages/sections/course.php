@@ -149,7 +149,7 @@
                     Jaime Velasco tiene una comprensión sólida de las técnicas de hipnosis, así como de la ética y la responsabilidad en la práctica de la terapia.
                 </p>
             </div>
-            <div class="mt-12 text-2xl leading-normal text-balance text-center">
+            <div class="mt-12 text-xl md:text-2xl opacity-80 leading-normal text-balance text-center">
                 El curso de hipnosis terapéutica será un valioso complemento para para expandir tus habilidades y ofrecer opciones terapéuticas adicionales a tus pacientes, siempre que lo hagas de manera ética y profesional.
             </div>
         </div>
