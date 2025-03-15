@@ -6,5 +6,5 @@
     <title><?= title() ?></title>
     <link rel="stylesheet" href="<?= asset('main.min.css') ?>">
     <script defer src="<?= asset('main.js') ?>"></script>
-    <script type="module" src="dist/liteyt.js"></script>
+    <script defer type="module" src="dist/liteyt.js"></script>
 </head>
