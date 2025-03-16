@@ -6,7 +6,8 @@
   },
   "private": true,
   "scripts": {
-    "dev": "npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.min.css --watch"
+    "dev": "npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.css --watch",
+    "build": "npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.min.css --minify"
   },
   "type": "module"
 }
