@@ -7,6 +7,11 @@
                 'active' => false,
                 'icon' => 'fas fa-users'
             ],
+            'managers/add/' => [
+                'name' => 'ClientManagers.index.add_manager',
+                'active' => false,
+                'icon' => 'fas fa-user-plus'
+            ],
             'managers/accounts/' => [
                 'name' => 'ClientManagers.navigation.nav_managed_accounts',
                 'active' => false,
