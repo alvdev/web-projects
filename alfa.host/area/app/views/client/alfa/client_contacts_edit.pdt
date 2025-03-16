@@ -1,6 +1,7 @@
+<?= $message ?? null ?>
+
 <div class="flex gap-16">
     <div class="w-4/6">
-        <?= (isset($message) ? $message : null); ?>
 
         <?php
         $this->WidgetClient->clear();
