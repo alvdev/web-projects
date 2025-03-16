@@ -1,5 +1,5 @@
-
-    <div class="list-group">
+<div class="sticky top-8">
+    <div class="list-group grid gap-3 pl-12">
         <?php
         $navigation = [
             'managers/' => [
@@ -18,18 +18,20 @@
                 'icon' => 'fas fa-arrow-left'
             ]
         ];
+        ?>
 
-        foreach ($navigation as $link => $value) {
+        <?php foreach ($navigation as $link => $value): ?>
+            <?php
             $link = $this->Html->safe((isset($link) ? $link : ''));
             $prefix = !str_contains($link, '://') ? (isset($this->base_uri) ? $this->Html->safe($this->base_uri) : null) : '';
-        ?>
-            <a href="<?php echo $prefix . $link;?>" class="list-group-item list-group-item-action <?php echo ($value['active'] ? 'active' : '');?>">
-                <i class="<?php (print (isset($value['icon']) ? $this->Html->safe($value['icon']) : null));?> fa-fw"></i>
-                <?php
-                $this->_($value['name'] ?? null);
-                ?>
+            $isActive = $prefix . $link === $_SERVER['REQUEST_URI'] ||
+                $prefix . $link . 'ach/' === $_SERVER['REQUEST_URI'] ||
+                $prefix . $link . 'cc/' === $_SERVER['REQUEST_URI'] ? true : false;
+            ?>
+            <a href="<?= $prefix . $link; ?>" class="flex items-center px-4 py-3 gap-3 uppercase rounded-full <?= $isActive ? 'active bg-white text-black [&>i]:text-slate-500 cursor-default disable' : 'text-slate-600 hover:text-black'; ?>">
+                <i class="<?php (print(isset($value['icon']) ? $this->Html->safe($value['icon']) : null)); ?> fa-fw text-blue-600"></i>
+                <?php $this->_($value['name'] ?? null); ?>
             </a>
-        <?php
-        }
-        ?>
+        <?php endforeach ?>
     </div>
+</div>
