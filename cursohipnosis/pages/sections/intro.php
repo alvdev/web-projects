@@ -2,16 +2,16 @@
     <div class="lg:flex gap-24 justify-between items-center lg:*:w-1/2">
         <hgroup class="text-center">
             <h1>Con el curso de hipnosis terapéutica <span class="font-bold">ayudarás a tus pacientes a curar</span>:</h1>
-            <h2 class="mt-8 opacity-70 text-2xl md:text-3xl">fobias, ansiedad, nervios, insomnio, autoestima, dolores, estrés, depresión y tabaquismo.</h2>
+            <h2 class="mt-8 opacity-70 text-2xl md:text-3xl">fobias, ansiedad, nervios, insomnio, autoestima, dolores, estrés, depresión, tabaquismo, etc.</h2>
             <div class="w-fit md:w-full mx-auto md:flex justify-center gap-4 mt-16">
                 <a href="#contact" class="bg-blue-950 text-white px-8 py-4 rounded-lg uppercase flex items-center">
                     Reservar plaza
                 </a>
                 <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="https://wa.me/34630818123" class="inline-flex border-1.5 px-8 py-4 rounded-lg uppercase *:[svg]:w-8 **:[path]:fill-blue-950">
+                    <a href="https://wa.me/34630818123" class="inline-flex border-1.5 px-8 py-4 rounded-lg uppercase *:[svg]:w-8 **:[path]:fill-blue-950" aria-label="Escribir por Whatsapp">
                         <?= asset('icons/whatsapp.svg', true) ?>
                     </a>
-                    <a href="tel:+34630818123" class="inline-flex border-1.5 px-8 py-4 rounded-lg uppercase *:[svg]:w-8 **:[path]:fill-blue-950">
+                    <a href="tel:+34630818123" class="inline-flex border-1.5 px-8 py-4 rounded-lg uppercase *:[svg]:w-8 **:[path]:fill-blue-950" aria-label="Llamar por teléfono">
                         <?= asset('icons/phone-calling.svg', true) ?>
                     </a>
                 </div>
@@ -19,10 +19,18 @@
         </hgroup>
 
         <div class="mt-24 md:mt-32 lg:mt-0 grid grid-cols-2 gap-4 md:gap-8 *:border-4 *:border-white *:ring-3 *:rounded-lg *:relative *:shadow-2xl *:shadow-blue-100">
-            <img class="z-[4]" src="<?= asset('images/dejar-de-fumar-con-hipnosis.webp') ?>" alt="Imagen Curso de Hipnosis" />
-            <img class="z-[3] -top-8" src="<?= asset('images/durmiendo-gracias-a-la-hipnosis.webp') ?>" alt="Imagen Curso de Hipnosis" />
-            <img class="z-[5]" src="<?= asset('images/mujer-hipnotizada.webp') ?>" alt="Imagen Curso de Hipnosis" />
-            <img class="z-[6] -top-8" src="<?= asset('images/reduccion-de-medicamentos-con-hipnosis.webp') ?>" alt="Imagen Curso de Hipnosis" />
+            <img class="z-[4]"
+                src="<?= asset('images/dejar-de-fumar-con-hipnosis.webp') ?>"
+                srcset="<?= asset('images/dejar-de-fumar-con-hipnosis.webp') ?> 400w" alt="Imagen Curso de Hipnosis" width="319" height="195" />
+            <img class="z-[3] -top-8"
+                src="<?= asset('images/durmiendo-gracias-a-la-hipnosis.webp') ?>"
+                srcset="<?= asset('images/durmiendo-gracias-a-la-hipnosis.webp') ?> 400w" alt="Imagen Curso de Hipnosis" width="319" height="195" />
+            <img class="z-[5]"
+                src="<?= asset('images/mujer-hipnotizada.webp') ?>"
+                srcset="<?= asset('images/mujer-hipnotizada.webp') ?> 400w" alt="Imagen Curso de Hipnosis" width="319" height="195" />
+            <img class="z-[6] -top-8"
+                src="<?= asset('images/reduccion-de-medicamentos-con-hipnosis.webp') ?>"
+                srcset="<?= asset('images/reduccion-de-medicamentos-con-hipnosis.webp') ?> 400w" alt="Imagen Curso de Hipnosis" width="319" height="195" />
         </div>
     </div>
 </section>
@@ -43,7 +51,10 @@
     </div>
 
     <div class="mt-16 md:mt-24 lg:mt-32 grid md:grid-cols-2 lg:grid-cols-4 gap-8 justify-between items-center *:bg-blue-950 **:[p]:text-white **:[p]:opacity-100 *:h-full">
-        <img loading="lazy" src="<?= asset('images/jaime-velasco.webp') ?>" alt="" class="border-4 rounded-lg">
+        <img loading="lazy" class="border-4 rounded-lg object-cover" width="510" height="669"
+            src="<?= asset('images/jaime-velasco.webp') ?>" 
+            srcset="<?= asset('images/jaime-velasco.webp') ?> 400w"
+            alt="Fotografía de Jaime Velasco">
         <div class="flex flex-col justify-center p-12 rounded-lg">
             <p>La hipnosis terapéutica es una técnica utilizada para ayudar a las personas a explorar y abordar diversos problemas de salud mental, emocionales o físicos.</p>
         </div>

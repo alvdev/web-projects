@@ -1,13 +1,13 @@
 <section id="course" class="relative text-center">
     <div class="grid overflow-clip">
         <div class="justify-self-end relative -right-24 md:-right-36 lg:right-0 top-12 md:top-24 lg:top-20">
-            <img src="<?= asset('images/hand-1.webp') ?>" alt="">
+            <img src="<?= asset('images/hand-1.webp') ?>" alt="" width="629" height="280">
         </div>
         <h2 class="container  text-3xl md:text-4xl lg:text-5xl text-center">
             <span class="font-bold">El Curso de Hipnosis Terapeutica te ayudará</span> a complementar tus conocimientos y a mejorar en la forma de tratar los problemas de tus pacientes.
         </h2>
         <div class="mt-8 relative -left-16 md:left-0">
-            <img src="<?= asset('images/hand-2.webp') ?>" alt="">
+            <img src="<?= asset('images/hand-2.webp') ?>" alt="" width="510" height="240">
         </div>
     </div>
 </section>
