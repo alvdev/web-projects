@@ -1,71 +1,71 @@
+<?= $message ?? null ?>
 
-<div class="col-md-3">
-    <?php echo ($navigation ?? null); ?>
-</div>
-<div class="col-md-9">
-    <div class="row">
-        <div class="col-md-12">
+<div class="flex gap-16">
+    <div class="w-4/6">
+        <?php
+        $this->WidgetClient->clear();
+        $this->WidgetClient->create($this->_('ClientManagers.add.boxtitle_add_manager', true));
+        $this->WidgetClient->startBody();
+
+        $this->Form->create(null, ['class' => 'disable-on-submit']);
+        ?>
+
+        <h3 class="mt-16">
+            <?php $this->_('ClientManagers.add.heading_invite_manager'); ?>
+        </h3>
+
+        <div class="form-group mt-8">
             <?php
-            echo ($message ?? null);
-
-            $this->WidgetClient->clear();
-            $this->WidgetClient->create($this->_('ClientManagers.add.boxtitle_add_manager', true));
-            $this->WidgetClient->startBody();
-
-            $this->Form->create(null, ['class' => 'disable-on-submit']);
+            $this->Form->label($this->_('ClientManagers.add.field_email', true), 'email');
             ?>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h4><?php $this->_('ClientManagers.add.heading_invite_manager');?></h4>
-
-                    <div class="form-group">
-                        <?php
-                        $this->Form->label($this->_('ClientManagers.add.field_email', true), 'email');
-                        ?>
-                        <a href="#" data-toggle="tooltip" title="<?php $this->_('ClientManagers.tooltip.field_email', false, ($company->name ?? 'Blesta'));?>"><i class="fas fa-question-circle text-info"></i></a>
-                        <?php
-                        $this->Form->fieldText('email', ($vars->email ?? null), ['id' => 'email', 'class' => 'form-control', 'placeholder' => $this->_('ClientManagers.add.field_email', true)]);
-                        ?>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <h4><?php $this->_('ClientManagers.add.heading_permissions');?></h4>
-                </div>
-                <?php
-                foreach ((array)($permissions ?? null) as $area => $name) {
-                ?>
-                    <div class="col-sm-4">
-                        <div class="checkbox-inline">
-                            <label>
-                                <?php
-                                $this->Form->fieldCheckbox('permissions[area][]', $area, in_array($area, (array)(isset($vars->permissions['area']) ? $vars->permissions['area'] : null)));
-                                (print (isset($name) ? $this->Html->safe($name) : null));
-                                ?>
-                                <?php
-                                if ($this->_('ClientManagers.tooltip.' . $area, true) != '') {
-                                ?>
-                                    <a href="#" data-toggle="tooltip" title="<?php $this->_('ClientManagers.tooltip.' . $area);?>"><i class="fas fa-question-circle text-info"></i></a>
-                                <?php
-                                }
-                                ?>
-                            </label>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-
-            <button type="submit" class="btn btn-light float-right">
-                <i class="fas fa-plus-circle"></i> <?php $this->_('ClientManagers.add.field_addsubmit');?>
-            </button>
+            <a href="#" data-toggle="tooltip" data-title="<?php $this->_('ClientManagers.tooltip.field_email', false, ($company->name ?? 'The Alfa Host, LLC')); ?>"><i class="fas fa-question-circle text-info"></i></a>
             <?php
-            $this->Form->end();
-            $this->WidgetClient->endBody();
-            $this->WidgetClient->end();
+            $this->Form->fieldText('email', ($vars->email ?? null), ['id' => 'email', 'class' => 'form-control', 'placeholder' => $this->_('ClientManagers.add.field_email', true)]);
             ?>
         </div>
+
+        <h3 class="mt-16">
+            <?php $this->_('ClientManagers.add.heading_permissions'); ?>
+        </h3>
+
+        <div class="mt-8 grid grid-cols-2 gap-x-8 gap-y-6">
+            <?php foreach ((array)($permissions ?? null) as $area => $name): ?>
+                <div class="form-group">
+                    <label class="flex gap-2 border-2 border-slate-200 rounded-md h-full px-4 py-3 has-checked:border-black has-checked:bg-slate-50 hover:border-blue-400 group">
+                        <div class="mt-0.5">
+                            <?php
+                            $this->Form->fieldCheckbox('permissions[area][]', $area, in_array($area, (array)(isset($vars->permissions['area']) ? $vars->permissions['area'] : null)));
+                            ?>
+                        </div>
+                        <div class="text-base">
+                            <h5 class="group-has-checked:text-black">
+                                <?php (print(isset($name) ? $this->Html->safe($name) : null)); ?>
+                            </h5>
+                            <!-- TODO: add tooltips(descriptions) to all permissions -->
+                            <?php if ($this->_('ClientManagers.tooltip.' . $area, true) != ''): ?>
+                                <div class="font-normal normal-case mt-2">
+                                    <?php $this->_('ClientManagers.tooltip.' . $area); ?>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                    </label>
+                </div>
+            <?php endforeach ?>
+        </div>
+
+        <button type="submit" class="btn-success-lg line-divider mt-24 w-[calc(50%-1rem)]">
+            <i class="fas fa-plus-circle"></i> <?php $this->_('ClientManagers.add.field_addsubmit'); ?>
+        </button>
+        <?php
+        $this->Form->end();
+        $this->WidgetClient->endBody();
+        $this->WidgetClient->end();
+        ?>
     </div>
+
+    <aside class="w-2/6 bg-divider">
+        <div class="sticky top-8">
+            <?= ($navigation ?? null); ?>
+        </div>
+    </aside>
 </div>
