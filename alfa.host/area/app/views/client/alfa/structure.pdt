@@ -151,15 +151,15 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <?= (isset($body_end) ? $body_end : null); ?>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('load', () => {
             const header = document.querySelector('body > header');
-            const headerHero = document.querySelector('header #hero');
-            const mainHero = document.querySelector('main #hero');
+            const headerHero = document.querySelector('header .hero');
+            const mainHero = document.querySelector('main .hero');
             const alerts = document.getElementById('alerts');
 
-            if (mainHero) header.appendChild(mainHero);
-            if (alerts) header.appendChild(alerts);
-            if (headerHero && alerts) alerts.classList.add('*:first:pt-18!');
+            if (mainHero) header.appendChild(mainHero).classList.remove('invisible');
+            if (alerts) header.appendChild(alerts).classList.remove('hidden');
+            if (headerHero.textContent && alerts) alerts.classList.add('*:first:pt-18!');
         })
     </script>
 </body>

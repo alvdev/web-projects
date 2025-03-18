@@ -45,12 +45,14 @@
 
         <div class="list-group border-l-4 border-gray-200 mb-1 pl-4 py-2">
             <?php if (count($contacts ?? []) > 0): ?>
-                <?php foreach ($contacts as $contact): ?>
-                    <?php if ($contact->contact_type !== 'primary'): ?>
-                        <a href="<?= $this->Html->safe($this->base_uri . 'contacts/edit/' . $contact->id . '/'); ?>" class="list-group-item list-group-item-action"><i class="fas fa-user fa-fw"></i> <?= (isset($contact->first_name) ? $this->Html->safe($contact->first_name) : null) . ' ' . (isset($contact->last_name) ? $this->Html->safe($contact->last_name) : null); ?>
-                        </a>
-                    <?php endif ?>
-                <?php endforeach ?>
+                <div class="grid gap-2">
+                    <?php foreach ($contacts as $contact): ?>
+                        <?php if ($contact->contact_type !== 'primary'): ?>
+                            <a href="<?= $this->Html->safe($this->base_uri . 'contacts/edit/' . $contact->id . '/'); ?>" class="list-group-item list-group-item-action"><i class="fas fa-user fa-fw"></i> <?= (isset($contact->first_name) ? $this->Html->safe($contact->first_name) : null) . ' ' . (isset($contact->last_name) ? $this->Html->safe($contact->last_name) : null); ?>
+                            </a>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                </div>
             <?php else: ?>
                 <div class="text-gray-500 font-semibold" role="alert">
                     <?php $this->_('ClientMain.!info.no_contacts'); ?>
