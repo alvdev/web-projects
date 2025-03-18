@@ -58,6 +58,7 @@
                         <?php $this->_('ClientContacts.edit.field_enable_login'); ?>
                     </label>
                 </div>
+                
                 <div id="login_fields" class="mt-8 *:transition-discrete *:duration-300 *:starting:opacity-0 collapse<?php echo ((isset($user) ? $user : false) ? ' in' : ''); ?>">
                     <div class="grid grid-cols-2 gap-x-8 gap-y-6">
                         <div class="form-group">
@@ -92,7 +93,7 @@
                         </div>
                     </div>
 
-                    <h4>
+                    <h4 class="mt-16">
                         <?php $this->_('ClientContacts.edit.heading_permissions'); ?>
                     </h4>
 
