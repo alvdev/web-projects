@@ -595,6 +595,10 @@
     }
 }
 
+@utility btn-light-close {
+    @apply relative *:w-12 *:h-12 *:fill-white after:absolute after:top-1/2 after:left-1/2 after:-translate-1/2 after:-z-50 after:w-8 after:h-8 after:content-[''] after:bg-black after:rounded-full hover:after:bg-neutral-500 hover:animate-pulse;
+}
+
 /* Arbitrary utilities */
 
 @utility border-1.5 {
