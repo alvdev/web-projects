@@ -1,30 +1,34 @@
-<div class="flex items-center justify-between p-8">
-    <h5 class="flex items-center gap-4 text-2xl font-semibold uppercase">
+<div class="flex items-center justify-between pb-8 px-4">
+    <h4 class="flex items-center gap-4 font-semibold uppercase">
         <?php $this->_('AppController.modal.text_confirm'); ?>
-    </h5>
-    <button type="button" class="block h-8 w-8 cursor-pointer rounded-full border text-2xl hover:bg-black hover:text-white transition-all" data-dismiss="modal" aria-label="Close">
-        <span class="relative -top-[3px] block" aria-hidden="true">×</span>
+    </h4>
+    <button type="button" class="btn-light-close" data-dismiss="modal" aria-label="Close">
+        <?= file_get_contents(dirname(__FILE__) . '/assets/icons/close-fill.svg') ?>
     </button>
 </div>
 
-<div class="relative *:relative! **:[.alert.alert-dismissable]:bg-none! **:[.alert.alert-dismissable]:text-black **:[.alert.alert-dismissable]:px-8 **:[.alert.alert-dismissable]:pt-4 **:[.alert.alert-dismissable]:pb-16 **:[.alert.alert-dismissable]:shadow-none **:[.alert.alert-dismissable]:before:hidden **:[.alert.alert-dismissable]:after:hidden **:[.alert.alert-dismissable]:text-2xl **:[.alert.alert-dismissable_.text-balance]:text-center!">
+<div class="px-4 relative *:relative! **:[.alert.alert-dismissable]:bg-none! **:[.alert.alert-dismissable]:pt-8 **:[.alert.alert-dismissable]:pb-20 **:[.alert.alert-dismissable]:shadow-none **:[.alert.alert-dismissable]:before:hidden **:[.alert.alert-dismissable]:after:hidden **:[.alert.alert-dismissable]:text-2xl **:[.alert.alert-dismissable_.text-balance]:text-center! **:[.alert.alert-dismissable]:border-none">
     <?= $message ?? null; ?>
 </div>
 
-<div class="*:[form]:flex *:[form]:gap-1">
-    <?php
-    if ((isset($confirm_url) ? $confirm_url : null)) {
-        $this->Form->create($confirm_url);
-        foreach ((array)(isset($confirm_data) ? $confirm_data : []) as $key => $value) {
-            $this->Form->fieldHidden($key, $value);
-        }
+<div>
+    <?php if ((isset($confirm_url) ? $confirm_url : null)): ?>
+        <?php $this->Form->create($confirm_url); ?>
 
-        $this->Form->fieldButton('submit', $this->_('ClientDialog.confirm.text_yes', true), ['class' => 'yes btn-success-xl w-1/2 rounded-none', 'type' => 'submit']);
-        $this->Form->fieldButton('cancel', $this->_('ClientDialog.confirm.text_no', true), ['class' => 'btn-xl w-1/2 rounded-none', 'data-dismiss' => 'modal']);
-        $this->Form->end();
-    } else {
-        $this->Form->fieldButton('submit', $this->_('ClientDialog.confirm.text_yes', true), ['class' => 'yes btn-success-lg', 'type' => 'submit']);
-        $this->Form->fieldButton('cancel', $this->_('ClientDialog.confirm.text_no', true), ['class' => 'btn btn-primary', 'data-dismiss' => 'modal']);
-    }
-    ?>
+        <?php foreach ((array)(isset($confirm_data) ? $confirm_data : []) as $key => $value): ?>
+            <?php $this->Form->fieldHidden($key, $value); ?>
+        <?php endforeach ?>
+
+        <div class="flex gap-8 *:[button]:rounded-full">
+            <?php
+            $this->Form->fieldButton('submit', $this->_('ClientDialog.confirm.text_yes', true), ['class' => 'yes btn-danger-xl w-1/2 rounded-none', 'type' => 'submit']);
+
+            $this->Form->fieldButton('cancel', $this->_('ClientDialog.confirm.text_no', true), ['class' => 'btn-light-outline-xl w-1/2', 'data-dismiss' => 'modal']);
+            $this->Form->end();
+            ?>
+        </div>
+    <?php else: ?>
+        <?php $this->Form->fieldButton('submit', $this->_('ClientDialog.confirm.text_yes', true), ['class' => 'yes btn-success-lg', 'type' => 'submit']);
+        $this->Form->fieldButton('cancel', $this->_('ClientDialog.confirm.text_no', true), ['class' => 'btn btn-primary', 'data-dismiss' => 'modal']); ?>
+    <?php endif ?>
 </div>

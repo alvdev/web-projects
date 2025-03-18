@@ -8,18 +8,22 @@
     }
     body {
         @apply flex flex-col min-h-screen text-xl leading-relaxed;
-        animation-duration: 0.5s;
-        animation-name: fadeLoad;
+        /* animation-duration: 0.5s;
+        animation-name: fadeLoad; */
+    }
+    
+    @view-transition {
+        navigation: auto;
     }
 
-    @keyframes fadeLoad {
+    /* @keyframes fadeLoad {
         from {
             opacity: 0;
         }
         to {
             opacity: 1;
         }
-    }
+    } */
 
     form label:not([data-grav-field='checkbox'] label) {
         @apply invisible;
