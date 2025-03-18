@@ -9,7 +9,7 @@
                     info@cursohipnosis.com
                 </div>
                 <div>
-                    +34 630 818 123
+                    +34 659 053 976
                 </div>
             </div>
 
@@ -18,11 +18,11 @@
             </div>
 
             <div class="mt-12 grid md:grid-cols-2 justify-center gap-4 text-white uppercase text-xl *:w-full">
-                <a href="tel:+34630818123" class="flex items-center justify-center gap-4 bg-blue-950 pl-4 pr-8 py-4 rounded-lg *:[svg]:w-8 **:[path]:fill-white" aria-label="Llamar por teléfono">
+                <a href="tel:+34659053976" class="flex items-center justify-center gap-4 bg-blue-950 pl-4 pr-8 py-4 rounded-lg *:[svg]:w-8 **:[path]:fill-white" aria-label="Llamar por teléfono">
                     <?= asset('icons/phone-calling.svg', true) ?>
                     Llamar por teléfono
                 </a>
-                <a href="https://wa.me/34630818123" class="flex items-center justify-center gap-4 bg-blue-950 pl-4 pr-8 py-4 rounded-lg *:[svg]:w-8 **:[path]:fill-white" aria-label="Escribir por Whatsapp">
+                <a href="https://wa.me/34659053976" class="flex items-center justify-center gap-4 bg-blue-950 pl-4 pr-8 py-4 rounded-lg *:[svg]:w-8 **:[path]:fill-white" aria-label="Escribir por Whatsapp">
                     <?= asset('icons/whatsapp.svg', true) ?>
                     Escribir por Whatsapp
                 </a>

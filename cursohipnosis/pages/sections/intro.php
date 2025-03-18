@@ -8,10 +8,10 @@
                     Reservar plaza
                 </a>
                 <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="https://wa.me/34630818123" class="inline-flex border-1.5 px-8 py-4 rounded-lg uppercase *:[svg]:w-8 **:[path]:fill-blue-950" aria-label="Escribir por Whatsapp">
+                    <a href="https://wa.me/34659053976" class="inline-flex border-1.5 px-8 py-4 rounded-lg uppercase *:[svg]:w-8 **:[path]:fill-blue-950" aria-label="Escribir por Whatsapp">
                         <?= asset('icons/whatsapp.svg', true) ?>
                     </a>
-                    <a href="tel:+34630818123" class="inline-flex border-1.5 px-8 py-4 rounded-lg uppercase *:[svg]:w-8 **:[path]:fill-blue-950" aria-label="Llamar por teléfono">
+                    <a href="tel:+34659053976" class="inline-flex border-1.5 px-8 py-4 rounded-lg uppercase *:[svg]:w-8 **:[path]:fill-blue-950" aria-label="Llamar por teléfono">
                         <?= asset('icons/phone-calling.svg', true) ?>
                     </a>
                 </div>
@@ -52,7 +52,7 @@
 
     <div class="mt-16 md:mt-24 lg:mt-32 grid md:grid-cols-2 lg:grid-cols-4 gap-8 justify-between items-center *:bg-blue-950 **:[p]:text-white **:[p]:opacity-100 *:h-full">
         <img loading="lazy" class="border-4 rounded-lg object-cover" width="510" height="669"
-            src="<?= asset('images/jaime-velasco.webp') ?>" 
+            src="<?= asset('images/jaime-velasco.webp') ?>"
             srcset="<?= asset('images/jaime-velasco.webp') ?> 400w"
             alt="Fotografía de Jaime Velasco">
         <div class="flex flex-col justify-center p-12 rounded-lg">
