@@ -298,7 +298,7 @@
 /* Default btn */
 
 @utility btn {
-    @apply inline-flex min-h-7 items-center justify-center gap-2 rounded-sm border border-slate-700 bg-linear-to-br from-slate-800 to-black px-4 py-1 text-xs font-semibold text-white uppercase ring-1 ring-slate-600 transition-all hover:cursor-pointer hover:to-slate-800 [&>svg]:h-4;
+    @apply inline-flex min-h-7 items-center justify-center gap-2 rounded-full border border-neutral-700 bg-black px-5 py-1 text-xs font-semibold text-white uppercase transition-all hover:cursor-pointer hover:bg-neutral-800 [&>svg]:h-4;
 
     &.line-divider {
         @apply relative before:absolute before:left-1 before:-z-50 before:h-0.25 before:w-screen before:bg-slate-600 before:content-[''];
@@ -306,7 +306,7 @@
 }
 
 @utility btn-outline {
-    @apply btn border-slate-600 bg-slate-50 bg-none text-slate-600 ring-0 hover:border-slate-900 hover:to-slate-50 hover:text-slate-900 has-[.line-divider]:before:bg-slate-400 [&>svg]:fill-slate-600 [&>svg]:hover:fill-slate-800;
+    @apply btn border-black bg-transparent text-black hover:bg-black hover:text-white has-[.line-divider]:before:bg-white [&>svg]:fill-black [&>svg]:hover:fill-white;
 
     &.line-divider {
         @apply before:h-[0.5px];
@@ -314,7 +314,7 @@
 }
 
 @utility btn-lg {
-    @apply btn ring-1.5 px-6 py-2 text-lg;
+    @apply btn border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -322,7 +322,7 @@
 }
 
 @utility btn-xl {
-    @apply btn px-8 py-4 text-xl ring-2;
+    @apply btn px-12 py-4 text-lg border-2;
 
     &.line-divider {
         @apply before:h-0.75;
@@ -330,7 +330,7 @@
 }
 
 @utility btn-outline-lg {
-    @apply btn-outline border-1.5 px-6 py-2 text-lg;
+    @apply btn-outline border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.25;
@@ -338,7 +338,7 @@
 }
 
 @utility btn-outline-xl {
-    @apply btn-outline border-2 px-8 py-4 text-xl;
+    @apply btn-outline border-2 px-12 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -348,23 +348,23 @@
 /* Btn light */
 
 @utility btn-light {
-    @apply btn border-2 border-slate-100 bg-white bg-none text-slate-700 ring-0! hover:border-neutral-900 hover:bg-black hover:text-white hover:ring-0;
+    @apply btn border-1.5 border-slate-200 bg-transparent text-slate-600 hover:bg-slate-200 hover:text-black;
 
     &.line-divider {
-        @apply before:bg-white;
+        @apply before:bg-slate-200;
     }
 }
 
 @utility btn-light-outline {
-    @apply btn-light border-white bg-transparent bg-none text-white! ring-0 hover:border-blue-200 hover:bg-transparent! hover:text-blue-200! [&>svg]:fill-white [&>svg]:hover:fill-blue-300;
+    @apply btn-light border-white bg-transparent bg-none text-white! hover:bg-white hover:text-black! [&>svg]:fill-white [&>svg]:hover:fill-blue-300;
 
     &.line-divider {
-        @apply before:h-[0.5px] before:bg-blue-600;
+        @apply before:h-[0.5px] before:bg-white;
     }
 }
 
 @utility btn-light-lg {
-    @apply btn-light ring-1.5 px-6 py-2 text-lg;
+    @apply btn-light border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -372,7 +372,7 @@
 }
 
 @utility btn-light-xl {
-    @apply btn-light px-8 py-4 text-xl ring-2;
+    @apply btn-light px-10 py-4 text-lg border-3;
 
     &.line-divider {
         @apply before:h-0.75;
@@ -380,7 +380,7 @@
 }
 
 @utility btn-light-outline-lg {
-    @apply btn-light-outline border-1.5 px-6 py-2 text-lg text-blue-600;
+    @apply btn-light-outline border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.25;
@@ -388,7 +388,7 @@
 }
 
 @utility btn-light-outline-xl {
-    @apply btn-light-outline border-2 px-8 py-4 text-xl text-blue-600;
+    @apply btn-light-outline border-2 px-8 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -398,15 +398,15 @@
 /* Btn info */
 
 @utility btn-info {
-    @apply btn border-blue-500 bg-linear-to-br from-blue-500 to-blue-600 ring-blue-400 hover:to-blue-500;
+    @apply btn border-blue-500 bg-blue-600 hover:bg-blue-700;
 
     &.line-divider {
-        @apply before:bg-blue-400;
+        @apply before:bg-blue-500;
     }
 }
 
 @utility btn-info-outline {
-    @apply btn-info bg-blue-25 border-blue-600 bg-none text-blue-600 ring-0 hover:border-blue-800 hover:to-slate-50 hover:text-blue-800 [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
+    @apply btn-info bg-transparent border-blue-600 text-blue-600 hover:text-white [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
 
     &.line-divider {
         @apply before:h-[0.5px] before:bg-blue-600;
@@ -414,7 +414,7 @@
 }
 
 @utility btn-info-lg {
-    @apply btn-info ring-1.5 px-6 py-2 text-lg;
+    @apply btn-info border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -422,7 +422,7 @@
 }
 
 @utility btn-info-xl {
-    @apply btn-info px-8 py-4 text-xl ring-2;
+    @apply btn-info border-2 px-12 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.75;
@@ -430,7 +430,7 @@
 }
 
 @utility btn-info-outline-lg {
-    @apply btn-info-outline border-1.5 px-6 py-2 text-lg text-blue-600;
+    @apply btn-info-outline border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.25;
@@ -438,7 +438,7 @@
 }
 
 @utility btn-info-outline-xl {
-    @apply btn-info-outline border-2 px-8 py-4 text-xl text-blue-600;
+    @apply btn-info-outline border-2 px-8 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -448,23 +448,23 @@
 /* Btn success */
 
 @utility btn-success {
-    @apply btn border-emerald-500 bg-linear-to-br from-emerald-500 to-emerald-600 ring-emerald-400 hover:to-emerald-500;
+    @apply btn border-emerald-500 bg-emerald-600/95 hover:bg-emerald-500;
 
     &.line-divider {
-        @apply before:bg-emerald-400;
+        @apply before:bg-emerald-500;
     }
 }
 
 @utility btn-success-outline {
-    @apply btn-success bg-emerald-25 border-emerald-600 bg-none text-emerald-600 ring-0 hover:border-emerald-800 hover:to-slate-50 hover:text-emerald-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+    @apply btn-success bg-transparent border-emerald-500 text-emerald-500 hover:text-white [&>svg]:fill-emerald-600 [&>svg]:hover:fill-emerald-800;
 
     &.line-divider {
-        @apply before:h-[0.5px] before:bg-emerald-600;
+        @apply before:h-[0.5px] before:bg-emerald-500;
     }
 }
 
 @utility btn-success-lg {
-    @apply btn-success ring-1.5 px-6 py-2 text-lg;
+    @apply btn-success border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -472,7 +472,7 @@
 }
 
 @utility btn-success-xl {
-    @apply btn-success px-8 py-4 text-xl ring-2;
+    @apply btn-success border-2 px-12 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.75;
@@ -480,7 +480,7 @@
 }
 
 @utility btn-success-outline-lg {
-    @apply btn-success-outline border-1.5 px-6 py-2 text-lg text-emerald-600;
+    @apply btn-success-outline border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.25;
@@ -488,7 +488,7 @@
 }
 
 @utility btn-success-outline-xl {
-    @apply btn-success-outline border-2 px-8 py-4 text-xl text-emerald-600;
+    @apply btn-success-outline border-2 px-8 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -498,15 +498,15 @@
 /* Btn warning */
 
 @utility btn-warning {
-    @apply btn border-amber-500 bg-linear-to-br from-amber-500 to-amber-600 ring-amber-400 hover:to-amber-500;
+    @apply btn border-amber-500 bg-amber-600/80 hover:bg-amber-500;
 
     &.line-divider {
-        @apply before:bg-amber-400;
+        @apply before:bg-amber-500;
     }
 }
 
 @utility btn-warning-outline {
-    @apply btn-warning bg-amber-25 border-amber-600 bg-none text-amber-600 ring-0 hover:border-amber-800 hover:to-slate-50 hover:text-amber-800 [&>svg]:fill-amber-600 [&>svg]:hover:fill-amber-800;
+    @apply btn-warning bg-transparent border-amber-500 text-amber-500 hover:text-white [&>svg]:fill-amber-600 [&>svg]:hover:fill-amber-800;
 
     &.line-divider {
         @apply before:h-[0.5px] before:bg-amber-600;
@@ -514,7 +514,7 @@
 }
 
 @utility btn-warning-lg {
-    @apply btn-warning ring-1.5 px-6 py-2 text-lg;
+    @apply btn-warning border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -522,7 +522,7 @@
 }
 
 @utility btn-warning-xl {
-    @apply btn-warning px-8 py-4 text-xl ring-2;
+    @apply btn-warning border-2 px-12 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.75;
@@ -530,7 +530,7 @@
 }
 
 @utility btn-warning-outline-lg {
-    @apply btn-warning-outline border-1.5 px-6 py-2 text-lg text-amber-600;
+    @apply btn-warning-outline border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.25;
@@ -538,7 +538,7 @@
 }
 
 @utility btn-warning-outline-xl {
-    @apply btn-warning-outline border-2 px-8 py-4 text-xl text-amber-600;
+    @apply btn-warning-outline border-2 px-8 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -548,7 +548,7 @@
 /* Btn danger */
 
 @utility btn-danger {
-    @apply btn border-rose-600 bg-linear-to-br from-rose-600 to-rose-700 ring-rose-500 hover:to-rose-600;
+    @apply btn border-red-500 bg-red-600 hover:bg-red-500;
 
     &.line-divider {
         @apply before:bg-rose-500;
@@ -556,15 +556,15 @@
 }
 
 @utility btn-danger-outline {
-    @apply btn-danger bg-rose-25 border-rose-600 bg-none text-rose-600 ring-0 hover:border-rose-800 hover:to-slate-50 hover:text-rose-800 [&>svg]:fill-rose-600 [&>svg]:hover:fill-rose-800;
+    @apply btn-danger bg-transparent border-red-500 text-red-500 hover:text-white [&>svg]:fill-red-600 [&>svg]:hover:fill-red-800;
 
     &.line-divider {
-        @apply before:h-[0.5px] before:bg-rose-600;
+        @apply before:h-[0.5px] before:bg-rose-500;
     }
 }
 
 @utility btn-danger-lg {
-    @apply btn-danger ring-1.5 px-6 py-2 text-lg;
+    @apply btn-danger border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.5;
@@ -572,7 +572,7 @@
 }
 
 @utility btn-danger-xl {
-    @apply btn-danger px-8 py-4 text-xl ring-2;
+    @apply btn-danger border-2 px-12 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.75;
@@ -580,7 +580,7 @@
 }
 
 @utility btn-danger-outline-lg {
-    @apply btn-danger-outline border-1.5 px-6 py-2 text-lg text-rose-600;
+    @apply btn-danger-outline border-1.5 px-8 py-3 text-base;
 
     &.line-divider {
         @apply before:h-0.25;
@@ -588,7 +588,7 @@
 }
 
 @utility btn-danger-outline-xl {
-    @apply btn-danger-outline border-2 px-8 py-4 text-xl text-rose-600;
+    @apply btn-danger-outline border-2 px-8 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.5;
