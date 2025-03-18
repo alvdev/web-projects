@@ -1,8 +1,8 @@
-<?= (isset($message) ? $message : null); ?>
+<?= $message ?? null ?>
 
 <?php
 // Don't show this container when only rendering the widget section
-if (!(isset($render_section) ? $render_section : null) && !(isset($is_ajax) ? $is_ajax : null)) {
+if ((!$render_section ?? null) && !($is_ajax ?? null)) {
 ?>
     <div class="flex gap-16">
         <div class="w-4/6">
@@ -87,7 +87,7 @@ if (!(isset($render_section) ? $render_section : null) && !(isset($is_ajax) ? $i
                 </table>
             </div>
         <?php else: ?>
-            <div class="alert alert-info">
+            <div class="alert alert-info mt-16">
                 <p><?php $this->_('ClientContacts.index.no_results'); ?></p>
             </div>
         <?php endif ?>
