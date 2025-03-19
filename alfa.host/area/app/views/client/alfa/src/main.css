@@ -322,7 +322,7 @@
 }
 
 @utility btn-xl {
-    @apply btn px-12 py-4 text-lg border-2;
+    @apply btn border-2 px-12 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.75;
@@ -372,7 +372,7 @@
 }
 
 @utility btn-light-xl {
-    @apply btn-light px-10 py-4 text-lg border-3;
+    @apply btn-light border-3 px-10 py-4 text-lg;
 
     &.line-divider {
         @apply before:h-0.75;
@@ -406,7 +406,7 @@
 }
 
 @utility btn-info-outline {
-    @apply btn-info bg-transparent border-blue-600 text-blue-600 hover:text-white [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
+    @apply btn-info border-blue-600 bg-transparent text-blue-600 hover:text-white [&>svg]:fill-blue-600 [&>svg]:hover:fill-blue-800;
 
     &.line-divider {
         @apply before:h-[0.5px] before:bg-blue-600;
@@ -456,7 +456,7 @@
 }
 
 @utility btn-success-outline {
-    @apply btn-success bg-transparent border-emerald-500 text-emerald-500 hover:text-white [&>svg]:fill-emerald-600 [&>svg]:hover:fill-emerald-800;
+    @apply btn-success border-emerald-500 bg-transparent text-emerald-500 hover:text-white [&>svg]:fill-emerald-600 [&>svg]:hover:fill-emerald-800;
 
     &.line-divider {
         @apply before:h-[0.5px] before:bg-emerald-500;
@@ -506,7 +506,7 @@
 }
 
 @utility btn-warning-outline {
-    @apply btn-warning bg-transparent border-amber-500 text-amber-500 hover:text-white [&>svg]:fill-amber-600 [&>svg]:hover:fill-amber-800;
+    @apply btn-warning border-amber-500 bg-transparent text-amber-500 hover:text-white [&>svg]:fill-amber-600 [&>svg]:hover:fill-amber-800;
 
     &.line-divider {
         @apply before:h-[0.5px] before:bg-amber-600;
@@ -556,7 +556,7 @@
 }
 
 @utility btn-danger-outline {
-    @apply btn-danger bg-transparent border-red-500 text-red-500 hover:text-white [&>svg]:fill-red-600 [&>svg]:hover:fill-red-800;
+    @apply btn-danger border-red-500 bg-transparent text-red-500 hover:text-white [&>svg]:fill-red-600 [&>svg]:hover:fill-red-800;
 
     &.line-divider {
         @apply before:h-[0.5px] before:bg-rose-500;
@@ -596,7 +596,7 @@
 }
 
 @utility btn-light-close {
-    @apply relative *:w-12 *:h-12 *:fill-white after:absolute after:top-1/2 after:left-1/2 after:-translate-1/2 after:-z-50 after:w-8 after:h-8 after:content-[''] after:bg-black after:rounded-full hover:after:bg-neutral-500 hover:animate-pulse;
+    @apply relative *:h-12 *:w-12 *:fill-white after:absolute after:top-1/2 after:left-1/2 after:-z-50 after:h-8 after:w-8 after:-translate-1/2 after:rounded-full after:bg-black after:content-[''] hover:animate-pulse hover:after:bg-neutral-500;
 }
 
 /* Arbitrary utilities */
@@ -662,4 +662,12 @@
 
 .show {
     @apply visible block;
+}
+
+/**
+For some weird reason, items will not be removed without this hack. i.e: revoke managers invitations.
+.modal.fade .modal-dialog in application.css is contains this class
+**/
+.modal-dialog {
+    @apply transition-all;
 }
