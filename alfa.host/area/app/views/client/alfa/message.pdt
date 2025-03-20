@@ -32,7 +32,7 @@ $types = [
 ];
 ?>
 
-<div id="alerts" class="">
+<div id="alerts" class="relative z-1 hidden transition-all duration-300 starting:translate-y-16 starting:opacity-0">
     <?php foreach ($types as $type => $message): ?>
         <?php if (!$message['show']) continue; ?>
 
