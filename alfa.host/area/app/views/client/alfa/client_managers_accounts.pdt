@@ -4,7 +4,7 @@
 <?php if (!($render_section ?? null) && !($is_ajax ?? null)): ?>
     <div class="flex gap-16">
         <div class="w-4/6">
-<?php endif ?>
+        <?php endif ?>
         <?php
         $this->WidgetClient->clear();
         $this->WidgetClient->create($this->_('ClientManagers.accounts.boxtitle_managed_accounts', true), ['id' => 'client_managers_accounts'], ($render_section ?? null));
@@ -12,53 +12,68 @@
         ?>
 
         <?php if (($accounts ?? false) && (($num_accounts = count($accounts)) > 0)): ?>
-            <div class="table-responsive">
-                <table class="table table-curved table-striped" id="managers">
-                    <thead>
+            <div class="table-responsive mt-16">
+                <table class="w-full border-separate border-spacing-y-1" id="managers">
+                    <thead class="[&_th]:text-left [&_th]:pb-4 [&_th]:px-4 [&_th]:font-semibold uppercase">
                         <tr>
-                            <th><a href="<?php echo $this->Html->safe($this->base_uri . 'managers/accounts/?sort=client_id_code&order=' . ($sort == 'client_id_code' ? $negate_order : $order)); ?>" class="ajax<?php echo $this->Html->safe($sort == 'client_id_code' ? ' ' . $order : ''); ?>"><?php $this->_('ClientManagers.accounts.heading_client_id'); ?></a></th>
-                            <th><a href="<?php echo $this->Html->safe($this->base_uri . 'managers/accounts/?sort=email&order=' . ($sort == 'email' ? $negate_order : $order)); ?>" class="ajax<?php echo $this->Html->safe($sort == 'email' ? ' ' . $order : ''); ?>"><?php $this->_('ClientManagers.accounts.heading_email'); ?></a></th>
-                            <th><a href="<?php echo $this->Html->safe($this->base_uri . 'managers/accounts/?sort=first_name&order=' . ($sort == 'first_name' ? $negate_order : $order)); ?>" class="ajax<?php echo $this->Html->safe($sort == 'first_name' ? ' ' . $order : ''); ?>"><?php $this->_('ClientManagers.accounts.heading_name'); ?></a></th>
-                            <th><?php $this->_('ClientManagers.accounts.heading_company'); ?></th>
-                            <th><?php $this->_('ClientManagers.accounts.heading_options'); ?></th>
+                            <th>
+                                <a href="<?= $this->Html->safe($this->base_uri . 'managers/accounts/?sort=client_id_code&order=' . ($sort == 'client_id_code' ? $negate_order : $order)); ?>" class="ajax<?= $this->Html->safe($sort == 'client_id_code' ? ' ' . $order : ''); ?>">
+                                    <?php $this->_('ClientManagers.accounts.heading_client_id'); ?>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="<?= $this->Html->safe($this->base_uri . 'managers/accounts/?sort=email&order=' . ($sort == 'email' ? $negate_order : $order)); ?>" class="ajax<?= $this->Html->safe($sort == 'email' ? ' ' . $order : ''); ?>">
+                                    <?php $this->_('ClientManagers.accounts.heading_email'); ?>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="<?= $this->Html->safe($this->base_uri . 'managers/accounts/?sort=first_name&order=' . ($sort == 'first_name' ? $negate_order : $order)); ?>" class="ajax<?= $this->Html->safe($sort == 'first_name' ? ' ' . $order : ''); ?>">
+                                    <?php $this->_('ClientManagers.accounts.heading_name'); ?>
+                                </a>
+                            </th>
+                            <th>
+                                <?php $this->_('ClientManagers.accounts.heading_company'); ?>
+                            </th>
+                            <th class="float-right">
+                                <?php $this->_('ClientManagers.accounts.heading_options'); ?>
+                            </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        // Loop through all managers
-                        for ($i = 0; $i < $num_accounts; $i++) {
-                        ?>
-                            <tr>
-                                <td><?php echo $this->Html->safe($accounts[$i]->client_id_code ?? null); ?></td>
-                                <td><?php echo $this->Html->safe($accounts[$i]->email ?? null); ?></td>
-                                <td><?php echo $this->Html->concat(' ', (isset($accounts[$i]->first_name) ? $this->Html->safe($accounts[$i]->first_name) : null), (isset($accounts[$i]->last_name) ? $this->Html->safe($accounts[$i]->last_name) : null)); ?></td>
-                                <td><?php echo $this->Html->safe($accounts[$i]->company ?? null); ?></td>
+
+                    <tbody class="text-slate-700 *:hover:text-black *:text-sm *:bg-slate-100">
+                        <!-- Loop through all managers -->
+                        <?php for ($i = 0; $i < $num_accounts; $i++): ?>
+                            <tr class="*:py-3 *:px-4 *:first:rounded-l-md *:last:rounded-r-md">
                                 <td>
-                                    <?php
-                                    $this->Form->create($this->base_uri . 'managers/give/');
+                                    <?= $this->Html->safe($accounts[$i]->client_id_code ?? null); ?>
+                                </td>
+                                <td>
+                                    <?= $this->Html->safe($accounts[$i]->email ?? null); ?>
+                                </td>
+                                <td>
+                                    <?= $this->Html->concat(' ', (isset($accounts[$i]->first_name) ? $this->Html->safe($accounts[$i]->first_name) : null), (isset($accounts[$i]->last_name) ? $this->Html->safe($accounts[$i]->last_name) : null)); ?>
+                                </td>
+                                <td>
+                                    <?= $this->Html->safe($accounts[$i]->company ?? null); ?>
+                                </td>
+                                <td class="text-right">
+                                    <?php $this->Form->create($this->base_uri . 'managers/give/');
                                     $this->Form->fieldHidden('client_id', ($accounts[$i]->id ?? null));
                                     ?>
-                                    <div class="btn-group">
-                                        <a href="<?php echo $this->Html->safe($this->base_uri . 'managers/manage/' . (isset($accounts[$i]->id) ? $this->Html->safe($accounts[$i]->id) : null) . '/'); ?>" class="btn btn-xs btn-light">
-                                            <i class="fas fa-user-cog fa-fw"></i> <?php $this->_('ClientManagers.accounts.option_manage'); ?>
+                                    <div class="inline-flex items-center gap-2">
+                                        <a href="<?= $this->Html->safe($this->base_uri . 'managers/manage/' . (isset($accounts[$i]->id) ? $this->Html->safe($accounts[$i]->id) : null) . '/'); ?>" class="btn-outline px-2 border-slate-300" data-title="<?php $this->_('ClientManagers.accounts.option_manage'); ?>">
+                                            <i class="fas fa-user-cog fa-fw"></i>
                                         </a>
-                                        <button class="btn btn-xs btn-light dropdown-toggle" data-toggle="dropdown" type="button">
-                                            <span class="caret"></span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="<?php echo $this->Html->safe($this->base_uri . 'managers/give/' . (isset($accounts[$i]->id) ? $this->Html->safe($accounts[$i]->id) : null) . '/'); ?>" rel="<?php echo $this->Html->safe($this->_('ClientManagers.accounts.confirm_give_up', true)); ?>">
-                                                <i class="fas fa-ban fa-fw"></i> <?php $this->_('ClientManagers.accounts.option_give_up_access'); ?>
-                                            </a>
-                                        </div>
+
+                                        <a class="btn-outline px-2 border-slate-300" href="<?= $this->Html->safe($this->base_uri . 'managers/give/' . (isset($accounts[$i]->id) ? $this->Html->safe($accounts[$i]->id) : null) . '/'); ?>" rel="<?= $this->Html->safe($this->_('ClientManagers.accounts.confirm_give_up', true)); ?>" data-title="<?php $this->_('ClientManagers.accounts.option_give_up_access'); ?>">
+                                            <i class=" fas fa-ban fa-fw"></i>
+                                        </a>
                                     </div>
-                                    <?php
-                                    $this->Form->end();
-                                    ?>
+                                    
+                                    <?php $this->Form->end(); ?>
                                 </td>
                             </tr>
-                        <?php
-                        }
-                        ?>
+                        <?php endfor ?>
                     </tbody>
                 </table>
             </div>
@@ -82,11 +97,11 @@
                     <?= ($navigation ?? null); ?>
                 </div>
             </aside>
-        </div>
-    <?php endif ?>
+    </div>
+<?php endif ?>
 
-    <?php
-    $this->Javascript->setInline("
+<?php
+$this->Javascript->setInline("
 	$(document).ready(function() {
 		// Handle confirmation on delete action
 		$('#client_managers_accounts a[rel]').blestaModalConfirm({
@@ -95,4 +110,4 @@
 		});
 	});
 ");
-    ?>
+?>
