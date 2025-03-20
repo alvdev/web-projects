@@ -22,7 +22,7 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
     <?php if (!empty($client_icon)): ?>
         <link rel="shortcut icon" href="<?= $this->Html->safe($client_icon); ?>" />
     <?php else: ?>
-        <link rel="shortcut icon" href="<?= $this->view_dir; ?>images/favicon.ico" />
+        <link rel="shortcut icon" href="<?= $this->view_dir; ?>assets/images/favicon.ico" />
     <?php endif ?>
 
     <!-- <link href="<?= $this->view_dir; ?>css/application.min.css" rel="stylesheet" type="text/css" /> -->
@@ -152,14 +152,16 @@ $html_lang = (!empty($language) ? substr($language, 0, 2) : 'en');
 
     <script>
         window.addEventListener('load', () => {
-            const header = document.querySelector('body > header');
-            const headerHero = document.querySelector('header .hero');
-            const mainHero = document.querySelector('main .hero');
-            const alerts = document.getElementById('alerts');
+            setTimeout(() => {
+                const header = document.querySelector('body > header');
+                const headerHero = document.querySelector('header .hero');
+                const mainHero = document.querySelector('main .hero');
+                const alerts = document.getElementById('alerts');
 
-            if (mainHero) header.appendChild(mainHero).classList.remove('invisible');
-            if (alerts) header.appendChild(alerts).classList.remove('hidden');
-            if (headerHero.textContent && alerts) alerts.classList.add('*:first:pt-18!');
+                if (mainHero) header.appendChild(mainHero).classList.remove('invisible');
+                if (alerts) header.appendChild(alerts).classList.remove('hidden');
+                if (headerHero.textContent && alerts) alerts.classList.add('*:first:pt-18!');
+            }, 100)
         })
     </script>
 </body>

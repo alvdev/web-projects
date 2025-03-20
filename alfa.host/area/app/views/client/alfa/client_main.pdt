@@ -31,6 +31,6 @@ $this->Javascript->setInline('
                 cardsElement.classList.remove("hidden");
                 cardsElement.classList.add("flex");
             }
-    }, 500);
+    }, 50);
 ');
 ?>
