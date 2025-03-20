@@ -16,6 +16,7 @@
             }
             ?>
             <div class="form-group">
+                <?php if (empty($invoices)): ?>
                 <div class="radio">
                     <label>
                         <?php
@@ -30,6 +31,7 @@
                         ?>
                     </label>
                 </div>
+                <?php endif ?>
                 <div class="radio">
                     <label>
                         <?php
