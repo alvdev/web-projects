@@ -8,7 +8,7 @@ foreach ($shadowPages as $page) {
 }
 ?>
 
-<footer class="relative bg-blue-600 bg-[url('../images/free-wolf.webp')] bg-bottom bg-cover md:bg-auto 2xl:bg-cover shadow-[0_-50px_50px] <?= $shadow ?> border-t
+<footer class="relative bg-blue-600 bg-[url('../assets/images/free-wolf.webp')] bg-bottom bg-cover md:bg-auto 2xl:bg-cover shadow-[0_-50px_50px] <?= $shadow ?> border-t
 before:absolute before:w-6 before:h-6 before:left-0 before:-top-6 before:shadow-[-0.25rem_0.25rem_0_0.25rem_#0155e3] before:rounded-bl-[1.5rem] after:absolute after:w-6 after:h-6 after:right-0 after:-top-6 after:shadow-[0.25rem_0.25rem_0_0.25rem_#2971e8] after:rounded-br-[3rem]">
     <div class="alv-linear-gradient-white">
         <div class="container items-center justify-center gap-8 py-8 news md:flex ">
@@ -176,19 +176,19 @@ before:absolute before:w-6 before:h-6 before:left-0 before:-top-6 before:shadow-
                 </p>
                 <div class="flex items-center gap-4">
                     <div class="p-3 bg-black rounded-full">
-                        <?php include(dirname(__DIR__, 1) . '/images/footer/facebook.svg') ?>
+                        <?php include(dirname(__DIR__, 1) . '/assets/images/footer/facebook.svg') ?>
                     </div>
 
                     <div class="p-3 bg-black rounded-full">
-                        <?php include(dirname(__DIR__, 1) . '/images/footer/twitter.svg') ?>
+                        <?php include(dirname(__DIR__, 1) . '/assets/images/footer/twitter.svg') ?>
                     </div>
 
                     <div class="p-3 bg-black rounded-full">
-                        <?php include(dirname(__DIR__, 1) . '/images/footer/youtube.svg') ?>
+                        <?php include(dirname(__DIR__, 1) . '/assets/images/footer/youtube.svg') ?>
                     </div>
 
                     <div class="p-3 bg-black rounded-full">
-                        <?php include(dirname(__DIR__, 1) . '/images/footer/linkedin.svg') ?>
+                        <?php include(dirname(__DIR__, 1) . '/assets/images/footer/linkedin.svg') ?>
                     </div>
                 </div>
             </section>
@@ -256,10 +256,10 @@ before:absolute before:w-6 before:h-6 before:left-0 before:-top-6 before:shadow-
                 LOGO
             </div>
             <div class="[&_path]:stroke-white [&_g]:fill-white [&_path+path]:fill-white flex gap-2 w-full">
-                <?php include(dirname(__DIR__, 1) . "/images/footer/paypal.svg") ?>
-                <?php include(dirname(__DIR__, 1) . "/images/footer/visa.svg") ?>
-                <?php include(dirname(__DIR__, 1) . "/images/footer/mastercard.svg") ?>
-                <?php include(dirname(__DIR__, 1) . "/images/footer/amex.svg") ?>
+                <?php include(dirname(__DIR__, 1) . "/assets/images/footer/paypal.svg") ?>
+                <?php include(dirname(__DIR__, 1) . "/assets/images/footer/visa.svg") ?>
+                <?php include(dirname(__DIR__, 1) . "/assets/images/footer/mastercard.svg") ?>
+                <?php include(dirname(__DIR__, 1) . "/assets/images/footer/amex.svg") ?>
             </div>
         </div>
     </div>
