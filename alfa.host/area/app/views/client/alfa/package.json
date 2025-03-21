@@ -2,9 +2,9 @@
   "type": "module",
   "dependencies": {
     "@alpinejs/collapse": "^3.14.9",
-    "@tailwindcss/cli": "^4.0.14",
+    "@tailwindcss/cli": "^4.0.15",
     "alpinejs": "^3.14.9",
-    "tailwindcss": "^4.0.14"
+    "tailwindcss": "^4.0.15"
   },
   "scripts": {
     "dev": "bunx @tailwindcss/cli -i src/main.css -o dist/main.css --watch"
