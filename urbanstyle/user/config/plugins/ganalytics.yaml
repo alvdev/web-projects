@@ -1,6 +1,6 @@
 enabled: true
 trackingId: G-397925943
-position: body
+position: head
 objectName: gtag
 dnt: true
 blockedIps: null
@@ -15,4 +15,4 @@ cookieDomain: null
 cookieExpires: 63072000
 optOutEnabled: false
 optOutMessage: 'Google tracking is now disabled.'
-debugMode: true
+debugMode: false
