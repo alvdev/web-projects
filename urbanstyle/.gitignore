@@ -29,3 +29,5 @@
 !/user/themes/
 /user/themes/*
 !/user/themes/urban
+
+!/astro/
