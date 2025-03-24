@@ -1,5 +1,5 @@
 let mix = require('laravel-mix');
-require('mix-tailwindcss');
+// require('mix-tailwindcss');
 
 const extension = mix.inProduction() ? '.min' : '';
 const partytown = require('./node_modules/@builder.io/partytown/utils');
@@ -7,7 +7,7 @@ const partytown = require('./node_modules/@builder.io/partytown/utils');
 mix
   .js('js/main.js', `js/main.min.js`)
   .css('css/site.css', `css/site.min.css`)
-  .tailwind()
+  /* .tailwind() */
   .minify(['dist/js/main.min.js', 'dist/css/site.min.css'])
   .setPublicPath('dist')
   .version()
