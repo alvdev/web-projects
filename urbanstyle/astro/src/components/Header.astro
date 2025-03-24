@@ -2,7 +2,7 @@
 import { Image, Picture } from "astro:assets";
 import image from "../assets/images/header/pegada-de-carteles.webp";
 
-const title = "Pegada de carteles en Madrid, Barcelona y resto de España";
+const { title } = Astro.props;
 ---
 
 <section class="hero torn-bottom relative">
@@ -17,8 +17,7 @@ const title = "Pegada de carteles en Madrid, Barcelona y resto de España";
             </h1>
         </div>
     </div>
-    <!-- <Image src={image} alt="A description of my image." layout="responsive" width={800} height={600} /> -->
-    <!-- <Picture src={image} alt="A description of my image." layout="full-width" formats={["avif", "webp", "jpeg"]} /> -->
+
     <Image
         src={image}
         width={2145}
@@ -27,5 +26,4 @@ const title = "Pegada de carteles en Madrid, Barcelona y resto de España";
         class="relative -z-10 m-0 h-[50vh] md:h-[75vh] w-full object-cover brightness-125 contrast-110"
         alt="Pegada de carteles"
     />
-    <!-- {{ media|first.derivatives(320, 1920, 160).sizes('(max-width: 1920px) 1920w, 100vw').html('', header.alt, 'relative -z-10 m-0 h-[50vh] md:h-[75vh] w-full object-cover brightness-125 contrast-110')|raw }} -->
 </section>
