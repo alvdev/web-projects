@@ -1,15 +1,141 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@utility container {
+    @apply mx-auto px-[3%];
+}
+
+@utility torn-bottom {
+  @apply relative z-10 after:absolute after:z-20 after:w-full after:h-8 after:-bottom-6 after:bg-[url(@assets/images/torn-paper.svg)] after:bg-repeat-x after:bg-bottom /* after:drop-shadow-[0px_-4px_2px_rgb(0_0_0_/_0.25)] */;
+}
+
+@utility torn-top {
+  @apply relative before:absolute before:z-20 before:rotate-180 before:w-full before:h-8 before:-top-6 before:bg-[url(../images/torn-paper.svg)] before:bg-repeat-x before:bg-bottom;
+}
+
+@utility looker {
+  @apply relative pb-[75%];
+
+  & iframe {
+    @apply absolute top-0 left-0 w-full h-full;
+  }
+
+  & object {
+    @apply absolute top-0 left-0 w-full h-full;
+  }
+
+  & embed {
+    @apply absolute top-0 left-0 w-full h-full;
+  }
+}
+
+@utility wall-full {
+  @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-full before:h-full before:top-0 before:opacity-50 -z-10;
+}
+
+@utility wall-half {
+  @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-1/2 before:h-full before:top-0 before:opacity-50 -z-10 before:shadow-[0_0_200px_#00000099_inset];
+}
+
+@utility bg-skew {
+  @apply relative shadow-lg after:bg-red-800 after:absolute after:w-full after:h-full after:top-0 after:-z-10 after:rotate-3;
+}
+
+@utility bg-skew2 {
+  @apply relative after:bg-black after:absolute after:w-full after:h-full after:top-0 after:-z-10 after:-rotate-1;
+}
+
+@utility d-stripes {
+  color: white;
+  background: repeating-linear-gradient(
+    45deg,
+    black,
+    black 15px,
+    #fff 15px,
+    #fff 25px
+  );
+}
+
+@utility v-stripes {
+  color: white;
+  background: repeating-linear-gradient(
+    90deg,
+    #a1a1aa,
+    #a1a1aa 15px,
+    #fff 15px,
+    #fff 25px
+  );
+}
+
+@utility notices {
+  @apply px-8 py-3 shadow-md;
+
+  &.red {
+    @apply text-red-700 bg-red-200;
+  }
+
+  &.green {
+    @apply text-green-700 bg-green-200;
+  }
+
+  &.yellow {
+    @apply text-yellow-700 bg-yellow-200;
+  }
+}
+
+@utility red {
+  &.notices {
+    @apply text-red-700 bg-red-200;
+  }
+}
+
+@utility green {
+  &.notices {
+    @apply text-green-700 bg-green-200;
+  }
+}
+
+@utility yellow {
+  &.notices {
+    @apply text-yellow-700 bg-yellow-200;
+  }
+}
+
+@utility basic-captcha {
+  & .form-input-wrapper {
+    @apply !border-0 !rounded-none gap-2;
+  }
+
+  & * {
+    @apply !bg-transparent;
+  }
+}
+
+@utility form-input-wrapper {
+  .basic-captcha & {
+    @apply !border-0 !rounded-none gap-2;
+  }
+}
+
+@utility underline {
+  span & {
+    @apply border-b-4 border-red-400;
+  }
+}
+
+@utility animate-pause {
+  animation-play-state: paused;
+}
 
 @layer base {
     html {
         @apply scroll-smooth;
     }
     body {
-        @apply flex min-h-screen flex-col text-xl leading-relaxed;
+        @apply flex flex-col min-h-screen text-xl leading-relaxed;
         /* animation-duration: 0.5s;
         animation-name: fadeLoad; */
     }
-
+    
     @view-transition {
         navigation: auto;
     }
@@ -23,35 +149,35 @@
         }
     } */
 
-    form label:not([data-grav-field="checkbox"] label) {
+    form label:not([data-grav-field='checkbox'] label) {
         @apply invisible;
     }
 
     a,
     .prose a {
-        @apply leading-tight font-semibold text-red-600 no-underline transition-all hover:text-black;
+        @apply font-semibold leading-tight text-red-600 no-underline transition-all hover:text-black;
     }
 
     textarea,
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-        @apply w-full border-0 border-b-4 border-gray-300 bg-[length:1.4rem_1.4rem] bg-left bg-no-repeat px-1 py-4 text-2xl transition duration-200 focus:border-red-700 focus:ring-0 focus:outline-none;
+    input[type='text'],
+    input[type='email'],
+    input[type='password'] {
+        @apply w-full border-0 border-b-4 border-gray-300 bg-[length:1.4rem_1.4rem] bg-left bg-no-repeat px-1 py-4 text-2xl transition duration-200 focus:border-red-700 focus:outline-none focus:ring-0;
     }
 
     textarea {
         @apply bg-[left_top_1.4rem];
     }
 
-    input[type="checkbox"] {
-        @apply border-0 bg-gray-400 p-3 text-black transition focus:ring-0;
+    input[type='checkbox'] {
+        @apply p-3 text-black transition bg-gray-400 border-0 focus:ring-0;
     }
 
     h1,
     h2,
     h3,
     h4 {
-        @apply text-balance text-gray-900;
+        @apply text-gray-900 text-balance;
     }
 
     p {
@@ -71,7 +197,7 @@
 
     .btn,
     a.btn {
-        @apply mt-4 inline-block px-12 py-4 text-black !no-underline !decoration-0 ring-1 ring-gray-900 transition duration-300 hover:ring-4;
+        @apply text-black mt-4 inline-block px-12 py-4 !no-underline !decoration-0 ring-1 ring-gray-900 transition duration-300 hover:ring-4;
     }
 
     .btn--default,
@@ -81,7 +207,7 @@
 
     .btn--primary,
     a.btn--primary {
-        @apply bg-red-900 text-white ring-red-900;
+        @apply text-white bg-red-900 ring-red-900;
     }
 
     .btn--secondary,
@@ -95,7 +221,7 @@
 
     main ul,
     main ol {
-        @apply mt-8 mb-14 ml-16;
+        @apply mt-8 ml-16 mb-14;
     }
 
     main ul {
@@ -115,7 +241,7 @@
     }
 
     .external-link {
-        @apply inline-flex items-start transition-all after:h-4 after:w-4 after:bg-[url(../icons/ext-link.svg)] after:bg-contain after:opacity-40 hover:after:opacity-60 hover:after:grayscale;
+        @apply inline-flex items-start transition-all after:bg-[url(@assets/images/icons/ext-link.svg)] after:w-4 after:h-4 after:bg-contain after:opacity-40 hover:after:opacity-60 hover:after:grayscale;
     }
 
     main a:hover:not(.btn) {
@@ -123,7 +249,7 @@
     }
 
     footer a {
-        @apply font-normal text-red-100 opacity-80 hover:text-white hover:opacity-100;
+        @apply font-normal text-red-100 hover:text-white opacity-80 hover:opacity-100;
     }
     /**
      * Dark sections
@@ -140,93 +266,16 @@
 }
 
 @layer components {
-    .torn-bottom {
-        @apply /* */ relative z-10 after:absolute after:-bottom-6 after:z-20 after:h-8 after:w-full after:bg-[url(../images/torn-paper.svg)] after:bg-bottom after:bg-repeat-x after:drop-shadow-[0px_-4px_2px_rgb(0_0_0_/_0.25)];
-    }
-
-    .torn-top {
-        @apply relative before:absolute before:-top-6 before:z-20 before:h-8 before:w-full before:rotate-180 before:bg-[url(../images/torn-paper.svg)] before:bg-bottom before:bg-repeat-x;
-    }
-
-    .looker {
-        @apply relative pb-[75%];
-    }
-
-    .looker iframe,
-    .looker object,
-    .looker embed {
-        @apply absolute top-0 left-0 h-full w-full;
-    }
-
-    .wall-full {
-        @apply -z-10 before:absolute before:top-0 before:h-full before:w-full before:bg-[url('../images/wall-pattern.png')] before:opacity-50;
-    }
-
-    .wall-half {
-        @apply -z-10 before:absolute before:top-0 before:h-full before:w-1/2 before:bg-[url('../images/wall-pattern.png')] before:opacity-50 before:shadow-[0_0_200px_#00000099_inset];
-    }
-
-    .bg-skew {
-        @apply relative shadow-lg after:absolute after:top-0 after:-z-10 after:h-full after:w-full after:rotate-3 after:bg-red-800;
-    }
-
-    .bg-skew2 {
-        @apply relative after:absolute after:top-0 after:-z-10 after:h-full after:w-full after:-rotate-1 after:bg-black;
-    }
-
-    .d-stripes {
-        color: white;
-        background: repeating-linear-gradient(45deg, black, black 15px, #fff 15px, #fff 25px);
-    }
-
-    .v-stripes {
-        color: white;
-        background: repeating-linear-gradient(90deg, #a1a1aa, #a1a1aa 15px, #fff 15px, #fff 25px);
-    }
 
     #messages {
-        @apply fixed right-[2%] bottom-[1vw] z-50 overflow-hidden rounded-3xl border-2 border-white shadow ring-2 ring-white ring-inset;
-    }
-
-    .notices {
-        @apply px-8 py-3 shadow-md;
-    }
-
-    .notices.red {
-        @apply bg-red-200 text-red-700;
-    }
-
-    .notices.green {
-        @apply bg-green-200 text-green-700;
-    }
-
-    .notices.yellow {
-        @apply bg-yellow-200 text-yellow-700;
-    }
-
-    .basic-captcha .form-input-wrapper {
-        @apply gap-2 !rounded-none !border-0;
-    }
-
-    .basic-captcha * {
-        @apply !bg-transparent;
-    }
-
-    span .underline {
-        @apply border-b-4 border-red-400;
+        @apply fixed z-50 bottom-[1vw] right-[2%] rounded-3xl overflow-hidden shadow border-2 border-white ring-inset ring-2 ring-white;
     }
 
     mark {
-        @apply relative inline-block bg-inherit text-inherit after:absolute after:-right-2 after:-bottom-0.5 after:-left-2 after:-z-10 after:h-9 after:bg-cover after:bg-no-repeat;
-    }
-}
+        @apply inline-block bg-inherit text-inherit relative after:absolute after:-bottom-0.5 after:-left-2 after:-right-2 after:h-9 after:-z-10 after:bg-no-repeat after:bg-cover;
 
-@layer utilities {
-    .container {
-        @apply mx-auto px-[2%];
-    }
-
-    .animate-pause {
-        animation-play-state: paused;
+        &.under {
+            @apply after:bg-[url(@assets/underline.svg)];
+        }
     }
 }
