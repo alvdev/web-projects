@@ -35,8 +35,14 @@
             {% do assets.addCss('theme://dist/css/site.min.css', 98) %}
         {% endblock %}
 
+        <script>
+          partytown = {
+            forward: ["dataLayer.push"],
+          };
+        </script>
+
         {% block javascripts %}
-            {% do assets.addJs('theme://dist/~partytown/partytown.js' , 98) %}
+            {% do assets.addJs('theme://dist/~partytown/partytown.js' , { priority: 98, loading: 'defer'}) %}
             {% do assets.addJs('theme://dist/js/main.min.js', { priority: 98, loading: 'defer'}) %}
         {% endblock %}
 
