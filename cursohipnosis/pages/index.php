@@ -2,7 +2,7 @@
 <html lang="es" class="scroll-smooth">
 <?php require('partials/head.php') ?>
 
-<body class="debug-screens">
+<body>
     <?php require('partials/header.php') ?>
 
     <main>
