@@ -1,0 +1,20 @@
+---
+const { title, description, bgColor, ringColor } = Astro.props;
+---
+
+<section class="mt-36">
+    <div class:list={["wall-full", "relative", "container-l", "py-28", bgColor, ringColor]}>
+        <div class="flex flex-col gap-8 xl:flex-row xl:gap-16 items-center">
+            <h2
+                class="font-extrabold border-dashed text-white [text-shadow:2px_2px_2px_black] p-8 text-5xl md:text-6xl uppercase xl:w-1/2 xl:text-center xl:m-0"
+            >
+                {title}
+            </h2>
+            <p
+                class="text-3xl text-white text-opacity-80 leading-normal text-balance font-semibold md:text-4xl xl:w-1/2"
+            >
+                {description}
+            </p>
+        </div>
+    </div>
+</section>
