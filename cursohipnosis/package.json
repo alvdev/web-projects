@@ -7,7 +7,12 @@
   "private": true,
   "scripts": {
     "dev": "npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.css --watch",
-    "build": "npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.min.css --minify"
+    "build": "bun run partytown && npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.min.css --minify",
+    "partytown": "bunx partytown copylib 'dist/~partytown'"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@qwik.dev/partytown": "^0.11.0",
+    "partytown": "^0.0.0"
+  }
 }
