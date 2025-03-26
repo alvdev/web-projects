@@ -1,0 +1,57 @@
+---
+import { YouTube } from "astro-embed";
+import Corner1 from "../assets/images/brush-corner-tl.svg";
+import Corner2 from "../assets/images/brush-corner-br.svg";
+
+const url = Astro.url;
+---
+
+<section class="container mt-28">
+    <div class="grid lg:grid-cols-2 gap-16">
+        <!-- <div class="absolute z-10 top-0 left-2">
+            <Corner1 class="absolute z-10 top-0 left-2" width={230} height={} />
+        </div> -->
+        <div class="relative">
+            <div
+                class="relative [border-image:url(@assets/images/brush-frame.svg)_30] border-28 [border_image_slice:30_fill]"
+            >
+                <YouTube
+                    id="https://youtu.be/0_LpZYxl5Iw?si=IU8Y1aOgMS2hag8G"
+                    posterQuality="high"
+                    class="ring-8 ring-black rounded-lg"
+                />
+            </div>
+            <div
+                class="absolute right-8 bottom-2 text-sm w-1/2 text-right grid justify-end gap-0.5 [&>span]:drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]"
+            >
+                <span class="ml-auto bg-black/70 text-white px-4 py-1 inline-block w-fit">
+                    Pegado de carteles en Madrid por
+                </span>
+                <span class="ml-auto bg-black/90 text-white px-4 py-1 inline-block w-fit">
+                    el equipo de Urban Style Publicity
+                </span>
+            </div>
+        </div>
+
+        <div class="relative">
+            <div class="[border-image:url(@assets/images/brush-frame.svg)_30] border-28 [border_image_slice:30_fill]">
+                <!-- <Corner2 class="absolute z-10 bottom-2 right-0 brightness-0" width={350} /> -->
+                <YouTube
+                    id="https://youtu.be/03Gma06CTl8?si=jnMIHy5UMWat6TOL"
+                    posterQuality="high"
+                    class="ring-8 ring-black rounded-lg"
+                />
+            </div>
+            <div
+                class="absolute right-8 bottom-2 text-sm w-1/2 text-right grid justify-end gap-0.5 *:[span]:drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]"
+            >
+                <span class="ml-auto bg-black/70 text-white px-4 py-1 inline-block w-fit">
+                    Pegado de carteles en Barcelona por
+                </span>
+                <span class="ml-auto bg-black/90 text-white px-4 py-1 inline-block w-fit">
+                    el equipo de Urban Style Publicity
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
