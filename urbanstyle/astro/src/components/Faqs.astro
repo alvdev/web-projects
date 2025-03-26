@@ -1,0 +1,145 @@
+---
+import { getCollection } from "astro:content";
+const collection = await getCollection("faqs");
+
+const data = collection.map((item: { data: any; }) => item.data);
+const { title, description, columns } = data[0];
+
+const faqs = data[0].faqs;
+const evenFaqs = faqs.map((faq: any) => faq).filter((faq: any, index: number) => index % 2 == 0);
+const oddFaqs = faqs.map((faq: any) => faq).filter((faq: any, index: number) => index % 2 == 1);
+---
+
+<section class="mt-32">
+    <div class="container">
+        <hgroup class="mb-16 text-center uppercase">
+            <h2 class="mt-5 text-5xl font-bold tracking-tight">
+                {title}
+            </h2>
+
+            {description && <h3>{description}</h3>}
+        </hgroup>
+
+        {columns === 1 && (
+        <div
+            x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }"
+            class="relative max-w-xl mx-auto"
+        >
+            <div class="relative w-full">
+                { faqs.map((faq: { question: string; answer: string; }) => (
+                <div
+                    x-data="{ id: $id('accordion') }"
+                    :class="{ 'text-neutral-900': activeAccordion==id, 'text-neutral-600 hover:text-neutral-900': activeAccordion!=id }"
+                    class="hover:*:[button]:cursor-pointer"
+                >
+                    <button
+                        @click="setActiveAccordion(id)"
+                        class="flex items-center justify-between w-full py-4 text-left select-none"
+                    >
+                        <span>{faq.question}</span>
+                        <div>
+                            <svg
+                                class="w-5 h-5 duration-300 ease-out"
+                                :class="{ '-rotate-[45deg]': activeAccordion==id }"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div x-show="activeAccordion==id" x-collapse x-cloak>
+                        <div class="pb-4 opacity-70">
+                            {faq.answer}
+                        </div>
+                    </div>
+                </div>
+                ))}
+                {/* end faqs  */}
+            </div>
+        </div>
+        )}
+
+        {columns === 2 && (
+        <div
+            x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }"
+            class="relative grid mx-auto lg:grid-cols-2 lg:gap-16"
+        >
+            <div class="relative w-full">
+                { oddFaqs.map((faq: { question: string; answer: string; }) => (
+                <div
+                    x-data="{ id: $id('accordion') }"
+                    :class="{ 'text-neutral-900': activeAccordion==id, 'text-red-100 hover:text-white': activeAccordion!=id }"
+                    class="bg-black my-4 rounded-3xl text-white hover:*:[button]:cursor-pointer"
+                >
+                    <button
+                        @click="setActiveAccordion(id)"
+                        class="flex items-center justify-between w-full py-4 px-6 text-left select-none"
+                    >
+                        <span>{faq.question}</span>
+                        <div>
+                            <svg
+                                class="w-5 h-5 duration-300 ease-out"
+                                :class="{'-rotate-[45deg]': activeAccordion==id}"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="pb-1" x-show="activeAccordion==id" x-collapse x-cloak>
+                        <div class="px-6 py-4 bg-white text-black mx-1 rounded-b-[1.3rem]">
+                            {faq.answer}
+                        </div>
+                    </div>
+                </div>
+                ))}
+                {/* end oddFaqs */}
+            </div>
+
+            <div class="relative w-full">
+                {evenFaqs.map((faq: { question: unknown; answer: unknown; }) => (
+                <div
+                    x-data="{ id: $id('accordion') }"
+                    :class="{ 'text-neutral-900': activeAccordion==id, 'text-red-100 hover:text-white': activeAccordion!=id }"
+                    class="bg-black my-4 rounded-3xl text-white hover:*:[button]:cursor-pointer"
+                >
+                    <button
+                        @click="setActiveAccordion(id)"
+                        class="flex items-center justify-between w-full py-4 px-6 text-left select-none"
+                    >
+                        <span>{faq.question}</span>
+                        <div>
+                            <svg
+                                class="w-5 h-5 duration-300 ease-out"
+                                :class="{'-rotate-[45deg]': activeAccordion==id}"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="pb-1" x-show="activeAccordion==id" x-collapse x-cloak>
+                        <div class="px-6 py-4 bg-white text-black mx-1 rounded-b-[1.3rem]">
+                            {faq.answer}
+                        </div>
+                    </div>
+                </div>
+                ))}
+                {/* end evenFaqs */}
+            </div>
+        </div>
+    )}
+    </div>
+</section>
