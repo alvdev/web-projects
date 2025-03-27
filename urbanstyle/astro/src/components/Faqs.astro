@@ -73,7 +73,7 @@ const oddFaqs = faqs.map((faq: any) => faq).filter((faq: any, index: number) => 
                 <div
                     x-data="{ id: $id('accordion') }"
                     :class="{ 'text-neutral-900': activeAccordion==id, 'text-red-100 hover:text-white': activeAccordion!=id }"
-                    class="bg-black my-4 rounded-3xl text-white hover:*:[button]:cursor-pointer"
+                    class="bg-black not-first:mt-4 md:not-first:mt-6 lg:not-first:mt-8 rounded-3xl text-white text-pretty hover:*:[button]:cursor-pointer"
                 >
                     <button
                         @click="setActiveAccordion(id)"
@@ -109,7 +109,7 @@ const oddFaqs = faqs.map((faq: any) => faq).filter((faq: any, index: number) => 
                 <div
                     x-data="{ id: $id('accordion') }"
                     :class="{ 'text-neutral-900': activeAccordion==id, 'text-red-100 hover:text-white': activeAccordion!=id }"
-                    class="bg-black my-4 rounded-3xl text-white hover:*:[button]:cursor-pointer"
+                    class="bg-black mt-4 md:mt-6 lg:mt-8 lg:first:mt-0 rounded-3xl text-white hover:*:[button]:cursor-pointer"
                 >
                     <button
                         @click="setActiveAccordion(id)"
