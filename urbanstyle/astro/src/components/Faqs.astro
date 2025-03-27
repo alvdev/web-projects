@@ -66,23 +66,23 @@ const oddFaqs = faqs.map((faq: any) => faq).filter((faq: any, index: number) => 
         {columns === 2 && (
         <div
             x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }"
-            class="relative grid mx-auto lg:grid-cols-2 lg:gap-16"
+        class="relative grid mx-auto lg:grid-cols-2 lg:gap-16"
         >
             <div class="relative w-full">
                 { oddFaqs.map((faq: { question: string; answer: string; }) => (
                 <div
                     x-data="{ id: $id('accordion') }"
-                    :class="{ 'text-neutral-900': activeAccordion==id, 'text-red-100 hover:text-white': activeAccordion!=id }"
-                    class="bg-black not-first:mt-4 md:not-first:mt-6 lg:not-first:mt-8 rounded-3xl text-white text-pretty hover:*:[button]:cursor-pointer"
+                    :class="{ 'text-neutral-900': activeAccordion==id, '': activeAccordion!=id }"
+                    class="relative not-first:mt-4 md:not-first:mt-6 lg:not-first:mt-8 text-black text-pretty hover:*:[button]:cursor-pointer after:absolute after:content-[''] after:w-full after:h-full after:left-1.5 after:-bottom-1.5 after:-z-50 after:bg-black transition-all"
                 >
                     <button
                         @click="setActiveAccordion(id)"
-                        class="flex items-center justify-between w-full py-4 px-6 text-left select-none"
+                        class="relative border-2 flex items-center justify-between w-full bg-white py-4 px-6 text-left group"
                     >
                         <span>{faq.question}</span>
                         <div>
                             <svg
-                                class="w-5 h-5 duration-300 ease-out"
+                                class="w-5 h-5 duration-300 ease-out stroke-white bg-red-700 rounded-full group-hover:ring-2 ring-red-700"
                                 :class="{'-rotate-[45deg]': activeAccordion==id}"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -95,9 +95,7 @@ const oddFaqs = faqs.map((faq: any) => faq).filter((faq: any, index: number) => 
                         </div>
                     </button>
                     <div class="pb-1" x-show="activeAccordion==id" x-collapse x-cloak>
-                        <div class="px-6 py-4 bg-white text-black mx-1 rounded-b-[1.3rem]">
-                            {faq.answer}
-                        </div>
+                        <div class="relative pl-10 pr-6 pt-6 pb-5 text-white" set:html={faq.answer}></div>
                     </div>
                 </div>
                 ))}
@@ -108,17 +106,17 @@ const oddFaqs = faqs.map((faq: any) => faq).filter((faq: any, index: number) => 
                 {evenFaqs.map((faq: { question: unknown; answer: unknown; }) => (
                 <div
                     x-data="{ id: $id('accordion') }"
-                    :class="{ 'text-neutral-900': activeAccordion==id, 'text-red-100 hover:text-white': activeAccordion!=id }"
-                    class="bg-black mt-4 md:mt-6 lg:mt-8 lg:first:mt-0 rounded-3xl text-white hover:*:[button]:cursor-pointer"
+                    :class="{ 'text-neutral-900': activeAccordion==id, '': activeAccordion!=id }"
+                    class="relative mt-6 md:not-first:mt-6 lg:mt-0 lg:not-first:mt-8 text-black text-pretty hover:*:[button]:cursor-pointer after:absolute after:content-[''] after:w-full after:h-full after:left-1.5 after:-bottom-1.5 after:-z-50 after:bg-black transition-all"
                 >
                     <button
                         @click="setActiveAccordion(id)"
-                        class="flex items-center justify-between w-full py-4 px-6 text-left select-none"
+                        class="relative border-2 flex items-center justify-between w-full bg-white py-4 px-6 text-left group"
                     >
                         <span>{faq.question}</span>
                         <div>
                             <svg
-                                class="w-5 h-5 duration-300 ease-out"
+                                class="w-5 h-5 duration-300 ease-out stroke-white bg-red-700 rounded-full group-hover:ring-2 ring-red-700"
                                 :class="{'-rotate-[45deg]': activeAccordion==id}"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -131,9 +129,7 @@ const oddFaqs = faqs.map((faq: any) => faq).filter((faq: any, index: number) => 
                         </div>
                     </button>
                     <div class="pb-1" x-show="activeAccordion==id" x-collapse x-cloak>
-                        <div class="px-6 py-4 bg-white text-black mx-1 rounded-b-[1.3rem]">
-                            {faq.answer}
-                        </div>
+                        <div class="relative pl-10 pr-6 pt-6 pb-5 text-white" set:html={faq.answer}></div>
                     </div>
                 </div>
                 ))}
