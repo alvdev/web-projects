@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import { getCollection } from "astro:content";
 const collection = await getCollection("logos");
 
@@ -17,6 +18,10 @@ const { title, subtitle } = Astro.props;
     </hgroup>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-24 gap-y-20">
-        {collection.map(item => item.data.logos.map(img => <Image src={img.src} alt={img.alt} format="avif" />))}
+        {
+            collection.map(item =>
+                item.data.logos.map(img => <Image src={img.src as ImageMetadata} alt={img.alt} format="avif" />)
+            )
+        }
     </div>
 </section>
