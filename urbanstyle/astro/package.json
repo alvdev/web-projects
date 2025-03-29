@@ -4,21 +4,26 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.14.9",
+    "@alpinejs/intersect": "^3.14.9",
     "@astrojs/alpinejs": "^0.4.4",
+    "@astrojs/check": "^0.9.4",
     "@tailwindcss/vite": "^4.0.17",
     "@types/alpinejs": "^3.13.11",
+    "@types/alpinejs__collapse": "^3.13.4",
     "@types/node": "^22.13.14",
     "alpinejs": "^3.14.9",
     "astro": "^5.5.5",
     "astro-embed": "^0.9.0",
+    "install": "^0.13.0",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
-    "tailwindcss": "^4.0.17"
+    "tailwindcss": "^4.0.17",
+    "typescript": "^5.8.2"
   }
 }
