@@ -4,12 +4,50 @@
     @apply mx-auto px-[3%];
 }
 
-@utility torn-bottom {
-  @apply relative z-10 after:absolute after:z-20 after:w-full after:h-8 after:-bottom-6 after:bg-[url(@assets/images/torn-paper.svg)] after:bg-repeat-x after:bg-bottom /* after:drop-shadow-[0px_-4px_2px_rgb(0_0_0_/_0.25)] */;
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-infinite-scroll {
+  animation: infinite-scroll 30s linear infinite;
+}
+
+@utility container-l {
+    @apply container z-10 ml-0 rounded-r-sm ring-12 shadow-xl overflow-clip before:left-0 before:inset-shadow-[0_0_500px]
+    lg:pl-[calc((104vw-theme('screens.lg'))/2)]
+    xl:pl-[calc((104vw-theme('screens.xl'))/2)]
+    2xl:pl-[calc((104vw-theme('screens.2xl'))/2)]
+    max-w-5/6
+    md:max-w-5/6
+    lg:max-w-[calc(theme('screens.lg')+(99.333vw-theme('screens.lg'))/2)]
+    xl:max-w-[calc(theme('screens.xl')+(99.333vw-theme('screens.xl'))/2)]
+    2xl:max-w-[calc(theme('screens.2xl')+(94vw-theme('screens.2xl'))/2)];
+}
+
+@utility container-r {
+    @apply container z-10 mr-0 rounded-l-sm ring-12 shadow-xl overflow-clip before:left-0 before:inset-shadow-[0_0_500px]
+    lg:pr-[calc((104vw-theme('screens.lg'))/2)]
+    xl:pr-[calc((104vw-theme('screens.xl'))/2)]
+    2xl:pr-[calc((104vw-theme('screens.2xl'))/2)]
+    max-w-5/6
+    md:max-w-5/6
+    lg:max-w-[calc(theme('screens.lg')+(99.333vw-theme('screens.lg'))/2)]
+    xl:max-w-[calc(theme('screens.xl')+(99.333vw-theme('screens.xl'))/2)]
+    2xl:max-w-[calc(theme('screens.2xl')+(94vw-theme('screens.2xl'))/2)];
 }
 
 @utility torn-top {
-  @apply relative before:absolute before:z-20 before:rotate-180 before:w-full before:h-8 before:-top-6 before:bg-[url(../images/torn-paper.svg)] before:bg-repeat-x before:bg-bottom;
+  @apply relative z-10 after:absolute after:z-20 after:w-full after:h-10 after:bottom-0 after:bg-[url(@assets/images/torn-paper.webp)] after:bg-repeat-x after:bg-bottom after:drop-shadow-[0px_-4px_2px_rgb(0_0_0_/_0.3)] after:-top-6;
+}
+
+@utility torn-bottom {
+  @apply relative before:absolute before:z-20 before:rotate-180 before:w-full before:h-8 before:-top-6 before:bg-[url(@assets/images/torn-paper.webp)] before:bg-repeat-x before:bg-bottom;
 }
 
 @utility looker {
@@ -29,11 +67,15 @@
 }
 
 @utility wall-full {
-  @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-full before:h-full before:top-0 before:opacity-50 -z-10;
+  @apply  before:bg-[url('@assets/images/wall-pattern.png')] before:absolute before:w-full before:h-full before:top-0 before:opacity-50 -z-10;
+
+  > * {
+    @apply relative z-10;
+  }
 }
 
 @utility wall-half {
-  @apply before:bg-[url('../images/wall-pattern.png')] before:absolute before:w-1/2 before:h-full before:top-0 before:opacity-50 -z-10 before:shadow-[0_0_200px_#00000099_inset];
+  @apply before:bg-[url('@assets/images/wall-pattern.png')] before:absolute before:w-1/2 before:h-full before:top-0 before:opacity-50 -z-80 before:shadow-[0_0_200px_#00000099_inset];
 }
 
 @utility bg-skew {
@@ -177,7 +219,7 @@
     h2,
     h3,
     h4 {
-        @apply text-gray-900 text-balance;
+        @apply text-gray-900 text-balance leading-tight;
     }
 
     p {
@@ -266,7 +308,6 @@
 }
 
 @layer components {
-
     #messages {
         @apply fixed z-50 bottom-[1vw] right-[2%] rounded-3xl overflow-hidden shadow border-2 border-white ring-inset ring-2 ring-white;
     }
