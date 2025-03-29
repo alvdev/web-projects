@@ -237,9 +237,15 @@
         @apply font-semibold;
     }
 
+    button,
+    .btn,
+    a {
+      @apply hover:cursor-pointer;
+    }
+
     .btn,
     a.btn {
-        @apply text-black mt-4 inline-block px-12 py-4 !no-underline !decoration-0 ring-1 ring-gray-900 transition duration-300 hover:ring-4;
+        @apply font-bold inline-block px-12 py-4 !no-underline !decoration-0 ring-1 ring-gray-900 transition duration-300 hover:ring-4 hover:cursor-pointer;
     }
 
     .btn--default,
