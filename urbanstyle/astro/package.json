@@ -16,6 +16,7 @@
     "@tailwindcss/vite": "^4.0.17",
     "@types/alpinejs": "^3.13.11",
     "@types/alpinejs__collapse": "^3.13.4",
+    "@types/alpinejs__intersect": "^3.13.4",
     "@types/node": "^22.13.14",
     "alpinejs": "^3.14.9",
     "astro": "^5.5.5",
