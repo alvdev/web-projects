@@ -1,21 +1,20 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import { getCollection } from "astro:content";
+
 const collection = await getCollection("reviews");
 
-const data = collection.map((item: { data: any }) => item.data);
-
-const title = data[0].title;
-const subtitle = data[0].subtitle;
-const reviews = data[0].reviews;
+const { enabledTitles, title, subtitle, reviews } = collection[0].data;
 ---
 
 <section class="reviews mt-24">
     {
-        title && (
+        enabledTitles && (
             <hgroup class="container mb-16 text-balance">
-                <h2 class="font-semibold uppercase text-center text-gray-500 text-5xl lg:text-6xl">{title}</h2>
-
+                {title && (
+                    <h2 class="font-semibold uppercase text-center text-gray-500 text-5xl lg:text-6xl">{title}</h2>
+                )}
                 {subtitle && <h3 class="mt-8 text-center text-gray-500 text-3xl lg:text-4xl">{subtitle}</h3>}
             </hgroup>
         )
@@ -25,7 +24,7 @@ const reviews = data[0].reviews;
         class="container columns-1 [&>*]:break-inside-avoid [&>*:not(:first-child)]:mt-4 items-center md:columns-2 lg:columns-3 gap-4 mt-14"
     >
         {
-            reviews.map((review: { stars: number; text: string; picture: string; author: string; link: string }) => (
+            reviews.map(review => (
                 <div class="flex flex-col p-6 bg-white border-2 border-gray-300 rounded shadow-md h-fit -rotate-1">
                     <div class="text-yellow-500 text-2xl inline-flex leading-none [&>span]:mr-1">
                         {"★".repeat(review.stars)}
@@ -33,7 +32,13 @@ const reviews = data[0].reviews;
                     <div class="leading-snug mt-2 text-[1.2rem] text-gray-600">{review.text}</div>
                     <div class="flex items-center justify-between mt-4 text-base">
                         <div class="flex items-center gap-3">
-                            <Image src={review.picture} alt={review.author} width={40} height={40} format="avif" />
+                            <Image
+                                src={review.picture as ImageMetadata}
+                                alt={review.author}
+                                width={40}
+                                height={40}
+                                format="avif"
+                            />
                             {review.author}
                         </div>
                         <div class="flex">
