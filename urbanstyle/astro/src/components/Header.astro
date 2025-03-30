@@ -7,7 +7,7 @@ const { title } = Astro.props;
 
 <section class="hero relative">
     <div class="container">
-        <div class="absolute flex items-end h-full align-text-bottom lg:w-3/4">
+        <div class="absolute flex items-end h-full align-text-bottom lg:w-3/4 min-h-[50vh]">
             <h1
                 class="mb-2 uppercase font-black text-white text-balance text-[2.6rem] leading-[4.3rem] [&>span]:drop-shadow-[0px_0px_5px_rgba(0,0,0,1)] sm:text-[3.2rem] sm:leading-[5.1rem] lg:text-[4rem] lg:leading-[6.2rem] xl:text-7xl xl:leading-[7.7rem] 2xl:text-8xl 2xl:leading-[9.6rem]"
             >
@@ -23,7 +23,7 @@ const { title } = Astro.props;
         width={2145}
         height={967}
         format="avif"
-        class="relative -z-10 m-0 h-[50vh] md:h-[75vh] w-full object-cover brightness-125 contrast-110"
+        class="relative -z-10 m-0 min-h-[75vh] md:min-h-[50vh] lg:min-h-[75vh] w-full object-cover brightness-125 contrast-110"
         alt="Pegada de carteles"
     />
 </section>
