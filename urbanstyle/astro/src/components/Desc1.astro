@@ -1,18 +1,18 @@
 ---
-const title = `Cada día pegamos <mark class="under">el 90% de carteles</mark> que ves en la calle`;
+const title = `<span class="font-bold">Cada día</span> pegamos <mark class="under">el 90% de carteles</mark> que ves en la calle`;
 const description =
     "La pegada de carteles es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado.";
 ---
 
 <section class="mt-28 relative before:opacity-100">
     <div class="container flex flex-col-reverse gap-8 xl:flex-row-reverse xl:gap-16 items-center">
-        <h2 class="text-3xl text-gray-500 text-balance text-center font-semibold m-0 md:text-4xl xl:w-1/2 leading-snug">
+        <h2 class="text-3xl text-gray-600 text-balance text-center font-semibold m-0 md:text-4xl xl:w-1/2 leading-snug">
             {description}
         </h2>
 
         <p
             set:html={title}
-            class="text-5xl text-balance text-gray-700 font-semibold md:text-6xl uppercase xl:w-1/2 xl:text-center xl:m-0 !leading-tight"
+            class="text-5xl text-balance text-black font-semibold md:text-6xl uppercase xl:w-1/2 xl:text-center xl:m-0 !leading-tight"
         />
     </div>
 </section>
