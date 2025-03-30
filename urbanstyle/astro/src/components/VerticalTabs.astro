@@ -1,5 +1,14 @@
+---
+import { getCollection } from "astro:content";
+
+const { folderName: folderName } = Astro.props;
+const tabs = await getCollection("tabs", ({ id }) => {
+    return id.startsWith(folderName);
+});
+---
+
 <section class="mt-32">
-    <div class="container" x-data="{ tab: 1 }">
+    <div class="container" x-data="{ tab: 0 }">
         <h2 class="text-4xl lg:text-5xl text-balance text-black font-bold uppercase xl:m-0 leading-tight">
             Servicios de cartelería complementarios
         </h2>
@@ -8,48 +17,28 @@
             <div class="w-2/5">
                 <div class="sticky top-28">
                     <div class="flex flex-wrap gap-4 lg:flex-col">
-                        <button class="group" x-on:click="tab = 1" :class="tab === 1 ? 'tab-active' : 'tab'">
-                            Diseño profesional de carteles
-                            <span class="inline-block right-2 group-hover:right-0 group-hover:transition-all relative">
-                                🡪
-                            </span>
-                        </button>
-
-                        <button class="group" x-on:click="tab = 2" :class="tab === 2 ? 'tab-active' : 'tab'">
-                            Impresión de carteles
-                            <span class="inline-block right-2 group-hover:right-0 group-hover:transition-all relative">
-                                🡪
-                            </span>
-                        </button>
-
-                        <button class="group" x-on:click="tab = 3" :class="tab === 3 ? 'tab-active' : 'tab'">
-                            Vinilos para cristales
-                            <span class="inline-block right-2 group-hover:right-0 group-hover:transition-all relative">
-                                🡪
-                            </span>
-                        </button>
-
-                        <button class="group" x-on:click="tab = 4" :class="tab === 4 ? 'tab-active' : 'tab'">
-                            Informe fotográfico
-                            <span class="inline-block right-2 group-hover:right-0 group-hover:transition-all relative">
-                                🡪
-                            </span>
-                        </button>
-                        <button class="group" x-on:click="tab = 5" :class="tab === 5 ? 'tab-active' : 'tab'">
-                            Mantenimiento y reposición
-                            <span class="inline-block right-2 group-hover:right-0 group-hover:transition-all relative">
-                                🡪
-                            </span>
-                        </button>
+                        {
+                            tabs.map((tab, index) => (
+                                <button
+                                    class="group"
+                                    x-on:click={`tab = ${index}`}
+                                    x-bind:class={`tab === ${index} ? 'tab-active' : 'tab'`}
+                                >
+                                    {tab.data.title}
+                                    <span class="inline-block right-2 group-hover:right-0 group-hover:transition-all relative">
+                                        🡪
+                                    </span>
+                                </button>
+                            ))
+                        }
                     </div>
                 </div>
             </div>
-
-            <div class="w-3/5" x-show="tab === 1" x-transition:enter="">Tab 1</div>
-            <div class="w-3/5" x-show="tab === 2" x-transition:enter="">Tab 2</div>
-            <div class="w-3/5" x-show="tab === 3" x-transition:enter="">Tab 3</div>
-            <div class="w-3/5" x-show="tab === 4" x-transition:enter="">Tab 4</div>
-            <div class="w-3/5" x-show="tab === 5" x-transition:enter="">Tab 5</div>
+            {
+                tabs.map((tab, index) => (
+                    <div set:html={tab.body} class="w-3/5" x-show={`tab === ${index}`} x-transition:enter></div>
+                ))
+            }
         </div>
     </div>
 </section>
