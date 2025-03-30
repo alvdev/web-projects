@@ -168,6 +168,14 @@
   animation-play-state: paused;
 }
 
+@utility tab {
+  @apply relative border-2 px-6 py-4 rounded-xs bg-white justify-between items-center inline-flex shadow-[4px_4px_0_black] transition-all hover:translate-1 hover:shadow-none;
+}
+
+@utility tab-active {
+  @apply tab border-none bg-black text-white translate-1 shadow-none hover:cursor-default hover:*:[span]:right-2;
+}
+
 @layer base {
     html {
         @apply scroll-smooth;
