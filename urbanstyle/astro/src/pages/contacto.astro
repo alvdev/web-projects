@@ -1,0 +1,345 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import madrid from "../assets/images/madrid.webp";
+import barcelona from "../assets/images/barcelona.webp";
+import Header from "../components/Header.astro";
+---
+
+<Layout>
+    <section class="torn-bottom h-[400px] overflow-hidden">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.7357061946236!2d-3.704869124079127!3d40.39254985711087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd418909bc1f734b%3A0xf9f7d7df34c0e583!2sUrban%20Style%20Publicity!5e0!3m2!1sen!2ses!4v1689272129273!5m2!1sen!2ses"
+            style="border:0;margin-top:-130px"
+            width="100%"
+            height="700"
+            allowfullscreen=""
+            referrerpolicy="no-referrer-when-downgrade"
+        >
+        </iframe>
+    </section>
+
+    <section class="container grid gap-8 items-center lg:grid-cols-2 lg:gap-24 mt-24">
+        <div class="grid gap-16">
+            <h1 class="text-5xl font-bold">Llama o visítanos en nuestras oficinas</h1>
+
+            <div class="grid grid-cols-2 gap-16">
+                <div>
+                    <h3 class="text-3xl font-semibold">Madrid</h3>
+                    <address class="mt-8 flex flex-col gap-4">
+                        <div class="flex gap-2">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="512"
+                                height="512"
+                                viewBox="0 0 24 24"
+                                class="w-6 h-6 mt-2"
+                                role="img"
+                                aria-hidden="true"
+                                preserveAspectRatio="xMinYMin"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M12 11.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Z"
+                                >
+                                </path>
+                            </svg> Avenida Manzanares 202-204 <br /> 28026 Madrid, España
+                        </div><div class="flex gap-2">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="512"
+                                height="512"
+                                viewBox="0 0 24 24"
+                                class="w-6 h-6 mt-2"
+                                role="img"
+                                aria-hidden="true"
+                                preserveAspectRatio="xMinYMin"
+                            >
+                                <g fill="none" fill-rule="evenodd">
+                                    <path
+                                        d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"
+                                    >
+                                    </path><path
+                                        fill="currentColor"
+                                        d="M16.552 22.133c-1.44-.053-5.521-.617-9.795-4.89c-4.273-4.274-4.836-8.354-4.89-9.795c-.08-2.196 1.602-4.329 3.545-5.162a1.47 1.47 0 0 1 1.445.159c1.6 1.166 2.704 2.93 3.652 4.317a1.504 1.504 0 0 1-.256 1.986l-1.951 1.449a.48.48 0 0 0-.142.616c.442.803 1.228 1.999 2.128 2.899c.901.9 2.153 1.738 3.012 2.23a.483.483 0 0 0 .644-.162l1.27-1.933a1.503 1.503 0 0 1 2.056-.332c1.407.974 3.049 2.059 4.251 3.598a1.47 1.47 0 0 1 .189 1.485c-.837 1.953-2.955 3.616-5.158 3.535Z"
+                                    >
+                                    </path>
+                                </g>
+                            </svg> +34 91 305 29 22 <br /> +34 609 15 17 72
+                        </div>
+                    </address>
+                </div>
+                <Image
+                    src={madrid}
+                    class="mt-16 sm:w-1/2 aspect-video rounded-xl [mask-image:linear-gradient(black,transparent)] md:w-full"
+                    alt="Empresa de pegada de carteles en Madrid"
+                    format="avif"
+                    width={550}
+                    height={300}
+                />
+            </div>
+
+            <div class="grid grid-cols-2 gap-16">
+                <div>
+                    <h3 class="text-3xl font-semibold">Barcelona</h3>
+                    <address class="mt-8 flex flex-col gap-4">
+                        <div class="flex gap-2">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="512"
+                                height="512"
+                                viewBox="0 0 24 24"
+                                class="w-6 h-6 mt-2"
+                                role="img"
+                                aria-hidden="true"
+                                preserveAspectRatio="xMinYMin"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M12 11.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Z"
+                                >
+                                </path>
+                            </svg> Calle Tamarit 104 local <br /> 08015 Barcelona, España
+                        </div><div class="flex gap-2">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="512"
+                                height="512"
+                                viewBox="0 0 24 24"
+                                class="w-6 h-6 mt-2"
+                                role="img"
+                                aria-hidden="true"
+                                preserveAspectRatio="xMinYMin"
+                            >
+                                <g fill="none" fill-rule="evenodd">
+                                    <path
+                                        d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"
+                                    >
+                                    </path><path
+                                        fill="currentColor"
+                                        d="M16.552 22.133c-1.44-.053-5.521-.617-9.795-4.89c-4.273-4.274-4.836-8.354-4.89-9.795c-.08-2.196 1.602-4.329 3.545-5.162a1.47 1.47 0 0 1 1.445.159c1.6 1.166 2.704 2.93 3.652 4.317a1.504 1.504 0 0 1-.256 1.986l-1.951 1.449a.48.48 0 0 0-.142.616c.442.803 1.228 1.999 2.128 2.899c.901.9 2.153 1.738 3.012 2.23a.483.483 0 0 0 .644-.162l1.27-1.933a1.503 1.503 0 0 1 2.056-.332c1.407.974 3.049 2.059 4.251 3.598a1.47 1.47 0 0 1 .189 1.485c-.837 1.953-2.955 3.616-5.158 3.535Z"
+                                    >
+                                    </path>
+                                </g>
+                            </svg> +34 91 305 29 22 <br /> +34 609 15 17 72
+                        </div>
+                    </address>
+                </div>
+                <Image
+                    src={barcelona}
+                    class="mt-16 sm:w-1/2 aspect-video rounded-xl [mask-image:linear-gradient(black,transparent)] md:w-full"
+                    alt="Empresa de pegada de carteles en Barcelona"
+                    format="avif"
+                    width={550}
+                    height={300}
+                />
+            </div>
+
+            <div class="mt-16 px-6 py-4 border-2 border-dashed border-yellow-700 text-yellow-700 leading-snug">
+                <div class="font-semibold">Nota:</div> Sentimos comunicar que no hacemos buzoneo. Por favor, tenlo en cuenta
+                antes de pedir presupuesto.
+            </div>
+        </div>
+
+        <div class="h-full">
+            <div class="sticky top-24">
+                <h3 class="text-4xl font-semibold">También puedes usar el siguiente formulario o escribirnos a:</h3>
+
+                <div class="mt-4 text-2xl inline-flex items-end gap-2 no-underline not-italic text-red-800">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="512"
+                        height="512"
+                        viewBox="0 0 48 48"
+                        class="w-6 h-6"
+                        role="img"
+                        aria-hidden="true"
+                        preserveAspectRatio="xMinYMin"
+                    >
+                        <g
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="4"
+                        >
+                            <path d="M44 24V9H4v30h20m20-5H30m9-5l5 5l-5 5"></path><path d="m4 9l20 15L44 9"></path>
+                        </g>
+                    </svg>produccion@urbanstylepublicity.com
+                </div>
+
+                <form name="contact" action="/forms/contact" method="POST" id="contact" class="">
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label class="inline">Nombre <span class="required">*</span></label>
+                        </div><div
+                            class="form-data"
+                            data-grav-field="text"
+                            data-grav-disabled=""
+                            data-grav-default="null"
+                        >
+                            <div class="form-input-wrapper">
+                                <input
+                                    name="data[name]"
+                                    value=""
+                                    type="text"
+                                    class=""
+                                    placeholder="Dinos tu nombre"
+                                    autocomplete="on"
+                                    required="required"
+                                    spellcheck="false"
+                                    data-ms-editor="true"
+                                />
+                            </div>
+                        </div>
+                    </div><div class="form-field">
+                        <div class="form-label">
+                            <label class="inline">Email <span class="required">*</span></label>
+                        </div><div
+                            class="form-data"
+                            data-grav-field="email"
+                            data-grav-disabled=""
+                            data-grav-default="null"
+                        >
+                            <div class="form-input-wrapper">
+                                <input
+                                    name="data[email]"
+                                    value=""
+                                    type="email"
+                                    class=""
+                                    placeholder="Introduce tu email"
+                                    required="required"
+                                />
+                            </div>
+                        </div>
+                    </div><div class="form-field">
+                        <div class="form-label">
+                            <label class="inline">Mensaje <span class="required">*</span></label>
+                        </div><div
+                            class="form-data"
+                            data-grav-field="textarea"
+                            data-grav-disabled=""
+                            data-grav-default="null"
+                        >
+                            <div class="form-textarea-wrapper">
+                                <textarea
+                                    name="data[message]"
+                                    class=""
+                                    placeholder="Escríbemos tu consulta"
+                                    required="required"
+                                    spellcheck="false"
+                                    data-ms-editor="true"
+                                >
+                                </textarea>
+                            </div>
+                        </div>
+                    </div><input
+                        data-grav-field="hidden"
+                        data-grav-disabled="false"
+                        type="hidden"
+                        class="input"
+                        name="data[date]"
+                        value="31-03-2025 13:38:50"
+                    /><div class="form-field">
+                        <div class="form-label"><label class="inline">¿Eres una persona real?</label></div><div
+                            class="form-data basic-captcha"
+                            data-grav-field="basic-captcha"
+                            data-grav-disabled=""
+                            data-grav-default="null"
+                        >
+                            <div class="form-input-wrapper">
+                                <div class="form-input-addon form-input-prepend">
+                                    <img
+                                        id="basic-captcha-reload"
+                                        src="/forms-basic-captcha-image.jpg"
+                                        alt="human test"
+                                    /><button id="reload-captcha">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <g fill="currentColor">
+                                                <path
+                                                    d="M14.74 22.39c4.68-1.24 8-5.49 8-10.4 0-5.95-4.79-10.75-10.75-10.75 -3.11 0-5.78 1.11-7.99 2.95 -.77.64-1.43 1.32-1.98 2.01 -.34.41-.57.75-.69.95 -.22.35-.1.81.25 1.02 .35.21.81.09 1.02-.26 .08-.15.27-.43.56-.79 .49-.62 1.08-1.23 1.76-1.81C6.87 3.67 9.21 2.7 11.94 2.7c5.13 0 9.25 4.12 9.25 9.25 0 4.22-2.86 7.88-6.9 8.94 -.41.1-.64.51-.54.91 .1.4.51.63.91.53Zm-12-14.84V2.99c-.001-.42-.34-.75-.75-.75 -.42 0-.75.33-.75.75v4.56c0 .41.33.75.75.75 .41 0 .75-.34.75-.75Zm-.75.75H4h2.43c.41 0 .75-.34.75-.75 0-.42-.34-.75-.75-.75H4 1.99c-.42 0-.75.33-.75.75 0 .41.33.75.75.75Z"
+                                                >
+                                                </path><path
+                                                    d="M1.25 12c0 1.09.16 2.16.48 3.18 .12.39.54.61.93.49 .39-.13.61-.55.49-.94 -.28-.89-.42-1.81-.42-2.75 0-.42-.34-.75-.75-.75 -.42 0-.75.33-.75.75Zm1.93 6.15c.61.88 1.36 1.67 2.22 2.33 .32.25.79.19 1.05-.14 .25-.33.19-.8-.14-1.06 -.74-.58-1.38-1.25-1.92-2.02 -.24-.34-.71-.43-1.05-.19 -.34.23-.43.7-.19 1.04Zm5.02 3.91c1 .37 2.06.6 3.15.66 .41.02.76-.3.79-.71 .02-.42-.3-.77-.71-.8 -.94-.06-1.85-.25-2.72-.58 -.39-.15-.83.04-.97.43 -.15.38.04.82.43.96Z"
+                                                >
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <input
+                                    name="data[basic-captcha]"
+                                    value=""
+                                    type="text"
+                                    class=""
+                                    placeholder="Introduce el código"
+                                    spellcheck="false"
+                                    data-ms-editor="true"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <input
+                        aria-hidden="true"
+                        type="text"
+                        style="visibility:hidden;position:absolute !important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px)"
+                        class="form-honeybear"
+                        tabindex="-1"
+                        autocomplete="off"
+                        name="data[honeypot]"
+                        value=""
+                    />
+                    <input type="hidden" name="__form-name__" value="contact" /><input
+                        type="hidden"
+                        name="__unique_form_id__"
+                        value="o5rcethtqjrpsfyls4jm"
+                    />
+                    <input type="hidden" name="form-nonce" value="9b91d4407772ba28c426478efb024aaf" />
+                    <div class="flex gap-8 mt-16 *:flex-1">
+                        <button type="submit" class="btn shadow-black bg-red-800 text-white border-black border">
+                            Enviar Consulta
+                        </button>
+                        <button type="reset" class="btn">Reiniciar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="messages"></div><script defer="">
+                document.addEventListener("DOMContentLoaded", function () {
+                    const form = document.querySelector("#contact");
+                    form.addEventListener("submit", function (event) {
+                        event.preventDefault();
+
+                        const result = document.querySelector("#messages");
+                        const action = form.getAttribute("action");
+                        const method = form.getAttribute("method");
+
+                        fetch(action, {
+                            method: method,
+                            body: new FormData(form),
+                        })
+                            .then(function (response) {
+                                if (response.ok) {
+                                    return response.text();
+                                } else {
+                                    return response.json();
+                                }
+                            })
+                            .then(function (output) {
+                                if (result) {
+                                    result.innerHTML = output;
+                                }
+                            })
+                            .catch(function (error) {
+                                if (result) {
+                                    result.innerHTML = "Error: " + error;
+                                }
+
+                                throw new Error(error);
+                            });
+                    });
+                });
+            </script>
+        </div>
+    </section>
+</Layout>
