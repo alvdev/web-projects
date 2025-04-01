@@ -7,9 +7,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://urbanstyle.com/test",
-  base: "/test",
-  trailingSlash: 'never',
+  site: "https://urbanstylepublicity.com",
+  base: "/test/",
+  // trailingSlash: 'never',
   
   integrations: [alpinejs({entrypoint: '/src/alpinejs'})],
 
