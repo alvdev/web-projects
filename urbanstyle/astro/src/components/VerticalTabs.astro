@@ -1,10 +1,19 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
-const { folderName: folderName } = Astro.props;
-const tabs = await getCollection("tabs", ({ id }) => {
-    return id.startsWith(folderName);
-});
+const { folderName } = Astro.props;
+const tabEntries = await getCollection("tabs", ({ id }) => id.startsWith(folderName));
+
+// Render all entries
+const tabs = await Promise.all(
+    tabEntries.map(async entry => {
+        const { Content } = await render(entry);
+        return {
+            ...entry,
+            Content,
+        };
+    })
+);
 ---
 
 <section class="mt-32">
@@ -36,7 +45,9 @@ const tabs = await getCollection("tabs", ({ id }) => {
             </div>
             {
                 tabs.map((tab, index) => (
-                    <div set:html={tab.body} class="w-3/5" x-show={`tab === ${index}`} x-transition:enter></div>
+                    <div class="w-3/5" x-show={`tab === ${index}`} x-transition:enter>
+                        <tab.Content />
+                    </div>
                 ))
             }
         </div>
