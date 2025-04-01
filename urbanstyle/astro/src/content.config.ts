@@ -85,4 +85,14 @@ const benefits = defineCollection({
     }),
 });
 
-export const collections = { logos, reviews, faqs, carousel, benefits };
+const tabs = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/sections/tabs" }),
+  schema: () =>
+    z.object({
+      title: z.string(),
+      subtitle: z.string(),
+      order: z.number(),
+    })
+})
+
+export const collections = { logos, reviews, faqs, carousel, benefits, tabs };
