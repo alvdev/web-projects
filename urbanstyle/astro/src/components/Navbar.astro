@@ -23,16 +23,18 @@ import logo from "../assets/images/logo-urban-250.webp";
             <div class="w-auto hidden lg:block">
                 <ul class="flex items-center justify-between uppercase *:transition-all">
                     <li class="mr-9 hover:scale-105">
-                        <a href="#" class="text-black font-bold p-4 hover:text-red-700">Carteles</a>
+                        <a href="./" class="text-black font-bold p-4 hover:text-red-700">Carteles</a>
                     </li>
                     <li class="mr-9 hover:scale-105">
-                        <a href="#" class="text-black font-bold p-4 hover:text-red-700">Trabajos</a>
+                        <a href="trabajos" class="text-black font-bold p-4 hover:text-red-700">Trabajos</a>
                     </li>
                     <li class="mr-9 hover:scale-105">
-                        <a href="#" class="text-black font-bold p-4 hover:text-red-700">Servicios</a>
+                        <a href="servicios-publicitarios" class="text-black font-bold p-4 hover:text-red-700">
+                            Servicios
+                        </a>
                     </li>
                     <li class="hover:scale-105">
-                        <a href="#" class="text-black font-bold p-4 hover:text-red-700">Blog</a>
+                        <a href="blog" class="text-black font-bold p-4 hover:text-red-700">Blog</a>
                     </li>
                 </ul>
             </div>
@@ -41,13 +43,14 @@ import logo from "../assets/images/logo-urban-250.webp";
         <div class="flex flex-wrap items-center">
             <div class="w-auto hidden lg:block">
                 <div class="inline-block">
-                    <button
+                    <a
+                        href="contacto"
                         class="py-3 px-5 w-full font-semibold uppercase hover:border-gray-300 rounded-full focus:ring focus:ring-gray-50 bg-black text-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
                         type="button"
                         :class="{ 'py-3': scrollNav, 'py-2': !scrollNav }"
                     >
                         Contacto
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="flex items-center lg:hidden">
@@ -100,7 +103,7 @@ import logo from "../assets/images/logo-urban-250.webp";
                 </button>
 
                 <div class="flex items-center justify-between w-36">
-                    <a class="inline-block" href="#">
+                    <a class="inline-block" href="./">
                         <Image
                             src={logo}
                             class="w-full [filter:grayscale(1)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)]"
@@ -113,25 +116,26 @@ import logo from "../assets/images/logo-urban-250.webp";
                 </div>
                 <ul class="flex flex-col gap-8 justify-center py-16 w-full text-center uppercase">
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href="#">Carteles</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href="./">Carteles</a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href="#">Trabajos</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href="trabajos">Trabajos</a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href="#">Servicios</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href="servicios-publicitarios">
+                            Servicios
+                        </a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href="#">Blog</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href="blog">Blog</a>
                     </li>
                 </ul>
                 <div class="flex flex-col justify-end w-full pb-8">
-                    <button
+                    <a
                         class="py-3 px-5 w-full font-semibold uppercase rounded-full focus:ring-4 focus:ring-white bg-white hover:ring-4 hover:ring-white hover:transition-all transition-all"
-                        type="button"
                     >
                         Contacto
-                    </button>
+                    </a>
                 </div>
             </div>
         </nav>
