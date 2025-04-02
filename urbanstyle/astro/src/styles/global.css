@@ -157,7 +157,7 @@
         @apply scroll-smooth;
     }
     body {
-        @apply flex min-h-screen flex-col text-xl leading-relaxed;
+        @apply flex min-h-screen flex-col text-xl leading-relaxed font-sans;
         /* animation-duration: 0.5s;
         animation-name: fadeLoad; */
     }
@@ -187,6 +187,7 @@
     textarea,
     input[type="text"],
     input[type="email"],
+    input[type="tel"],
     input[type="password"] {
         @apply w-full border-0 border-b-4 border-gray-300 bg-[length:1.4rem_1.4rem] bg-left bg-no-repeat px-1 py-4 text-2xl transition duration-200 focus:border-red-700 focus:ring-0 focus:outline-none;
     }
@@ -273,7 +274,7 @@
     }
 
     .external-link {
-        @apply inline-flex items-start transition-all after:h-4 after:w-4 after:bg-[url(@assets/images/icons/ext-link.svg)] after:bg-contain after:opacity-40 hover:after:opacity-60 hover:after:grayscale;
+        @apply inline-flex items-start transition-all after:h-4 after:w-4 after:bg-[url(@assets/icons/ext-link.svg)] after:bg-contain after:opacity-40 hover:after:opacity-60 hover:after:grayscale;
     }
 
     main a:hover:not(.btn) {
