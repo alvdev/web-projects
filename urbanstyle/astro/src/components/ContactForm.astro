@@ -1,0 +1,181 @@
+---
+import UserIcon from "../assets/icons/user.svg";
+import AtIcon from "../assets/icons/at.svg";
+import PhoneIcon from "../assets/icons/phone.svg";
+import QuestionIcon from "../assets/icons/question.svg";
+---
+
+<form id="contact-form" action="php/contactForm.php" method="post" class="mt-16 grid gap-8 md:gap-10">
+    <div class="field name relative">
+        <UserIcon class="absolute z-10 w-6 h-6 top-4" />
+        <input
+            class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
+            type="text"
+            name="name"
+            placeholder="Dinos tu nombre"
+            pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+"
+            title="El nombre sólo puede tener letras y espacios"
+            required
+        />
+        <span class="absolute top-4 right-4 text-sm text-gray-400">* Necesario</span>
+        <div class="error-message hidden" data-field="name"></div>
+    </div>
+
+    <div class="field email relative">
+        <AtIcon class="absolute z-10 w-6 h-6 top-4" />
+        <input
+            class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
+            type="email"
+            name="email"
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$"
+            placeholder="Introduce tu email"
+            title="El email debe tener un formato correcto (ejemplo: usuario@dominio.com)"
+            required
+        />
+        <span class="absolute top-4 right-4 text-sm text-gray-400">* Necesario</span>
+        <div class="error-message hidden" data-field="email"></div>
+    </div>
+
+    <div class="field phone relative">
+        <PhoneIcon class="absolute z-10 w-6 h-6 top-4" />
+        <input
+            class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
+            type="tel"
+            name="phone"
+            placeholder="Tu teléfono si quieres que te llamemos"
+            pattern="[0-9]{9}"
+            title="El teléfono debe tener al menos 9 dígitos"
+            minlength="9"
+        />
+        <div class="error-message hidden" data-field="phone"></div>
+    </div>
+
+    <div class="field website hidden">
+        <AtIcon class="absolute z-10 w-6 h-6 top-4" />
+        <input
+            class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
+            type="text"
+            name="website"
+            placeholder="Website"
+        />
+    </div>
+
+    <div class="field message relative">
+        <QuestionIcon class="absolute z-10 w-6 h-6 top-4" />
+        <textarea
+            class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
+            name="message"
+            placeholder="Escribe tu consulta"
+            title="La consulta no puede estar vacía"
+            required></textarea>
+        <span class="absolute top-4 right-4 text-sm text-gray-400">* Necesario</span>
+        <div class="error-message hidden" data-field="message"></div>
+    </div>
+
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAABDZCgsB3a37MyyA" data-theme="light" data-language="es"></div>
+
+    <div
+        id="response-banner"
+        class="hidden text-center text-balance text-3xl font-semibold transition-discrete duration-1500 starting:opacity-0"
+    ></div>
+
+    <div class="flex gap-8 mt-8 *:w-1/2">
+        <button type="submit" class="btn shadow-black bg-red-800 text-white border-black border">
+            Enviar Consulta
+        </button>
+        <button type="reset" class="btn px-4">Reiniciar formulario</button>
+    </div>
+</form>
+
+<script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("contact-form");
+        form.addEventListener("submit", async e => {
+            e.preventDefault(); // Prevents page reload
+
+            const formData = new FormData(form);
+            const feedback = document.querySelector("#response-banner");
+
+            // Clear previous errors
+            document.querySelectorAll(".error-message").forEach(el => (el.textContent = ""));
+            feedback.textContent = "";
+
+            // Frontend validations
+
+            // Validate required fields. Only working if HTML5 validation is disabled
+            let isValid = true;
+            const required = ["name", "email", "message"];
+            required.forEach(field => {
+                if (!formData.get(field).trim()) {
+                    showError(field, `● Este campo es requerido`);
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) return;
+
+            // Disable submit button during submission
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (result.status === "success") {
+                    feedback.classList.remove("text-red-700", "hidden");
+                    feedback.classList.add("text-lime-700", "block");
+                } else {
+                    feedback.classList.remove("text-lime-700", "hidden", "opacity-0", "h-0");
+                    feedback.classList.add("text-red-700", "block", "opacity-100", "h-auto");
+                }
+                feedback.textContent = result.message;
+
+                // Optionally handle server error messages per field
+                if (result.message.toLowerCase().includes("campo")) {
+                    const field = result.message.split(" ")[2];
+                    showError(field, result.message);
+                }
+            } catch (error) {
+                feedback.style.color = "text-red-700";
+                feedback.textContent = "● Error de conexión";
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Reset event listener to clear fields and reset captcha
+        form.addEventListener("reset", () => {
+            // Clear all error messages
+            document.querySelectorAll(".error-message").forEach(el => (el.textContent = ""));
+
+            // Clear feedback banner and hide it
+            const feedback = document.querySelector("#response-banner");
+            feedback.textContent = "";
+            feedback.classList.add("hidden");
+
+            // If Turnstile is available, reset the captcha widget
+            if (window.turnstile && typeof window.turnstile.reset === "function") {
+                window.turnstile.reset();
+            }
+        });
+
+        function showError(fieldName, message) {
+            const errorElement = document.querySelector(`[data-field="${fieldName}"]`);
+            console.log("showError called for", fieldName, message);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.remove("hidden");
+                errorElement.classList.add("block", "text-red-700", "mt-2");
+            } else {
+                console.warn(`No error element found for ${fieldName}`);
+            }
+        }
+    });
+</script>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
