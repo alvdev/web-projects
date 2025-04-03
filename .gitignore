@@ -23,6 +23,7 @@ test/
 .vscode/
 .gitkeep
 _*
+*.db
 
 ## Grav
 **/system/
