@@ -656,12 +656,25 @@
 }
 
 /* jQuery hacks */
-.collapse {
+.collapse,
+.expand_details {
     @apply invisible hidden;
 }
 
 .show {
     @apply visible block;
+}
+
+.expand {
+    @apply hover:cursor-pointer;
+
+    &.expanded {
+        @apply visible hover:cursor-pointer;
+
+        ~ .expand_details {
+            @apply visible transition-discrete duration-500 starting:opacity-0;
+        }
+    }
 }
 
 /**
