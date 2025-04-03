@@ -1,6 +1,10 @@
 {
+    "name": "alvdev/urban",
     "require": {
         "phpmailer/phpmailer": "^6.9",
         "vlucas/phpdotenv": "^5.6"
+    },
+    "config": {
+        "vendor-dir": "public/vendor"
     }
 }
