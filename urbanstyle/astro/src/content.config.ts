@@ -16,7 +16,7 @@ const logos = defineCollection({
 
 const reviews = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/sections/reviews" }),
-  schema: ({ image }) => 
+  schema: ({ image }) =>
     z.object({
       title: z.string(),
       subtitle: z.string(),
@@ -30,7 +30,7 @@ const reviews = defineCollection({
           stars: z.number().min(1).max(5),
         }),
       ),
-    })
+    }),
 });
 
 const faqs = defineCollection({
@@ -69,7 +69,7 @@ const carousel = defineCollection({
 
 const benefits = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/sections/benefits" }),
-  schema: ({ image}) =>
+  schema: ({ image }) =>
     z.object({
       title: z.string(),
       subtitle: z.string(),
@@ -92,7 +92,25 @@ const tabs = defineCollection({
       title: z.string(),
       subtitle: z.string(),
       order: z.number(),
-    })
-})
+    }),
+});
 
-export const collections = { logos, reviews, faqs, carousel, benefits, tabs };
+const albums = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/sections/albums" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      cover: image(),
+    }),
+});
+
+export const collections = {
+  logos,
+  reviews,
+  faqs,
+  carousel,
+  benefits,
+  tabs,
+  albums,
+};
