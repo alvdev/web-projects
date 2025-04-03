@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Gallery from "../components/Gallery.astro";
+
+// Find all info.md files within the gallery subdirectories
+// This defines which galleries exist and should be rendered
+const galleryInfoFiles = await Astro.glob("/src/content/galleries/*/info.md");
+
+// Extract the gallery names (directory names) from the paths of the info.md files
+const galleryNames = galleryInfoFiles
+    .map(infoFile => infoFile.file.split("/").slice(-2, -1)[0]) // Extract the directory name
+    .filter(name => name) // Filter out any potential empty strings
+    .sort(); // Optional: sort gallery names alphabetically
+---
+
+<Layout title="Nuestros Trabajos - Urban Style">
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold mb-6 text-center">Galería de Trabajos</h1>
+        <p class="text-lg mb-8 text-center">Aquí puedes ver algunos ejemplos de nuestros proyectos por ubicación.</p>
+
+        {
+            galleryNames.length === 0 ? (
+                <p class="text-center text-gray-600">
+                    No se encontraron galerías. Crea subdirectorios en <code>src/content/galleries/</code> y añade
+                    imágenes.
+                </p>
+            ) : (
+                galleryNames.map(name => <Gallery galleryName={name} />)
+            )
+        }
+    </main>
+</Layout>
