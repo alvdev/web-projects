@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-    [x-cloak] {
-        display: none !important;
-    }
+[x-cloak] {
+    display: none !important;
+}
 
 @utility container {
     @apply mx-auto px-[3%];
@@ -157,7 +157,7 @@
         @apply scroll-smooth;
     }
     body {
-        @apply flex min-h-screen flex-col text-xl leading-relaxed font-sans;
+        @apply flex min-h-screen flex-col font-sans text-xl leading-relaxed;
         /* animation-duration: 0.5s;
         animation-name: fadeLoad; */
     }
@@ -230,7 +230,7 @@
 
     .btn,
     a.btn {
-        @apply inline-block px-12 py-4 font-semibold uppercase border-2 bg-white rounded-xs shadow-[4px_4px_0_black] transition-all hover:translate-1 hover:shadow-none;
+        @apply inline-block rounded-xs border-2 border-black text-black bg-white px-12 py-4 font-semibold uppercase shadow-[4px_4px_0_black] transition-all hover:translate-1 hover:shadow-none;
     }
 
     .btn--default,
