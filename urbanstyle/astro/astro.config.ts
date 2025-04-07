@@ -5,13 +5,15 @@ import { fileURLToPath } from "url";
 import alpinejs from "@astrojs/alpinejs";
 import tailwindcss from "@tailwindcss/vite";
 
+import mdx from "@astrojs/mdx";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://urbanstylepublicity.com",
   base: "/test/",
   // trailingSlash: 'never',
 
-  integrations: [alpinejs({ entrypoint: "/src/alpinejs" })],
+  integrations: [alpinejs({ entrypoint: "/src/alpinejs" }), mdx()],
 
   vite: {
     plugins: [tailwindcss() as any],
