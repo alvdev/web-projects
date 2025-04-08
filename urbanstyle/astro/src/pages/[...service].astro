@@ -5,8 +5,8 @@ import { Image } from "astro:assets";
 import { render } from "astro:content";
 
 export async function getStaticPaths() {
-    const landings = await getCollection("landings");
-    return landings.map(landing => ({
+    const services = await getCollection("services");
+    return services.map(landing => ({
         params: { service: landing.data.slug },
         props: { landing },
     }));
