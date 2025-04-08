@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+    const landings = await getCollection("landings");
+    return landings.map(landing => ({
+        params: { service: landing.data.slug },
+        props: { landing },
+    }));
+}
+
+const { landing } = Astro.props;
+const { Content } = await render(landing);
+---
+
+<Layout>
+    <main>
+        <section class="hero torn-bottom">
+            <div class="container">
+                <div
+                    class="absolute z-10 -bottom-[.15rem] sm:bottom-0 flex items-end h-full pr-8 align-text-bottom lg:w-10/12 xl:w-3/4"
+                >
+                    <h1
+                        class="mb-0 lg:-mb-1.5 px-12 pt-6 rounded-xs pb-12 bg-black/50 text-white text-[2.4rem] font-bold m-0 sm:text-[3.5rem] md:text-7xl lg:text-[5.25rem] xl:text-[5.5rem] uppercase drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]"
+                    >
+                        {landing.data.title}
+                    </h1>
+                </div>
+            </div>
+            <Image
+                src={landing.data.cover}
+                class="m-0 h-[50vh]! w-full object-cover brightness-125 contrast-110"
+                alt={landing.data.title}
+                format="avif"
+                width={1920}
+            />
+        </section>
+
+        <div class="*:first:mt-28">
+            <Content />
+        </div>
+    </main>
+</Layout>
