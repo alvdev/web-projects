@@ -6,13 +6,12 @@ import headerImg from "@/content/services/tu-publicidad-aqui.webp";
 import pegadaImg from "@/assets/images/header/pegada-de-carteles.webp";
 import dossier from "@/assets/images/urban-dossier.webp";
 
-const landings = await getCollection("landings");
-const pagesUrl = landings.map(page => {
+const services = await getCollection("services");
+const pagesUrl = services.map(page => {
     const match = page.filePath?.match(/^src\/content\/services\/(.+)\/[^/]+\.(md|mdx)$/);
     return import.meta.env.BASE_URL + (match?.[1] ?? "");
 });
-const pagesCover = Object.entries(landings);
-console.log(pagesCover);
+const pagesCover = Object.entries(services);
 
 const title = "Servicios publicitarios";
 ---
@@ -22,7 +21,7 @@ const title = "Servicios publicitarios";
         <div class="container">
             <div class="absolute flex items-end h-full align-text-bottom lg:w-1/2">
                 <h1
-                    class="-mb-[1px] sm:-mb-0.5 md:-mb-1.5 max-w-min bg-white px-8 pt-4 text-[2.6rem] sm:text-6xl md:text-7xl lg:text-8xl uppercase drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]"
+                    class="mb-0 lg:-mb-1.5 px-12 pt-6 rounded-xs pb-12 bg-black/50 text-white text-[2.4rem] font-bold m-0 sm:text-[3.5rem] md:text-7xl lg:text-[5.25rem] xl:text-[5.5rem] uppercase drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]"
                 >
                     {title}
                 </h1>
@@ -105,7 +104,7 @@ const title = "Servicios publicitarios";
                 </div>
 
                 {
-                    landings.map((page, index) => {
+                    services.map((page, index) => {
                         const reverseStyles =
                             index % 2 === 0
                                 ? "[&_h2]:right-0 [&_h2]:text-right"
