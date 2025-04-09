@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+
+const collection = await getCollection("galleries");
+const cities = collection.map(city => city.id.split("/")[0]);
+---
+
+<div class="grid grid-cols-2 gap-2 p-0 m-0 list-none md:grid-cols-3 lg:grid-cols-1 lg:gap-4">
+    {
+        cities.map((city: string) => (
+            <a
+                href={`#${city}`}
+                class="btn !block !m-0 !px-2 !py-1 text-lg lg:text-xl lg:!p-4 text-center normal-case first-letter:uppercase"
+            >
+                {city}
+            </a>
+        ))
+    }
+</div>
