@@ -1,32 +1,75 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Gallery from "../components/Gallery.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getGalleryImages } from "@/utils/getGalleryImages";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import VideoBg from "@/components/VideoBg.astro";
+import GalleryCities from "@/components/GalleryCities.astro";
 
-// Find all info.md files within the gallery subdirectories
-// This defines which galleries exist and should be rendered
-const galleryInfoFiles = await Astro.glob("/src/content/galleries/*/info.md");
-
-// Extract the gallery names (directory names) from the paths of the info.md files
-const galleryNames = galleryInfoFiles
-    .map(infoFile => infoFile.file.split("/").slice(-2, -1)[0]) // Extract the directory name
-    .filter(name => name) // Filter out any potential empty strings
-    .sort(); // Optional: sort gallery names alphabetically
+const collection = await getCollection("galleries");
 ---
 
-<Layout title="Nuestros Trabajos - Urban Style">
-    <main class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold mb-6 text-center">Galería de Trabajos</h1>
-        <p class="text-lg mb-8 text-center">Aquí puedes ver algunos ejemplos de nuestros proyectos por ubicación.</p>
+<Layout>
+    <VideoBg title="Trabajos realizados" />
+    <main>
+        <section class="lg:mt-24">
+            <div class="container relative flex flex-col lg:flex-row gap-16">
+                <aside
+                    class="sticky top-0 bg-opacity-90 backdrop-blur-md pt-16 pb-8 border-b-4 border-black z-10 lg:relative lg:top-0 lg:py-0 lg:border-none"
+                >
+                    <div class="lg:w-max lg:sticky lg:top-40 whitespace-nowrap">
+                        <GalleryCities />
+                    </div>
+                </aside>
 
-        {
-            galleryNames.length === 0 ? (
-                <p class="text-center text-gray-600">
-                    No se encontraron galerías. Crea subdirectorios en <code>src/content/galleries/</code> y añade
-                    imágenes.
-                </p>
-            ) : (
-                galleryNames.map(name => <Gallery galleryName={name} />)
-            )
-        }
+                <div class="relative *:not-first:mt-16 pt-1 flex flex-col overflow-clip w-full">
+                    <div id="instagram" class="mb-8 p-0">
+                        <h3 class="text-3xl font-semibold">
+                            <a
+                                href="https://www.instagram.com/urban_style_publicity"
+                                target="_blank"
+                                rel="nofollow noopener noreferrer"
+                                title="This link will take you to an external web site. We are not responsible for their content."
+                                class="external-link no-image"
+                            >
+                                Síguenos en Instagram
+                            </a> para ver nuestras pegadas de carteles más recientes.
+                        </h3>
+                    </div>
+
+                    {
+                        collection.map(async item => {
+                            const images = await getGalleryImages(item.id);
+                            return (
+                                <div>
+                                    <h2
+                                        id={item.id}
+                                        class="left-0 scroll-mt-80 md:scroll-mt-72 lg:scroll-mt-40 bg-skew2 wall-full text-4xl font-semibold"
+                                    >
+                                        <span class="bg-black text-white px-8 py-4 shadow-[0_0_0_4px_black] border-4 border-white relative left-2 rotate-2 top-1 inline-block">
+                                            {item.data.title}
+                                        </span>
+                                    </h2>
+
+                                    <div class="mt-8 columns-2 [&>*]:break-inside-avoid items-center md:columns-4 lg:columns-6 gap-4">
+                                        {images.map(img => (
+                                            <div class="mb-4 overflow-clip border border-black p-0.75 bg-white rounded-xs">
+                                                <Image
+                                                    src={img}
+                                                    alt=""
+                                                    width={500}
+                                                    format="avif"
+                                                    class="max-w-none brightness-125 saturate-110 contrast-110 w-full shadow-xl hover:scale-110 transition-all duration-300 border-md"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }
+                </div>
+            </div>
+        </section>
     </main>
 </Layout>
