@@ -95,8 +95,19 @@ const tabs = defineCollection({
     }),
 });
 
-const albums = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/sections/albums" }),
+const services = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/services" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      cover: image(),
+      slug: z.string(),
+    })
+})
+
+const galleries = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/galleries" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -112,5 +123,6 @@ export const collections = {
   carousel,
   benefits,
   tabs,
-  albums,
+  services,
+  galleries,
 };
