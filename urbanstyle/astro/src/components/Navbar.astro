@@ -5,7 +5,9 @@ import logo from "../assets/images/logo-urban-250.webp";
 const baseUrl = import.meta.env.BASE_URL;
 const link = {
     home: baseUrl,
+    posters: baseUrl + "pegada-de-carteles",
     services: baseUrl + "servicios-publicitarios",
+    jobs: baseUrl + "trabajos",
     blog: baseUrl + "blog",
     contact: baseUrl + "contacto",
 };
@@ -31,10 +33,10 @@ const link = {
             <div class="w-auto hidden lg:block">
                 <ul class="flex items-center justify-between uppercase *:transition-all">
                     <li class="mr-9 hover:scale-105">
-                        <a href={baseUrl} class="text-black font-bold p-4 hover:text-red-700">Carteles</a>
+                        <a href={link.posters} class="text-black font-bold p-4 hover:text-red-700">Carteles</a>
                     </li>
                     <li class="mr-9 hover:scale-105">
-                        <a href={baseUrl + "trabajos"} class="text-black font-bold p-4 hover:text-red-700">Trabajos</a>
+                        <a href={link.jobs} class="text-black font-bold p-4 hover:text-red-700">Trabajos</a>
                     </li>
                     <li class="mr-9 hover:scale-105">
                         <a href={link.services} class="text-black font-bold p-4 hover:text-red-700">Servicios</a>
@@ -122,15 +124,13 @@ const link = {
                 </div>
                 <ul class="flex flex-col gap-8 justify-center py-16 w-full text-center uppercase">
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href={baseUrl}>Carteles</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href={link.posters}>Carteles</a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href={baseUrl + "trabajos"}>Trabajos</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href={link.jobs}>Trabajos</a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href={baseUrl + "servicios"}>
-                            Servicios
-                        </a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href={link.services}>Servicios</a>
                     </li>
                     <li>
                         <a class="font-medium block p-4 py-6 hover:text-white" href={link.blog}>Blog</a>
