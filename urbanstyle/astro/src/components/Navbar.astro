@@ -1,6 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import logo from "../assets/images/logo-urban-250.webp";
+
+const baseUrl = import.meta.env.BASE_URL;
+const link = {
+    home: baseUrl,
+    services: baseUrl + "servicios-publicitarios",
+    blog: baseUrl + "blog",
+    contact: baseUrl + "contacto",
+};
 ---
 
 <section
@@ -14,7 +22,7 @@ import logo from "../assets/images/logo-urban-250.webp";
         :class="{ 'top-8 pl-2 pr-6 py-2': scrollNav, 'top-2 pl-1 pr-3 py-1': !scrollNav }"
     >
         <div class="w-36 flex flex-wrap items-center transition-all" :class="{'w-36': scrollNav, 'w-24': !scrollNav}">
-            <a href="#">
+            <a href={baseUrl}>
                 <Image src={logo} alt="Logo Urban" width={250} height={146} format="avif" />
             </a>
         </div>
@@ -23,18 +31,16 @@ import logo from "../assets/images/logo-urban-250.webp";
             <div class="w-auto hidden lg:block">
                 <ul class="flex items-center justify-between uppercase *:transition-all">
                     <li class="mr-9 hover:scale-105">
-                        <a href="./" class="text-black font-bold p-4 hover:text-red-700">Carteles</a>
+                        <a href={baseUrl} class="text-black font-bold p-4 hover:text-red-700">Carteles</a>
                     </li>
                     <li class="mr-9 hover:scale-105">
-                        <a href="trabajos" class="text-black font-bold p-4 hover:text-red-700">Trabajos</a>
+                        <a href={baseUrl + "trabajos"} class="text-black font-bold p-4 hover:text-red-700">Trabajos</a>
                     </li>
                     <li class="mr-9 hover:scale-105">
-                        <a href="servicios-publicitarios" class="text-black font-bold p-4 hover:text-red-700">
-                            Servicios
-                        </a>
+                        <a href={link.services} class="text-black font-bold p-4 hover:text-red-700">Servicios</a>
                     </li>
                     <li class="hover:scale-105">
-                        <a href="blog" class="text-black font-bold p-4 hover:text-red-700">Blog</a>
+                        <a href={link.blog} class="text-black font-bold p-4 hover:text-red-700">Blog</a>
                     </li>
                 </ul>
             </div>
@@ -44,7 +50,7 @@ import logo from "../assets/images/logo-urban-250.webp";
             <div class="w-auto hidden lg:block">
                 <div class="inline-block">
                     <a
-                        href="contacto"
+                        href={link.contact}
                         class="py-3 px-5 w-full font-semibold uppercase hover:border-gray-300 rounded-full focus:ring focus:ring-gray-50 bg-black text-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
                         type="button"
                         :class="{ 'py-3': scrollNav, 'py-2': !scrollNav }"
@@ -103,7 +109,7 @@ import logo from "../assets/images/logo-urban-250.webp";
                 </button>
 
                 <div class="flex items-center justify-between w-36">
-                    <a class="inline-block" href="./">
+                    <a class="inline-block" href={baseUrl}>
                         <Image
                             src={logo}
                             class="w-full [filter:grayscale(1)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)]"
@@ -116,22 +122,23 @@ import logo from "../assets/images/logo-urban-250.webp";
                 </div>
                 <ul class="flex flex-col gap-8 justify-center py-16 w-full text-center uppercase">
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href="./">Carteles</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href={baseUrl}>Carteles</a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href="trabajos">Trabajos</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href={baseUrl + "trabajos"}>Trabajos</a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href="servicios-publicitarios">
+                        <a class="font-medium block p-4 py-6 hover:text-white" href={baseUrl + "servicios"}>
                             Servicios
                         </a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6 hover:text-white" href="blog">Blog</a>
+                        <a class="font-medium block p-4 py-6 hover:text-white" href={link.blog}>Blog</a>
                     </li>
                 </ul>
                 <div class="flex flex-col justify-end w-full pb-8">
                     <a
+                        href={link.contact}
                         class="py-3 px-5 w-full font-semibold uppercase rounded-full focus:ring-4 focus:ring-white bg-white hover:ring-4 hover:ring-white hover:transition-all transition-all"
                     >
                         Contacto
