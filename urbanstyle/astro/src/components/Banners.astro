@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import banner from "@/assets/images/header/pegada-de-carteles.webp";
+import dossier from "@/assets/images/urban-dossier.webp";
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<div class="bg-black text-white text-center relative rounded-xs overflow-hidden">
+    <div class="relative p-8 text-2xl text-balance">
+        Conoce nuestro servicio de <a
+            href={baseUrl}
+            class="btn block text-lg border-2 text-orange-300 border-orange-300 mt-6 px-1 bg-transparent shadow-white/30"
+        >
+            pegada de carteles
+        </a>
+    </div>
+    <div
+        class="relative overflow-hidden before:shadow-[0_0_25px_15px_black] before:w-full before:absolute before:left-0"
+    >
+        <Image
+            src={banner}
+            class="w-full object-cover brightness-110 contrast-110 mask-t-from-30%"
+            alt="pegada de carteles"
+            width={300}
+            height={150}
+        />
+    </div>
+</div>
+
+<div
+    class="mt-8 text-center border-6 border-gray-200 rounded-xs p-8 px-6 bg-gradient-to-t from-black/40 via-white via-40% to-white"
+>
+    <Image
+        src={dossier}
+        class="mx-auto w-full object-cover brightness-110 contrast-110"
+        alt="dossier para pegadas de carteles"
+        width={200}
+        format="avif"
+    />
+
+    <a
+        href="/dl/dossier-UrbanStylePublicity.pdf"
+        target="_blank"
+        class="btn block mt-8 px-5 whitespace-nowrap normal-case"
+    >
+        Descargar dossier <span class="rotate-45 inline-block translate-y-[2px]">&#x2794</span>
+    </a>
+</div>
