@@ -2,8 +2,9 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import Layout from "@/layouts/Base.astro";
+import Header from "@/components/Header.astro";
 import headerImg from "@/content/services/tu-publicidad-aqui.webp";
-import pegadaImg from "@/assets/images/header/pegada-de-carteles.webp";
+import pegadaImg from "@/content/services/tu-publicidad-aqui.webp";
 import dossier from "@/assets/images/urban-dossier.webp";
 
 const services = await getCollection("services");
@@ -11,159 +12,113 @@ const pagesUrl = services.map(page => {
     const match = page.filePath?.match(/^src\/content\/services\/(.+)\/[^/]+\.(md|mdx)$/);
     return import.meta.env.BASE_URL + (match?.[1] ?? "");
 });
-const pagesCover = Object.entries(services);
 
 const title = "Servicios publicitarios";
 ---
 
 <Layout>
-    <section class="torn-bottom">
-        <div class="container">
-            <div class="absolute flex items-end h-full align-text-bottom lg:w-1/2">
-                <h1
-                    class="mb-0 lg:-mb-1.5 px-12 pt-6 rounded-xs pb-12 bg-black/50 text-white text-[2.4rem] font-bold m-0 sm:text-[3.5rem] md:text-7xl lg:text-[5.25rem] xl:text-[5.5rem] uppercase drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]"
-                >
-                    {title}
-                </h1>
+    <Header title={title} cover={headerImg} minHeight="h-[75vh]" />
+
+    <main class="relative z-10">
+        <section class="mt-20 border-b-4 border-dotted border-gray-400 pb-20">
+            <div
+                class="container flex flex-col text-balance text-2xl leading-relaxed relative text-gray-500 [&_li]:my-8 xl:flex-row"
+            >
+                <ul class="m-0">
+                    <li class="!mt-0">Somos expertos en expandir tu mensaje a través de cualquier ciudad y lugar.</li>
+                    <li>
+                        Gestionamos meticulosamente todos los permisos municipales necesarios, permitiéndote
+                        concentrarte en lo que más importa: tu campaña publicitaria o evento.
+                    </li>
+                    <li>
+                        Con una sólida infraestructura de ideación, diseño, producción y montaje, garantizamos
+                        resultados excepcionales que sobresalen en cualquier entorno.
+                    </li>
+                </ul>
+                <ul class="m-0">
+                    <li class="!mt-0">
+                        No nos limitamos a simplemente exhibir tu mensaje. Nos esforzamos por fomentar una interacción
+                        significativa con tu audiencia.
+                    </li>
+                    <li>
+                        Empleamos estrategias emocionales y creativas que no solo captan la atención del público, sino
+                        que también generan una conexión auténtica con tu marca.
+                    </li>
+                    <li>
+                        Desde elementos de humor hasta innovadoras tácticas de compromiso, aseguramos que tu campaña sea
+                        memorable y efectiva en cada paso del camino.
+                    </li>
+                </ul>
             </div>
-        </div>
-        <Image
-            src={headerImg}
-            alt="publicidad en la calle"
-            class="m-0 h-[50vh] md:h-[75vh] w-full object-cover"
-            format="avif"
-            width={1692}
-            height={763}
-        />
-    </section>
+        </section>
 
-    <section class="mt-20 border-b-4 border-dotted border-gray-400 pb-20">
-        <div
-            class="container flex flex-col text-balance text-2xl leading-relaxed relative text-gray-500 [&_li]:my-8 xl:flex-row"
-        >
-            <ul class="m-0">
-                <li class="!mt-0">Somos expertos en expandir tu mensaje a través de cualquier ciudad y lugar.</li>
-                <li>
-                    Gestionamos meticulosamente todos los permisos municipales necesarios, permitiéndote concentrarte en
-                    lo que más importa: tu campaña publicitaria o evento.
-                </li>
-                <li>
-                    Con una sólida infraestructura de ideación, diseño, producción y montaje, garantizamos resultados
-                    excepcionales que sobresalen en cualquier entorno.
-                </li>
-            </ul>
-            <ul class="m-0">
-                <li class="!mt-0">
-                    No nos limitamos a simplemente exhibir tu mensaje. Nos esforzamos por fomentar una interacción
-                    significativa con tu audiencia.
-                </li>
-                <li>
-                    Empleamos estrategias emocionales y creativas que no solo captan la atención del público, sino que
-                    también generan una conexión auténtica con tu marca.
-                </li>
-                <li>
-                    Desde elementos de humor hasta innovadoras tácticas de compromiso, aseguramos que tu campaña sea
-                    memorable y efectiva en cada paso del camino.
-                </li>
-            </ul>
-        </div>
-    </section>
+        <div class="container mt-24">
+            <div class="flex flex-col-reverse gap-24 mt-28 xl:flex-row">
+                <div>
+                    {
+                        services.map((page, index) => {
+                            const reverseStyles =
+                                index % 2 === 0
+                                    ? "[&_h2]:right-0 [&_h2]:text-right"
+                                    : "lg:text-right lg:flex-row-reverse [&_h2]:left-0 [&_h2]:text-left";
+                            const reverseGradient = index % 2 === 0 ? "bg-gradient-to-l" : "bg-gradient-to-r";
 
-    <div class="container mt-24">
-        <div class="flex flex-col-reverse gap-24 mt-28 xl:flex-row">
-            <div>
-                <div
-                    class="flex flex-col items-center gap-4 mt-14 first:mt-0 lg:gap-16 lg:text-right lg:flex-row-reverse [&_h2]:left-0 [&_h2]:text-left"
-                >
-                    <div
-                        class="relative border-2 border-[#8a3a3a] overflow-hidden w-full rounded-md shadow-xl lg:w-1/2 aspect-video"
-                    >
-                        <a href={import.meta.env.BASE_URL} class="group">
-                            <Image
-                                src={pegadaImg}
-                                class="m-0 aspect-video w-full group-hover:scale-105 transition-all duration-700"
-                                alt="pegada de carteles"
-                                format="avif"
-                            />
-                            <h2
-                                class="wall-full z-0 drop-shadow absolute bottom-0 w-full m-0 p-6 uppercase font-bold text-white text-shadow-xs text-shadow-black line-clamp-2 break-words text-4xl bg-gradient-to-r from-red-900 to-transparent before:left-0"
-                            >
-                                Pegada de carteles
-                            </h2>
-                        </a>
-                    </div>
-                    <div class="p-2 lg:p-0 lg:w-1/2 text-gray-500 [&>*]:text-balance [&>p:first-child]:mt-0">
-                        <p>
-                            La pegada de carteles es lo que nos ha convertido en el actual referente en España, avalados
-                            por el gran número de clientes y la satisfacción que han demostrado. Deja que nuestro equipo
-                            de profesionales se encargue de que tus carteles se vean en los lugares más estratégicos y
-                            transitados...
-                        </p>
-                        <a class="block" href={import.meta.env.BASE_URL}>Seguir leyendo</a>
-                    </div>
+                            return (
+                                <div
+                                    class={`flex flex-col items-center gap-4 mt-14 first:mt-0 lg:flex-row lg:gap-16 ${reverseStyles}`}
+                                >
+                                    <div class="relative border-2 border-[#8a3a3a] overflow-hidden w-full rounded-md shadow-xl lg:w-1/2 aspect-video">
+                                        <a href={pagesUrl[index]} class="group">
+                                            <Image
+                                                src={page.data.cover}
+                                                class="m-0 aspect-video w-full group-hover:scale-105 transition-all duration-700"
+                                                alt={page.data.title}
+                                                width={475}
+                                                format="avif"
+                                            />
+
+                                            <h2
+                                                class={`wall-full z-0 drop-shadow] absolute bottom-0 w-full m-0 p-6 uppercase font-bold text-white text-shadow-xs text-shadow-black text-4xl ${reverseGradient} from-red-900 to-transparent before:left-0`}
+                                            >
+                                                {page.data.shortTitle || page.data.title}
+                                            </h2>
+                                        </a>
+                                    </div>
+                                    <div class="p-2 lg:p-0 lg:w-1/2 text-gray-500 [&>*]:text-balance [&>p:first-child]:mt-0">
+                                        {page.data.description}
+                                        <a class="block" href={pagesUrl[index]}>
+                                            Seguir leyendo
+                                        </a>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }
                 </div>
 
-                {
-                    services.map((page, index) => {
-                        const reverseStyles =
-                            index % 2 === 0
-                                ? "[&_h2]:right-0 [&_h2]:text-right"
-                                : "lg:text-right lg:flex-row-reverse [&_h2]:left-0 [&_h2]:text-left";
-                        const reverseGradient = index % 2 === 0 ? "bg-gradient-to-l" : "bg-gradient-to-r";
-
-                        return (
-                            <div
-                                class={`flex flex-col items-center gap-4 mt-14 first:mt-0 lg:flex-row lg:gap-16 ${reverseStyles}`}
-                            >
-                                <div class="relative border-2 border-[#8a3a3a] overflow-hidden w-full rounded-md shadow-xl lg:w-1/2 aspect-video">
-                                    <a href={pagesUrl[index]} class="group">
-                                        <Image
-                                            src={page.data.cover}
-                                            class="m-0 aspect-video w-full group-hover:scale-105 transition-all duration-700"
-                                            alt={page.data.title}
-                                            width={475}
-                                            format="avif"
-                                        />
-
-                                        <h2
-                                            class={`wall-full z-0 drop-shadow] absolute bottom-0 w-full m-0 p-6 uppercase font-bold text-white text-shadow-xs text-shadow-black text-4xl ${reverseGradient} from-red-900 to-transparent before:left-0`}
-                                        >
-                                            {page.data.title}
-                                        </h2>
-                                    </a>
-                                </div>
-                                <div class="p-2 lg:p-0 lg:w-1/2 text-gray-500 [&>*]:text-balance [&>p:first-child]:mt-0">
-                                    {page.data.description}
-                                    <a class="block" href={pagesUrl[index]}>
-                                        Seguir leyendo
-                                    </a>
-                                </div>
-                            </div>
-                        );
-                    })
-                }
-            </div>
-
-            <aside>
-                <div class="xl:sticky xl:top-24">
-                    <div
-                        class="flex flex-col md:flex-row text-center items-stretch gap-8 text-balance md:gap-16 xl:flex-col xl:gap-8"
-                    >
-                        <h2
-                            class="flex items-center text-2xl p-8 border-2 border-dashed border-black rounded !m-0 sm:text-4xl md:text-3xl lg:text-4xl xl:text-2xl xl:p-0 xl:border-none"
+                <aside>
+                    <div class="xl:sticky xl:top-24">
+                        <div
+                            class="flex flex-col md:flex-row text-center items-stretch gap-8 text-balance md:gap-16 xl:flex-col xl:gap-8"
                         >
-                            Ya puedes descargar nuestro catálogo completo de servicios
-                        </h2>
-                        <div>
-                            <Image src={dossier} alt="dossier para pegadas de carteles" width={475} format="avif" />
+                            <h2
+                                class="flex items-center text-2xl p-8 border-2 border-dashed border-black rounded !m-0 sm:text-4xl md:text-3xl lg:text-4xl xl:text-2xl xl:p-0 xl:border-none"
+                            >
+                                Ya puedes descargar nuestro catálogo completo de servicios
+                            </h2>
+                            <div>
+                                <Image src={dossier} alt="dossier para pegadas de carteles" width={475} format="avif" />
 
-                            <a href="/dl/dossier-UrbanStylePublicity.pdf" target="_blank" class="btn text-nowrap">
-                                Descargar dossier <span class="rotate-45 inline-block translate-y-[2px]">&#x2794</span>
-                            </a>
+                                <a href="/dl/dossier-UrbanStylePublicity.pdf" target="_blank" class="btn text-nowrap">
+                                    Descargar dossier <span class="rotate-45 inline-block translate-y-[2px]">
+                                        &#x2794
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </aside>
+                </aside>
+            </div>
         </div>
-    </div>
+    </main>
 </Layout>

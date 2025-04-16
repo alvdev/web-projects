@@ -100,6 +100,7 @@ const services = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      shortTitle: z.string().optional(),
       description: z.string(),
       cover: image(),
       slug: z.string(),
