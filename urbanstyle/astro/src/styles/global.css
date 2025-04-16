@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 [x-cloak] {
     display: none !important;
@@ -162,8 +163,10 @@
         animation-name: fadeLoad; */
     }
 
-    body, main, footer {
-        @apply bg-[url(@assets/images/bg-pattern.webp)] bg-white;
+    body,
+    main,
+    footer {
+        @apply bg-white bg-[url(@assets/images/bg-pattern.webp)];
     }
 
     @view-transition {
@@ -234,7 +237,7 @@
 
     .btn,
     a.btn {
-        @apply inline-block rounded-xs border-2 border-black text-black bg-white px-12 py-4 font-semibold uppercase shadow-[4px_4px_0_black] transition-all hover:translate-1 hover:shadow-none;
+        @apply inline-block rounded-xs border-2 border-black bg-white px-12 py-4 font-semibold text-black uppercase shadow-[4px_4px_0_black] transition-all hover:translate-1 hover:shadow-none;
     }
 
     .btn--default,
