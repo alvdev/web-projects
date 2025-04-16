@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Base.astro";
+import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
 import Banners from "@/components/Banners.astro";
@@ -12,7 +12,7 @@ const blogUrl = import.meta.env.BASE_URL + "blog/";
 const posts = await getCollection("posts");
 ---
 
-<Layout>
+<Base>
     <main class="flex-1 max-w-none">
         <section class="hero torn-bottom">
             <div class="container">
@@ -99,4 +99,4 @@ const posts = await getCollection("posts");
             </div>
         </div>
     </main>
-</Layout>
+</Base>
