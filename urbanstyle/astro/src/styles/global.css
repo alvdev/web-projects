@@ -67,11 +67,11 @@
 }
 
 @utility bg-skew {
-    @apply relative shadow-lg after:absolute after:top-0 after:-z-10 after:h-full after:w-full after:rotate-3 after:bg-red-800;
+    @apply relative z-0 shadow-lg after:absolute after:top-0 after:-z-10 after:h-full after:w-full after:rotate-3 after:bg-red-800;
 }
 
 @utility bg-skew2 {
-    @apply relative after:absolute after:top-0 after:-z-10 after:h-full after:w-full after:-rotate-1 after:bg-black;
+    @apply relative z-0 after:absolute after:top-0 after:-z-10 after:h-full after:w-full after:-rotate-1 after:bg-black;
 }
 
 @utility d-stripes {
@@ -160,6 +160,10 @@
         @apply flex min-h-screen flex-col font-sans text-xl leading-relaxed;
         /* animation-duration: 0.5s;
         animation-name: fadeLoad; */
+    }
+
+    body, main, footer {
+        @apply bg-[url(@assets/images/bg-pattern.webp)] bg-white;
     }
 
     @view-transition {
