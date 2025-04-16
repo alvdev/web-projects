@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import Header from "@/components/Header.astro";
+import Banners from "@/components/Banners.astro";
+
+import defaultCover from "@/assets/images/header/post-cover-placeholder.webp";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("posts");
+    return posts.map(post => ({
+        params: { post: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base>
+    <Header cover={post.data.cover.url || defaultCover} classes={"min-h-[75vh]"} />
+    <main class="relative z-10">
+        <div class="container relative z-10 flex gap-8">
+            <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
+                <div class="sticky top-28">
+                    <Banners />
+                </div>
+            </aside>
+            <div
+                class="prose-xl prose-h1:text-5xl prose-h1:font-extrabold prose-h2:text-3xl prose-h2:font-bold prose-h3:text-2xl prose-h3:font-semibold prose-p:text-gray-600 prose-ul:ml-0 prose-ol:ml-0 relative px-4 py-4 bg-white border border-black md:w-3/5 -mt-28 lg:px-16 lg:py-12 after:absolute after:w-full after:h-full after:left-1 after:top-1.5 after:border after:border-black after:shadow-xl after:bg-orange-50 after:-z-20"
+            >
+                <h1>
+                    {post.data.title}
+                </h1>
+
+                <Content />
+            </div>
+            <div class="hidden w-1/5 pt-24 md:block"></div>
+        </div>
+    </main>
+</Base>
