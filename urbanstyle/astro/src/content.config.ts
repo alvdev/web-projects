@@ -116,6 +116,25 @@ const galleries = defineCollection({
     }),
 });
 
+const posts = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      cover: z.object({
+        url: image(),
+        alt: z.string(),
+      }),
+      slug: z.string(),
+      pubDate: z.string(),
+      taxonomy: z.object({
+        categories: z.array(z.string()),
+        tags: z.array(z.string()),
+      }),
+    }),
+});
+
 export const collections = {
   logos,
   reviews,
@@ -125,4 +144,5 @@ export const collections = {
   tabs,
   services,
   galleries,
+  posts,
 };
