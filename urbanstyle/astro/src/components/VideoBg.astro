@@ -12,12 +12,11 @@ const { title } = Astro.props;
             </h1>
         </div>
     </div>
-    <!-- {# Overlay to void show Youtube infor on hover #} -->
+    <!-- Overlay to avoid show Youtube info on hover -->
     <div class="overlay before:absolute before:w-full before:h-full"></div>
     <iframe
         class="w-full m-0 aspect-video"
         src="https://www.youtube.com/embed/videoseries?si=IpCV2NY2Fmq9fKw-&list=PLwR_7txL75NdUA0myZPoNwtLwxLne0-47&controls=0&autoplay=1&mute=1&playsinline=1&loop=1&showinfo=0&rel=0"
     >
     </iframe>
-    <!-- {# <video src="{{ url('theme://video/pegada-de-carteles-video.mp4') }}" autoplay loop muted class="w-full m-0 aspect-video"> </video> #} -->
 </section>
