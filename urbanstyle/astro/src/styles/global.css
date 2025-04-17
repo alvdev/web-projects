@@ -36,7 +36,7 @@
 }
 
 @utility torn-top {
-    @apply relative before:absolute before:-top-6 before:z-20 before:h-8 before:w-full before:rotate-180 before:bg-[url(@assets/images/torn-paper.webp)] before:bg-bottom before:bg-repeat-x;
+    @apply relative before:absolute before:-top-6 before:z-20 before:h-10 before:w-full before:bg-[url(@assets/images/torn-paper.webp)] before:bg-bottom before:bg-repeat-x before:drop-shadow-[0px_-4px_2px_rgb(0_0_0_/_0.3)];
 }
 
 @utility looker {
