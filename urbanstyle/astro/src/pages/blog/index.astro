@@ -1,11 +1,12 @@
 ---
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import Banners from "@/components/Banners.astro";
 import cover from "@/assets/images/header/blog-pegada-de-carteles.webp";
 import postCoverPlaceholder from "@/assets/images/header/post-cover-placeholder.webp";
 import Hdivider from "@/assets/images/h-divider.svg";
+import Header from "@/components/Header.astro";
 
 const title = "Blog";
 const blogUrl = import.meta.env.BASE_URL + "blog/";
@@ -13,25 +14,9 @@ const posts = await getCollection("posts");
 ---
 
 <Base>
-    <main class="pb-4">
-        <section class="hero torn-bottom">
-            <div class="container">
-                <div class="absolute z-10 flex items-end h-full align-text-bottom lg:w-3/4">
-                    <h1
-                        class="sm:-mb-0.5 lg:-mb-2.5 bg-black/50 px-12 pt-6 pb-12 text-white text-5xl font-extrabold sm:text-6xl md:text-[5.5rem] 2xl:text-9xl uppercase drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]"
-                    >
-                        {title}
-                    </h1>
-                </div>
-            </div>
-            <Image
-                src={cover}
-                alt="Pegada de carteles"
-                class="m-0 h-[40vh] w-full object-cover brightness-125 contrast-110"
-                width={1920}
-            />
-        </section>
+    <Header title={title} cover={cover} classes="h-[50vh]" />
 
+    <main class="relative z-10 pb-4">
         <div class="container mt-24">
             <section id="body-wrapper" class="section blog-listing">
                 <section class="container {{ grid_size }}">
