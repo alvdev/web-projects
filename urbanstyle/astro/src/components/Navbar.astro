@@ -13,14 +13,14 @@ const link = {
 };
 ---
 
-<section
+<nav
     x-data="{ mobileNavOpen: false, scrollNav: false }"
-    class="overflow-hidden z-50"
+    class="relative z-30"
     x-intersect:enter.maring.100px="scrollNav = true"
     x-intersect:leave="scrollNav = false"
 >
     <div
-        class="container fixed w-[96%] lg:w-[86%] left-0 right-0 top-8 mx-auto flex items-center justify-between gap-4 pl-2 pr-6 py-2 bg-white/90 backdrop-blur-md rounded-full border shadow-xl transition-all"
+        class="container fixed w-[94%] lg:w-[86%] left-0 right-0 top-8 mx-auto flex items-center justify-between gap-4 pl-2 pr-6 py-2 bg-white/90 backdrop-blur-md rounded-full border shadow-xl transition-all"
         :class="{ 'top-8 pl-2 pr-6 py-2': scrollNav, 'top-2 pl-1 pr-3 py-1': !scrollNav }"
     >
         <div class="w-36 flex flex-wrap items-center transition-all" :class="{'w-36': scrollNav, 'w-24': !scrollNav}">
@@ -147,4 +147,4 @@ const link = {
             </div>
         </nav>
     </div>
-</section>
+</nav>
