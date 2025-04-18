@@ -58,7 +58,10 @@ const posts = await getCollection("posts");
                                             </a>
                                         </h2>
                                         <p class="my-4 text-pretty last:mb-0 inline-block">
-                                            {post.data.description || post.body?.substring(0, 150) + "..."}
+                                            {post.data.description || (post.body
+                                                ? post.body.substring(0, 150).replace(/\s+\S*$/, "") + "..."
+                                                : "")
+                                            }
                                         </p>
                                         <a
                                             href={blogUrl + post.id}
