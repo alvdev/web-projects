@@ -4,7 +4,26 @@ import type { ImageMetadata } from "astro";
 import { getCollection } from "astro:content";
 
 const collection = await getCollection("carousel");
+const { scrollDirection = "r", duration = "normal", itemsWidth = 400, itemsHeight = 200, gap = "2rem" } = Astro.props;
 const { enabledTitles, title, subtitle, description, images } = collection[0].data;
+
+const normalizedScrollDirection =
+    scrollDirection === "right" ? "r" : scrollDirection === "left" ? "l" : scrollDirection;
+
+const getDuration = (duration: "slow" | "normal" | "fast") => {
+    switch (duration) {
+        case "slow":
+            return `${8 * images.length}s`;
+        case "normal":
+            return `${4 * images.length}s`;
+        case "fast":
+            return `${2 * images.length}s`;
+        default:
+            return duration;
+    }
+};
+
+const normalizedAnimationDuration = `animation-duration: ${getDuration(duration)}`;
 ---
 
 <section class="infinite-scroll-h mt-36">
@@ -23,24 +42,24 @@ const { enabledTitles, title, subtitle, description, images } = collection[0].da
         )
     }
 
-    <div
-        class="relative container-l px-0 ring-0 shadow-none border-r-2 box-shadow-[0px_0px_0px_0px_rgba(0,0,20px,0.5)] after:absolute after:right-0 after:top-0 after:w-16 after:h-full after:bg-linear-to-l after:from-black/90 after:to-transparent"
-    >
-        <div class="carousel-track flex gap-2 w-max animate-infinite-scroll hover:animate-pause">
+    <div class="relative px-0 ring-0 shadow-none box-shadow-[0px_0px_0px_0px_rgba(0,0,20px,0.5)] overflow-clip">
+        <div
+            class={`carousel-track flex w-max animate-infinite-scroll-${normalizedScrollDirection} hover:animate-pause`}
+            style={`${normalizedAnimationDuration}; gap: ${gap}`}
+        >
             {
                 /* Duplicate set of images */
                 [...images, ...images].map(img => (
-                    <div class="w-full rounded-sm overflow-clip border-2">
+                    <div class="w-full f-full rounded-sm overflow-clip border-2">
                         <figure>
                             <Image
                                 src={img.src as ImageMetadata}
                                 alt={img.alt}
-                                width={300}
-                                height={200}
+                                width={itemsWidth}
+                                height={itemsHeight}
                                 format="avif"
                                 class="max-w-none brightness-125 saturate-110 contrast-110 w-full shadow-xl"
                             />
-                            {/* if item.desc  */}
                             {img.desc && (
                                 <figcaption class="border border-black  mx-auto px-4 py-2 text-sm bg-black text-white relative">
                                     {img.desc}
@@ -53,3 +72,37 @@ const { enabledTitles, title, subtitle, description, images } = collection[0].da
         </div>
     </div>
 </section>
+
+<style is:global>
+    @import "tailwindcss";
+
+    @keyframes infinite-scroll-l {
+        from {
+            transform: translateX(0%);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    @utility animate-infinite-scroll-l {
+        animation: infinite-scroll-l 30s linear infinite;
+    }
+
+    @keyframes infinite-scroll-r {
+        from {
+            transform: translateX(-50%);
+        }
+
+        to {
+            transform: translateX(0%);
+        }
+    }
+
+    @utility animate-infinite-scroll-r {
+        animation-name: infinite-scroll-r;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+</style>
