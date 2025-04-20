@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import { getCollection } from "astro:content";
 
-const collection = await getCollection("carousel");
 const {
     folder = "carousel",
     direction = "right",
@@ -13,8 +12,8 @@ const {
     gap = "2rem",
 } = Astro.props;
 
-const folderCollection = collection.filter(item => item.id.includes(`/${folder}/`));
-const { enabledTitles, title, subtitle, description, images } = folderCollection[0].data;
+const collection = await getCollection("carousel", (item: any) => item.id.includes(`/${folder}/`));
+const { enabledTitles, title, subtitle, description, images } = collection[0].data;
 const normalizedScrollDirection = direction === "right" ? "r" : direction === "left" ? "l" : direction;
 
 const getDuration = (duration: "slow" | "normal" | "fast") => {
