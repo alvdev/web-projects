@@ -6,7 +6,7 @@ import { getCollection } from "astro:content";
 const {
     folder = "carousel",
     direction = "right",
-    duration = "normal",
+    speed = "normal",
     itemsWidth = 320,
     itemsHeight = 180,
     gap = "2rem",
@@ -28,7 +28,7 @@ const getDuration = (duration: "slow" | "normal" | "fast") => {
             return duration;
     }
 };
-const normalizedAnimationDuration = `animation-duration: ${getDuration(duration)}`;
+const normalizedAnimationDuration = `animation-duration: ${getDuration(speed)}`;
 ---
 
 <section class="infinite-scroll-h mt-36">
