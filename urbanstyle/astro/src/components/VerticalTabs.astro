@@ -22,10 +22,10 @@ const tabs = await Promise.all(
             Servicios de cartelería complementarios
         </h2>
 
-        <div class="mt-24 flex gap-24">
+        <div class="mt-24 flex gap-24 items-center">
             <div class="w-2/5">
                 <div class="sticky top-28">
-                    <div class="flex flex-wrap gap-4 lg:flex-col">
+                    <div class="flex flex-wrap gap-6 lg:flex-col">
                         {
                             tabs.map((tab, index) => (
                                 <button
@@ -45,7 +45,11 @@ const tabs = await Promise.all(
             </div>
             {
                 tabs.map((tab, index) => (
-                    <div class="w-3/5" x-show={`tab === ${index}`} x-transition:enter>
+                    <div
+                        class="w-3/5 *:[ul]:mt-8 *:[ul]:mb-0 *:[ul]:ml-6 **:[li]:mt-8 text-2xl text-pretty leading-relaxed"
+                        x-show={`tab === ${index}`}
+                        x-transition:enter
+                    >
                         <tab.Content />
                     </div>
                 ))
