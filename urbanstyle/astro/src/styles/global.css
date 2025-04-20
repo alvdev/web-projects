@@ -9,20 +9,6 @@
     @apply mx-auto px-[3%];
 }
 
-@keyframes infinite-scroll {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
-}
-
-@utility animate-infinite-scroll {
-    animation: infinite-scroll 30s linear infinite;
-}
-
 @utility container-l {
     @apply z-10 container ml-0 max-w-5/6 overflow-clip rounded-r-sm shadow-xl ring-12 before:left-0 before:inset-shadow-[0_0_500px] md:max-w-5/6 lg:max-w-[calc(theme('screens.lg')+(99.333vw-theme('screens.lg'))/2)] lg:pl-[calc((104vw-theme('screens.lg'))/2)] xl:max-w-[calc(theme('screens.xl')+(99.333vw-theme('screens.xl'))/2)] xl:pl-[calc((104vw-theme('screens.xl'))/2)] 2xl:max-w-[calc(theme('screens.2xl')+(94vw-theme('screens.2xl'))/2)] 2xl:pl-[calc((104vw-theme('screens.2xl'))/2)];
 }
