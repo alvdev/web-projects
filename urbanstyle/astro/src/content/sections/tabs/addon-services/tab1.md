@@ -4,7 +4,7 @@ subtitle: Tab 1 subtitle
 order: 1
 ---
 
-<h1 class="text-4xl">Diseño profesional de carteles</h1>
+<h3 class="text-4xl font-bold">Diseño profesional de carteles</h3>
 
 <ul>
   <li>Creación de carteles adaptados a las necesidades del cliente.</li>
