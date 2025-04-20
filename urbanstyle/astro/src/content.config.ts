@@ -50,7 +50,10 @@ const faqs = defineCollection({
 });
 
 const carousel = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/sections/carousel" }),
+  loader: glob({
+    pattern: "**/carousel*/**/*.{md,mdx}",
+    base: "./src/content/services",
+  }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -96,7 +99,7 @@ const tabs = defineCollection({
 });
 
 const services = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/services" }),
+  loader: glob({ pattern: "*/{*.md,*.mdx}", base: "./src/content/services" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -104,8 +107,8 @@ const services = defineCollection({
       description: z.string(),
       cover: image(),
       slug: z.string(),
-    })
-})
+    }),
+});
 
 const galleries = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/galleries" }),

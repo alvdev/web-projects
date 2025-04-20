@@ -4,9 +4,17 @@ import type { ImageMetadata } from "astro";
 import { getCollection } from "astro:content";
 
 const collection = await getCollection("carousel");
-const { direction = "r", duration = "normal", itemsWidth = 320, itemsHeight = 180, gap = "2rem" } = Astro.props;
-const { enabledTitles, title, subtitle, description, images } = collection[0].data;
+const {
+    folder = "carousel",
+    direction = "right",
+    duration = "normal",
+    itemsWidth = 320,
+    itemsHeight = 180,
+    gap = "2rem",
+} = Astro.props;
 
+const folderCollection = collection.filter(item => item.id.includes(`/${folder}/`));
+const { enabledTitles, title, subtitle, description, images } = folderCollection[0].data;
 const normalizedScrollDirection = direction === "right" ? "r" : direction === "left" ? "l" : direction;
 
 const getDuration = (duration: "slow" | "normal" | "fast") => {
@@ -21,7 +29,6 @@ const getDuration = (duration: "slow" | "normal" | "fast") => {
             return duration;
     }
 };
-
 const normalizedAnimationDuration = `animation-duration: ${getDuration(duration)}`;
 ---
 
