@@ -77,35 +77,3 @@ const normalizedAnimationDuration = `animation-duration: ${getDuration(speed)}`;
         </div>
     </div>
 </section>
-
-<style>
-    @keyframes infinite-scroll-l {
-        from {
-            transform: translateX(0%);
-        }
-
-        to {
-            transform: translateX(-50%);
-        }
-    }
-
-    .animate-infinite-scroll-l {
-        animation: infinite-scroll-l 30s linear infinite;
-    }
-
-    @keyframes infinite-scroll-r {
-        from {
-            transform: translateX(-50%);
-        }
-
-        to {
-            transform: translateX(0%);
-        }
-    }
-
-    .animate-infinite-scroll-r {
-        animation-name: infinite-scroll-r;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-    }
-</style>
