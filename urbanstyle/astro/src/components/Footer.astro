@@ -45,7 +45,7 @@ const legalPages = Object.values(import.meta.glob("@/pages/legal/*.astro", { eag
                                             <h4 class="p-0 pb-1 my-0 text-base text-balance md:line-clamp-2">
                                                 <a
                                                     href={post.data.slug ? blogUrl + post.data.slug : blogUrl + post.id}
-                                                    class="text-pretty inline-block"
+                                                    class="text-pretty inline-block leading-relaxed"
                                                 >
                                                     {post.data.title}
                                                 </a>
