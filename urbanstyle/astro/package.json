@@ -22,7 +22,7 @@
     "@types/alpinejs__intersect": "^3.13.4",
     "@types/node": "^22.14.1",
     "alpinejs": "^3.14.9",
-    "astro": "^5.7.0",
+    "astro": "^5.7.4",
     "astro-embed": "^0.9.0",
     "concurrently": "^9.1.2",
     "install": "^0.13.0",
