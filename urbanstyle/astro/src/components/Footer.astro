@@ -7,11 +7,10 @@ import { Image } from "astro:assets";
 import footerImg from "../assets/images/ciudad-footer.webp";
 
 const services = await getCollection("services");
-const unorderedPosts = await getCollection("posts");
-const blogUrl = import.meta.env.BASE_URL + "blog/";
-const latestPosts = unorderedPosts
+const latestPosts = (await getCollection("posts"))
     .sort((a, b) => parsePublishDate(b.data.pubDate).getTime() - parsePublishDate(a.data.pubDate).getTime())
     .slice(0, 5);
+const blogUrl = import.meta.env.BASE_URL + "blog/";
 const legalPages = Object.values(import.meta.glob("@/pages/legal/*.astro", { eager: true }));
 ---
 
@@ -40,7 +39,7 @@ const legalPages = Object.values(import.meta.glob("@/pages/legal/*.astro", { eag
                     latestPosts.map(
                         post =>
                             post.data.pubDate && (
-                                <div id="records" class="{{ classes }} flex flex-col gap-4 mt-8" x-merge="append">
+                                <div id="records" class="flex flex-col gap-4 mt-8" x-merge="append">
                                     <article class="flex flex-col gap-4">
                                         <div class="text-lg text-gray-500">
                                             <h4 class="p-0 pb-1 my-0 text-base text-balance md:line-clamp-2">
