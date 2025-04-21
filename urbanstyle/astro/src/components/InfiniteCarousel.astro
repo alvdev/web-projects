@@ -9,7 +9,7 @@ const {
     speed = "normal",
     itemsWidth = 320,
     itemsHeight = 180,
-    gap = "2rem",
+    classes = "mt-36",
 } = Astro.props;
 
 const collection = await getCollection("carousel", (item: any) => item.id.includes(`/${folder}/`));
@@ -31,7 +31,7 @@ const getDuration = (duration: "slow" | "normal" | "fast") => {
 const normalizedAnimationDuration = `animation-duration: ${getDuration(speed)}`;
 ---
 
-<section class="infinite-scroll-h mt-36">
+<section class=`infinite-scroll-h ${classes}`>
     {
         enabledTitles && (
             <>
@@ -50,7 +50,7 @@ const normalizedAnimationDuration = `animation-duration: ${getDuration(speed)}`;
     <div class="relative px-0 ring-0 shadow-none box-shadow-[0px_0px_0px_0px_rgba(0,0,20px,0.5)] overflow-x-clip">
         <div
             class={`carousel-track flex w-max animate-infinite-scroll-${normalizedScrollDirection} hover:animate-pause`}
-            style={`${normalizedAnimationDuration}; gap: ${gap}`}
+            style={normalizedAnimationDuration}
         >
             {
                 /* Duplicate set of images */
