@@ -39,11 +39,15 @@ console.log(`${Astro.url.pathname} >>>> ${import.meta.env.BASE_URL}`);
 
                 <ul class="gap-12 mt-8 columns-2">
                     {
-                        services.map(service => (
-                            <li class="mb-5">
-                                <a href={service.data.slug}>{service.data.shortTitle || service.data.title}</a>
-                            </li>
-                        ))
+                        [...services]
+                            .sort((a, b) =>
+                                (a.data.shortTitle || a.data.title).localeCompare(b.data.shortTitle || b.data.title)
+                            )
+                            .map(service => (
+                                <li class="mb-5">
+                                    <a href={service.data.slug}>{service.data.shortTitle || service.data.title}</a>
+                                </li>
+                            ))
                     }
                 </ul>
             </div>
