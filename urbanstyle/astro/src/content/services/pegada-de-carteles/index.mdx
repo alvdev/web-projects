@@ -4,6 +4,7 @@ shortTitle: "Pegada de carteles"
 description: "Contamos con circuitos exclusivos para la colocación de carteles de interior en universidades, interiores de bares de copas, cafeterías y comercios. Siempre con el consentimiento del mismo. Realizamos acciones personalizadas en zonas o comercios determinados para optimizar el resultado en relación con el producto que publicitamos."
 cover: "./images/pegada-de-carteles.webp"
 slug: "pegada-de-carteles"
+order: 10
 ---
 
 import Desc1 from "@/components/Desc1.astro";
@@ -20,12 +21,13 @@ import VerticalTabs from "@/components/VerticalTabs.astro";
 
 <Desc1 />
 <Videos />
-<InfiniteCarousel />
+<InfiniteCarousel folder="carousel1" speed="slow" classes="**:border-0 mt-32" gap="0" />
+<InfiniteCarousel folder="carousel2" speed="slow" direction="left" classes="**:border-0" gap="0" />
 <VerticalTabs folderName="addon-services" />
 <Desc3
     title="Pegadas de carteles con gran impacto..."
     subtitle="Porque contamos con la mayor cobertura de zonas para un mayor alcance"
-    description="Si deseas realizar una pegada de carteles para promocionar algún evento, obra de teatro, negocio local, feria comercial o exposición, un lanzamiento discográfico o un concierto; contáctanos antes de decidirlo."
+    description="Si vas a realizar una pegada de carteles para promocionar algún evento, obra de teatro, negocio local, feria comercial o exposición, un lanzamiento discográfico o un concierto; contáctanos antes de decidirlo."
     bgColor="bg-black"
     ringColor="ring-black/10"
 />

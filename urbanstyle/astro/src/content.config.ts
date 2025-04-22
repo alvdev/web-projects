@@ -107,6 +107,7 @@ const services = defineCollection({
       description: z.string(),
       cover: image(),
       slug: z.string(),
+      order: z.number(),
     }),
 });
 
