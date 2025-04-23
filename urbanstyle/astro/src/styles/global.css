@@ -143,37 +143,6 @@
     color: --value(--color-*);
 }
 
-@theme {
-    --text-outline-size-sm: 1px;
-    --text-outline-size-md: 2px;
-    --text-outline-size-lg: 3px;
-    --mycolor: white;
-    --myborder: 8px;
-}
-
-@utility myborder {
-    border-width: --value(--myborder);
-    border-style: solid !important;
-    border-color: red;
-}
-
-@utility myborder-* {
-    border-width: --value(--myborder);
-}
-
-@utility text-outline {
-    text-shadow:
-        2px 2px --value(--color),
-        -2px -2px --value(--color),
-        -2px 2px --value(--color),
-        2px -2px --value(--color);
-}
-
-@utility text-outline-* {
-    size: --value(--myborder);
-    border: --value(--myborder)
-}
-
 @layer base {
     html {
         @apply scroll-smooth;
