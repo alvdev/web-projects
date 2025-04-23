@@ -22,7 +22,7 @@
 }
 
 @utility torn-top {
-    @apply relative before:absolute before:-top-6 before:z-20 before:h-10 before:w-full before:bg-[url(@assets/images/torn-paper.webp)] before:rotate-180 before:bg-bottom before:bg-repeat-x before:drop-shadow-[0px_-4px_2px_rgb(0_0_0_/_0.3)];
+    @apply relative before:absolute before:-top-6 before:z-20 before:h-10 before:w-full before:rotate-180 before:bg-[url(@assets/images/torn-paper.webp)] before:bg-bottom before:bg-repeat-x before:drop-shadow-[0px_-4px_2px_rgb(0_0_0_/_0.3)];
 }
 
 @utility looker {
@@ -42,7 +42,7 @@
 }
 
 @utility wall-full {
-    @apply -z-10 before:absolute before:top-0 before:h-full before:w-full before:bg-[url('@assets/images/wall-pattern.png')] before:opacity-50;
+    @apply -z-10 before:absolute before:top-0 before:h-full before:w-full before:bg-[url('@assets/images/wall-pattern.png')] before:opacity-50 before:inset-shadow-[0_0_500px];
 
     > * {
         @apply relative z-10;
@@ -139,6 +139,41 @@
     @apply tab translate-1 border-none bg-black text-white shadow-none hover:cursor-default hover:*:[span]:right-2;
 }
 
+@utility mytest-* {
+    color: --value(--color-*);
+}
+
+@theme {
+    --text-outline-size-sm: 1px;
+    --text-outline-size-md: 2px;
+    --text-outline-size-lg: 3px;
+    --mycolor: white;
+    --myborder: 8px;
+}
+
+@utility myborder {
+    border-width: --value(--myborder);
+    border-style: solid !important;
+    border-color: red;
+}
+
+@utility myborder-* {
+    border-width: --value(--myborder);
+}
+
+@utility text-outline {
+    text-shadow:
+        2px 2px --value(--color),
+        -2px -2px --value(--color),
+        -2px 2px --value(--color),
+        2px -2px --value(--color);
+}
+
+@utility text-outline-* {
+    size: --value(--myborder);
+    border: --value(--myborder)
+}
+
 @layer base {
     html {
         @apply scroll-smooth;
@@ -197,7 +232,7 @@
     h2,
     h3,
     h4 {
-        @apply leading-tight text-balance text-gray-900;
+        @apply leading-tight text-balance text-black;
     }
 
     p {
