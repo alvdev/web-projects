@@ -14,7 +14,7 @@ faqs:
   - question: "¿Cuánto tiempo se mantienen los carteles puestos?"
     answer: "Nuestros carteles se mantienen expuestos durante el periodo acordado, que normalmente va de 2 semanas a un mes."
   - question: "¿Cómo puedo solicitar un presupuesto?"
-    answer: "Puede solicitar un presupuesto sin compromiso a través de nuestro <a href='/contacto' target='_blank'>formulario de contacto</a>. Indique la ciudad, número de carteles y periodo deseado y nos pondremos en contacto con usted a la mayor brevedad posible. También puede llamar al teléfono 91 306 29 22."
+    answer: "Puede solicitar un presupuesto sin compromiso a través de nuestro <a href='contacto' target='_blank'>formulario de contacto</a>. Indique la ciudad, número de carteles y periodo deseado y nos pondremos en contacto con usted a la mayor brevedad posible. También puede llamar al teléfono 91 306 29 22."
   - question: "¿Ofrecen descuentos por volumen?"
     answer: "Comprendemos que las campañas publicitarias de gran envergadura requieren un presupuesto considerable. Por ello, ofrecemos descuentos por volumen para clientes que contraten una cantidad significativa de carteles. Puede llamar al teléfono 91 305 29 22 para analizar su caso."
   - question: "¿Cómo verifico que pegaron mis carteles? "
