@@ -10,6 +10,7 @@ const {
     itemsWidth = 320,
     itemsHeight = 180,
     classes = "mt-36",
+    descPosition = "bottom",
 } = Astro.props;
 
 const collection = await getCollection("carousel", (item: any) => item.id.includes(`/${folder}/`));
@@ -47,16 +48,16 @@ const normalizedAnimationDuration = `animation-duration: ${getDuration(speed)}`;
         )
     }
 
-    <div class="relative px-0 ring-0 shadow-none box-shadow-[0px_0px_0px_0px_rgba(0,0,20px,0.5)] overflow-x-clip">
+    <div class="relative box-shadow-[0px_0px_0px_0px_rgba(0,0,20px,0.5)] overflow-x-clip">
         <div
-            class={`carousel-track flex w-max animate-infinite-scroll-${normalizedScrollDirection} hover:animate-pause`}
+            class={`carousel flex w-max animate-infinite-scroll-${normalizedScrollDirection} hover:animate-pause`}
             style={normalizedAnimationDuration}
         >
             {
                 /* Duplicate set of images */
                 [...images, ...images].map(img => (
-                    <div class="w-full f-full rounded-sm border-2 shadow-lg">
-                        <figure>
+                    <div class="w-full rounded-sm shadow-lg">
+                        <figure class="relative">
                             <Image
                                 src={img.src as ImageMetadata}
                                 alt={img.alt}
@@ -66,7 +67,9 @@ const normalizedAnimationDuration = `animation-duration: ${getDuration(speed)}`;
                                 class="max-w-none brightness-125 saturate-110 contrast-110 w-full shadow-xl"
                             />
                             {img.desc && (
-                                <figcaption class="border border-black  mx-auto px-4 py-2 text-sm bg-black text-white relative">
+                                <figcaption
+                                    class={`${descPosition === "top" ? "top-0 pt-2 pb-12 mask-b-from-10%" : "bottom-0 pt-12 pb-2 mask-t-from-10%"} w-full px-4 text-sm bg-black text-white absolute left-0 z-10`}
+                                >
                                     {img.desc}
                                 </figcaption>
                             )}
