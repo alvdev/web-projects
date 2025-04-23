@@ -1,25 +1,33 @@
 ---
-const { title, description, subtitle, bgColor, ringColor } = Astro.props;
+import Arrow from "@/assets/images/handwritten-arrow.svg";
+const { title, description, subtitle, classes } = Astro.props;
 ---
 
-<section class="mt-36">
-    <div class:list={["wall-full", "relative", "container-r", "py-28", bgColor, ringColor]}>
-        <div class="flex flex-col gap-8 xl:flex-row-reverse xl:gap-16 items-center">
-            <hgroup class="flex flex-col gap-8 uppercase text-right lg:text-left drop-shadow-md xl:w-1/2 xl:m-0">
-                <h2 class="m-0 text-yellow-200">
-                    {title}
-                </h2>
-                <h3
-                    class="font-extrabold border-dashed text-white [text-shadow:2px_2px_2px_black] text-5xl md:text-6xl uppercase xl:m-0"
-                >
-                    {subtitle}
-                </h3>
-            </hgroup>
-            <p
-                class="text-3xl text-white text-opacity-80 leading-normal text-right text-balance font-semibold md:text-4xl xl:w-1/2"
+<section class="torn-top torn-bottom mt-36">
+    <div class={`wall-full relative py-28 ${classes}`}>
+        <div class="container">
+            <h2
+                class="font-bold border-dashed [text-shadow:2px_2px_2px_black] text-5xl md:text-7xl uppercase xl:m-0 text-center text-white"
             >
-                {description}
-            </p>
+                {title}
+            </h2>
+
+            <div class="mt-16 flex flex-col gap-4 xl:flex-row-reverse xl:gap-4 items-center">
+                <hgroup class="flex flex-col gap-8 uppercase text-right lg:text-left drop-shadow-md xl:w-1/2 xl:m-0">
+                    <h3
+                        class="text-white/90 font-bold border-dashed text-5xl md:text-6xl normal-case xl:m-0 [text-shadow:2px_2px_2px_black]"
+                    >
+                        {subtitle}
+                    </h3>
+                </hgroup>
+                <div class="self-end mb-4 fill-black/60">
+                    <Arrow />
+                </div>
+                <p
+                    set:html={description}
+                    class="text-3xl text-white/90 leading-normal text-right text-balance font-semibold md:text-4xl xl:w-1/2 [text-shadow:1px_1px_1px_black]"
+                />
+            </div>
         </div>
     </div>
 </section>
