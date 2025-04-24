@@ -6,21 +6,23 @@
       "dependencies": {
         "@alpinejs/collapse": "^3.14.9",
         "@alpinejs/intersect": "^3.14.9",
-        "@astrojs/alpinejs": "^0.4.6",
+        "@astrojs/alpinejs": "^0.4.7",
         "@astrojs/check": "^0.9.4",
-        "@astrojs/mdx": "^4.2.4",
+        "@astrojs/mdx": "^4.2.5",
         "@tailwindcss/vite": "^4.1.4",
         "@types/alpinejs": "^3.13.11",
         "@types/alpinejs__collapse": "^3.13.4",
         "@types/alpinejs__intersect": "^3.13.4",
-        "@types/node": "^22.14.1",
+        "@types/node": "^22.15.0",
         "alpinejs": "^3.14.9",
-        "astro": "^5.7.4",
+        "astro": "^5.7.5",
         "astro-embed": "^0.9.0",
+        "astro-seo-schema": "^5.0.0",
         "concurrently": "^9.1.2",
         "install": "^0.13.0",
         "prettier": "^3.5.3",
         "prettier-plugin-astro": "^0.14.1",
+        "schema-dts": "^1.1.5",
         "tailwindcss": "^4.1.4",
         "typescript": "^5.8.3",
       },
@@ -371,6 +373,8 @@
     "astro-auto-import": ["astro-auto-import@0.4.4", "", { "dependencies": { "@types/node": "^18.0.0", "acorn": "^8.8.0" }, "peerDependencies": { "astro": "^2.0.0 || ^3.0.0-beta || ^4.0.0-beta || ^5.0.0-beta" } }, "sha512-tiYe1hp+VusdiyaD3INgZgbvXEPamDFiURnQR5Niz+E9fWa6IHYjJ99TwGlHh/evfaXE/U/86jp9MRKWTuJU1A=="],
 
     "astro-embed": ["astro-embed@0.9.0", "", { "dependencies": { "@astro-community/astro-embed-baseline-status": "^0.1.0", "@astro-community/astro-embed-bluesky": "^0.1.0", "@astro-community/astro-embed-integration": "^0.8.0", "@astro-community/astro-embed-link-preview": "^0.2.2", "@astro-community/astro-embed-twitter": "^0.5.6", "@astro-community/astro-embed-vimeo": "^0.3.10", "@astro-community/astro-embed-youtube": "^0.5.5" }, "peerDependencies": { "astro": "^2.0.0 || ^3.0.0-beta || ^4.0.0-beta || ^5.0.0-beta" } }, "sha512-koBCZH8n1q7tyXW+s11mdwb5dFsv9kG8uMuF17CUIVFJWqwRxx7YCpa9o2P9PuPeWffsrwmdVJTl65kLLP2Uug=="],
+
+    "astro-seo-schema": ["astro-seo-schema@5.0.0", "", { "peerDependencies": { "astro": "^5.0.0", "schema-dts": "^1.1.0" } }, "sha512-rbP9BUxvqH4tdgG5VEYDcoAxUhVKv93TdHRQ5zbYUxee1TKAWsNcAG3nqavX83QTTGqU5anvikMcJZXWhGN9wg=="],
 
     "await-lock": ["await-lock@2.2.2", "", {}, "sha512-aDczADvlvTGajTDjcjpJMqRkOF6Qdz3YbPZm/PyW6tKPkx2hlYBzxMhEywM/tU72HrVZjgl5VCdRuMlA7pZ8Gw=="],
 
@@ -933,6 +937,8 @@
     "s.color": ["s.color@0.0.15", "", {}, "sha512-AUNrbEUHeKY8XsYr/DYpl+qk5+aM+DChopnWOPEzn8YKzOhv4l2zH6LzZms3tOZP3wwdOyc0RmTciyi46HLIuA=="],
 
     "sass-formatter": ["sass-formatter@0.7.9", "", { "dependencies": { "suf-log": "^2.5.3" } }, "sha512-CWZ8XiSim+fJVG0cFLStwDvft1VI7uvXdCNJYXhDvowiv+DsbD1nXLiQ4zrE5UBvj5DWZJ93cwN0NX5PMsr1Pw=="],
+
+    "schema-dts": ["schema-dts@1.1.5", "", {}, "sha512-RJr9EaCmsLzBX2NDiO5Z3ux2BVosNZN5jo0gWgsyKvxKIUL5R3swNvoorulAeL9kLB0iTSX7V6aokhla2m7xbg=="],
 
     "semver": ["semver@7.7.1", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA=="],
 
