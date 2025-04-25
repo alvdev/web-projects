@@ -58,7 +58,7 @@ const collection = await getCollection("galleries");
                                         {images.map(img => (
                                             <div class="mb-4 overflow-clip border border-black p-0.75 bg-white rounded-xs">
                                                 <Image
-                                                    src={img}
+                                                    src={"default" in img ? img.default : img}
                                                     alt=""
                                                     width={500}
                                                     format="avif"
