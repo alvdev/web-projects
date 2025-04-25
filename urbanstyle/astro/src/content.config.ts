@@ -108,6 +108,10 @@ const services = defineCollection({
       cover: image(),
       slug: z.string(),
       order: z.number(),
+      seo: z.object({
+        title: z.string(),
+        description: z.string(),
+      }).optional()
     }),
 });
 
@@ -137,6 +141,10 @@ const posts = defineCollection({
         categories: z.array(z.string()),
         tags: z.array(z.string()),
       }),
+      seo: z.object({
+        title: z.string(),
+        description: z.string(),
+      }).optional()
     }),
 });
 
