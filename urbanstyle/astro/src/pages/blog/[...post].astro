@@ -16,9 +16,21 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const seoTitle = post.data.seo?.title || post.data.title;
+const postSanitizedDescription = (post.body ?? "")
+    .replace(/<[^>]+>/g, "") // remove HTML tags
+    .replace(/!\[.*?\]\(.*?\)/g, "") // remove images
+    .replace(/\[.*?\]\(.*?\)/g, "") // remove links
+    .replace(/[`*_>#-]/g, "") // remove markdown symbols
+    .replace(/\r?\n|\r/g, " ") // replace newlines with spaces
+    .replace(/\s+/g, " ") // collapse multiple spaces
+    .trim()
+    .slice(0, 155);
+const seoDescription = post.data.seo?.description || postSanitizedDescription;
 ---
 
-<Base>
+<Base title={seoTitle} description={seoDescription}>
     <Header cover={post.data.cover.url || defaultCover} classes={"min-h-[75vh]"} />
     <main class="relative z-10 pb-10">
         <div class="container relative z-10 flex gap-8">

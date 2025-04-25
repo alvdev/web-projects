@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Base.astro";
+import Base from "../layouts/Base.astro";
 import { Image } from "astro:assets";
 import madrid from "../assets/images/madrid.webp";
 import barcelona from "../assets/images/barcelona.webp";
@@ -9,7 +9,10 @@ import LandPhoneIcon from "@/assets/icons/landphone.svg";
 import EmailIcon from "@/assets/icons/email.svg";
 ---
 
-<Layout>
+<Base
+    title="Contacta con nosotros | Urban Style Publicity"
+    description="Llama o visítanos en nuestras oficinas. También puedes usar nuesto formulario de contacto o escribirnos por email."
+>
     <header class="fixed inset-0">
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.7357061946236!2d-3.704869124079127!3d40.39254985711087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd418909bc1f734b%3A0xf9f7d7df34c0e583!2sUrban%20Style%20Publicity!5e0!3m2!1sen!2ses!4v1689272129273!5m2!1sen!2ses"
@@ -88,4 +91,4 @@ import EmailIcon from "@/assets/icons/email.svg";
             </div>
         </section>
     </main>
-</Layout>
+</Base>
