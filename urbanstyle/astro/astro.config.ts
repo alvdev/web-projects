@@ -7,13 +7,15 @@ import tailwindcss from "@tailwindcss/vite";
 
 import mdx from "@astrojs/mdx";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://urbanstylepublicity.com",
   base: "/test/",
   // trailingSlash: 'never',
 
-  integrations: [alpinejs({ entrypoint: "/src/alpinejs" }), mdx()],
+  integrations: [alpinejs({ entrypoint: "/src/alpinejs" }), mdx(), sitemap()],
 
   vite: {
     plugins: [tailwindcss() as any],
