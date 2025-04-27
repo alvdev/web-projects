@@ -11,34 +11,15 @@ import Faqs from "../components/Faqs.astro";
 import InfiniteCarousel from "../components/InfiniteCarousel.astro";
 import BenefitsGrid from "../components/BenefitsGrid.astro";
 import VerticalTabs from "../components/VerticalTabs.astro";
+import cover from "@/assets/images/header/pegada-de-carteles.webp";
 ---
 
 <Layout>
     <main>
         <Header
-            title="Pegada de carteles en Madrid, Barcelona y resto de España"
+            title="Agencia de publicidad exterior"
             description="La pegada de carteles es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado."
+            cover={cover}
         />
-        <Desc1 />
-        <Videos />
-        <InfiniteCarousel />
-        <VerticalTabs folderName="addon-services" />
-        <Desc3
-            title="Pegadas de carteles con gran impacto..."
-            subtitle="Porque contamos con la mayor cobertura de zonas para un mayor alcance"
-            description="Si deseas realizar una pegada de carteles para promocionar algún evento, obra de teatro, negocio local, feria comercial o exposición, un lanzamiento discográfico o un concierto; contáctanos antes de decidirlo."
-            bgColor="bg-black"
-            ringColor="ring-black/10"
-        />
-        <BenefitsGrid />
-        <Desc2
-            title="Algunas de nuestras pegadas de carteles"
-            description="Deja que nuestro equipo de profesionales se encargue de que tus carteles se vean en los lugares más estratégicos y transitados para potenciar su visibilidad y alcance."
-            bgColor="bg-red-900"
-            ringColor="ring-red-950/10"
-        />
-        <Faqs />
-        <Reviews />
-        <Logos title="" subtitle="" />
     </main>
 </Layout>
