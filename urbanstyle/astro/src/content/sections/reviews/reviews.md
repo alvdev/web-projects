@@ -1,6 +1,6 @@
 ---
-title: "Una pegada de carteles de 5 estrellas"
-subtitle: "Subtítulo"
+title: "¿Quieres una pegada de carteles de 5 estrellas?"
+subtitle: ""
 enabledTitles: true
 reviews:
   - author: "Nieves Ayala"
