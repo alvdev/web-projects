@@ -31,18 +31,24 @@ const link = {
 
         <div class="flex flex-wrap items-center">
             <div class="w-auto hidden lg:block">
-                <ul class="flex items-center justify-between uppercase *:transition-all">
+                <ul
+                    class="flex items-center justify-between uppercase *:transition-all **:[a]:relative **:[a>span]:absolute **:[a>span]:-z-10 **:[a>span]:[text-shadow:1px_1px_black] **:[a>span]:block **:[a>span]:bg-red-800 **:[a>span]:text-white **:[a>span]:font-normal **:[a>span]:normal-case **:[a>span]:px-1 **:[a>span]:pb-0.5 **:[a>span]:text-xs"
+                >
                     <li class="mr-9 hover:scale-105">
-                        <a href={link.posters} class="text-black font-bold p-4 hover:text-red-700">Carteles</a>
+                        <a href={link.posters} class="text-black font-bold p-4 hover:text-red-800">
+                            <span class="top-1.5">Pegada de</span>Carteles
+                        </a>
                     </li>
                     <li class="mr-9 hover:scale-105">
-                        <a href={link.jobs} class="text-black font-bold p-4 hover:text-red-700">Trabajos</a>
+                        <a href={link.services} class="text-black font-bold p-4 hover:text-red-800">
+                            Servicios <span class="right-0 bottom-1">publicitarios</span>
+                        </a>
                     </li>
                     <li class="mr-9 hover:scale-105">
-                        <a href={link.services} class="text-black font-bold p-4 hover:text-red-700">Servicios</a>
+                        <a href={link.jobs} class="text-black font-bold p-4 hover:text-red-800">Trabajos</a>
                     </li>
                     <li class="hover:scale-105">
-                        <a href={link.blog} class="text-black font-bold p-4 hover:text-red-700">Blog</a>
+                        <a href={link.blog} class="text-black font-bold p-4 hover:text-red-800">Blog</a>
                     </li>
                 </ul>
             </div>
