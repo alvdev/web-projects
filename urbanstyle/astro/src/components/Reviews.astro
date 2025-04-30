@@ -8,13 +8,11 @@ const collection = await getCollection("reviews");
 const { enabledTitles, title, subtitle, reviews } = collection[0].data;
 ---
 
-<section class="reviews mt-24">
+<section class="reviews mt-32">
     {
         enabledTitles && (
             <hgroup class="container mb-16 text-balance">
-                {title && (
-                    <h2 class="font-semibold uppercase text-center text-gray-500 text-5xl lg:text-6xl">{title}</h2>
-                )}
+                {title && <h2 class="font-bold uppercase text-center text-5xl lg:text-6xl">{title}</h2>}
                 {subtitle && <h3 class="mt-8 text-center text-gray-500 text-3xl lg:text-4xl">{subtitle}</h3>}
             </hgroup>
         )
