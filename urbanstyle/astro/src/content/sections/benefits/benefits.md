@@ -1,5 +1,5 @@
 ---
-title: "This is the title"
+title: "Seguro que ya lo sabes, pero no está de más recordar los beneficios de una pegada de carteles"
 subtitle: "This is the subtitle"
 enabledTitles: false
 benefits:
@@ -19,8 +19,8 @@ benefits:
     description: ""
     image: carteles-goiko.webp
     alt: ""
-  - title: Costo-efectividad
-    description: "La pegada de carteles es una forma económica de publicidad en comparación con otros medios más costosos."
+  - title: Costo-rendimiento
+    description: "La pegada de carteles es una forma de publicidad más económica en comparación con otros medios menos efectivos pero más costosos."
     image: carteles-burguer.webp
     alt: ""
   - title: "Permanencia en el entorno"
