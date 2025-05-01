@@ -23,9 +23,9 @@ images:
     desc: "¿Recuerdas a Lionel Richie? Este colorido cartel de la estrella es el que pegamos para sus conciertos en Madrid y A Coruña."
     alt: "Cartel de Lionel Richie pegado en una caseta"
   - src: cartel-maccosmetics-madrid.jpg
-    desc: "MAC Cosmetics es la multinacional que lidera el mundo del maquillaje profesional. Este es el cartel que pegamos en Madrid para su último pintalabios."
+    desc: "MAC Cosmetics es la multinacional más importante en el mundo del maquillaje profesional. Este es el cartel que pegamos en Madrid para su último pintalabios."
     alt: "Cartel de la campaña de MAC Cosmetics en una calle de Madrid"
   - src: cartel-metallica-madrid.jpg
-    desc: "También nos encargado de la pegada de carteles para una de grupos de rock más influyentes de todos los tiempos. Este es uno de sus carteles en Madrid."
+    desc: "También nos encargamos de la pegada de carteles para una de grupos de rock más influyentes de todos los tiempos. Este es uno de sus carteles en Madrid."
     alt: "Cartel del concierto de Metallica"
 ---
