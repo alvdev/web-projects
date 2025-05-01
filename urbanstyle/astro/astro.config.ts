@@ -35,7 +35,7 @@ export default defineConfig({
       },
     },
   },
-  
+
   i18n: {
     locales: ["es", "en"],
     defaultLocale: "es",
@@ -45,7 +45,7 @@ export default defineConfig({
   },
 
   image: {
-    experimentalLayout: "responsive",
+    experimentalLayout: "constrained",
   },
 
   experimental: {
