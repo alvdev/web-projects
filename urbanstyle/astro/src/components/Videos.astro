@@ -1,18 +1,18 @@
 ---
 import { YouTube } from "astro-embed";
+
+const { videoId1, videoId2 } = Astro.props;
 ---
 
 <section class="container mt-28">
     <div class="grid lg:grid-cols-2 gap-16">
-        <!-- <div class="absolute z-10 top-0 left-2">
-            <Corner1 class="absolute z-10 top-0 left-2" width={230} height={} />
-        </div> -->
         <div class="relative">
             <div
                 class="relative [border-image:url(@assets/images/brush-frame.svg)_30] border-28 [border_image_slice:30_fill]"
             >
                 <YouTube
-                    id="https://youtu.be/0_LpZYxl5Iw?si=IU8Y1aOgMS2hag8G"
+                    id={`https://youtu.be/${videoId1}`}
+                    params={`rel=0&loop=1&playlist=${videoId1}`}
                     posterQuality="high"
                     class="ring-8 ring-black rounded-lg"
                 />
@@ -33,7 +33,8 @@ import { YouTube } from "astro-embed";
             <div class="[border-image:url(@assets/images/brush-frame.svg)_30] border-28 [border_image_slice:30_fill]">
                 <!-- <Corner2 class="absolute z-10 bottom-2 right-0 brightness-0" width={350} /> -->
                 <YouTube
-                    id="https://youtu.be/03Gma06CTl8?si=jnMIHy5UMWat6TOL"
+                    id={`https://youtu.be/${videoId2}`}
+                    params={`rel=0&loop=1&playlist=${videoId2}`}
                     posterQuality="high"
                     class="ring-8 ring-black rounded-lg"
                 />
