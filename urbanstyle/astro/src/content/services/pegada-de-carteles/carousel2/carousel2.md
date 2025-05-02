@@ -11,7 +11,7 @@ images:
     desc: "Pegamos estos carteles en el Metro de Callao de Madrid para el que no se sabe si fue el último concierto de Paul McArtney en España."
     alt: "Múltiples cárteles iguales del concierto de Paul McArtney en Madrid"
   - src: carteles-telepizza-madrid.jpg
-    desc: "Campaña de Wild Posting para Telepizza con la pegada de carteles en Madrid en formato Wild Posting para conseguir llegar mejor al público con su mensaje."
+    desc: "Campaña para Telepizza con la pegada de carteles en Madrid en formato Wild Posting para conseguir llegar mejor al público con su mensaje."
     alt: "Campaña de Wild Posting en Madrid con carteles de Telepizza"
   - src: carteles-telepizza-wild-posting.jpg
     desc: "Otra pegada de carteles para Telepizza en Barcelona usando el Wild Posting para conseguir una mayor saturación visual e impacto en los transeúntes."

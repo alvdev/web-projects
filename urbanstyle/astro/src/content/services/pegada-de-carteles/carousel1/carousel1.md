@@ -26,6 +26,6 @@ images:
     desc: "MAC Cosmetics es la multinacional más importante en el mundo del maquillaje profesional. Este es el cartel que pegamos en Madrid para su último pintalabios."
     alt: "Cartel de la campaña de MAC Cosmetics en una calle de Madrid"
   - src: cartel-metallica-madrid.jpg
-    desc: "También nos encargamos de la pegada de carteles para una de grupos de rock más influyentes de todos los tiempos. Este es uno de sus carteles en Madrid."
+    desc: "También nos encargamos de la pegada de carteles para uno de los grupos de rock más influyentes de todos los tiempos. Este es uno de sus carteles en Madrid."
     alt: "Cartel del concierto de Metallica"
 ---
