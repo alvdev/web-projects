@@ -6,13 +6,15 @@
   },
   "private": true,
   "scripts": {
-    "dev": "npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.css --watch",
+    "dev": "bunx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.css --watch",
     "build": "bun run partytown && npx @tailwindcss/cli -i ./assets/main.css -o ./dist/main.min.css --minify",
     "partytown": "bunx partytown copylib 'dist/~partytown'"
   },
   "type": "module",
   "dependencies": {
     "@qwik.dev/partytown": "^0.11.0",
-    "partytown": "^0.0.0"
+    "@tailwindcss/cli": "^4.1.5",
+    "partytown": "^0.0.0",
+    "tailwindcss": "^4.1.5"
   }
 }
