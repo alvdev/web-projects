@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso de hipnosis terapéutica</title>
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
     <meta name="description" content="Curso de Hipnosis Terapeutica para Profesionales | Ayuda a tus pacientes a dejar de fumar, superar fobias, y mucho más. Contáctanos">
     <!-- Partytown Snippet -->
     <script>
