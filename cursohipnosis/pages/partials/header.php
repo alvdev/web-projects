@@ -1,7 +1,7 @@
 <header class="sticky z-20 top-0 w-full border-b py-2 bg-white/80 backdrop-blur-md shadow-xl shadow-blue-950/10 transition-all duration-300">
     <div class="container flex items-center justify-between mx-auto px-4">
-        <a href="<?= BASE_URL ?>" id="logo" class="w-32 transition-all" aria-label="Logo de curso de hipnosis terapeutica">
-            <img src="<?= asset('images/logo.webp') ?>" srcset="<?= asset('images/logo.webp') ?> 400w" alt="" width="275" height="275">
+        <a href="<?= BASE_URL ?>" id="logo" class="w-32 transition-all border-2 border-blue-800 **:[path]:fill-blue-800 rounded-lg" aria-label="Logo de curso de hipnosis terapeutica">
+            <?= asset('images/hipnosis-logo.svg', true) ?>
         </a>
 
         <!-- Hidden checkbox for menu state -->
