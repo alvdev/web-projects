@@ -9,10 +9,11 @@ import mdx from "@astrojs/mdx";
 
 import sitemap from "@astrojs/sitemap";
 
+const isProd = import.meta.env.PROD;
 // https://astro.build/config
 export default defineConfig({
-  site: "https://urbanstylepublicity.com",
-  base: "/test/",
+  site: isProd ? "https://www.urbanstyle.com" : "http://localhost:4321",
+  base: isProd ? "/test/" : "/",
   // trailingSlash: 'never',
 
   integrations: [alpinejs({ entrypoint: "/src/alpinejs" }), mdx(), sitemap()],
