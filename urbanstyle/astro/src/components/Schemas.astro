@@ -1,0 +1,206 @@
+---
+import { Schema } from "astro-seo-schema";
+import pageImage from "@/assets/images/madrid.webp";
+
+const {
+    types,
+    webTitle = "Urban web title",
+    webDesc = "Urban web description",
+    pageTitle = "Urban page title",
+    pageDesc = "Urban page description",
+    pageCover = pageImage,
+} = Astro.props;
+
+const typesLower = types.map((type: string) => typeof type === "string" && type.toLowerCase());
+
+const baseUrl = Astro.url.protocol + "//" + Astro.url.host + import.meta.env.BASE_URL;
+
+// Available schemas
+const website = {
+    "@type": "WebSite",
+    url: baseUrl,
+    name: webTitle,
+    description: webDesc,
+    publisher: {
+        "@id": `${baseUrl}#organization`,
+    },
+    inLanguage: "es-ES",
+};
+
+const webpage = {
+    "@type": "WebPage", // Describing THIS specific page (the homepage)
+    "@id": `${baseUrl}#webpage`, // Unique ID for this WebPage node
+    url: baseUrl,
+    name: pageTitle, // The <title> or H1 of the homepage
+    description: pageDesc, // Homepage meta description
+    publisher: {
+        "@type": "Organization",
+        "@id": `${baseUrl}#organization`,
+    },
+
+    primaryImageOfPage: {
+        // Optional: if you have a main hero image for the homepage
+        "@type": "ImageObject",
+        url: pageCover.src,
+    },
+    datePublished: "2023-01-15T08:00:00+00:00", // When the page was first published
+    dateModified: "2024-03-10T10:30:00+00:00", // When the page was last modified
+    breadcrumb: {
+        // Optional: breadcrumb for the homepage is usually just "Home"
+        "@id": `${baseUrl}#breadcrumb`, // If you define BreadcrumbList elsewhere
+    },
+    mainEntity: {
+        // You can point to the primary focus of THIS page
+        // For the homepage, this might be the Organization or LocalBusiness
+        "@id": `${baseUrl}#localbusiness`, // Or #organization, depending on emphasis
+    },
+};
+
+const organization = {
+    "@type": "Organization",
+    "@id": `${baseUrl}#organization`, // Main organization ID
+    name: "Urban Style Publicity",
+    url: baseUrl,
+    logo: `${baseUrl}images/logo.png`,
+    description:
+        "Agencia de publicidad exterior especializada en colocación y pegada de carteles, vallas publicitarias y otros soportes de publicidad exterior en Madrid, Barcelona y resto de España",
+    sameAs: [
+        "https://www.facebook.com/profile.php?id=61557928546519",
+        "https://twitter.com/pegadacarteles",
+        "https://instagram.com/urban_style_publicity",
+        "https://www.youtube.com/@pegadadecarteles",
+        "https://www.linkedin.com/in/pedro-jim%C3%A9nez-39671b124/",
+        "https://www.wikidata.org/wiki/Q216931",
+    ],
+    contactPoint: {
+        // General contact for the whole organization
+        "@type": "ContactPoint",
+        telephone: "+34-913-052-922", // Main company line
+        contactType: "customer support", // Or "sales", "technical support" etc.
+    },
+    areaServed: {
+        // Crucial for nationwide services
+        "@type": "Country",
+        name: "Spain", // Or be more specific with regions if needed using GeoShape
+    },
+    // You can list your departments/branches here if you wish
+    department: [{ "@id": `${baseUrl}madrid/#localbusiness` }, { "@id": `${baseUrl}barcelona/#localbusiness` }],
+};
+
+const localbusiness = [
+    {
+        "@type": "LocalBusiness", // Or a more specific type like "ProfessionalService"
+        "@id": `${baseUrl}madrid/#localbusiness`, // Unique ID for Madrid location
+        name: `${webTitle} - Madrid`,
+        parentOrganization: {
+            // Links back to the main organization
+            "@type": "Organization",
+            name: webTitle,
+            "@id": `${baseUrl}#organization`,
+        },
+        description: "Oficina de Madrid de Urban Style Publicity.",
+        url: `${baseUrl}contacto/#madrid`, // URL of Madrid office page, if it exists
+        telephone: "+34-913-052-922", // Madrid specific phone
+        address: {
+            "@type": "PostalAddress",
+            streetAddress: "Av del Manzanares, 202",
+            addressLocality: "Madrid",
+            postalCode: "28026",
+            addressCountry: "ES",
+        },
+        geo: {
+            "@type": "GeoCoordinates",
+            latitude: "40.3926834", // Madrid Latitude
+            longitude: "-3.702346299999999", // Madrid Longitude
+        },
+        openingHoursSpecification: [
+            {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                opens: "09:00",
+                closes: "18:00",
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: "Friday",
+                opens: "09:00",
+                closes: "14:00",
+            },
+        ],
+        // "areaServed" here could be "Madrid" or the specific regions it directly covers
+    },
+    {
+        "@type": "LocalBusiness", // Or a more specific type
+        "@id": `${baseUrl}barcelona/#localbusiness`, // Unique ID for Barcelona location
+        name: `${webTitle} - Barcelona`,
+        parentOrganization: {
+            "@type": "Organization",
+            name: webTitle,
+            "@id": `${baseUrl}#organization`,
+        },
+        description: "Oficina de Barcelona de Urban Style Publicity.",
+        url: `${baseUrl}contacto/#barcelona`, // URL of Barcelona office page, if it exists
+        telephone: "+34-913-052-922", // Barcelona specific phone
+        address: {
+            "@type": "PostalAddress",
+            streetAddress: "Calle Tamarit 104 local",
+            addressLocality: "Barcelona",
+            postalCode: "08015",
+            addressCountry: "ES",
+        },
+        geo: {
+            "@type": "GeoCoordinates",
+            latitude: "41.37647323826379", // Barcelona Latitude
+            longitude: "2.157992968240334", // Barcelona Longitude
+        },
+        openingHoursSpecification: [
+            {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                opens: "09:00",
+                closes: "18:00",
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: "Friday",
+                opens: "09:00",
+                closes: "14:00",
+            },
+        ],
+        // "areaServed" here could be "Barcelona" or the specific regions it directly covers
+    },
+];
+---
+
+{
+    types.length === 1 && typesLower.includes("website") && (
+        <Schema item={{ "@context": "https://schema.org", ...(website as any) }} />
+    )
+}
+
+{
+    types.length === 2 && ["website", "organization"].every(type => typesLower.includes(type)) && (
+        <Schema
+            item={{
+                "@context": "https://schema.org",
+                "@graph": [{ ...(website as any) }, { ...(webpage as any) }, { ...(organization as any) }],
+            }}
+        />
+    )
+}
+
+{
+    types.length === 3 && ["website", "organization", "localbusiness"].every(type => typesLower.includes(type)) && (
+        <Schema
+            item={{
+                "@context": "https://schema.org",
+                "@graph": [
+                    { ...(website as any) },
+                    { ...(webpage as any) },
+                    { ...(organization as any) },
+                    { ...(localbusiness as any) },
+                ],
+            }}
+        />
+    )
+}
