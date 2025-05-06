@@ -1,5 +1,6 @@
 ---
 import { Schema } from "astro-seo-schema";
+import Logo from "@/assets/images/logo-urban-250.webp";
 import pageImage from "@/assets/images/madrid.webp";
 
 const {
@@ -61,7 +62,7 @@ const organization = {
     "@id": `${baseUrl}#organization`, // Main organization ID
     name: "Urban Style Publicity",
     url: baseUrl,
-    logo: `${baseUrl}images/logo.png`,
+    logo: baseUrl + ".." + Logo.src,
     description:
         "Agencia de publicidad exterior especializada en colocación y pegada de carteles, vallas publicitarias y otros soportes de publicidad exterior en Madrid, Barcelona y resto de España",
     sameAs: [
@@ -198,7 +199,7 @@ const localbusiness = [
                     { ...(website as any) },
                     { ...(webpage as any) },
                     { ...(organization as any) },
-                    { ...(localbusiness as any) },
+                    ...(localbusiness as any),
                 ],
             }}
         />
