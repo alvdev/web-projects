@@ -75,6 +75,84 @@ const contactPage = {
     },
 };
 
+const service = {
+    "@type": "Service",
+    name: pageTitle,
+    alternateName: "Servicio de publicidad exterior",
+    serviceType: pageTitle,
+    description: pageDesc,
+    provider: {
+        "@id": `${baseUrl}#organization}`, // Or "LocalBusiness" / "Organization" if more appropriate
+    },
+    areaServed: [
+        {
+            "@type": "Country",
+            name: "Spain",
+        },
+        // Add more specific areas as needed
+    ],
+    availableChannel: [
+        // How can clients access or request this service?
+        {
+            "@type": "ServiceChannel",
+            serviceUrl: `${baseUrl}contacto/`,
+            description: "Online inquiry form",
+        },
+        {
+            "@type": "ServiceChannel",
+            servicePhone: {
+                "@type": "ContactPoint",
+                telephone: "+34-913-052-922",
+                contactType: "Customer Service", // Or "Customer Service", "Technical Support"
+            },
+            description: "Phone consultation",
+        },
+    ],
+    serviceOutput: {
+        // What is the result or deliverable of the service?
+        "@type": "Campaign", // Or be more specific if possible, e.g., "Report", "Campaign"
+        name: `Realización de ${pageTitle}`,
+        description: `${pageTitle} es un servicio para una campaña de publicidad exterior completamente gestionada que incluye ubicación de medios, implementación creativa e informes de rendimiento.`,
+    },
+    offers: {
+        // Optional, but good if you have standard packages or want to indicate "Request a Quote"
+        "@type": "Offer",
+        itemOffered: {
+            "@type": "Service",
+            name: pageTitle, // Should match the main service name
+        },
+        priceCurrency: "EUR",
+        // If pricing is custom/quote-based (typical for OOH):
+        availability: "https://schema.org/InStock", // Indicates the service is available
+        description:
+            "Precios personalizados según el alcance y los requisitos de la campaña. Solicite un presupuesto para más detalles.",
+        url: `${baseUrl}contacto/`,
+        // If you have a fixed starting price or package:
+        // "priceSpecification": {
+        //   "@type": "PriceSpecification",
+        //   "price": "[Price, e.g., 5000]",
+        //   "priceCurrency": "[Currency, e.g., USD]",
+        //   "valueAddedTaxIncluded": false, // or true
+        //   "description": "Starting price for a basic digital billboard package."
+        // }
+    },
+    potentialAction: {
+        // Call to action
+        "@type": "QuoteAction", // Or "OrderAction", "ReserveAction"
+        target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${baseUrl}contacto/`,
+            actionPlatform: [
+                "https://schema.org/DesktopWebPlatform",
+                "https://schema.org/IOSPlatform",
+                "https://schema.org/AndroidPlatform",
+            ],
+        },
+        name: `Pedir presupuesto para ${pageTitle}`,
+    },
+    keywords: pageTitle, // Align with your SEO keywords for the page
+};
+
 const blogPosting = {
     "@type": "BlogPosting",
     "@id": `${baseUrl + pageTitle}/#article`, // Unique ID for this article
@@ -93,12 +171,12 @@ const blogPosting = {
     },
     author: {
         "@type": "Organization", // Or "Organization" if the org is the author
-        name: "Urban Style Publicity",
+        name: webTitle,
         // url: "https://www.yourdomain.com/authors/john-doe/", // Optional URL to author's bio page
     },
     publisher: {
         "@type": "Organization",
-        name: "Urban Style Publicity",
+        name: webTitle,
         logo: {
             "@type": "ImageObject",
             url: baseUrl + ".." + Logo.src,
@@ -123,7 +201,7 @@ const blogPosting = {
 const organization = {
     "@type": "Organization",
     "@id": `${baseUrl}#organization`, // Main organization ID
-    name: "Urban Style Publicity",
+    name: webTitle,
     url: baseUrl,
     logo: baseUrl + ".." + Logo.src,
     description:
@@ -258,6 +336,14 @@ const schemaVariants = [
         item: {
             "@context": "https://schema.org",
             "@graph": [webpage, contactPage, organization, ...localbusiness],
+        },
+    },
+    // Service page
+    {
+        match: () => hasTypes("service"),
+        item: {
+            "@context": "https://schema.org",
+            "@graph": [webpage, service, organization, ...localbusiness],
         },
     },
     // Blog post
