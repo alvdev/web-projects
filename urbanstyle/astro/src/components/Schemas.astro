@@ -59,6 +59,21 @@ const webpage = {
     },
 };
 
+const contactPage = {
+    "@type": ["WebPage", "ContactPage"], // Describes the page itself
+    "@id": `${baseUrl}contacto/#webpage`,
+    url: `${baseUrl}contacto/`,
+    name: pageTitle,
+    description: pageDesc,
+    isPartOf: {
+        "@id": `${baseUrl}#website`, // Links to your main WebSite entity
+    },
+    mainEntity: {
+        // The main entity this page is about
+        "@id": `${baseUrl}#organization`, // Points to the Organization defined below
+    },
+};
+
 const organization = {
     "@type": "Organization",
     "@id": `${baseUrl}#organization`, // Main organization ID
@@ -200,6 +215,23 @@ const localbusiness = [
                 "@graph": [
                     { ...(website as any) },
                     { ...(webpage as any) },
+                    { ...(organization as any) },
+                    ...(localbusiness as any),
+                ],
+            }}
+        />
+    )
+}
+
+<!-- Contact Page -->
+{
+    types.length === 2 && ["organization", "contactpage"].every(type => typesLower.includes(type)) && (
+        <Schema
+            item={{
+                "@context": "https://schema.org",
+                "@graph": [
+                    { ...(webpage as any) },
+                    { ...(contactPage as any) },
                     { ...(organization as any) },
                     ...(localbusiness as any),
                 ],
