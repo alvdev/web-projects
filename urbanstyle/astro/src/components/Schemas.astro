@@ -10,6 +10,9 @@ const {
     pageTitle = "Urban page title",
     pageDesc = "Urban page description",
     pageCover = pageImage,
+    articleBody,
+    datePublished,
+    dateModified,
 } = Astro.props;
 
 const typesLower = types.map((type: string) => typeof type === "string" && type.toLowerCase());
@@ -71,6 +74,51 @@ const contactPage = {
     mainEntity: {
         // The main entity this page is about
         "@id": `${baseUrl}#organization`, // Points to the Organization defined below
+    },
+};
+
+const blogPosting = {
+    "@type": "BlogPosting",
+    "@id": `${baseUrl + pageTitle}/#article`, // Unique ID for this article
+    mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `${baseUrl}blog/${pageTitle}`, // The canonical URL of the blog post
+    },
+    headline: pageTitle,
+    name: pageTitle, // Often same as headline
+    description: pageDesc,
+    image: {
+        "@type": "ImageObject",
+        url: pageCover.src, // URL of the main image for the post
+        height: pageCover.height, // Optional, but good
+        width: pageCover.width, // Optional, but good
+    },
+    author: {
+        "@type": "Organization", // Or "Organization" if the org is the author
+        name: "Urban Style Publicity",
+        // url: "https://www.yourdomain.com/authors/john-doe/", // Optional URL to author's bio page
+    },
+    publisher: {
+        "@type": "Organization",
+        name: "Urban Style Publicity",
+        logo: {
+            "@type": "ImageObject",
+            url: baseUrl + ".." + Logo.src,
+            width: Logo.width,
+            height: Logo.height,
+        },
+    },
+    datePublished: datePublished, // "2023-10-27T09:30:00+00:00", // ISO 8601 format
+    dateModified: dateModified, // "2023-10-27T09:30:00+00:00", // ISO 8601 format
+    articleBody: articleBody,
+    keywords: "keyword1, keyword2, relevant topic", // Comma-separated keywords
+    inLanguage: "en-ES", // Language of the article
+    // "commentCount": "15", // Optional: if you have comments
+    isPartOf: {
+        // Optional: if your blog post is part of a series or a larger collection
+        "@type": "Blog",
+        name: "Urban Style Publicity Blog",
+        url: `${baseUrl}blog/`,
     },
 };
 
@@ -235,6 +283,18 @@ const localbusiness = [
                     { ...(organization as any) },
                     ...(localbusiness as any),
                 ],
+            }}
+        />
+    )
+}
+
+<!-- Blog Post -->
+{
+    types.length === 1 && typesLower.includes("blogposting") && (
+        <Schema
+            item={{
+                "@context": "https://schema.org",
+                "@graph": [{ ...(webpage as any) }, { ...(blogPosting as any) }, { ...(organization as any) }],
             }}
         />
     )
