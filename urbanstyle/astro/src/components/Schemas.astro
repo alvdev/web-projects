@@ -43,9 +43,11 @@ const webpage = {
         // Optional: if you have a main hero image for the homepage
         "@type": "ImageObject",
         url: pageCover.src,
+        width: pageCover.width,
+        height: pageCover.height,
     },
-    datePublished: "2023-01-15T08:00:00+00:00", // When the page was first published
-    dateModified: "2024-03-10T10:30:00+00:00", // When the page was last modified
+    // datePublished: "2023-01-15T08:00:00+00:00", // When the page was first published
+    // dateModified: "2024-03-10T10:30:00+00:00", // When the page was last modified
     breadcrumb: {
         // Optional: breadcrumb for the homepage is usually just "Home"
         "@id": `${baseUrl}#breadcrumb`, // If you define BreadcrumbList elsewhere
