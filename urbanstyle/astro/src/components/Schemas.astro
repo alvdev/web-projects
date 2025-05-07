@@ -16,6 +16,7 @@ const {
 } = Astro.props;
 
 const baseUrl = Astro.url.protocol + "//" + Astro.url.host + import.meta.env.BASE_URL;
+const phone = "+34-913-052-922";
 
 // Available schemas
 const website = {
@@ -102,7 +103,7 @@ const service = {
             "@type": "ServiceChannel",
             servicePhone: {
                 "@type": "ContactPoint",
-                telephone: "+34-913-052-922",
+                telephone: phone,
                 contactType: "Customer Service", // Or "Customer Service", "Technical Support"
             },
             description: "Phone consultation",
@@ -217,7 +218,7 @@ const organization = {
     contactPoint: {
         // General contact for the whole organization
         "@type": "ContactPoint",
-        telephone: "+34-913-052-922", // Main company line
+        telephone: phone, // Main company line
         contactType: "customer support", // Or "sales", "technical support" etc.
     },
     areaServed: {
@@ -242,7 +243,7 @@ const localbusiness = [
         },
         description: "Oficina de Madrid de Urban Style Publicity.",
         url: `${baseUrl}contacto/#madrid`, // URL of Madrid office page, if it exists
-        telephone: "+34-913-052-922", // Madrid specific phone
+        telephone: phone, // Madrid specific phone
         address: {
             "@type": "PostalAddress",
             streetAddress: "Av del Manzanares, 202",
@@ -282,7 +283,7 @@ const localbusiness = [
         },
         description: "Oficina de Barcelona de Urban Style Publicity.",
         url: `${baseUrl}contacto/#barcelona`, // URL of Barcelona office page, if it exists
-        telephone: "+34-913-052-922", // Barcelona specific phone
+        telephone: phone, // Barcelona specific phone
         address: {
             "@type": "PostalAddress",
             streetAddress: "Calle Tamarit 104 local",
