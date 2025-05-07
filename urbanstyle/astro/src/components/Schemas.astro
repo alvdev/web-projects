@@ -15,8 +15,6 @@ const {
     dateModified,
 } = Astro.props;
 
-const typesLower = types.map((type: string) => typeof type === "string" && type.toLowerCase());
-
 const baseUrl = Astro.url.protocol + "//" + Astro.url.host + import.meta.env.BASE_URL;
 
 // Available schemas
@@ -236,66 +234,43 @@ const localbusiness = [
         // "areaServed" here could be "Barcelona" or the specific regions it directly covers
     },
 ];
+
+// Build schemas
+
+const typesLower = (types ?? []).map((type: string) => (typeof type === "string" ? type.toLowerCase() : type));
+
+function hasTypes(...expected: string[]) {
+    return typesLower.length === expected.length && expected.every(type => typesLower.includes(type));
+}
+
+const schemaVariants = [
+    // Home page
+    {
+        match: () => hasTypes("website"),
+        item: {
+            "@context": "https://schema.org",
+            "@graph": [website, webpage, organization, ...localbusiness],
+        },
+    },
+    // Contact page
+    {
+        match: () => hasTypes("contactpage"),
+        item: {
+            "@context": "https://schema.org",
+            "@graph": [webpage, contactPage, organization, ...localbusiness],
+        },
+    },
+    // Blog post
+    {
+        match: () => hasTypes("blogposting"),
+        item: {
+            "@context": "https://schema.org",
+            "@graph": [webpage, blogPosting, organization],
+        },
+    },
+];
+
+const matchedSchema = schemaVariants.find(variant => variant.match());
 ---
 
-{
-    types.length === 1 && typesLower.includes("website") && (
-        <Schema item={{ "@context": "https://schema.org", ...(website as any) }} />
-    )
-}
-
-{
-    types.length === 2 && ["website", "organization"].every(type => typesLower.includes(type)) && (
-        <Schema
-            item={{
-                "@context": "https://schema.org",
-                "@graph": [{ ...(website as any) }, { ...(webpage as any) }, { ...(organization as any) }],
-            }}
-        />
-    )
-}
-
-{
-    types.length === 3 && ["website", "organization", "localbusiness"].every(type => typesLower.includes(type)) && (
-        <Schema
-            item={{
-                "@context": "https://schema.org",
-                "@graph": [
-                    { ...(website as any) },
-                    { ...(webpage as any) },
-                    { ...(organization as any) },
-                    ...(localbusiness as any),
-                ],
-            }}
-        />
-    )
-}
-
-<!-- Contact Page -->
-{
-    types.length === 2 && ["organization", "contactpage"].every(type => typesLower.includes(type)) && (
-        <Schema
-            item={{
-                "@context": "https://schema.org",
-                "@graph": [
-                    { ...(webpage as any) },
-                    { ...(contactPage as any) },
-                    { ...(organization as any) },
-                    ...(localbusiness as any),
-                ],
-            }}
-        />
-    )
-}
-
-<!-- Blog Post -->
-{
-    types.length === 1 && typesLower.includes("blogposting") && (
-        <Schema
-            item={{
-                "@context": "https://schema.org",
-                "@graph": [{ ...(webpage as any) }, { ...(blogPosting as any) }, { ...(organization as any) }],
-            }}
-        />
-    )
-}
+{matchedSchema ? <Schema item={matchedSchema.item as any} /> : null}
