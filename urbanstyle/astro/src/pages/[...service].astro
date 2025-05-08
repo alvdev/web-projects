@@ -19,7 +19,7 @@ const seoTitle = landing.data.seo?.title || landing.data.title;
 const seoDescription = landing.data.seo?.description || landing.data.description;
 ---
 
-<Base title={seoTitle} description={seoDescription}>
+<Base title={seoTitle} description={seoDescription} cover={landing.data.cover}>
     <Header title={landing.data.title} cover={landing.data.cover} />
     <main class="relative z-20 *:first:mt-28">
         <Content />
