@@ -5,10 +5,10 @@ import pageImage from "@/assets/images/madrid.webp";
 
 const {
     types,
-    webTitle = "Urban web title",
-    webDesc = "Urban web description",
-    pageTitle = "Urban page title",
-    pageDesc = "Urban page description",
+    webTitle = "Urban Style Publicity",
+    webDesc = "Agencia de publicidad exterior especializada en pegada de carteles",
+    pageTitle,
+    pageDesc,
     pageCover = pageImage,
     articleBody,
     datePublished,
@@ -50,10 +50,10 @@ const webpage = {
     },
     // datePublished: "2023-01-15T08:00:00+00:00", // When the page was first published
     // dateModified: "2024-03-10T10:30:00+00:00", // When the page was last modified
-    breadcrumb: {
+    /*     breadcrumb: {
         // Optional: breadcrumb for the homepage is usually just "Home"
         "@id": `${baseUrl}#breadcrumb`, // If you define BreadcrumbList elsewhere
-    },
+    }, */
     mainEntity: {
         // You can point to the primary focus of THIS page
         // For the homepage, this might be the Organization or LocalBusiness
@@ -353,6 +353,14 @@ const schemaVariants = [
         item: {
             "@context": "https://schema.org",
             "@graph": [webpage, blogPosting, organization],
+        },
+    },
+    // Default
+    {
+        match: () => hasTypes("webpage"),
+        item: {
+            "@context": "https://schema.org",
+            "@graph": [webpage, organization, localbusiness],
         },
     },
 ];
