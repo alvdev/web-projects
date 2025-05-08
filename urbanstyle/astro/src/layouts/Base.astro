@@ -1,7 +1,18 @@
 ---
-import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar.astro";
+import { SEO as Seo } from "astro-seo";
+import Schemas from "@/components/Schemas.astro";
+import Footer from "@/components/Footer.astro";
+import Navbar from "@/components/Navbar.astro";
+import Cover from "@/assets/images/header/pegada-de-carteles.webp";
 import "../styles/global.css";
+
+const {
+    title = "Agencia de publicidad exterior | Urban Style Publicity",
+    description = "Agencia de publicidad exterior con presencia en Madrid, Barcelona y principales ciudades. Especialistas en pegar el 90% de carteles que ves a diario.",
+    Cover: { src: cover } = { src: Cover.src },
+    schema = "webpage",
+    ogType = "website",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -10,9 +21,23 @@ import "../styles/global.css";
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href={import.meta.env.BASE_URL + "favicon.svg"} />
-        <meta name="generator" content={Astro.generator} />
-        <meta name="description" content="Astro Basics" />
-        <title>Astro Basics</title>
+        <Seo
+            title={title}
+            description={description}
+            openGraph={{
+                basic: {
+                    title: title,
+                    type: ogType,
+                    image: cover,
+                },
+            }}
+            ,
+            twitter={{
+                creator: "@pegadacarteles",
+            }}
+        />
+
+        <Schemas pageTitle={title} pageDesc={description} pageCover={Astro.props.cover} types={[schema]} />
     </head>
     <body>
         <Navbar />
