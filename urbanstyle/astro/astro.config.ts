@@ -12,8 +12,8 @@ import sitemap from "@astrojs/sitemap";
 const isProd = import.meta.env.PROD;
 // https://astro.build/config
 export default defineConfig({
-  site: isProd ? "https://www.urbanstyle.com" : "http://localhost:4321",
-  base: isProd ? "/test/" : "/",
+  site: isProd ? "https://www.urbanstylepublicity.com" : "http://urban.local:4321",
+  base: isProd ? "/" : "/",
   // trailingSlash: 'never',
 
   integrations: [alpinejs({ entrypoint: "/src/alpinejs" }), mdx(), sitemap()],
@@ -27,6 +27,7 @@ export default defineConfig({
       },
     },
     server: {
+      allowedHosts: ["urban.local"],
       proxy: {
         "/php": {
           target: "http://localhost:8000",
