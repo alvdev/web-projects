@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /astro/dist
+    # SEO redirections
+    RewriteRule ^servicios-publicitarios/(.*)$ $1 [R=301,L]
+</IfModule>
