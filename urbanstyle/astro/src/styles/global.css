@@ -338,5 +338,9 @@
         &.under {
             @apply after:bg-[url(@assets/underline.svg)];
         }
+
+        &.brush {
+            @apply bg-[url(@assets/brush.svg)] px-16 font-semibold;
+        }
     }
 }
