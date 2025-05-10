@@ -2,7 +2,8 @@
 import { getCollection, render } from "astro:content";
 import Base from "@/layouts/Base.astro";
 import Header from "@/components/Header.astro";
-import Banners from "@/components/Banners.astro";
+import PosterPasting from "@/components/banners/PosterPasting.astro";
+import Dossier from "@/components/banners/Dossier.astro";
 
 import defaultCover from "@/assets/images/header/post-cover-placeholder.webp";
 
@@ -36,7 +37,8 @@ const seoDescription = post.data.seo?.description || postSanitizedDescription;
         <div class="container relative z-10 flex gap-8">
             <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
                 <div class="sticky top-28">
-                    <Banners />
+                    <PosterPasting />
+                    <Dossier />
                 </div>
             </aside>
             <div
@@ -48,7 +50,9 @@ const seoDescription = post.data.seo?.description || postSanitizedDescription;
 
                 <Content />
             </div>
-            <div class="hidden w-1/5 pt-24 md:block"></div>
+            <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
+                <div class="sticky top-28"></div>
+            </aside>
         </div>
     </main>
 </Base>

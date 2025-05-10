@@ -2,7 +2,8 @@
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import Banners from "@/components/Banners.astro";
+import PosterPasting from "@/components/banners/PosterPasting.astro";
+import Dossier from "@/components/banners/Dossier.astro";
 import cover from "@/assets/images/header/blog-pegada-de-carteles.webp";
 import postCoverPlaceholder from "@/assets/images/header/post-cover-placeholder.webp";
 import Hdivider from "@/assets/images/h-divider.svg";
@@ -85,7 +86,8 @@ const posts = unorderedPosts.sort((a, b) => parsePublishDate(b.data.pubDate).get
 
                 <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
                     <div class="sticky top-28">
-                        <Banners />
+                        <PosterPasting />
+                        <Dossier />
                         <!-- {% include 'partials/banner.html.twig' %} -->
                     </div>
                 </aside>

@@ -2,9 +2,9 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import Base from "@/layouts/Base.astro";
+import Dossier from "@/components/banners/Dossier.astro";
 import Header from "@/components/Header.astro";
 import headerImg from "@/content/services/tu-publicidad-aqui.webp";
-import dossier from "@/assets/images/urban-dossier.webp";
 
 const services = await getCollection("services");
 const serviceSlugs = services
@@ -109,20 +109,7 @@ const title = "Servicios <br>publicitarios";
                         <div
                             class="flex flex-col md:flex-row text-center items-stretch gap-8 text-balance md:gap-16 xl:flex-col xl:gap-8"
                         >
-                            <h2
-                                class="flex items-center text-2xl p-8 border-2 border-dashed border-black rounded !m-0 sm:text-4xl md:text-3xl lg:text-4xl xl:text-2xl xl:p-0 xl:border-none"
-                            >
-                                Ya puedes descargar nuestro catálogo completo de servicios
-                            </h2>
-                            <div>
-                                <Image src={dossier} alt="dossier para pegadas de carteles" width={475} format="avif" />
-
-                                <a href="/dl/dossier-UrbanStylePublicity.pdf" target="_blank" class="btn text-nowrap">
-                                    Descargar dossier <span class="rotate-45 inline-block translate-y-[2px]">
-                                        &#x2794
-                                    </span>
-                                </a>
-                            </div>
+                            <Dossier title=" Ya puedes descargar nuestro catálogo completo de servicios" />
                         </div>
                     </div>
                 </aside>
