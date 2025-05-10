@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
+import Dossier from "@/components/banners/Dossier.astro";
 import banner from "@/assets/images/header/pegada-de-carteles.webp";
-import dossier from "@/assets/images/urban-dossier.webp";
 
 const baseUrl = import.meta.env.BASE_URL;
 ---
@@ -26,22 +26,4 @@ const baseUrl = import.meta.env.BASE_URL;
             height={150}
         />
     </div>
-</div>
-
-<div class="mt-8 text-center border rounded-xs p-8 px-6 bg-gradient-to-t from-zinc-300 via-white via-40% to-white">
-    <Image
-        src={dossier}
-        class="mx-auto w-full object-cover brightness-110 contrast-110"
-        alt="dossier para pegadas de carteles"
-        width={200}
-        format="avif"
-    />
-
-    <a
-        href="/dl/dossier-UrbanStylePublicity.pdf"
-        target="_blank"
-        class="btn block mt-8 px-5 whitespace-nowrap normal-case"
-    >
-        Descargar dossier <span class="rotate-45 inline-block translate-y-[2px]">&#x2794</span>
-    </a>
 </div>
