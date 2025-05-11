@@ -17,7 +17,9 @@ const { title, subtitle } = Astro.props;
         </h3>
     </hgroup>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-24 gap-y-20">
+    <div
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-20 lg:gap-x-24 gap-y-12 lg:gap-y-16 xl:gap-y-20"
+    >
         {
             collection.map(item =>
                 item.data.logos.map(img => <Image src={img.src as ImageMetadata} alt={img.alt} format="avif" />)
