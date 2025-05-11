@@ -39,7 +39,7 @@ const {
 
         <Schemas pageTitle={title} pageDesc={description} pageCover={Astro.props.cover} types={[schema]} />
     </head>
-    <body>
+    <body class={import.meta.env.DEV ? "debug-screens" : null}>
         <Navbar />
         <slot />
         <Footer />
