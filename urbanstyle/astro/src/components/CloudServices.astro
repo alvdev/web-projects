@@ -3,20 +3,19 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
 const services = await getCollection("services");
-const { title } = Astro.props;
+const { title, classes = "mt-24 lg:mt-28 xl:mt-32" } = Astro.props;
 // console.log(services);
 const servicesAreEven = services.length % 2 === 0;
-console.log(servicesAreEven ? "even" : "odd");
 ---
 
-<section class="mt-32">
+<section class={classes}>
     <div class="container">
-        <h2 set:html={title} class="text-6xl text-center font-bold uppercase" />
+        <h2 set:html={title} class="text-5xl lg:text-6xl xl:text-7xl text-center font-bold uppercase" />
 
-        <div class="container mt-24">
+        <div class="container mt-16 lg:mt-20 xl:mt-24">
             {
                 !servicesAreEven && (
-                    <div class="grid grid-cols-5 gap-4 *:nth-[5n+2]:-top-8 *:nth-[5n+4]:-top-8">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 *:nth-[2n+1]:-top-8 sm:*:nth-[2n+1]:top-0 sm:*:nth-[3n+2]:-top-6 lg:*:nth-[3n+2]:top-0  lg:*:nth-[5n+2]:-top-8 lg:*:nth-[5n+4]:-top-8">
                         {services
                             .sort((a, b) => a.data.title.localeCompare(b.data.title))
                             .map(service => (
