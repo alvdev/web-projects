@@ -1,0 +1,59 @@
+---
+import { YouTube } from "astro-embed";
+
+const { videoId, videoCaption, title, description } = Astro.props;
+---
+
+<section class="container mt-28">
+    <div class="grid xl:grid-cols-2 gap-8 xl:gap-16 items-center">
+        <div class="relative">
+            <div
+                class="relative [border-image:url(@assets/images/brush-frame.svg)_30] border-28 [border_image_slice:30_fill]"
+            >
+                <YouTube
+                    id={videoId}
+                    params={`rel=0&loop=1&playlist=${videoId}`}
+                    posterQuality="high"
+                    class="ring-8 ring-black rounded-lg w-full max-w-full!"
+                />
+            </div>
+            {
+                videoCaption && (
+                    <div class="absolute right-8 bottom-2 text-sm w-1/2 text-right grid justify-end gap-0.5 [&>span]:drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]">
+                        <span set:html={videoCaption} class="ml-auto bg-black/70 text-white px-4 py-1 inline-block w-fit" />
+                    </div>
+                )
+            }
+        </div>
+
+        <div class="**:[a]:text-black **:[a]:hover:text-red-700">
+            {
+                title && description && (
+                    <h2
+                        set:html={title}
+                        class="text-5xl text-balance text-black font-semibold md:text-6xl uppercase xl:text-center xl:m-0 !leading-tight"
+                    />
+
+                    <p class="mt-8 text-2xl text-gray-600 text-balance text-center font-semibold m-0 md:text-4xl leading-snug">
+                        {description}
+                    </p>
+                )
+            }
+
+            {
+                title && !description &&  (
+                    <h2 set:html={title} class="mt-8 text-gray-600 text-balance text-center font-semibold m-0 text-4xl leading-snug" />
+                )
+            }
+
+            <ul class="m-0 mt-8 list-none flex justify-center flex-wrap gap-4 text-white leading-tight">
+                <li><mark class="brush pb-1">Impresión en pequeño y gran formato</mark></li>
+                <li><mark class="brush pb-1">Diseño y maquetación</mark></li>
+                <li><mark class="brush pb-1">Pegada de carteles</mark></li>
+                <li><mark class="brush pb-1">Arte urbano</mark></li>
+                <li><mark class="brush pb-1">Carteles en locales</mark></li>
+                <li><mark class="brush pb-1">Instalación de lonas y vinilos</mark></li>
+            </ul>
+        </div>
+    </div>
+</section>
