@@ -22,31 +22,29 @@ const tabs = await Promise.all(
             Servicios de cartelería <br />complementarios
         </h2>
 
-        <div class="mt-24 flex gap-24 items-center">
-            <div class="w-2/5">
-                <div class="sticky top-28">
-                    <div class="flex flex-wrap gap-6 lg:flex-col">
-                        {
-                            tabs.map((tab, index) => (
-                                <button
-                                    class="group"
-                                    x-on:click={`tab = ${index}`}
-                                    x-bind:class={`tab === ${index} ? 'tab-active' : 'tab'`}
-                                >
-                                    {tab.data.title}
-                                    <span class="inline-block right-2 group-hover:right-0 group-hover:transition-all relative">
-                                        🡪
-                                    </span>
-                                </button>
-                            ))
-                        }
-                    </div>
+        <div class="mt-12 lg:mt-16 xl:mt-24 flex flex-col lg:flex-row gap-16 xl:gap-24 items-center">
+            <div class="w-full lg:w-2/5 lg:sticky top-24">
+                <div class="grid md:grid-cols-2 lg:grid-cols-1 gap-6">
+                    {
+                        tabs.map((tab, index) => (
+                            <button
+                                class="group w-full"
+                                x-on:click={`tab = ${index}`}
+                                x-bind:class={`tab === ${index} ? 'tab-active' : 'tab'`}
+                            >
+                                {tab.data.title}
+                                <span class="inline-block right-2 group-hover:right-0 group-hover:transition-all relative">
+                                    🡪
+                                </span>
+                            </button>
+                        ))
+                    }
                 </div>
             </div>
             {
                 tabs.map((tab, index) => (
                     <div
-                        class="w-3/5 *:[ul]:mt-8 *:[ul]:mb-0 *:[ul]:ml-6 **:[li]:mt-8 text-2xl text-pretty leading-relaxed"
+                        class="lg:w-3/5 *:[ul]:mt-8 *:[ul]:mb-0 *:[ul]:ml-6 **:[li]:mt-8 text-2xl text-pretty leading-relaxed"
                         x-show={`tab === ${index}`}
                         x-transition:enter
                     >
