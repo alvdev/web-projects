@@ -15,6 +15,15 @@ const serviceSlugs = services
         return page.data.slug || import.meta.env.BASE_URL + (match?.[1] ?? "");
     });
 
+const whatWeOffer = [
+    "Somos expertos en difundir tu publicidad a través de cualquier ciudad y lugar de la geografía española.",
+    "Disponemos de una infraestructura de diseño, producción y distribución con la que podemos garantizar los mejores resultados.",
+    "No nos limitamos simplemente a distribuir tus anuncios, también nos esforzamos en fomentar una interacción significativa con tu audiencia.",
+    "Gestionamos todos los permisos municipales necesarios para que puedas centrarte en lo que más importa: tu negocio.",
+    "Empleamos estrategias emocionales y creativas que no solo captan la atención del público, sino que también generan una conexión auténtica con tu marca.",
+    "Desde elementos de humor hasta innovadoras tácticas de compromiso, aseguramos que tu campaña sea memorable y efectiva en cada paso del camino.",
+];
+
 const title = "Servicios <br>publicitarios";
 ---
 
@@ -26,36 +35,18 @@ const title = "Servicios <br>publicitarios";
     <Header title={title} cover={headerImg} classes="h-[75vh]" />
 
     <main class="relative z-10 pb-6">
-        <section class="mt-20 pb-20">
-            <div
-                class="container flex flex-col text-balance text-2xl leading-relaxed relative text-gray-500 [&_li]:my-8 xl:flex-row"
+        <section class="container mt-24 pb-28">
+            <ul
+                class="p-0 m-0 columns-1 lg:columns-2 *:break-inside-avoid-column gap-4 space-y-4 lg:gap-8 lg:space-y-8 text-pretty"
             >
-                <ul class="m-0">
-                    <li class="!mt-0">Somos expertos en expandir tu mensaje a través de cualquier ciudad y lugar.</li>
-                    <li>
-                        Gestionamos meticulosamente todos los permisos municipales necesarios, permitiéndote
-                        concentrarte en lo que más importa: tu campaña publicitaria o evento.
-                    </li>
-                    <li>
-                        Con una sólida infraestructura de ideación, diseño, producción y montaje, garantizamos
-                        resultados excepcionales que sobresalen en cualquier entorno.
-                    </li>
-                </ul>
-                <ul class="m-0">
-                    <li class="!mt-0">
-                        No nos limitamos a simplemente exhibir tu mensaje. Nos esforzamos por fomentar una interacción
-                        significativa con tu audiencia.
-                    </li>
-                    <li>
-                        Empleamos estrategias emocionales y creativas que no solo captan la atención del público, sino
-                        que también generan una conexión auténtica con tu marca.
-                    </li>
-                    <li>
-                        Desde elementos de humor hasta innovadoras tácticas de compromiso, aseguramos que tu campaña sea
-                        memorable y efectiva en cada paso del camino.
-                    </li>
-                </ul>
-            </div>
+                {
+                    whatWeOffer.map(item => (
+                        <li class="lg:mt-7 flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1">
+                            {item}
+                        </li>
+                    ))
+                }
+            </ul>
         </section>
 
         <Hdivider />
