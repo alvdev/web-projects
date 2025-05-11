@@ -1,25 +1,80 @@
 ---
-import Header from "../components/Header.astro";
-import Desc1 from "../components/Desc1.astro";
-import Layout from "../layouts/Base.astro";
-import Reviews from "../components/Reviews.astro";
-import Logos from "../components/Logos.astro";
-import Desc2 from "../components/Desc2.astro";
-import Desc3 from "../components/Desc3.astro";
-import Videos from "../components/Videos.astro";
-import Faqs from "../components/Faqs.astro";
-import InfiniteCarousel from "../components/InfiniteCarousel.astro";
-import BenefitsGrid from "../components/BenefitsGrid.astro";
-import VerticalTabs from "../components/VerticalTabs.astro";
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Base.astro";
+import Logos from "@/components/Logos.astro";
+import VideoWithDesc from "@/components/VideoWithDesc.astro";
+import CloudServices from "@/components/CloudServices.astro";
 import cover from "@/assets/images/header/pegada-de-carteles.webp";
 ---
 
-<Layout>
-    <main>
-        <Header
-            title="Agencia de publicidad exterior"
-            description="La pegada de carteles es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado."
-            cover={cover}
+<Layout cover={cover} schema="webpage">
+    <Header
+        title="Agencia de publicidad exterior"
+        description="La pegada de carteles es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado."
+        cover={cover}
+    />
+
+    <main class="relative z-10 pb-6">
+        <VideoWithDesc
+            videoId="ILOKwRc6TKc"
+            videoCaption="Haciendo publicidad exterior<br>en Madrid y Barcelona 🚀"
+            title="Urban Style Publicity es una agencia de publicidad exterior especializada en <a href='/pegada-de-carteles'>pegada de carteles</a>."
         />
+
+        <div class="container mt-24 lg:mt-28 xl:mt-32 text-2xl">
+            <hgroup class="text-center text-balance">
+                <div
+                    class="text-black/50 text-3xl text-balance font-semibold leading-snug md:leading-relaxed *:text-balance grid gap-4"
+                >
+                    <p>La publicidad exterior se dirige a todo tipo de público para causar el mayor impacto posible.</p>
+                    <p>Se busca promocionar tu negocio y establecer tu marca de forma contundente entre el público.</p>
+                </div>
+                <h2
+                    class="mt-8 lg:mt-12 xl:mt-16 text-5xl lg:text-6xl xl:text-7xl font-bold text-balance text-black uppercase"
+                >
+                    Hacer publicidad exterior es <mark class="under">sinónimo de resultados</mark>
+                </h2>
+            </hgroup>
+
+            <ul class="container p-0 mt-16 grid lg:grid-cols-2 gap-4 lg:gap-8 text-pretty">
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    El street marketing o marketing urbano es más barato que los anuncios en televisión y radio.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    4 de cada 10 personas visitan la tienda de una marca a través de carteles de publicidad.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    1 de cada 10 espectadores entra en la web de la marca después de ver la publicidad en la calle.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    Las marcas de éxito destinan el 13% de su presupuesto publicitario a empresas de publicidad
+                    exterior.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    8 de cada 10 personas ven publicidad en exteriores, de las cuales el 46% reconoce ver con frecuencia
+                    los anuncios en vallas publicitarias.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    La publicidad exterior tiene una tasa de recuerdo del 82%, siendo uno de los medios con mayor
+                    impacto en la memoria del consumidor.
+                </li>
+            </ul>
+        </div>
+
+        <CloudServices title="Nuestros servicios de<br>publicidad exterior" />
+
+        <Logos />
     </main>
 </Layout>
