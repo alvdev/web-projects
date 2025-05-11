@@ -5,6 +5,7 @@ import Base from "@/layouts/Base.astro";
 import Dossier from "@/components/banners/Dossier.astro";
 import Header from "@/components/Header.astro";
 import headerImg from "@/content/services/tu-publicidad-aqui.webp";
+import Hdivider from "@/assets/images/h-divider.svg";
 
 const services = await getCollection("services");
 const serviceSlugs = services
@@ -25,7 +26,7 @@ const title = "Servicios <br>publicitarios";
     <Header title={title} cover={headerImg} classes="h-[75vh]" />
 
     <main class="relative z-10 pb-6">
-        <section class="mt-20 border-b-4 border-dotted border-gray-400 pb-20">
+        <section class="mt-20 pb-20">
             <div
                 class="container flex flex-col text-balance text-2xl leading-relaxed relative text-gray-500 [&_li]:my-8 xl:flex-row"
             >
@@ -56,6 +57,8 @@ const title = "Servicios <br>publicitarios";
                 </ul>
             </div>
         </section>
+
+        <Hdivider />
 
         <div class="container mt-24">
             <div class="flex flex-col-reverse gap-24 mt-28 xl:flex-row">
