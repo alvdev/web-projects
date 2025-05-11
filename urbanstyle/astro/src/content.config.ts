@@ -106,7 +106,7 @@ const services = defineCollection({
       shortTitle: z.string().optional(),
       description: z.string(),
       cover: image(),
-      slug: z.string(),
+      slug: z.string().optional(),
       order: z.number(),
       seo: z.object({
         title: z.string(),
