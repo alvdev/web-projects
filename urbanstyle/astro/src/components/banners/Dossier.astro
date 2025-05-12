@@ -10,7 +10,9 @@ const { title, classes = "mt-16" } = Astro.props;
         set:html={title}
         class="flex items-center text-2xl text-center p-8 border-2 border-dashed border-black rounded !m-0 sm:text-4xl md:text-3xl lg:text-4xl xl:text-2xl xl:p-0 xl:border-none"
     />
-    <div class="mt-8 text-center border rounded-xs p-8 px-6 bg-gradient-to-t from-zinc-300 via-white via-40% to-white">
+    <div
+        class={`mt-8 text-center border rounded-xs p-8 px-6 bg-gradient-to-t from-zinc-300 via-white via-40% to-white ${classes}`}
+    >
         <Image
             src={dossier}
             class="mx-auto w-full object-cover brightness-110 contrast-110"
