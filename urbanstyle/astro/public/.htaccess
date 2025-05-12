@@ -4,3 +4,8 @@
     # SEO redirections
     RewriteRule ^servicios-publicitarios/(.*)$ $1 [R=301,L]
 </IfModule>
+
+# Deny all access to .db files
+<FilesMatch "\.(db|sqlite|sqlite3)$">
+    Require all denied
+</FilesMatch>
