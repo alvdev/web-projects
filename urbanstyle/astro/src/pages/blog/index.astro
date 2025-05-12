@@ -55,8 +55,8 @@ const posts = unorderedPosts.sort((a, b) => parsePublishDate(b.data.pubDate).get
 
                                     <div class="md:w-2/3 text-gray-500 text-lg">
                                         <div class="flex items-baseline" />
-                                        <h2 class="text-4xl text-balance my-0 p-0 md:line-clamp-2 pb-1">
-                                            <a href={blogUrl + post.id} class="font-bold text-gray-800">
+                                        <h2 class="text-[2.5rem] text-balance my-0 p-0 md:line-clamp-2 pb-1">
+                                            <a href={blogUrl + post.id} class="font-bold text-black hover:text-red-700">
                                                 {post.data.title}
                                             </a>
                                         </h2>
@@ -71,9 +71,9 @@ const posts = unorderedPosts.sort((a, b) => parsePublishDate(b.data.pubDate).get
                                         </p>
                                         <a
                                             href={blogUrl + post.id}
-                                            class="block text-md text-red-600 font-semibold leading-tight"
+                                            class="btn px-4 py-2 text-base  hover:text-black font-semibold leading-tight"
                                         >
-                                            Seguir leyendo »
+                                            Seguir leyendo
                                         </a>
                                     </div>
                                 </article>
