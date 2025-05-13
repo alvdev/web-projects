@@ -8,6 +8,21 @@
     
     # SEO redirections
     RewriteRule ^servicios-publicitarios/(.*)$ $1 [R=301,L]
+
+    ## Begin - Security inherited from Grav
+    # Block all direct access for these folders
+    RewriteRule ^(\.git|cache|bin|logs|backup|webserver-configs|tests)/(.*) error [F]
+    # Block access to specific file types for these system folders
+    RewriteRule ^(system|vendor)/(.*)\.(txt|xml|md|html|json|yaml|yml|php|pl|py|cgi|twig|sh|bat)$ error [F]
+    # Block access to specific file types for these user folders
+    RewriteRule ^(user)/(.*)\.(txt|md|json|yaml|yml|php|pl|py|cgi|twig|sh|bat)$ error [F]
+    # Block all direct access to .md files:
+    RewriteRule \.md$ error [F]
+    # Block all direct access to files and folders beginning with a dot
+    RewriteRule (^|/)\.(?!well-known) - [F]
+    # Block access to specific files in the root folder
+    RewriteRule ^(LICENSE\.txt|composer\.lock|composer\.json|\.htaccess)$ error [F]
+    ## End - Security
 </IfModule>
 
 # Deny all access to .db files
