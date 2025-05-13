@@ -219,7 +219,7 @@
     h2,
     h3,
     h4 {
-        @apply leading-tight text-balance text-black;
+        @apply leading-tight text-balance text-black break-words hyphens-auto;
     }
 
     p {
