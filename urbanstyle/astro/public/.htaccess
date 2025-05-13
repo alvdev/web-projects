@@ -3,6 +3,11 @@ Options -Indexes
 DirectoryIndex index.php index.html index.htm
 # End - Prevent Browsing and Set Default Resources
 
+# Deny all access to .db files
+<FilesMatch "\.(db|sqlite|sqlite3|env)$">
+    Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     # Development RewriteBase
@@ -30,7 +35,13 @@ DirectoryIndex index.php index.html index.htm
     ## End - Security
 </IfModule>
 
-# Deny all access to .db files
-<FilesMatch "\.(db|sqlite|sqlite3|env)$">
-    Require all denied
-</FilesMatch>
+<IfModule mod_expires.c>
+    # One year for image files
+    <filesMatch ".(jpg|jpeg|png|gif|ico|webp|svg)$">
+    Header set Cache-Control "max-age=31536000, public"
+    </filesMatch>
+    # One month for css and js
+    <filesMatch ".(css|js)$">
+    Header set Cache-Control "max-age=31536000, public"
+    </filesMatch>
+</IfModule>
