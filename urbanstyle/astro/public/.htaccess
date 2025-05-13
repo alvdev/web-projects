@@ -1,3 +1,8 @@
+# Begin - Prevent Browsing and Set Default Resources
+Options -Indexes
+DirectoryIndex index.php index.html index.htm
+# End - Prevent Browsing and Set Default Resources
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     # Development RewriteBase
