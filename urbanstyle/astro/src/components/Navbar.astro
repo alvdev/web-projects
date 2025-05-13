@@ -68,7 +68,7 @@ const link = {
                 </div>
             </div>
             <div class="flex items-center lg:hidden">
-                <button x-on:click="mobileNavOpen = !mobileNavOpen">
+                <button x-on:click="mobileNavOpen = !mobileNavOpen" aria-label="Abrir menú de navegación">
                     <svg
                         class="text-red-black"
                         width="51"
@@ -103,6 +103,7 @@ const link = {
                 <button
                     class="absolute -right-24 bottom-8 bg-black flex items-center justify-center rounded-full w-14 h-14"
                     x-on:click="mobileNavOpen = !mobileNavOpen"
+                    aria-label="Cerrar menú de navegación"
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
