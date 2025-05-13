@@ -10,7 +10,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 try {
     require __DIR__ . '/../vendor/autoload.php';
-    // require_once 'dbRegistry.php';
+    require_once 'dbRegistry.php';
 
     Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../')->load();
 
@@ -75,7 +75,10 @@ try {
     }
 
     // Save submission data in SQLite. If enabled, reload page and success message is gone
+    
+    // Save to SQLite database
     // saveSubmission($submission); 
+    saveSubmission($submission);
 
     // Continue with sending email
     sendEmail($submission);
