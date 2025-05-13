@@ -90,7 +90,8 @@ import QuestionIcon from "../assets/icons/question.svg";
     </div>
 </form>
 
-<script is:inline defer>
+<!-- Adding is:inline, script will fail -->
+<script defer>
     document.addEventListener("DOMContentLoaded", () => {
         const form = document.getElementById("contact-form");
         form.addEventListener("submit", async e => {
