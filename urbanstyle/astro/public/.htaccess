@@ -1,11 +1,16 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /astro/dist
+    # Development RewriteBase
+    # RewriteBase /astro/dist
+
+    # Production RewriteBase
+    RewriteBase /
+    
     # SEO redirections
     RewriteRule ^servicios-publicitarios/(.*)$ $1 [R=301,L]
 </IfModule>
 
 # Deny all access to .db files
-<FilesMatch "\.(db|sqlite|sqlite3)$">
+<FilesMatch "\.(db|sqlite|sqlite3|env)$">
     Require all denied
 </FilesMatch>
