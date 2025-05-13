@@ -17,7 +17,7 @@ DirectoryIndex index.php index.html index.htm
     RewriteBase /
     
     # SEO redirections
-    RewriteRule ^servicios-publicitarios/(.*)$ $1 [R=301,L]
+    RewriteRule ^servicios-publicitarios/(.+)$ $1 [R=301,L]
 
     ## Begin - Security inherited from Grav
     # Block all direct access for these folders
