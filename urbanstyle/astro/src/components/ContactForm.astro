@@ -1,11 +1,14 @@
 ---
-import UserIcon from "../assets/icons/user.svg";
-import AtIcon from "../assets/icons/at.svg";
-import PhoneIcon from "../assets/icons/phone.svg";
-import QuestionIcon from "../assets/icons/question.svg";
+import UserIcon from "@/assets/icons/user.svg";
+import AtIcon from "@/assets/icons/at.svg";
+import PhoneIcon from "@/assets/icons/phone.svg";
+import QuestionIcon from "@/assets/icons/question.svg";
+
+const baseUrl = import.meta.env.BASE_URL || "/";
+const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}$`;
 ---
 
-<form id="contact-form" action="php/contactForm.php" method="post" class="mt-16 grid gap-8 md:gap-10">
+<form id="contact-form" action={baseUrl + "php/contactForm.php"} method="post" class="mt-16 grid gap-8 md:gap-10">
     <div class="field name relative">
         <UserIcon class="absolute z-10 w-6 h-6 top-4" />
         <input
@@ -27,7 +30,7 @@ import QuestionIcon from "../assets/icons/question.svg";
             class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
             type="email"
             name="email"
-            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$"
+            pattern={emailPattern}
             placeholder="Introduce tu email"
             title="El email debe tener un formato correcto (ejemplo: usuario@dominio.com)"
             required
@@ -68,8 +71,7 @@ import QuestionIcon from "../assets/icons/question.svg";
             placeholder="Escribe tu consulta"
             title="La consulta no puede estar vacía"
             required
-        >
-        </textarea>
+        ></textarea>
         <span class="absolute top-4 right-4 text-sm text-gray-400">* Necesario</span>
         <div class="error-message hidden" data-field="message"></div>
     </div>
@@ -82,7 +84,7 @@ import QuestionIcon from "../assets/icons/question.svg";
     >
     </div>
 
-    <div class="flex gap-8 mt-8 *:w-1/2">
+    <div class="grid sm:grid-cols-2 gap-8 mt-8">
         <button type="submit" class="btn shadow-black bg-red-800 text-white border-black border">
             Enviar Consulta
         </button>
