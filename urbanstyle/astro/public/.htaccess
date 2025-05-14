@@ -15,8 +15,13 @@ DirectoryIndex index.php index.html index.htm
 
     # Production RewriteBase
     RewriteBase /
+
+    # Redirect www to non-www
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
     
     # SEO redirections
+    RewriteRule ^servicios-publicitarios/lonas-publicitarias/?$ /instalacion-lonas-publicitarias [R=301,L]
     RewriteRule ^servicios-publicitarios/(.+)$ $1 [R=301,L]
 
     ## Begin - Security inherited from Grav
@@ -37,11 +42,21 @@ DirectoryIndex index.php index.html index.htm
 
 <IfModule mod_expires.c>
     # One year for image files
-    <filesMatch ".(jpg|jpeg|png|gif|ico|webp|svg)$">
+    <filesMatch ".(jpg|jpeg|png|gif|ico|webp|avif|svg)$">
     Header set Cache-Control "max-age=31536000, public"
     </filesMatch>
     # One month for css and js
     <filesMatch ".(css|js)$">
     Header set Cache-Control "max-age=31536000, public"
     </filesMatch>
+</IfModule>
+
+# alvdev - Brotli compression
+<IfModule mod_brotli.c>
+	AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css
+	AddOutputFilterByType BROTLI_COMPRESS text/javascript application/x-javascript
+	AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+	AddOutputFilterByType BROTLI_COMPRESS application/x-font-ttf
+	AddOutputFilterByType BROTLI_COMPRESS application/vnd.ms-fontobject
+	AddOutputFilterByType BROTLI_COMPRESS image/webp image/x-icon
 </IfModule>
