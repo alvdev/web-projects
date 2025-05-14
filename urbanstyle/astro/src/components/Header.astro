@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 const { title, cover, classes } = Astro.props;
 ---
 
-<header class={`hero torn-bottom relative overflow-clip pt-56 ${classes}`}>
+<header class={`hero torn-bottom relative overflow-clip pt-56 bg-black ${classes}`}>
     {
         title && (
             <div class="container h-full">
@@ -22,10 +22,10 @@ const { title, cover, classes } = Astro.props;
 
     <Image
         src={cover}
-        width={2000}
-        height={800}
+        width={1920}
+        height={1440}
         format="avif"
-        class="fixed top-0 -z-50 min-h-[75vh] md:min-h-[50vh] lg:min-h-[75vh] w-full object-cover brightness-125 contrast-110"
+        class="fixed top-0 -z-50 min-h-[75vh] md:min-h-[50vh] lg:min-h-[75vh] w-full object-cover brightness-125 contrast-110 mask-b-from-90%"
         alt="Pegada de carteles"
     />
 </header>
