@@ -94,14 +94,17 @@ const link = {
 
     <div
         :class="{'block': mobileNavOpen, 'hidden': !mobileNavOpen}"
-        class="fixed top-0 left-0 bottom-0 w-4/6 sm:max-w-xs z-50 hidden"
+        class="fixed top-0 left-0 bottom-0 w-4/6 sm:max-w-xs z-50 hidden h-screen"
     >
-        <div x-on:click="mobileNavOpen = !mobileNavOpen" class="fixed inset-0 bg-gray-800 opacity-80 backdrop-blur-2xl">
+        <div
+            x-on:click="mobileNavOpen = !mobileNavOpen"
+            class="fixed inset-0 h-screen bg-gray-800 opacity-80 backdrop-blur-2xl"
+        >
         </div>
-        <nav class="relative z-10 px-9 pt-8 bg-black h-full transition-all">
-            <div class="flex flex-wrap justify-center h-full">
+        <nav class="relative flex z-10 px-9 bg-black h-full transition-all">
+            <div class="flex flex-wrap justify-center self-center h-10/12">
                 <button
-                    class="absolute -right-24 bottom-8 bg-black flex items-center justify-center rounded-full w-14 h-14"
+                    class="absolute -right-24 bottom-1/2 bg-black flex items-center justify-center rounded-full w-14 h-14"
                     x-on:click="mobileNavOpen = !mobileNavOpen"
                     aria-label="Cerrar menú de navegación"
                 >
