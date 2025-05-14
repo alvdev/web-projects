@@ -12,7 +12,7 @@ import sitemap from "@astrojs/sitemap";
 const isProd = import.meta.env.PROD;
 // https://astro.build/config
 export default defineConfig({
-  site: isProd ? "https://www.urbanstylepublicity.com" : "http://urban.local:4321",
+  site: isProd ? "https://urbanstylepublicity.com" : "http://urban.local:4321",
   base: isProd ? "/" : "/",
   // trailingSlash: 'never',
 
