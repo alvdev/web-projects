@@ -1,11 +1,11 @@
 {
   "assets/css/main.css": {
-    "file": "assets/main-CXRIvtdv.css",
+    "file": "assets/main-DbzEP7pK.css",
     "src": "assets/css/main.css",
     "isEntry": true
   },
   "assets/css/prism.css": {
-    "file": "assets/prism-BuMDUPsB.css",
+    "file": "assets/prism-Bp5LpotQ.css",
     "src": "assets/css/prism.css",
     "isEntry": true
   },
@@ -25,6 +25,12 @@
     "file": "assets/main-Be0zAMeJ.js",
     "name": "main",
     "src": "assets/js/main.js",
+    "isEntry": true
+  },
+  "assets/js/prism.js": {
+    "file": "assets/prism-CSKh5SSF.js",
+    "name": "prism",
+    "src": "assets/js/prism.js",
     "isEntry": true
   }
 }
