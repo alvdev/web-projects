@@ -32,7 +32,7 @@ const faviconUrl = import.meta.env.PROD
                 basic: {
                     title: title,
                     type: ogType,
-                    image: cover,
+                    image: Astro.props.cover ? Astro.props.cover.src : cover,
                 },
             }}
             ,
