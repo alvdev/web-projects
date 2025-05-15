@@ -31,7 +31,7 @@ const postSanitizedDescription = (post.body ?? "")
 const seoDescription = post.data.seo?.description || postSanitizedDescription;
 ---
 
-<Base title={seoTitle} description={seoDescription}>
+<Base title={seoTitle} description={seoDescription} cover={post.data.cover.url}>
     <Header cover={post.data.cover.url || defaultCover} classes={"min-h-[75vh]"} />
     <main class="relative z-10 pb-10">
         <div class="container relative z-10 flex gap-8">

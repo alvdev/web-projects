@@ -16,7 +16,7 @@ const unorderedPosts = await getCollection("posts");
 const posts = unorderedPosts.sort((a, b) => parsePublishDate(b.data.pubDate).getTime() - parsePublishDate(a.data.pubDate).getTime());
 ---
 
-<Base title="Blog de publicidad exterior | Urban Style Publicity" description="Blog de publicidad exterior. Trabajos realizados, promociones, artículos y consejos de publicidad.">
+<Base title="Blog de publicidad exterior | Urban Style Publicity" description="Blog de publicidad exterior. Trabajos realizados, promociones, artículos y consejos de publicidad." cover={cover}>
     <Header title={title} cover={cover} classes="h-[50vh]" />
 
     <main class="relative z-10 pb-4">
