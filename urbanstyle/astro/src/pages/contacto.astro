@@ -26,11 +26,11 @@ import EmailIcon from "@/assets/icons/email.svg";
     </header>
 
     <main class="torn-top before:rotate-0 relative z-10 mt-[55vh] pb-4">
-        <section class="container grid gap-8 items-center lg:grid-cols-2 lg:gap-24 mt-24">
+        <section class="container grid gap-24 md:gap-8 items-center lg:grid-cols-2 lg:gap-24 mt-24">
             <div class="grid gap-16">
-                <h1 class="text-6xl font-bold">Llama o visítanos en nuestras oficinas</h1>
+                <h1 class="text-4xl md:text-6xl font-bold">Llama o visítanos en nuestras oficinas</h1>
 
-                <div class="grid grid-cols-2 gap-16">
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16">
                     <div>
                         <h3 class="text-3xl font-semibold">Madrid</h3>
                         <address class="mt-8 flex flex-col gap-4">
@@ -43,7 +43,7 @@ import EmailIcon from "@/assets/icons/email.svg";
                     </div>
                     <Image
                         src={madrid}
-                        class="mt-16 sm:w-1/2 aspect-video rounded-xl [mask-image:linear-gradient(black,transparent)] md:w-full"
+                        class="md:mt-16 aspect-video rounded-xl [mask-image:linear-gradient(black,transparent)] md:w-full"
                         alt="Empresa de pegada de carteles en Madrid"
                         format="avif"
                         width={550}
@@ -51,7 +51,7 @@ import EmailIcon from "@/assets/icons/email.svg";
                     />
                 </div>
 
-                <div class="grid grid-cols-2 gap-16">
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16">
                     <div>
                         <h3 class="text-3xl font-semibold">Barcelona</h3>
                         <address class="mt-8 flex flex-col gap-4">
@@ -64,7 +64,7 @@ import EmailIcon from "@/assets/icons/email.svg";
                     </div>
                     <Image
                         src={barcelona}
-                        class="mt-16 sm:w-1/2 aspect-video rounded-xl [mask-image:linear-gradient(black,transparent)] md:w-full"
+                        class="md:mt-16 sm:w-1/2 aspect-video rounded-xl [mask-image:linear-gradient(black,transparent)] md:w-full"
                         alt="Empresa de pegada de carteles en Barcelona"
                         format="avif"
                         width={550}
@@ -72,18 +72,22 @@ import EmailIcon from "@/assets/icons/email.svg";
                     />
                 </div>
 
-                <div class="mt-16 px-6 py-4 border-2 border-dashed border-yellow-700 text-yellow-700 leading-snug">
-                    <div class="font-semibold">Nota:</div> Sentimos comunicar que no hacemos buzoneo. Por favor, tenlo en
+                <div
+                    class="mt-8 md:mt-16 px-6 py-4 border-2 border-dashed border-yellow-700 text-yellow-700 leading-snug"
+                >
+                    <div class="font-semibold">Nota:</div>Sentimos comunicar que no hacemos buzoneo. Por favor, tenlo en
                     cuenta antes de pedir presupuesto.
                 </div>
             </div>
 
             <div class="h-full">
                 <div class="sticky top-24">
-                    <h3 class="text-4xl font-bold">También puedes usar el siguiente formulario o escribirnos a:</h3>
+                    <h3 class="text-3xl md:text-4xl font-bold">
+                        También puedes usar el siguiente formulario o escribirnos a:
+                    </h3>
 
                     <div
-                        class="mt-4 text-2xl inline-flex items-end gap-2 no-underline not-italic text-red-800 font-semibold"
+                        class="mt-4 text-lg sm:text-2xl inline-flex items-end gap-2 no-underline not-italic text-red-800 font-semibold"
                     >
                         <EmailIcon />produccion@urbanstylepublicity.com
                     </div>
