@@ -4,14 +4,20 @@ import Layout from "@/layouts/Base.astro";
 import Logos from "@/components/Logos.astro";
 import VideoWithDesc from "@/components/VideoWithDesc.astro";
 import CloudServices from "@/components/CloudServices.astro";
-import cover from "@/assets/images/header/pegada-de-carteles.webp";
+import cover from "@/assets/images/header/agencia-publicidad-exterior.webp";
 ---
 
-<Layout cover={cover} schema="webpage">
+<Layout
+    title="Agencia de publicidad exterior especializada en pegada de carteles"
+    description="Agencia de publicidad exterior con presencia en Madrid, Barcelona y principales ciudades. Especialistas en la pegada de carteles."
+    cover={cover}
+    schema="webpage"
+>
     <Header
         title="Agencia de publicidad exterior"
         description="Publicidad exterior en Madrid, Barcelona y toda España, enfocada a campañas para eventos culturales, espectáculos, congresos, exposiciones y lanzamientos."
         cover={cover}
+        classes="h-[50vh] xl:h-[85vh] *:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
     />
 
     <main class="relative z-10 pb-6">
