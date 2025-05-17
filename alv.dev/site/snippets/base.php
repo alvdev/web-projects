@@ -1,28 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $page->title()->esc() ?> | <?= $site->title()->esc() ?></title>
-    <?= vite()->css('assets/css/main.css') ?>
-    <?= vite()->js('assets/js/main.js') ?>
-    <link rel="shortcut icon" type="image/x-icon" href="<?= url('favicon.ico') ?>">
-</head>
+<?php snippet('head') ?>
 
-<body class="debug-screens flex flex-col h-full font-mono">
-    <div class="flex">
+<body class="debug-screens font-mono">
+    <div class="flex h-full">
         <?php snippet('navbar') ?>
+        <?php snippet('navbar2') ?>
 
-        <div class="flex-1">
-            <?php snippet('header') ?>
-
-            <main class="flex-1 min-h-screen">
-                <?php snippet('blocks/skills') ?>
-                <?php snippet('blocks/projects') ?>
-                <?php snippet('blocks/contact-form') ?>
-                <?php snippet('blocks/about-me') ?>
-                <?php snippet('blocks/latest-posts') ?>
+        <div class="flex-1 overflow-y-scroll">
+            <main>
+                <?= $slot ?>
             </main>
 
             <?php snippet('footer') ?>
