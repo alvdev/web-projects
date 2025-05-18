@@ -5,9 +5,10 @@ import logo from "../assets/images/logo-urban-250.webp";
 const baseUrl = import.meta.env.BASE_URL;
 const link = {
     home: baseUrl,
-    posters: baseUrl + "pegada-carteles",
+    posters: baseUrl + "",
     services: baseUrl + "servicios-publicitarios",
     jobs: baseUrl + "trabajos",
+    agency: baseUrl + "agencia-publicidad-exterior",
     blog: baseUrl + "blog",
     contact: baseUrl + "contacto",
 };
@@ -46,6 +47,9 @@ const link = {
                     </li>
                     <li class="mr-9 hover:scale-105">
                         <a href={link.jobs} class="text-black font-bold p-4 hover:text-red-800">Trabajos</a>
+                    </li>
+                    <li class="mr-9 hover:scale-105">
+                        <a href={link.agency} class="text-black font-bold p-4 hover:text-red-800">Agencia</a>
                     </li>
                     <li class="hover:scale-105">
                         <a href={link.blog} class="text-black font-bold p-4 hover:text-red-800">Blog</a>
@@ -147,6 +151,9 @@ const link = {
                     </li>
                     <li>
                         <a class="font-medium block p-4 py-6" href={link.jobs}>Trabajos</a>
+                    </li>
+                    <li>
+                        <a class="font-medium block p-4 py-6" href={link.agency}>Agencia</a>
                     </li>
                     <li>
                         <a class="font-medium block p-4 py-6" href={link.blog}>Blog</a>
