@@ -37,7 +37,7 @@ const link = {
                 >
                     <li class="mr-9 hover:scale-105">
                         <a href={link.posters} class="text-black font-bold p-4 hover:text-red-800">
-                            <span class="top-1.5">Pegada de</span>Carteles
+                            <span class="top-1.5">Pegada de</span> carteles
                         </a>
                     </li>
                     <li class="mr-9 hover:scale-105">
@@ -98,14 +98,14 @@ const link = {
 
     <div
         :class="{'block': mobileNavOpen, 'hidden': !mobileNavOpen}"
-        class="fixed top-0 left-0 bottom-0 w-4/6 sm:max-w-xs z-50 hidden h-screen"
+        class="fixed top-0 left-0 bottom-0 w-4/6 sm:max-w-xs z-50 hidden min-h-screen"
     >
         <div
             x-on:click="mobileNavOpen = !mobileNavOpen"
-            class="fixed inset-0 h-screen bg-gray-800 opacity-80 backdrop-blur-2xl"
+            class="fixed inset-0 min-h-screen bg-gray-800 opacity-80 backdrop-blur-2xl"
         >
         </div>
-        <nav class="relative flex z-10 px-9 bg-black h-full transition-all">
+        <nav class="relative flex z-10 px-9 bg-black min-h-screen transition-all">
             <div class="flex flex-wrap justify-center self-center h-10/12">
                 <button
                     class="absolute -right-24 bottom-1/2 bg-black flex items-center justify-center rounded-full w-14 h-14"
@@ -137,11 +137,11 @@ const link = {
                     </a>
                 </div>
                 <ul
-                    class="flex flex-col gap-8 justify-center py-16 w-full text-center uppercase **:[a]:relative **:[a]:text-white **:[a]:hover:text-red-800 **:[a>span]:absolute **:[a>span]:-z-10 **:[a>span]:[text-shadow:1px_1px_black] **:[a>span]:w-fit **:[a>span]:mx-auto **:[a>span]:block **:[a>span]:bg-red-800 **:[a>span]:text-white **:[a>span]:font-normal **:[a>span]:normal-case **:[a>span]:px-1 **:[a>span]:pb-0.5 **:[a>span]:text-xs"
+                    class="flex flex-col gap-0 justify-center pt-16 pb-8 w-full text-center uppercase **:[a]:relative **:[a]:text-white **:[a]:hover:text-red-800 **:[a>span]:absolute **:[a>span]:-z-10 **:[a>span]:[text-shadow:1px_1px_black] **:[a>span]:w-fit **:[a>span]:mx-auto **:[a>span]:block **:[a>span]:bg-red-800 **:[a>span]:text-white **:[a>span]:font-normal **:[a>span]:normal-case **:[a>span]:px-1 **:[a>span]:pb-0.5 **:[a>span]:text-xs"
                 >
                     <li>
                         <a class="font-medium block p-4 py-6" href={link.posters}>
-                            <span class="top-2.5 left-0 right-1/4">Pegada de</span>Carteles
+                            <span class="top-2.5 left-0 right-1/4">Pegada de</span> carteles
                         </a>
                     </li>
                     <li>
@@ -159,7 +159,7 @@ const link = {
                         <a class="font-medium block p-4 py-6" href={link.blog}>Blog</a>
                     </li>
                 </ul>
-                <div class="flex flex-col justify-end w-full pb-8">
+                <div class="flex flex-col justify-end w-full">
                     <a
                         href={link.contact}
                         class="py-3 px-5 w-full font-semibold uppercase rounded-full focus:ring-4 focus:ring-white bg-white text-black text-center hover:ring-4 hover:ring-white hover:transition-all transition-all"
