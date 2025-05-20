@@ -1,5 +1,5 @@
 ---
-title: "¿Quieres una pegada de carteles de 5 estrellas?"
+title: "¿Quieres una pegada de 5 estrellas?"
 subtitle: ""
 enabledTitles: true
 reviews:
