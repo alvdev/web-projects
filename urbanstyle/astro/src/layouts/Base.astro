@@ -38,6 +38,10 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
                     type: ogType,
                     image: Astro.props.cover ? Astro.props.cover.src : cover,
                 },
+                optional: {
+                    description: description,
+                    locale: "es_ES",
+                },
             }}
             ,
             twitter={{
