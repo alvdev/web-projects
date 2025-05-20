@@ -9,6 +9,8 @@ import mdx from "@astrojs/mdx";
 
 import sitemap from "@astrojs/sitemap";
 
+import partytown from "@astrojs/partytown";
+
 const isProd = import.meta.env.PROD;
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +18,16 @@ export default defineConfig({
   base: isProd ? "/" : "/",
   // trailingSlash: 'never',
 
-  integrations: [alpinejs({ entrypoint: "/src/alpinejs" }), mdx(), sitemap()],
+  integrations: [
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+    alpinejs({ entrypoint: "/src/alpinejs" }),
+    mdx(),
+    sitemap(),
+  ],
 
   vite: {
     plugins: [tailwindcss() as any],
@@ -43,7 +54,7 @@ export default defineConfig({
     defaultLocale: "es",
     routing: {
       prefixDefaultLocale: false,
-    }
+    },
   },
 
   image: {
