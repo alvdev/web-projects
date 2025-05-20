@@ -1,6 +1,7 @@
 ---
 import { SEO as Seo } from "astro-seo";
 import Schemas from "@/components/Schemas.astro";
+import Ga4 from "@/components/Ga4.astro";
 import Footer from "@/components/Footer.astro";
 import Navbar from "@/components/Navbar.astro";
 import Cover from "@/assets/images/header/pegada-de-carteles.webp";
@@ -45,6 +46,8 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
         />
 
         <Schemas pageTitle={title} pageDesc={description} pageCover={Astro.props.cover} types={[schema]} />
+
+        <Ga4 id="G-7M3F93FBD4" partytown={true} />
     </head>
     <body class={import.meta.env.DEV ? "debug-screens" : null}>
         <Navbar />

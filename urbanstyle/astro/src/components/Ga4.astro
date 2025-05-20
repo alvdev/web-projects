@@ -1,0 +1,19 @@
+---
+const { id, partytown = false } = Astro.props;
+
+const gtagScript = `
+window.dataLayer = window.dataLayer || [];
+window.gtag = function gtag() {
+    dataLayer.push(arguments);
+  };
+gtag("js", new Date());
+gtag("config", "${id}");
+`;
+
+const scriptAttr = partytown ? { type: "text/partytown" } : {};
+console.log(scriptAttr);
+---
+
+<!-- Google tag (gtag.js) -->
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
+<script {...scriptAttr} set:html={gtagScript} />
