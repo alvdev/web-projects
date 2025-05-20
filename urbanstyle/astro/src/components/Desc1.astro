@@ -1,14 +1,15 @@
 ---
 const title = `<span class="font-bold">Cada día</span> pegamos <mark class="under">el 90% de carteles</mark> que ves en la calle`;
 const description =
-    "La pegada de carteles es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado.";
+    "<strong>La pegada de carteles</strong> es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado.";
 ---
 
 <section class="relative before:opacity-100">
     <div class="container flex flex-col-reverse gap-8 xl:flex-row-reverse xl:gap-16 items-center">
-        <h2 class="text-3xl text-gray-600 text-balance text-center font-semibold m-0 md:text-4xl xl:w-1/2 leading-snug">
-            {description}
-        </h2>
+        <h2
+            set:html={description}
+            class="text-3xl text-gray-600 text-balance text-center font-semibold m-0 md:text-4xl xl:w-1/2 leading-snug"
+        />
 
         <p
             set:html={title}
