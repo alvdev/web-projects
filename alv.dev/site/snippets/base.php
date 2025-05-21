@@ -8,8 +8,8 @@
         <?php snippet('navbar') ?>
         <?php snippet('navbar2') ?>
 
-        <div class="flex-1 overflow-y-scroll">
-            <main>
+        <div class="flex-1 flex flex-col overflow-y-scroll">
+            <main class="flex-1">
                 <?= $slot ?>
             </main>
 
