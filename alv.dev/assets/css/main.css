@@ -37,39 +37,39 @@
 /* Custom scrollbar styles */
 
 ::-webkit-scrollbar {
-    @apply w-3 h-2;
+    @apply h-2 w-6;
 }
 
 .scrollbar-sm::-webkit-scrollbar {
-    @apply w-0.5 h-2;
+    @apply h-2 w-0.5;
 }
 
 /* Track */
 
 ::-webkit-scrollbar-track {
-    @apply bg-green-500;
+    @apply bg-transparent;
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    @apply rounded-none bg-gray-300;
+    @apply rounded bg-gray-300;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    @apply rounded-none bg-black;
+    @apply rounded-lg bg-blue-700 border-4 border-white;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    @apply rounded-none bg-black;
+    @apply rounded bg-black border-0;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-600;
+    @apply bg-black;
 }
 
 .scrollbar {
-    @apply before:sticky before:z-10 before:block before:w-full before:h-8 before:top-0 before:bg-white before:mask-b-from-5% after:sticky after:z-10 after:block after:w-full after:h-8 after:bottom-0 after:bg-white after:mask-t-from-5%;
+    @apply before:sticky before:top-0 before:z-10 before:block before:h-8 before:w-full before:bg-white before:mask-b-from-5% after:sticky after:bottom-0 after:z-10 after:block after:h-8 after:w-full after:bg-white after:mask-t-from-5%;
 }
 
 @layer base {
@@ -79,6 +79,10 @@
     ::backdrop,
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
+    }
+
+    a {
+        @apply transition-all duration-300;
     }
 }
 
@@ -344,7 +348,12 @@
 @utility prose {
     @apply prose-xl;
 
-    img, p {
+    a {
+        @apply no-underline text-blue-500 hover:border-b-2 hover:border-black hover:text-black transition-all duration-100;
+    }
+
+    img,
+    p {
         @apply px-0!;
     }
 
@@ -356,8 +365,12 @@
         @apply text-xl/10 text-slate-600;
     }
 
-    :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+    :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
         @apply mt-9;
+    }
+
+    u {
+        @apply no-underline border-b-2 border-slate-400;
     }
 }
 
