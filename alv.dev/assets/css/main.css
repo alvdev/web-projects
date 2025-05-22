@@ -202,7 +202,12 @@
     /*  .glass {
         @apply relative z-10 bg-opacity-80 after:absolute after:-left-10 after:-top-8 after:-z-10 after:h-[calc(100%+4rem)] after:w-[calc(100%+5rem)] after:rounded-md after:border-2 after:border-white/50 after:bg-white/80 after:backdrop-blur-sm;
     } */
-    @apply relative w-fit before:absolute before:inset-0 before:rounded before:bg-[url('/assets/images/screen-overlay.png')];
+    @apply relative bg-blend-hue bg-[url('/assets/images/screen-overlay.png')];
+
+}
+
+@utility screen-overlay-picture {
+    @apply relative w-fit z-0 before:z-10 before:bg-[url('/assets/images/screen-overlay.png')] before:absolute before:inset-0;
 }
 
 @layer utilities {
