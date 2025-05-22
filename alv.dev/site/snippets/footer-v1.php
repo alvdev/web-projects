@@ -1,6 +1,20 @@
-<footer class="container relative mt-16" x-data="{ sent: false }">
-    <div class="flex gap-8">
-        <div class="pr-16 py-8 flex flex-col justify-center border-t-2 border-gray-300 flex-1">
+<footer class="container relative mt-28" x-data="{ sent: false }">
+    <div class="relative -z-50 w-full border-6 border-gray-950 rounded-xs"></div>
+
+    <div class="border border-gray-900 rounded my-20 px-0 flex">
+        <div class="glass-dark flex items-center gap-8 w-3/6 rounded-l-none rounded-r-sm">
+            <div class="w-1/2">
+                <h2 class="uppercase font-bold text-2xl">Newsletter</h2>
+                <p class="mt-4 font-light text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Facilis, totam vero culpa consequatur, porro incidunt officia.</p>
+            </div>
+
+            <!-- <div id="newsletter-message" class=" w-1/2" x-merge.transition>
+                <?php snippet('forms/newsletter', ['isDark' => true]) ?>
+            </div> -->
+        </div>
+
+        <div class="glass rounded-none flex flex-col justify-center w-3/6">
             <h2 class="flex flex-col font-bold text-2xl">
                 <span>Escribo para aprender.</span>
                 <span>Aprendo para compartir.</span>
@@ -22,9 +36,9 @@
             </ul>
         </div>
 
-        <div class="w-3/12 flex flex-col justify-center bg-black rounded-t justify-self-end">
-            <div class="px-14 py-12 bg-black text-white">
-                <h2 class="text-2xl font-bold text-white">Servicios</h2>
+        <div class="glass rounded-l-none pl-0 w-2/6 flex flex-col justify-center">
+            <div class="border-l-8 border-dotted border-gray-600 pl-16">
+                <h2 class="text-2xl font-bold">Servicios</h2>
                 <ul class="mt-8 flex flex-col gap-1">
                     <li><a href="/#projects">Short links</a></li>
                     <li><a href="/#projects">Email marketing</a></li>
@@ -35,17 +49,16 @@
 
         <!-- TODO: is it dead code? -->
         <!-- <div id="message"></div> -->
+
     </div>
 
-    <!-- <?php if ($pages->find('legal')->hasChildren()) : ?>
-        <ul class="flex justify-between my-8 gap-4 text-sm [&>li>a]:text-black/70 [&>li>a]:hover:text-black/100">
+    <?php if ($pages->find('legal')->hasChildren()) : ?>
+        <ul class="flex justify-end relative -top-9 divide-x divide-black/30 gap-4 *:not-last:pr-4 text-sm [&>li>a]:text-black/70 [&>li>a]:hover:text-black/100">
             <?php foreach ($pages->find('legal')->children() as $page): ?>
-                <li>
-                    <a href="<?= $page->url() ?>"><?= $page->title() ?></a>
-                </li>
+                <li><a href="<?= $page->url() ?>"><?= $page->title() ?></a></li>
             <?php endforeach ?>
         </ul>
-    <?php endif ?> -->
+    <?php endif ?>
 </footer>
 
 <?=
