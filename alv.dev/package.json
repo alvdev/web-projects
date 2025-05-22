@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host alv.local --port 7153",
+    "dev": "vite --host alv.local --port 7153 & composer start",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -18,8 +18,7 @@
     "postcss": "^8.5.3",
     "prismjs": "^1.30.0",
     "tailwindcss": "^4.1.7",
-    "tailwindcss-debug-screens": "^2.2.1",
-    "vite": "^5.4.19"
+    "vite": "^6.3.5"
   },
   "dependencies": {
     "vite-plugin-kirby": "^5.5.0"
