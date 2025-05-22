@@ -23,12 +23,18 @@
         </div>
 
         <div class="w-3/12 flex flex-col justify-center bg-black rounded-t justify-self-end">
-            <div class="px-14 py-12 bg-black text-white">
+            <div class="px-12 py-8 bg-black text-white">
                 <h2 class="text-2xl font-bold text-white">Servicios</h2>
-                <ul class="mt-8 flex flex-col gap-1">
-                    <li><a href="/#projects">Short links</a></li>
-                    <li><a href="/#projects">Email marketing</a></li>
-                    <li><a href="/#projects">Web hosting</a></li>
+                <ul class="mt-8 flex flex-col gap-2 **:[a]:block **:[a]:text-green-500 **:[a]:py-2 **:[a]:hover:uppercase">
+                    <li>
+                        <a href="/#projects">Short links</a>
+                    </li>
+                    <li>
+                        <a href="/#projects">Email marketing</a>
+                    </li>
+                    <li>
+                        <a href="/#projects">Web hosting</a>
+                    </li>
                 </ul>
             </div>
         </div>
