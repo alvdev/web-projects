@@ -8,9 +8,9 @@
     </a>
 
     <div class="flex flex-col items-center gap-6">
-        <div class="flex flex-col gap-6 text-center">
+        <div class="flex flex-col gap-12 text-center">
             <?php foreach ($site->children()->listed() as $item) : ?>
-                <a class="bg-black block" <?php e($item->isOpen(), 'aria-current="page"'); ?> href="<?= $item->url(); ?>">
+                <a class="text-green-500 hover:uppercase block" <?php e($item->isOpen(), 'aria-current="page"'); ?> href="<?= $item->url(); ?>">
                     <?= $item->title()->esc() ?>
                 </a>
             <?php endforeach; ?>
