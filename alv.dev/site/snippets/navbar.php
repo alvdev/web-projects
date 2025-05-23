@@ -1,4 +1,4 @@
-<nav class="relative flex flex-col justify-between items-center bg-gray-950 px-12 py-8 text-white text-base text-opacity-80">
+<nav class="sticky top-0 h-screen flex flex-col justify-between items-center bg-gray-950 px-12 py-8 text-white/90 text-base text-opacity-80">
     <?php
     /* In the menu, we only fetch listed pages, i.e. the pages that have a prepended number in their foldername.  We do not want to display links to unlisted `error`, `home`, or `sandbox` pages.  More about page status: https://getkirby.com/docs/reference/panel/blueprints/page#statuses */
     ?>

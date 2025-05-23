@@ -299,11 +299,6 @@
         src: url(/assets/fonts/semibold.woff2) format("woff2");
     }
 
-    body,
-    html {
-        @apply h-full overflow-hidden;
-    }
-
     html {
         @apply scroll-smooth;
     }
