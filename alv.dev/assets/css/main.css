@@ -207,7 +207,7 @@
 }
 
 @utility screen-overlay-picture {
-    @apply relative w-fit z-0 before:z-10 before:bg-[url('/assets/images/screen-overlay.png')] before:absolute before:inset-0;
+    @apply relative w-fit h-fit z-0 before:z-10 before:bg-[url('/assets/images/screen-overlay.png')] before:absolute before:inset-0;
 }
 
 @layer utilities {
@@ -309,7 +309,7 @@
     }
 
     body {
-        @apply text-lg text-gray-600;
+        @apply text-lg text-slate-600;
     }
 
     h1,
@@ -353,13 +353,12 @@
 @utility prose {
     @apply prose-xl;
 
-    a {
-        @apply no-underline text-blue-500 hover:border-b-2 hover:border-black hover:text-black transition-all duration-100;
+    > * {
+        @apply px-0!;
     }
 
-    img,
-    p {
-        @apply px-0!;
+    a {
+        @apply no-underline text-blue-500 hover:border-b-2 hover:border-black hover:text-black transition-all duration-100;
     }
 
     img {
