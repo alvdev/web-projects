@@ -1,0 +1,21 @@
+{
+  "name": "v2",
+  "version": "1.0.0",
+  "author": "",
+  "main": "index.js",
+  "devDependencies": {
+    "vite": "^6.3.5"
+  },
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1",
+  "scripts": {
+    "dev": "vite --host alfa.local & composer start",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vite-plugin-kirby": "^5.5.0"
+  }
+}
