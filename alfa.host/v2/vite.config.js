@@ -1,5 +1,6 @@
 // vite.config.js
-import kirby from 'vite-plugin-kirby'
+import kirby from 'vite-plugin-kirby';
+import tailwindcss from '@tailwindcss/vite';
 
 export default ({ mode }) => ({
   // During development the assets are served directly from vite's dev server
@@ -24,6 +25,7 @@ export default ({ mode }) => ({
   },
 
   plugins: [
+    tailwindcss(),
     kirby({
       // By default Kirby's templates, snippets, controllers, models, layouts and
       // everything inside the content folder will be watched and a full reload
