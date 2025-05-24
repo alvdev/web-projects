@@ -18,6 +18,11 @@
 /user/themes/*
 !/user/themes/alfa
 
+# v2
+!/v2
+/v2/kirby/
+/v2/README.*
+
 !/area/
 /area/*
 !/area/app/
