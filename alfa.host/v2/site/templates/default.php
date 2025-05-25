@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php snippet('layouts/base', slots: true) ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <?= vite()->css('assets/global.css') ?>
-</head>
-
-<body>
+<main class="container mx-auto">
     <h1><?= $page->title() ?></h1>
     <p>This is a simple template using Vite for CSS.</p>
-
+    
     <div class="content">
         <p>Content goes here...</p>
     </div>
-</body>
+</main>
 
-</html>
+<?php endsnippet() ?>
