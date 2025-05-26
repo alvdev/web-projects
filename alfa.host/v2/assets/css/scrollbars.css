@@ -1,0 +1,35 @@
+::-webkit-scrollbar {
+    @apply h-2 w-6;
+}
+
+.scrollbar-sm::-webkit-scrollbar {
+    @apply h-2 w-0.5;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    @apply rounded bg-gray-300;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply rounded-lg bg-blue-700 border-4 border-white;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    @apply rounded bg-black border-0;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-black;
+}
+
+.scrollbar {
+    @apply before:sticky before:top-0 before:z-10 before:block before:h-8 before:w-full before:bg-white before:mask-b-from-5% after:sticky after:bottom-0 after:z-10 after:block after:h-8 after:w-full after:bg-white after:mask-t-from-5%;
+}
