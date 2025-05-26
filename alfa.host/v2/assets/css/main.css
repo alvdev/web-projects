@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@utility container {
+    @apply mx-auto;
+}
+
+@utility page-gradient {
+    background: linear-gradient(
+        to bottom,
+        var(--color-slate-200) 0px,
+        white 150px,
+        white calc(100% - 150px),
+        var(--color-slate-200) 100%
+    );
+    @apply border border-white;
+}

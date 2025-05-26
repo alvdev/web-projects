@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@utility debug-screens {
+    &::before {
+        @apply fixed bottom-0 left-0 z-[2147483647] rounded-tr bg-yellow-400 px-[0.5em] py-[0.3333333em] text-xs leading-none font-bold text-black;
+
+        @variant sm {
+            content: "screen: sm";
+        }
+
+        @variant md {
+            content: "screen: md";
+        }
+
+        @variant lg {
+            content: "screen: lg";
+        }
+
+        @variant xl {
+            content: "screen: xl";
+        }
+    }
+}
