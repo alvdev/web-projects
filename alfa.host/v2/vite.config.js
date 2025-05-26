@@ -11,8 +11,8 @@ export default ({ mode }) => ({
   build: {
     // Where your manifest an bundled assets will be placed. This example
     // assumes you use a public folder structure.
-    outDir: 'public/dist',
-    assetsDir: 'src/assets',
+    outDir: 'dist',
+    assetsDir: 'assets',
 
     // Your entry file(s).
     // Note: CSS files can either be a separate entry. In this case you use it
@@ -20,7 +20,7 @@ export default ({ mode }) => ({
     // `main.js` as an entry and import the CSS in your JS file. In this case
     // you would use the JS file name: `vite()->css('main.js')`.
     rollupOptions: {
-      input: ['main.js', 'tailwind.css'],
+      input: ['assets/main.js', 'assets/main.css'],
     },
   },
 
