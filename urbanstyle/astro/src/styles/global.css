@@ -27,6 +27,22 @@
     display: none !important;
 }
 
+@font-face {
+    font-family: "Shadows Into Light Two";
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url("@assets/fonts/shadows-into-light-two-v17-latin-regular.woff2") format("woff2");
+}
+
+@theme {
+    --font-script: "Shadows Into Light Two", cursive;
+}
+
+@utility font-script {
+    @apply leading-relaxed tracking-wider;
+}
+
 @utility container {
     @apply mx-auto px-[3%];
 }
