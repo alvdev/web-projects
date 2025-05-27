@@ -1,19 +1,16 @@
 ---
-const title = `<span class="font-bold">Cada día</span> pegamos <mark class="under">el 90% de carteles</mark> que ves en la calle`;
-const description =
-    "<strong>La pegada de carteles</strong> es lo que nos ha convertido en el actual referente en España, avalados por el gran número de clientes y la satisfacción que han demostrado.";
+const { title, description } = Astro.props;
 ---
 
 <section class="relative before:opacity-100">
-    <div class="container flex flex-col-reverse gap-8 xl:flex-row-reverse xl:gap-16 items-center">
+    <hgroup class="container grid grid-cols-2 items-center">
         <h2
-            set:html={description}
-            class="text-3xl text-gray-600 text-balance text-center font-semibold m-0 md:text-4xl xl:w-1/2 leading-snug"
-        />
-
-        <p
             set:html={title}
-            class="text-5xl text-balance text-black font-semibold md:text-6xl uppercase xl:w-1/2 text-center xl:m-0 !leading-tight"
+            class="text-5xl text-balance text-black font-bold md:text-6xl uppercase text-center xl:m-0 !leading-tight"
         />
-    </div>
+        <p
+            set:html={description}
+            class="text-3xl text-gray-600 text-balance text-center font-semibold m-0 md:text-4xl font-script"
+        />
+    </hgroup>
 </section>
