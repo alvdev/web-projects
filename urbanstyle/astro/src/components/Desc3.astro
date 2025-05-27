@@ -13,19 +13,21 @@ const { title, description, subtitle, classes } = Astro.props;
             </h2>
 
             <div class="mt-16 flex flex-col-reverse gap-4 xl:flex-row-reverse xl:gap-4 items-center">
-                <hgroup class="flex flex-col gap-8 uppercase text-center xl:text-left drop-shadow-md xl:w-1/2 xl:m-0">
+                <div class="flex flex-col gap-8 uppercase text-center xl:text-left drop-shadow-md xl:w-1/2 xl:m-0">
                     <h3
-                        class="text-white/90 font-bold border-dashed text-5xl md:text-6xl normal-case xl:m-0 [text-shadow:2px_2px_2px_black]"
+                        class="text-white/90 text-5xl md:text-6xl font-semibold normal-case xl:m-0 [text-shadow:2px_2px_2px_black]"
                     >
                         {subtitle}
                     </h3>
-                </hgroup>
+                </div>
+
                 <div class="rotate-180 xl:rotate-0 xl:self-end -mb-4 xl:mb-4 fill-black/60 h-58 xl:h-full">
                     <Arrow />
                 </div>
+
                 <p
                     set:html={description}
-                    class="text-3xl text-white/90 leading-normal text-center text-balance font-semibold md:text-4xl xl:w-1/2 xl:text-right [text-shadow:1px_1px_1px_black]"
+                    class="font-script tracking-widest text-3xl text-white/90 text-center text-balance font-semibold md:text-4xl xl:w-1/2 xl:text-right [text-shadow:1px_1px_1px_black]"
                 />
             </div>
         </div>
