@@ -32,7 +32,11 @@ const seoDescription = post.data.seo?.description || postSanitizedDescription;
 ---
 
 <Base title={seoTitle} description={seoDescription} cover={post.data.cover.url}>
-    <Header cover={post.data.cover.url || defaultCover} classes={"min-h-[75vh]"} />
+    <Header
+        cover={post.data.cover.url || defaultCover}
+        coverAlt={post.data.cover.alt || post.data.title}
+        classes={"min-h-[75vh]"}
+    />
     <main class="relative z-10 pb-10">
         <div class="container relative z-10 flex gap-8">
             <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
