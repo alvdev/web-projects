@@ -26,6 +26,7 @@ const { title, cover, classes } = Astro.props;
         height={1440}
         format="avif"
         class="fixed top-0 -z-50 min-h-[75vh] md:min-h-[50vh] lg:min-h-[75vh] w-full object-cover brightness-125 contrast-110 mask-b-from-90%"
-        alt="Pegada de carteles"
+        loading="eager"
+        alt={Astro.props.coverAlt || Astro.props.title}
     />
 </header>
