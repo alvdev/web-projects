@@ -3,7 +3,7 @@ const { title, description } = Astro.props;
 ---
 
 <section class="relative before:opacity-100">
-    <hgroup class="container grid grid-cols-2 items-center">
+    <hgroup class="container flex flex-col-reverse xl:flex-row-reverse gap-8 xl:gap-0 items-center xl:*:w-1/2">
         <h2
             set:html={title}
             class="text-5xl text-balance text-black font-bold md:text-6xl uppercase text-center xl:m-0 !leading-tight"
