@@ -1,0 +1,14 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title"
+aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Registro de dominios</title>
+  <desc>Registro de dominios</desc>
+  <path stroke-width="3"
+  stroke-miterlimit="10" stroke="#475569" fill="none" d="M33.6 48.8a24 24 0 1 1 15.2-15.2m-16.2 13A9 9 0 0 1 26 50c-7.1 0-12.8-10.7-12.8-24S18.9 2 26 2s12.8 10.7 12.8 24a43.6 43.6 0 0 1-.6 7.1M2 26h48M26 2v48"
+  data-name="layer2" stroke-linejoin="round" stroke-linecap="round"></path>
+  <circle stroke-width="3" stroke-miterlimit="10" stroke="#2563eb"
+  fill="none" r="11" cy="43" cx="43" data-name="layer1" stroke-linejoin="round"
+  stroke-linecap="round"></circle>
+  <path d="M50.8 50.8L62 62" stroke-width="3" stroke-miterlimit="10"
+  stroke="#2563eb" fill="none" data-name="layer1" stroke-linejoin="round"
+  stroke-linecap="round"></path>
+</svg>

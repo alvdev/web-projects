@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Transferencia de dominios</title>
+  <desc>Tranferencia de dominios</desc>
+  <path data-name="layer2"
+  fill="none" stroke="#2563eb" stroke-linecap="round" stroke-linejoin="round"
+  stroke-width="3" d="M42 36L32 25.8 22 36m10-10.2V60"></path>
+  <path data-name="layer1" fill="none" stroke="#475569" stroke-linecap="round"
+  stroke-linejoin="round" stroke-width="3" d="M6 4h52v12H6zm0 12v28h18m16 0h18V16"></path>
+  <circle data-name="layer1" cx="12" cy="10" r="1" fill="none" stroke="#475569"
+  stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></circle>
+  <circle data-name="layer1" cx="19" cy="10" r="1" fill="none"
+  stroke="#475569" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></circle>
+  <circle data-name="layer1" cx="26" cy="10" r="1" fill="none"
+  stroke="#475569" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></circle>
+</svg>
