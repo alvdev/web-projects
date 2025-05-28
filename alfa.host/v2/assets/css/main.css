@@ -1,4 +1,20 @@
 @import "tailwindcss";
+/* @import "./scrollbars.css"; */
+@import "./fonts.css";
+/* @import "./navigation.css"; */
+
+[x-cloak] {
+    display: none !important;
+}
+
+@theme {
+    --font-alfa: "Alfa", sans-serif;
+}
+
+body {
+    @apply font-alfa tracking-wide text-slate-600;
+
+}
 
 @utility container {
     @apply mx-auto;
