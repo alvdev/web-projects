@@ -19,9 +19,9 @@
   "dependencies": {
     "@alpinejs/collapse": "^3.14.9",
     "@alpinejs/intersect": "^3.14.9",
-    "@tailwindcss/vite": "^4.1.7",
+    "@tailwindcss/vite": "^4.1.8",
     "alpinejs": "^3.14.9",
-    "tailwindcss": "^4.1.7",
+    "tailwindcss": "^4.1.8",
     "vite-plugin-kirby": "^5.5.0"
   }
 }
