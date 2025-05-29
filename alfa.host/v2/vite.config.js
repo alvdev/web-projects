@@ -20,7 +20,7 @@ export default ({ mode }) => ({
     // `main.js` as an entry and import the CSS in your JS file. In this case
     // you would use the JS file name: `vite()->css('main.js')`.
     rollupOptions: {
-      input: ['assets/js/main.js', 'assets/css/main.css', mode === "development" && "assets/css/debug-screens.css"],
+      input: ['assets/js/main.js', 'assets/css/main.css', ...(mode === "development" ? ['assets/css/debug-screens.css'] : [])],
     },
   },
 

@@ -7,7 +7,7 @@
     <meta name="description" content="<?= $page->description() ?>">
     <title><?= $page->title() ?></title>
     <?= vite()->css('assets/css/main.css') ?>
-    <?= vite()->css('assets/css/debug-screens.css') ?>
+    <?= vite()->css('assets/css/debug-screens.css', try: true) ?>
     <?= vite()->js('assets/js/main.js') ?>
 </head>
 
