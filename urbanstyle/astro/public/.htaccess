@@ -23,6 +23,8 @@ DirectoryIndex index.php index.html index.htm
     # SEO redirections
     RewriteRule ^servicios-publicitarios/lonas-publicitarias/?$ /instalacion-lonas-publicitarias [R=301,L]
     RewriteRule ^servicios-publicitarios/(.+)$ $1 [R=301,L]
+    RewriteRule ^pegada-carteles/?$ / [R=301,L]
+    RewriteRule ^pegada-de-carteles/?$ / [R=301,L]
 
     ## Begin - Security inherited from Grav
     # Block all direct access for these folders
