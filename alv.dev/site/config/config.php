@@ -14,6 +14,7 @@ use Kirby\Toolkit\Str;
 
 return [
     'debug' => true,
+    'date.handler' => 'intl',
     'author.seo-audit' => [
         'option' => 'alv dev'
     ],
