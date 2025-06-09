@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 
 const services = await getCollection("services");
 const { title, classes = "mt-24 lg:mt-28 xl:mt-32" } = Astro.props;
-// console.log(services);
+console.log(services);
 const servicesAreEven = services.length % 2 === 0;
 ---
 
