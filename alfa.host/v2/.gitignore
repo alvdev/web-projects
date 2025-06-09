@@ -48,3 +48,10 @@ Icon
 # ---------------
 
 /site/config/.license
+
+# Alfa
+# ---------------
+
+!/site/plugins/
+/site/plugins/*
+!/site/plugins/alfa*/
