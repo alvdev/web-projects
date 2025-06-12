@@ -2,6 +2,9 @@
 
 return [
     'debug' => true,
+    'fatal' => function ($kirby, $exception) {
+        include $kirby->root('templates') . '/fatal.php';
+    },
     'panel' => [
         'menu' => [
             'site' => [
