@@ -1,5 +1,5 @@
-<header class="absolute top-0 inset-x-0">
-    <div class="alv-linear-gradient-white">
+<header class="absolute top-0 inset-x-0 pb-6 bg-ellipse-t-blue text-white">
+    <div class="bg-gradient-light shadow-xl">
         <div class="container items-center justify-between py-3 text-sm bg-opacity-50 md:flex">
             <div class="justify-between hidden gap-4 md:inline-flex">
                 <span>
@@ -33,6 +33,6 @@
             </div>
         </div>
     </div>
-    
+
     <?= snippet('site/navigation') ?>
 </header>

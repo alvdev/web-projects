@@ -133,7 +133,29 @@
     -webkit-text-stroke: 1.5px;
 }
 
-@utility bg-ellipse-blue {
-    background: radial-gradient(ellipse at bottom, #155dfb 0%,transparent 70%);
-    background-size: contain;
+@utility bg-ellipse-t-blue {
+    background: radial-gradient(ellipse at top, var(--color-blue-600) 0%, black 70%);
+    @apply bg-contain;
+}
+
+@utility bg-ellipse-b-blue {
+    background: radial-gradient(ellipse at bottom, var(--color-blue-600) 0%, black 70%);
+    @apply bg-contain;
+}
+
+nav .a {
+    @apply text-black;
+}
+
+nav .logo svg .color2 {
+    fill: #2563eb;
+    stroke: #2563eb;
+}
+
+nav .logo svg .color3 {
+    @apply stroke-current fill-current text-blue-300;
+}
+
+nav .logo svg .color3 {
+    @apply stroke-current fill-current text-blue-300;
 }
