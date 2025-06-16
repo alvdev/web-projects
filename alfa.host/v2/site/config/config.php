@@ -7,6 +7,16 @@ return [
     },
     'panel' => [
         'menu' => [
+            'viewSite' => [
+                'label' => [
+                    'en' => 'View site',
+                    'es' => 'Ver sitio'
+                ],
+                'icon' => 'open',
+                'link' => '../',
+                'target' => '_blank'
+            ],
+            '-',
             'site' => [
                 'label' => 'Dashboard'
             ],
