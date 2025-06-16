@@ -12,16 +12,16 @@
   "license": "ISC",
   "packageManager": "pnpm@10.4.1",
   "scripts": {
-    "dev": "vite --host alfa.local & composer start",
+    "dev": "vite --host localhost & composer start",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.14.9",
     "@alpinejs/intersect": "^3.14.9",
-    "@tailwindcss/vite": "^4.1.8",
+    "@tailwindcss/vite": "^4.1.10",
     "alpinejs": "^3.14.9",
-    "tailwindcss": "^4.1.8",
-    "vite-plugin-kirby": "^5.5.0"
+    "tailwindcss": "^4.1.10",
+    "vite-plugin-kirby": "^5.5.1"
   }
 }
