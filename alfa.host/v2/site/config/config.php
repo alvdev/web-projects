@@ -6,6 +6,7 @@ return [
         include $kirby->root('templates') . '/fatal.php';
     },
     'panel' => [
+        'css' => 'assets/css/panel.css',
         'menu' => [
             'viewSite' => [
                 'label' => [

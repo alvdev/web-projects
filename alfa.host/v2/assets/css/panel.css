@@ -1,0 +1,4 @@
+/* fix menu toggle issue */
+.k-panel-menu-toggle {
+    opacity: 1;
+}
