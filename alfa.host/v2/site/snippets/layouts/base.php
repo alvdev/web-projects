@@ -11,7 +11,7 @@
     <?= vite()->js('assets/js/main.js') ?>
 </head>
 
-<body class="debug-screens">
+<body class="debug-screens bg-blue-600">
     <?php snippet('site/header') ?>
 
     <?= $slot ?>

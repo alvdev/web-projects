@@ -1,5 +1,5 @@
-<footer class="relative bg-blue-600 bg-[url('../../assets/images/free-wolf.webp')] bg-bottom bg-cover md:bg-auto 2xl:bg-cover">
-    <div class="alv-linear-gradient-white">
+<footer class="relative bg-[url('../../assets/images/free-wolf.webp')] bg-bottom bg-cover bg-transparent mask-t-from-95% md:bg-auto 2xl:bg-cover">
+    <div class="bg-gradient-light">
         <div class="container items-center justify-center gap-8 py-8 news md:flex ">
             <h2 class="text-6xl font-normal text-white uppercase">
                 Alfa News
@@ -287,7 +287,7 @@
         </div>
     </div>
 
-    <div class="alv-linear-gradient-white">
+    <div class="bg-gradient-light">
         <section class="container items-center justify-between py-12 text-center md:text-left md:flex">
             <p class="text-sm text-white/70">
                 The Alfa Host LLC, 201 East 5th St. STE 1200, Sheridan, WY, 82801, Estados Unidos

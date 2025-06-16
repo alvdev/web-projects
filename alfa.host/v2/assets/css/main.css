@@ -35,21 +35,21 @@
 
 @layer base {
     body {
-        @apply font-alfa text-slate-600 text-xl;
+        @apply font-alfa text-xl text-slate-600;
 
         h2,
         h3,
         h4,
         h5,
         h6 {
-            @apply leading-[1.125] font-bold tracking-tight text-gradient-dark;
+            @apply text-gradient-dark leading-[1.125] font-bold tracking-tight;
         }
 
         h1 {
             @apply text-7xl leading-[1.1];
         }
-        
-        main > :first-child:has(h1) h1 {
+
+        main > section:first-of-type h1 {
             @apply text-gradient-light font-bold opacity-90;
         }
 
@@ -57,8 +57,12 @@
             @apply text-6xl;
         }
 
-        main > :first-child:has(h2) h2 {
-            @apply text-5xl text-gradient-light leading-tight font-normal opacity-80;
+        main {
+            @apply bg-gradient-to-b from-black to-blue-600;
+
+            > :first-child:has(h2) h2 {
+                @apply text-gradient-light text-5xl leading-tight font-normal opacity-80;
+            }
         }
 
         h3 {
@@ -73,7 +77,8 @@
             @apply tracking-wide;
         }
 
-        a, button {
+        a,
+        button {
             @apply hover:cursor-pointer;
         }
     }
@@ -81,6 +86,10 @@
 
 @utility container {
     @apply mx-auto;
+}
+
+@utility main-content {
+    @apply page-gradient relative mx-auto w-[98vw] rounded-3xl border border-white;
 }
 
 @utility page-gradient {
@@ -134,12 +143,12 @@
 }
 
 @utility bg-ellipse-t-blue {
-    background: radial-gradient(ellipse at top, var(--color-blue-600) 0%, black 70%);
+    background: radial-gradient(ellipse at top, var(--color-blue-600) 0%, transparent 70%);
     @apply bg-contain;
 }
 
 @utility bg-ellipse-b-blue {
-    background: radial-gradient(ellipse at bottom, var(--color-blue-600) 0%, black 70%);
+    background: radial-gradient(ellipse at bottom, var(--color-blue-600) 0%, transparent 70%);
     @apply bg-contain;
 }
 
@@ -153,9 +162,9 @@ nav .logo svg .color2 {
 }
 
 nav .logo svg .color3 {
-    @apply stroke-current fill-current text-blue-300;
+    @apply fill-current stroke-current text-blue-300;
 }
 
 nav .logo svg .color3 {
-    @apply stroke-current fill-current text-blue-300;
+    @apply fill-current stroke-current text-blue-300;
 }
