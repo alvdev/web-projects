@@ -42,11 +42,15 @@
         h4,
         h5,
         h6 {
-            @apply text-gradient-dark leading-[1.125] font-bold tracking-tight;
+            @apply leading-[1.125] font-bold tracking-tight;
         }
 
         h1 {
             @apply text-7xl leading-[1.1];
+        }
+
+        main :where(h1, h2, h3, h4) {
+            @apply text-gradient-dark;
         }
 
         main > section:first-of-type h1 {
