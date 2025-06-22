@@ -20,7 +20,24 @@ export default ({ mode }) => ({
     // `main.js` as an entry and import the CSS in your JS file. In this case
     // you would use the JS file name: `vite()->css('main.js')`.
     rollupOptions: {
-      input: ['assets/js/main.js', 'assets/css/main.css', ...(mode === "development" ? ['assets/css/debug-screens.css'] : [])],
+      input: [
+        'assets/js/main.js',
+        'assets/css/main.css',
+        ...(mode === 'development' ? ['assets/css/debug-screens.css'] : []),
+      ],
+      output: {
+        assetFileNames: assetInfo => {
+          if (/\.css$/i.test(assetInfo.name))
+            return 'assets/css/[name]-[hash][extname]';
+          if (/\.(png|jpe?g|gif|svg|webp|ico)$/i.test(assetInfo.name))
+            return 'assets/images/[name]-[hash][extname]';
+          if (/\.(woff2?|eot|ttf|otf)$/i.test(assetInfo.name))
+            return 'assets/fonts/[name]-[hash][extname]';
+          return 'assets/[name]-[hash][extname]';
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+      },
     },
   },
 
@@ -42,4 +59,4 @@ export default ({ mode }) => ({
       kirbyConfigDir: 'site/config', // default
     }),
   ],
-})
+});

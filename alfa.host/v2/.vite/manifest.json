@@ -1,0 +1,29 @@
+{
+  "assets/css/main.css": {
+    "file": "assets/css/main-DZuNUM0K.css",
+    "src": "assets/css/main.css",
+    "isEntry": true
+  },
+  "assets/fonts/alfa-accent.woff2": {
+    "file": "assets/fonts/alfa-accent-DdoGSPLC.woff2",
+    "src": "assets/fonts/alfa-accent.woff2"
+  },
+  "assets/fonts/redhat.woff2": {
+    "file": "assets/fonts/redhat-DUKa81-L.woff2",
+    "src": "assets/fonts/redhat.woff2"
+  },
+  "assets/images/convertir-emprendedores.jpg": {
+    "file": "assets/images/convertir-emprendedores-DhLf7Wtb.jpg",
+    "src": "assets/images/convertir-emprendedores.jpg"
+  },
+  "assets/images/free-wolf.webp": {
+    "file": "assets/images/free-wolf-B1Sa-oC4.webp",
+    "src": "assets/images/free-wolf.webp"
+  },
+  "assets/js/main.js": {
+    "file": "assets/js/main-DrYPIl0r.js",
+    "name": "main",
+    "src": "assets/js/main.js",
+    "isEntry": true
+  }
+}
