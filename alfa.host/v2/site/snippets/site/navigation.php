@@ -1,8 +1,8 @@
 <div x-data="{ scrollNav: false, openSubmenu: null }" x-intersect:leave.margin.50%="scrollNav = true" x-intersect.enter="scrollNav = false" x-transition.duration.3000ms>
-    <nav class="z-20 rounded-b-2xl backdrop-blur-sm transition-all duration-300" :class="scrollNav ? 'fixed inset-x-0 top-0 bg-black/90 py-0 **:[.logo_svg]:w-24' : 'relative py-6 [&>[id*=submenu]]:mt-8'">
+    <nav class="z-20 rounded-b-2xl backdrop-blur-sm transition-all duration-300" :class="scrollNav ? 'fixed inset-x-0 top-0 bg-black/90 py-0 **:[.logo_svg]:w-24' : 'relative pt-6 [&>[id*=submenu]]:mt-8'">
         <div class="container grid items-center justify-between grid-cols-2 lg:flex lg:gap-4">
             <div class="logo">
-                <a href="/" title="Alfa Host">
+                <a href="<?= $site->url() ?>" title="Alfa Host">
                     <?= svg('assets/logo.svg') ?>
                 </a>
             </div>
@@ -14,7 +14,7 @@
 
             <ul id="main-menu" class="grid items-center justify-end grid-cols-2 gap-12 py-12 text-xl text-center uppercase border-t-2 border-blue-600 col-span-full md:text-center md:grid-cols-4 lg:flex lg:gap-4 md:border-0 lg:py-4 lg:text-base lg:mt-0 lg:bg-transparent">
                 <li>
-                    <a href="/" id="inicio" class="p-2 border-b-2 border-teal-400 lg:text-white">
+                    <a href="<?= $site->url() ?>" id="inicio" class="p-2 border-b-2 border-teal-400 lg:text-white">
                         Inicio
                     </a>
                 </li>
@@ -43,17 +43,17 @@
                     </button>
                 </li>
                 <li>
-                    <a href="/blog" id="blog" class="p-2 lg:text-white">
+                    <a href="<?= $site->url() . '/blog' ?>" id="blog" class="p-2 lg:text-white">
                         Blog
                     </a>
                 </li>
                 <li>
-                    <a href="/soporte" id="soporte" class="p-2 lg:text-white">
+                    <a href="<?= $site->url() . '/soporte' ?>" id="soporte" class="p-2 lg:text-white">
                         soporte
                     </a>
                 </li>
                 <li>
-                    <a href="/contacto" id="contacto" class="p-2 lg:text-white">
+                    <a href="<?= $site->url() . '/contacto' ?>" id="contacto" class="p-2 lg:text-white">
                         Contacto
                     </a>
                 </li>
