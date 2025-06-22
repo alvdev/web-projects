@@ -2,6 +2,7 @@
 /* @import "./scrollbars.css"; */
 @import "./fonts.css";
 /* @import "./navigation.css"; */
+@plugin "@tailwindcss/typography";
 
 @theme {
     --font-alfa: "Alfa", sans-serif;
@@ -49,11 +50,11 @@
             @apply text-7xl leading-[1.1];
         }
 
-        main :where(h1, h2, h3, h4) {
+        main :where(h1:not(.article h1), h2:not(.hero h2), h3, h4) {
             @apply text-gradient-dark;
         }
 
-        main > section:first-of-type h1 {
+        main > .hero h1 {
             @apply text-gradient-light font-bold opacity-90;
         }
 
@@ -93,7 +94,7 @@
 }
 
 @utility main-content {
-    @apply page-gradient relative mx-auto w-[98vw] rounded-3xl border border-white;
+    @apply page-gradient relative mx-auto w-[98vw] overflow-clip rounded-3xl border border-white;
 }
 
 @utility page-gradient {
@@ -137,6 +138,13 @@
     -webkit-text-fill-color: transparent;
 }
 
+@utility text-gradient-none {
+    background: none !important;
+    background-size: 0 0;
+    -webkit-background-clip: inherit !important;
+    -webkit-text-fill-color: inherit;
+}
+
 @utility triangle {
     clip-path: polygon(50% 100%, 0 0, 100% 0);
 }
@@ -154,6 +162,20 @@
 @utility bg-ellipse-b-blue {
     background: radial-gradient(ellipse at bottom, var(--color-blue-600) 0%, transparent 70%);
     @apply bg-contain;
+}
+
+@utility bg-divider {
+    &:before {
+        background: linear-gradient(
+            to bottom,
+            var(--color-slate-300) 0px,
+            var(--color-slate-200) 200px,
+            var(--color-slate-200) calc(100% - 200px),
+            var(--color-slate-200) 100%
+        );
+    }
+
+    @apply z-0 before:absolute before:inset-y-0 before:-z-50 before:w-screen ;
 }
 
 nav .a {
