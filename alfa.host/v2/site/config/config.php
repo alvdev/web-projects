@@ -11,8 +11,16 @@ return [
                 'format' => 'avif',
                 'quality' => 60,
             ],
+        ],
+        'srcsets' => [
+            'default' => [
+                '800w' => ['width' => 800, 'format' => 'avif', 'quality' => 60],
+                '1024w' => ['width' => 1024, 'format' => 'avif', 'quality' => 60],
+                '1440w' => ['width' => 1440, 'format' => 'avif', 'quality' => 60],
+                '2048w' => ['width' => 2048, 'format' => 'avif', 'quality' => 60]
+            ],
         ]
-     ],
+    ],
     'panel' => [
         'css' => 'assets/css/panel.css',
         'menu' => [
