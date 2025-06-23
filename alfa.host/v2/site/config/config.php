@@ -5,6 +5,14 @@ return [
     'fatal' => function ($kirby, $exception) {
         include $kirby->root('templates') . '/fatal.php';
     },
+    'thumbs' => [
+        'presets' => [
+            'default' => [
+                'format' => 'avif',
+                'quality' => 60,
+            ],
+        ]
+     ],
     'panel' => [
         'css' => 'assets/css/panel.css',
         'menu' => [
