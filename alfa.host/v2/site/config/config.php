@@ -21,6 +21,11 @@ return [
             'site' => [
                 'label' => 'Dashboard'
             ],
+            'landings' => [
+                'label' => 'Landings',
+                'icon' => 'page',
+                'link' => 'pages/blog',
+            ],
             'blog' => [
                 'label' => 'Blog',
                 'icon' => 'blog',
