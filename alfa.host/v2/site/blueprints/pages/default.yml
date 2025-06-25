@@ -1,4 +1,9 @@
 title: Default Page
+options:
+  changeTemplate:
+    - default
+    - article
+    - blog
 
 columns:
   main:
@@ -18,4 +23,3 @@ columns:
         template: default
       files:
         type: files
-
