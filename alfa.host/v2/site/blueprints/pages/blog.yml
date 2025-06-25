@@ -1,0 +1,69 @@
+Title: Blogs
+
+columns:
+  left:
+    width: 2/3
+    sections:
+      drafts:
+        label:
+          en: Drafts
+          es: Borradores
+        type: pages
+        status: draft
+        parent: site.find("blog")
+        template: article
+
+      published:
+        label:
+          en: Published
+          es: Publicados
+        type: pages
+        status: listed
+        parent: site.find("blog")
+        template: article
+        image:
+          ratio: 16/9
+          cover: true
+          cover: true
+        layout: table
+        search: true
+        sortBy: title asc
+        flip: true
+        columns:
+          title:
+            width: 7/12
+          categories:
+            width: 3/12
+          date:
+            label:
+              en: Date
+              es: Fecha
+            width: 2/12
+            type: date
+            display: DD/MM/YYYY
+
+      unlisted:
+        label:
+          en: Unlisted
+          es: Sin publicar 
+        type: pages
+        status: unlisted
+  right:
+    width: 1/3
+    fields:
+      description:
+        label:
+          en: Description
+        type: textarea
+        
+      categories:
+        label:
+          en: Main categories
+          es: Categorías principales
+        type: tags
+        options:
+          - Productos y servicios
+          - Gestores de contenido
+          - Negocios digitales
+          - Marketing en Internet
+      
