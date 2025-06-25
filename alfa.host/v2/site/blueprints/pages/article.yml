@@ -1,0 +1,63 @@
+title: Article
+
+columns:
+  left:
+    width: 2/3
+    fields:
+      summary:
+        label:
+          en: Summary
+          es: Resumen
+        type: textarea
+      body:
+        label:
+          en: Content
+          es: Contenido
+        type: blocks
+  right:
+    width: 1/3
+    fields:
+      cover:
+        label:
+          en: Cover
+          es: Portada
+        type: files
+        query: page.images
+        max: 1
+        layout: cards
+        image:
+          ratio: 16/9
+          cover: true
+          back: black
+      featured:
+        label:
+          en: Featured
+          es: Destacado
+        type: toggle
+      categories:
+        label:
+          en: Categories
+          es: Categorias
+        type: multiselect
+        options:
+          type: query
+          query: site.children.listed.template('blog').pluck('categories', ',', true)
+      tags:
+        label:
+          en: Tags
+          es: Etiquetas
+        type: tags
+        options:
+          type: query
+          query: site.children.listed.template('blog').children.pluck('tags', ',', true)
+      date:
+        label:
+          en: Publishing date
+          es: Fecha de publicación
+        type: date
+        display: DD/MM/YYYY
+      author:
+        label:
+          en: Author
+          es: Autor
+        type: text
