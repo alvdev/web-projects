@@ -1,4 +1,12 @@
-<section class="py-24 mb-16 bg-center bg-no-repeat bg-cover border-t-4 border-b-4 border-gray-200 md:bg-contain md:bg-left bg-[url('/assets/images/convertir-emprendedores.jpg')]">
+<?php
+
+if ($imgBg = asset('assets/images/convertir-emprendedores.jpg')) {
+    $imgBg = $imgBg->thumb(['format' => 'avif'])->url();
+}
+
+?>
+
+<section class="py-24 mb-16 bg-center bg-no-repeat bg-cover border-t-4 border-b-4 border-gray-200 md:bg-contain md:bg-left" style="background-image: url('<?= $imgBg; ?>');">
     <div class="mb-12 ml-auto text-sm font-semibold text-right text-black md:text-2xl">
         <div class="table p-2 pr-8 mb-2 ml-auto bg-white/70">
             El combustible del emprendedor son las ideas
