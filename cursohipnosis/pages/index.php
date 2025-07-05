@@ -3,6 +3,8 @@
 <?php require('partials/head.php') ?>
 
 <body>
+    <?php require('sections/consentBanner.php') ?>
+
     <?php require('partials/header.php') ?>
 
     <main>
