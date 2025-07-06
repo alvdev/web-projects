@@ -17,8 +17,7 @@
 
         <p class="text-xl">
             La recogida y tratamiento automatizado de los datos de carácter personal tiene como finalidad el mantenimiento de la
-            relación comercial y el desempeño de tareas de información, formación, asesoramiento y otras actividades propias de
-            ZENOR S.L..
+            relación comercial y el desempeño de tareas de información, formación, asesoramiento y otras actividades relacionadas.
         </p>
 
         <p class="text-xl">
