@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-    @apply h-2 w-6;
+    @apply h-2 w-3;
 }
 
 .scrollbar-sm::-webkit-scrollbar {
@@ -9,7 +9,7 @@
 /* Track */
 
 ::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    @apply bg-blue-300;
 }
 
 .scrollbar::-webkit-scrollbar-track {
@@ -18,7 +18,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    @apply rounded-lg bg-blue-700 border-4 border-white;
+    @apply rounded-lg bg-blue-700 border-white;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
