@@ -1,4 +1,12 @@
-<footer class="relative bg-[url('../../assets/images/free-wolf.webp')] bg-bottom bg-cover bg-transparent mask-t-from-95% md:bg-auto 2xl:bg-cover">
+<?php
+
+if ($footerBg = asset('assets/images/free-wolf.webp')) {
+    $footerBg = $footerBg->thumb(['format' => 'avif'])->url();
+}
+
+?>
+
+<footer class="relative bg-bottom bg-cover bg-transparent mask-t-from-95% md:bg-auto 2xl:bg-cover" style="background-image: url(<?= $footerBg ?>)">
     <div class="bg-gradient-light">
         <div class="container items-center justify-center gap-8 py-8 news md:flex ">
             <h2 class="text-6xl font-normal text-white uppercase">
