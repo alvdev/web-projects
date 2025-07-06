@@ -6,6 +6,22 @@ columns:
     sections:
       stats:
         label: Stats
+        type: stats
+        # Available size options: small, medium, large, huge. Default is large
+        size: huge
+        reports:
+          - label:
+              en: Posts
+              es: Artículos
+            value: 123
+            link: pages/posts
+            theme: positive
+            icon: blog 
+          - label: Landings
+            value: 123
+            link: pages/posts
+            theme: positive
+            icon: blog 
 
   left:
     width: 1/3
