@@ -35,12 +35,17 @@ return [
             ],
             '-',
             'site' => [
-                'label' => 'Dashboard',
+                'label' => [
+                    'en' => 'Site',
+                    'es' => 'Sitio'
+                ],
+                'icon' => 'global',
                 'current' => function (string $current): bool {
                     $path = Kirby\Cms\App::instance()->path();
                     return Kirby\Toolkit\Str::contains($path, 'site');
                 }
             ],
+            '-',
             'pages' => [
                 'label' => [
                     'en' => 'Pages',
@@ -61,12 +66,6 @@ return [
                     $path = Kirby\Cms\App::instance()->path();
                     return Kirby\Toolkit\Str::contains($path, 'pages/blog');
                 }
-            ],
-            '-',
-            'siteSettings' => [
-                'label' => 'Site',
-                'icon' => 'global',
-                'link' => 'site/settings',
             ],
             'forms' => [
                 'label' => 'Forms',

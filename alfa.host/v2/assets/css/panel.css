@@ -2,3 +2,8 @@
 .k-panel-menu-toggle {
     opacity: 1;
 }
+
+/* remove header because of tabs */
+.k-site-view-header {
+    display: none;
+}
