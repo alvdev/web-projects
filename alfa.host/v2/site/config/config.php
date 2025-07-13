@@ -47,7 +47,11 @@ return [
                     'es' => 'Páginas'
                 ],
                 'icon' => 'page',
-                'link' => 'pages/blog',
+                'link' => 'pages/landings',
+                'current' => function (string $current): bool {
+                    $path = Kirby\Cms\App::instance()->path();
+                    return Kirby\Toolkit\Str::contains($path, 'pages/landings');
+                }
             ],
             'blog' => [
                 'label' => 'Blog',
