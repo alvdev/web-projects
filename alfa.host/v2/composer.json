@@ -23,7 +23,10 @@
   "require": {
     "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
     "getkirby/cms": "^5.0",
-    "arnoson/kirby-vite": "^5.5"
+    "arnoson/kirby-vite": "^5.5",
+    "distantnative/retour-for-kirby": "^5.5",
+    "tobimori/kirby-seo": "^2.0",
+    "tobimori/kirby-dreamform": "^2.0"
   },
   "config": {
     "allow-plugins": {
@@ -36,5 +39,7 @@
       "Composer\\Config::disableProcessTimeout",
       "@php -c /etc/php/8.4/fpm/php.ini -S localhost:8001 kirby/router.php"
     ]
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

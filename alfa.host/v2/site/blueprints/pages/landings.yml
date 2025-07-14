@@ -1,0 +1,35 @@
+Title: Landing Pages
+options:
+  title: true
+  status: false
+  template: true
+  image: true
+  date: true
+
+sections:
+  pages:
+    label:
+      en: Pages
+      es: Páginas
+    type: pages
+    template: landing
+    image:
+      ratio: 16/9
+      cover: true
+      cover: true
+    layout: table
+    search: true
+    sortBy: title asc
+    flip: true
+    columns:
+      title:
+        width: 7/12
+      categories:
+        width: 3/12
+      date:
+        label:
+          en: Date
+          es: Fecha
+        width: 2/12
+        type: date
+        display: DD/MM/YYYY
