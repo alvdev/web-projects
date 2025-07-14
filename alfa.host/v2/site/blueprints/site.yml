@@ -101,7 +101,7 @@ tabs:
           metadata:
             type: fields
             fields:
-              headline:
+              metaHeadline:
                 label: Metadata
                 type: headline 
               metaTitle:
@@ -126,6 +126,28 @@ tabs:
       right:
         width: 1/2
         sections:
-          robots:
-            type: robots
-            label: Robots.txt
+          openGraph:
+            type: fields
+            fields:
+              ogHeadline:
+                label: Open Graph
+                type: headline
+              ogTitle:
+                label:
+                  en: Title
+                  es: Título
+                type: text
+              ogDesc:
+                label:
+                  en: Description
+                  es: Descripción
+                type: textarea
+                buttons: false
+                maxlength: 160
+              ogImage:
+                label:
+                  en: Image
+                  es: Imagen
+                type: files
+                multiple: false
+                accept: image/*
