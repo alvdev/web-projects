@@ -1,45 +1,131 @@
 title: Site
+options:
+  hide: true
+buttons: false
 
-columns:
-  top:
-    width: 1/1
+tabs:
+  dashboard:
+    label: Dashboard
+    icon: dashboard
+    columns:
+      top:
+        width: 1/1
+        sections:
+          stats:
+            label: Stats
+            type: stats
+            # Available size options: small, medium, large, huge. Default is large
+            size: huge
+            reports:
+              - label:
+                  en: Pages
+                  es: Páginas
+                value: 123
+                link: pages/posts
+                theme: positive
+                icon: blog
+              - label:
+                  en: Posts
+                  es: Artículos
+                value: 123
+                link: pages/posts
+                theme: positive
+                icon: blog
+
+      left:
+        width: 1/3
+        sections:
+          pages:
+            type: pages
+            label: Menu links
+
+      middle:
+        width: 1/3
+        sections:
+          info:
+
+      right:
+        width: 1/3
+        sections:
+          pages:
+            label: Trending posts
+
+      bottom:
+        width: 1/1
+
+  settings:
+    icon: settings
     sections:
-      stats:
-        label: Stats
-        type: stats
-        # Available size options: small, medium, large, huge. Default is large
-        size: huge
-        reports:
-          - label:
-              en: Posts
-              es: Artículos
-            value: 123
-            link: pages/posts
-            theme: positive
-            icon: blog 
-          - label: Landings
-            value: 123
-            link: pages/posts
-            theme: positive
-            icon: blog 
+      general:
+        label: General
+        type: fields
+        fields:
+          site_name:
+            label:
+              en: Site Name
+              es: Nombre del sitio
+            type: text
+          site_description:
+            label:
+              en: Site Description
+              es: Descripción del sitio
+            type: textarea
 
-  left:
-    width: 1/3
-    sections:
-      pages:
-        type: pages
-        label: Menu links
+      appearance:
+        label: Appearance
+        type: fields
+        fields:
+          theme_color:
+            label:
+              en: Theme Color
+              es: Color del tema
+            type: color
 
-  middle:
-    width: 1/3
-    sections:
-      info:
+      advanced:
+        label: Advanced
+        type: fields
+        fields:
+          custom_css:
+            label:
+              en: Custom CSS
+              es: CSS personalizado
+            type: textarea
 
-  right:
-    width: 1/3
-    sections:
-      pages:
-        label: Trending posts
-
-  bottom:
-    width: 1/1
+  seo:
+    label: SEO
+    icon: seo
+    columns:
+      left:
+        width: 1/2
+        sections:
+          metadata:
+            type: fields
+            fields:
+              headline:
+                label: Metadata
+                type: headline 
+              metaTitle:
+                label:
+                  en: Title
+                  es: Título
+                type: text
+              metaDesc:
+                label:
+                  en: Description
+                  es: Descripción
+                type: textarea
+                buttons: false
+                maxlength: 160
+              metaImage:
+                label:
+                  en: Image
+                  es: Imagen
+                type: files
+                multiple: false
+                accept: image/*
+      right:
+        width: 1/2
+        sections:
+          robots:
+            type: robots
+            label: Robots.txt
