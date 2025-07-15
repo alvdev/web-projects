@@ -70,6 +70,19 @@ return [
             'forms' => [
                 'label' => 'Forms',
                 'icon' => 'forms',
+                'link' => 'pages/forms',
+            ],
+            'redirects' => [
+                'label' => [
+                    'en' => 'Redirects',
+                    'es' => 'Redirecciones'
+                ],
+                'icon' => 'shuffle',
+                'link' => 'retour',
+                'current' => function (string $current): bool {
+                    $path = Kirby\Cms\App::instance()->path();
+                    return Kirby\Toolkit\Str::contains($path, 'pages/redirects');
+                }
             ],
             '-',
             'users',
