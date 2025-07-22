@@ -22,7 +22,24 @@
         </div>
     </section>
 
-    <section class="main-content"> 
+    <section class="main-content">
+        <div class="container flex gap-8">
+            <div class="w-2/3">
+                <section id="latest-posts" class="container mt-24 grid grid-cols-2 gap-4">
+                    <article>
+                        <img src="https://picsum.photos/600/400?random=4" class="aspect-video rounded-lg" alt="">
+                        <h2 class="mt-6 text-3xl">Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
+                        <p class="mt-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, eligendi commodi mollitia fugiat doloribus, molestias hic labore dolores expedita sint repellat, adipisci debitis blanditiis laborum? Pariatur nam mollitia nihil blanditiis!</p>
+                    </article>
+
+                    <article>
+                        <img src="https://picsum.photos/600/400?random=5" class="aspect-video rounded-lg" alt="">
+                        <h2 class="mt-6 text-3xl">Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
+                        <p class="mt-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, eligendi commodi mollitia fugiat doloribus, molestias hic labore dolores expedita sint repellat, adipisci debitis blanditiis laborum? Pariatur nam mollitia nihil blanditiis!</p>
+                    </article>
+                </section>
+            </div>
+        </div>
         <div class="container mt-16">
             <div class="border-2 border-red-500">
                 <?= $page->categories() ?>
