@@ -133,6 +133,30 @@
             </aside>
         </div>
 
+        <section id="alfa-templates" class="mt-24 bg-radial from-gray-700 to-black rounded-lg mx-2">
+            <div class="container grid grid-cols-2 gap-24 text-white">
+                <div class="pt-12 pb-16">
+                    <h2 class="text-gradient-light font-semibold">Alfa CMS</h2>
+                    <p class="opacity-80 mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus aliquid sit esse ullam, alias aliquam voluptas.</p>
+                    <div class="mt-12 grid grid-cols-3 gap-8">
+                        <img src="https://picsum.photos/400/600.webp?random=1" class="border-4 border-white/15 rounded-lg" alt="">
+                        <img src="https://picsum.photos/400/600.webp?random=2" class="border-4 border-white/15 rounded-lg" alt="">
+                        <img src="https://picsum.photos/400/600.webp?random=3" class="border-4 border-white/15 rounded-lg" alt="">
+                    </div>
+                </div>
+
+                <div class="pt-12 pb-16">
+                    <h2 class="text-gradient-light font-semibold">Alfa Mailer</h2>
+                    <p class="opacity-80 mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus aliquid sit esse ullam, alias aliquam voluptas.</p>
+                    <div class="mt-12 grid grid-cols-3 gap-8">
+                        <img src="https://picsum.photos/400/600.webp?random=4" class="border-4 border-white/15 rounded-lg" alt="">
+                        <img src="https://picsum.photos/400/600.webp?random=5" class="border-4 border-white/15 rounded-lg" alt="">
+                        <img src="https://picsum.photos/400/600.webp?random=6" class="border-4 border-white/15 rounded-lg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="container mt-16">
             <div class="border-2 border-red-500">
                 <?= $page->categories() ?>
