@@ -38,6 +38,52 @@
                         <p class="mt-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, eligendi commodi mollitia fugiat doloribus, molestias hic labore dolores expedita sint repellat, adipisci debitis blanditiis laborum? Pariatur nam mollitia nihil blanditiis!</p>
                     </article>
                 </section>
+
+                <section id="product-posts" class="grid grid-cols-2 gap-8 mt-16">
+                    <div>
+                        <div class="flex flex-col gap-8 justify-center h-full bg-blue-100 p-8 rounded-lg">
+                            <h2 class="text-2xl font-semibold">Artículos destacados</h2>
+                            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+
+                        </div>
+                    </div>
+
+                    <div class="grid gap-8">
+                        <article class="grid grid-cols-2 gap-4">
+                            <img src="https://picsum.photos/600/400?random=6" class="aspect-video rounded-lg" alt="">
+                            <div class="flex flex-col justify-center gap-2">
+                                <h2 class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
+                                <small>Categories, tags</small>
+                            </div>
+                        </article>
+
+                        <article class="grid grid-cols-2 gap-4">
+                            <img src="https://picsum.photos/600/400?random=7" class="aspect-video rounded-lg" alt="">
+                            <div class="flex flex-col justify-center gap-2">
+                                <h2 class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
+                                <small>Categories, tags</small>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-span-2 grid grid-cols-2 gap-8">
+                        <article class="grid grid-cols-2 gap-4">
+                            <img src="https://picsum.photos/600/400?random=8" class="aspect-video rounded-lg" alt="">
+                            <div class="flex flex-col justify-center gap-2">
+                                <h2 class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
+                                <small>Categories, tags</small>
+                            </div>
+                        </article>
+
+                        <article class="grid grid-cols-2 gap-4">
+                            <img src="https://picsum.photos/600/400?random=9" class="aspect-video rounded-lg" alt="">
+                            <div class="flex flex-col justify-center gap-2">
+                                <h2 class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
+                                <small>Categories, tags</small>
+                            </div>
+                        </article>
+                    </div>
+                </section>
             </div>
 
             <aside id="aside-right" class="self-start sticky top-24 flex flex-col gap-8">
