@@ -22,7 +22,7 @@ const { title, subtitle } = Astro.props;
     >
         {
             collection.map(item =>
-                item.data.logos.map(img => <Image src={img.src as ImageMetadata} alt={img.alt} format="avif" />)
+                item.data.logos.map(img => <Image src={img.src as ImageMetadata} alt={img.alt} format="webp" />)
             )
         }
     </div>
