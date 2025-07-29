@@ -58,11 +58,11 @@ export default defineConfig({
   },
 
   image: {
-    experimentalLayout: "constrained",
+    // experimentalLayout: "constrained",
   },
 
   experimental: {
-    responsiveImages: true,
+    // responsiveImages: true,
     contentIntellisense: true,
   },
 });
