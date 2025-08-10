@@ -55,7 +55,8 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
 
         <Schemas pageTitle={title} pageDesc={description} pageCover={Astro.props.cover} types={[schema]} />
 
-        { import.meta.env.PROD &&  
+        <!-- Toggle DEV/PROD to enable Clarity -->
+        { import.meta.env.DEV &&  
             <Ga4 id="G-7M3F93FBD4" partytown={true} />
             <script type="text/javascript">
                 (function (c, l, a, r, i, t, y) {
