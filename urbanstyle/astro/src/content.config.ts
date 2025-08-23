@@ -99,7 +99,7 @@ const tabs = defineCollection({
 });
 
 const services = defineCollection({
-  loader: glob({ pattern: "*/{*.md,*.mdx}", base: "./src/content/services" }),
+  loader: glob({ pattern: "*/{index.md,index.mdx}", base: "./src/content/services" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
