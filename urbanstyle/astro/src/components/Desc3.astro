@@ -1,5 +1,7 @@
 ---
 import Arrow from "@/assets/images/handwritten-arrow.svg";
+import WhatsappIcon from "@/assets/icons/whatsapp.svg";
+import PhoneIcon from "@/assets/icons/call.svg";
 const { title, description, subtitle, classes } = Astro.props;
 ---
 
@@ -32,13 +34,33 @@ const { title, description, subtitle, classes } = Astro.props;
             </div>
         </div>
 
-        <div class="container relative z-10 mt-16 mb-4 flex justify-center w-fit">
+        <div
+            class="container mx-auto flex flex-col md:flex-row justify-center items-center md:items-stretch gap-4 my-16"
+        >
             <a
                 href="/contacto"
-                class="px-12 py-8 w-full font-semibold uppercase hover:border-gray-300 rounded-full focus:ring focus:ring-gray-50 bg-black text-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
+                class="w-fit px-12 py-8 text-center text-balance font-semibold uppercase hover:border-gray-300 rounded-full focus:ring focus:ring-gray-50 bg-black text-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
             >
                 Pide más información sobre nuestra pegada de carteles
             </a>
+
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <a
+                    href="https://wa.me/34609151772"
+                    class="inline-flex min-w-24 min-h-24 bg-black px-8 py-4 rounded-full uppercase *:[svg]:w-8 **:[path]:fill-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
+                    aria-label="Escribir por Whatsapp"
+                    target="_blank"
+                >
+                    <WhatsappIcon />
+                </a>
+                <a
+                    href="tel:+34913052922"
+                    class="inline-flex min-w-24 min-h-24 bg-black px-8 py-4 rounded-full uppercase *:[svg]:w-8 **:[path]:fill-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
+                    aria-label="Llamar por teléfono"
+                >
+                    <PhoneIcon />
+                </a>
+            </div>
         </div>
     </div>
 </section>
