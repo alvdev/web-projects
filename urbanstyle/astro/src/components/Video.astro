@@ -1,0 +1,32 @@
+---
+import { YouTube } from "astro-embed";
+
+const { videoId, spanLine1, spanLine2 } = Astro.props;
+---
+
+<section class="container mt-28">
+    <div class="grid lg:grid-cols-1 gap-16">
+        <div class="relative">
+            <div
+                class="relative [border-image:url(@assets/images/brush-frame.svg)_30] border-28 [border_image_slice:30_fill]"
+            >
+                <YouTube
+                    id={`https://youtu.be/${videoId}`}
+                    params={`rel=0&loop=1&playlist=${videoId}`}
+                    posterQuality="high"
+                    class="ring-8 ring-black rounded-lg max-w-full!"
+                />
+            </div>
+            <div
+                class="absolute right-8 bottom-2 text-sm w-1/2 text-right grid justify-end gap-0.5 [&>span]:drop-shadow-[0px_0px_5px_rgba(0,0,0,1)]"
+            >
+                <span class="ml-auto bg-black/70 text-white px-4 py-1 inline-block w-fit">
+                    {spanLine1}
+                </span>
+                <span class="ml-auto bg-black/90 text-white px-4 py-1 inline-block w-fit">
+                    {spanLine2}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
