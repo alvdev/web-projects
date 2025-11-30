@@ -33,11 +33,32 @@ import EmailIcon from "@/assets/icons/email.svg";
                 <div class="grid md:grid-cols-2 gap-8 md:gap-16">
                     <div>
                         <h3 class="text-3xl font-semibold">Madrid</h3>
-                        <address class="mt-8 flex flex-col gap-4">
+                        <address
+                            class="mt-8 flex flex-col gap-4 **:font-normal **:[a]:text-black/80 **:[a]:hover:text-red-800"
+                        >
                             <div class="flex gap-2">
-                                <LocationIcon /> Avenida Manzanares 202-204 <br /> 28026 Madrid, España
-                            </div><div class="flex gap-2">
-                                <LandPhoneIcon /> +34 91 305 29 22 <br /> +34 609 15 17 72
+                                <LocationIcon />
+                                <a
+                                    href="https://maps.app.goo.gl/DiryCTKNXY3yaZAs8"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="font-normal"
+                                >
+                                    Avenida Manzanares 202-204 <br /> 28026 Madrid, España
+                                </a>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <LandPhoneIcon />
+                                <div>
+                                    <a href="tel:+34913052922" target="_blank" rel="noopener noreferrer">
+                                        +34 91 305 29 22
+                                    </a>
+                                    <br />
+                                    <a href="tel:+34609151772" target="_blank" rel="noopener noreferrer">
+                                        +34 609 15 17 72
+                                    </a>
+                                </div>
                             </div>
                         </address>
                     </div>
@@ -54,11 +75,31 @@ import EmailIcon from "@/assets/icons/email.svg";
                 <div class="grid md:grid-cols-2 gap-8 md:gap-16">
                     <div>
                         <h3 class="text-3xl font-semibold">Barcelona</h3>
-                        <address class="mt-8 flex flex-col gap-4">
+                        <address
+                            class="mt-8 flex flex-col gap-4 **:font-normal **:[a]:text-black/80 **:[a]:hover:text-red-800"
+                        >
                             <div class="flex gap-2">
-                                <LocationIcon /> Calle Tamarit 104 local <br /> 08015 Barcelona, España
-                            </div><div class="flex gap-2">
-                                <LandPhoneIcon /> +34 91 305 29 22 <br /> +34 609 15 17 72
+                                <LocationIcon />
+                                <a
+                                    href="https://maps.app.goo.gl/d36TJ5VQiKP6Ebf3A"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Calle Tamarit 104 local<br />08015 Barcelona, España
+                                </a>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <LandPhoneIcon />
+                                <div>
+                                    <a href="tel:+34913052922" target="_blank" rel="noopener noreferrer">
+                                        +34 91 305 29 22
+                                    </a>
+                                    <br />
+                                    <a href="tel:+34609151772" target="_blank" rel="noopener noreferrer">
+                                        +34 609 15 17 72
+                                    </a>
+                                </div>
                             </div>
                         </address>
                     </div>
