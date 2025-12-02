@@ -1,0 +1,19 @@
+{
+  "name": "magoscott",
+  "private": true,
+    "scripts": {
+      "dev": "vite --host localhost --port 7153 & composer start",
+      "build": "vite build",
+      "preview": "vite preview"
+    },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.17",
+    "tailwindcss": "^4.1.17"
+  }
+}
