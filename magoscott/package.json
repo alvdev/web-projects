@@ -1,11 +1,11 @@
 {
   "name": "magoscott",
   "private": true,
-    "scripts": {
-      "dev": "vite --host localhost --port 7153 & composer start",
-      "build": "vite build",
-      "preview": "vite preview"
-    },
+  "scripts": {
+    "dev": "vite --host localhost --port 7153 & composer start",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
