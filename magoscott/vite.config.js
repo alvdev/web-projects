@@ -34,8 +34,8 @@ export default ({ mode }) => ({
       // everything inside the content folder will be watched and a full reload
       // triggered. All paths are relative to Vite's root folder.
       watch: [
-        '../site/(templates|snippets|controllers|models|layouts)/**/*.php',
-        '../content/**/*',
+        './site/(templates|snippets|controllers|models|layouts)/**/*.php',
+        './content/**/*',
       ],
       // or disable watching
       // watch: false,
