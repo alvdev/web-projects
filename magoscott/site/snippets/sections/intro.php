@@ -1,4 +1,4 @@
-<section id="intro" class="<?= $class ?>">
+<section id="intro" class="bg-linear-to-bl from-red-600 to-indigo-950 to-50% <?= $class ?>">
     <div class="container">
         <h2 class="text-6xl">¿Quién es el Mago Scott?</h2>
 
