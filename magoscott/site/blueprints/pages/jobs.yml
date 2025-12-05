@@ -1,0 +1,28 @@
+Title: Trabajos
+
+sections:
+  fields:
+    type: fields
+    fields:
+      year:
+        type: date
+        label: Año
+        help: En la web sólo se mostrará el año.
+        display: MMM/YYYY
+        step: year
+        required: true
+      title:
+        type: text
+        label: Título 
+        help: El título del trabajo realizado.
+        required: true
+      description:
+        type: textarea
+        buttons: false
+        label: Descripción
+        required: true
+      video:
+        type: entries
+        label: Videos
+        field:
+          type: url
