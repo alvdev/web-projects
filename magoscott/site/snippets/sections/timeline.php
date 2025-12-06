@@ -1,0 +1,162 @@
+<div class="container">
+    <div class="relative lg:ml-[max(calc(9.5rem+1px),calc(100%-80rem))]">
+        <div
+            class="hidden absolute top-3 bottom-0 right-full mr-7 md:mr-[3.25rem] w-px bg-zinc-200 lg:block"></div>
+        <div class="mt-12 space-y-8">
+            <article class="relative group">
+                <div class="relative hidden mr-10 lg:flex md:mx-auto">
+                    <div class="flex items-center justify-center w-3 h-full">
+                        <div class="h-full w-[0.05rem] bg-zinc-200 pointer-events-none"></div>
+                    </div>
+                    <div
+                        class="absolute right-full mr-6 top-2 text-blue-500 md:mr-12 w-[calc(0.5rem+1px)] h-[calc(0.5rem+1px)] overflow-visible sm:block">
+                        <div
+                            class="rounded-full size-full outline-2 outline-zinc-100 bg-zinc-100"></div>
+                    </div>
+                </div>
+                <div
+                    class="relative flex flex-col p-4 shadow bg-linear-180 outline outline-zinc-100 from-zinc-50 to-zinc-100 rounded-xl">
+                    <h3
+                        class="text-lg md:text-xl mt-4 font-semibold tracking-tight lg:mt-0 text-zinc-900">
+                        Introducing Version 3.0.0
+                    </h3>
+                    <p class="text-base mt-2 text-zinc-500 lg:text-balance">
+                        Kickstart a new era with a refreshed interface, AI-driven tools, and
+                        seamless app integrations to boost your productivity.
+                    </p>
+                    <div
+                        class="lg:absolute order-first lg:top-0 tracking-tight text-sm text-zinc-500 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
+                        <p
+                            class="text-xs relative font-semibold uppercase tracking-wide text-zinc-500">
+                            <span class="sr-only">Release date</span>
+                            <time datetime="2025-05-21">May 21</time>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <article class="relative group">
+                <div class="relative hidden mr-10 lg:flex md:mx-auto">
+                    <div class="flex items-center justify-center w-3 h-full">
+                        <div class="h-full w-[0.05rem] bg-zinc-200 pointer-events-none"></div>
+                    </div>
+                    <div
+                        class="absolute right-full mr-6 top-2 text-blue-500 md:mr-12 w-[calc(0.5rem+1px)] h-[calc(0.5rem+1px)] overflow-visible sm:block">
+                        <div
+                            class="rounded-full size-full outline-2 outline-zinc-100 bg-zinc-100"></div>
+                    </div>
+                </div>
+                <div
+                    class="relative flex flex-col p-4 shadow bg-linear-180 outline outline-zinc-100 from-zinc-50 to-zinc-100 rounded-xl">
+                    <h3
+                        class="text-lg md:text-xl mt-4 font-semibold tracking-tight lg:mt-0 text-zinc-900">
+                        Update 3.1.0: Stellar Performance
+                    </h3>
+                    <p class="text-base mt-2 text-zinc-500 lg:text-balance">
+                        Enhance your workflow with faster processing, deeper customization,
+                        and vibrant new visuals for an out-of-this-world experience.
+                    </p>
+                    <div
+                        class="lg:absolute lg:left-0 order-first lg:top-0 tracking-tight text-sm text-zinc-500 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
+                        <p
+                            class="text-xs relative font-semibold uppercase tracking-wide text-zinc-500">
+                            <span class="sr-only">Release date</span>
+                            <time datetime="2025-06-15">Jun 15</time>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <article class="relative group">
+                <div class="relative hidden mr-10 lg:flex md:mx-auto">
+                    <div class="flex items-center justify-center w-3 h-full">
+                        <div class="h-full w-[0.05rem] bg-zinc-200 pointer-events-none"></div>
+                    </div>
+                    <div
+                        class="absolute right-full mr-6 top-2 text-blue-500 md:mr-12 w-[calc(0.5rem+1px)] h-[calc(0.5rem+1px)] overflow-visible sm:block">
+                        <div
+                            class="rounded-full size-full outline-2 outline-zinc-100 bg-zinc-100"></div>
+                    </div>
+                </div>
+                <div
+                    class="relative flex flex-col p-4 shadow bg-linear-180 outline outline-zinc-100 from-zinc-50 to-zinc-100 rounded-xl">
+                    <h3
+                        class="text-lg md:text-xl mt-4 font-semibold tracking-tight lg:mt-0 text-zinc-900">
+                        Release 3.2.0: AI Onboarding
+                    </h3>
+                    <p class="text-base mt-2 text-zinc-500 lg:text-balance">
+                        Streamline AI setup with intuitive wizards and quick-start templates
+                        to get you up and running fast.
+                    </p>
+                    <div
+                        class="lg:absolute lg:left-0 order-first lg:top-0 tracking-tight text-sm text-zinc-500 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
+                        <p
+                            class="text-xs relative font-semibold uppercase tracking-wide text-zinc-500">
+                            <span class="sr-only">Release date</span>
+                            <time datetime="2025-07-30">Jul 30</time>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <article class="relative group">
+                <div class="relative hidden mr-10 lg:flex md:mx-auto">
+                    <div class="flex items-center justify-center w-3 h-full">
+                        <div class="h-full w-[0.05rem] bg-zinc-200 pointer-events-none"></div>
+                    </div>
+                    <div
+                        class="absolute right-full mr-6 top-2 text-blue-500 md:mr-12 w-[calc(0.5rem+1px)] h-[calc(0.5rem+1px)] overflow-visible sm:block">
+                        <div
+                            class="rounded-full size-full outline-2 outline-zinc-100 bg-zinc-100"></div>
+                    </div>
+                </div>
+                <div
+                    class="relative flex flex-col p-4 shadow bg-linear-180 outline outline-zinc-100 from-zinc-50 to-zinc-100 rounded-xl">
+                    <h3
+                        class="text-lg md:text-xl mt-4 font-semibold tracking-tight lg:mt-0 text-zinc-900">
+                        Introducing Version 4.0: Next-Gen Insights
+                    </h3>
+                    <p class="text-base mt-2 text-zinc-500 lg:text-balance">
+                        Unlock real-time analytics and predictive insights with our most
+                        powerful update yet.
+                    </p>
+                    <div
+                        class="lg:absolute lg:left-0 order-first lg:top-0 tracking-tight text-sm text-zinc-500 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
+                        <p
+                            class="text-xs relative font-semibold uppercase tracking-wide text-zinc-500">
+                            <span class="sr-only">Release date</span>
+                            <time datetime="2025-09-10">Sep 10</time>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <article class="relative group">
+                <div class="relative hidden mr-10 lg:flex md:mx-auto">
+                    <div class="flex items-center justify-center w-3 h-full">
+                        <div class="h-full w-[0.05rem] bg-zinc-200 pointer-events-none"></div>
+                    </div>
+                    <div
+                        class="absolute right-full mr-6 top-2 text-blue-500 md:mr-12 w-[calc(0.5rem+1px)] h-[calc(0.5rem+1px)] overflow-visible sm:block">
+                        <div
+                            class="rounded-full size-full outline-2 outline-zinc-100 bg-zinc-100"></div>
+                    </div>
+                </div>
+                <div
+                    class="relative flex flex-col p-4 shadow bg-linear-180 outline outline-zinc-100 from-zinc-50 to-zinc-100 rounded-xl">
+                    <h3
+                        class="text-lg md:text-xl mt-4 font-semibold tracking-tight lg:mt-0 text-zinc-900">
+                        Patch 4.1: Performance Boost
+                    </h3>
+                    <p class="text-base mt-2 text-zinc-500 lg:text-balance">
+                        Enhancements for speed, stability, and cross-platform compatibility.
+                    </p>
+                    <div
+                        class="lg:absolute lg:left-0 order-first lg:top-0 tracking-tight text-sm text-zinc-500 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
+                        <p
+                            class="text-xs relative font-semibold uppercase tracking-wide text-zinc-500">
+                            <span class="sr-only">Release date</span>
+                            <time datetime="2025-10-05">Oct 05</time>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
