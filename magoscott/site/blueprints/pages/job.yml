@@ -1,0 +1,35 @@
+title: Trabajo Blueprint
+create:
+  title:
+    label: Título del trabajo
+
+sections:
+  fields:
+    type: fields
+    fields:
+      title:
+        type: text
+        label: Título 
+        help: El título del trabajo realizado.
+        required: true
+      yearFrom:
+        type: number
+        label: Año de inicio
+        width: 1/2
+        min: 1900
+        required: true
+      yearTo:
+        type: number
+        label: Año de finalización 
+        width: 1/2
+        min: 1900
+      description:
+        type: textarea
+        buttons: false
+        label: Descripción
+        required: true
+      videos:
+        type: entries
+        label: Videos
+        field:
+          type: url 
