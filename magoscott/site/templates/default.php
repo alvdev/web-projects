@@ -1,4 +1,5 @@
-<?php snippet('header') ?>
+
+<?php snippet('base') ?>
 
 <main>
     <h1>
@@ -8,4 +9,4 @@
     <?= $page->text()->kirbytext() ?>
 </main>
 
-<?php snippet('footer') ?>
+<?php endslot() ?>
