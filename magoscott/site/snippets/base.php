@@ -3,18 +3,15 @@
 
 <?php snippet('head') ?>
 
-<body class="debug-screens font-mono">
-    <div class="flex h-full">
-        <?php snippet('navbar') ?>
-        <?php snippet('navbar2') ?>
+<body class="debug-screens font-sans bg-indigo-950 text-white">
+    <div class="h-full flex flex-col min-h-screen">
+        <?php snippet('header') ?>
 
-        <div class="flex-1 flex flex-col overflow-y-scroll">
-            <main class="flex-1">
-                <?= $slot ?>
-            </main>
+        <main>
+            <?= $slot ?>
+        </main>
 
-            <?php snippet('footer') ?>
-        </div>
+        <?php snippet('footer') ?>
     </div>
 </body>
 
