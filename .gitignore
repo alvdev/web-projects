@@ -24,6 +24,7 @@ test/
 .gitkeep
 _*
 *.db
+.env
 
 ## Grav
 **/system/
