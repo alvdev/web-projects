@@ -24,7 +24,9 @@
     "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
     "getkirby/cms": "^5.0",
     "tobimori/kirby-dreamform": "^2.1",
-    "arnoson/kirby-vite": "^5.6"
+    "arnoson/kirby-vite": "^5.6",
+    "mauricerenck/pexelsimagefield": "^2.2",
+    "bnomei/kirby3-dotenv": "^5.0"
   },
   "config": {
     "allow-plugins": {
