@@ -1,5 +1,5 @@
-<footer class="pt-48 bg-linear-to-b from-indigo-950 from-10% to-red-500 to-50% text-white">
-    <div class="container pb-32 flex justify-between items-center gap-16 *:w-1/2">
+<footer class="pt-48 bg-linear-to-b from-indigo-950 from-10% to-violet-600 to-50% text-white">
+    <div class="container pb-32 flex justify-between items-center gap-32 *:w-1/2">
         <div class="flex flex-col items-center gap-16">
             <h2 class="text-5xl font-bold text-shadow-xs text-shadow-black">Sigue a tu mago favorito</h2>
 
@@ -32,7 +32,7 @@
 
         <div class="w-2/5">
             <h2 class="text-5xl font-bold text-balance text-shadow-sm text-shadow-black">Una newsletter mágica</h2>
-            <p class="mt-8 text-2xl text-shadow-2xs text-shadow-black">Mantente al corriente de todos los espectáculos, sorteos y entradas gratis para asistir en directo a los shows del Mago Scott.</p>
+            <p class="mt-8 text-2xl text-shadow-2xs text-shadow-black">Mantente al tanto de todos los espectáculos, sorteos y entradas gratis para asistir en directo a los shows del Mago Scott.</p>
             <form action="" class="mt-16 flex">
                 <div class="relative w-full flex items-center">
                     <input class="w-full mr-8 px-8 py-6 rounded-full bg-white/50 text-2xl text-indigo-900 font-semibold uppercase focus:outline-none focus:ring-2 focus:ring-indigo-900 placeholder:text-indigo-900/70 focus:placeholder:opacity-0 transition-all" type="email" placeholder="Tu correo electrónico" />
