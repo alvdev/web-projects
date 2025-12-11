@@ -43,7 +43,7 @@ $sizes = "
                     <?= $post->summary()->listed()->excerpt(200) ?? $post->text()->excerpt(200) ?>
                 </p>
 
-                <a class="ml-auto font-semibold text-red-400 hover:text-red-500">Seguir leyendo →</a>
+                <a href="<?= $post->url() ?>" class="ml-auto font-semibold text-red-400 hover:text-red-500">Seguir leyendo →</a>
             </article>
         <?php endforeach ?>
     </div>
