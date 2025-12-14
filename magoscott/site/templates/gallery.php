@@ -15,9 +15,11 @@ $sizes = "
 <div x-data="{ selectedTab: 'pictures' }">
     <section id="intro" class="relative bg-linear-to-bl from-red-600/30 to-indigo-950/30 to-50% pt-36">
         <div class="container relative z-50 flex items-center gap-16 justify-center text-3xl">
-            <button x-on:click="selectedTab = 'pictures'" x-bind:class="selectedTab === 'pictures' ? 'bg-white text-black' : ''" class="min-w-1/3 inline-block font-semibold text-shadow-2xs text-shadow-black mt-8 uppercase border-2 hover:bg-white hover:text-indigo-950 rounded-4xl px-8 py-3">Imágenes</button>
+            <button x-on:click="selectedTab = 'pictures'" x-bind:class="selectedTab === 'pictures' ? 'bg-white text-black' : ''" class="w-full min-w-1/4 inline-block font-semibold text-shadow-2xs text-shadow-black mt-8 uppercase border-2 hover:bg-white hover:text-indigo-950 rounded-4xl px-8 py-3">Fotos</button>
 
-            <button x-on:click="selectedTab = 'videos'" x-bind:class="selectedTab === 'videos' ? 'bg-white text-black' : ''" class="min-w-1/3 inline-block font-semibold text-shadow-2xs text-shadow-black mt-8 uppercase border-2 hover:bg-white hover:text-indigo-950 rounded-4xl px-8 py-3">Videos</button>
+            <button x-on:click="selectedTab = 'videos'" x-bind:class="selectedTab === 'videos' ? 'bg-white text-black' : ''" class="w-full min-w-1/4 inline-block font-semibold text-shadow-2xs text-shadow-black mt-8 uppercase border-2 hover:bg-white hover:text-indigo-950 rounded-4xl px-8 py-3">Videos</button>
+
+            <button x-on:click="selectedTab = 'book'" x-bind:class="selectedTab === 'book' ? 'bg-white text-black' : ''" class="w-full min-w-1/4 inline-block font-semibold text-shadow-2xs text-shadow-black mt-8 uppercase border-2 hover:bg-white hover:text-indigo-950 rounded-4xl px-8 py-3">Book</button>
         </div>
     </section>
 
@@ -131,6 +133,24 @@ $sizes = "
                 </div>
             </div>
         </template>
+    </div>
+
+    <!-- Book -->
+    <div x-show="selectedTab === 'book'" x-transition x-cloak class="container mt-36 grid grid-cols-4 gap-8">
+        <?php foreach ($page->children()->find('book')->images() as $image): ?>
+            <div class="relative flex gap-8 *:w-full *:h-auto *:rounded-xl *:ring-2 *:ring-indigo-900/50 *:aspect-2/3 *:object-cover">
+                <img src="<?= $image->url() ?>" alt="<?= $image->alt() ?>">
+
+                <div class="absolute">
+                    <a href="<?= $image->url() ?>" download="<?= $image->title() ?>" class="absolute bottom-4 left-4 right-4 flex gap-2 justify-center items-center py-4 text-2xl uppercase bg-linear-to-t from-black/60 to-violet-600/60 rounded-xl hover:bg-violet-600/60 transition-all">
+                        Descargar
+                        <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e3e3e3">
+                            <path d="m480-320 160-160-56-56-64 64v-168h-80v168l-64-64-56 56 160 160Zm0 240q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        <?php endforeach ?>
     </div>
 </div>
 
