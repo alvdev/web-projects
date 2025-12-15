@@ -2,7 +2,7 @@ title: This is the gallery blueprint
 
 tabs:
   pictures:
-    label: Imágenes
+    label: Fotos/Videos
     icon: images
     columns:
       left:
@@ -18,6 +18,7 @@ tabs:
               cover: true
               ratio: 16/9
               back: black
+
       right:
         width: 2/3
         fields:
@@ -31,8 +32,9 @@ tabs:
             label:
               en: Header description
               es: Descripción de cabecera
-      bottom:
-        width: 1/1
+
+      bottomLeft:
+        width: 2/3
         sections:
           gallery:
             label: This is the label
@@ -42,7 +44,43 @@ tabs:
             size: large
             text: "{{ file.name }}"
             info: "{{ file.dimensions }} - {{ file.nicesize }}"
+            limit: 15
             image:
               cover: true
               back: black
               ratio: 16/9
+
+      bottomRight:
+        width: 1/3
+        fields:
+          videoList:
+            label: Videos
+            type: structure
+            fields:
+              video:
+                type: embed
+                icons: true
+                placeholder: URL del video
+                required: true
+              text:
+                type: text
+ 
+  book:
+    label:
+      en: Photo book
+      es: Foto book
+    icon: download
+    sections:
+      photoList:
+        label: This is the label
+        type: files
+        parent: page.find("book")
+        layout: cards
+        size: large
+        text: "{{ file.name }}"
+        info: "{{ file.dimensions }} - {{ file.nicesize }}"
+        limit: 15
+        image:
+          cover: true
+          back: black
+          ratio: 2/3
