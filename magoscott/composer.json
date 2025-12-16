@@ -26,7 +26,8 @@
     "tobimori/kirby-dreamform": "^2.1",
     "arnoson/kirby-vite": "^5.6",
     "mauricerenck/pexelsimagefield": "^2.2",
-    "bnomei/kirby3-dotenv": "^5.0"
+    "bnomei/kirby3-dotenv": "^5.0",
+    "sylvainjule/embed": "^1.2"
   },
   "config": {
     "allow-plugins": {
