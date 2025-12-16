@@ -77,7 +77,7 @@ return [
             'tobimori.dreamform' => [
                 'guards' => [
                     'available' => ['csrf', 'honeypot', 'turnstile', /* 'ratelimit' */],
-                    'honeypot.availableFields' => ['website', 'email', 'name', 'url', 'birthdate'],
+                    'honeypot.availableFields' => ['website', 'url', 'birthdate'],
                 ],
             ],
             'routes' => [
