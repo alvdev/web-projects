@@ -8,7 +8,7 @@
         </h1>
 
         <p>:( Esta página no se ha encontrado o se ha movido de localización.</p>
-        <p>Puedes ir a la <a href="<?= $site->homePage() ?>" class="text-red-500 hover:text-red-400">portada</a> o visitar alguna página del menú de navegación</p>
+        <p>Puedes ir a la <a href="<?= $kirby->url() ?>" class="text-red-500 hover:text-red-400">portada</a> o visitar alguna página del menú de navegación</p>
 
         <?= $page->text()->kirbytext() ?>
     </div>
