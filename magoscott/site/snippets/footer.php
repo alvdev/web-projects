@@ -1,3 +1,6 @@
+<!-- Set user var for profile links -->
+<?php $user = $kirby->users()->findBy('username', 'Scott') ?>
+
 <footer class="pt-48 bg-linear-to-b from-indigo-950 from-10% to-violet-600 to-50% text-white">
     <div class="container pb-32 flex justify-between items-center gap-32 *:w-1/2">
         <div class="flex flex-col items-center gap-16">
@@ -6,7 +9,7 @@
             <ul class="flex gap-16 **:[svg]:w-16 **:[svg]:h-16 **:[svg]:fill-indigo-950 **:[path]:fill-indigo-950">
                 <?php if ($file = 'assets/svgs/instagram.svg'): ?>
                     <li>
-                        <a href="#">
+                        <a href="<?= $user?->instagram() ?? '#' ?>" target="_blank">
                             <?= svg($file) ?>
                         </a>
                     </li>
@@ -14,7 +17,7 @@
 
                 <?php if ($file = 'assets/svgs/facebook.svg'): ?>
                     <li>
-                        <a href="#">
+                        <a href="<?= $user?->facebook() ?? '#' ?>" target="_blank">
                             <?= svg($file) ?>
                         </a>
                     </li>
@@ -22,7 +25,7 @@
 
                 <?php if ($file = 'assets/svgs/x.svg'): ?>
                     <li>
-                        <a href="#">
+                        <a href="<?= $user?->twitter() ?? '#' ?>" target="_blank">
                             <?= svg($file) ?>
                         </a>
                     </li>
