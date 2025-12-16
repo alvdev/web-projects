@@ -7,12 +7,14 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@alpinejs/focus": "^3.15.2",
     "@imacrayon/alpine-ajax": "^0.12.6",
     "@tailwindcss/vite": "^4.1.17",
     "alpinejs": "^3.15.2",

@@ -1,8 +1,11 @@
 import Alpine from 'alpinejs';
 import ajax from '@imacrayon/alpine-ajax';
+import focus from '@alpinejs/focus'
+ 
 
 window.Alpine = Alpine;
 Alpine.plugin(ajax);
+Alpine.plugin(focus)
 
 // Load more articles
 document.addEventListener('alpine:init', () => {
