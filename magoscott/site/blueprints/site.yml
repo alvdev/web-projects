@@ -1,5 +1,134 @@
-title: Site
+title: Portada
+columns:
+  topTop:
+    width: 1/1
+    fields:
+      formHeadline:
+        label: Formulario de contacto
+        type: headline
+  top:
+    width: 3/4
+    fields:
+      formText:
+        label: Texto
+        type: textarea
+        size: medium
+  topRight:
+    width: 1/4
+    fields:
+      formImage:
+        label: Imagen
+        type: files
+        layout: cards
+        size: small
+        text: "{{ file.name }}"
+        info: "{{ file.dimensions }} - {{ file.nicesize }}"
+        max: 1
+        multiple: false
+        search: false
+        image:
+          cover: true
+          back: black
+        uploads:
+          template: image
 
-sections:
-  pages:
-    type: pages
+  topTop2:
+    width: 1/1
+    fields:
+      introHeadline:
+        label: Introducción
+        type: headline
+  top2:
+    width: 3/4
+    fields:
+      intro:
+        type: textarea
+        size: small
+  topRight2:
+    width: 1/4
+    fields:
+      introButton1Object:
+        label: Botón 1
+        type: object
+        fields:
+          introButton1Text:
+            label: Texto
+            type: text
+          introButton1Link:
+            label: Url
+            type: link
+            width: 1/4
+            options:
+              - url 
+              - page
+      introButton2Object:
+        label: Botón 2
+        type: object
+        fields:
+          introButton2Text:
+            label: Texto
+            type: text
+          introButton2Link:
+            label: Url
+            type: link
+            width: 1/4
+            options:
+              - url 
+              - page
+
+  middle:
+    width: 1/1
+    fields:
+      showsHeadline:
+        label: Últimos espectáculos
+        type: headline
+      shows:
+        label: Espectáculo
+        type: structure
+        fields:
+          showCover:
+            label: Portada
+            type: files
+            max: 1
+            uploads:
+              templage: image
+          showTitle:
+            label: Título
+            type: text
+          showDesc:
+            label: Descripción
+            type: textarea
+          showVideo:
+            label: Video
+            type: embed
+            icons: true
+
+  bottomTop:
+    width: 1/1
+    fields:
+      tourHeadline:
+        label: Gira
+        type: headline
+  bottomLeft:
+    width: 1/2
+    fields:
+      tourVideo:
+        label: Video
+        type: embed
+  bottomRight:
+    width: 1/2
+    fields:
+      tourTitle:
+        label: Título
+        type: text
+      tourDesc:
+        label: Descripción
+        type: textarea
+        size: medium
+      tourButton:
+        label: Botón
+        type: link
+        options:
+          - url
+          - page 
+    
