@@ -1,18 +1,25 @@
 <section id="intro" class="bg-linear-to-bl from-red-600 to-indigo-950 to-50% <?= $class ?>">
     <div class="container">
-        <h2 class="text-6xl">¿Quién es el Mago Scott?</h2>
+        <!-- <?= dump($site) ?> -->
+        <h2 class="text-6xl"><?= $site->introTitle() ?></h2>
 
-        <div class="mt-8 flex items-center gap-32">
-            <div class="mt-8 *:text-3xl *:not-first:mt-8 **:[span]:text-violet-300 **:[span]:font-semibold">
-                <p>El Mago Scott es un <span>artista polifacético</span>, más conocido como el Mago de tele.</p>
-                <p>Además de sus espectáculos de magia y humor, también ha realizado trabajos como <span>presentador</span> en eventos, <span>actor de doblaje</span> para anuncios, <span>técnico de efectos especiales</span> para teatros, musicales y conciertos.</p>
-                <p>También ha sido galardonado con el <span>premio al mejor Showman internacional</span> en el festival de San Sebastián en 2007.</p>
-                <p>Actualmente, el Mago Scott colabora con diferentes programas de Telecinco.</p>
+        <div class="mt-8 flex items-center gap-28">
+            <div class="w-2/3 mt-8 *:text-3xl *:not-first:mt-8 **:[strong]:text-violet-300 **:[strong]:font-semibold text-pretty">
+                <?= $site->introDesc()->kt() ?>
             </div>
 
-            <div class="flex flex-col gap-8 text-2xl *:border *:whitespace-nowrap *:text-center *:rounded-full *:px-8 *:pt-4 *:pb-4.75">
-                <a href="#">Contratación</a>
-                <a href="#">Comprar entradas</a>
+            <div class="sticky top-36 w-1/3 flex flex-col gap-8 text-2xl *:border *:whitespace-nowrap *:text-center *:rounded-full *:px-8 *:pt-4 *:pb-4.75">
+                <?php if ($button = $site->introButton1()->toObject()): ?>
+                    <a href="<?= $button->link()->toUrl() ?>">
+                        <?= $button->anchor() ?>
+                    </a>
+                <?php endif ?>
+
+                <?php if ($button = $site->introButton2()->toObject()): ?>
+                    <a href="<?= $button->link()->toUrl() ?? 'https://entradas.com' ?>" target="_blank">
+                        <?= $button->anchor() ?? 'Comprar entradas' ?>
+                    </a>
+                <?php endif ?>
             </div>
         </div>
     </div>
