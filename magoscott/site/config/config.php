@@ -21,10 +21,17 @@ return [
                 include $kirby->root('templates') . '/fatal.php';
             },
             'date.handler' => 'intl',
-            'author.seo-audit' => [
-                'option' => 'alv dev'
+            'email' => [
+                'transport' => [
+                    'type' => 'smtp',
+                    'host' => env('EMAIL_HOST'),
+                    'port' => 465,
+                    'security' => true,
+                    'auth' => true,
+                    'username' => env('EMAIL_USERNAME'),
+                    'password' => env('EMAIL_PASSWORD'),
+                ]
             ],
-            'languages' => true,
             'panel' => [
                 'favicon' => 'assets/favicon.png',
                 'menu' => [
@@ -65,7 +72,6 @@ return [
                             return Str::contains($path, 'pages/forms');
                         }
                     ],
-                    'languages',
                     'system',
                 ]
             ],
