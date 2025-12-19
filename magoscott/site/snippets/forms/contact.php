@@ -10,7 +10,7 @@
         'form' => $site->find('forms/contact'),
         'attr' => [
             'form' => [
-                'class' => 'mt-16',
+                'class' => 'mt-12 md:mt-16',
                 'x-init',
                 'x-target' => 'contact-message'
             ],
@@ -18,23 +18,23 @@
                 'class' => ''
             ],
             'column' => [
-                'class' => 'group flex flex-col gap-8 has-[textarea]:relative has-[textarea]:mt-8 has-[textarea]:flex has-[textarea]:flex-row has-[textarea]:items-center'
+                'class' => 'group flex flex-col gap-8 has-[textarea]:relative has-[textarea]:mt-8 has-[textarea]:block md:has-[textarea]:flex md:has-[textarea]:flex-row md:has-[textarea]:items-center'
             ],
             'field' => [
-                'class' => 'relative flex flex-col *:[span]:absolute *:[span]:left-6 has-[textarea]:border-4 has-[textarea]:border-blue-500 has-[button]:absolute has-[button]:right-0'
+                'class' => 'relative flex flex-col *:[span]:absolute *:[span]:left-6 has-[textarea]:border-4 has-[textarea]:border-blue-500 items-center has-[button]:mt-8 md:has-[button]:mt-0 md:has-[button]:absolute md:has-[button]:right-0'
             ],
             'label' => [
                 'class' => 'hidden'
             ],
             'input' => [
-                'class' => 'w-full text-2xl text-black bg-violet-300 rounded-4xl px-6 pt-4 pb-5.5 resize-none focus:ring-4 focus:ring-violet-900 outline-hidden transition-all placeholder:font-light group-data-has-error:placeholder:text-rose-400 group-data-has-error:mb-2 placeholder-shown:group-data-has-error:border-rose-400 after:content-[xxx]'
+                'class' => 'w-full text-2xl text-black font-semibold bg-violet-300/80 focus:bg-violet-300/100 rounded-4xl px-6 pt-4 pb-5.5 resize-none focus:ring-4 focus:ring-violet-900 outline-hidden transition-all placeholder:text-black/80 placeholder:font-normal group-data-has-error:placeholder:text-rose-400 group-data-has-error:mb-2 placeholder-shown:group-data-has-error:border-rose-400 after:content-[xxx]'
             ],
             'textarea' => [
                 'row' => [
                     'class' => '',
                 ],
                 'field' => [
-                    'class' => 'w-full flex flex-col mr-16 *:[textarea]:pr-28 *:[textarea]:h-32 *:[span]:absolute *:[span]:left-6',
+                    'class' => 'w-full flex flex-col md:mr-16 md:*:[textarea]:pr-28 *:[textarea]:h-32 *:[span]:absolute *:[span]:left-6',
                 ],
             ],
             'button' => [
