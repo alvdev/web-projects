@@ -5,7 +5,7 @@
 <?php snippet('sections/headers/jobs') ?>
 
 <main>
-    <?php snippet('sections/timeline', ['class' => 'pt-36']) ?>
+    <?php snippet('sections/timeline', ['class' => 'md:pt-28 lg:pt-36']) ?>
 </main>
 
 <?php endslot() ?>
