@@ -2,56 +2,79 @@
 <?php $user = $kirby->users()->findBy('username', 'Scott') ?>
 
 <footer class="pt-48 bg-linear-to-b from-indigo-950 from-10% to-violet-600 to-50% text-white">
-    <div class="container pb-32 flex justify-between items-center gap-32 *:w-1/2">
-        <div class="flex flex-col items-center gap-16">
-            <h2 class="text-5xl font-bold text-shadow-xs text-shadow-black">Sigue a tu mago favorito</h2>
+    <div class="container flex flex-col md:items-center justify-center gap-8">
+        <h2 class="text-4xl md:text-6xl font-semibold text-white md:whitespace-nowrap text-shadow-xs text-shadow-black">Sigue al Mago Scott</h2>
 
-            <ul class="flex gap-16 **:[svg]:w-16 **:[svg]:h-16 **:[svg]:fill-indigo-950 **:[path]:fill-indigo-950">
-                <?php if ($file = 'assets/svgs/instagram.svg'): ?>
-                    <li>
-                        <a href="<?= $user?->instagram() ?? '#' ?>" target="_blank">
-                            <?= svg($file) ?>
+        <ul class="flex md:justify-between gap-4 md:gap-8 **:[svg]:fill-fuchsia-400 **:[path]:fill-fuchsia-500">
+            <?php if ($file = 'assets/svgs/instagram.svg'): ?>
+                <li class="bg-indigo-950 p-6 md:p-8 rounded-full **:[svg]:w-10 **:[svg]:h-10 md:**:[svg]:w-12 md:**:[svg]:h-12">
+                    <a href="<?= $user?->instagram() ?? '#' ?>" target="_blank">
+                        <?= svg($file) ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <?php if ($file = 'assets/svgs/facebook.svg'): ?>
+                <li class="bg-indigo-950 p-6 md:p-8 rounded-full **:[svg]:w-10 **:[svg]:h-10 md:**:[svg]:w-12 md:**:[svg]:h-12">
+                    <a href="<?= $user?->facebook() ?? '#' ?>" target="_blank">
+                        <?= svg($file) ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <?php if ($file = 'assets/svgs/x.svg'): ?>
+                <li class="bg-indigo-950 p-6 md:p-8 rounded-full **:[svg]:w-10 **:[svg]:h-9 **:[svg]:mt-0.5 **:[svg]:ml-0.5">
+                    <a href="<?= $user?->twitter() ?? '#' ?>" target="_blank">
+                        <?= svg($file) ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+
+    <div class="container mt-16 pb-16 md:pb-32 flex flex-col md:flex-row justify-between gap-24 md:gap-28 md:*:w-1/2">
+        <div class="flex flex-col">
+            <h2 class="text-4xl md:text-6xl font-semibold text-white text-balance text-shadow-xs text-shadow-black">Últimos artículos</h2>
+            <ul class="mt-8 grid md:grid-cols-3 gap-x-8 gap-y-16">
+                <?php foreach ($site->find('blog')->children()->listed()->limit(3) as $article): ?>
+                    <li class="group relative after:absolute after:left-0 after:right-0 after:-bottom-8 md:after:-bottom-4 after:h-0.5 md:after:h-1 after:bg-fuchsia-500 after:rounded-full group-hover:after:bg-red-700">
+                        <a href="<?= $article->url() ?>" class="grid gap-2">
+                            <div class="grid grid-cols-2 md:grid-cols-1 items-center gap-4">
+                                <div class="*:[img]:border-2 *:[img]:border-violet-500 *:[img]:rounded-xl *:[img]:bg-violet-700 *:[img]:aspect-video *:[img]:object-cover group-hover:*:[img]:rounded-3xl group-hover:*:[img]:transition-all *:transition-all">
+                                    <?= $article->cover()->toFile()->crop(300, 200) ?>
+                                </div>
+                                <h3 class="relative text-2xl md:text-xl group-hover:text-fuchsia-300">
+                                    <?= $article->title() ?>
+                                </h3>
+                            </div>
+                            <div class="text-white/90 text-lg font-sans">
+                                <?= $article->summary()->excerpt(100) ?>
+                            </div>
                         </a>
                     </li>
-                <?php endif; ?>
-
-                <?php if ($file = 'assets/svgs/facebook.svg'): ?>
-                    <li>
-                        <a href="<?= $user?->facebook() ?? '#' ?>" target="_blank">
-                            <?= svg($file) ?>
-                        </a>
-                    </li>
-                <?php endif; ?>
-
-                <?php if ($file = 'assets/svgs/x.svg'): ?>
-                    <li>
-                        <a href="<?= $user?->twitter() ?? '#' ?>" target="_blank">
-                            <?= svg($file) ?>
-                        </a>
-                    </li>
-                <?php endif; ?>
+                <?php endforeach ?>
             </ul>
         </div>
 
-        <div class="w-2/5">
-            <h2 class="text-5xl font-bold text-balance text-shadow-sm text-shadow-black">Una newsletter mágica</h2>
-            <p class="mt-8 text-2xl text-shadow-2xs text-shadow-black">Mantente al tanto de todos los espectáculos, sorteos y entradas gratis para asistir en directo a los shows del Mago Scott.</p>
-            <form action="" class="mt-16 flex">
-                <div class="relative w-full flex items-center">
-                    <input class="w-full mr-8 px-8 py-6 rounded-full bg-white/50 text-2xl text-indigo-900 font-semibold uppercase focus:outline-none focus:ring-2 focus:ring-indigo-900 placeholder:text-indigo-900/70 focus:placeholder:opacity-0 transition-all" type="email" placeholder="Tu correo electrónico" />
+        <div>
+            <h2 class="text-4xl md:text-6xl font-semibold text-white text-balance text-shadow-xs text-shadow-black">Una newsletter mágica</h2>
+            <p class="mt-4 md:mt-8 text-xl md:text-3xl text-violet-100 text-shadow-black">Mantente al tanto de todos los espectáculos, sorteos y entradas gratis para asistir en directo a los shows del Mago Scott.</p>
+            <form action="#" class="mt-8 md:mt-16">
+                <div class="relative w-full flex flex-col md:flex-row gap-4 items-center">
+                    <input class="w-full md:mr-8 px-8 py-6 rounded-full bg-white/50 text-2xl text-indigo-900 font-semibold uppercase focus:outline-none focus:ring-2 focus:ring-indigo-900 placeholder:text-indigo-900/70 focus:placeholder:opacity-0 transition-all" type="email" placeholder="Tu correo electrónico" />
 
-                    <button class="absolute right-0 bg-indigo-900 text-white font-semibold uppercase p-4 rounded-full aspect-square hover:bg-indigo-800" type="submit">Suscribirse</button>
+                    <button class="w-min md:absolute md:right-0 bg-indigo-900 text-white font-semibold uppercase p-4 rounded-full aspect-square hover:bg-indigo-800" type="submit">Suscribirse</button>
                 </div>
             </form>
         </div>
     </div>
 
     <div class="bg-indigo-950 text-white">
-        <div class="container py-8 flex justify-between items-center text-sm">
-            <div>Copyright © <?= Date("Y") ?> Mago Scott</div>
+        <div class="container py-8 flex flex-col-reverse md:flex-row gap-8 justify-between items-center flex-wrap">
+            <div class="w-full md:w-auto text-sm text-white/80">Copyright © <?= Date("Y") ?> Mago Scott</div>
 
-            <ul class="flex gap-4">
-                <li><a href="">Política de privacidad y cookies</a></li>
+            <ul class="grid grid-cols-2 items-center md:flex gap-x-8 gap-y-4 **:[a]:hover:text-fuchsia-400 **:[a]:active:text-fuchsia-400 whitespace-nowrap">
+                <li><a href="">Privacidad y cookies</a></li>
                 <li><a href="">Aviso legal</a></li>
                 <li><a href="">Gestionar consentimiento</a></li>
                 <li><a href="">Mapa del sitio</a></li>
