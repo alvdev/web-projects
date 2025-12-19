@@ -11,8 +11,8 @@ $sizes = "
         100vw";
 ?>
 
-<main class="pt-36 bg-linear-to-bl from-red-600/30 via-indigo-950/30">
-    <div class="container grid grid-cols-2 gap-28">
+<main class="pt-16 md:pt-28 lg:pt-36 bg-linear-to-bl from-red-600/30 via-indigo-950/30">
+    <div class="container grid md:grid-cols-2 gap-16 lg:gap-28">
         <?php foreach ($page->children()->listed() as $post): ?>
             <article class="grid">
                 <a href="<?= $post->url() ?>" class="group">
