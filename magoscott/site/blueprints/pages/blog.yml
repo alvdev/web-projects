@@ -1,5 +1,4 @@
 title: Blog
-icon: 📚
 
 columns:
   topleft:
@@ -8,9 +7,13 @@ columns:
       cover:
         label: Header cover
         type: files
+        max: 1
         layout: cards
         size: large
+        text: "{{ file.name }}"
         info: "{{ file.dimensions }} - {{ file.nicesize }}"
+        uploads:
+          template: image
         image:
           cover: true
           ratio: 16/9
