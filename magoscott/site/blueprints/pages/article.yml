@@ -1,0 +1,80 @@
+title: Article
+num: '{{ page.date.toDate("dmY") }}'
+icon: 📖
+
+status:
+  draft:
+    label: 
+      en: Draft
+      es: Borrador
+    text: 
+      en: The article is still in draft mode. It can only be seen by editors with panel access.
+      es: Este artículo permanece como un borrador. Sólo puede verse por editores con acceso al panel.
+  listed:
+    label: 
+      en: Published
+      es: Publicado
+    text: 
+      en: The article is online and listed in the blog.
+      es: El artículo está online y se puede ver en el blog.
+
+tabs:
+  content:
+    columns:
+      top:
+        width: 1/1
+        fields:
+          pexels:
+            type: pexels
+            label: 
+              en: Stock photos
+              es: Banco de imágenes
+      main:
+        width: 2/3
+        fields:
+          summary:
+            type: textarea
+            size: small
+          text:
+            type: textarea
+            size: large
+
+      sidebar:
+        width: 1/3
+        # here we add two sections: a meta fields section and a files section to upload files we can select from in the heroImage field
+        sections:
+          meta:
+            type: fields
+            fields:
+              cover:
+                type: files
+                max: 1
+                layout: cards
+                size: large 
+                image:
+                  ratio: 16/9
+                  back: black
+                  cover: true
+                text: "{{ file.name }}"
+                info: "{{ file.dimensions }} - {{ file.nicesize }}"
+              date:
+                type: date
+                time: true
+                default: now
+              author:
+                type: users
+              category:
+                type: select
+                options:
+                  type: query
+                  query: site.categories.split
+              tags:
+                type: tags
+          files:
+            type: files
+
+          keywords:
+            type: fields
+            fields:
+              metaKeywords:
+                type: text
