@@ -50,6 +50,24 @@ return [
                             return A::every($links, fn($link) => Str::contains($path, $link));
                         },
                     ],
+                    'jobs' => [
+                        'label' => 'Trabajos',
+                        'icon' => 'document',
+                        'link' => 'pages/trabajos',
+                        'current' => function (): bool {
+                            $path = App::instance()->path();
+                            return Str::contains($path, 'pages/trabajos');
+                        }
+                    ],
+                    'game' => [
+                        'label' => 'Juego',
+                        'icon' => 'document',
+                        'link' => 'pages/juego',
+                        'current' => function (): bool {
+                            $path = App::instance()->path();
+                            return Str::contains($path, 'pages/juego');
+                        }
+                    ],
                     'blog' => [
                         'label' => 'Blog',
                         'icon' => 'document',
@@ -59,13 +77,13 @@ return [
                             return Str::contains($path, 'pages/blog');
                         }
                     ],
-                    'pictures' => [
+                    'gallery' => [
                         'label' => 'Galería',
                         'icon' => 'images',
-                        'link' => 'pages/gallery',
+                        'link' => 'pages/galeria',
                         'current' => function (): bool {
                             $path = App::instance()->path();
-                            return Str::contains($path, 'pages/gallery');
+                            return Str::contains($path, 'pages/galeria');
                         }
                     ],
                     '-',
