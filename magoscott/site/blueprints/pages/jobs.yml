@@ -1,11 +1,13 @@
-Title: Trabajos
+title: Trabajos
 
 columns:
   left:
     width: 1/3
     fields:
       cover:
-        label: Header cover
+        label:
+          en: Header cover
+          es: Imagen de cabecera
         type: files
         layout: cards
         size: large
@@ -35,6 +37,9 @@ columns:
     sections:
       jobs:
         type: pages
+        label:
+          en: Jobs
+          es: Trabajos
         headline: Jobs
         template: job
         layout: table
@@ -43,6 +48,3 @@ columns:
             value: "{{ page.yearFrom }} {{ page.yearTo }}"
         image: false
         sortBy: yearTo desc yearFrom desc
-
-
-    
