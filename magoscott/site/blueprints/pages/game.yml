@@ -1,0 +1,61 @@
+title: Juego de Magia
+columns:
+  left:
+    width: 2/3
+    fields:
+      headerTitle:
+        type: text
+        label:
+          en: Title
+          es: Título
+      description:
+        type: writer
+        label:
+          en: Description
+          es: Descripción
+        toolbar:
+          inline: false
+      buyButton:
+        label: Botón 1
+        type: object
+        fields:
+          anchor:
+            label: Texto
+            type: text
+          link:
+            label: Url
+            type: link
+            options:
+              - url 
+              - page
+      videoTitle:
+        type: text
+        label:
+          en: Video Presentation Title
+          es: Título de presentación del video
+
+  right:
+    width: 1/3
+    fields:
+      cover:
+        label:
+          en: Game Cover
+          es: Imagen del juego
+        type: files
+        max: 1
+        layout: cards
+        size: large
+        ratio: 1/1
+        text: "{{ file.name }}"
+        info: "{{ file.dimensions }} - {{ file.nicesize }}"
+        image:
+          cover: true
+          ratio: 16/9
+          back: black
+        uploads:
+          template: image
+      video:
+        label:
+          en: Promo Video
+          es: Video Promocional
+        type: embed
