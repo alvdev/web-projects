@@ -22,9 +22,9 @@
                 </li>
             <?php endif; ?>
 
-            <?php if ($file = 'assets/svgs/x.svg'): ?>
-                <li class="bg-indigo-950 p-6 md:p-8 rounded-full **:[svg]:w-10 **:[svg]:h-9 **:[svg]:mt-0.5 **:[svg]:ml-0.5">
-                    <a href="<?= $user?->twitter() ?? '#' ?>" target="_blank">
+            <?php if ($file = 'assets/svgs/youtube.svg'): ?>
+                <li class="bg-indigo-950 p-6 md:p-7 rounded-full **:[svg]:w-12 **:[svg]:h-12 md:**:[svg]:w-14 md:**:[svg]:h-14">
+                    <a href="<?= $user?->youtube() ?? '#' ?>" target="_blank">
                         <?= svg($file) ?>
                     </a>
                 </li>
@@ -61,9 +61,9 @@
             <p class="mt-4 md:mt-8 text-xl md:text-3xl text-violet-100 text-shadow-black">Mantente al tanto de todos los espectáculos, sorteos y entradas gratis para asistir en directo a los shows del Mago Scott.</p>
             <form action="#" class="mt-8 md:mt-16">
                 <div class="relative w-full flex flex-col md:flex-row gap-4 items-center">
-                    <input class="w-full md:mr-8 px-8 py-6 rounded-full bg-white/50 text-2xl text-indigo-900 font-semibold uppercase focus:outline-none focus:ring-2 focus:ring-indigo-900 placeholder:text-indigo-900/70 focus:placeholder:opacity-0 transition-all" type="email" placeholder="Tu correo electrónico" />
+                    <input class="w-full md:mr-8 px-8 py-6 rounded-full bg-white/50 text-2xl text-indigo-950 font-semibold uppercase focus:outline-none focus:ring-2 focus:ring-indigo-950 placeholder:text-indigo-950/70 focus:placeholder:opacity-0 transition-all" type="email" placeholder="Tu correo electrónico" />
 
-                    <button class="w-min md:absolute md:right-0 bg-indigo-900 text-white font-semibold uppercase p-4 rounded-full aspect-square hover:bg-indigo-800" type="submit">Suscribirse</button>
+                    <button class="w-min md:absolute md:right-0 bg-indigo-950 text-white font-semibold uppercase p-4 rounded-full aspect-square hover:bg-indigo-800" type="submit">Suscribirse</button>
                 </div>
             </form>
         </div>
