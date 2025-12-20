@@ -10,7 +10,7 @@
                     <h1><?= $page->headerTitle() ?></h1>
                 </hgroup>
 
-                <div class="*:[p]:mt-8 *:[p]:text-xl md:*:[p]:text-2xl *:[p]:text-pretty *:[p]:text-white/80">
+                <div class="*:[p]:mt-8 *:[p]:text-xl md:*:[p]:text-2xl *:[p]:text-pretty *:[p]:text-white/80 **:[a]:inline-block **:[a]:text-fuchsia-300 **:hover:[a]:text-fuchsia-500">
                     <?= $page->description() ?>
                 </div>
 
