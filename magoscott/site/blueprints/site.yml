@@ -51,27 +51,27 @@ columns:
   topRight2:
     width: 1/4
     fields:
-      introButton1Object:
+      introButton1:
         label: Botón 1
         type: object
         fields:
-          introButton1Text:
+          anchor:
             label: Texto
             type: text
-          introButton1Link:
+          link:
             label: Url
             type: link
             options:
               - url 
               - page
-      introButton2Object:
+      introButton2:
         label: Botón 2
         type: object
         fields:
-          introButton2Text:
+          anchor:
             label: Texto
             type: text
-          introButton2Link:
+          link:
             label: Url
             type: link
             options:
@@ -82,25 +82,28 @@ columns:
     width: 1/1
     fields:
       showsHeadline:
-        label: Últimos espectáculos
+        label: Espectáculos
         type: headline
+      showsTitle:
+        label: Título
+        type: text
       shows:
         label: Espectáculo
         type: structure
         fields:
-          showCover:
+          cover:
             label: Portada
             type: files
             max: 1
             uploads:
               templage: image
-          showTitle:
+          title:
             label: Título
             type: text
-          showDesc:
+          desc:
             label: Descripción
             type: textarea
-          showVideo:
+          video:
             label: Video
             type: embed
             icons: true
