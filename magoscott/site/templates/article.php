@@ -10,18 +10,18 @@ $sizes = "
 ?>
 
 <main class="bg-linear-to-tl from-indigo-950 via-indigo-950 via-50% to-black">
-    <article class="container w-3/5 pt-64">
-        <div class="relative pl-8 before:absolute before:left-0 before:w-1 before:h-full before:bg-red-600 before:rounded-full">
-            <div class="absolute -left-[50px] -top-4 *:border-4 *:border-red-600 *:rounded-full *:shadow-[0_0_50px_rgb(255_255_255/30%)]">
+    <article class="container w-11/12 md:w-10/12 lg:w-4/5 xl:w-3/5 pt-64">
+        <div class="relative pl-4 md:pl-8 before:absolute before:left-0 before:w-0.5 md:before:w-1 before:h-full before:bg-red-600 before:rounded-full">
+            <div class="absolute w-14 md:w-full -left-7 md:-left-[50px] -top-4 *:border-3 md:*:border-4 *:border-red-600 *:rounded-full *:shadow-[0_0_50px_rgb(255_255_255/30%)]">
                 <?= asset('assets/images/scott-face.webp')->crop(100, 100) ?>
             </div>
 
-            <h1 class="pl-12 text-7xl font-bold text-shadow-lg leading-none text-balance first-letter:uppercase">
+            <h1 class="pl-8 md:pl-12 text-4xl md:text-6xl lg:text-7xl font-bold text-shadow-lg leading-none text-balance first-letter:uppercase">
                 <?= $page->title() ?>
             </h1>
 
             <?php if ($summary = $page->summary()): ?>
-                <p class="mt-8 text-3xl text-white/80"><?= $summary ?></p>
+                <p class="mt-4 md:mt-8 text-xl md:text-2xl lg:text-3xl text-white/80"><?= $summary ?></p>
             <?php endif ?>
         </div>
 
@@ -45,7 +45,7 @@ $sizes = "
             </picture>
         <?php endif ?>
 
-        <div class="relative mt-16 prose-2xl pl-8 text-white/90 before:absolute before:left-0 before:w-1 before:h-full before:bg-red-600 before:rounded-full">
+        <div class="relative mt-16 prose prose-2xl md:prose-p:text-2xl lg:prose-p:text-3xl text-5xl text-pretty pl-4 md:pl-8 text-white/90 before:absolute before:left-0 before:w-0.5 md:before:w-1 before:h-full before:bg-red-600 before:rounded-full">
             <?= $page->text()->kt() ?>
         </div>
     </article>
