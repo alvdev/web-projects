@@ -33,10 +33,12 @@ tabs:
         width: 2/3
         fields:
           summary:
-            type: textarea
-            size: small
+            type: writer
+            toolbar:
+              inline: false  
+            size: medium
           text:
-            type: textarea
+            type: blocks 
             size: large
 
       sidebar:
@@ -61,20 +63,7 @@ tabs:
                 type: date
                 time: true
                 default: now
-              author:
-                type: users
-              category:
-                type: select
-                options:
-                  type: query
-                  query: site.categories.split
               tags:
                 type: tags
           files:
             type: files
-
-          keywords:
-            type: fields
-            fields:
-              metaKeywords:
-                type: text

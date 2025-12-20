@@ -46,7 +46,7 @@ $sizes = "
         <?php endif ?>
 
         <div class="relative mt-16 prose prose-2xl md:prose-p:text-2xl lg:prose-p:text-3xl text-5xl text-pretty pl-4 md:pl-8 text-white/90 before:absolute before:left-0 before:w-0.5 md:before:w-1 before:h-full before:bg-red-600 before:rounded-full">
-            <?= $page->text()->kt() ?>
+            <?= $page->text()->toBlocks() ?>
         </div>
     </article>
 </main>
