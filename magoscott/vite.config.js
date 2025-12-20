@@ -23,6 +23,7 @@ export default ({ mode }) => ({
       input: [
         'assets/js/main.js',
         'assets/css/main.css',
+        'assets/fonts/ysabeau.woff2'
       ],
     },
   },
