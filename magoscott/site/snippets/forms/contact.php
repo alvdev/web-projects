@@ -27,14 +27,14 @@
                 'class' => 'hidden'
             ],
             'input' => [
-                'class' => 'w-full text-2xl text-black font-semibold bg-violet-300/80 focus:bg-violet-300/100 rounded-4xl px-6 pt-4 pb-5.5 resize-none focus:ring-4 focus:ring-violet-900 outline-hidden transition-all placeholder:text-black/80 placeholder:font-normal group-data-has-error:placeholder:text-rose-400 group-data-has-error:mb-2 placeholder-shown:group-data-has-error:border-rose-400 after:content-[xxx]'
+                'class' => 'w-full text-2xl text-black font-semibold bg-violet-300/80 focus:bg-violet-300/100 rounded-4xl px-6 pt-4 pb-5.5 resize-none focus:ring-4 focus:ring-violet-900 outline-hidden transition-all placeholder:text-lg md:placeholder:text-2xl placeholder:text-black/80 placeholder:font-normal group-data-has-error:placeholder:text-rose-400 group-data-has-error:mb-2 placeholder-shown:group-data-has-error:border-rose-400'
             ],
             'textarea' => [
                 'row' => [
                     'class' => '',
                 ],
                 'field' => [
-                    'class' => 'w-full flex flex-col md:mr-16 md:*:[textarea]:pr-28 *:[textarea]:h-32 *:[span]:absolute *:[span]:left-6',
+                    'class' => 'w-full flex flex-col *:[textarea]:font-normal *:[textarea]:text-xl md:mr-16 md:*:[textarea]:pr-28 *:[textarea]:h-32 *:[span]:absolute *:[span]:left-6',
                 ],
             ],
             'button' => [
