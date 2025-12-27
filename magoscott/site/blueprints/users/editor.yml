@@ -133,3 +133,19 @@ columns:
         icon: youtube 
         placeholder: https://example.com/@username 
       
+      sponsorsHeadline:
+        label: Sponsors
+        type: headline
+      sponsorsLogos:
+        label: Logos
+        type: structure
+        fields:
+          logo:
+            label: Logo
+            type: files
+            max: 1
+            uploads:
+              template: image
+          link:
+            label: Link
+            type: url
