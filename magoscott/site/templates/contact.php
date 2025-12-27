@@ -6,7 +6,11 @@
 
 <section class="infinite-scroll-h pt-16 pb-26 md:pt-24 md:pb-34 lg:pt-32 lg:pb-42 **:border-0 **:gap-2 text-5xl md:text-7xl lg:text-9xl uppercase font-extrabold text-violet-400/40">
     <div class="relative overflow-x-clip">
-        <div class="carousel flex items-center w-max *:whitespace-nowrap *:after:content-['/'] animate-infinite-scroll-r hover:animate-pause" style="animation-duration: 20s">
+        <div class="carousel flex items-center w-max will-change-transform *:whitespace-nowrap *:after:content-['/'] animate-infinite-scroll-r hover:animate-pause
+        [animation-duration:20s]
+         sm:[animation-duration:25s]
+         md:[animation-duration:30s]
+         lg:[animation-duration:35s]">
             <div class="w-full">
                 Presentador
             </div>
