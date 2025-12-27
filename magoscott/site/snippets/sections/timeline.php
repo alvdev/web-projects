@@ -8,7 +8,7 @@
                         $items = $page->children()->listed()->sortBy('yearTo', 'desc', 'yearFrom', 'desc');
                     } ?>
                     <?php foreach ($items as $item): ?>
-                        <article class="relative group">
+                        <article class="relative group w-full">
                             <div class="relative mr-10 md:mx-auto lg:flex">
                                 <div class="flex items-center justify-center w-3 h-full">
                                     <div class="h-full w-[0.05rem] bg-zinc-200 pointer-events-none"></div>
@@ -19,7 +19,7 @@
                             </div>
 
                             <div class="relative md:-top-1 flex flex-col lg:flex-row justify-between gap-4 md:gap-8 lg:gap-24">
-                                <div>
+                                <div class="min-w-2/3">
                                     <h3 class="relative text-xl md:text-2xl mt-1 md:mt-0 font-semibold first-letter:uppercase after:absolute after:-bottom-4 after:left-0 after:bg-red-600 after:w-36 after:h-1 after:rounded-full">
                                         <?= $item->title() ?>
                                     </h3>
@@ -30,7 +30,7 @@
                                 </div>
 
                                 <?php if ($item->content()->videos()->isNotEmpty()): ?>
-                                    <div class="flex flex-col lg:flex-row gap-8 *:rounded-xl *:ring-2 *:ring-indigo-900/50 *:aspect-video">
+                                    <div class="flex flex-col gap-8 w-full flex-1 *:w-auto *:h-auto *:rounded-xl *:ring-2 *:ring-indigo-900/50 *:aspect-video">
                                         <?php foreach ($item->content()->videos()->toEntries() as $entry): ?>
                                             <?= youtube($entry) ?>
                                         <?php endforeach ?>
