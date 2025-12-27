@@ -1,0 +1,29 @@
+Title: Contact
+
+----
+
+Fields: [{"attrs":[],"columns":[{"blocks":[{"content":{"key":"name","label":"Nombre","placeholder":"Introduce tu nombre","required":"true","errormessage":"Tu nombre es necesario"},"id":"da5f158e-e6af-4b51-9817-27cbc118893f","isHidden":false,"type":"text-field"},{"content":{"key":"email","label":"Email","placeholder":"y un email al que poder responderte","required":"true","errormessage":"Tu email es necesario"},"id":"425798dc-d638-4801-adc1-ad6b932c1171","isHidden":false,"type":"email-field"},{"content":{"key":"phone","label":"Teléfono","placeholder":"o tu teléfono si prefieres una llamada","step":1,"min":"","max":"","required":"false","errormessage":""},"id":"74f42e34-1782-45d6-8d6a-fafc98724274","isHidden":false,"type":"number-field"}],"id":"04e7cd74-034f-41b6-ac90-84eeb5e1f62e","width":"1/1"}],"id":"753b7fe0-a990-4bc3-84b4-241a75b47b66"},{"attrs":[],"columns":[{"blocks":[{"content":{"key":"message","label":"Mensaje","placeholder":"Escribe tu pregunta o consulta aquí","required":"true","errormessage":"Tu consulta es necesaria"},"id":"21cada3c-01cf-4e37-b991-24d18b312467","isHidden":false,"type":"textarea-field"},{"content":{"label":"Enviar consulta"},"id":"1dec975f-a4b9-474e-b96c-53a2a59b3cdd","isHidden":false,"type":"button-field"}],"id":"96bf4f8d-3f42-4890-9463-392368c83eb0","width":"1/1"}],"id":"4672db38-d257-4827-8de1-0004cf596288"}]
+
+----
+
+Actions: [{"content":{"sendto":{"type":"static","value":"mail@magoscott.com"},"replyto":{"type":"dynamic","value":null,"field":"425798dc-d638-4801-adc1-ad6b932c1171"},"subject":"Nuevo contacto desde la web","fieldtemplate":"<p><span data-dreamform-field=\"true\" data-field=\"{{ name }}\">{{ name }}</span> </p><p><span data-dreamform-field=\"true\" data-field=\"{{ email }}\">{{ email }}</span> </p><p><span data-dreamform-field=\"true\" data-field=\"{{ phone }}\">{{ phone }}</span> </p><p><span data-dreamform-field=\"true\" data-field=\"{{ message }}\">{{ message }}</span> </p><p></p>","kirbytemplate":"dreamform","attachments":""},"id":"cd61cc01-ac4c-4a8e-b779-b29ba912c883","isHidden":false,"type":"email-action"}]
+
+----
+
+Successmessage: <p>Tu mensaje se ha enviado con éxito y recibirás respuesta lo antes posible.</p><p>¡Gracias por contactar con el Mago Scott!</p>
+
+----
+
+Continueonerror: false
+
+----
+
+Runworkflowinqueue: true
+
+----
+
+Storesubmissions: true
+
+----
+
+Uuid: lr9ubs3au5doqgl5
