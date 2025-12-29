@@ -22,14 +22,14 @@ return [
             },
             'date.handler' => 'intl',
             'email' => [
-                'transport' => [
+                /* 'transport' => [
                     'type' => 'smtp',
                     'host' => 'localhost',
                     'port' => 1025,
                     'security' => false,
                     'username' => 'test@test.com'
-                ],
-                /* 'transport' => [
+                ], */
+                'transport' => [
                     'type' => 'smtp',
                     'host' => env('EMAIL_HOST'),
                     'port' => 465,
@@ -37,7 +37,7 @@ return [
                     'auth' => true,
                     'username' => env('EMAIL_USERNAME'),
                     'password' => env('EMAIL_PASSWORD'),
-                ] */
+                ]
             ],
             'panel' => [
                 'favicon' => 'assets/favicon.png',
