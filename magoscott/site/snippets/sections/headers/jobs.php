@@ -1,5 +1,5 @@
 <header id="home-header" class="bg-linear-to-tl from-red-600/30 via-indigo-950/30 via-50% to-black/30">
-    <div class="absolute top-0 -z-10 opacity-90 *:mask-b-to-90%">
+    <div class="absolute top-0 -z-10 opacity-90 *:mask-b-to-90% *:w-screen">
         <?= $page->cover()->toFile() ?>
     </div>
 
