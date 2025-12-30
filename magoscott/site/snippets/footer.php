@@ -8,7 +8,7 @@
             <?php if ($user?->sponsorsLogos()): ?>
                 <ul class="flex flex-wrap gap-8 bg-violet-500/30 rounded-lg p-8 w-full">
                     <?php foreach ($user->sponsorsLogos()->toStructure() as $sponsor): ?>
-                        <li class="flex items-center justify-between">
+                        <li class="flex items-center justify-between bg-white rounded-md overflow-clip">
                             <a href="<?= $sponsor->link() ?>" target="_blank">
                                 <?= $sponsor->logo()->toFile()->thumb(['width' => 175])->html() ?>
                             </a>
