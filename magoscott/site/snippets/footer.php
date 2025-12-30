@@ -8,9 +8,9 @@
             <?php if ($user?->sponsorsLogos()): ?>
                 <ul class="flex flex-wrap gap-8 bg-violet-500/30 rounded-lg p-8 w-full">
                     <?php foreach ($user->sponsorsLogos()->toStructure() as $sponsor): ?>
-                        <li class="flex items-center justify-between bg-white rounded-md overflow-clip">
-                            <a href="<?= $sponsor->link() ?>" target="_blank">
-                                <?= $sponsor->logo()->toFile()->thumb(['width' => 175])->html() ?>
+                        <li class="flex items-center bg-white rounded-md overflow-clip flex-1 min-w-0">
+                            <a href="<?= $sponsor->link() ?>" target="_blank" class="block w-full py-2 px-4">
+                                <?= $sponsor->logo()->toFile()->thumb(['width' => 175])->html(['class' => 'w-full h-auto object-contain']) ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
