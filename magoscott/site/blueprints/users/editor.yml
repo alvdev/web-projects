@@ -105,6 +105,23 @@ columns:
           es: País  
         type: text
         width: 1/2
+      phone:
+        label:
+          en: Phone
+          es: Teléfono  
+        type: tel
+        width: 1/2
+      whatsapp:
+        label:
+          en: WhatsApp
+          es: WhatsApp  
+        type: tel
+        width: 1/2
+      infoEmail:
+        label:
+          en: Email
+          es: Correo electrónico  
+        type: email
 
   - width: 1/2
     fields:
