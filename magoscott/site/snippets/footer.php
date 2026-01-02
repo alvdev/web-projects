@@ -19,11 +19,11 @@
         </div>
 
         <div class="flex flex-col md:items-center gap-8">
-            <h2 class="text-4xl md:text-6xl font-semibold text-white md:whitespace-nowrap text-shadow-xs text-shadow-black">Sigue al Mago Scott</h2>
+            <h2 class="text-4xl md:text-6xl font-semibold text-white xl:whitespace-nowrap text-shadow-xs text-shadow-black">Sigue al Mago Scott</h2>
 
             <ul class="flex md:justify-between gap-4 md:gap-8 **:[svg]:fill-fuchsia-400 **:[path]:fill-fuchsia-500">
                 <?php if ($file = 'assets/svgs/instagram.svg'): ?>
-                    <li class="bg-indigo-950 p-6 md:p-8 rounded-full **:[svg]:w-10 **:[svg]:h-10 md:**:[svg]:w-12 md:**:[svg]:h-12">
+                    <li class="bg-indigo-950 p-6 md:p-8 rounded-full w-min h-min **:[svg]:w-10 **:[svg]:h-10 md:**:[svg]:w-12 md:**:[svg]:h-12">
                         <a href="<?= $user?->instagram() ?? '#' ?>" target="_blank">
                             <?= svg($file) ?>
                         </a>
@@ -31,7 +31,7 @@
                 <?php endif; ?>
 
                 <?php if ($file = 'assets/svgs/facebook.svg'): ?>
-                    <li class="bg-indigo-950 p-6 md:p-8 rounded-full **:[svg]:w-10 **:[svg]:h-10 md:**:[svg]:w-12 md:**:[svg]:h-12">
+                    <li class="bg-indigo-950 p-6 md:p-8 rounded-full w-min h-min **:[svg]:w-10 **:[svg]:h-10 md:**:[svg]:w-12 md:**:[svg]:h-12">
                         <a href="<?= $user?->facebook() ?? '#' ?>" target="_blank">
                             <?= svg($file) ?>
                         </a>
@@ -39,7 +39,7 @@
                 <?php endif; ?>
 
                 <?php if ($file = 'assets/svgs/youtube.svg'): ?>
-                    <li class="bg-indigo-950 p-6 md:p-7 rounded-full **:[svg]:w-12 **:[svg]:h-12 md:**:[svg]:w-14 md:**:[svg]:h-14">
+                    <li class="bg-indigo-950 p-5 md:p-7 rounded-full w-min h-min **:[svg]:w-12 **:[svg]:h-12 md:**:[svg]:w-14 md:**:[svg]:h-14">
                         <a href="<?= $user?->youtube() ?? '#' ?>" target="_blank">
                             <?= svg($file) ?>
                         </a>
