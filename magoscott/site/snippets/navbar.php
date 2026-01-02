@@ -12,7 +12,7 @@
             </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden lg:flex md:items-center md:space-x-8 font-semibold text-2xl tracking-wide uppercase *:last:border-2 *:last:rounded-full *:last:px-4 *:last:py-2">
+            <div class="hidden xl:flex md:items-center md:space-x-8 font-semibold text-2xl tracking-wide uppercase *:last:border-2 *:last:rounded-full *:last:px-4 *:last:py-2">
                 <?php foreach ($site->children()->listed() as $item): ?>
                     <a class="text-shadow-md aria-current:text-fuchsia-400 aria-current:font-extrabold" <?php e($item->isOpen(), 'aria-current="true"'); ?> href="<?= $item->url(); ?>">
                         <?= $item->title()->esc() ?>
@@ -21,7 +21,7 @@
             </div>
 
             <!-- Mobile Button -->
-            <div class="lg:hidden">
+            <div class="xl:hidden">
                 <button
                     @click="open = !open"
                     aria-label="Toggle menu"
@@ -47,7 +47,7 @@
             x-show="open"
             x-transition
             @click.outside="open = false"
-            class="lg:hidden">
+            class="xl:hidden">
             <div class="space-y-1 pb-4 pt-8 font-semibold text-2xl tracking-wide uppercase">
                 <?php foreach ($site->children()->listed() as $item): ?>
                     <a class="block text-shadow-md px-3 py-6 aria-current:text-fuchsia-500" <?php e($item->isOpen(), 'aria-current="true"'); ?> href="<?= $item->url(); ?>">
