@@ -9,7 +9,22 @@
         </div>
 
         <div>
-            <?= $site->formImage()?->toFile() ?? asset('assets/images/headers/scott.png') ?>
+            <?php if ($image = ($site->formImage()->toFile() ?? asset('assets/images/headers/scott.png'))): ?>
+                <picture>
+                    <source srcset="<?= $image->srcset('avif') ?>" type="image/avif" sizes="(min-width: 1024px) 50vw, 100vw">
+                    <source srcset="<?= $image->srcset('webp') ?>" type="image/webp" sizes="(min-width: 1024px) 50vw, 100vw">
+                    <img
+                        srcset="<?= $image->srcset('default') ?>"
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        src="<?= $image->resize(1200)->url() ?>"
+                        width="<?= $image->width() ?>"
+                        height="<?= $image->height() ?>"
+                        alt="Scott - Magoscott"
+                        fetchpriority="high"
+                        class="w-full h-auto"
+                    >
+                </picture>
+            <?php endif ?>
         </div>
     </div>
 </section>
