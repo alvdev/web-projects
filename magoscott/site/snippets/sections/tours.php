@@ -7,7 +7,9 @@
 
         <div class="mt-12 md:mt-16 flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-18 lg:*:w-1/2">
             <div class="w-full *:w-full *:h-auto *:aspect-video *:rounded-2xl *:border-2 *:border-violet-900/30">
-                <?= $site->tourVideo()->toEmbed()->code() ?>
+                <?php if ($video = $site->tourVideo()->toEmbed()): ?>
+                    <?= str_replace('<iframe', '<iframe loading="lazy"', $video->code()) ?>
+                <?php endif ?>
             </div>
 
             <div class="flex flex-col md:*:text-3xl lg:*:text-2xl text-white/80 *:[p]:not-first:mt-4">
