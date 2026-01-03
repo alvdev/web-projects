@@ -8,6 +8,10 @@
 # http://yourdomain.com/about-us/team
 RewriteEngine on
 
+# Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
 # make sure to set the RewriteBase correctly
 # if you are running the site in a subfolder;
 # otherwise links or the entire site will break.
@@ -45,23 +49,129 @@ RewriteRule ^(.*) index.php [L]
 # pass the Authorization header to PHP
 SetEnvIf Authorization "(.+)" HTTP_AUTHORIZATION=$1
 
-# compress text file responses
+# ----------------------------------------------------------------------
+# | Compression                                                        |
+# ----------------------------------------------------------------------
+
 <IfModule mod_deflate.c>
-AddOutputFilterByType DEFLATE text/plain
-AddOutputFilterByType DEFLATE text/html
-AddOutputFilterByType DEFLATE text/css
-AddOutputFilterByType DEFLATE text/javascript
-AddOutputFilterByType DEFLATE application/json
-AddOutputFilterByType DEFLATE application/javascript
-AddOutputFilterByType DEFLATE application/x-javascript
+  # Force compression for mangled headers.
+  # https://developer.yahoo.com/blogs/ydn/pushing-beyond-gzipping-25601.html
+  <IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+      SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+      RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+    </IfModule>
+  </IfModule>
+
+  # Compress all output labeled with one of the following MIME-types
+  <IfModule mod_filter.c>
+    AddOutputFilterByType DEFLATE "application/atom+xml" \
+                                  "application/javascript" \
+                                  "application/json" \
+                                  "application/ld+json" \
+                                  "application/manifest+json" \
+                                  "application/rdf+xml" \
+                                  "application/rss+xml" \
+                                  "application/schema+json" \
+                                  "application/vnd.geo+json" \
+                                  "application/vnd.ms-fontobject" \
+                                  "application/wasm" \
+                                  "application/x-font-ttf" \
+                                  "application/x-javascript" \
+                                  "application/x-web-app-manifest+json" \
+                                  "application/xhtml+xml" \
+                                  "application/xml" \
+                                  "font/eot" \
+                                  "font/opentype" \
+                                  "image/bmp" \
+                                  "image/svg+xml" \
+                                  "image/vnd.microsoft.icon" \
+                                  "text/cache-manifest" \
+                                  "text/calendar" \
+                                  "text/css" \
+                                  "text/html" \
+                                  "text/javascript" \
+                                  "text/markdown" \
+                                  "text/plain" \
+                                  "text/vcard" \
+                                  "text/vnd.rim.location.xloc" \
+                                  "text/vtt" \
+                                  "text/x-component" \
+                                  "text/x-cross-domain-policy" \
+                                  "text/xml"
+  </IfModule>
+
+  # Map the following MIME-types to the "text/html" compression curve.
+  <IfModule mod_mime.c>
+    AddType text/html .svg
+  </IfModule>
 </IfModule>
 
-# set security headers in all responses
+# ----------------------------------------------------------------------
+# | Browser Caching (Expires + Cache-Control)                          |
+# ----------------------------------------------------------------------
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+
+  # CSS and JavaScript
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType text/javascript           "access plus 1 year"
+  ExpiresByType text/x-javascript         "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType application/x-javascript  "access plus 1 year"
+
+  # Data interchange
+  ExpiresByType application/json          "access plus 0 seconds"
+  ExpiresByType application/ld+json       "access plus 0 seconds"
+  ExpiresByType application/xml           "access plus 0 seconds"
+  ExpiresByType text/xml                  "access plus 0 seconds"
+  ExpiresByType text/html                 "access plus 0 seconds"
+
+  # Media: images, video, audio
+  ExpiresByType image/jpg                 "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/gif                 "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/avif                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType image/x-icon              "access plus 1 year"
+  ExpiresByType video/mp4                 "access plus 1 year"
+  ExpiresByType video/webm                "access plus 1 year"
+
+  # Web fonts
+  ExpiresByType application/font-woff     "access plus 1 month"
+  ExpiresByType application/font-woff2    "access plus 1 month"
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+  ExpiresByType application/x-font-ttf    "access plus 1 month"
+  ExpiresByType font/opentype             "access plus 1 month"
+</IfModule>
+
 <IfModule mod_headers.c>
+    # Cache-Control: 1 Year for static assets (public)
+    <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|webp|avif|js|css|swf|x-html|css|xml|js|woff|woff2|ttf|svg|eot)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
 
-# serve files as plain text if the actual content type is not known
-# (hardens against attacks from malicious file uploads)
-Header set Content-Type "text/plain" "expr=-z %{CONTENT_TYPE}"
-Header set X-Content-Type-Options "nosniff"
-
+    # Cache-Control: no-cache for dynamic content
+    <FilesMatch "\.(html|htm|php)$">
+        Header set Cache-Control "max-age=0, private, no-store, no-cache, must-revalidate"
+    </FilesMatch>
+    
+    # Security Headers
+    # serve files as plain text if the actual content type is not known
+    Header set Content-Type "text/plain" "expr=-z %{CONTENT_TYPE}"
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Connection Keep-Alive
+    Header set Connection keep-alive
 </IfModule>
+
+# ----------------------------------------------------------------------
+# | ETags                                                              |
+# ----------------------------------------------------------------------
+
+# Remove ETags to prevent backend server syncing issues and reduce header size
+FileETag None
