@@ -12,7 +12,7 @@
                         $file = $sponsor->logo()->toFile();
                         if ($file) {
                             $filename = $file->filename();
-                            $nameAttr = str_replace(['-', '.svg', '.png', '.jpg', '.jpeg', '.webp'], ' ', $filename);
+                            $nameAttr = str_replace(['-', '_', '.svg', '.png', '.jpg', '.jpeg', '.webp'], ' ', $filename);
                         }
                         ?>
                         <li class="flex items-center bg-white rounded-md overflow-clip flex-1 min-w-0">
