@@ -14,7 +14,7 @@
 
             <div class="flex flex-col md:*:text-3xl lg:*:text-2xl text-white/80 *:[p]:not-first:mt-4">
                 <?= $site->tourDesc()->kt() ?>
-                <a href="<?= $site->tourButton()->toUrl() ?>" class="inline-block mx-auto font-semibold text-shadow-2xs text-shadow-black mt-8 md:mt-12 lg:mt-8 uppercase bg-red-600 rounded-4xl px-8 py-3">Formulario de contacto</a>
+                <a href="<?= $site->tourButton()->toUrl() ?>" class="inline-block mx-auto font-bold text-white text-shadow-xs text-shadow-black mt-8 md:mt-12 lg:mt-8 uppercase bg-red-600 rounded-4xl px-8 py-3">Formulario de contacto</a>
             </div>
         </div>
     </div>
