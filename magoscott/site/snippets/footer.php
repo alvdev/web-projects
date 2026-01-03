@@ -8,8 +8,15 @@
             <?php if ($user?->sponsorsLogos()): ?>
                 <ul class="flex flex-wrap gap-8 bg-violet-500/30 rounded-lg p-8 w-full">
                     <?php foreach ($user->sponsorsLogos()->toStructure() as $sponsor): ?>
+                        <?php
+                        $file = $sponsor->logo()->toFile();
+                        if ($file) {
+                            $filename = $file->filename();
+                            $nameAttr = str_replace(['-', '.svg', '.png', '.jpg', '.jpeg', '.webp'], ' ', $filename);
+                        }
+                        ?>
                         <li class="flex items-center bg-white rounded-md overflow-clip flex-1 min-w-0">
-                            <a href="<?= $sponsor->link() ?>" target="_blank" class="block w-full py-2 px-4">
+                            <a href="<?= $sponsor->link() ?>" target="_blank" class="block w-full py-2 px-4" aria-label="<?= $nameAttr ?>">
                                 <?= $sponsor->logo()->toFile()->thumb(['width' => 175])->html(['class' => 'w-full h-auto object-contain']) ?>
                             </a>
                         </li>
@@ -24,7 +31,7 @@
             <ul class="flex md:justify-between gap-4 md:gap-8 **:[svg]:fill-fuchsia-400 **:[path]:fill-fuchsia-500">
                 <?php if ($file = 'assets/svgs/instagram.svg'): ?>
                     <li class="bg-indigo-950 p-6 md:p-8 rounded-full w-min h-min **:[svg]:w-10 **:[svg]:h-10 md:**:[svg]:w-12 md:**:[svg]:h-12">
-                        <a href="<?= $user?->instagram() ?? '#' ?>" target="_blank">
+                        <a href="<?= $user?->instagram() ?? '#' ?>" target="_blank" aria-label="Instagram">
                             <?= svg($file) ?>
                         </a>
                     </li>
@@ -32,7 +39,7 @@
 
                 <?php if ($file = 'assets/svgs/facebook.svg'): ?>
                     <li class="bg-indigo-950 p-6 md:p-8 rounded-full w-min h-min **:[svg]:w-10 **:[svg]:h-10 md:**:[svg]:w-12 md:**:[svg]:h-12">
-                        <a href="<?= $user?->facebook() ?? '#' ?>" target="_blank">
+                        <a href="<?= $user?->facebook() ?? '#' ?>" target="_blank" aria-label="Facebook">
                             <?= svg($file) ?>
                         </a>
                     </li>
@@ -40,7 +47,7 @@
 
                 <?php if ($file = 'assets/svgs/youtube.svg'): ?>
                     <li class="bg-indigo-950 p-5 md:p-7 rounded-full w-min h-min **:[svg]:w-12 **:[svg]:h-12 md:**:[svg]:w-14 md:**:[svg]:h-14">
-                        <a href="<?= $user?->youtube() ?? '#' ?>" target="_blank">
+                        <a href="<?= $user?->youtube() ?? '#' ?>" target="_blank" aria-label="YouTube">
                             <?= svg($file) ?>
                         </a>
                     </li>
