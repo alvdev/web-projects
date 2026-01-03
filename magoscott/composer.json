@@ -27,7 +27,8 @@
     "arnoson/kirby-vite": "^5.6",
     "mauricerenck/pexelsimagefield": "^2.2",
     "bnomei/kirby3-dotenv": "^5.0",
-    "sylvainjule/embed": "^1.2"
+    "sylvainjule/embed": "^1.2",
+    "afbora/kirby-minify-html": "^2.2"
   },
   "config": {
     "allow-plugins": {
