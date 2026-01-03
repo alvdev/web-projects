@@ -29,7 +29,7 @@
                         <h3 class="mt-8 text-3xl md:text-5xl lg:text-3xl text-pretty"><?= $show->title() ?></h3>
                         <p class="my-8 text-xl md:text-3xl lg:text-xl text-white/80"><?= $show->desc() ?></p>
                         <?php if ($video = $show->video()->toEmbed()): ?>
-                            <?= str_replace('<iframe', '<iframe loading="lazy"', $video->code()) ?>
+                            <?= str_replace(['<iframe', 'youtube.com'], ['<iframe loading="lazy"', 'youtube-nocookie.com'], $video->code()) ?>
                         <?php endif ?>
                     </div>
                 <?php endforeach ?>
