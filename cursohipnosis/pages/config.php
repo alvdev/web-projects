@@ -13,8 +13,17 @@ $pageTitles = [
 ];
 
 function asset($path, $include = false) {
-    if (!$include) return BASE_URL . 'dist/' . $path;
-    if ($include) return file_get_contents(BASE_URL . 'dist/' . $path);
+    if (!$include) {
+        return '/dist/' . ltrim($path, '/');
+    }
+
+    $file = $_SERVER['DOCUMENT_ROOT'] . '/dist/' . ltrim($path, '/');
+
+    if (file_exists($file)) {
+        return file_get_contents($file);
+    }
+
+    return '';
 }
 
 function title()
