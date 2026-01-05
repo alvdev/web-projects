@@ -67,6 +67,38 @@
     input, textarea, select {
         @apply outline-none;
     }
+
+    @keyframes fade {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes show {
+        from {
+            opacity: 0;
+            scale: 70%;
+        }
+        to {
+            opacity: 1;
+            scale: 100%;
+        }
+    }
+
+    /* img {
+        view-timeline-name: --reveal;
+        animation-name: show;
+        animation-fill-mode: both;
+        animation-timeline: --reveal;
+    } */
+
+    main {
+        animation: fade 750ms;
+    }
 }
 
 @utility container {
@@ -90,6 +122,6 @@
 }
 
 /* Overwrite prose style */
-:not(:where([class~="not-prose"],[class~="not-prose"] *),:where(a)) {
+:where([class~="prose"] *, :not:a) {
     @apply text-white/80;
 }
