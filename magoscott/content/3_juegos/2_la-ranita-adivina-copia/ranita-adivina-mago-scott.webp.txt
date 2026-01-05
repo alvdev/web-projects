@@ -1,0 +1,5 @@
+Uuid: ohgw1u2avkz041bd
+
+----
+
+Template: image
