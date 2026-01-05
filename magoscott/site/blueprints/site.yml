@@ -96,7 +96,7 @@ columns:
             type: files
             max: 1
             uploads:
-              templage: image
+              template: image
           title:
             label: Título
             type: text
