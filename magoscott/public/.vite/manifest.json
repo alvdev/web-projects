@@ -1,6 +1,10 @@
 {
+  "_vendor-BR6f9gvD.js": {
+    "file": "assets/vendor-BR6f9gvD.js",
+    "name": "vendor"
+  },
   "assets/css/main.css": {
-    "file": "assets/main-BHn0Wsdh.css",
+    "file": "assets/main-BDgU4lOg.css",
     "src": "assets/css/main.css",
     "isEntry": true,
     "name": "main",
@@ -13,9 +17,12 @@
     "src": "assets/fonts/ysabeau.woff2"
   },
   "assets/js/main.js": {
-    "file": "assets/main-CHp8KHL0.js",
+    "file": "assets/main-BLiTB65c.js",
     "name": "main",
     "src": "assets/js/main.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_vendor-BR6f9gvD.js"
+    ]
   }
 }
