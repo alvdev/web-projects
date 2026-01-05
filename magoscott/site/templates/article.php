@@ -45,7 +45,7 @@ $sizes = "
             </picture>
         <?php endif ?>
 
-        <div class="relative mt-16 prose prose-p:text-lg md:prose-p:text-xl lg:prose-p:text-2xl font-light text-pretty pl-4 md:pl-8 text-white/90 before:absolute before:left-0 before:w-0.5 md:before:w-1 before:h-full before:bg-red-600 before:rounded-full">
+        <div class="relative mt-16 min-w-full prose prose-p:text-lg md:prose-p:text-xl lg:prose-p:text-2xl font-light text-pretty pl-4 md:pl-8 text-white/90 before:absolute before:left-0 before:w-0.5 md:before:w-1 before:h-full before:bg-red-600 before:rounded-full">
             <?= $page->text()->toBlocks() ?>
         </div>
     </article>

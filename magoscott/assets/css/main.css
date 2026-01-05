@@ -88,3 +88,8 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
+
+/* Overwrite prose style */
+:not(:where([class~="not-prose"],[class~="not-prose"] *),:where(a)) {
+    @apply text-white/80;
+}

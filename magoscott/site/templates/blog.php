@@ -12,7 +12,7 @@ $sizes = "
 ?>
 
 <main class="pt-16 md:pt-28 lg:pt-36 bg-linear-to-bl from-red-600/30 via-indigo-950/30">
-    <div class="container grid md:grid-cols-2 gap-16 lg:gap-28">
+    <div class="container grid md:grid-cols-2 lg:grid-cols-3 gap-16">
         <?php foreach ($page->children()->listed() as $post): ?>
             <article class="grid">
                 <a href="<?= $post->url() ?>" class="group">
@@ -39,11 +39,11 @@ $sizes = "
                     </h2>
                 </a>
 
-                <p class="mt-8">
+                <p class="mt-8 text-white/80">
                     <?= $post->summary()->listed()->excerpt(200) ?? $post->text()->excerpt(200) ?>
                 </p>
 
-                <a href="<?= $post->url() ?>" class="ml-auto font-semibold text-red-400 hover:text-red-500">Seguir leyendo →</a>
+                <a href="<?= $post->url() ?>" class="ml-auto font-semibold uppercase text-red-400 hover:text-red-500">Seguir leyendo →</a>
             </article>
         <?php endforeach ?>
     </div>
