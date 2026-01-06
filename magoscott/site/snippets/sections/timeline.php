@@ -19,7 +19,7 @@
                             </div>
 
                             <div class="relative md:-top-1 flex flex-col lg:flex-row justify-between gap-4 md:gap-8 lg:gap-12 xl:gap-16">
-                                <div class="lg:min-w-3/5 lg:pr-8 xl:pr-0">
+                                <div class="lg:min-w-8/12 lg:pr-8 xl:pr-0">
                                     <h3 class="relative text-xl md:text-2xl mt-1 md:mt-0 font-semibold first-letter:uppercase after:absolute after:-bottom-4 after:left-0 after:bg-red-600 after:w-36 after:h-1 after:rounded-full">
                                         <?= $item->title() ?>
                                     </h3>
@@ -29,10 +29,14 @@
                                     </div>
                                 </div>
 
+                                <?php if ($video = $item->content()->videos()->toEmbed()): ?>
+                                    <?php snippet('video', ['video' => $video, 'class' => 'mt-auto rounded-xl']) ?>
+                                <?php endif ?>
+
                                 <?php if ($item->content()->videos()->isNotEmpty()): ?>
-                                    <div class="lg:min-w-1/5 flex flex-col gap-8 w-full *:w-fit *:h-auto *:rounded-xl *:ring-2 *:ring-indigo-900/50 *:aspect-video">
+                                    <div class="lg:min-w-1/5 flex flex-col gap-1 w-full border-2 border-white/5 bg-white/10 h-auto rounded-xl">
                                         <?php foreach ($item->content()->videos()->toEntries() as $entry): ?>
-                                            <?= youtube($entry) ?>
+                                            <?php snippet('video-url', ['url' => $entry, 'class' => 'rounded-xl']) ?>
                                         <?php endforeach ?>
                                     </div>
                                 <?php endif ?>
