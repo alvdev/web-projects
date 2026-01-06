@@ -10,26 +10,30 @@
         <div class="mt-12 md:mt-16 grid lg:grid-cols-3 gap-12">
             <?php if ($shows = $site->shows()->toStructure()): ?>
                 <?php foreach ($shows as $show): ?>
-                    <div class="flex flex-col border-2 border-white/30 p-4 md:p-8 rounded-3xl *:[img]:rounded-xl *:[img]:border-2 *:[img]:border-violet-800/20 *:[iframe]:mt-auto *:[iframe]:w-auto *:[iframe]:h-auto *:[iframe]:aspect-video *:[iframe]:border-2 *:[iframe]:border-violet-800/20 *:[iframe]:rounded-xl">
+                    <div class="flex flex-col border-2 border-white/30 p-4 md:p-8 rounded-3xl *:[iframe]:mt-auto *:[iframe]:w-auto *:[iframe]:h-auto *:[iframe]:aspect-video *:[iframe]:border-2 *:[iframe]:border-violet-800/20 *:[iframe]:rounded-xl">
                         <?php if ($cover = $show->cover()->toFile()): ?>
                             <picture>
-                                <source srcset="<?= $cover->srcset('avif') ?>" type="image/avif" sizes="(min-width: 1024px) 33vw, 100vw">
-                                <source srcset="<?= $cover->srcset('webp') ?>" type="image/webp" sizes="(min-width: 1024px) 33vw, 100vw">
+                                <source
+                                    srcset="<?= $cover->srcset('avif') ?>"
+                                    type="image/avif">
+                                <source
+                                    srcset="<?= $cover->srcset('webp') ?>"
+                                    type="image/webp">
                                 <img
-                                    src="<?= $cover->resize(600)->url() ?>"
-                                    srcset="<?= $cover->srcset('default') ?>"
+                                    src="<?= $cover->resize(390)->url() ?>"
+                                    srcset="<?= $cover->srcset() ?>"
                                     sizes="(min-width: 1024px) 33vw, 100vw"
                                     alt="<?= $cover->alt() ?>"
                                     loading="lazy"
-                                    width="<?= $cover->width() ?>"
-                                    height="<?= $cover->height() ?>"
-                                >
+                                    width="<?= $cover->resize(390)->width() ?>"
+                                    height="<?= $cover->resize(550)->height() ?>"
+                                    class="w-full h-auto rounded-xl border-2 border-violet-800/20">
                             </picture>
                         <?php endif ?>
                         <h3 class="mt-8 text-3xl md:text-5xl lg:text-3xl text-pretty"><?= $show->title() ?></h3>
                         <p class="my-8 text-xl md:text-3xl lg:text-xl text-white/80"><?= $show->desc() ?></p>
                         <?php if ($video = $show->video()->toEmbed()): ?>
-                            <?= str_replace(['<iframe', 'youtube.com'], ['<iframe loading="lazy"', 'youtube-nocookie.com'], $video->code()) ?>
+                            <?php snippet('video', ['video' => $video, 'class' => 'mt-auto rounded-xl border-2 border-violet-800/20']) ?>
                         <?php endif ?>
                     </div>
                 <?php endforeach ?>
