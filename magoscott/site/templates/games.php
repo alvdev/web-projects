@@ -35,7 +35,26 @@
                         </div>
 
                         <div class="sticky top-36">
-                            <?= $game->cover()->toFile() ?>
+                            <?php if ($image = $game->cover()->toFile()): ?>
+                                <picture>
+                                    <source
+                                        srcset="<?= $image->srcset('avif') ?>"
+                                        sizes="(min-width: 1024px) 50vw, 100vw"
+                                        type="image/avif">
+                                    <source
+                                        srcset="<?= $image->srcset('webp') ?>"
+                                        sizes="(min-width: 1024px) 50vw, 100vw"
+                                        type="image/webp">
+                                    <img
+                                        src="<?= $image->resize(600)->url() ?>"
+                                        srcset="<?= $image->srcset() ?>"
+                                        sizes="(min-width: 1024px) 50vw, 100vw"
+                                        alt="<?= $image->alt() ?>"
+                                        width="<?= $image->width() ?>"
+                                        height="<?= $image->height() ?>"
+                                        class="w-full h-auto rounded-3xl">
+                                </picture>
+                            <?php endif ?>
                         </div>
                     </div>
                 </section>
