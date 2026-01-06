@@ -48,7 +48,7 @@ tabs:
             size: large
             text: "{{ file.name }}"
             info: "{{ file.dimensions }} - {{ file.nicesize }}"
-            limit: 15
+            limit: 5
             image:
               cover: true
               back: black
@@ -85,7 +85,7 @@ tabs:
         size: large
         text: "{{ file.name }}"
         info: "{{ file.dimensions }} - {{ file.nicesize }}"
-        limit: 15
+        limit: 5
         image:
           cover: true
           back: black
@@ -107,7 +107,7 @@ tabs:
         size: large
         text: "{{ file.name }}"
         info: "{{ file.dimensions }} - {{ file.nicesize }}"
-        limit: 15
+        limit: 5
         image:
           cover: true
           back: black
