@@ -6,7 +6,7 @@
     <link rel="shortcut icon" type="image/x-icon"
         href="<?= $site->favicon()->toFile() ? $site->favicon()->toFile()->url() : '/assets/images/favicons/favicon.ico' ?>">
 
-    <link rel="preload" href="/assets/fonts/ysabeau.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?= vite()->file('assets/fonts/ysabeau.woff2') ?>" as="font" type="font/woff2" crossorigin>
     <?= vite()->css('assets/css/main.css') ?>
     <?= vite()->js('assets/js/main.js', ['defer' => true]) ?>
 
