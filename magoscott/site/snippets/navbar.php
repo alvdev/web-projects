@@ -7,7 +7,20 @@
             <!-- Logo -->
             <a href="<?= $site->url(); ?>" class="*:h-18 md:*:h-auto">
                 <?php if ($asset = asset('assets/images/logo_scott.png')): ?>
-                    <img src="<?= $asset->url() ?>" alt="Logo de Mago Scott" />
+                    <picture>
+                        <source
+                            srcset="<?= $asset->thumb(['format' => 'avif', 'width' => 131, 'quality' => 70])->url() ?> 1x, <?= $asset->thumb(['format' => 'avif', 'width' => 262, 'quality' => 70])->url() ?> 2x"
+                            type="image/avif">
+                        <source
+                            srcset="<?= $asset->thumb(['format' => 'webp', 'width' => 131, 'quality' => 80])->url() ?> 1x, <?= $asset->thumb(['format' => 'webp', 'width' => 262, 'quality' => 80])->url() ?> 2x"
+                            type="image/webp">
+                        <img
+                            src="<?= $asset->url() ?>"
+                            alt="Logo de Mago Scott"
+                            width="<?= $asset->width() ?>"
+                            height="<?= $asset->height() ?>"
+                            class="w-auto" />
+                    </picture>
                 <?php endif ?>
             </a>
 
