@@ -1,0 +1,43 @@
+title: Juegos de magia
+status:
+  draft:
+    label: 
+      en: Draft
+      es: Borrador
+    text: 
+      en: The page is still in draft mode. It can only be seen by editors with panel access.
+      es: La página permanece como un borrador. Sólo puede verse por editores con acceso al panel.
+  listed:
+    label: 
+      en: Published
+      es: Publicado
+    text: 
+      en: The page is online and listed in the games section.
+      es: La página está online y se puede ver en la sección de juegos.
+
+sections:
+  published:
+    type: pages
+    label:
+      en: Published
+      es: Publicados 
+    status: listed
+    template: game
+    layout: cards
+    size: huge
+    image:
+      back: black
+      cover: true
+
+  drafts:
+    type: pages
+    label:
+      en: Drafts 
+      es: Borradores 
+    status: draft
+    template: game
+    layout: cards
+    size: huge
+    image:
+      back: black
+      cover: true
