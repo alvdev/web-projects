@@ -1,4 +1,20 @@
 title: Juego de Magia
+status:
+  draft:
+    label: 
+      en: Draft
+      es: Borrador
+    text: 
+      en: The game page is still in draft mode. It can only be seen by editors with panel access.
+      es: La página del juego permanece como un borrador. Sólo puede verse por editores con acceso al panel.
+  listed:
+    label: 
+      en: Published
+      es: Publicado
+    text: 
+      en: The game page is online and listed in the games section.
+      es: La página del juego está online y se puede ver en la sección de juegos.
+
 columns:
   left:
     width: 2/3
