@@ -8,7 +8,7 @@
         <div class="mt-12 md:mt-16 flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-18 lg:*:w-1/2">
             <div class="w-full *:w-full *:h-auto *:aspect-video *:rounded-2xl *:border-2 *:border-violet-900/30">
                 <?php if ($video = $site->tourVideo()->toEmbed()): ?>
-                    <?= str_replace(['<iframe', 'youtube.com'], ['<iframe loading="lazy"', 'youtube-nocookie.com'], $video->code()) ?>
+                    <?php snippet('video', ['video' => $video]) ?>
                 <?php endif ?>
             </div>
 
