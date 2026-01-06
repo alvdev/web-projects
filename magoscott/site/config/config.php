@@ -21,6 +21,14 @@ return [
                 include $kirby->root('templates') . '/fatal.php';
             },
             'date.handler' => 'intl',
+            // Page caching for better performance
+            'cache' => [
+                'pages' => [
+                    'active' => env('APP_DEBUG', true) === false, // Only cache when not in debug mode
+                    'type' => 'file',
+                    'maxAge' => 15552000, // 180 days cache
+                ]
+            ],
             'email' => [
                 /* 'transport' => [
                     'type' => 'smtp',
@@ -60,21 +68,12 @@ return [
                         }
                     ],
                     'game' => [
-                        'label' => 'Juego',
+                        'label' => 'Juegos',
                         'icon' => 'document',
-                        'link' => 'pages/juego',
+                        'link' => 'pages/juegos',
                         'current' => function (): bool {
                             $path = App::instance()->path();
                             return Str::contains($path, 'pages/juego');
-                        }
-                    ],
-                    'blog' => [
-                        'label' => 'Blog',
-                        'icon' => 'document',
-                        'link' => 'pages/blog',
-                        'current' => function (): bool {
-                            $path = App::instance()->path();
-                            return Str::contains($path, 'pages/blog');
                         }
                     ],
                     'gallery' => [
@@ -84,6 +83,15 @@ return [
                         'current' => function (): bool {
                             $path = App::instance()->path();
                             return Str::contains($path, 'pages/galeria');
+                        }
+                    ],
+                    'blog' => [
+                        'label' => 'Blog',
+                        'icon' => 'document',
+                        'link' => 'pages/blog',
+                        'current' => function (): bool {
+                            $path = App::instance()->path();
+                            return Str::contains($path, 'pages/blog');
                         }
                     ],
                     '-',
@@ -110,6 +118,9 @@ return [
                     'available' => ['csrf', 'honeypot', 'turnstile', /* 'ratelimit' */],
                     'honeypot.availableFields' => ['website', 'url', 'birthdate'],
                 ],
+            ],
+            'sylvaninjule.embed' => [
+                'nocookie' => true,
             ],
             'routes' => [
                 [
