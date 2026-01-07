@@ -1,9 +1,5 @@
 <?php 
-$sizes = "
-        (min-width: 1200px) 25vw,
-        (min-width: 900px) 33vw,
-        (min-width: 600px) 50vw,
-        100vw";
+$sizes = "100vw";
 ?>
 
 <header id="home-header" class="bg-linear-to-tl from-red-600/30 via-indigo-950/30 via-50% to-black/30">
