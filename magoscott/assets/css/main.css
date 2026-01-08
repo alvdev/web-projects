@@ -122,6 +122,6 @@
 }
 
 /* Overwrite prose style */
-:where([class~="prose"] *, :not:a) {
+:where([class~="prose"] :not(a)) {
     @apply text-white/80;
 }
