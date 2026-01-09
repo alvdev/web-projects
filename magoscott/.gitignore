@@ -55,3 +55,6 @@ Icon
 kirby/
 media/
 README.md
+!site/plugins/
+site/plugins/*
+!site/plugins/alv-*
