@@ -216,7 +216,7 @@
         </td>
         <td class="col-stack" width="34%" style="padding: 24px; text-align: center; vertical-align: top;">
           <img src="https://mcusercontent.com/780971879069aaa0159ad8608/images/dcd6abb0-7146-7227-e41a-525a35ad0a9a.jpg" width="187" class="image-stack" style="margin: 0 auto 15px;" />
-          <a href="https://www.youtube.com/watch?v=jmP4YLts-PA" class="btn">Ver ahora</a>
+          <a href="https://www.youtube.com/watch?v=UC5ihUVtuEE" class="btn">Ver ahora</a>
         </td>
       </tr>
     </table>
@@ -234,7 +234,7 @@
       <tr>
         <td class="col-stack" width="34%" style="padding: 24px; text-align: center; vertical-align: top;">
           <img src="https://mcusercontent.com/780971879069aaa0159ad8608/images/ecedc57e-baf2-79d9-73db-16ca6b1e20aa.jpg" width="187" class="image-stack" style="margin: 0 auto 15px;" />
-          <a href="https://www.youtube.com/watch?v=VzX_e26J3mI" class="btn">Ver ahora</a>
+          <a href="https://www.youtube.com/watch?v=grF3E1nV2bM" class="btn">Ver ahora</a>
         </td>
         <td class="col-stack" width="66%" style="padding: 24px; vertical-align: top;">
           <div class="subtitle text-center">Espectáculo de magia de cerca con hipnosis</div>
@@ -256,7 +256,7 @@
         </td>
         <td class="col-stack" width="34%" style="padding: 24px; text-align: center; vertical-align: top;">
           <img src="https://mcusercontent.com/780971879069aaa0159ad8608/images/568efc9a-7c4d-aa75-0186-9c53febb6bec.jpg" width="187" class="image-stack" style="margin: 0 auto 15px;" />
-          <a href="https://www.youtube.com/watch?v=X0YmU3Xf7O0" class="btn">Ver ahora</a>
+          <a href="https://www.youtube.com/watch?v=jmP4YLts-PA" class="btn">Ver ahora</a>
         </td>
       </tr>
     </table>

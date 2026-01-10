@@ -1,24 +1,24 @@
 <?= $form->site()->title() ?>
 
 <?php if (isset($body) && $body !== null): ?>
-<?= $body['text'] ?>
+	<?= $body['text'] ?>
 <?php else: ?>
-<?= tt('dreamform.actions.email.defaultTemplate.text', null, ['form' => $form->title()]) ?>
+	<?= tt('dreamform.actions.email.defaultTemplate.text', null, ['form' => $form->title()]) ?>
 <?php endif; ?>
 
 <?php if (!isset($body) || $body === null): ?>
-——— Submission Details ———
-<?php foreach ($fields = $form->fields()->filterBy(fn ($f) => $f::hasValue() && $f::type() !== 'file-upload') as $field) :
-	$value = $submission->valueFor($field->key())?->escape();
-	if (str_starts_with($value ?? "", 'page://')) {
-		$page = \Kirby\Cms\App::instance()->site()->find($value);
-		if ($page) {
-			$value = $page->title();
+	——— Submission Details ———
+	<?php foreach ($fields = $form->fields()->filterBy(fn($f) => $f::hasValue() && $f::type() !== 'file-upload') as $field) :
+		$value = $submission->valueFor($field->key())?->escape();
+		if (str_starts_with($value ?? "", 'page://')) {
+			$page = \Kirby\Cms\App::instance()->site()->find($value);
+			if ($page) {
+				$value = $page->title();
+			}
 		}
-	}
 	?>
-<?= $field->label() ?>: <?= $value ?? "—" ?>
-<?php endforeach; ?>
+		<?= $field->label() ?>: <?= $value ?? "—" ?>
+	<?php endforeach; ?>
 <?php endif; ?>
 
 ——— EL MAGO SCOTT ———
@@ -29,15 +29,15 @@ ESPECTÁCULOS:
 
 * Espectáculo Las Vegas
 Es el espectáculo más grande que jamás hayas visto, donde Scott, con su compañera de escena, hará las grandes ilusiones más espectaculares.
-Ver ahora: https://www.youtube.com/watch?v=jmP4YLts-PA
+Ver ahora: https://www.youtube.com/watch?v=UC5ihUVtuEE
 
 * Espectáculo de magia de cerca con hipnosis
 Un show diseñado para sentir la magia a pocos centímetros de tus ojos. Ideal para bodas, ferias, o eventos.
-Ver ahora: https://www.youtube.com/watch?v=VzX_e26J3mI
+Ver ahora: https://www.youtube.com/watch?v=grF3E1nV2bM
 
 * Show de Magia familiar
 Un show donde los más pequeños y los más grandes disfrutarán de una magia dinámica y muy divertida.
-Ver ahora: https://www.youtube.com/watch?v=X0YmU3Xf7O0
+Ver ahora: https://www.youtube.com/watch?v=jmP4YLts-PA
 
 * Espectáculo para empresas
 Adaptado para todo tipo de empresas. Se puede hacer magia corporativa con los productos específicos de la empresa.
