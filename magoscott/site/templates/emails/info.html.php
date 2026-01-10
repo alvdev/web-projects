@@ -344,15 +344,20 @@
     <!-- TV Grid 2 -->
     <table class="container light-purple-bg" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation">
       <tr>
-        <td class="col-stack" width="50%" style="padding: 12px; text-align: center; vertical-align: top;">
+        <td class="col-stack" width="33%" style="padding: 12px; text-align: center; vertical-align: top;">
           <img src="https://mcusercontent.com/780971879069aaa0159ad8608/images/c58cd328-8b9d-b076-cb7f-ded61a1be1af.jpg" width="181" style="margin: 0 auto 10px;" />
           <p style="padding-bottom: 10px;">Sálvame</p>
           <a href="https://www.youtube.com/watch?v=2zGjh6k2cQo&t=43s" class="btn" style="padding: 10px 15px; font-size: 14px;">Ver ahora</a>
         </td>
-        <td class="col-stack" width="50%" style="padding: 12px; text-align: center; vertical-align: top;">
+        <td class="col-stack" width="33%" style="padding: 12px; text-align: center; vertical-align: top;">
           <img src="https://mcusercontent.com/780971879069aaa0159ad8608/images/fce04ab5-bace-3769-b9b3-4f76a8bc1026.jpg" width="181" style="margin: 0 auto 10px;" />
           <p style="padding-bottom: 10px;">Sábado Deluxe</p>
           <a href="https://www.youtube.com/watch?v=joJyqAvFdVA" class="btn" style="padding: 10px 15px; font-size: 14px;">Ver ahora</a>
+        </td>
+        <td class="col-stack" width="33%" style="padding: 12px; text-align: center; vertical-align: top;">
+          <img src="https://img.youtube.com/vi/gnzVQjFufj8/hqdefault.jpg" width="181" style="margin: 0 auto 10px;" />
+          <p style="padding-bottom: 10px;">El Tiempo Justo</p>
+          <a href="https://www.youtube.com/watch?v=gnzVQjFufj8" class="btn" style="padding: 10px 15px; font-size: 14px;">Ver ahora</a>
         </td>
       </tr>
     </table>

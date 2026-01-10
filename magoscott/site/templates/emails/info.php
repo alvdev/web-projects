@@ -56,6 +56,7 @@ ALGUNOS TRABAJOS DE TELEVISIÓN:
 - Gente Maravillosa: https://www.youtube.com/watch?v=TgNs5LVrQ3g
 - Sálvame: https://www.youtube.com/watch?v=2zGjh6k2cQo&t=43s
 - Sábado Deluxe: https://www.youtube.com/watch?v=joJyqAvFdVA
+- El Tiempo Justo: https://www.youtube.com/watch?v=gnzVQjFufj8
 
 DESCARGA MI DOSSIER: https://drive.google.com/file/d/1_NWTZoDJlkpJbqL3bJlolrEFG-ivXz9n/view?usp=sharing
 
