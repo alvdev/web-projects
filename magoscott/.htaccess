@@ -31,6 +31,8 @@ RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 RewriteRule (^|/)\.(?!well-known\/) index.php [L]
 
 # block all files in the content folder from being accessed directly
+# except for the 'thumbnails' subfolder used for optimized static gallery assets
+RewriteCond %{REQUEST_URI} !/thumbnails/
 RewriteRule ^content/(.*) index.php [L]
 
 # block all files in the site folder from being accessed directly

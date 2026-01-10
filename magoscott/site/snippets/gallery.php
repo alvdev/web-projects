@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Reusable lightweight gallery
  *
@@ -20,31 +21,13 @@ if (!$images || $images->count() === 0) {
     x-cloak
     @keyup.right.window="next"
     @keyup.left.window="prev"
-    class="w-full h-full select-none"
->
+    class="w-full h-full select-none">
     <div class="container mt-16 md:mt-28 lg:mt-36">
         <ul
             x-ref="gallery"
-            class="mt-8 columns-2 md:columns-3 lg:columns-4 gap-4"
-        >
-            <?php foreach ($images as $index => $image): ?>
-                <?php
-                    $thumb = $image->resize($thumbSize);
-                    $full  = $image->resize($fullSize);
-                ?>
-                <li class="break-inside-avoid mb-4">
-                    <img
-                        src="<?= $thumb->url() ?>"
-                        data-full="<?= $full->url() ?>"
-                        data-index="<?= $index ?>"
-                        alt="<?= $image->alt()->or($image->filename()) ?>"
-                        loading="lazy"
-                        width="<?= $thumb->width() ?>"
-                        height="<?= $thumb->height() ?>"
-                        class="rounded-xl cursor-zoom-in hover:scale-105 transition"
-                        @click="open($event)"
-                    >
-                </li>
+            class="mt-8 columns-2 md:columns-3 lg:columns-4 gap-4">
+            <?php foreach ($images as $image): ?>
+                <?php snippet('gallery-item', ['image' => $image]) ?>
             <?php endforeach ?>
         </ul>
     </div>
@@ -55,65 +38,30 @@ if (!$images || $images->count() === 0) {
             x-show="opened"
             x-cloak
             @click="close"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 cursor-zoom-out"
-        >
+            class="fixed inset-0 z-50 flex items-center justify-center bg-violet-500/70 cursor-zoom-out backdrop-blur-xs">
             <div class="relative">
                 <img
                     :src="active"
-                    class="max-w-[90vw] max-h-[90vh] rounded-2xl"
-                >
+                    class="max-w-[90vw] max-h-[90vh] rounded-2xl border-4 border-white/50 shadow-xl">
 
                 <!-- Prev -->
                 <button
                     @click.stop="prev"
-                    class="absolute left-[-3rem] top-1/2 -translate-y-1/2 text-white text-4xl"
-                >
-                    ‹
+                    class="absolute -left-4 md:-left-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-16 md:h-16 bg-black/80 hover:bg-black text-white rounded-full flex items-center justify-center transition-colors shadow-lg group ring-2 md:ring-4 ring-white/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 md:w-6 md:h-6 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                    </svg>
                 </button>
 
                 <!-- Next -->
                 <button
                     @click.stop="next"
-                    class="absolute right-[-3rem] top-1/2 -translate-y-1/2 text-white text-4xl"
-                >
-                    ›
+                    class="absolute -right-4 md:-right-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-16 md:h-16 bg-black/80 hover:bg-black text-white rounded-full flex items-center justify-center transition-colors shadow-lg group ring-2 md:ring-4 ring-white/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 md:w-6 md:h-6 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
                 </button>
             </div>
         </div>
     </template>
 </div>
-
-<script>
-document.addEventListener('alpine:init', () => {
-    Alpine.data('gallery', () => ({
-        opened: false,
-        active: null,
-        index: 0,
-        visible: true,
-
-        open(e) {
-            const img = e.target
-            this.index = Number(img.dataset.index)
-            this.active = img.dataset.full
-            this.opened = true
-        },
-
-        close() {
-            this.opened = false
-            this.active = null
-        },
-
-        next() {
-            const imgs = this.$refs.gallery.querySelectorAll('img')
-            this.index = (this.index + 1) % imgs.length
-            this.active = imgs[this.index].dataset.full
-        },
-
-        prev() {
-            const imgs = this.$refs.gallery.querySelectorAll('img')
-            this.index = (this.index - 1 + imgs.length) % imgs.length
-            this.active = imgs[this.index].dataset.full
-        }
-    }))
-})
-</script>

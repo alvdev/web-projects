@@ -7,6 +7,9 @@
         href="<?= $site->favicon()->toFile() ? $site->favicon()->toFile()->url() : '/assets/images/favicons/favicon.ico' ?>">
 
     <link rel="preload" href="<?= vite()->file('assets/fonts/ysabeau.woff2') ?>" as="font" type="font/woff2" crossorigin>
+    <?php if ($cover = $page->cover()->toFile()): ?>
+        <link rel="preload" as="image" imagesrcset="<?= $cover->staticSrcset('avif') ?>" imagesizes="(min-width: 1024px) 50vw, 100vw">
+    <?php endif ?>
     <?= vite()->css('assets/css/main.css') ?>
     <?= vite()->js('assets/js/main.js', ['defer' => true]) ?>
 

@@ -7,18 +7,18 @@ $sizes = "100vw";
         <?php if ($image = $page->cover()->toFile()): ?>
             <picture>
                 <!-- Mobile: Vertical 1:3 Crop (Strict) -->
-                <source media="(max-width: 600px)" srcset="<?= $image->srcset('avif-mobile') ?>" sizes="100vw">
-                <source media="(max-width: 600px)" srcset="<?= $image->srcset('webp-mobile') ?>" sizes="100vw">
+                <source media="(max-width: 600px)" srcset="<?= $image->staticSrcset('avif-mobile') ?>" type="image/avif">
+                <source media="(max-width: 600px)" srcset="<?= $image->staticSrcset('webp-mobile') ?>" type="image/webp">
 
                 <!-- Desktop: Landscape -->
-                <source srcset="<?= $image->srcset('avif') ?>" type="image/avif" sizes="(min-width: 1024px) 50vw, 100vw">
-                <source srcset="<?= $image->srcset('webp') ?>" type="image/webp" sizes="(min-width: 1024px) 50vw, 100vw">
+                <source srcset="<?= $image->staticSrcset('avif') ?>" type="image/avif" sizes="(min-width: 1024px) 50vw, 100vw">
+                <source srcset="<?= $image->staticSrcset('webp') ?>" type="image/webp" sizes="(min-width: 1024px) 50vw, 100vw">
                 <img
-                    srcset="<?= $image->srcset('default') ?>"
-                    sizes="<?= $sizes ?>"
-                    src="<?= $image->resize(600)->url() ?>"
-                    width="<?= $image->width() ?>"
-                    height="<?= $image->height() ?>"
+                    srcset="<?= $image->staticSrcset('default') ?>"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    src="<?= $image->staticUrl(['width' => 1200]) ?>"
+                    width="1200"
+                    height="675"
                     alt="Scott - Magoscott"
                     fetchpriority="high"
                     class="w-full h-full object-cover">
