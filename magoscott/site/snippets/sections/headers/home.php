@@ -21,7 +21,7 @@
                         height="<?= $image->height() ?>"
                         alt="Scott - Magoscott"
                         fetchpriority="high"
-                        class="w-full h-auto"
+                        class="w-full h-auto mask-b-from-50%"
                     >
                 </picture>
             <?php endif ?>
