@@ -1,26 +1,52 @@
 <mjml>
   <mj-head>
     <mj-attributes>
-      <mj-all font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" color="#000000" />
+      <mj-all
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        color="#000000"
+      />
       <mj-text font-size="16px" line-height="24px" />
-      <mj-button background-color="#000000" color="#ffffff" border-radius="0px" font-size="16px" inner-padding="16px 28px" />
+      <mj-button
+        background-color="#000000"
+        color="#ffffff"
+        border-radius="0px"
+        font-size="16px"
+        inner-padding="16px 28px"
+      />
       <mj-section padding="0px" />
     </mj-attributes>
     <mj-style>
-      .purple-bg { background-color: #982abc !important; }
-      .light-purple-bg { background-color: #efcaff !important; }
-      .white-text * { color: #ffffff !important; }
-      .title-text { font-size: 30px !important; font-weight: bold; }
-      .subtitle-text { font-size: 28px !important; color: #2e063d !important; }
-      .section-padding { padding: 12px 24px !important; }
+      .purple-bg {
+        background-color: #982abc !important;
+      }
+      .light-purple-bg {
+        background-color: #efcaff !important;
+      }
+      .white-text * {
+        color: #ffffff !important;
+      }
+      .title-text {
+        font-size: 30px !important;
+        font-weight: bold;
+      }
+      .subtitle-text {
+        font-size: 28px !important;
+        color: #2e063d !important;
+      }
+      .section-padding {
+        padding: 12px 24px !important;
+      }
     </mj-style>
   </mj-head>
   <mj-body background-color="#ffffff" width="660px">
-    
     <!-- Header Logo -->
     <mj-section padding="12px 48px" background-color="#efcaff">
       <mj-column>
-        <mj-image width="131px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/55fc6ee7-e15f-894d-a8dd-e162549b802e.png" href="https://www.magoscott.com/" />
+        <mj-image
+          width="131px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/55fc6ee7-e15f-894d-a8dd-e162549b802e.png"
+          href="https://www.magoscott.com/"
+        />
       </mj-column>
     </mj-section>
 
@@ -31,11 +57,10 @@
           <?= $form->site()->title() ?>
         </mj-text>
         <mj-text color="#737373">
-          <?php if (isset($body) && $body !== null): ?>
-            <?= $body['html'] ?>
-          <?php else: ?>
-            <?= tt('dreamform.actions.email.defaultTemplate.text', null, ['form' => "<strong>{$form->title()}</strong>"]) ?>
-          <?php endif; ?>
+          <?php if (isset($body) && $body !== null): ?> <?= $body['html'] ?>
+          <?php else: ?> <?= tt('dreamform.actions.email.defaultTemplate.text',
+          null, ['form' => "<strong>{$form->title()}</strong>"]) ?> <?php endif;
+          ?>
         </mj-text>
       </mj-column>
     </mj-section>
@@ -43,21 +68,21 @@
     <?php if (!isset($body) || $body === null): ?>
     <mj-section padding="24px" background-color="#f9f9f9" border-radius="4px">
       <mj-column>
-        <?php foreach ($fields = $form->fields()->filterBy(fn ($f) => $f::hasValue() && $f::type() !== 'file-upload') as $field) :
-          $value = $submission->valueFor($field->key())?->escape();
-          if(str_starts_with($value ?? "", 'page://')) {
-            $page = \Kirby\Cms\App::instance()->site()->find($value);
-            if($page) {
-              $value = $page->title();
-            }
-          }
-        ?>
-          <mj-text padding-bottom="4px" font-weight="700"><?= $field->label() ?></mj-text>
-          <mj-text color="#737373" padding-bottom="12px"><?= $value ?? "—" ?></mj-text>
-          <?php if($fields->last() !== $field) : ?>
-            <mj-divider border-width="1px" padding="8px 0" border-color="#eeeeee" />
-          <?php endif; ?>
-        <?php endforeach ?>
+        <?php foreach ($fields = $form->fields()->filterBy(fn ($f) =>
+        $f::hasValue() && $f::type() !== 'file-upload') as $field) : $value =
+        $submission->valueFor($field->key())?->escape();
+        if(str_starts_with($value ?? "", 'page://')) { $page =
+        \Kirby\Cms\App::instance()->site()->find($value); if($page) { $value =
+        $page->title(); } } ?>
+        <mj-text padding-bottom="4px" font-weight="700"
+          ><?= $field->label() ?></mj-text
+        >
+        <mj-text color="#737373" padding-bottom="12px"
+          ><?= $value ?? "—" ?></mj-text
+        >
+        <?php if($fields->last() !== $field) : ?>
+        <mj-divider border-width="1px" padding="8px 0" border-color="#eeeeee" />
+        <?php endif; ?> <?php endforeach ?>
       </mj-column>
     </mj-section>
     <?php endif; ?>
@@ -68,16 +93,40 @@
     <!-- Intro Section -->
     <mj-section css-class="purple-bg" padding="12px 24px">
       <mj-column>
-        <mj-text align="center" font-size="18px" color="#ffffff" padding-bottom="0px">
-          El Mago Scott te presenta sus nuevos espectáculos para esta nueva gira.
+        <mj-text
+          align="center"
+          font-size="18px"
+          color="#ffffff"
+          padding-bottom="0px"
+        >
+          El Mago Scott te presenta sus nuevos espectáculos para esta nueva
+          gira.
         </mj-text>
-        <mj-text align="center" font-size="18px" color="#ffffff" padding-bottom="0px">
-          Te dejo todos los links y la información para que puedas ver el espectáculo que más se adapta para tu evento.
+        <mj-text
+          align="center"
+          font-size="18px"
+          color="#ffffff"
+          padding-bottom="0px"
+        >
+          Te dejo todos los links y la información para que puedas ver el
+          espectáculo que más se adapta para tu evento.
         </mj-text>
-        <mj-text align="center" font-size="18px" color="#ffffff" padding-bottom="0px">
-          Los espectáculos están adaptados para todo tipo de eventos: Ayuntamientos, pub, discotecas, cóctel, eventos corporativos y de empresa.
+        <mj-text
+          align="center"
+          font-size="18px"
+          color="#ffffff"
+          padding-bottom="0px"
+        >
+          Los espectáculos están adaptados para todo tipo de eventos:
+          Ayuntamientos, pub, discotecas, cóctel, eventos corporativos y de
+          empresa.
         </mj-text>
-        <mj-text align="center" font-size="18px" color="#ffffff" padding-bottom="12px">
+        <mj-text
+          align="center"
+          font-size="18px"
+          color="#ffffff"
+          padding-bottom="12px"
+        >
           Si lo deseas déjame una dirección y te mando todo en papel.
         </mj-text>
       </mj-column>
@@ -99,11 +148,24 @@
           Espectáculo Las Vegas
         </mj-text>
         <mj-text align="center">
-          Es el espectáculo más grande que jamás hayas visto, donde Scott con su compañera de escena hará las grandes ilusiones más espectaculares. El espectáculo está compuesto por Scott con dos ayudantes, un técnico de sonido y dos técnicos de montaje. Para este espectáculo se necesita un camión de 12 metros ya que se saca un camión al escenario y un helicóptero. Todo lo que te puedas imaginar Scott lo hace realidad. El espectáculo de Las Vegas es un show diseñado para grandes teatros o escenarios de grandes dimensiones para el aire libre.
+          Prepárate para vivir una experiencia única: magia de alto impacto,
+          humor inteligente y un viaje directo al corazón de Las Vegas. Un
+          recorrido mágico por los casinos más emblemáticos, mesas de Blackjack
+          llenas de misterio y momentos impredecibles donde la magia ocurre a
+          centímetros del público. En este espectáculo exclusivo de El Mago
+          Scott, tú no solo verás magia… serás parte de ella. Cada persona se
+          convierte en protagonista de una historia llena de sorpresas, ritmo y
+          pura energía escénica. ¿Quieres viajar a Las Vegas sin salir del
+          teatro? Este es tu billete. Y recuerda… lo que pasa en Las Vegas… se
+          queda en Las Vegas.
         </mj-text>
       </mj-column>
       <mj-column width="33.33%">
-        <mj-image width="187px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/73dc2447-0624-9f79-9943-448a58a9cf29.jpg" padding="12px" />
+        <mj-image
+          width="187px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/73dc2447-0624-9f79-9943-448a58a9cf29.jpg"
+          padding="12px"
+        />
         <mj-button href="https://www.youtube.com/watch?v=UC5ihUVtuEE">
           Ver ahora
         </mj-button>
@@ -120,7 +182,11 @@
     <!-- Espectáculo de magia de cerca con hipnosis -->
     <mj-section padding="12px 0">
       <mj-column width="33.33%">
-        <mj-image width="187px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/de44f1ec-78ea-3f26-ccbe-45922e4ff73a.jpg" padding="12px" />
+        <mj-image
+          width="187px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/de44f1ec-78ea-3f26-ccbe-45922e4ff73a.jpg"
+          padding="12px"
+        />
         <mj-button href="https://www.youtube.com/watch?v=grF3E1nV2bM">
           Ver ahora
         </mj-button>
@@ -130,7 +196,12 @@
           Espectáculo de magia de cerca con hipnosis
         </mj-text>
         <mj-text align="center">
-          Este show está diseñado para que la gente sienta la magia a escasos centímetros de sus ojos, es un espectáculo donde se combina la magia con la hipnosis y se realiza en la misma mesa donde están los comensales. Este espectáculo es ideal para bodas, ferias o para cualquier evento donde quieras impresionar a tus clientes de una forma directa y personal.
+          Este show está diseñado para que la gente sienta la magia a escasos
+          centímetros de sus ojos, es un espectáculo donde se combina la magia
+          con la hipnosis y se realiza en la misma mesa donde están los
+          comensales. Este espectáculo es ideal para bodas, ferias o para
+          cualquier evento donde quieras impresionar a tus clientes de una forma
+          directa y personal.
         </mj-text>
       </mj-column>
     </mj-section>
@@ -142,11 +213,18 @@
           Show de Magia familiar
         </mj-text>
         <mj-text align="center">
-          Espectáculo diseñado para el público familiar, donde los más pequeños y los más grandes disfrutarán de una magia dinámica y muy divertida con música y con muchas sorpresas, donde el público participa mucho con el mago Scott.
+          Espectáculo diseñado para el público familiar, donde los más pequeños
+          y los más grandes disfrutarán de una magia dinámica y muy divertida
+          con música y con muchas sorpresas, donde el público participa mucho
+          con el mago Scott.
         </mj-text>
       </mj-column>
       <mj-column width="33.33%">
-        <mj-image width="187px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/45688d63-231b-7e61-dd9b-4ff6f1225573.jpg" padding="12px" />
+        <mj-image
+          width="187px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/45688d63-231b-7e61-dd9b-4ff6f1225573.jpg"
+          padding="12px"
+        />
         <mj-button href="https://www.youtube.com/watch?v=jmP4YLts-PA">
           Ver ahora
         </mj-button>
@@ -156,7 +234,11 @@
     <!-- Espectáculo para empresas -->
     <mj-section padding="12px 0">
       <mj-column width="33.33%">
-        <mj-image width="187px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/4106d6ba-cd54-7d01-4bfd-2c60641f610c.jpg" padding="12px" />
+        <mj-image
+          width="187px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/4106d6ba-cd54-7d01-4bfd-2c60641f610c.jpg"
+          padding="12px"
+        />
         <mj-button href="https://www.youtube.com/watch?v=LcCtWiCSRvQ">
           Ver ahora
         </mj-button>
@@ -166,7 +248,10 @@
           Espectáculo para empresas
         </mj-text>
         <mj-text align="center">
-          Este espectáculo está diseñado para todo tipo de eventos de empresas. También se puede hacer magia corporativa con los productos específicos de la empresa. Si quieres ser el número uno contrata al número uno en la magia, ya que el mago Scott hará tu fiesta un día especial.
+          Este espectáculo está diseñado para todo tipo de eventos de empresas.
+          También se puede hacer magia corporativa con los productos específicos
+          de la empresa. Si quieres ser el número uno contrata al número uno en
+          la magia, ya que el mago Scott hará tu fiesta un día especial.
         </mj-text>
       </mj-column>
     </mj-section>
@@ -178,11 +263,20 @@
           Show del Trirelo con regalos
         </mj-text>
         <mj-text align="center">
-          El espectáculo del trailero es el juego de las tres cartas que tiene que adivinar dónde está la de diferente color, es el juego prohibido con el que en la calle se juega con dinero, pero este espectáculo lo cree para que sea con regalos para pubs, discotecas o un evento con tu propia marca con tus propios regalos. Si necesitas más información manda un WhatsApp y te resuelvo todas tus dudas. 630818123
+          El espectáculo del trailero es el juego de las tres cartas que tiene
+          que adivinar dónde está la de diferente color, es el juego prohibido
+          con el que en la calle se juega con dinero, pero este espectáculo lo
+          cree para que sea con regalos para pubs, discotecas o un evento con tu
+          propia marca con tus propios regalos. Si necesitas más información
+          manda un WhatsApp y te resuelvo todas tus dudas. 630818123
         </mj-text>
       </mj-column>
       <mj-column width="33.33%">
-        <mj-image width="187px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/ab2a9db4-7f62-06b9-bd4e-950842d48c82.jpg" padding="12px" />
+        <mj-image
+          width="187px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/ab2a9db4-7f62-06b9-bd4e-950842d48c82.jpg"
+          padding="12px"
+        />
         <mj-button href="https://www.youtube.com/watch?v=7CCKal-1L20">
           Ver ahora
         </mj-button>
@@ -199,11 +293,18 @@
     <!-- Showman Section -->
     <mj-section css-class="purple-bg" padding="12px 24px">
       <mj-column>
-        <mj-text align="center" font-size="30px" color="#ffffff" padding-bottom="10px">
+        <mj-text
+          align="center"
+          font-size="30px"
+          color="#ffffff"
+          padding-bottom="10px"
+        >
           SHOWMAN PRESENTADOR
         </mj-text>
         <mj-text align="center" color="#ffffff">
-          EL MAGO SCOTT, CON SU INCONFUNDIBLE ESTILO DINÁMICO Y DIVERTIDO, LLEVA UN PASO MÁS ALLÁ DE LA PRESENTACIÓN DE CUALQUIER EVENTO, DE CUALQUIER PRODUCTO Y DE CUALQUIER MARCA.
+          EL MAGO SCOTT, CON SU INCONFUNDIBLE ESTILO DINÁMICO Y DIVERTIDO, LLEVA
+          UN PASO MÁS ALLÁ DE LA PRESENTACIÓN DE CUALQUIER EVENTO, DE CUALQUIER
+          PRODUCTO Y DE CUALQUIER MARCA.
         </mj-text>
       </mj-column>
     </mj-section>
@@ -220,49 +321,95 @@
     <!-- TV Works Grid 1 -->
     <mj-section css-class="light-purple-bg" padding="12px">
       <mj-column width="33.33%">
-        <mj-image src="https://mcusercontent.com/780971879069aaa0159ad8608/images/00e3f58f-7441-818b-fe30-3571cd4d1f71.jpg" />
-        <mj-text align="center" padding="12px 24px">Viaje mágico en telecinco</mj-text>
-        <mj-button href="https://www.youtube.com/watch?v=1H-LD-iGg-w&t=5s">Ver ahora</mj-button>
+        <mj-image
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/00e3f58f-7441-818b-fe30-3571cd4d1f71.jpg"
+        />
+        <mj-text align="center" padding="12px 24px"
+          >Viaje mágico en telecinco</mj-text
+        >
+        <mj-button href="https://www.youtube.com/watch?v=1H-LD-iGg-w&t=5s"
+          >Ver ahora</mj-button
+        >
       </mj-column>
       <mj-column width="33.33%">
-        <mj-image src="https://mcusercontent.com/780971879069aaa0159ad8608/images/ed21b53b-aba3-f182-2457-95fd40434d35.jpg" />
-        <mj-text align="center" padding="12px 24px">Programa 25 palabras</mj-text>
-        <mj-button href="https://www.youtube.com/watch?v=167ePGzP2wg&t=1s">Ver ahora</mj-button>
+        <mj-image
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/ed21b53b-aba3-f182-2457-95fd40434d35.jpg"
+        />
+        <mj-text align="center" padding="12px 24px"
+          >Programa 25 palabras</mj-text
+        >
+        <mj-button href="https://www.youtube.com/watch?v=167ePGzP2wg&t=1s"
+          >Ver ahora</mj-button
+        >
       </mj-column>
       <mj-column width="33.33%">
-        <mj-image src="https://mcusercontent.com/780971879069aaa0159ad8608/images/04ab566d-06d2-0e84-d064-dc53e5d78626.jpg" />
+        <mj-image
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/04ab566d-06d2-0e84-d064-dc53e5d78626.jpg"
+        />
         <mj-text align="center" padding="12px 24px">Gente Maravillosa</mj-text>
-        <mj-button href="https://www.youtube.com/watch?v=TgNs5LVrQ3g">Ver ahora</mj-button>
+        <mj-button href="https://www.youtube.com/watch?v=TgNs5LVrQ3g"
+          >Ver ahora</mj-button
+        >
       </mj-column>
     </mj-section>
 
     <!-- TV Works Grid 2 -->
     <mj-section css-class="light-purple-bg" padding="12px">
       <mj-column width="33.33%">
-        <mj-image width="181px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/c58cd328-8b9d-b076-cb7f-ded61a1be1af.jpg" />
+        <mj-image
+          width="181px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/c58cd328-8b9d-b076-cb7f-ded61a1be1af.jpg"
+        />
         <mj-text align="center" padding="12px 24px">Sálvame</mj-text>
-        <mj-button href="https://www.youtube.com/watch?v=2zGjh6k2cQo&t=43s">Ver ahora</mj-button>
+        <mj-button href="https://www.youtube.com/watch?v=2zGjh6k2cQo&t=43s"
+          >Ver ahora</mj-button
+        >
       </mj-column>
       <mj-column width="33.33%">
-        <mj-image width="181px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/fce04ab5-bace-3769-b9b3-4f76a8bc1026.jpg" />
+        <mj-image
+          width="181px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/fce04ab5-bace-3769-b9b3-4f76a8bc1026.jpg"
+        />
         <mj-text align="center" padding="12px 24px">Sábado Deluxe</mj-text>
-        <mj-button href="https://www.youtube.com/watch?v=joJyqAvFdVA">Ver ahora</mj-button>
+        <mj-button href="https://www.youtube.com/watch?v=joJyqAvFdVA"
+          >Ver ahora</mj-button
+        >
       </mj-column>
       <mj-column width="33.33%">
-        <mj-image width="181px" src="https://img.youtube.com/vi/gnzVQjFufj8/hqdefault.jpg" />
+        <mj-image
+          width="181px"
+          src="https://img.youtube.com/vi/gnzVQjFufj8/hqdefault.jpg"
+        />
         <mj-text align="center" padding="12px 24px">El Tiempo Justo</mj-text>
-        <mj-button href="https://www.youtube.com/watch?v=gnzVQjFufj8">Ver ahora</mj-button>
+        <mj-button href="https://www.youtube.com/watch?v=gnzVQjFufj8"
+          >Ver ahora</mj-button
+        >
       </mj-column>
     </mj-section>
 
     <!-- Dossier Section -->
     <mj-section padding="24px 0">
       <mj-column width="33.33%">
-        <mj-image width="187px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/3b06ec8f-e202-1977-f5c9-1ed21f85732d.jpeg" padding="12px" />
+        <mj-image
+          width="187px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/3b06ec8f-e202-1977-f5c9-1ed21f85732d.jpeg"
+          padding="12px"
+        />
       </mj-column>
       <mj-column width="66.66%">
-        <mj-text align="center" padding-top="20px" font-size="28px" color="#2e063d" font-weight="bold">DESCARGA MI DOSSIER</mj-text>
-        <mj-button background-color="#61187c" border-radius="50px" href="https://drive.google.com/file/d/1_NWTZoDJlkpJbqL3bJlolrEFG-ivXz9n/view?usp=sharing">
+        <mj-text
+          align="center"
+          padding-top="20px"
+          font-size="28px"
+          color="#2e063d"
+          font-weight="bold"
+          >DESCARGA MI DOSSIER</mj-text
+        >
+        <mj-button
+          background-color="#61187c"
+          border-radius="50px"
+          href="https://drive.google.com/file/d/1_NWTZoDJlkpJbqL3bJlolrEFG-ivXz9n/view?usp=sharing"
+        >
           Link de visualización
         </mj-button>
       </mj-column>
@@ -278,7 +425,9 @@
     <!-- Website Link -->
     <mj-section padding="12px 48px">
       <mj-column>
-        <mj-button width="100%" href="https://www.magoscott.com/">www.magoscott.com</mj-button>
+        <mj-button width="100%" href="https://www.magoscott.com/"
+          >www.magoscott.com</mj-button
+        >
       </mj-column>
     </mj-section>
 
@@ -289,9 +438,22 @@
     <mj-section padding="12px 12px">
       <mj-column>
         <mj-social font-size="15px" icon-size="40px" mode="horizontal">
-          <mj-social-element name="facebook" href="https://www.facebook.com/magoscottoficial/?locale=es_ES" src="https://cdn-images.mailchimp.com/icons/social-block-v3/block-icons-v3/facebook-filled-dark-40.png" />
-          <mj-social-element name="instagram" href="https://www.instagram.com/magoscott/" src="https://cdn-images.mailchimp.com/icons/social-block-v3/block-icons-v3/instagram-filled-dark-40.png" />
-          <mj-social-element name="tiktok" href="https://www.tiktok.com/@magoscott" border-radius="20px" src="https://cdn-images.mailchimp.com/icons/social-block-v3/block-icons-v3/tiktok-filled-dark-40.png" />
+          <mj-social-element
+            name="facebook"
+            href="https://www.facebook.com/magoscottoficial/?locale=es_ES"
+            src="https://cdn-images.mailchimp.com/icons/social-block-v3/block-icons-v3/facebook-filled-dark-40.png"
+          />
+          <mj-social-element
+            name="instagram"
+            href="https://www.instagram.com/magoscott/"
+            src="https://cdn-images.mailchimp.com/icons/social-block-v3/block-icons-v3/instagram-filled-dark-40.png"
+          />
+          <mj-social-element
+            name="tiktok"
+            href="https://www.tiktok.com/@magoscott"
+            border-radius="20px"
+            src="https://cdn-images.mailchimp.com/icons/social-block-v3/block-icons-v3/tiktok-filled-dark-40.png"
+          />
         </mj-social>
       </mj-column>
     </mj-section>
@@ -299,9 +461,11 @@
     <!-- Footer Logo -->
     <mj-section padding="12px 12px">
       <mj-column>
-        <mj-image width="131px" src="https://mcusercontent.com/780971879069aaa0159ad8608/images/55fc6ee7-e15f-894d-a8dd-e162549b802e.png" />
+        <mj-image
+          width="131px"
+          src="https://mcusercontent.com/780971879069aaa0159ad8608/images/55fc6ee7-e15f-894d-a8dd-e162549b802e.png"
+        />
       </mj-column>
     </mj-section>
-
   </mj-body>
 </mjml>

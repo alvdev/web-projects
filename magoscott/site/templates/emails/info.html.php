@@ -210,9 +210,12 @@
       <tr>
         <td class="col-stack" width="66%" style="padding: 24px; vertical-align: top;">
           <div class="subtitle text-center">Espectáculo Las Vegas</div>
-          <p class="text-center" style="font-size: 16px; line-height: 24px;">
-            Es el espectáculo más grande que jamás hayas visto, donde Scott con su compañera de escena hará las grandes ilusiones más espectaculares. El espectáculo está compuesto por Scott con dos ayudantes, un técnico de sonido y dos técnicos de montaje. Para este espectáculo se necesita un camión de 12 metros ya que se saca un camión al escenario y un helicóptero. Todo lo que te puedas imaginar Scott lo hace realidad. El espectáculo de Las Vegas es un show diseñado para grandes teatros o escenarios de grandes dimensiones para el aire libre.
-          </p>
+          <p class="text-center" style="font-size: 16px; line-height: 24px; margin-bottom: 10px;">Prepárate para vivir una experiencia única: magia de alto impacto, humor inteligente y un viaje directo al corazón de Las Vegas.</p>
+          <p class="text-center" style="font-size: 16px; line-height: 24px; margin-bottom: 10px;">Un recorrido mágico por los casinos más emblemáticos, mesas de Blackjack llenas de misterio y momentos impredecibles donde la magia ocurre a centímetros del público.</p>
+          <p class="text-center" style="font-size: 16px; line-height: 24px; margin-bottom: 10px;">En este espectáculo exclusivo de El Mago Scott, tú no solo verás magia… serás parte de ella. Cada persona se convierte en protagonista de una historia llena de sorpresas, ritmo y pura energía escénica.</p>
+          <p class="text-center" style="font-size: 16px; line-height: 24px; margin-bottom: 10px;">¿Quieres viajar a Las Vegas sin salir del teatro? Este es tu billete.</p>
+          <p class="text-center" style="font-size: 16px; line-height: 24px;">Y recuerda…<br>
+            lo que pasa en Las Vegas… se queda en Las Vegas.</p>
         </td>
         <td class="col-stack" width="34%" style="padding: 24px; text-align: center; vertical-align: top;">
           <img src="https://mcusercontent.com/780971879069aaa0159ad8608/images/dcd6abb0-7146-7227-e41a-525a35ad0a9a.jpg" width="187" class="image-stack" style="margin: 0 auto 15px;" />
