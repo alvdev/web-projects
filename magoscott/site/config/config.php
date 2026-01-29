@@ -14,19 +14,73 @@ use Kirby\Toolkit\Str;
 
 return [
     // alv.dev: Implement ready function because of dotenv
+    'routes' => [
+        [
+            'pattern' => 'newsletter-proxy',
+            'method'  => 'POST',
+            'action'  => function () {
+                $response = Kirby\Http\Remote::post('https://alv.ipzmarketing.com/f/LjnuULUsaB8', [
+                    'data' => $_POST,
+                    'headers' => [
+                        'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    ]
+                ]);
+                return $response->content();
+            }
+        ],
+        [
+            'pattern' => 'blog/(:any)',
+            'action' => function ($cat) {
+                if ($page = page('blog/' . $cat)) {
+                    return $page;
+                } else {
+                    return page('blog')->render([
+                        'cat' => $cat
+                    ]);
+                }
+            }
+        ],
+        [
+            'pattern' => 'blog/tag/(:any)',
+            'action' => function ($tag) {
+                if ($page = page('blog/' . $tag)) {
+                    return $page;
+                } else {
+                    return page('blog')->render([
+                        'tag' => $tag
+                    ]);
+                }
+            }
+        ]
+    ],
+    // alv.dev: Implement ready function because of dotenv
     'ready' => function () {
+        $debug = env('APP_DEBUG', false);
         return [
-            'debug' => env('APP_DEBUG', true),
+            'debug' => $debug,
             'fatal' => function ($kirby, $exception) {
                 include $kirby->root('templates') . '/fatal.php';
             },
             'date.handler' => 'intl',
-            // Page caching for better performance
+            // Caching configuration for maximum performance
             'cache' => [
                 'pages' => [
-                    'active' => env('APP_DEBUG', true) === false, // Only cache when not in debug mode
-                    'type' => 'file',
-                    'maxAge' => 15552000, // 180 days cache
+                    'active' => $debug === false,
+                    'type'   => 'file',
+                ],
+                'gallery' => [
+                    'active' => true,
+                    'type'   => 'file',
+                ]
+            ],
+            'content.cache' => [
+                'active' => $debug === false,
+                'type'   => 'file',
+            ],
+            'uuid' => [
+                'cache' => [
+                    'active' => $debug === false,
+                    'type'   => 'file',
                 ]
             ],
             'email' => [
@@ -121,32 +175,6 @@ return [
             ],
             'sylvaninjule.embed' => [
                 'nocookie' => true,
-            ],
-            'routes' => [
-                [
-                    'pattern' => 'blog/(:any)',
-                    'action' => function ($cat) {
-                        if ($page = page('blog/' . $cat)) {
-                            return $page;
-                        } else {
-                            return page('blog')->render([
-                                'cat' => $cat
-                            ]);
-                        }
-                    }
-                ],
-                [
-                    'pattern' => 'blog/tag/(:any)',
-                    'action' => function ($tag) {
-                        if ($page = page('blog/' . $tag)) {
-                            return $page;
-                        } else {
-                            return page('blog')->render([
-                                'tag' => $tag
-                            ]);
-                        }
-                    }
-                ]
             ],
             'thumbs' => [
                 'srcsets' => [
