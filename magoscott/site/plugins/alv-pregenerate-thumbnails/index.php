@@ -8,11 +8,22 @@ use Kirby\Http\Response;
 
 App::plugin('alv/pregenerate-thumbnails', [
     'hooks' => [
-        'file.create:after' => function ($file) {
+        'file.create:after'  => function ($file) {
             pregenerateStaticThumbnails($file);
+            clearGalleryCache($file);
         },
         'file.replace:after' => function ($file) {
             pregenerateStaticThumbnails($file);
+            clearGalleryCache($file);
+        },
+        'file.delete:after'  => function ($file) {
+            clearGalleryCache($file);
+        },
+        'page.update:after' => function ($newPage) {
+            clearGalleryCacheForPage($newPage);
+        },
+        'page.changeSort:after' => function ($newPage) {
+            clearGalleryCacheForPage($newPage);
         }
     ],
     'routes' => [
@@ -41,53 +52,26 @@ App::plugin('alv/pregenerate-thumbnails', [
 
             $srcs = [];
             foreach ($srcsetCfg as $condition => $options) {
-                // Calculate filename manually to match Kirby's convention
-                $ext = isset($options['format']) ? $options['format'] : $this->extension();
-                
-                // Base name parts
-                $parts = [];
-                if (isset($options['width'])) $parts[] = $options['width'] . 'x';
-                if (isset($options['height'])) {
-                    if (empty($parts)) $parts[] = 'x' . $options['height'];
-                    else $parts[0] .= $options['height'];
-                }
-                if (isset($options['crop']) && $options['crop']) $parts[] = 'crop';
-                if (isset($options['blur']) && $options['blur']) $parts[] = 'blur' . $options['blur'];
-                if (isset($options['grayscale']) && $options['grayscale']) $parts[] = 'bw';
-                if (isset($options['quality']) && $options['quality']) $parts[] = 'q' . $options['quality'];
-                
-                $suffix = !empty($parts) ? '-' . implode('-', $parts) : '';
-                $filename = $this->name() . $suffix . '.' . $ext;
+                $thumb = $this->thumb($options);
+                $filename = $thumb->filename();
                 
                 $staticRoot = $this->parent()->root() . '/thumbnails/' . $filename;
                 
                 if (F::exists($staticRoot)) {
                     $url = $kirby->url() . '/content/' . $this->parent()->diruri() . '/thumbnails/' . $filename;
-                } else {
-                    // Fallback to media URL if static isn't found
-                    $url = $this->thumb($options)->url();
+                    $srcs[] = $url . ' ' . $condition;
+                } else if (!Str::startsWith($setName, 'book-')) {
+                    // Only fallback for non-book galleries
+                    $srcs[] = $thumb->url() . ' ' . $condition;
                 }
-                
-                $srcs[] = $url . ' ' . $condition;
             }
 
             return implode(', ', $srcs);
         },
         'staticUrl' => function ($options = []) {
             $kirby = $this->kirby();
-            $ext = isset($options['format']) ? $options['format'] : $this->extension();
-            
-            $parts = [];
-            if (isset($options['width'])) $parts[] = $options['width'] . 'x';
-            if (isset($options['height'])) {
-                if (empty($parts)) $parts[] = 'x' . $options['height'];
-                else $parts[0] .= $options['height'];
-            }
-            if (isset($options['crop']) && $options['crop']) $parts[] = 'crop';
-            if (isset($options['quality']) && $options['quality']) $parts[] = 'q' . $options['quality'];
-            
-            $suffix = !empty($parts) ? '-' . implode('-', $parts) : '';
-            $filename = $this->name() . $suffix . '.' . $ext;
+            $thumb = $this->thumb($options);
+            $filename = $thumb->filename();
             
             $staticRoot = $this->parent()->root() . '/thumbnails/' . $filename;
 
@@ -95,7 +79,12 @@ App::plugin('alv/pregenerate-thumbnails', [
                 return $kirby->url() . '/content/' . $this->parent()->diruri() . '/thumbnails/' . $filename;
             }
 
-            return $this->thumb($options)->url();
+            // For Books, we avoid triggering heavy processing
+            if (Str::contains($this->parent()->id(), 'book')) {
+                return null; 
+            }
+
+            return $thumb->url();
         }
     ]
 ]);
@@ -142,8 +131,14 @@ function pregenerateStaticThumbnails($file) {
             foreach ($srcsetCfg as $options) {
                 try {
                     $thumb = $file->thumb($options);
+                    $filename = $thumb->filename();
+                    
                     if (in_array($setName, ['gallery-avif', 'gallery-webp', 'gallery-default', 'book-avif', 'book-webp', 'book-default'])) {
-                        F::copy($thumb->root(), $thumbDir . '/' . $thumb->filename(), true);
+                        $target = $thumbDir . '/' . $filename;
+                        if (!F::exists($target)) {
+                            Dir::make($thumbDir);
+                            F::copy($thumb->root(), $target, true);
+                        }
                     }
                 } catch (\Exception $e) {}
             }
@@ -154,8 +149,40 @@ function pregenerateStaticThumbnails($file) {
     try {
         $thumb = $file->thumb(['width' => 600]);
         if (Str::contains($parentId, 'pictures') || Str::contains($parentId, 'people') || Str::contains($parentId, 'book')) {
-            Dir::make($thumbDir);
-            F::copy($thumb->root(), $thumbDir . '/' . $thumb->filename(), true);
+            $target = $thumbDir . '/' . $thumb->filename();
+            if (!F::exists($target)) {
+                Dir::make($thumbDir);
+                F::copy($thumb->root(), $target, true);
+            }
         }
     } catch (\Exception $e) {}
+}
+
+/**
+ * Helper to clear caches by either file or page object
+ */
+function clearGalleryCache($file) {
+    clearInternalGalleryCache($file->parent());
+}
+
+function clearGalleryCacheForPage($page) {
+    clearInternalGalleryCache($page);
+}
+
+function clearInternalGalleryCache($parent) {
+    $parentId = $parent->id();
+    
+    if (Str::contains($parentId, 'pictures') || Str::contains($parentId, 'people') || Str::contains($parentId, 'book')) {
+        $kirby = $parent->kirby();
+        
+        // 1. Flush the custom 'gallery' cache
+        if ($galleryCache = $kirby->cache('gallery')) {
+            $galleryCache->flush();
+        }
+        
+        // 2. Flush the native 'pages' cache
+        if ($pagesCache = $kirby->cache('pages')) {
+            $pagesCache->flush(); 
+        }
+    }
 }

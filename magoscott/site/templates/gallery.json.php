@@ -6,8 +6,9 @@ $limit = 24;
 
 // Cache identification
 $cacheId = 'gallery-' . $page->id() . '-' . $tab . '-p' . $page_num;
-$cache = $kirby->cache('pages');
-$useCache = $kirby->option('debug') === false;
+// Use a dedicated cache if possible, otherwise fallback to pages cache
+$cache = $kirby->cache('gallery') ?? $kirby->cache('pages');
+$useCache = true; // Always cache the JSON fragments in production
 
 if ($useCache && $data = $cache->get($cacheId)) {
     echo json_encode($data);
@@ -38,7 +39,10 @@ $response = [
   'more' => $hasMore
 ];
 
-// Cache the response
-$cache->set($cacheId, $response);
+// Cache the response indefinitely (or until manual clear)
+// Only cache if we actually have content and it's not a "Procesando" state
+if ($useCache && !empty($html) && !Str::contains($html, 'Procesando')) {
+    $cache->set($cacheId, $response, 525600);
+}
 
 echo json_encode($response);

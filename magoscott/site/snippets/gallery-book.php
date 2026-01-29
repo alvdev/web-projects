@@ -5,12 +5,13 @@
         $webpSrcset = $image->staticSrcset('book-webp');
         $defaultSrcset = $image->staticSrcset('book-default');
         ?>
-        <div class="relative group" style="aspect-ratio: 2/3; contain: layout;">
+        <div class="relative group bg-indigo-950/20 rounded-xl overflow-hidden" style="aspect-ratio: 2/3; contain: layout;">
+            <?php if ($staticUrl = $image->staticUrl(['width' => 300, 'height' => 450, 'crop' => true])): ?>
             <picture>
                 <source srcset="<?= $avifSrcset ?>" sizes="<?= $sizes ?>" type="image/avif">
                 <source srcset="<?= $webpSrcset ?>" sizes="<?= $sizes ?>" type="image/webp">
                 <img
-                    src="<?= $image->staticUrl(['width' => 300, 'height' => 450, 'crop' => true]) ?>"
+                    src="<?= $staticUrl ?>"
                     srcset="<?= $defaultSrcset ?>"
                     sizes="<?= $sizes ?>"
                     width="300"
@@ -22,6 +23,11 @@
                     decoding="async"
                     class="w-full h-auto cursor-zoom-in rounded-xl ring-2 ring-indigo-950/50 object-cover saturate-110 contrast-110 group-hover:scale-[1.02] transition-transform duration-500">
             </picture>
+            <?php else: ?>
+                <div class="absolute inset-0 flex items-center justify-center text-white/20 text-xs italic">
+                    Procesando...
+                </div>
+            <?php endif ?>
 
         <a
             href="<?= $image->url() ?>"

@@ -4,13 +4,22 @@
 
 <?php snippet('sections/headers/gallery') ?>
 
+<?php
+$limit = 24;
+$initialPictures = $page->find('pictures')?->images()->paginate($limit, ['page' => 1]);
+?>
+
 <div x-data="{ 
     selectedTab: 'pictures',
     opened: false,
     active: null,
     index: 0,
     tabs: {
-        pictures: { page: 1, more: true, loading: false },
+        pictures: { 
+            page: <?= $initialPictures ? 2 : 1 ?>, 
+            more: <?= ($initialPictures && $initialPictures->pagination()->hasNextPage()) ? 'true' : 'false' ?>, 
+            loading: false 
+        },
         people: { page: 1, more: true, loading: false },
         book: { page: 1, more: true, loading: false },
         videos: { page: 1, more: false, loading: false }
@@ -82,7 +91,7 @@
         this.index = (this.index - 1 + imgs.length) % imgs.length;
         this.active = imgs[this.index].dataset.full;
     }
-}" x-init="window.addEventListener('load', () => loadTab(selectedTab)); $watch('selectedTab', value => loadTab(value))">
+}" x-init="$watch('selectedTab', value => loadTab(value))">
     <section id="intro" class="relative pt-16 md:pt-28 lg:pt-36 bg-linear-to-bl from-red-600/30 to-indigo-950/30 to-50%">
         <div class="container relative w-full flex flex-col md:flex-row md:flex-wrap items-center gap-8 lg:gap-16 justify-center text-xl md:text-2xl lg:text-3xl">
             <button x-on:click="selectedTab = 'pictures'" x-bind:class="selectedTab === 'pictures' ? 'bg-white text-black' : ''" class="min-w-2/3 md:min-w-1/3 inline-block font-semibold text-shadow-2xs text-shadow-black uppercase border-2 hover:bg-white hover:text-indigo-950 rounded-4xl px-8 py-3">Fotos</button>
@@ -113,12 +122,18 @@
         </div>
 
         <!-- Pictures Tab -->
-        <div x-show="selectedTab === 'pictures' && (tabs.pictures.page > 1 || !tabs.pictures.loading)" 
+        <div x-show="selectedTab === 'pictures'" 
              id="tab-pictures-content" 
              x-transition.opacity.duration.500ms 
              x-cloak>
             <div class="container mt-16 md:mt-28 lg:mt-36">
-                <ul class="mt-8 columns-2 md:columns-3 lg:columns-4 gap-4"></ul>
+                <ul class="mt-8 columns-2 md:columns-3 lg:columns-4 gap-4">
+                    <?php if ($initialPictures): ?>
+                        <?php foreach ($initialPictures as $image): ?>
+                            <?= snippet('gallery-item', ['image' => $image]) ?>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                </ul>
             </div>
         </div>
 
