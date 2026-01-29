@@ -28,7 +28,8 @@
     "mauricerenck/pexelsimagefield": "^2.2",
     "bnomei/kirby3-dotenv": "^5.0",
     "sylvainjule/embed": "^1.2",
-    "afbora/kirby-minify-html": "^2.2"
+    "afbora/kirby-minify-html": "^2.2",
+    "tobimori/kirby-thumbhash": "^2.0"
   },
   "config": {
     "allow-plugins": {

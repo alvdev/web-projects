@@ -25,6 +25,11 @@ export default ({ mode }) => ({
         'assets/css/main.css',
         'assets/fonts/ysabeau.woff2'
       ],
+      output: {
+        manualChunks: {
+          'vendor': ['alpinejs', '@imacrayon/alpine-ajax', '@alpinejs/focus']
+        }
+      }
     },
   },
 
