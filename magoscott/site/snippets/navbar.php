@@ -1,4 +1,4 @@
-<div class="fixed top-0 z-10 left-0 right-0 backdrop-blur-md shadow-md">
+<div class="fixed top-0 z-10 left-0 right-0 after:absolute after:top-0 after:w-full after:h-full after:-z-10 after:backdrop-blur-md shadow-md">
     <nav
         x-data="{ open: false }"
         class="container px-4 md:px-8 py-2 md:py-8">
@@ -19,6 +19,7 @@
                             alt="Logo de Mago Scott"
                             width="<?= $asset->width() ?>"
                             height="<?= $asset->height() ?>"
+                            fetchpriority="high"
                             class="w-auto" />
                     </picture>
                 <?php endif ?>
