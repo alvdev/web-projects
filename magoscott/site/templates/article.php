@@ -7,6 +7,30 @@ $sizes = "
         (min-width: 900px) 33vw,
         (min-width: 600px) 50vw,
         100vw";
+
+$srcset169Avif = [
+    '300w'  => ['width' => 300, 'height' => 169, 'crop' => true, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
+    '600w'  => ['width' => 600, 'height' => 338, 'crop' => true, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
+    '900w'  => ['width' => 900, 'height' => 506, 'crop' => true, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
+    '1200w' => ['width' => 1200, 'height' => 675, 'crop' => true, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
+    '1800w' => ['width' => 1800, 'height' => 1013, 'crop' => true, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35]
+];
+
+$srcset169Webp = [
+    '300w'  => ['width' => 300, 'height' => 169, 'crop' => true, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
+    '600w'  => ['width' => 600, 'height' => 338, 'crop' => true, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
+    '900w'  => ['width' => 900, 'height' => 506, 'crop' => true, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
+    '1200w' => ['width' => 1200, 'height' => 675, 'crop' => true, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
+    '1800w' => ['width' => 1800, 'height' => 1013, 'crop' => true, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35]
+];
+
+$srcset169Default = [
+    '300w'  => ['width' => 300, 'height' => 169, 'crop' => true],
+    '600w'  => ['width' => 600, 'height' => 338, 'crop' => true],
+    '900w'  => ['width' => 900, 'height' => 506, 'crop' => true],
+    '1200w' => ['width' => 1200, 'height' => 675, 'crop' => true],
+    '1800w' => ['width' => 1800, 'height' => 1013, 'crop' => true]
+];
 ?>
 
 <main class="bg-linear-to-tl from-indigo-950 via-indigo-950 via-50% to-black">
@@ -28,20 +52,20 @@ $sizes = "
         <?php if ($image = $page->cover()->toFile()): ?>
             <picture>
                 <source
-                    srcset="<?= $image->srcset('avif') ?>"
+                    srcset="<?= $image->srcset($srcset169Avif) ?>"
                     sizes="<?= $sizes ?>"
                     type="image/avif">
                 <source
-                    srcset="<?= $image->srcset('webp') ?>"
+                    srcset="<?= $image->srcset($srcset169Webp) ?>"
                     sizes="<?= $sizes ?>"
                     type="image/webp">
                 <img class="mt-16 rounded-2xl ring-4 ring-violet-500/20 aspect-video object-cover w-full bg-violet-950"
                     alt="<?= $image->alt() ?>"
-                    src="<?= $image->resize(300)->url() ?>"
-                    srcset="<?= $image->srcset() ?>"
+                    src="<?= $image->crop(600, 338)->url() ?>"
+                    srcset="<?= $image->srcset($srcset169Default) ?>"
                     sizes="<?= $sizes ?>"
-                    width="<?= $image->resize(1800)->width() ?>"
-                    height="<?= $image->resize(1800)->height() ?>">
+                    width="1800"
+                    height="1013">
             </picture>
         <?php endif ?>
 
