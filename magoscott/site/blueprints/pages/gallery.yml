@@ -44,15 +44,15 @@ tabs:
               es: Galería de fotos
             type: files
             template: gallery
+            parent: page.find("pictures")
             layout: cards
             size: large
             text: "{{ file.name }}"
             info: "{{ file.dimensions }} - {{ file.nicesize }}"
-            limit: 5
+            limit: 12
             image:
               cover: true
               back: black
-              ratio: 16/9
 
       bottomRight:
         width: 1/3
@@ -79,17 +79,16 @@ tabs:
           en: Celebrities gallery
           es: Galería de famosos
         type: files
+        template: gallery
         parent: page.find("people")
-        template: image 
         layout: cards
         size: large
         text: "{{ file.name }}"
         info: "{{ file.dimensions }} - {{ file.nicesize }}"
-        limit: 5
+        limit: 12
         image:
           cover: true
           back: black
-          ratio: 16/9
 
   book:
     label:
@@ -107,7 +106,7 @@ tabs:
         size: large
         text: "{{ file.name }}"
         info: "{{ file.dimensions }} - {{ file.nicesize }}"
-        limit: 5
+        limit: 12
         image:
           cover: true
           back: black
