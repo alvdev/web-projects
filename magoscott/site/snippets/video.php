@@ -15,7 +15,7 @@ $iframe = str_replace('<iframe', '<iframe class="w-full h-full absolute inset-0"
 $iframe = str_replace(['<iframe', 'youtube.com'], ['<iframe loading="lazy"', 'youtube-nocookie.com'], $iframe);
 ?>
 
-<div x-data="{ playing: false }" class="relative w-full aspect-video bg-black overflow-hidden group <?= $class ?? '' ?>">
+<div x-data="{ playing: false }" class="relative w-full aspect-video overflow-hidden group <?= $class ?? '' ?>">
     <div x-show="!playing" @click="playing = true" class="absolute inset-0 cursor-pointer group">
         <img src="<?= $video->image() ?>" alt="Play Video" class="w-full h-full object-cover transition-opacity" loading="lazy">
         <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
