@@ -10,7 +10,7 @@
         <div class="mt-12 md:mt-16 grid lg:grid-cols-3 gap-12">
             <?php if ($shows = $site->shows()->toStructure()): ?>
                 <?php foreach ($shows as $show): ?>
-                    <div class="flex flex-col border-2 border-white/30 p-4 md:p-8 rounded-3xl *:[iframe]:mt-auto *:[iframe]:w-auto *:[iframe]:h-auto *:[iframe]:aspect-video *:[iframe]:border-2 *:[iframe]:border-violet-800/20 *:[iframe]:rounded-xl">
+                    <div class="flex flex-col border-2 border-white/30 p-4 md:p-8 rounded-3xl">
                         <?php if ($cover = $show->cover()->toFile()): ?>
                             <picture>
                                 <source
@@ -27,13 +27,13 @@
                                     loading="lazy"
                                     width="<?= $cover->resize(390)->width() ?>"
                                     height="<?= $cover->resize(550)->height() ?>"
-                                    class="w-full h-auto rounded-xl border-2 border-violet-800/20">
+                                    class="w-full h-auto rounded-xl border-2 border-white/10">
                             </picture>
                         <?php endif ?>
                         <h3 class="mt-8 text-3xl md:text-5xl lg:text-3xl text-pretty"><?= $show->title() ?></h3>
                         <p class="my-8 text-xl md:text-3xl lg:text-xl text-white/80"><?= $show->desc() ?></p>
                         <?php if ($video = $show->video()->toEmbed()): ?>
-                            <?php snippet('video', ['video' => $video, 'class' => 'mt-auto rounded-xl border-2 border-violet-800/20']) ?>
+                            <?php snippet('video', ['video' => $video, 'class' => 'mt-auto rounded-xl border-2 border-white/10']) ?>
                         <?php endif ?>
                     </div>
                 <?php endforeach ?>
