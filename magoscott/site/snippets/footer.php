@@ -79,7 +79,7 @@
                                             srcset="<?= $image->srcset('webp') ?>"
                                             type="image/webp">
                                         <img src="<?= $image->crop(600, 338)->url() ?>" alt="<?= $article->title() ?>" width="600" height="338" loading="lazy"
-                                            class="border-2 border-violet-500 rounded-xl bg-violet-700 aspect-video object-cover group-hover:rounded-3xl group-hover:transition-all transition-all w-full">
+                                            class="border-2 border-white/10 rounded-xl aspect-video object-cover group-hover:rounded-3xl group-hover:transition-all transition-all w-full">
                                     </picture>
                                 <?php else: ?>
                                     <?php if ($placeholder = asset('/assets/images/headers/post-placeholder.webp')): ?>
@@ -91,7 +91,7 @@
                                                 srcset="<?= $placeholder->srcset('webp') ?>"
                                                 type="image/webp">
                                             <img src="<?= $placeholder->crop(600, 338)->url() ?>" alt="<?= $article->title() ?>" width="600" height="338" loading="lazy"
-                                                class="border-2 border-violet-500 rounded-xl bg-violet-700 aspect-video object-cover group-hover:rounded-3xl group-hover:transition-all transition-all w-full">
+                                                class="border-2 border-white/10 rounded-xl aspect-video object-cover group-hover:rounded-3xl group-hover:transition-all transition-all w-full">
                                         </picture>
                                     <?php endif ?>
                                 <?php endif ?>
@@ -108,16 +108,89 @@
             </ul>
         </div>
 
-        <div>
-            <h2 class="text-2xl md:text-4xl text-center font-bold uppercase text-white  text-shadow-xs text-shadow-black">Una newsletter mágica</h2>
+        <div x-data="{ 
+            open: false, 
+            loading: false,
+            submitted: false,
+            submitForm(e) {
+                this.loading = true;
+                this.open = true;
+                this.submitted = true;
+                e.target.submit();
+            }
+        }" class="relative">
+            <h2 class="text-2xl md:text-4xl text-center font-bold uppercase text-white text-shadow-xs text-shadow-black">Una newsletter mágica</h2>
             <p class="mt-4 md:mt-8 text-center text-balance text-xl md:text-3xl text-violet-100 text-shadow-black">Mantente al tanto de todos los espectáculos, sorteos y entradas gratis para asistir en directo a los shows del Mago Scott.</p>
-            <form action="#" class="mt-8 md:mt-16">
+            
+            <form action="https://alv.ipzmarketing.com/f/LjnuULUsaB8" 
+                  method="POST" 
+                  target="newsletter_iframe" 
+                  @submit="submitForm($event)" 
+                  class="mt-8 md:mt-16"
+                  accept-charset="UTF-8">
                 <div class="relative w-full flex flex-col md:flex-row gap-4 items-center">
-                    <input class="w-full md:mr-8 px-8 py-6 rounded-full bg-white/50 text-2xl text-indigo-950 font-semibold uppercase focus:outline-none focus:ring-2 focus:ring-indigo-950 placeholder:text-indigo-950/70 focus:placeholder:opacity-0 transition-all" type="email" placeholder="Tu correo electrónico" />
+                    <!-- Honeypot -->
+                    <input type="text" name="anotheremail" style="display:none" tabindex="-1" autocomplete="off" />
 
-                    <button class="w-min md:absolute md:right-0 bg-violet-800 text-white font-semibold uppercase p-4 rounded-full aspect-square hover:bg-indigo-800" type="submit">Suscribirse</button>
+                    <input required class="w-full md:mr-8 px-8 py-6 rounded-full bg-white/50 text-2xl text-indigo-950 font-semibold uppercase focus:outline-none focus:ring-4 focus:ring-fuchsia-500/50 placeholder:text-indigo-950/70 focus:placeholder:opacity-0 transition-all" type="email" name="subscriber[email]" placeholder="Tu correo electrónico" />
+
+                    <button :disabled="loading" class="w-full md:w-auto md:absolute md:right-0 bg-violet-800 text-white font-semibold uppercase p-8 md:p-4 rounded-full md:aspect-square hover:bg-indigo-800 disabled:opacity-50 transition-all flex items-center justify-center group" type="submit">
+                        <span x-show="!loading">Suscribirse</span>
+                        <svg x-show="loading" class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
                 </div>
             </form>
+
+            <!-- Premium Modal with Iframe -->
+            <template x-teleport="body">
+                <div x-show="open" 
+                     class="fixed inset-0 z-100 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto"
+                     x-cloak>
+                    <!-- Backdrop -->
+                    <div x-show="open" 
+                         x-transition:enter="ease-out duration-300"
+                         x-transition:enter-start="opacity-0"
+                         x-transition:enter-end="opacity-100"
+                         x-transition:leave="ease-in duration-200"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0"
+                         @click="open = false; loading = false;"
+                         class="fixed inset-0 bg-indigo-950/60 backdrop-blur-md transition-opacity"></div>
+
+                    <!-- Modal Content -->
+                    <div x-show="open"
+                         x-transition:enter="ease-out duration-300"
+                         x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                         x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                         x-transition:leave="ease-in duration-200"
+                         x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                         class="relative bg-white border border-white/20 rounded-[2rem] shadow-2xl overflow-hidden w-full max-w-2xl transform transition-all h-[400px]">
+                        
+                        <button @click="open = false; loading = false;" class="absolute top-4 right-4 text-indigo-950/20 hover:text-indigo-950 transition-colors p-2 z-10">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+
+                        <!-- Loading State -->
+                        <div x-show="loading" class="absolute inset-0 flex flex-col items-center justify-center bg-white z-0">
+                            <div class="text-4xl mb-4 animate-bounce">🪄</div>
+                            <p class="text-indigo-950 font-bold uppercase tracking-widest text-xl">Lanzando el hechizo...</p>
+                        </div>
+
+                        <!-- The Result Iframe -->
+                        <iframe 
+                            name="newsletter_iframe" 
+                            id="newsletter_iframe"
+                            class="w-full h-full border-0 transition-opacity duration-500"
+                            :class="loading ? 'opacity-0' : 'opacity-100'"
+                            @load="loading = false">
+                        </iframe>
+                    </div>
+                </div>
+            </template>
         </div>
     </div>
 
