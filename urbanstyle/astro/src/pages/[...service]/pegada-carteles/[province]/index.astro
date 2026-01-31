@@ -1,0 +1,37 @@
+---
+import { provinces } from "@/data/provinces";
+import LandingPegadaCarteles from "@/components/LandingPegadaCarteles.astro";
+import Header from "@/components/Header.astro";
+import actions from "@/assets/images/landings/acciones-marketing-local.webp";
+
+export function getStaticPaths() {
+    return provinces.map(province => ({
+        params: {
+            service: undefined,
+            province: province.slug,
+        },
+        props: { city: province },
+    }));
+}
+
+import Layout from "@/layouts/Base.astro";
+
+const { city } = Astro.props;
+---
+
+<Layout
+    title={`Pegada de carteles en ${city.name} | Urban Style`}
+    description={`Servicio profesional de pegada de carteles en ${city.name}. ${city.title}`}
+>
+    <Header
+        title={`Pegada de carteles en ${city.name}`}
+        cover={actions}
+        coverAlt={`Un chico pegando un cartel en una pared en ${city.name}`}
+        loading="eager"
+        classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+
+    <main class="relative z-10 pb-6 pt-28">
+        <LandingPegadaCarteles city={city} />
+    </main>
+</Layout>

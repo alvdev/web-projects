@@ -1,0 +1,114 @@
+---
+import { Image } from "astro:assets";
+import ContactForm from "../components/ContactForm.astro";
+import ActionsImg from "@/assets/images/landings/acciones-marketing-local.webp";
+import CulturalImg from "@/assets/images/landings/campañas-culturales.webp";
+import EventsImg from "@/assets/images/landings/promocion-de-eventos.webp";
+import LaunchImg from "@/assets/images/landings/lanzamientos-de-marca.webp";
+
+const { city } = Astro.props;
+const campaigns = [
+    {
+        title: "Campañas culturales",
+        img: ActionsImg,
+        imgClasses: "z-0 rotate-1",
+        titleClasses: "-rotate-10 -left-12",
+    },
+    {
+        title: "Promoción de eventos",
+        img: EventsImg,
+        imgClasses: "relative -z-0 -top-8 -left-8 -rotate-1",
+        titleClasses: "rotate-10 -right-12",
+    },
+    {
+        title: "Acciones de marketing local",
+        img: CulturalImg,
+        imgClasses: "-top-0 left-2 -z-0 -rotate-2",
+        titleClasses: "rotate-10 -left-12 bottom-0",
+    },
+    {
+        title: "Lanzamientos de marca",
+        img: LaunchImg,
+        imgClasses: "-top-8 -left-4 z-0 rotate-2",
+        titleClasses: "-rotate-10 -right-12 bottom-0",
+    },
+];
+---
+
+<section class="container">
+    <h2 class="text-6xl font-bold text-center text-balance">
+        Servicio profesional de pegada de carteles en {city.name}, especializado en {city.type}.
+    </h2>
+</section>
+
+<section class="container mt-20">
+    <div class="relative grid md:grid-cols-2 gap-12 items-start">
+        <div class="sticky top-24">
+            <h2 class="text-4xl text-gray-700 font-semibold mb-4">
+                Cómo trabajamos en {city.name}
+            </h2>
+            <p class="text-2xl text-gray-600 leading-relaxed">
+                Adaptamos cada campaña de pegada de carteles a las características específicas de {city.name}, teniendo
+                en cuenta el flujo peatonal, el perfil del público y los puntos estratégicos de visibilidad.
+            </p>
+        </div>
+
+        <div>
+            <h3 class="text-4xl text-gray-700 font-semibold mb-4">Zonas habituales de actuación</h3>
+            <ul class="list-disc list-inside m-0 text-2xl text-gray-600">
+                {city.areas.map((area: string) => <li>{area}</li>)}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="mt-32 torn-top torn-bottom">
+    <div class="wall-full bg-red-900">
+        <div class="container text-white py-28">
+            <h2
+                class="font-bold [text-shadow:2px_2px_2px_black] text-5xl md:text-6xl uppercase xl:m-0 text-center text-white"
+            >
+                Tipos de campañas de cartelería
+            </h2>
+
+            <ul class="mt-32 grid md:grid-cols-2 list-none uppercase text-4xl">
+                {
+                    campaigns.map(item => (
+                        <li
+                            class={`relative m-0 group aspect-[4/3] border-4 border-transparent bg-white rounded shadow-xl ${item.imgClasses}`}
+                        >
+                            <Image
+                                src={item.img}
+                                width={600}
+                                class="absolute inset-0 w-full h-full object-cover rounded"
+                                alt={item.title}
+                            />
+                            <div
+                                class={`absolute bg-black/80 px-8 py-4 text-2xl md:text-3xl font-bold text-center shadow-xl ${item.titleClasses}`}
+                            >
+                                {item.title}
+                            </div>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="container my-24">
+    <div class="text-center">
+        <h2 class="text-6xl font-bold mb-6 text-balance">
+            Presupuesto para hacer una pegada de carteles en {city.name}
+        </h2>
+        <p class="mb-8 text-balance text-3xl leading-normal font-script">
+            Solicita un presupuesto personalizado para tu campaña en {city.name}
+            completando el formulario o llamándonos al
+            <a href="tel:+34913052922" class="inline-block relative top-0.5 ml-1 font-bolder text-3xl">91 305 29 22</a>
+        </p>
+    </div>
+
+    <div class="container lg:w-2/3">
+        <ContactForm />
+    </div>
+</section>
