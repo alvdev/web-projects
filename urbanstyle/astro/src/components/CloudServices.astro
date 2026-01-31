@@ -19,16 +19,16 @@ const servicesAreEven = services.length % 2 === 0;
                             .sort((a, b) => a.data.title.localeCompare(b.data.title))
                             .map(service => (
                                 <div class="bg-skew after:rotate-2 relative rounded-xs border bg-white">
-                                    <h3 class="absolute bottom-0.5 left-0.5 w-[calc(100%-4px)] m-0 px-3 py-8 pb-2 font-semibold text-white text-shadow-xs text-shadow-black bg-gradient-to-t from-black/80 to-transparent overflow-clip">
+                                    <h3 class="absolute bottom-0.5 left-0.5 w-[calc(100%-4px)] m-0 px-3 py-8 pb-2 font-semibold text-white text-shadow-xs text-shadow-black bg-linear-to-t from-black/80 to-transparent overflow-clip">
                                         {service.data.shortTitle || service.data.title}
                                     </h3>
                                     <Image
                                         src={service.data.cover}
                                         alt={service.data.title}
-                                        width={300}
-                                        height={200}
+                                        width={600}
+                                        height={400}
                                         format="webp"
-                                        class="border-2 border-white"
+                                        class="border-2 border-white h-full object-cover aspect-4/3"
                                     />
                                 </div>
                             ))}
