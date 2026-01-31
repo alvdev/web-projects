@@ -36,9 +36,14 @@ const campaigns = [
 ---
 
 <section class="container">
-    <h2 class="text-6xl font-bold text-center text-balance">
-        Servicio profesional de pegada de carteles en {city.name}, especializado en {city.type}.
-    </h2>
+    <hgroup class="text-center text-balance">
+        <h2 class="text-6xl font-bold">
+            {city.title}
+        </h2>
+        <p class="font-script text-4xl font-semibold text-gray-500 mt-8">
+            Trabajamos principalmente en <mark class="under text-gray-700">{city.type}</mark>.
+        </p>
+    </hgroup>
 </section>
 
 <section class="container mt-20">
@@ -80,6 +85,8 @@ const campaigns = [
                             <Image
                                 src={item.img}
                                 width={600}
+                                decoding="async"
+                                loading="lazy"
                                 class="absolute inset-0 w-full h-full object-cover rounded"
                                 alt={item.title}
                             />
