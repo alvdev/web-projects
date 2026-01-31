@@ -1,17 +1,23 @@
 ---
 import { provinces } from "@/data/provinces";
+import { citiesByProvince } from "@/data/cities";
 import LandingPegadaCarteles from "@/components/LandingPegadaCarteles.astro";
 import Header from "@/components/Header.astro";
 import actions from "@/assets/images/landings/acciones-marketing-local.webp";
 
 export function getStaticPaths() {
-    return provinces.map(province => ({
-        params: {
-            service: undefined,
-            province: province.slug,
-        },
-        props: { city: province },
-    }));
+    return provinces.map(province => {
+        const cities = citiesByProvince[province.slug] || [];
+        const cityData = cities.find(c => c.slug === province.slug) || province;
+
+        return {
+            params: {
+                service: undefined,
+                province: province.slug,
+            },
+            props: { city: cityData },
+        };
+    });
 }
 
 import Layout from "@/layouts/Base.astro";

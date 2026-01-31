@@ -8,14 +8,17 @@ import actions from "@/assets/images/landings/acciones-marketing-local.webp";
 export function getStaticPaths() {
     return provinces.flatMap(province => {
         const cities = citiesByProvince[province.slug] || [];
-        return cities.map(city => ({
-            params: {
-                service: undefined,
-                province: province.slug,
-                city: city.slug,
-            },
-            props: { city },
-        }));
+        // Filter out cities that have the same slug as the province (they are handled at /pegada-carteles/[province])
+        return cities
+            .filter(city => city.slug !== province.slug)
+            .map(city => ({
+                params: {
+                    service: undefined,
+                    province: province.slug,
+                    city: city.slug,
+                },
+                props: { city },
+            }));
     });
 }
 
