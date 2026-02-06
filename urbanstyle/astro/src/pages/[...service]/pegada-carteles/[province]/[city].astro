@@ -4,27 +4,37 @@ import { citiesByProvince } from "@/data/cities";
 import LandingPegadaCarteles from "@/components/LandingPegadaCarteles.astro";
 import Header from "@/components/Header.astro";
 import actions from "@/assets/images/landings/acciones-marketing-local.webp";
+import Layout from "@/layouts/Base.astro";
 
-export function getStaticPaths() {
-    return provinces.flatMap(province => {
+export async function getStaticPaths() {
+    const images = import.meta.glob("/src/assets/images/landings/cities/**/*.{jpg,jpeg,png,webp}");
+
+    const allRoutes = provinces.flatMap(province => {
         const cities = citiesByProvince[province.slug] || [];
-        // Filter out cities that have the same slug as the province (they are handled at /pegada-carteles/[province])
-        return cities
-            .filter(city => city.slug !== province.slug)
-            .map(city => ({
+        return cities.filter(city => city.slug !== province.slug).map(city => ({ province, city }));
+    });
+
+    return Promise.all(
+        allRoutes.map(async ({ province, city }) => {
+            let cover = actions;
+            if (city.cover && images[city.cover]) {
+                const imageModule = (await images[city.cover]()) as any;
+                cover = imageModule.default;
+            }
+
+            return {
                 params: {
                     service: undefined,
                     province: province.slug,
                     city: city.slug,
                 },
-                props: { city },
-            }));
-    });
+                props: { city, cover },
+            };
+        }),
+    );
 }
 
-import Layout from "@/layouts/Base.astro";
-
-const { city } = Astro.props;
+const { city, cover } = Astro.props;
 ---
 
 <Layout
@@ -33,10 +43,10 @@ const { city } = Astro.props;
 >
     <Header
         title={`Pegada de carteles en ${city.name}`}
-        cover={actions}
-        coverAlt={`Un chico pegando un cartel en una pared en ${city.name}`}
+        cover={cover}
+        coverAlt={`Fotografía panorámica de la ciudad de ${city.name}`}
         loading="eager"
-        classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+        classes="*:[img]:top-0"
     />
     <main class="relative z-10 pb-6 pt-28">
         <LandingPegadaCarteles city={city} />
