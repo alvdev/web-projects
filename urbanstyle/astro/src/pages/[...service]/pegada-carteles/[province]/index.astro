@@ -1,6 +1,5 @@
 ---
-import { provinces } from "@/data/provinces";
-import { citiesByProvince } from "@/data/cities";
+import { provincesMetadata, allSpainCities } from "@/data/cities/allSpainCities.js";
 import LandingPegadaCarteles from "@/components/LandingPegadaCarteles.astro";
 import Header from "@/components/Header.astro";
 import defaultCover from "@/assets/images/landings/acciones-marketing-local.webp";
@@ -10,9 +9,10 @@ export async function getStaticPaths() {
     const images = import.meta.glob("/src/assets/images/landings/cities/**/*.{jpg,jpeg,png,webp}");
 
     return Promise.all(
-        provinces.map(async province => {
-            const cities = citiesByProvince[province.slug] || [];
-            const cityData = cities.find(c => c.slug === province.slug) || province;
+        Object.entries(provincesMetadata).map(async ([slug, province]) => {
+            const cities = (allSpainCities as any)[slug] || [];
+            // Buscamos si la provincia tiene datos específicos en la lista de ciudades (como Madrid)
+            const cityData = cities.find((c: any) => c.slug === slug) || { ...province, slug };
 
             let cover = defaultCover;
             if (cityData.cover && images[cityData.cover]) {
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
             return {
                 params: {
                     service: undefined,
-                    province: province.slug,
+                    province: slug,
                 },
                 props: { city: cityData, cover },
             };

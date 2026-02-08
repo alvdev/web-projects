@@ -1,6 +1,5 @@
 ---
-import { provinces } from "@/data/provinces";
-import { citiesByProvince } from "@/data/cities";
+import { allSpainCities } from "@/data/cities/allSpainCities.js";
 import LandingPegadaCarteles from "@/components/LandingPegadaCarteles.astro";
 import Header from "@/components/Header.astro";
 import actions from "@/assets/images/landings/acciones-marketing-local.webp";
@@ -9,13 +8,18 @@ import Layout from "@/layouts/Base.astro";
 export async function getStaticPaths() {
     const images = import.meta.glob("/src/assets/images/landings/cities/**/*.{jpg,jpeg,png,webp}");
 
-    const allRoutes = provinces.flatMap(province => {
-        const cities = citiesByProvince[province.slug] || [];
-        return cities.filter(city => city.slug !== province.slug).map(city => ({ province, city }));
+    const allRoutes = Object.entries(allSpainCities).flatMap(([provinceSlug, cities]) => {
+        return (
+            cities
+                // Filtramos la capital para que no se duplique con la página de la provincia
+                .filter(city => city.slug !== provinceSlug)
+                .map(city => ({ provinceSlug, city }))
+        );
     });
 
     return Promise.all(
-        allRoutes.map(async ({ province, city }) => {
+        allRoutes.map(async ({ provinceSlug, city: rawCity }) => {
+            const city = rawCity as any;
             let cover = actions;
             if (city.cover && images[city.cover]) {
                 const imageModule = (await images[city.cover]()) as any;
@@ -25,7 +29,7 @@ export async function getStaticPaths() {
             return {
                 params: {
                     service: undefined,
-                    province: province.slug,
+                    province: provinceSlug,
                     city: city.slug,
                 },
                 props: { city, cover },
