@@ -32,7 +32,16 @@ $sizes = "
 
     <div class="container relative pt-28 md:pt-36 lg:pt-64">
         <hgroup class="text-center text-balance lg:max-w-2/3 mx-auto text-shadow-sm text-shadow-black">
-            <h1 class="text-5xl md:text-7xl font-bold leading-none">Contacta con el Mago Scott</h1>
+            <h1 class="text-5xl md:text-7xl font-bold leading-none">
+                <?= $title ?? $page->headerTitle()->or($page->title()) ?>
+            </h1>
+            <?php if ($description = $description ?? $page->description()): ?>
+                <?php if (is_string($description) ? !empty($description) : $description->isNotEmpty()): ?>
+                    <p class="mt-8 text-2xl md:text-4xl">
+                        <?= $description ?>
+                    </p>
+                <?php endif ?>
+            <?php endif ?>
         </hgroup>
     </div>
 </header>
