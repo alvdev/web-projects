@@ -1,4 +1,4 @@
-<section id="course" class="relative text-center">
+<section id="course" class="relative text-center scroll-mt-16 md:scroll-mt-28">
     <div class="grid overflow-clip">
         <div class="justify-self-end relative -right-24 md:-right-36 lg:right-0 top-12 md:top-24 lg:top-20">
             <img src="<?= asset('images/hand-1.webp') ?>" alt="" width="629" height="280">
