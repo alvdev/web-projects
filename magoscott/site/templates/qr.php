@@ -40,7 +40,7 @@
                         $link = $button->link()->toUrl() ?? 'https://abonoteatro.com';
                     } ?>
                     <a href="<?= $link ?>" target="_blank" class="flex items-center gap-6 px-2 md:px-0 text-lg text-gray-600 active:bg-linear-to-r active:from-transparent active:via-cyan-200 active:to-transparent">
-                        <div class="w-10 h-10 *:[svg]:fill-cyan-500">
+                        <div class="min-w-10 h-10 *:[svg]:fill-purple-500">
                             <?= svg('assets/svgs/tickets.svg') ?>
                         </div>
                         <div>
