@@ -1,7 +1,7 @@
-<section id="contact" class="mt-20 md:mt-28 lg:mt-36 scroll-mt-42">
+<section id="contact" class="mt-20 md:mt-28 lg:mt-36 scroll-mt-32">
     <h2 class="container text-3xl md:text-4xl lg:text-5xl text-center">Reserva tu plaza completando el formulario para conseguir un <span class="font-bold">50% de descuento</span> en el período de lanzamiento del curso</h2>
 
-    <div class="container mt-16 lg:mt-24 flex flex-col-reverse lg:grid lg:grid-cols-2 items-center gap-16 md:gap-24">
+    <div class="container mt-12 lg:mt-24 flex flex-col-reverse lg:grid lg:grid-cols-2 items-center gap-16 md:gap-24">
         <div class="text-center text-balance text-2xl">
             Si lo prefieres, puedes escribir un correo electrónico o llamar personalmente a Jaime Velasco:
             <div class="mt-12 flex flex-wrap gap-4 xl:gap-8 justify-center text-3xl font-bold">

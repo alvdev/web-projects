@@ -1,4 +1,4 @@
-<section id="testimonials" class="mt-24 md:mt-36lg:mt-48 scroll-mt-56 md:scroll-mt-48">
+<section id="testimonials" class="mt-24 md:mt-36 lg:mt-48 scroll-mt-32 md:scroll-mt-42">
     <hgroup class="container text-center">
         <h2 class="text-4xl md:text-5xl lg:w-2/3 mx-auto"><span class="font-bold">Testimonios reales</span> tras sesión de hipnosis terapéutica</h2>
         <p class="mt-8 opacity-70 text-3xl"></p>
