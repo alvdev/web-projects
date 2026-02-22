@@ -1,0 +1,58 @@
+title: Show
+create:
+  title:
+    label: Título del show
+status:
+  draft:
+    label: Borrador
+    text: La página permanece como un borrador. Sólo puede verse por editores con acceso al panel.
+  listed:
+    label: Publicado
+    text: La página está online y se puede ver en la sección de entradas.
+
+columns:
+  left:
+    width: 1/4
+    fields:
+      cover:
+        label:
+          en: Poster
+          es: Cartel
+        type: files
+        layout: cards
+        size: large
+        info: '{{ file.dimensions }} - {{ file.nicesize }}'
+        template: image
+        max: 1
+        image:
+          ratio: 4/3
+          back: black
+
+  right:
+    width: 3/4
+    fields:
+      title:
+        type: text
+        label: Título del show
+        required: true
+      dateFrom:
+        type: date
+        label: Fecha de estreno
+        display: DD/MM/YYYY
+        width: 1/2
+        required: true
+      dateTo:
+        type: date
+        label: Fecha de finalización
+        display: DD/MM/YYYY
+        width: 1/2
+      description:
+        type: textarea
+        buttons: false
+        label: Descripción
+        required: true
+      link:
+        label: Enlace de compra
+        type: link
+        options:
+          - url

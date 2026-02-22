@@ -121,6 +121,15 @@ return [
                             return Str::contains($path, 'pages/trabajos');
                         }
                     ],
+                    'tickets' => [
+                        'label' => 'Entradas',
+                        'icon' => 'ticket',
+                        'link' => 'pages/entradas',
+                        'current' => function (): bool {
+                            $path = App::instance()->path();
+                            return Str::contains($path, 'pages/entradas');
+                        }
+                    ],
                     'game' => [
                         'label' => 'Juegos',
                         'icon' => 'document',
