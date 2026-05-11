@@ -125,3 +125,8 @@
 :where([class~="prose"] :not(a)) {
     @apply text-white/80;
 }
+
+/* Turnstile */
+.cf-turnstile {
+    @apply hidden -bottom-24; 
+}

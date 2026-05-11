@@ -19,6 +19,19 @@ return [
             'pattern' => 'newsletter-proxy',
             'method'  => 'POST',
             'action'  => function () {
+                // Check for Russian spam
+                $data = $_POST;
+                $isSpam = false;
+                array_walk_recursive($data, function ($value) use (&$isSpam) {
+                    if (is_string($value) && preg_match('/\p{Cyrillic}/u', $value)) {
+                        $isSpam = true;
+                    }
+                });
+
+                if ($isSpam) {
+                    return new Kirby\Cms\Response("Spam detected: Cyrillic characters are not allowed.", "text/plain", 403);
+                }
+
                 $response = Kirby\Http\Remote::post('https://alv.ipzmarketing.com/f/LjnuULUsaB8', [
                     'data' => $_POST,
                     'headers' => [
@@ -52,6 +65,23 @@ return [
                 }
             }
         ]
+    ],
+    'hooks' => [
+        'dreamform.submit:before' => function ($submission) {
+            $body = \Kirby\Cms\App::instance()->request()->body()->toArray();
+            $isSpam = false;
+            
+            // Recursively check all submitted fields for Cyrillic characters
+            array_walk_recursive($body, function ($value) use (&$isSpam) {
+                if (is_string($value) && preg_match('/\p{Cyrillic}/u', $value)) {
+                    $isSpam = true;
+                }
+            });
+
+            if ($isSpam) {
+                throw new \Exception("Spam detected: Cyrillic characters are not allowed.");
+            }
+        }
     ],
     // alv.dev: Implement ready function because of dotenv
     'ready' => function () {
@@ -178,8 +208,12 @@ return [
             ],
             'tobimori.dreamform' => [
                 'guards' => [
-                    'available' => ['csrf', 'honeypot', 'turnstile', /* 'ratelimit' */],
+                    'available' => ['csrf', 'honeypot', 'turnstile', 'ratelimit'],
                     'honeypot.availableFields' => ['website', 'url', 'birthdate'],
+                    'turnstile' => [
+                        'siteKey' => fn() => env('TURNSTILE_SITE_KEY'),
+                        'secretKey' => fn() => env('TURNSTILE_SECRET_KEY'),
+                    ],
                 ],
             ],
             'sylvaninjule.embed' => [
