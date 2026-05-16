@@ -3,8 +3,8 @@
 <?php slot('default') ?>
 <section class="container flex">
     <hgroup class="pr-16 pt-16 w-9/12">
-        <h1 class="text-5xl font-bold text-right">
-            <span class="px-4 box-decoration-clone rounded bg-green-500 text-balance leading-normal"><?= $page->title()->html() ?></span>
+        <h1 class="text-5xl font-bold text-right leading-normal">
+            <span class="screen-overlay bg-green-500 box-decoration-clone px-4 rounded text-balance"><?= $page->title()->html() ?></span>
         </h1>
 
         <?php if ($page->summary()->isNotEmpty()) : ?>
@@ -25,12 +25,14 @@
 <div class="container flex gap-16 mt-16">
     <div class="prose max-w-full bg-white flex-1 [&>h2>a]:no-underline [&>h2>a]:scroll-mt-8 [&>*:not(figure)]:px-[5vw] [&>pre]:ml-[5vw]! [&>pre]:rounded-r-none!">
         <?php if ($page->image()) : ?>
-            <img class="aspect-video rounded mt-4 mb-20! ring-16 ring-slate-100 shadow-xl" src="<?= $page->image()->url() ?>"
-                alt="<?= $page->image()->alt() ?>" srcset="<?= $page->image()->srcset([100, 200, 400, 800]) ?>"
-                height="<?= $page->image()->height() ?>" width="<?= $page->image()->width() ?>">
+            <div class="screen-overlay-picture px-0! mb-20 before:rounded">
+                <img class="aspect-video rounded mt-4 mb-20! ring-16 ring-slate-100 shadow-xl" src="<?= $page->image()->url() ?>"
+                    alt="<?= $page->image()->alt() ?>" srcset="<?= $page->image()->srcset([100, 200, 400, 800]) ?>"
+                    height="<?= $page->image()->height() ?>" width="<?= $page->image()->width() ?>">
+            </div>
         <?php else: ?>
-            <div class="screen-overlay px-0!">
-                <img class="aspect-video max-w-full max-h-full rounded mt-4 mb-20! ring-16 ring-slate-100 shadow-2xl/30 shadow-slate-400 p-0" src="https://picsum.photos/900/600" alt="">
+            <div class="screen-overlay-picture px-0! mb-20 before:rounded">
+                <img class="aspect-video max-w-full max-h-full rounded mt-4 ring-16 ring-slate-100 shadow-2xl/30 shadow-slate-400 p-0" src="https://picsum.photos/900/600" alt="">
             </div>
         <?php endif ?>
 
