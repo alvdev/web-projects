@@ -2,11 +2,8 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 export default {
-  content: ['./site/**/*.{html,js,php}"'],
+  content: ['./site/**/*.{html,js,php}'],
   theme: {
-    container: {
-      padding: '5vw',
-    },
     extend: {
       colors: {
         green: {
@@ -43,8 +40,4 @@ export default {
       },
     },
   },
-  plugins: [
-    /* require('tailwindcss-debug-screens'), */
-    require('@tailwindcss/typography'),
-  ],
 };
