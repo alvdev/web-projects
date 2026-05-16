@@ -1,6 +1,6 @@
-<header class="mt-8">
+<section>
     <div class="container flex items-center">
-        <div class="w-1/2">
+        <div class="w-1/2 pr-16 pt-8">
             <span class="font-bold text-4xl flex flex-wrap items-center mb-3">
                 <span class="mr-2">
                     <svg width="65" height="2" viewBox="0 0 65 2" fill="none">
@@ -9,8 +9,8 @@
                 </span>
                 ¡Hola!😉, soy
             </span>
-            <h1 class="text-10xl font-bold">
-                Alvaro<span class="block -ml-1.5 -tracking-[6px]">Devesa</span>
+            <h1 class="text-9xl font-semibold">
+                Alvaro<span class="block -ml-1.5">Devesa</span>
             </h1>
             <p class="text-lg mt-8 md:text-xl xl:text-2xl">
                 Sysadmin y desarrollador de software,<br>
@@ -41,10 +41,16 @@
             </div>
         </div>
 
-        <div class="screen-effect w-1/2 [&>img]:max-h-[80vh] flex justify-end">
-            <?= asset('assets/images/header-placeholder.webp') ?>
+        <div class="screen-overlay rounded-b w-1/2 [&>img]:max-h-[80vh] self-stretch bg-green-500 h-auto">
+            <!-- <?= asset('assets/images/header-placeholder.webp') ?> -->
+            <?php if ($asset = asset('assets/images/alvdev-ascii-face.svg')): ?>
+                <img class="rounded-b-xs object-cover mask-b-from-0%"
+                    src="<?= $asset->url() ?>" alt=""
+                    srcset="<?= $asset->srcset([100, 200, 400, 800]) ?>"
+                    height="<?= $asset->height() ?>"
+                    width="<?= $asset->width() ?>">
+            <?php endif ?>
         </div>
-
-     <div class="bg-decoration-square"></div>
+        <!-- <div class="bg-decoration-square"></div> -->
     </div>
-</header>
+</section>
