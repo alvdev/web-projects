@@ -13,7 +13,10 @@ use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 
 return [
-    'debug' => true,
+    'debug' => false,
+    'fatal' => function ($kirby, $exception) {
+        include $kirby->root('templates') . '/fatal.php';
+    },
     'date.handler' => 'intl',
     'author.seo-audit' => [
         'option' => 'alv dev'
