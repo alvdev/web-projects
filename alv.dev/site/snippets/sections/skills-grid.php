@@ -1,5 +1,4 @@
 <section class="py-28">
-
     <div class="container">
         <div class="flex gap-24">
             <div class="w-2/5">

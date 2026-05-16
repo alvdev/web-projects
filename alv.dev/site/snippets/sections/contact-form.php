@@ -1,5 +1,5 @@
-<section id="contact" class="bg-emerald-100/90 backdrop-blur-lg py-28 border-t-2 border-white">
-    <div class="container flex gap-24">
+<section id="contact" class="container mt-24">
+    <div class="flex gap-24">
         <div class="w-2/5">
             <hgroup class="font-bold leading-none flex flex-wrap flex-col gap-y-2 mb-10">
                 <p class="text-emerald-800 text-xl">

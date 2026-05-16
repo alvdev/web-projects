@@ -1,5 +1,5 @@
-<section id="aboutme" class="py-28 bg-amber-100/90 backdrop-blur-lg border-t-2 border-white">
-    <div class="container flex gap-28">
+<section id="aboutme" class="container mt-28">
+    <div class="flex gap-28">
         <div class="w-2/5">
             <hgroup class="sticky top-8 flex flex-wrap flex-col gap-y-2 md:text-center xl:text-left mb-10">
                 <div class="text-amber-600 text-xl">
