@@ -1,0 +1,22 @@
+{
+  "name": "prada-gl",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Single-page logistics company site built with Astro, VanillaJS, and Tailwind. Includes a contact form with SMTP delivery and Cloudflare Turnstile.",
+  "scripts": {
+    "dev": "concurrently -n php,astro -c yellow,cyan \"php -S localhost:8080 -t public\" \"astro dev\"",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.1.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "typescript": "^5.6.0"
+  }
+}

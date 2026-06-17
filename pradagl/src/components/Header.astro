@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+import logo from "../images/prada-logo-white.webp";
+
+const links = [
+    { href: "#servicios", label: "Servicios" },
+    { href: "#nosotros", label: "Empresa" },
+    { href: "#contacto", label: "Contacto" },
+];
+---
+
+<header
+    class="fixed inset-x-0 top-0 z-40 border-b border-white/10
+         bg-brand-navy/95 text-white backdrop-blur supports-backdrop-filter:bg-brand-navy/80"
+>
+    <div class="container-x flex h-16 items-center justify-between">
+        <a href="#top" class="flex items-center gap-2 font-bold tracking-tight">
+            <Image src={logo} alt="Prada GL" class="h-8 w-auto" />
+        </a>
+
+        <nav class="hidden items-center gap-8 text-sm md:flex">
+            {
+                links.map(link => (
+                    <a href={link.href} class="opacity-80 transition hover:opacity-100 hover:text-brand-red-light">
+                        {link.label}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <button class="rounded-lg p-2 text-white md:hidden" aria-label="Abrir menú" id="menu-toggle">
+            <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"></path>
+            </svg>
+        </button>
+    </div>
+
+    <nav id="mobile-menu" class="hidden border-t border-white/10 md:hidden">
+        <ul class="container-x flex flex-col gap-1 py-4 text-sm">
+            {
+                links.map(link => (
+                    <li>
+                        <a
+                            href={link.href}
+                            class="block rounded-lg px-3 py-2 opacity-90 transition hover:bg-white/5 hover:opacity-100"
+                        >
+                            {link.label}
+                        </a>
+                    </li>
+                ))
+            }
+            <li class="pt-2">
+                <a href="#contacto" class="btn-primary w-full">Pedir presupuesto</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<script>
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    toggle?.addEventListener("click", () => {
+        menu?.classList.toggle("hidden");
+    });
+</script>

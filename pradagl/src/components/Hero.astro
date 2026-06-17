@@ -1,0 +1,312 @@
+---
+const stats = [
+    { value: "+15", label: "años en ruta" },
+    { value: "1.2M", label: "envíos entregados" },
+    { value: "98%", label: "entregas a tiempo" },
+    { value: "24/7", label: "soporte humano" },
+];
+
+// PUBLIC_* env vars are exposed to the browser by Astro.
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? "";
+// Always POST to /contact.php — in dev, Vite proxies this to the PHP server
+const endpoint = "/contact.php";
+---
+
+<section id="top" class="relative overflow-hidden bg-brand-navy text-white">
+    <!-- Decorative grid + glow -->
+    <div
+        aria-hidden="true"
+        class="absolute inset-0 bg-[radial-gradient(circle_at_80%_-10%,rgba(230,57,70,0.35),transparent_60%)]"
+    >
+    </div>
+    <div
+        aria-hidden="true"
+        class="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:48px_48px]"
+    >
+    </div>
+
+    <div
+        class="container-x relative grid items-start gap-10 py-20 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-16 md:py-28"
+    >
+        <div>
+            <span class="badge-eyebrow !bg-brand-red/20 !text-brand-red-light">
+                <span class="h-2 w-2 rounded-full bg-brand-red"></span>
+                Cobertura nacional e internacional
+            </span>
+            <h1 class="mt-6 text-balance text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+                Logística que
+                <span class="text-brand-red-light">mueve</span>
+                tu negocio sin sorpresas.
+            </h1>
+            <p class="mt-6 max-w-xl text-base text-white/80 md:text-lg">
+                Transportamos, almacenamos y distribuimos tu mercancía por tierra, mar y aire con trazabilidad en tiempo
+                real y un equipo que responde cuando lo necesitas.
+            </p>
+
+            <div class="mt-8 hidden flex-wrap items-center gap-4 md:flex">
+                <a href="#servicios" class="btn-ghost">Ver servicios</a>
+                <a
+                    href="#nosotros"
+                    class="text-sm text-white/70 underline-offset-4 transition hover:text-white hover:underline"
+                >
+                    Cómo trabajamos →
+                </a>
+            </div>
+        </div>
+
+        <!-- Contact form (replaces the old "route preview" decoration) -->
+        <form
+            id="hero-contact-form"
+            novalidate
+            class="relative grid gap-3 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur md:gap-4 md:p-7"
+        >
+            <header>
+                <h2 class="text-lg font-bold md:text-xl">Pide tu presupuesto</h2>
+                <p class="mt-1 text-sm text-white/65">Respondemos en menos de 24 h hábiles.</p>
+            </header>
+
+            <div class="grid gap-3 sm:grid-cols-2 sm:gap-4">
+                <label class="block">
+                    <span class="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-white/70">
+                        Nombre <span class="text-brand-red-light">*</span>
+                    </span>
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        minlength="2"
+                        maxlength="80"
+                        autocomplete="name"
+                        placeholder="Lucía Sánchez"
+                        class="input-field py-2.5!"
+                    />
+                </label>
+                <label class="block">
+                    <span class="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-white/70">
+                        Empresa <span class="text-brand-red-light">*</span>
+                    </span>
+                    <input
+                        type="text"
+                        name="company"
+                        required
+                        minlength="2"
+                        maxlength="120"
+                        autocomplete="organization"
+                        placeholder="Tu empresa S.L."
+                        class="input-field py-2.5!"
+                    />
+                </label>
+            </div>
+
+            <label class="block">
+                <span class="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-white/70">
+                    Email <span class="text-brand-red-light">*</span>
+                </span>
+                <input
+                    type="email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    placeholder="tu@empresa.com"
+                    class="input-field py-2.5!"
+                />
+            </label>
+
+            <label class="block">
+                <span class="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-white/70">
+                    Teléfono <span class="text-brand-red-light">*</span>
+                </span>
+                <input
+                    type="tel"
+                    name="phone"
+                    required
+                    pattern="^[+0-9\s().\-]{6,}$"
+                    autocomplete="tel"
+                    placeholder="+34 600 000 000"
+                    class="input-field py-2.5"
+                />
+            </label>
+
+            <label class="block">
+                <span class="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-white/70">Mensaje</span>
+                <textarea
+                    name="message"
+                    rows="3"
+                    maxlength="1000"
+                    placeholder="Cuéntanos tu proyecto o cualquier detalle adicional..."
+                    class="input-field py-2.5 resize-y min-h-18"></textarea>
+            </label>
+
+            <!-- Cloudflare Turnstile — placed at viewport origin (fixed top-left)
+           behind all content (z-index:-1) so the browser renders the iframe
+           and Turnstile can find adapters. The widget is non-interactive
+           (pointer-events:none) — execution is triggered programmatically
+           via turnstile.execute() on submit.
+           data-size="flexible" + data-appearance="interaction-only" keeps
+           the widget visually passive; it never shows a challenge.
+           Callbacks are passed directly to turnstile.execute(el, { ... }) to
+           avoid a race condition with the async api.js auto-render. -->
+            <div class="pointer-events-none fixed top-0 left-0 -z-50 h-16.25 w-75" aria-hidden="true">
+                <div
+                    class="cf-turnstile"
+                    data-sitekey={sitekey}
+                    data-size="flexible"
+                    data-appearance="interaction-only"
+                    data-action="contact"
+                >
+                </div>
+            </div>
+
+            <button id="hero-submit-btn" type="submit" class="btn-primary mt-1 w-full py-2.5!">
+                <span id="hero-submit-label" class="inline-flex items-center gap-2">
+                    Enviar mensaje
+                    <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor">
+                        <path d="M2.5 4.5 17.5 10 2.5 15.5l2-5.5z"></path>
+                    </svg>
+                </span>
+                <span id="hero-submit-spinner" class="hidden items-center gap-2">
+                    <svg
+                        class="h-4 w-4 animate-spin"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="12" cy="12" r="9" stroke-opacity="0.25"></circle>
+                        <path d="M21 12a9 9 0 0 0-9-9" stroke-linecap="round"></path>
+                    </svg>
+                    Enviando…
+                </span>
+            </button>
+
+            <p id="hero-form-status" role="status" aria-live="polite" class="text-center text-xs"></p>
+
+            <p class="text-center text-[11px] text-white/45">
+                Al enviar aceptas que te contactemos por los medios facilitados. Nunca cederemos tus datos a terceros.
+            </p>
+        </form>
+    </div>
+
+    <!-- Cloudflare Turnstile (invisible) -->
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+    <script define:vars={{ endpoint }}>
+        // -------- Hero contact form (vanilla JS submission) -----------------
+        const form = document.getElementById("hero-contact-form");
+        const status = document.getElementById("hero-form-status");
+        const btn = document.getElementById("hero-submit-btn");
+        const label = document.getElementById("hero-submit-label");
+        const spinner = document.getElementById("hero-submit-spinner");
+
+        function setStatus(message, tone = "") {
+            if (!status) return;
+            status.textContent = message;
+            status.className = "text-center text-xs";
+            if (tone === "ok") status.classList.add("text-green-300");
+            else if (tone === "warn") status.classList.add("text-amber-200");
+            else if (tone === "error") status.classList.add("text-red-300");
+        }
+
+        function setLoading(loading) {
+            if (!btn || !label || !spinner) return;
+            btn.disabled = loading;
+            // Toggle `hidden` AND `inline-flex` together so the result never depends
+            // on Tailwind's CSS source-order for two competing display utilities on
+            // the same element (which previously made the spinner leak through on
+            // initial page render).
+            label.classList.toggle("hidden", loading);
+            label.classList.toggle("inline-flex", !loading);
+            spinner.classList.toggle("hidden", !loading);
+            spinner.classList.toggle("inline-flex", loading);
+        }
+
+        let submitting = false;
+
+        async function submitForm(token) {
+            if (!form || submitting) return;
+            submitting = true;
+            setLoading(true);
+            setStatus("Verificando y enviando…", "warn");
+            try {
+                const fd = new FormData(form);
+                fd.set("cf-turnstile-response", token);
+
+                const res = await fetch(endpoint, { method: "POST", body: fd });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data.ok) throw new Error(data.error || `Error ${res.status}`);
+
+                setStatus("¡Mensaje enviado! Te responderemos en menos de 24 h.", "ok");
+                form.reset();
+            } catch (err) {
+                const msg = err instanceof Error ? err.message : "Error desconocido";
+                setStatus(`No pudimos enviar el mensaje: ${msg}`, "error");
+            } finally {
+                submitting = false;
+                setLoading(false);
+            }
+        }
+
+        // Turnstile callbacks are passed directly to turnstile.execute() below
+        // instead of via data-callback attributes, which avoids a race condition
+        // with the async Turnstile API script loading before this module script.
+
+        form?.addEventListener("submit", event => {
+            event.preventDefault();
+
+            // Re-entry guard: if a submission is already in flight (the submit
+            // button is `disabled`), ignore any further `submit` events fired by
+            // a fast Enter-key repeat or a queued second click. The disabled
+            // state is what makes the button visually inert, so we mirror it here.
+            if (btn?.disabled) return;
+
+            const data = new FormData(form);
+            const email = String(data.get("email") ?? "");
+            const phone = String(data.get("phone") ?? "");
+            const name = String(data.get("name") ?? "").trim();
+            const company = String(data.get("company") ?? "").trim();
+            const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            const phoneOk = /^[+0-9\s().\-]{6,}$/.test(phone);
+
+            if (name.length < 2) return setStatus("Introduce tu nombre.", "warn");
+            if (company.length < 2) return setStatus("Introduce tu empresa.", "warn");
+            if (!emailOk) return setStatus("El email no parece válido.", "warn");
+            if (!phoneOk) return setStatus("El teléfono no parece válido.", "warn");
+
+            if (!window.turnstile) {
+                setStatus("La verificación anti-bot aún está cargando. Inténtalo en un instante.", "warn");
+                return;
+            }
+
+            const turnstileEl = document.querySelector(".cf-turnstile");
+            if (!turnstileEl) {
+                setStatus("No pudimos iniciar la verificación. Recarga e inténtalo de nuevo.", "error");
+                return;
+            }
+
+            try {
+                setLoading(true);
+                // reset() before execute() guarantees a fresh token and avoids
+                // Cloudflare's "execute() called on an already-executed widget"
+                // warning, which would otherwise reuse the previous (possibly
+                // already-consumed) token and trigger a 403/400 on the server.
+                // Callbacks are passed directly to avoid the race condition between
+                // the async api.js auto-render and this deferred module script.
+                window.turnstile.reset(turnstileEl);
+                window.turnstile.execute(turnstileEl, {
+                    callback: token => void submitForm(token),
+                    "error-callback": () => {
+                        setLoading(false);
+                        setStatus("Verificación anti-bot falló. Recarga la página e inténtalo de nuevo.", "error");
+                    },
+                    "expired-callback": () => {
+                        setLoading(false);
+                        setStatus("La verificación anti-bot caducó. Vuelve a enviar.", "warn");
+                    },
+                });
+            } catch {
+                setLoading(false);
+                setStatus("No pudimos iniciar la verificación. Recarga e inténtalo de nuevo.", "error");
+            }
+        });
+    </script>
+</section>

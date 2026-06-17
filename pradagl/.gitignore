@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+vendor/
+composer.lock
+
+# build
+dist/
+.astro/
+
+# env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# logs / os
+*.log
+.DS_Store
+Thumbs.db
