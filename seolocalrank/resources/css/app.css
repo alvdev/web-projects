@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom layer for app-specific tweaks */
+@layer components {
+    .pill {
+        @apply inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700;
+    }
+}
+
+/*
+ * OSM-backed address autocomplete (Alpine x-for dropdown).
+ * Tailwind utility classes on the markup cover most styling; this
+ * layer just makes the long-form label truncate cleanly so very
+ * detailed OSM addresses (e.g. "House 5, Long Lane, Suburb,
+ * City, County, Region, Postal, Country") don't blow out the row.
+ */
+#place-suggestion-list li > span:first-child {
+    min-width: 0; /* allow truncate to actually clip */
+}

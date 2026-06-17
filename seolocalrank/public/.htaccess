@@ -1,0 +1,17 @@
+# Apache rewrite rules: send every request to index.php unless it's a real file.
+RewriteEngine On
+
+# Existing asset / file paths are served directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Everything else gets routed through the front controller
+RewriteRule ^ index.php [L]
+
+# Long-cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+</IfModule>

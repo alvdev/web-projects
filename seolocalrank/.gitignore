@@ -1,0 +1,8 @@
+/vendor/
+/node_modules/
+/public/assets/css/app.css
+/public/assets/js/regions.generated.js
+.env
+.env.local
+.DS_Store
+*.log

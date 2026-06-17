@@ -1,0 +1,21 @@
+{
+    "name": "seolocalrank",
+    "version": "1.0.0",
+    "description": "Local & international Google SERP checker (Tailwind + Alpine + PHP)",
+    "private": true,
+    "scripts": {
+        "build:css": "tailwindcss -i ./resources/css/app.css -o ./public/assets/css/app.css --minify",
+        "build:css:watch": "tailwindcss -i ./resources/css/app.css -o ./public/assets/css/app.css --watch",
+        "build:regions": "php bin/build-regions.php",
+        "build": "npm run build:regions && npm run build:css",
+        "dev": "npm run build:css:watch"
+    },
+    "devDependencies": {
+        "alpinejs": "^3.14.1",
+        "tailwindcss": "^3.4.13"
+    },
+    "browserslist": [
+        "last 2 versions",
+        "> 1%"
+    ]
+}
