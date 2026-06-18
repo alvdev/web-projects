@@ -1,0 +1,17 @@
+title: Default Page
+
+columns:
+  main:
+    width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          title:
+            label: Title
+            type: text
+            required: true
+          text:
+            label: Text
+            type: textarea
+            size: large
