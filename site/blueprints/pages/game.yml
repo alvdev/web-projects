@@ -1,0 +1,66 @@
+title: Game
+
+columns:
+  main:
+    width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          cover:
+            label: Cover Image
+            type: files
+            query: model.files.template('cover')
+            uploads:
+              template: cover
+          title:
+            label: Title
+            type: text
+            required: true
+          summary:
+            label: Summary
+            type: textarea
+            size: small
+          release_date:
+            label: Release Date
+            type: date
+          developer:
+            label: Developer
+            type: text
+          publisher:
+            label: Publisher
+            type: text
+          genres:
+            label: Genres
+            type: checkboxes
+            options:
+              accion: Acción
+              aventura: Aventura
+              rpg: RPG
+              shooter: Shooter
+              estrategia: Estrategia
+              simulacion: Simulación
+              deportes: Deportes y Carreras
+              terror: Terror
+              puzzle: Puzzle
+              supervivencia: Supervivencia
+              mundo-abierto: Mundo abierto
+              multijugador: Multijugador
+
+  sidebar:
+    width: 1/3
+    sections:
+      posts:
+        label: Posts
+        type: pages
+        template: post
+        layout: cards
+        size: small
+        info: "{{ page.date }}"
+      meta:
+        type: fields
+        fields:
+          featured:
+            label: Featured game
+            type: toggle
+            text: Show on homepage hero
