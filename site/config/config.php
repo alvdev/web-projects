@@ -8,4 +8,13 @@ return [
         'entry' => 'assets/src/js/app.js',
         'outDir' => 'public/assets',
     ],
+
+    'routes' => [
+        [
+            'pattern' => 'genre/(:any)',
+            'action'  => function ($genre) {
+                return page('games')->render(['genre' => $genre]);
+            },
+        ],
+    ],
 ];
