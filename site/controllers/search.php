@@ -6,7 +6,7 @@ return function ($site) {
 
     if ($query && strlen(trim($query)) > 0) {
         try {
-            $results = loupe(trim($query))->paginate(20);
+            $results = \arnoson\KirbyLoupe::search(query: trim($query), paginate: 20);
         } catch (\Exception $e) {
             $results = $site->search(trim($query), 'title|summary|text');
             $results = $results->paginate(20);

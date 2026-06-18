@@ -9,6 +9,16 @@ return [
         'outDir' => 'public/assets',
     ],
 
+    'arnoson.kirby-loupe' => [
+        'pages' => fn($page) => $page->intendedTemplate()->name() === 'game' || $page->intendedTemplate()->name() === 'post',
+        'fields' => [
+            'title',
+            'summary',
+            'text' => fn($page) => strip_tags($page->text()),
+        ],
+        'searchable' => ['title', 'summary', 'text'],
+    ],
+
     'routes' => [
         [
             'pattern' => 'genre/(:any)',
