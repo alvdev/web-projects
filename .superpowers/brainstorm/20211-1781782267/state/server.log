@@ -1,0 +1,18 @@
+{"type":"server-started","port":62103,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:62103","screen_dir":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content","state_dir":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/state"}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content/color-palette.html"}
+{"source":"user-event","type":"click","text":"A\n      CyberpunkVibrant neon, high energy","choice":"a","id":null,"timestamp":1781782387582}
+{"source":"user-event","type":"click","text":"B\n      Muted NeonBalanced, readable","choice":"b","id":null,"timestamp":1781782395473}
+{"source":"user-event","type":"click","text":"A\n      CyberpunkVibrant neon, high energy","choice":"a","id":null,"timestamp":1781782396767}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content/layout.html"}
+{"source":"user-event","type":"click","text":"✗\n      I'd change somethingTell me what to adjust","choice":"change","id":null,"timestamp":1781782541426}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content/layout-v2.html"}
+{"source":"user-event","type":"click","text":"✗\n      AdjustTell me what to change","choice":"change","id":null,"timestamp":1781782711101}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content/layout-v3.html"}
+{"source":"user-event","type":"click","text":"✗\n      AdjustTell me what to change","choice":"change","id":null,"timestamp":1781782815174}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content/layout-v4.html"}
+{"source":"user-event","type":"click","text":"✓\n      Looks goodProceed to game/post page","choice":"yes","id":null,"timestamp":1781782918672}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content/game-post-page.html"}
+{"source":"user-event","type":"click","text":"✗\n      Adjust","choice":"change","id":null,"timestamp":1781783050347}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content/game-post-page-v2.html"}
+{"source":"user-event","type":"click","text":"✓\n      Looks good","choice":"yes","id":null,"timestamp":1781783151428}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/20211-1781782267/content/waiting.html"}

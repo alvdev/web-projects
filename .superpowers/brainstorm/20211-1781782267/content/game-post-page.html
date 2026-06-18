@@ -1,0 +1,70 @@
+<h2>Game Page & Post Page Layout</h2>
+<p class="subtitle">Two content page templates</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1rem;">
+  <!-- Game Page Mockup -->
+  <div class="mockup">
+    <div class="mockup-header">🎮 Game Page</div>
+    <div class="mockup-body" style="text-align:left;padding:0.75rem;">
+      <div style="background:#16213e;border-radius:6px;height:120px;margin-bottom:0.75rem;display:flex;align-items:end;padding:0.75rem;">
+        <div style="font-size:18px;font-weight:bold;color:#e8e8f0;">Elden Ring</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap;">
+        <span style="background:#00f5ff22;color:#00f5ff;font-size:10px;padding:2px 8px;border-radius:4px;border:1px solid #00f5ff44;">RPG</span>
+        <span style="background:#ff00aa22;color:#ff00aa;font-size:10px;padding:2px 8px;border-radius:4px;border:1px solid #ff00aa44;">Mundo abierto</span>
+        <span style="color:#888;font-size:11px;">Release: Feb 25, 2022</span>
+      </div>
+      <div style="font-size:12px;color:#aaa;margin-bottom:0.75rem;">
+        FromSoftware • Bandai Namco
+      </div>
+      <div style="font-size:12px;color:#888;margin-bottom:0.75rem;line-height:1.5;">
+        THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring...
+      </div>
+      <div style="border-top:1px solid #2a2a4e;padding-top:0.75rem;">
+        <div style="font-size:11px;color:#39ff14;margin-bottom:0.5rem;">📰 Posts about Elden Ring</div>
+        <div style="font-size:12px;color:#e8e8f0;padding:0.3rem 0;">• Shadow of the Erdtree Review</div>
+        <div style="font-size:12px;color:#e8e8f0;padding:0.3rem 0;">• Best Builds Guide</div>
+        <div style="font-size:12px;color:#e8e8f0;padding:0.3rem 0;">• All Bosses Ranked</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post Page Mockup -->
+  <div class="mockup">
+    <div class="mockup-header">📝 Post Page (Article)</div>
+    <div class="mockup-body" style="text-align:left;padding:0.75rem;">
+      <div style="background:#16213e;border-radius:6px;height:100px;margin-bottom:0.75rem;"></div>
+      <div style="font-size:16px;font-weight:bold;color:#e8e8f0;margin-bottom:0.3rem;">Shadow of the Erdtree Review</div>
+      <div style="font-size:11px;color:#888;margin-bottom:0.5rem;">Elden Ring • Jun 15, 2026 • By John Doe</div>
+      <div style="display:flex;gap:0.3rem;margin-bottom:0.75rem;">
+        <span style="background:#333;font-size:10px;padding:2px 6px;border-radius:3px;">🐦</span>
+        <span style="background:#333;font-size:10px;padding:2px 6px;border-radius:3px;">📘</span>
+        <span style="background:#333;font-size:10px;padding:2px 6px;border-radius:3px;">🔗</span>
+      </div>
+      <div style="font-size:12px;color:#aaa;line-height:1.6;">
+        FromSoftware has done it again. Shadow of the Erdtree is not just a downloadable expansion—it's a masterclass in world design...
+      </div>
+      <div style="margin-top:0.75rem;font-size:11px;color:#888;border-top:1px solid #2a2a4e;padding-top:0.5rem;">
+        Also appears in: <span style="color:#39ff14;">RPG</span>, <span style="color:#00f5ff;">Mundo abierto</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <p><strong>Game page fields:</strong> cover image, title, genres, release date, developer, publisher, summary, list of posts</p>
+  <p><strong>Post page fields:</strong> header image, title, game reference, release date, author, article body, social shares, cross-game tags</p>
+</div>
+
+<div class="section">
+  <div class="options">
+    <div class="option" data-choice="yes" onclick="toggleSelect(this)">
+      <div class="letter">✓</div>
+      <div class="content"><h3>Looks good</h3></div>
+    </div>
+    <div class="option" data-choice="change" onclick="toggleSelect(this)">
+      <div class="letter">✗</div>
+      <div class="content"><h3>Adjust</h3></div>
+    </div>
+  </div>
+</div>

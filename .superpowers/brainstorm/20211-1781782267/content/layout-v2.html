@@ -1,0 +1,137 @@
+<h2>Homepage Layout v2 — Genres as Columns</h2>
+<p class="subtitle">Each genre = subtitle + 2 latest posts, 2 genres per row</p>
+
+<div class="mockup" style="margin: 1rem 0;">
+  <div class="mockup-header">Homepage Wireframe</div>
+  <div class="mockup-body" style="text-align:left;padding:1rem;">
+    <div style="background:#1a1a2e;border:1px solid #2a2a4e;border-radius:8px;padding:0.5rem 1rem;margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-weight:bold;color:#00f5ff;">[LOGO]</div>
+        <div style="display:flex;gap:0.5rem;font-size:12px;flex-wrap:wrap;">
+          <span style="color:#888;">Acción</span>
+          <span style="color:#888;">Aventura</span>
+          <span style="color:#888;">RPG</span>
+          <span style="color:#888;">Shooter</span>
+          <span style="color:#888;">+8 more</span>
+        </div>
+        <div style="color:#ff00aa;">🔍</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:1.5rem;">
+      <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #2a2a4e;border-radius:8px;padding:1.5rem;min-height:180px;">
+        <div style="font-size:10px;color:#39ff14;text-transform:uppercase;letter-spacing:1px;">Featured</div>
+        <div style="font-size:22px;font-weight:bold;color:#e8e8f0;margin:0.25rem 0;">Elden Ring: Shadow of the Erdtree Review</div>
+        <div style="font-size:13px;color:#888;">A masterpiece expansion that redefines what DLC can be...</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+      <!-- Acción column -->
+      <div style="background:#0d0d18;border:1px solid #2a2a4e;border-radius:8px;padding:1rem;">
+        <div style="font-size:14px;font-weight:bold;color:#00f5ff;margin-bottom:0.75rem;border-bottom:1px solid #2a2a4e;padding-bottom:0.5rem;">⚡ Acción</div>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;">
+          <div style="background:#16213e;border-radius:4px;width:70px;height:50px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:bold;color:#e8e8f0;">Doom Eternal Review</div>
+            <div style="font-size:11px;color:#666;">Jun 15, 2026</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.75rem;">
+          <div style="background:#16213e;border-radius:4px;width:70px;height:50px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:bold;color:#e8e8f0;">Call of Duty Campaign</div>
+            <div style="font-size:11px;color:#666;">Jun 12, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aventura column -->
+      <div style="background:#0d0d18;border:1px solid #2a2a4e;border-radius:8px;padding:1rem;">
+        <div style="font-size:14px;font-weight:bold;color:#39ff14;margin-bottom:0.75rem;border-bottom:1px solid #2a2a4e;padding-bottom:0.5rem;">🗺️ Aventura</div>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;">
+          <div style="background:#16213e;border-radius:4px;width:70px;height:50px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:bold;color:#e8e8f0;">Zelda: Tears of Kingdom</div>
+            <div style="font-size:11px;color:#666;">Jun 14, 2026</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.75rem;">
+          <div style="background:#16213e;border-radius:4px;width:70px;height:50px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:bold;color:#e8e8f0;">Hollow Knight Silksong</div>
+            <div style="font-size:11px;color:#666;">Jun 10, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RPG column -->
+      <div style="background:#0d0d18;border:1px solid #2a2a4e;border-radius:8px;padding:1rem;">
+        <div style="font-size:14px;font-weight:bold;color:#ff00aa;margin-bottom:0.75rem;border-bottom:1px solid #2a2a4e;padding-bottom:0.5rem;">⚔️ RPG</div>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;">
+          <div style="background:#16213e;border-radius:4px;width:70px;height:50px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:bold;color:#e8e8f0;">Baldur's Gate 3</div>
+            <div style="font-size:11px;color:#666;">Jun 13, 2026</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.75rem;">
+          <div style="background:#16213e;border-radius:4px;width:70px;height:50px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:bold;color:#e8e8f0;">Final Fantasy VII Rebirth</div>
+            <div style="font-size:11px;color:#666;">Jun 8, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shooter column -->
+      <div style="background:#0d0d18;border:1px solid #2a2a4e;border-radius:8px;padding:1rem;">
+        <div style="font-size:14px;font-weight:bold;color:#ffaa00;margin-bottom:0.75rem;border-bottom:1px solid #2a2a4e;padding-bottom:0.5rem;">🔫 Shooter</div>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;">
+          <div style="background:#16213e;border-radius:4px;width:70px;height:50px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:bold;color:#e8e8f0;">Counter-Strike 2</div>
+            <div style="font-size:11px;color:#666;">Jun 11, 2026</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.75rem;">
+          <div style="background:#16213e;border-radius:4px;width:70px;height:50px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:bold;color:#e8e8f0;">Valorant Episode 9</div>
+            <div style="font-size:11px;color:#666;">Jun 7, 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1a1a2e;border:1px solid #2a2a4e;border-radius:8px;padding:0.5rem 1rem;margin-top:1.5rem;">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:#555;">
+        <span>Footer • About • Contact • Social</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <p><strong>Updated layout:</strong></p>
+  <ul style="text-align:left;color:#ccc;">
+    <li>Hero section at top (featured game)</li>
+    <li>2-column grid below — each column = one genre</li>
+    <li>Each genre shows subtitle + 2 latest posts (thumbnail + title + date)</li>
+    <li>All 12 genres cycle through this grid (6 rows of 2)</li>
+  </ul>
+</div>
+
+<div class="section">
+  <p><strong>Does this match what you want?</strong></p>
+  <div class="options">
+    <div class="option" data-choice="yes" onclick="toggleSelect(this)">
+      <div class="letter">✓</div>
+      <div class="content"><h3>Looks good</h3><p>Proceed</p></div>
+    </div>
+    <div class="option" data-choice="change" onclick="toggleSelect(this)">
+      <div class="letter">✗</div>
+      <div class="content"><h3>Adjust</h3><p>Tell me what to change</p></div>
+    </div>
+  </div>
+</div>

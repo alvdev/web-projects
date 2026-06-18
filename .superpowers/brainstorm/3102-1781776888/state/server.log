@@ -1,0 +1,3 @@
+{"type":"server-started","port":51086,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:51086","screen_dir":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/3102-1781776888/content","state_dir":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/3102-1781776888/state"}
+{"type":"screen-added","file":"/home/alvdev/dev/www/web-projects/diario.games/.superpowers/brainstorm/3102-1781776888/content/waiting.html"}
+{"type":"server-stopped","reason":"idle timeout"}
