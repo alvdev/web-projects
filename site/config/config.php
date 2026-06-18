@@ -19,6 +19,14 @@ return [
         'searchable' => ['title', 'summary', 'text'],
     ],
 
+    'tearoom1.meta-kit' => [
+        'ai.enabled' => false,
+        'review.enabled' => false,
+        'sitemap.exclude' => ['error'],
+        'excludeTemplates' => ['default'],
+        'excludeStatus' => ['draft'],
+    ],
+
     'routes' => [
         [
             'pattern' => 'genre/(:any)',

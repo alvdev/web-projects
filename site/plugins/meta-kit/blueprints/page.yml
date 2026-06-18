@@ -1,0 +1,19 @@
+label: SEO
+icon: search
+columns:
+
+  seoData:
+    width: 2/3
+    sticky: true
+    type: fields
+    fields:
+      seo:
+        extends: fields/seo-group
+
+  preview:
+    width: 1/3
+    sticky: true
+    sections:
+      seoPreview:
+        type: seo-preview
+        label: SEO Preview
