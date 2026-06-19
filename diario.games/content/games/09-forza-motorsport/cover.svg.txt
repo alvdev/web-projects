@@ -1,0 +1,7 @@
+Title: Cover
+
+----
+
+Template: cover
+
+----

@@ -1,0 +1,16 @@
+{
+    "name": "diario.games",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "echo 'VITE_SERVER=http://localhost:5173' > .dev && concurrently -n vite,php -c cyan,green \"vite\" \"php -S localhost:8888 kirby/router.php\"; rm -f .dev",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "vite": "^6.0",
+        "tailwindcss": "^4.0",
+        "@tailwindcss/vite": "^4.0",
+        "concurrently": "^9.0"
+    }
+}

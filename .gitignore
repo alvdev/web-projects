@@ -1,8 +1,0 @@
-/node_modules/
-/vendor/
-/public/assets/
-/sqlite/*.db
-.env
-.DS_Store
-*.log
-.superpowers/
