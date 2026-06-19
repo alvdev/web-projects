@@ -1,0 +1,7 @@
+title: Site
+
+sections:
+  games:
+    headline: Games
+    type: pages
+    template: game

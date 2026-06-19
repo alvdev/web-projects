@@ -1,0 +1,43 @@
+Title: Diario.Games
+
+----
+
+Metakitopenrouter:
+
+- 
+  content:
+    apiKey: ""
+    model: google/gemma-4-31b-it:free
+    temperature: 0.7
+  id: openrouter-settings
+  isHidden: false
+  type: mk-openrouter
+
+----
+
+Metakitsitemap:
+
+- 
+  content:
+    exclude: [ ]
+    priorityHome: 1
+    priorityDefault: 0.8
+  id: sitemap-settings
+  isHidden: false
+  type: mk-sitemap
+
+----
+
+Metakitrobots:
+
+- 
+  content:
+    enabled: true
+    defaultRules: true
+    includeSitemap: true
+    blockBadBots: false
+    customRules: [ ]
+    customDirectives: ""
+  id: robots-settings
+  isHidden: false
+  type: mk-robots

@@ -1,0 +1,27 @@
+Title: Cyberpunk 2077
+
+----
+
+Summary: An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification.
+
+----
+
+Release date: 2020-12-10
+
+----
+
+Developer: CD Projekt Red
+
+----
+
+Publisher: CD Projekt
+
+----
+
+Genres: rpg, mundo-abierto, accion
+
+----
+
+Featured: true
+
+----
