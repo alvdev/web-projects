@@ -1,0 +1,5 @@
+Uuid: swi351zuls1tuiv7
+
+----
+
+Template: image

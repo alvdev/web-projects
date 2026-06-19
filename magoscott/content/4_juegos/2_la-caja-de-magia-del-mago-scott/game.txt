@@ -1,0 +1,28 @@
+Title: La caja de magia del Mago Scott
+
+----
+
+Headertitle: Caja de Magia “Iniciación a la Magia con Cartas”  El Mago Scott
+
+----
+
+Description: <p>Descubre el arte de la magia de la mano de El Mago Scott, uno de los ilusionistas más reconocidos de nuestro país, con esta exclusiva caja de iniciación a la magia con cartas, diseñada para aprender, disfrutar y sorprender desde el primer momento.</p><p>Esta caja no es solo un juego: es una puerta de entrada al mundo del ilusionismo, pensada para niños a partir de 7 años, familias y amantes de la magia que quieran dar sus primeros pasos con material profesional y explicaciones claras, paso a paso.</p><h2>🃏 ¿Qué incluye la caja?</h2><p>	•	Baraja Svengali (utilizada por magos profesionales)</p><p>	•	Caja misteriosa</p><p>	•	Efectos de desaparición de una baraja</p><p>	•	Libro mágico con instrucciones detalladas, claras y accesibles</p><p>	•	Trucos visuales y sorprendentes para realizar desde el primer día</p><p>Todo ello presentado en una cuidada caja, avalada por FISM (Federación Internacional de Sociedades Mágicas).</p><h2>❤️ Magia que ayuda</h2><p>Este proyecto tiene un valor añadido muy especial:</p><p>el 50% del importe de cada caja se destina a la ONG Aladina, que apoya a niños y adolescentes con cáncer y a sus familias.</p><p>Comprar esta caja es regalar ilusión por partida doble: a quien aprende magia y a quienes más lo necesitan.</p><h2>💶 Precio</h2><h3>20 €</h3><p>(Incluye material mágico + libro de instrucciones + aportación solidaria)</p><p></p>
+
+----
+
+Buybutton:
+
+anchor: Resérvalo aquí
+link: https://magoscott.com/contacto
+
+----
+
+Videotitle: 
+
+----
+
+Cover: - file://u7xtyf4lkvdvquig
+
+----
+
+Uuid: r4slretzvrabbfjr

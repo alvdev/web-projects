@@ -1,0 +1,25 @@
+Title: Trabajos
+
+----
+
+Cover: - file://nwupfolgm2l3tlhh
+
+----
+
+Headertitle: Trabajos realizados
+
+----
+
+Description: Recopilación de algunos de los trabajos realizados por el Mago Scott para diversas cadenas de televisión y radio de toda España.
+
+----
+
+Year: 2025-01-01 00:00:00
+
+----
+
+Uuid: 5ts3eziybwyihqk6
+
+----
+
+Years: 2025-01-01

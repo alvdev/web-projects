@@ -1,0 +1,55 @@
+Title: La Ranita Adivina
+
+----
+
+Headertitle: La Ranita Adivina
+
+----
+
+Description: <p>Efecto: El mago muestra una chapita con una rana y comenta sobre sus dotes de adivinación. A continuación saca un papel con una cuadrícula con diferentes números y le pide a un espectador que vaya eligiendo números al azar tal y como se lo explica el mago y se suman los números elegidos. Entonces vuelve a enseñar la chapa y visualmente aparece un número debajo de la ranita… que es exactamente el resultado del espectador!!!</p><p>Muy fácil de realizar, incluye todo el material para realizarlo y tutorial online en español.</p><p><strong>Este juego colabora con una ONG</strong></p><p>El juego de magia de la ranita adivina colabora con la Fundación Aladina destinando parte de los ingresos a sus acciones sociales para la ayuda a niños con cáncer.</p><p><a href="https://aladina.org" target="_blank" title="Página web Fundación Aladina">Página web Fundación Aladina</a></p>
+
+----
+
+Buybutton:
+
+anchor: Comprar juego
+link: page://4je11k7rgcxlgrdf
+
+----
+
+Videotitle: La Ranita Adivina en Sálvame Deluxe
+
+----
+
+Cover: - file://swi351zuls1tuiv7
+
+----
+
+Video:
+
+input: >
+  https://www.youtube.com/watch?v=o06HESD315g
+media:
+  title: El Mago Scott en Sábado Delux
+  description: null
+  url: >
+    https://www.youtube.com/watch?v=o06HESD315g
+  tags: [ ]
+  image: >
+    https://i.ytimg.com/vi/o06HESD315g/hqdefault.jpg
+  feeds: [ ]
+  code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/o06HESD315g?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="El Mago Scott en Sábado Delux"></iframe>'
+  width: 200
+  height: 113
+  aspectRatio: 56.5
+  authorName: Mago Scott
+  authorUrl: https://www.youtube.com/@magoscott1975
+  providerIcon: null
+  providerName: YouTube
+  providerUrl: https://www.youtube.com/
+  publishedTime: null
+  license: null
+
+----
+
+Uuid: 4je11k7rgcxlgrdf

@@ -1,0 +1,21 @@
+Title: Programa Esto es espectáculo TVE1
+
+----
+
+Yearfrom: 1999
+
+----
+
+Yearto: 
+
+----
+
+Description: Primera aparición del Mago Scott en la Televisión Nacional (TVE1) de España, concretamente en el programa semanal «Esto es espectáculo» presentado por Bárbara Rey.
+
+----
+
+Videos: 
+
+----
+
+Uuid: q5mquzwi46azyg54

@@ -1,0 +1,17 @@
+Title: Blog
+
+----
+
+Cover: - file://6zsonhxyaw04dxwo
+
+----
+
+Headertitle: Blog de Scott
+
+----
+
+Description: Conecta con el día a día de un mago profesional, entre bambalinas y experiencias personales, en un diálogo cercano y sin trucos.
+
+----
+
+Uuid: iiiwmlc3cwuftrbz

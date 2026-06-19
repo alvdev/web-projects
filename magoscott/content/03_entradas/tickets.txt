@@ -1,0 +1,17 @@
+Title: Entradas
+
+----
+
+Cover: - file://m0nbxlcthsjiqcsy
+
+----
+
+Headertitle: Compra de entradas
+
+----
+
+Description: Vive la magia en directo. Compra tus entradas para los próximos espectáculos del Mago Scott.
+
+----
+
+Uuid: wtkfozp3vl3q8v49

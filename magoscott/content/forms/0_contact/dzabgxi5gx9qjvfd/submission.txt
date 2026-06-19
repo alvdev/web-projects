@@ -1,0 +1,47 @@
+Dreamform-submitted: 2025-12-16T19:30:16+00:00
+
+----
+
+Dreamform-referer: contact
+
+----
+
+Dreamform-log: 
+
+----
+
+Dreamform-sender: 
+
+----
+
+Dreamform-state:
+
+success: true
+partial: false
+spam: false
+step: 1
+redirect: null
+error: null
+errors: [ ]
+actions: [ ]
+actionsdidrun: true
+
+----
+
+Uuid: dzabgxi5gx9qjvfd
+
+----
+
+Name: Alvaro González Devesa
+
+----
+
+Email: alvdev@outlook.com
+
+----
+
+Phone: 625020503
+
+----
+
+Message: outyguijkl

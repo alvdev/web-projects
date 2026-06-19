@@ -1,0 +1,233 @@
+Title: Galería
+
+----
+
+Cover: - file://8pzsew74qfpanbie
+
+----
+
+Headertitle: Material audiovisual
+
+----
+
+Description: Los mejores vídeos e imágenes del Mago Scott en acción en algunos de sus espectáculos en salas de eventos y televisión. ¡Si parpadeas te lo pierdes!
+
+----
+
+Videolist:
+
+- 
+  video:
+    input: https://youtu.be/i0ETIXQB17U
+    media:
+      title: 'Mago Scott - David Valldeperas hace magia y habla del teatro de scott'
+      description: null
+      url: https://youtu.be/i0ETIXQB17U
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/i0ETIXQB17U/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/i0ETIXQB17U?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Mago Scott - David Valldeperas hace magia y habla del teatro de scott"></iframe>'
+      width: 200
+      height: 113
+      aspectRatio: 56.5
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+- 
+  video:
+    input: https://youtu.be/o06HESD315g
+    media:
+      title: El Mago Scott en Sábado Delux
+      description: null
+      url: https://youtu.be/o06HESD315g
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/o06HESD315g/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/o06HESD315g?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="El Mago Scott en Sábado Delux"></iframe>'
+      width: 200
+      height: 113
+      aspectRatio: 56.5
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+- 
+  video:
+    input: https://youtu.be/QF6ainKzKoI
+    media:
+      title: 'Mago Scott - Maria Patiño y Paz Padilla'
+      description: null
+      url: https://youtu.be/QF6ainKzKoI
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/QF6ainKzKoI/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/QF6ainKzKoI?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Mago Scott - Maria Patiño y Paz Padilla"></iframe>'
+      width: 200
+      height: 113
+      aspectRatio: 56.5
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+- 
+  video:
+    input: https://youtu.be/joJyqAvFdVA
+    media:
+      title: El MAGO SCOTT en sábado Deluxe
+      description: null
+      url: https://youtu.be/joJyqAvFdVA
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/joJyqAvFdVA/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="150" src="https://www.youtube.com/embed/joJyqAvFdVA?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="El MAGO SCOTT en sábado Deluxe"></iframe>'
+      width: 200
+      height: 150
+      aspectRatio: 75
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+- 
+  video:
+    input: https://youtu.be/lKd0uDShauc
+    media:
+      title: 'mago scott - juego de magia a Gema Sálvame Naranja Telecinco'
+      description: null
+      url: https://youtu.be/lKd0uDShauc
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/lKd0uDShauc/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/lKd0uDShauc?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="mago scott - juego de magia a Gema Sálvame Naranja Telecinco"></iframe>'
+      width: 200
+      height: 113
+      aspectRatio: 56.5
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+- 
+  video:
+    input: https://youtu.be/R_HwZTHg53o
+    media:
+      title: >
+        Mago Scott hace un juego musical en
+        Sálvame
+      description: null
+      url: https://youtu.be/R_HwZTHg53o
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/R_HwZTHg53o/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/R_HwZTHg53o?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Mago Scott hace un juego musical en Sálvame"></iframe>'
+      width: 200
+      height: 113
+      aspectRatio: 56.5
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+- 
+  video:
+    input: https://youtu.be/Gr_HCZDY-Ww
+    media:
+      title: >
+        El Mago Scott adivina la lotería
+        nacional en sálvame
+      description: null
+      url: https://youtu.be/Gr_HCZDY-Ww
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/Gr_HCZDY-Ww/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/Gr_HCZDY-Ww?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="El Mago Scott adivina la lotería nacional en sálvame"></iframe>'
+      width: 200
+      height: 113
+      aspectRatio: 56.5
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+- 
+  video:
+    input: https://youtu.be/jmbBuRi1mao
+    media:
+      title: 'Mago Scott - Antonio Tejado Salvame Telecinco'
+      description: null
+      url: https://youtu.be/jmbBuRi1mao
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/jmbBuRi1mao/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/jmbBuRi1mao?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Mago Scott - Antonio Tejado Salvame Telecinco"></iframe>'
+      width: 200
+      height: 113
+      aspectRatio: 56.5
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+- 
+  video:
+    input: https://youtu.be/2zGjh6k2cQo
+    media:
+      title: mago scott programa Sálvame...
+      description: null
+      url: https://youtu.be/2zGjh6k2cQo
+      tags: [ ]
+      image: >
+        https://i.ytimg.com/vi/2zGjh6k2cQo/hqdefault.jpg
+      feeds: [ ]
+      code: '<iframe width="200" height="113" src="https://www.youtube.com/embed/2zGjh6k2cQo?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="mago scott programa Sálvame..."></iframe>'
+      width: 200
+      height: 113
+      aspectRatio: 56.5
+      authorName: Mago Scott
+      authorUrl: https://www.youtube.com/@magoscott1975
+      providerIcon: null
+      providerName: YouTube
+      providerUrl: https://www.youtube.com/
+      publishedTime: null
+      license: null
+  text: ""
+
+----
+
+Uuid: x82robpintfa5if9
