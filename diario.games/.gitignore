@@ -1,4 +1,5 @@
 /node_modules/
+/kirby/
 /vendor/
 /public/assets/
 /sqlite/*.db
