@@ -27,11 +27,8 @@ return [
     ],
 
     'tearoom1.meta-kit' => [
-        'ai.enabled' => false,
-        'review.enabled' => false,
-        'sitemap.exclude' => ['error'],
-        'excludeTemplates' => ['default'],
-        'excludeStatus' => ['draft'],
+        'api.key' => env('OPENROUTER_API_KEY'),
+        'api.model' => 'google/gemma-4-31b-it:free',
     ],
 
     'routes' => [
