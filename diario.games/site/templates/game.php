@@ -1,15 +1,17 @@
 <?php snippet('header') ?>
 
 <div class="relative rounded-xl overflow-hidden mb-8">
-    <div class="aspect-[21/9] bg-gradient-to-br from-surface to-surface-alt flex items-end p-6">
-        <div>
-            <h1 class="text-3xl font-bold text-text"><?= $page->title() ?></h1>
+<?php $heroImg = $page->hero() ?? $page->cover() ?>
+    <div class="aspect-[21/9] bg-cover bg-center flex items-end p-6 relative" style="<?= $heroImg ? 'background-image: url(' . $heroImg->url() . ')' : 'background: linear-gradient(to bottom right, var(--color-surface), var(--color-surface-alt))' ?>">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
+        <div class="relative z-10">
+            <h1 class="text-3xl font-bold text-white"><?= $page->title() ?></h1>
             <div class="flex flex-wrap gap-2 mt-2">
-                <?php foreach ($page->genres() as $genre): ?>
+                <?php foreach ($page->genreList() as $genre): ?>
                 <span class="text-xs px-2 py-1 rounded border border-neon-cyan/30 text-neon-cyan bg-neon-cyan/5"><?= $genre ?></span>
                 <?php endforeach ?>
                 <?php if ($page->releaseDate()): ?>
-                <span class="text-xs px-2 py-1 rounded text-muted">Release: <?= $page->releaseDate() ?></span>
+                <span class="text-xs px-2 py-1 rounded text-gray-400">Release: <?= $page->releaseDate() ?></span>
                 <?php endif ?>
             </div>
         </div>

@@ -1,18 +1,20 @@
 <?php
 
 return function ($site) {
-    $games = $site->find('games')->children()->listed()->sortBy('title', 'asc');
+    $games = $site->find('games')->children()->sortBy('title', 'asc');
 
-    $genreKeys = [
-        'accion', 'aventura', 'rpg', 'shooter', 'estrategia',
-        'simulacion', 'deportes', 'terror', 'puzzle',
-        'supervivencia', 'mundo-abierto', 'multijugador',
-    ];
+    $allGenres = [];
+    foreach ($games as $game) {
+        foreach ($game->genreList() as $genre) {
+            $genre = trim($genre);
+            if ($genre) $allGenres[$genre] = true;
+        }
+    }
 
     $genreGames = [];
-    foreach ($genreKeys as $genre) {
+    foreach (array_keys($allGenres) as $genre) {
         $filtered = $games->filter(function ($g) use ($genre) {
-            return in_array($genre, array_map('trim', explode(',', $g->content()->get('genres')->value())));
+            return in_array($genre, $g->genreList());
         })->limit(2);
 
         if ($filtered->count() > 0) {

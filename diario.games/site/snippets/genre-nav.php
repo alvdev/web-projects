@@ -1,24 +1,20 @@
 <?php
 
-$genres = [
-    ['slug' => 'accion', 'label' => 'Acción'],
-    ['slug' => 'aventura', 'label' => 'Aventura'],
-    ['slug' => 'rpg', 'label' => 'RPG'],
-    ['slug' => 'shooter', 'label' => 'Shooter'],
-    ['slug' => 'estrategia', 'label' => 'Estrategia'],
-    ['slug' => 'simulacion', 'label' => 'Simulación'],
-    ['slug' => 'deportes', 'label' => 'Deportes y Carreras'],
-    ['slug' => 'terror', 'label' => 'Terror'],
-    ['slug' => 'puzzle', 'label' => 'Puzzle'],
-    ['slug' => 'supervivencia', 'label' => 'Supervivencia'],
-    ['slug' => 'mundo-abierto', 'label' => 'Mundo abierto'],
-    ['slug' => 'multijugador', 'label' => 'Multijugador'],
-];
+$games = $site->find('games')->children();
+$allGenres = [];
+foreach ($games as $game) {
+    foreach ($game->genreList() as $genre) {
+        $genre = trim($genre);
+        if ($genre) $allGenres[$genre] = true;
+    }
+}
+ksort($allGenres);
 ?>
 <nav class="flex gap-4 overflow-x-auto text-sm">
-    <?php foreach ($genres as $genre): ?>
-    <a href="<?= url('genre/' . $genre['slug']) ?>" class="text-muted hover:text-neon-cyan transition whitespace-nowrap">
-        <?= $genre['label'] ?>
+    <a href="<?= url('games') ?>" class="text-muted hover:text-neon-cyan transition whitespace-nowrap">All</a>
+    <?php foreach (array_keys($allGenres) as $genre): ?>
+    <a href="<?= url('genre/' . urlencode($genre)) ?>" class="text-muted hover:text-neon-cyan transition whitespace-nowrap">
+        <?= htmlspecialchars($genre) ?>
     </a>
     <?php endforeach ?>
 </nav>

@@ -2,7 +2,7 @@
 
 <h1 class="text-2xl font-bold text-text mb-6">All Games</h1>
 
-<?php $allGames = $page->children()->listed()->sortBy('title', 'asc'); ?>
+<?php $allGames = $page->children()->sortBy('title', 'asc'); ?>
 <?php if ($allGames->count() > 0): ?>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
     <?php foreach ($allGames as $game): ?>

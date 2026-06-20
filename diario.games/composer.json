@@ -6,7 +6,8 @@
         "arnoson/kirby-loupe": "^0.4",
         "arnoson/kirby-vite": "^5.0",
         "tearoom1/kirby-meta-kit": "^2.0",
-        "bnomei/kirby3-feed": "^5.0"
+        "bnomei/kirby3-feed": "^5.0",
+        "bnomei/kirby3-dotenv": "^5.1"
     },
     "extra": {
         "kirby-plugin-loader": true
