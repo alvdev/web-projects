@@ -28,7 +28,7 @@ return [
 
     'tearoom1.meta-kit' => [
         'api.key' => env('OPENROUTER_API_KEY'),
-        'api.model' => 'google/gemma-4-31b-it:free',
+        'api.model' => 'openai/gpt-oss-20b:free',
     ],
 
     'routes' => [
