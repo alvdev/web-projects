@@ -36,7 +36,7 @@ class GameImporter
         }
 
         $name = $this->stringVal($gameData['name'] ?? '');
-        $summary = $this->stringVal($gameData['summary'] ?? '');
+        $summary = \DiarioGames\IGDB\translate($this->stringVal($gameData['summary'] ?? ''));
         $rating = $this->stringVal($gameData['rating'] ?? '');
         $aggRating = $this->stringVal($gameData['aggregated_rating'] ?? '');
 
@@ -75,7 +75,9 @@ class GameImporter
     {
         if (empty($ids)) return '';
         $genres = $this->client->fetchGenres($ids);
-        return implode(', ', array_column($genres, 'name'));
+        $names = array_column($genres, 'name');
+        if (empty($names)) return '';
+        return \DiarioGames\IGDB\translate(implode(', ', $names));
     }
 
     private function resolvePlatformNames(array $ids): string
