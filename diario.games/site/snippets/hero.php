@@ -2,7 +2,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
     <?php if ($featured): ?>
     <a href="<?= $featured->url() ?>" class="lg:col-span-2 relative rounded-xl overflow-hidden group">
-        <?php $heroImg = $featured->hero() ?? $featured->cover() ?>
+        <?php $heroImg = $featured->cover() ?? $featured->hero() ?>
         <?php if ($heroImg): ?>
         <img src="<?= $heroImg->url() ?>" alt="<?= $featured->title() ?>" class="absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/60 to-transparent"></div>
