@@ -5,7 +5,9 @@ return function ($site) {
 
     $allGenres = [];
     foreach ($games as $game) {
-        foreach ($game->genreList() as $genre) {
+        $gl = $game->genreList();
+        if (!is_array($gl)) continue;
+        foreach ($gl as $genre) {
             $genre = trim($genre);
             if ($genre) $allGenres[$genre] = true;
         }
@@ -14,7 +16,8 @@ return function ($site) {
     $genreGames = [];
     foreach (array_keys($allGenres) as $genre) {
         $filtered = $games->filter(function ($g) use ($genre) {
-            return in_array($genre, $g->genreList());
+            $gl = $g->genreList();
+            return is_array($gl) && in_array($genre, $gl);
         })->limit(2);
 
         if ($filtered->count() > 0) {

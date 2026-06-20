@@ -25,7 +25,7 @@ class AutoFetcher
 
             $games = $this->client->fetchGames(
                 ['name', 'slug', 'summary', 'first_release_date', 'cover', 'screenshots',
-                 'genres', 'involved_companies', 'platforms', 'rating', 'aggregated_rating'],
+                 'genres', 'themes', 'involved_companies', 'platforms', 'rating', 'aggregated_rating'],
                 $limit,
                 $offset,
                 '',

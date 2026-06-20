@@ -60,6 +60,8 @@ try {
             }
             echo "Searching for \"{$query}\"...\n";
             $results = $client->searchGames($query);
+            $results = array_filter($results, fn($g) => $g['slug'] !== null && !GameImporter::isExcluded($g));
+            $results = array_values($results);
             if (empty($results)) {
                 echo "No results found.\n";
                 exit;

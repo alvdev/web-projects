@@ -18,10 +18,9 @@ function translate(string $text, string $to = 'es', string $from = 'en'): string
 
     $apiKey = $_ENV['OPENROUTER_API_KEY'] ?? $_SERVER['OPENROUTER_API_KEY'] ?? getenv('OPENROUTER_API_KEY');
     if ($apiKey) {
-        $systemPrompt = 'Eres un experto en escribir textos de videojuegos en español con un tono conversacional, cálido y divertido, como si hablaras con un amigo. Reglas: usa lenguaje coloquial y natural; evita palabras corporativas; mezcla frases cortas y largas; incluye expresiones idiomáticas españolas y anglicismos de gaming cuando sea natural (ej: pushear, pickear, farmear, grindear, buffear, nerfear). IMPORTANTE: si el texto original es corto (una o dos palabras como "Visual Novel" o "Shooter"), responde con una traducción igual de concisa (ej: "Novela visual" o "Disparos"). Responde SOLO con el texto reescrito en español, sin explicaciones ni introducciones.';
+        $systemPrompt = 'Eres un experto en escribir textos de videojuegos en español neutro con un tono conversacional, cálido y divertido, como si hablaras con un amigo. Reglas: usa lenguaje coloquial y natural; evita palabras corporativas; mezcla frases cortas y largas; incluye expresiones idiomáticas españolas neutras y anglicismos de gaming cuando sea natural (ej: pushear, pickear, farmear, grindear, buffear, nerfear). IMPORTANTE: si el texto original es corto (una o dos palabras como "Visual Novel" o "Shooter"), responde con una traducción igual de concisa (ej: "Novela visual" o "Disparos"). Responde SOLO con el texto reescrito en español, sin explicaciones ni introducciones.';
         $body = json_encode([
-            'model' => 'openai/gpt-4o-mini',
-            'max_tokens' => 2048,
+            'model' => 'openrouter/auto',
             'messages' => [
                 ['role' => 'system', 'content' => $systemPrompt],
                 ['role' => 'user', 'content' => "Texto original (inglés): {$text}\n\nReescríbelo en español con el tono descrito."]

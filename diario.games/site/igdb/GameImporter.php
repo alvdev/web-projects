@@ -4,6 +4,63 @@ namespace DiarioGames\IGDB;
 
 class GameImporter
 {
+    private const GENRE_MAP = [
+        'Adventure' => 'Aventura',
+        'Role-playing (RPG)' => 'RPG',
+        'Shooter' => 'Shooter',
+        'Fighting' => 'Lucha',
+        'Real Time Strategy (RTS)' => 'Estrategia',
+        'Strategy' => 'Estrategia',
+        'Turn-based strategy (TBS)' => 'Estrategia',
+        'Simulator' => 'Simulación',
+        'Sport' => 'Deportes',
+        'Racing' => 'Carreras',
+        'MOBA' => 'MOBA',
+    ];
+
+    private const TAG_MAP = [
+        'Arcade' => 'Arcade',
+        'Hack and slash/Beat \'em up' => 'Hack and slash',
+        'Indie' => 'Indie',
+        'Music' => 'Música',
+        'Pinball' => 'Pinball',
+        'Platform' => 'Plataformas',
+        'Point-and-click' => 'Point-and-click',
+        'Puzzle' => 'Puzle',
+        'Quiz/Trivia' => 'Trivial',
+        'Tactical' => 'Táctico',
+        'Visual Novel' => 'Novela visual',
+        'Card & Board Game' => 'Juego de mesa',
+    ];
+
+    private const THEME_TO_GENRE = [
+        'Horror' => 'Terror',
+        'Survival' => 'Supervivencia',
+        'Open world' => 'Mundo abierto',
+    ];
+
+    private const THEME_TO_TAG = [
+        'Action' => 'Acción',
+        'Fantasy' => 'Fantasía',
+        'Science fiction' => 'Ciencia ficción',
+        'Comedy' => 'Comedia',
+        'Drama' => 'Drama',
+        'Historical' => 'Histórico',
+        'Stealth' => 'Sigilo',
+        'Thriller' => 'Thriller',
+        'Warfare' => 'Guerra',
+        'Sandbox' => 'Sandbox',
+        'Business' => 'Negocios',
+        'Educational' => 'Educativo',
+        'Erotic' => 'Erótico',
+        'Kids' => 'Infantil',
+        'Mystery' => 'Misterio',
+        'Non-fiction' => 'No ficción',
+        'Party' => 'Fiesta',
+        'Romance' => 'Romance',
+        '4X (explore, expand, exploit, and exterminate)' => '4X',
+    ];
+
     private IGDBClient $client;
     private string $gamesDir;
 
@@ -13,9 +70,28 @@ class GameImporter
         $this->gamesDir = dirname(__DIR__, 2) . '/content/games';
     }
 
+    private const EXCLUDED_PATTERNS = ['/season/i', '/battle.?pass/i', '/dlc.?pack/i'];
+
+    public static function isExcluded(array $gameData): bool
+    {
+        $name = $gameData['name'] ?? '';
+        foreach (self::EXCLUDED_PATTERNS as $pattern) {
+            if (preg_match($pattern, $name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function import(array $gameData): ?string
     {
         if (empty($gameData['slug'])) return null;
+
+        if (self::isExcluded($gameData)) {
+            echo "  skipped: {$gameData['name']} (excluded)\n";
+            return null;
+        }
+
         $slug = $gameData['slug'];
         $dir = "{$this->gamesDir}/{$slug}";
 
@@ -23,10 +99,9 @@ class GameImporter
 
         mkdir($dir, 0755, true);
 
-        $genreIds = $this->extractIds($gameData['genres'] ?? []);
         $platformIds = $this->extractIds($gameData['platforms'] ?? []);
 
-        $genreNames = $this->resolveGenreNames($genreIds);
+        [$genreNames, $tagNames] = $this->resolveGenresAndTags($gameData);
         $platformNames = $this->resolvePlatformNames($platformIds);
         [$developer, $publisher] = $this->resolveInvolvedCompanies($gameData);
 
@@ -40,7 +115,16 @@ class GameImporter
         $rating = $this->stringVal($gameData['rating'] ?? '');
         $aggRating = $this->stringVal($gameData['aggregated_rating'] ?? '');
 
-        $content = "Title: {$name}\n\n----\n\nTemplate: game\n\n----\n\nSummary: {$summary}\n\n----\n\nReleaseDate: {$releaseDate}\n\n----\n\nDeveloper: {$developer}\n\n----\n\nPublisher: {$publisher}\n\n----\n\nGenres: {$genreNames}\n\n----\n\nPlatforms: {$platformNames}\n\n----\n\nIgdbId: {$gameData['id']}\n\n----\n\nRating: {$rating}\n\n----\n\nAggregatedRating: {$aggRating}\n\n----\n\nFeatured:\n\n----\n";
+        $allScreenshots = [];
+        $screenshotStr = '';
+        $screenshotIds = $gameData['screenshots'] ?? [];
+        if (!empty($screenshotIds)) {
+            $allScreenshots = $this->client->fetchScreenshots([$gameData['id']]);
+            $ids = array_column($allScreenshots, 'image_id');
+            $screenshotStr = implode(', ', $ids);
+        }
+
+        $content = "Title: {$name}\n\n----\n\nTemplate: game\n\n----\n\nSummary: {$summary}\n\n----\n\nReleaseDate: {$releaseDate}\n\n----\n\nDeveloper: {$developer}\n\n----\n\nPublisher: {$publisher}\n\n----\n\nGenres: {$genreNames}\n\n----\n\nTags: {$tagNames}\n\n----\n\nPlatforms: {$platformNames}\n\n----\n\nIgdbId: {$gameData['id']}\n\n----\n\nRating: {$rating}\n\n----\n\nAggregatedRating: {$aggRating}\n\n----\n\nFeatured:\n\n----\n\nScreenshots: {$screenshotStr}\n\n----\n";
         file_put_contents("{$dir}/game.txt", $content);
 
         $coverId = $gameData['cover'] ?? null;
@@ -52,13 +136,9 @@ class GameImporter
             }
         }
 
-        $screenshotIds = $gameData['screenshots'] ?? [];
-        if (!empty($screenshotIds)) {
-            $screenshots = $this->client->fetchScreenshots([$gameData['id']]);
-            $firstShot = $screenshots[0] ?? null;
-            if ($firstShot && !empty($firstShot['image_id'])) {
-                $this->downloadHero($slug, $dir, $firstShot['image_id']);
-            }
+        $firstShot = $allScreenshots[0] ?? null;
+        if ($firstShot && !empty($firstShot['image_id'])) {
+            $this->downloadHero($slug, $dir, $firstShot['image_id']);
         }
 
         return $slug;
@@ -71,13 +151,41 @@ class GameImporter
         return $this->import($data);
     }
 
-    private function resolveGenreNames(array $ids): string
+    private function resolveGenresAndTags(array $gameData): array
     {
-        if (empty($ids)) return '';
-        $genres = $this->client->fetchGenres($ids);
-        $names = array_column($genres, 'name');
-        if (empty($names)) return '';
-        return \DiarioGames\IGDB\translate(implode(', ', $names));
+        $genreIds = $this->extractIds($gameData['genres'] ?? []);
+        $themeIds = $this->extractIds($gameData['themes'] ?? []);
+
+        $genreNames = [];
+        $tagNames = [];
+
+        if (!empty($genreIds)) {
+            $igdbGenres = $this->client->fetchGenres($genreIds);
+            foreach (array_column($igdbGenres, 'name') as $name) {
+                if (isset(self::GENRE_MAP[$name])) {
+                    $genreNames[self::GENRE_MAP[$name]] = true;
+                } elseif (isset(self::TAG_MAP[$name])) {
+                    $tagNames[self::TAG_MAP[$name]] = true;
+                } else {
+                    $tagNames[$name] = true;
+                }
+            }
+        }
+
+        if (!empty($themeIds)) {
+            $igdbThemes = $this->client->fetchThemes($themeIds);
+            foreach (array_column($igdbThemes, 'name') as $name) {
+                if (isset(self::THEME_TO_GENRE[$name])) {
+                    $genreNames[self::THEME_TO_GENRE[$name]] = true;
+                } elseif (isset(self::THEME_TO_TAG[$name])) {
+                    $tagNames[self::THEME_TO_TAG[$name]] = true;
+                } else {
+                    $tagNames[$name] = true;
+                }
+            }
+        }
+
+        return [implode(', ', array_keys($genreNames)), implode(', ', array_keys($tagNames))];
     }
 
     private function resolvePlatformNames(array $ids): string

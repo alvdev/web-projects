@@ -98,13 +98,13 @@ class IGDBClient
 
     public function fetchGameById(int $id): ?array
     {
-        $result = $this->post('games', 'fields name,slug,summary,first_release_date,cover,screenshots,genres,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,platforms,rating,aggregated_rating; where id = ' . $id . ';');
+        $result = $this->post('games', 'fields name,slug,summary,first_release_date,cover,screenshots,genres,themes,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,platforms,rating,aggregated_rating; where id = ' . $id . ';');
         return $result[0] ?? null;
     }
 
     public function fetchGameBySlug(string $slug): ?array
     {
-        $result = $this->post('games', 'fields name,slug,summary,first_release_date,cover,screenshots,genres,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,platforms,rating,aggregated_rating; where slug = "' . $slug . '";');
+        $result = $this->post('games', 'fields name,slug,summary,first_release_date,cover,screenshots,genres,themes,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,platforms,rating,aggregated_rating; where slug = "' . $slug . '";');
         return $result[0] ?? null;
     }
 
@@ -130,6 +130,12 @@ class IGDBClient
     {
         if (empty($ids)) return [];
         return $this->post('genres', 'fields name; where id = (' . implode(',', $ids) . '); limit 500;');
+    }
+
+    public function fetchThemes(array $ids): array
+    {
+        if (empty($ids)) return [];
+        return $this->post('themes', 'fields name; where id = (' . implode(',', $ids) . '); limit 500;');
     }
 
     private function throttle(): void

@@ -12,6 +12,16 @@ class GamePage extends \Kirby\Cms\Page
         return array_map('trim', explode(',', $this->genres()));
     }
 
+    public function tags(): string
+    {
+        return $this->content()->get('tags')->value() ?? '';
+    }
+
+    public function tagList(): array
+    {
+        return array_map('trim', explode(',', $this->tags()));
+    }
+
     public function posts(): \Kirby\Cms\Pages
     {
         return $this->children()->sortBy('date', 'desc');
@@ -25,6 +35,19 @@ class GamePage extends \Kirby\Cms\Page
     public function hero(): ?\Kirby\Cms\File
     {
         return $this->files()->template('hero')->first();
+    }
+
+    public function screenshots(): array
+    {
+        $raw = $this->content()->get('Screenshots')->value() ?? '';
+        if (empty(trim($raw))) return [];
+        return array_map(function ($id) {
+            $id = trim($id);
+            return [
+                'thumb' => 'https://images.igdb.com/igdb/image/upload/t_screenshot_med/' . $id . '.jpg',
+                'full'  => 'https://images.igdb.com/igdb/image/upload/t_screenshot_huge/' . $id . '.jpg',
+            ];
+        }, explode(',', $raw));
     }
 
     public function releaseDate(): string

@@ -4,7 +4,8 @@
 $genreSlug = $genreSlug ?? param('genre');
 $allGames = $site->find('games')->children();
 $games = $allGames->filter(function ($game) use ($genreSlug) {
-    return in_array($genreSlug, $game->genreList());
+    $gl = $game->genreList();
+    return is_array($gl) && in_array($genreSlug, $gl);
 })->sortBy('title', 'asc');
 ?>
 

@@ -10,6 +10,9 @@
                 <?php foreach ($page->genreList() as $genre): ?>
                 <span class="text-xs px-2 py-1 rounded border border-neon-cyan/30 text-neon-cyan bg-neon-cyan/5"><?= $genre ?></span>
                 <?php endforeach ?>
+                <?php foreach ($page->tagList() as $tag): ?>
+                <span class="text-xs px-2 py-1 rounded border border-neon-green/20 text-neon-green bg-neon-green/5"><?= $tag ?></span>
+                <?php endforeach ?>
                 <?php if ($page->releaseDate()): ?>
                 <span class="text-xs px-2 py-1 rounded text-gray-400">Release: <?= $page->releaseDate() ?></span>
                 <?php endif ?>
@@ -31,6 +34,22 @@
         <?php endif ?>
     </div>
 </div>
+
+<?php $shots = $page->screenshots() ?>
+<?php if (!empty($shots)): ?>
+<div class="mt-8 pt-8 border-t border-border">
+    <h2 class="text-lg font-bold text-neon-green mb-6">Capturas</h2>
+    <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        <?php foreach ($shots as $shot): ?>
+        <li>
+            <a href="<?= $shot['full'] ?>" target="_blank" rel="noopener" class="block aspect-video rounded-lg overflow-hidden bg-surface-alt">
+                <img src="<?= $shot['thumb'] ?>" alt="" loading="lazy" class="w-full h-full object-cover hover:opacity-80 transition">
+            </a>
+        </li>
+        <?php endforeach ?>
+    </ul>
+</div>
+<?php endif ?>
 
 <?php $posts = $page->posts() ?>
 <?php if ($posts->count() > 0): ?>
