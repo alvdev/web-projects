@@ -1,9 +1,0 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'>
-<defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'>
-<stop offset='0%25' style='stop-color:#0a0a12'/>
-<stop offset='100%25' style='stop-color:#1a1a2e'/>
-</linearGradient></defs>
-<rect width='1200' height='630' fill='url(#g)'/>
-<text x='1200/2' y='295' font-family='system-ui,sans-serif' font-size='28' font-weight='700' fill='#fff' text-anchor='middle' dominant-baseline='middle'>Shadow of the Erdtree</text>
-
-</svg>

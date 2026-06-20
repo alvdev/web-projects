@@ -1,8 +1,0 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'>
-  <defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'>
-    <stop offset='0%' stop-color='#6600ff'/><stop offset='100%' stop-color='#ff00aa'/>
-  </linearGradient></defs>
-  <rect width='1200' height='630' fill='url(#g)'/>
-  <text x='1200/2' y='60' font-family='system-ui,sans-serif' font-size='14' fill='rgba(255,255,255,0.6)' text-anchor='middle'>diario.games</text>
-  <text x='1200/2' y='295' font-family='system-ui,sans-serif' font-size='28' font-weight='700' fill='#fff' text-anchor='middle' dominant-baseline='middle'>Resident Evil 4 Remake</text>
-</svg>
