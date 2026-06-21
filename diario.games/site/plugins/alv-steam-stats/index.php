@@ -5,6 +5,9 @@ use Kirby\Cms\App;
 @include_once __DIR__ . '/classes/SteamStats.php';
 
 App::plugin('alv/steam-stats', [
+    'snippets' => [
+        'steam-stats-tabs' => __DIR__ . '/snippets/steam-stats-tabs.php',
+    ],
     'siteMethods' => [
         'steamStatsSettings' => function () {
             return [

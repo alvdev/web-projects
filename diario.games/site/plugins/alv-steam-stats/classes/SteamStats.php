@@ -19,12 +19,80 @@ class SteamStats
 
     public function getMostPlayed(int $limit = 10): array
     {
-        return [];
+        $ranks = $this->getCached('most-played', $this->cacheTtl);
+
+        if ($ranks === null) {
+            $ranks = $this->fetchMostPlayedFromSteam();
+            $this->setCache('most-played', $ranks);
+        }
+
+        $sliced = array_slice($ranks, 0, $limit);
+        $appids = array_column($sliced, 'appid');
+
+        $details = $this->fetchGameDetails($appids);
+
+        $games = [];
+        foreach ($sliced as $entry) {
+            $appid = $entry['appid'];
+            $detail = $details[$appid] ?? [];
+
+            $games[] = [
+                'rank' => $entry['rank'],
+                'appid' => $appid,
+                'name' => $detail['name'] ?? '',
+                'capsule_image' => $detail['capsule_image'] ?? '',
+                'current_players' => $this->getCurrentPlayers($appid),
+                'peak_players' => $entry['peak_in_game'] ?? 0,
+                'last_week_rank' => $entry['last_week_rank'] ?? -1,
+            ];
+        }
+
+        return $games;
     }
 
     public function getTrending(int $limit = 10): array
     {
-        return [];
+        $ranks = $this->getCached('most-played', $this->cacheTtl);
+
+        if ($ranks === null) {
+            $ranks = $this->fetchMostPlayedFromSteam();
+            $this->setCache('most-played', $ranks);
+        }
+
+        $withMomentum = [];
+        foreach ($ranks as $entry) {
+            $lastWeek = $entry['last_week_rank'] ?? -1;
+            if ($lastWeek <= 0) {
+                continue;
+            }
+            $momentum = $lastWeek - $entry['rank'];
+            $withMomentum[] = array_merge($entry, ['momentum' => $momentum]);
+        }
+
+        usort($withMomentum, fn($a, $b) => $b['momentum'] <=> $a['momentum']);
+
+        $sliced = array_slice($withMomentum, 0, $limit);
+        $appids = array_column($sliced, 'appid');
+
+        $details = $this->fetchGameDetails($appids);
+
+        $games = [];
+        foreach ($sliced as $entry) {
+            $appid = $entry['appid'];
+            $detail = $details[$appid] ?? [];
+
+            $games[] = [
+                'rank' => $entry['rank'],
+                'appid' => $appid,
+                'name' => $detail['name'] ?? '',
+                'capsule_image' => $detail['capsule_image'] ?? '',
+                'current_players' => $this->getCurrentPlayers($appid),
+                'momentum' => $entry['momentum'],
+                'history' => $this->getPlayerHistory($appid),
+            ];
+        }
+
+        return $games;
     }
 
     private function fetchMostPlayedFromSteam(): array
@@ -118,6 +186,31 @@ class SteamStats
         }
 
         return $results;
+    }
+
+    private function getCurrentPlayers(int $appid): int
+    {
+        $cached = $this->getCached('current-players.' . $appid, 900);
+
+        if ($cached !== null) {
+            return $cached['count'] ?? 0;
+        }
+
+        $count = $this->fetchCurrentPlayers($appid);
+        $this->setCache('current-players.' . $appid, ['count' => $count]);
+
+        return $count;
+    }
+
+    private function getPlayerHistory(int $appid): array
+    {
+        $cached = $this->getCached('history.' . $appid, $this->historyTtl);
+
+        if ($cached !== null) {
+            return $cached['points'] ?? [];
+        }
+
+        return [];
     }
 
     private function getCached(string $key, int $ttl)
