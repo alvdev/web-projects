@@ -8,27 +8,29 @@ $games = $allGames->filter(function ($game) use ($genreSlug) {
     return is_array($gl) && in_array($genreSlug, $gl);
 })->sortBy('title', 'asc');
 
-$bannerConfig = site()->alvAffBanners();
-$hasEnabledPrograms = $bannerConfig['enabled'] && !empty(array_filter($bannerConfig['programs'], fn($p) => $p['enabled']));
+$phrase = \GamePage::GENRE_PHRASES[$genreSlug] ?? null;
 ?>
 
-<h1 class="text-2xl font-bold text-neon-cyan mb-6"><?= htmlspecialchars(urldecode($genreSlug)) ?></h1>
+<div class="text-center mb-6">
+    <h1 class="font-display text-5xl md:text-7xl uppercase text-pink leading-none neon-glow-pink"><?= htmlspecialchars(urldecode($genreSlug)) ?></h1>
+    <?php if ($phrase): ?>
+        <?php snippet('script-accent', ['text' => $phrase, 'color' => 'yellow', 'size' => 'lg']) ?>
+    <?php endif ?>
+</div>
+
+<?php snippet('marquee', ['phrase' => urldecode($genreSlug), 'color' => 'pink', 'bg' => 'black', 'speed' => 'medium']) ?>
 
 <?php if ($games->count() > 0): ?>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-    <?php
-    $i = 0;
-    foreach ($games as $game):
-        $i++;
-        snippet('game-card', ['game' => $game]);
-        if ($hasEnabledPrograms):
-            snippet('affiliate-banner', ['grid' => true, 'itemCount' => $i]);
-        endif;
-    endforeach;
-    ?>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
+    <?php foreach ($games as $game): ?>
+        <?php snippet('game-card', ['game' => $game]) ?>
+    <?php endforeach ?>
 </div>
 <?php else: ?>
-<p class="text-muted">No games found in this category yet.</p>
+<div class="border-2 border-pink p-8 text-center bg-bg mt-6" style="box-shadow: 0 0 16px rgba(255,43,214,0.4);">
+    <p class="font-graffiti text-3xl md:text-4xl text-pink uppercase neon-glow-pink">Próximamente</p>
+    <?php snippet('script-accent', ['text' => 'vuelve pronto', 'color' => 'yellow', 'size' => 'md']) ?>
+</div>
 <?php endif ?>
 
 <?php snippet('footer') ?>
