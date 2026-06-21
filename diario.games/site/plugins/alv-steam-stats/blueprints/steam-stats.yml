@@ -1,0 +1,24 @@
+fields:
+  steam_stats_api_key:
+    label: Steam API Key
+    type: text
+    help: Get your key at https://steamcommunity.com/dev/apikey
+    placeholder: Enter your Steam Web API key
+
+  steam_stats_cache_ttl:
+    label: Cache TTL (seconds)
+    type: number
+    default: 3600
+    help: How long to cache most played data (default: 1 hour)
+
+  steam_stats_history_ttl:
+    label: History TTL (seconds)
+    type: number
+    default: 604800
+    help: How long to keep player count history (default: 7 days)
+
+  steam_stats_history_interval:
+    label: History Poll Interval (seconds)
+    type: number
+    default: 21600
+    help: How often to poll for sparkline data (default: 6 hours)

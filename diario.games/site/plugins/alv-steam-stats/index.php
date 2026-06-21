@@ -7,11 +7,12 @@ use Kirby\Cms\App;
 App::plugin('alv/steam-stats', [
     'siteMethods' => [
         'steamStatsSettings' => function () {
-            $settings = $this->steam_stats_settings();
-            if ($settings->isEmpty()) {
-                return [];
-            }
-            return $settings->toObject()->toArray();
+            return [
+                'api_key'          => $this->steam_stats_api_key()->value() ?? '',
+                'cache_ttl'        => (int) ($this->steam_stats_cache_ttl()->value() ?: 3600),
+                'history_ttl'      => (int) ($this->steam_stats_history_ttl()->value() ?: 604800),
+                'history_interval' => (int) ($this->steam_stats_history_interval()->value() ?: 21600),
+            ];
         },
         'steamStats' => function () {
             $settings = $this->steamStatsSettings();
