@@ -54,7 +54,8 @@ Icon
 # ---------------
 
 /vendor/
-/public/assets/
+/public/assets/*
+!/public/assets/fonts/
 /storage/
 .superpowers
 kirby/
