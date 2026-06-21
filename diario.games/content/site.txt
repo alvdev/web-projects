@@ -2,6 +2,31 @@ Title: Diario.Games
 
 ----
 
+Alv-aff-banner-enabled: false
+
+----
+
+Alv-aff-programs:
+
+- 
+  name: Instant Gaming
+  enabled: 'true'
+  type: instant-gaming
+  affiliate_id: diario
+  banner_label: Ofertas destacadas
+  banner_sponsor: Patrocinado
+  position: 2|4|8
+- 
+  name: Eneba
+  enabled: 'true'
+  type: generic
+  affiliate_id: https://eneba.com
+  banner_label: Ofertas destacadas
+  banner_sponsor: Patrocinado
+  position: ""
+
+----
+
 Metakitopenrouter:
 
 - 
@@ -39,5 +64,4 @@ Metakitrobots:
     customRules: [ ]
     customDirectives: ""
   id: robots-settings
-  isHidden: false
   type: mk-robots

@@ -5,3 +5,62 @@ sections:
     headline: Games
     type: pages
     template: game
+
+  affiliate_banners:
+    headline: Affiliate Banners
+    type: fields
+    fields:
+      alv_aff_banners:
+        label: Affiliate Banners
+        type: group
+        fields:
+          alv_aff_banner_enabled:
+            label: Enable Affiliate Banners
+            type: toggle
+            text: Show affiliate banners on the site
+            default: true
+            width: 1/2
+
+          alv_aff_programs:
+            label: Affiliate Programs
+            type: structure
+            help: Configure each affiliate program
+            fields:
+              name:
+                label: Program Name
+                type: text
+                placeholder: "e.g. Instant Gaming"
+                width: 1/3
+              enabled:
+                label: Enabled
+                type: toggle
+                text: Active
+                default: true
+                width: 1/6
+
+              type:
+                label: Type
+                type: select
+                options:
+                  instant-gaming: Instant Gaming
+                  generic: Generic Link
+                default: instant-gaming
+                width: 1/6
+              affiliate_id:
+                label: Affiliate ID / Link
+                type: text
+                placeholder: "e.g. igr ID or full URL"
+                help: "For Instant Gaming: your igr referral ID"
+                width: 1/2
+              banner_label:
+                label: Banner Label
+                type: text
+                placeholder: "e.g. Ofertas destacadas"
+                default: "Ofertas destacadas"
+                width: 1/2
+              banner_sponsor:
+                label: Sponsor Text
+                type: text
+                placeholder: "e.g. Patrocinado · Instant Gaming"
+                default: "Patrocinado"
+                width: 1/2
