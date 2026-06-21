@@ -2,6 +2,21 @@
 
 class GamePage extends \Kirby\Cms\Page
 {
+    public const GENRE_PHRASES = [
+        'Acción' => 'dispara primero',
+        'Aventura' => 'explora lo oculto',
+        'RPG' => 'sumérgete',
+        'Shooter' => 'aprieta el gatillo',
+        'Estrategia' => 'piensa, luego vence',
+        'Simulación' => 'vive otras vidas',
+        'Deportes y Carreras' => 'a toda velocidad',
+        'Terror' => 'no mires atrás',
+        'Puzzle' => 'piezas en su sitio',
+        'Supervivencia' => 'aguanta la noche',
+        'Mundo abierto' => 'cabalga libre',
+        'Multijugador' => 'juntos o nada',
+    ];
+
     public function genres(): string
     {
         return $this->content()->get('genres')->value() ?? '';

@@ -31,6 +31,17 @@ return [
         'api.model' => 'openai/gpt-oss-20b:free',
     ],
 
+    'diario' => [
+        'heroAccentPhrases' => [
+            'llega ahora',
+            'revelado',
+            'rumoreado',
+            'ya disponible',
+            'a la vista',
+            'en camino',
+        ],
+    ],
+
     'routes' => [
         [
             'pattern' => 'genre/(:any)',
