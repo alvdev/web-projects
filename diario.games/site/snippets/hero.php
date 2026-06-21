@@ -23,19 +23,5 @@
         </div>
     </a>
     <?php endif ?>
-    <?php if ($featured): ?>
-    <div class="bg-surface border border-border rounded-xl p-4">
-    <?php else: ?>
-    <div class="lg:col-span-3 bg-surface border border-border rounded-xl p-4">
-    <?php endif ?>
-        <h3 class="text-xs uppercase tracking-widest text-neon-magenta mb-3">Trending</h3>
-        <div class="space-y-3">
-            <?php $trending = $allGames->limit(4); ?>
-            <?php foreach ($trending as $game): ?>
-            <a href="<?= $game->url() ?>" class="block text-sm text-muted hover:text-text transition pb-2 border-b border-border last:border-0">
-                <?= $game->title() ?>
-            </a>
-            <?php endforeach ?>
-        </div>
-    </div>
+    <?php snippet('steam-stats-tabs') ?>
 </div>
