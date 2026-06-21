@@ -1,35 +1,159 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Barlow+Condensed:wght@400;600;800&display=swap');
+
+@font-face {
+  font-family: "Atomic Marker";
+  src: url('/assets/fonts/atomic-marker.woff2') format('woff2'),
+       url('/assets/fonts/atomic-marker.otf') format('opentype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
 
 @utility debug-screens {
-    &::before {
-        @apply fixed bottom-0 left-0 z-2147483647 rounded-tr-sm bg-yellow-400 px-[0.5em] py-[0.3333333em] text-xs leading-none font-bold text-black;
+  &::before {
+    @apply fixed bottom-0 left-0 z-2147483647 rounded-tr-sm bg-yellow-400 px-[0.5em] py-[0.3333333em] text-xs leading-none font-bold text-black;
 
-        @variant sm {
-            content: "screen: sm";
-        }
-
-        @variant md {
-            content: "screen: md";
-        }
-
-        @variant lg {
-            content: "screen: lg";
-        }
-
-        @variant xl {
-            content: "screen: xl";
-        }
+    @variant sm {
+      content: "screen: sm";
     }
+
+    @variant md {
+      content: "screen: md";
+    }
+
+    @variant lg {
+      content: "screen: lg";
+    }
+
+    @variant xl {
+      content: "screen: xl";
+    }
+  }
 }
 
 @theme {
-    --color-dark: #0a0a12;
-    --color-surface: #1a1a2e;
-    --color-surface-alt: #16213e;
-    --color-neon-cyan: #00f5ff;
-    --color-neon-magenta: #ff00aa;
-    --color-neon-green: #39ff14;
-    --color-text: #e8e8f0;
-    --color-muted: #888888;
-    --color-border: #2a2a4e;
+  --color-bg: #0a0a12;
+  --color-surface: #1a1a2e;
+  --color-surface-alt: #2a2a4e;
+  --color-pink: #ff2bd6;
+  --color-purple: #6b1aff;
+  --color-yellow: #f0ff00;
+  --color-cyan: #00f5ff;
+  --color-green: #39ff14;
+  --color-text: #f5f5f5;
+  --color-muted: #8888a8;
+  --color-border: #3a3a5e;
+  --color-dark: var(--color-bg);
+  --color-neon-cyan: var(--color-cyan);
+  --color-neon-magenta: var(--color-pink);
+  --color-neon-green: var(--color-green);
+
+  --font-display: "Anton", "Impact", sans-serif;
+  --font-script: "Caveat", cursive;
+  --font-body: "Barlow Condensed", sans-serif;
+  --font-graffiti: "Atomic Marker", "Bungee", cursive;
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-text min-h-screen;
+    font-family: var(--font-body);
+  }
+}
+
+@utility neon-glow-pink {
+  text-shadow: 0 0 8px var(--color-pink), 0 0 24px rgba(255, 43, 214, 0.6);
+}
+
+@utility neon-glow-yellow {
+  text-shadow: 0 0 8px var(--color-yellow), 0 0 24px rgba(240, 255, 0, 0.6);
+}
+
+@utility neon-glow-cyan {
+  text-shadow: 0 0 6px var(--color-cyan), 0 0 18px rgba(0, 245, 255, 0.5);
+}
+
+@utility grain {
+  position: relative;
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.04;
+    background-image:
+      radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+      radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+    background-size: 4px 4px, 7px 7px;
+    background-position: 0 0, 2px 2px;
+  }
+}
+
+@utility marquee {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 18s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility glow-pulse {
+  animation: neon-pulse 2.4s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { text-shadow: 0 0 6px currentColor, 0 0 18px currentColor; }
+  50% { text-shadow: 0 0 14px currentColor, 0 0 32px currentColor; }
+}
+
+@utility drop-cap {
+  &::first-letter {
+    font-family: var(--font-graffiti);
+    color: var(--color-pink);
+    font-size: 4em;
+    line-height: 0.85;
+    float: left;
+    margin-right: 0.15em;
+    margin-top: 0.05em;
+    text-shadow: 0 0 12px rgba(255, 43, 214, 0.6);
+  }
+}
+
+@utility band-purple {
+  background-color: var(--color-purple);
+  color: var(--color-bg);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@utility band-pink {
+  background-color: var(--color-pink);
+  color: var(--color-bg);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }
