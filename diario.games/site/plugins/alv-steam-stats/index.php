@@ -12,10 +12,13 @@ App::plugin('alv/steam-stats', [
         [
             'pattern' => 'steam-stats',
             'action' => function () {
-                return [
+                return \Kirby\Cms\Page::factory([
+                    'slug' => 'steam-stats',
                     'template' => 'steam-stats',
-                    'model' => [],
-                ];
+                    'content' => [
+                        'title' => 'Steam Charts',
+                    ],
+                ])->render();
             }
         ]
     ],
