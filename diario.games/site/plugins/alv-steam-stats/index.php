@@ -8,6 +8,20 @@ App::plugin('alv/steam-stats', [
     'snippets' => [
         'steam-stats-tabs' => __DIR__ . '/snippets/steam-stats-tabs.php',
     ],
+    'routes' => [
+        [
+            'pattern' => 'steam-stats',
+            'action' => function () {
+                return [
+                    'template' => 'steam-stats',
+                    'model' => [],
+                ];
+            }
+        ]
+    ],
+    'templates' => [
+        'steam-stats' => __DIR__ . '/templates/steam-stats.php',
+    ],
     'siteMethods' => [
         'steamStatsSettings' => function () {
             return [
