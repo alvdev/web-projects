@@ -47,6 +47,12 @@ class SteamStats
             ];
         }
 
+        usort($games, fn($a, $b) => $b['current_players'] <=> $a['current_players']);
+        
+        foreach ($games as $index => &$game) {
+            $game['rank'] = $index + 1;
+        }
+
         return $games;
     }
 
