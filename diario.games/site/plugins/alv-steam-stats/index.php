@@ -8,6 +8,12 @@ App::plugin('alv/steam-stats', [
     'snippets' => [
         'steam-stats-tabs' => __DIR__ . '/snippets/steam-stats-tabs.php',
     ],
+    'options' => [
+        'cache' => [
+            'type' => 'file',
+            'active' => true,
+        ],
+    ],
     'routes' => [
         [
             'pattern' => 'steam-stats',
@@ -20,7 +26,30 @@ App::plugin('alv/steam-stats', [
                     ],
                 ])->render();
             }
+        ],
+        [
+            'pattern' => 'api/steam-stats/update-history',
+            'method' => 'POST',
+            'action' => function () {
+                $stats = site()->steamStats();
+                $stats->updatePlayerHistory();
+                return ['status' => 'ok'];
+            }
         ]
+    ],
+    'hooks' => [
+        'route:before' => function () {
+            // Update history every 6 hours on page load
+            $cache = kirby()->cache('alv/steam-stats.cache');
+            $lastUpdate = $cache->get('history-last-update');
+            $now = time();
+            
+            if ($lastUpdate === null || ($now - $lastUpdate['timestamp']) > 21600) {
+                $stats = site()->steamStats();
+                $stats->updatePlayerHistory();
+                $cache->set('history-last-update', ['timestamp' => $now]);
+            }
+        }
     ],
     'templates' => [
         'steam-stats' => __DIR__ . '/templates/steam-stats.php',

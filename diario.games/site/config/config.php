@@ -31,11 +31,9 @@ return [
         'api.model' => 'openai/gpt-oss-20b:free',
     ],
 
-    'cache' => [
-        'alv.steam-stats' => [
-            'type' => 'file',
-            'active' => true,
-        ],
+    'cache.alv/steam-stats.cache' => [
+        'type' => 'file',
+        'active' => true,
     ],
 
     'routes' => [

@@ -1,0 +1,177 @@
+---
+import Layout from "@/layouts/Base.astro";
+import Header from "@/components/Header.astro";
+import { provincesMetadata, allSpainCities } from "@/data/cities/allSpainCities.js";
+import defaultCover from "@/assets/images/header/pegada-de-carteles.webp";
+
+import Logos from "@/components/Logos.astro";
+import Reviews from "@/components/Reviews.astro";
+import Desc1 from "@/components/Desc1.astro";
+
+export async function getStaticPaths() {
+    // Para que esta página sea accesible en /pegada-carteles
+    return [{ params: { service: undefined } }];
+}
+
+const provinces = Object.entries(provincesMetadata).sort((a, b) => a[1].name.localeCompare(b[1].name));
+---
+
+<Layout
+    title="Cobertura de pegada de carteles en España | Urban Style"
+    description="Consulta nuestras zonas de actuación. Servicio profesional de pegada de carteles en todas las provincias de España."
+>
+    <Header
+        title="Cobertura de pegada de carteles"
+        cover={defaultCover}
+        coverAlt="Cobertura nacional de pegada de carteles con Urban Style"
+        classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+
+    <main class="relative z-10 pb-20 pt-32">
+        <Desc1
+            title="Gestión unificada para <mark class='under'>campañas nacionales</mark>"
+            description="Olvídate de coordinar con 50 proveedores locales. En <strong>Urban Style Publicity</strong> centralizamos toda tu campaña de pegada de carteles en España con un único intermediario e informes unificados."
+        />
+
+        <Logos title="Llevamos tu campañas a cada rincón de España" subtitle="" classes="mt-36" />
+
+        <section class="container mt-32">
+            <header class="text-center mb-20">
+                <h2 class="text-6xl font-bold mb-6 tracking-tight text-gray-900">Selecciona tu Provincia</h2>
+                <p class="text-3xl text-gray-500 font-script mx-auto leading-relaxed">
+                    Estamos presentes en todo el territorio nacional. Despliega el listado para ver las localidades
+                    activas.
+                </p>
+            </header>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-full mx-auto items-start"
+                x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }"
+            >
+                {
+                    provinces.map(([slug, meta]) => (
+                        <div
+                            x-data="{ id: $id('accordion') }"
+                            class="relative text-black hover:z-20 transition-all after:absolute after:content-[''] after:w-full after:h-full after:left-1.5 after:-bottom-1.5 after:-z-50 after:bg-black"
+                        >
+                            <button
+                                @click="setActiveAccordion(id)"
+                                class="relative border-2 border-black flex items-center justify-between w-full bg-white p-6 text-left group transition-transform hover:-translate-y-0.5"
+                            >
+                                <div class="flex items-center gap-6">
+                                    <div class="w-12 h-12 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-black text-lg border border-red-100 shrink-0">
+                                        {meta.name.charAt(0)}
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-2xl font-bold text-gray-900 leading-tight">
+                                            {meta.name}
+                                        </span>
+                                        <span class="text-sm font-bold text-gray-400 uppercase tracking-wider">
+                                            {(allSpainCities as any)[slug]?.length || 0}{" "}
+                                            {(allSpainCities as any)[slug]?.length === 1 ? "LOCALIDAD" : "LOCALIDADES"}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-6">
+                                    <svg
+                                        class="w-8 h-8 duration-300 ease-out stroke-white bg-red-800 rounded-full p-1.5 group-hover:bg-red-700 shadow-sm shrink-0"
+                                        :class="{'-rotate-[45deg]': activeAccordion==id}"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="2.5"
+                                        stroke="currentColor"
+                                    >
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                                    </svg>
+                                </div>
+                            </button>
+
+                            <div 
+                                x-show="activeAccordion==id" 
+                                x-collapse 
+                                class="relative bg-white border-x-2 border-b-2 border-black -mt-2 pt-6 z-10"
+                            >
+                                <div class="px-6 pb-6">
+                                    <div class="grid grid-cols-1 gap-3">
+                                        {/* Provincia Principal */}
+                                        <a
+                                            href={`/pegada-carteles/${slug}`}
+                                            class="flex items-center justify-between p-4 bg-gray-50 hover:text-black transition-colors group/item h-full"
+                                        >
+                                            <div>
+                                                <span class="block text-[10px] uppercase font-black tracking-widest text-gray-400 group-hover/item:text-gray-500 mb-0.5">
+                                                    Capital
+                                                </span>
+                                                <span class="font-bold text-lg">
+                                                    {meta.name}
+                                                </span>
+                                            </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-0 group-hover/item:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                        </a>
+
+                                        {/* Resto de ciudades */}
+                                        {(allSpainCities as any)[slug]
+                                            ?.filter((c: any) => c.slug !== slug)
+                                            .map((city: any) => (
+                                                <a
+                                                    href={`/pegada-carteles/${slug}/${city.slug}`}
+                                                    class="flex items-center p-4 transition-all hover:bg-red-100"
+                                                >
+                                                    <span class="font-medium text-gray-700 whitespace-normal wrap-break-word text-balance text-left leading-tight">
+                                                        {city.name}
+                                                    </span>
+                                                </a>
+                                            ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="torn-top torn-bottom mt-40">
+            <div
+                class="wall-full relative mt-40 py-36 bg-red-900"
+            >
+                <div class="container text-center text-balance">
+                    <span
+                        class="inline-block text-red-500/50 font-black text-2xl uppercase tracking-[0.2em] mb-8"
+                    >
+                        Presencia Nacional
+                    </span>
+                    <h2 class="font-bold border-dashed [text-shadow:2px_2px_2px_black] text-5xl md:text-7xl uppercase xl:m-0 text-center text-white">
+                        ¿Tu ciudad no aparece?
+                    </h2>
+                    <p class="mt-8 text-4xl text-white/80 leading-relaxed mb-12 font-script">
+                        Cubrimos todas las ciudades de España. Si tu municipio no está en el listado, no te preocupes:
+                        <span class="text-white font-bold italic">llegamos a cualquier rincón</span> que tu marca necesite.
+                    </p>
+                    <a
+                        href="/contacto"
+                        class="group/btn inline-flex gap-4 px-12 py-8 text-center text-balance font-semibold uppercase hover:border-gray-300 rounded-full focus:ring focus:ring-gray-50 bg-black text-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
+                    >
+                        Pedir información
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 group-hover/btn:translate-x-2 transition-transform"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <Reviews />
+    </main>
+</Layout>

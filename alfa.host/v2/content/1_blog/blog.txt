@@ -1,0 +1,25 @@
+Title: The alfa blog
+
+----
+
+Description: Lorem, ipsum dolor sit amet.
+
+----
+
+Categories: Marketing en Internet, Productos y servicios, Productos, Gestores de contenido, Negocios digitales, CMSs
+
+----
+
+Headline: Blog heading
+
+----
+
+Text: Blog title
+
+----
+
+Textarea: Blog description
+
+----
+
+Uuid: gmvqbwg9pxst8qtd

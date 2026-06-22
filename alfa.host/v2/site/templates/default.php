@@ -1,11 +1,15 @@
 <?php snippet('layouts/base', slots: true) ?>
 
-<main class="container mx-auto">
-    <h1><?= $page->title() ?></h1>
-    <p>This is a simple template using Vite for CSS.</p>
-    
-    <div class="content">
-        <p>Content goes here...</p>
+<main class="pt-48">
+    <?= snippet('sections/heroHome') ?>
+
+    <div class="main-content">
+        <?= snippet('sections/featuresWithPicture') ?>
+        <?= snippet('sections/quoteWithPicture2Cols') ?>
+        <?= snippet('sections/servicePlans') ?>
+        <?= snippet('sections/featureCards') ?>
+        <?= snippet('sections/featureCardsWithPicture') ?>
+        <?= snippet('components/faqs') ?>
     </div>
 </main>
 

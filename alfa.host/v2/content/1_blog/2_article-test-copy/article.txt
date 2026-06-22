@@ -1,0 +1,41 @@
+Title: article test Copy
+
+----
+
+Summary: 
+
+----
+
+Body: [{"content":{"code":"$name: string = 'Alvaro'\necho $name","language":"php"},"id":"199427eb-420f-446e-a525-c2a7e4f2ff8c","isHidden":false,"type":"code"},{"content":{"text":"This is markdown block\n# this is h1\n## this is h2\n### this is h3"},"id":"e48ded85-23e3-4d1b-b799-725be835401b","isHidden":false,"type":"markdown"}]
+
+----
+
+Cover: 
+
+----
+
+Featured: false
+
+----
+
+Categories: Productos
+
+----
+
+Tags: tag 3, tag 2
+
+----
+
+Date: 2025-06-09
+
+----
+
+Author: 
+
+----
+
+Description: 
+
+----
+
+Uuid: mqzqev5349glqyea

@@ -1,0 +1,9 @@
+Title: Layout test
+
+----
+
+Body: [{"attrs":[],"columns":[{"blocks":[{"content":{"text":"<ul><li>iyfgiufgyu</li><li>yifgiufgiug</li><li>ifgiugiuguigu<br>iogiuguig<br><br>iogweuoghuodg</li><li></li></ul>"},"id":"ff2e2037-3a52-48c8-b08b-b3256370f791","isHidden":false,"type":"list"}],"id":"66bfb1fe-1593-4ab6-8cae-360231d08969","width":"1/2"},{"blocks":[{"content":{"text":"<p>itiyutg79utgç</p><p>iyfg iguiguiog</p><p>iguiguiguiguiguigug</p>"},"id":"63e72a2b-da69-4e79-9892-44e28b32374d","isHidden":false,"type":"text"}],"id":"bc5e761a-523e-4048-a3d7-4c609f6ea313","width":"1/2"}],"id":"987b975b-f424-451f-bb8a-fe8e0a344b63"},{"attrs":[],"columns":[{"blocks":[{"content":{"text":"<p>sdgsdgsd</p>"},"id":"77a234fd-fe6b-44fd-8cc0-7c4ed152947d","isHidden":false,"type":"text"}],"id":"99802c75-0306-4efc-8161-baf7aa41a6f2","width":"1/4"},{"blocks":[{"content":{"text":"<p>sdgsdgsdg</p>"},"id":"eee59318-525b-486a-9246-bc07351bded7","isHidden":false,"type":"text"}],"id":"4ae5ba93-0c47-403a-ae8d-f75023b4190e","width":"1/4"},{"blocks":[{"content":{"text":"<p>sdgsdgsdg</p>"},"id":"3fa18df0-c3be-49ad-bc1a-9482c2ad8c69","isHidden":false,"type":"text"}],"id":"82adb94f-00cb-4f4c-acdd-de8f97d44b95","width":"1/4"},{"blocks":[{"content":{"text":"uyfyfyfy<br>uyfyifg","citation":"yfyifyifgyifgyi"},"id":"058c998f-2893-4bad-bf99-a5a57b7f7b3f","isHidden":false,"type":"quote"}],"id":"e0243444-eff1-40da-a1c0-75e655efe796","width":"1/4"}],"id":"1b4f6f31-d607-4d8b-af99-65afe834e3b4"}]
+
+----
+
+Uuid: w0qrnmkaygpg8xyq

@@ -2,7 +2,7 @@ Title: Diario.Games
 
 ----
 
-Alv-aff-banner-enabled: false
+Alv-aff-banner-enabled: true
 
 ----
 
@@ -18,12 +18,28 @@ Alv-aff-programs:
   position: 2|4|8
 - 
   name: Eneba
-  enabled: 'true'
+  enabled: 'false'
   type: generic
   affiliate_id: https://eneba.com
   banner_label: Ofertas destacadas
   banner_sponsor: Patrocinado
   position: ""
+
+----
+
+Steam-stats-api-key: 0303AE187FE84898BE81A30E0920A6D1
+
+----
+
+Steam-stats-cache-ttl: 
+
+----
+
+Steam-stats-history-ttl: 
+
+----
+
+Steam-stats-history-interval: 
 
 ----
 

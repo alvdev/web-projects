@@ -1,0 +1,21 @@
+Title: Settings
+
+----
+
+Site-name: 
+
+----
+
+Site-description: 
+
+----
+
+Theme-color: 
+
+----
+
+Custom-css: 
+
+----
+
+Uuid: tsvrjm8iyt8hlf4t

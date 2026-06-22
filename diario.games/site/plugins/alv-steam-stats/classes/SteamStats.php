@@ -150,39 +150,56 @@ class SteamStats
             return [];
         }
 
-        $url = 'https://store.steampowered.com/api/appdetails?' . http_build_query([
-            'appids' => implode(',', $appids),
-        ]);
-
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 30,
-        ]);
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($httpCode !== 200 || !$response) {
-            return [];
-        }
-
-        $data = json_decode($response, true);
-        if (!is_array($data)) {
-            return [];
-        }
-
         $results = [];
-        foreach ($data as $appid => $entry) {
+        $uncachedAppids = [];
+
+        // Check cache for each app
+        foreach ($appids as $appid) {
+            $cached = $this->getCached('game-details.' . $appid, 86400); // Cache for 24 hours
+            if ($cached !== null) {
+                $results[$appid] = $cached;
+            } else {
+                $uncachedAppids[] = $appid;
+            }
+        }
+
+        // Fetch uncached apps
+        foreach ($uncachedAppids as $appid) {
+            $url = 'https://store.steampowered.com/api/appdetails?appids=' . $appid;
+
+            $ch = curl_init($url);
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
+            ]);
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($httpCode !== 200 || !$response) {
+                continue;
+            }
+
+            $data = json_decode($response, true);
+            if (!is_array($data) || !isset($data[$appid])) {
+                continue;
+            }
+
+            $entry = $data[$appid];
             if (!($entry['success'] ?? false)) {
                 continue;
             }
+
             $info = $entry['data'] ?? [];
-            $results[$appid] = [
+            $gameData = [
                 'name' => $info['name'] ?? '',
                 'header_image' => $info['header_image'] ?? '',
                 'capsule_image' => $info['capsule_image'] ?? '',
             ];
+
+            $results[$appid] = $gameData;
+            $this->setCache('game-details.' . $appid, $gameData);
         }
 
         return $results;
@@ -213,25 +230,59 @@ class SteamStats
         return [];
     }
 
+    public function updatePlayerHistory(): void
+    {
+        // Get top 20 games to track
+        $games = $this->getMostPlayed(20);
+        
+        foreach ($games as $game) {
+            $appid = $game['appid'];
+            $currentPlayers = $game['current_players'];
+            
+            // Get existing history
+            $history = $this->getPlayerHistory($appid);
+            
+            // Add new data point
+            $history[] = [
+                'timestamp' => time(),
+                'players' => $currentPlayers,
+            ];
+            
+            // Keep only last 28 data points (7 days * 4 polls/day at 6h intervals)
+            if (count($history) > 28) {
+                $history = array_slice($history, -28);
+            }
+            
+            // Save back to cache
+            $this->setCache('history.' . $appid, ['points' => $history]);
+        }
+    }
+
     private function getCached(string $key, int $ttl)
     {
-        $cache = kirby()->cache('alv.steam-stats');
+        $cache = kirby()->cache('alv/steam-stats.cache');
         $entry = $cache->get($key);
 
-        if (!is_array($entry) || !isset($entry['value'], $entry['timestamp'])) {
+        // Kirby cache returns the value directly, not wrapped
+        if ($entry === null) {
             return null;
         }
 
-        if ((time() - $entry['timestamp']) > $ttl) {
-            return null;
+        // Check if it's our wrapped format
+        if (is_array($entry) && isset($entry['value'], $entry['timestamp'])) {
+            if ((time() - $entry['timestamp']) > $ttl) {
+                return null;
+            }
+            return $entry['value'];
         }
 
-        return $entry['value'];
+        // If it's not wrapped, return as-is (for backwards compatibility)
+        return $entry;
     }
 
     private function setCache(string $key, $value): void
     {
-        $cache = kirby()->cache('alv.steam-stats');
+        $cache = kirby()->cache('alv/steam-stats.cache');
         $cache->set($key, ['value' => $value, 'timestamp' => time()]);
     }
 }

@@ -1,0 +1,57 @@
+Site-name: yu
+
+----
+
+Site-description: 
+
+----
+
+Custom-css: 
+
+----
+
+Metatitle: 
+
+----
+
+Metatemplate: 
+
+----
+
+Usetitletemplate: true
+
+----
+
+Metadescription: 
+
+----
+
+Ogtemplate: 
+
+----
+
+Useogtemplate: true
+
+----
+
+Ogdescription: 
+
+----
+
+Ogimage: 
+
+----
+
+Cropogimage: true
+
+----
+
+Metainherit: 
+
+----
+
+Metadesc: 
+
+----
+
+Metaimage: 
