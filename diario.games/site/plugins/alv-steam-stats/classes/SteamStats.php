@@ -19,50 +19,55 @@ class SteamStats
 
     public function getMostPlayed(int $limit = 10): array
     {
-        $ranks = $this->getCached('most-played', $this->cacheTtl);
+        $games = $this->getCached('stats-most-played', $this->cacheTtl);
 
-        if ($ranks === null) {
-            $ranks = $this->fetchMostPlayedFromSteam();
-            $this->setCache('most-played', $ranks);
+        if ($games === null) {
+            $games = $this->fetchGameListFromStats();
+            if (!empty($games)) {
+                $this->setCache('stats-most-played', $games);
+            }
         }
 
-        $sliced = array_slice($ranks, 0, $limit);
+        if (empty($games)) {
+            return $this->getMostPlayedFallback($limit);
+        }
+
+        $sliced = array_slice($games, 0, $limit);
         $appids = array_column($sliced, 'appid');
 
         $details = $this->fetchGameDetails($appids);
 
-        $games = [];
-        foreach ($sliced as $entry) {
+        $result = [];
+        foreach ($sliced as $index => $entry) {
             $appid = $entry['appid'];
             $detail = $details[$appid] ?? [];
 
-            $games[] = [
-                'rank' => $entry['rank'],
+            $result[] = [
+                'rank' => $index + 1,
                 'appid' => $appid,
-                'name' => $detail['name'] ?? '',
+                'name' => $entry['name'] ?? $detail['name'] ?? '',
                 'capsule_image' => $detail['capsule_image'] ?? '',
-                'current_players' => $this->getCurrentPlayers($appid),
-                'peak_players' => $entry['peak_in_game'] ?? 0,
-                'last_week_rank' => $entry['last_week_rank'] ?? -1,
+                'current_players' => (int)($entry['current_players'] ?? 0),
+                'peak_players' => (int)($entry['peak_today'] ?? 0),
             ];
         }
 
-        usort($games, fn($a, $b) => $b['current_players'] <=> $a['current_players']);
-        
-        foreach ($games as $index => &$game) {
-            $game['rank'] = $index + 1;
-        }
-
-        return $games;
+        return $result;
     }
 
     public function getTrending(int $limit = 10): array
     {
-        $ranks = $this->getCached('most-played', $this->cacheTtl);
+        $ranks = $this->getCached('peak-ranks', $this->cacheTtl);
 
         if ($ranks === null) {
             $ranks = $this->fetchMostPlayedFromSteam();
-            $this->setCache('most-played', $ranks);
+            if (!empty($ranks)) {
+                $this->setCache('peak-ranks', $ranks);
+            }
+        }
+
+        if (empty($ranks)) {
+            return [];
         }
 
         $withMomentum = [];
@@ -96,6 +101,75 @@ class SteamStats
                 'momentum' => $entry['momentum'],
                 'history' => $this->getPlayerHistory($appid),
             ];
+        }
+
+        return $games;
+    }
+
+    private function getMostPlayedFallback(int $limit): array
+    {
+        $ranks = $this->fetchMostPlayedFromSteam();
+        if (empty($ranks)) {
+            return [];
+        }
+
+        $sliced = array_slice($ranks, 0, $limit);
+        $appids = array_column($sliced, 'appid');
+        $details = $this->fetchGameDetails($appids);
+
+        $games = [];
+        foreach ($sliced as $entry) {
+            $appid = $entry['appid'];
+            $detail = $details[$appid] ?? [];
+
+            $games[] = [
+                'rank' => $entry['rank'],
+                'appid' => $appid,
+                'name' => $detail['name'] ?? '',
+                'capsule_image' => $detail['capsule_image'] ?? '',
+                'current_players' => $this->getCurrentPlayers($appid),
+                'peak_players' => $entry['peak_in_game'] ?? 0,
+            ];
+        }
+
+        usort($games, fn($a, $b) => $b['current_players'] <=> $a['current_players']);
+        foreach ($games as $index => &$game) {
+            $game['rank'] = $index + 1;
+        }
+
+        return $games;
+    }
+
+    private function fetchGameListFromStats(): array
+    {
+        $url = 'https://store.steampowered.com/stats/stats';
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
+        ]);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200 || !$response) {
+            return [];
+        }
+
+        $games = [];
+        $pattern = '/<tr class="player_count_row[^>]*">\s*<td[^>]*>\s*<span[^>]*>([\d,]+)<\/span>\s*<\/td>\s*<td[^>]*>\s*<span[^>]*>([\d,]+)<\/span>\s*<\/td>\s*<td[^>]*>[^<]*<\/td>\s*<td[^>]*>\s*<a[^>]*href="[^"]*app\/(\d+)\/[^"]*"[^>]*>([^<]+)<\/a>/s';
+
+        if (preg_match_all($pattern, $response, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                $games[] = [
+                    'appid' => (int)$match[3],
+                    'name' => html_entity_decode($match[4], ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+                    'current_players' => (int)str_replace(',', '', $match[1]),
+                    'peak_today' => (int)str_replace(',', '', $match[2]),
+                ];
+            }
         }
 
         return $games;
@@ -238,28 +312,31 @@ class SteamStats
 
     public function updatePlayerHistory(): void
     {
-        // Get top 20 games to track
-        $games = $this->getMostPlayed(20);
-        
-        foreach ($games as $game) {
-            $appid = $game['appid'];
-            $currentPlayers = $game['current_players'];
-            
-            // Get existing history
+        $tracked = [];
+
+        // Track top 20 most played
+        $mostPlayed = $this->getMostPlayed(20);
+        foreach ($mostPlayed as $game) {
+            $tracked[$game['appid']] = $game['current_players'];
+        }
+
+        // Also track top 20 trending
+        $trending = $this->getTrending(20);
+        foreach ($trending as $game) {
+            $tracked[$game['appid']] = $game['current_players'];
+        }
+
+        foreach ($tracked as $appid => $currentPlayers) {
             $history = $this->getPlayerHistory($appid);
-            
-            // Add new data point
             $history[] = [
                 'timestamp' => time(),
                 'players' => $currentPlayers,
             ];
-            
-            // Keep only last 28 data points (7 days * 4 polls/day at 6h intervals)
+
             if (count($history) > 28) {
                 $history = array_slice($history, -28);
             }
-            
-            // Save back to cache
+
             $this->setCache('history.' . $appid, ['points' => $history]);
         }
     }
