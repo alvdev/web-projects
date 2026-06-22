@@ -18,7 +18,7 @@ return function ($site) {
         $filtered = $games->filter(function ($g) use ($genre) {
             $gl = $g->genreList();
             return is_array($gl) && in_array($genre, $gl);
-        })->limit(2);
+        })->limit(3);
 
         if ($filtered->count() > 0) {
             $genreGames[$genre] = $filtered;

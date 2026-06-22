@@ -13,11 +13,11 @@ $hasEnabledPrograms = $bannerConfig['enabled'] && !empty(array_filter($bannerCon
     foreach ($genreGames as $genre => $games):
         $i++;
     ?>
-    <div class="bg-surface/50 border border-border rounded-xl p-4">
-        <h2 class="text-sm font-bold uppercase tracking-wider text-neon-cyan mb-4 pb-2 border-b border-border">
+    <div class="bg-surface/50 backdrop-blur-sm border-4 border-border rounded-xl p-4">
+        <h2 class="text-xl font-bold uppercase tracking-wider text-white text-shadow-2xs text-shadow-neon-magenta mb-4">
             <?= htmlspecialchars($genre) ?>
         </h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <?php foreach ($games as $game): ?>
                 <?php snippet('game-card', ['game' => $game]) ?>
             <?php endforeach ?>

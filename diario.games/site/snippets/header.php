@@ -8,6 +8,7 @@
     <?php snippet('meta-kit/seo') ?>
 </head>
 <body class="debug-screens bg-dark text-text min-h-screen">
+<div class="bg"></div>
 
 <header class="border-b border-border bg-surface/50 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">

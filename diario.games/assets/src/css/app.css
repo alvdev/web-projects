@@ -31,5 +31,13 @@
     --color-neon-green: #39ff14;
     --color-text: #e8e8f0;
     --color-muted: #888888;
-    --color-border: #2a2a4e;
+    --color-border: #2a2a4e55;
+}
+
+/* .bg {
+    @apply bg-[url('../../images/bg.avif')] bg-fixed bg-no-repeat mask-b-from-transparent mask-b-from-20% mask-b-to-black/50 bg-bottom h-screen fixed inset-0 w-full z-[-1];
+} */
+
+.bg {
+    @apply bg-[url('../../images/bg3.avif')] bg-fixed bg-no-repeat mask-b-from-transparent mask-b-from-20% mask-b-to-black/50 bg-bottom h-screen fixed inset-0 w-full z-[-1];
 }
