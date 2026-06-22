@@ -24,7 +24,14 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
     $values = array_map(fn($point) => $point['players'] ?? 0, $history);
     $min = min($values);
     $max = max($values);
-    $range = $max - $min ?: 1;
+    $range = $max - $min;
+    
+    // If all values are the same, use a fixed range to show a horizontal line
+    if ($range === 0) {
+        $range = 1;
+        $min = $min - 1;
+    }
+    
     $count = count($values);
 
     $points = [];

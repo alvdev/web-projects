@@ -12,16 +12,24 @@ function pageFormatPlayers(int $count): string {
 }
 
 function pageSparkline(array $history): string {
-    if (count($history) < 2) {
+    if (empty($history)) {
         return '<span class="text-xs text-muted">No data</span>';
     }
     $values = array_map(fn($p) => $p['players'] ?? 0, $history);
     $min = min($values);
     $max = max($values);
-    $range = max(1, $max - $min);
+    $range = $max - $min;
+    
+    // If all values are the same, use a fixed range to show a horizontal line
+    if ($range === 0) {
+        $range = 1;
+        $min = $min - 1;
+    }
+    
+    $count = count($values);
     $points = [];
     foreach ($values as $i => $v) {
-        $x = ($i / (count($values) - 1)) * 100;
+        $x = $count > 1 ? ($i / ($count - 1)) * 100 : 50;
         $y = 30 - (($v - $min) / $range) * 28;
         $points[] = round($x, 1) . ',' . round($y, 1);
     }
