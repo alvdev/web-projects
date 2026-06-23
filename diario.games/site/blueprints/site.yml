@@ -69,12 +69,6 @@ sections:
     headline: Steam Stats
     type: fields
     fields:
-      steam_stats_api_key:
-        label: Steam API Key
-        type: text
-        help: Get your key at https://steamcommunity.com/dev/apikey
-        placeholder: Enter your Steam Web API key
-
       steam_stats_cache_ttl:
         label: Cache TTL (seconds)
         type: number

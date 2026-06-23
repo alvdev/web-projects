@@ -31,6 +31,8 @@ return [
         'api.model' => 'openai/gpt-oss-20b:free',
     ],
 
+    'alv.steam-stats.api-key' => env('STEAM_STATS_API_KEY', ''),
+
     'cache.alv/steam-stats.cache' => [
         'type' => 'file',
         'active' => true,

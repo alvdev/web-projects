@@ -28,7 +28,7 @@ App::plugin('alv/steam-stats', [
             }
         ],
         [
-            'pattern' => 'api/steam-stats/update-history',
+            'pattern' => 'steam-stats-update-history',
             'method' => 'POST',
             'action' => function () {
                 $stats = site()->steamStats();
@@ -57,7 +57,7 @@ App::plugin('alv/steam-stats', [
     'siteMethods' => [
         'steamStatsSettings' => function () {
             return [
-                'api_key'          => $this->steam_stats_api_key()->value() ?? '',
+                'api_key'          => option('alv.steam-stats.api-key', ''),
                 'cache_ttl'        => (int) ($this->steam_stats_cache_ttl()->value() ?: 3600),
                 'history_ttl'      => (int) ($this->steam_stats_history_ttl()->value() ?: 604800),
                 'history_interval' => (int) ($this->steam_stats_history_interval()->value() ?: 21600),
