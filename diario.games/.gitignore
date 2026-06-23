@@ -62,4 +62,5 @@ README.md
 !site/plugins/
 site/plugins/*
 !site/plugins/alv-*
+!site/plugins/alv-*/README.md
 content/
