@@ -171,8 +171,7 @@
         <?php $links = $page->websites() ?>
         <?php if (!empty($links)): ?>
             <div>
-                <h3 class="text-xs uppercase tracking-wider text-muted mb-1">Links</h3>
-                <ul class="grid grid-cols-5 gap-4">
+                <ul class="grid grid-cols-5 gap-4 border-t-2 border-white/10 pt-4">
                     <?php foreach ($links as $link): ?>
                         <li>
                             <a href="<?= $link['url'] ?>" target="_blank" rel="noopener" class="block w-6 h-6 text-muted hover:text-neon-cyan transition *:[svg]:fill-white hover:*:[svg]:fill-neon-cyan" title="<?= $link['label'] ?>">
@@ -211,12 +210,32 @@
         <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             <?php foreach ($shots as $shot): ?>
                 <li>
-                    <a href="<?= $shot['full'] ?>" target="_blank" rel="noopener" class="block aspect-video rounded-lg overflow-hidden bg-surface-alt">
+                    <a href="<?= $shot['full'] ?>" data-lightbox="<?= $shot['full'] ?>" class="block aspect-video rounded-lg overflow-hidden bg-surface-alt">
                         <img src="<?= $shot['thumb'] ?>" alt="" loading="lazy" class="w-full h-full object-cover hover:opacity-80 transition">
                     </a>
                 </li>
             <?php endforeach ?>
         </ul>
+    </div>
+
+    <div id="lightbox" class="lightbox" role="dialog" aria-label="Screenshot lightbox">
+        <button data-lightbox-close class="lightbox-close" aria-label="Close">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        <button data-lightbox-prev class="lightbox-prev" aria-label="Previous">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <img src="" alt="">
+        <span data-lightbox-counter class="lightbox-counter"></span>
+        <button data-lightbox-next class="lightbox-next" aria-label="Next">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
     </div>
 <?php endif ?>
 
