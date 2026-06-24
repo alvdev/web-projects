@@ -291,6 +291,19 @@ class GameImporter
 
         if ($gameContent !== false) {
             $screenshotsMissing = preg_match('/^Screenshots:\s*$/m', $gameContent);
+
+            if (preg_match('/^Tags:\s*$/m', $gameContent)) {
+                [$genreNames, $tagNames] = $this->resolveGenresAndTags($gameData);
+                if ($tagNames !== '') {
+                    if (preg_match('/^Genres:\s*$/m', $gameContent)) {
+                        $gameContent = preg_replace('/^Genres:.*$/m', "Genres: {$genreNames}", $gameContent);
+                    }
+                    $gameContent = preg_replace('/^Tags:.*$/m', "Tags: {$tagNames}", $gameContent);
+                    file_put_contents($gameTxtPath, $gameContent);
+                    echo "  updated genres/tags for {$slug}\n";
+                }
+                $gameContent = file_get_contents($gameTxtPath);
+            }
         }
 
         if (!glob("{$dir}/screenshot-*.jpg")) {
