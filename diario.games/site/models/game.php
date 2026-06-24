@@ -82,33 +82,44 @@ class GamePage extends \Kirby\Cms\Page
         $raw = $this->content()->get('Websites')->value() ?? '';
         if (empty(trim($raw))) return [];
 
-        $labels = [
-            1 => 'Official Website',
-            13 => 'Steam',
-            16 => 'Epic Games',
-            17 => 'GOG',
-            14 => 'Reddit',
-            18 => 'Discord',
-            6 => 'Twitch',
-            5 => 'Twitter / X',
-            8 => 'Instagram',
-            9 => 'YouTube',
-            10 => 'App Store (iOS)',
-            12 => 'Google Play',
-            20 => 'Google Play',
-            21 => 'App Store (iOS)',
+        $domainIcons = [
+            'store.steampowered.com' => ['label' => 'Steam', 'icon' => 'steam'],
+            'store.epicgames.com' => ['label' => 'Epic Games', 'icon' => 'epicgames'],
+            'gog.com' => ['label' => 'GOG', 'icon' => 'gogdotcom'],
+            'reddit.com' => ['label' => 'Reddit', 'icon' => 'reddit'],
+            'discord.gg' => ['label' => 'Discord', 'icon' => 'discord'],
+            'twitch.tv' => ['label' => 'Twitch', 'icon' => 'twitch'],
+            'twitter.com' => ['label' => 'Twitter / X', 'icon' => 'x'],
+            'x.com' => ['label' => 'Twitter / X', 'icon' => 'x'],
+            'instagram.com' => ['label' => 'Instagram', 'icon' => 'instagram'],
+            'youtube.com' => ['label' => 'YouTube', 'icon' => 'youtube'],
+            'facebook.com' => ['label' => 'Facebook', 'icon' => 'facebook'],
+            'apps.apple.com' => ['label' => 'App Store', 'icon' => 'apple'],
+            'play.google.com' => ['label' => 'Google Play', 'icon' => 'googleplay'],
+            'wikipedia.org' => ['label' => 'Wikipedia', 'icon' => 'wikipedia'],
+            'fandom.com' => ['label' => 'Fandom', 'icon' => 'fandom'],
+            'wikia.com' => ['label' => 'Fandom', 'icon' => 'fandom'],
+            'meta.com' => ['label' => 'Meta', 'icon' => 'meta'],
         ];
 
-        return array_map(function ($entry) use ($labels) {
+        return array_map(function ($entry) use ($domainIcons) {
             $entry = trim($entry);
             $parts = explode(':', $entry, 2);
             if (count($parts) !== 2) {
-                return ['label' => 'Website', 'url' => $entry];
+                return ['label' => 'Website', 'icon' => 'globe', 'url' => $entry];
             }
-            $cat = (int) $parts[0];
             $url = $parts[1];
+            $host = parse_url($url, PHP_URL_HOST) ?? '';
+            $info = ['label' => 'Website', 'icon' => 'globe'];
+            foreach ($domainIcons as $domain => $mapping) {
+                if (str_contains($host, $domain)) {
+                    $info = $mapping;
+                    break;
+                }
+            }
             return [
-                'label' => $labels[$cat] ?? 'Website',
+                'label' => $info['label'],
+                'icon' => $info['icon'],
                 'url' => $url,
             ];
         }, explode(',', $raw));
