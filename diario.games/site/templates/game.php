@@ -1,8 +1,36 @@
 <?php snippet('header') ?>
 
-<h1 class="text-3xl font-bold text-text mb-6"><?= $page->title() ?></h1>
+<h1 class="mt-8 text-balance">
+    <?= $page->title() ?>
+</h1>
 
-<div class="grid grid-cols-1 items-center lg:grid-cols-4 gap-6 mb-8">
+<div class="flex items-center justify-center gap-2 mt-4">
+    <?php $genres = $page->genreList() ?>
+    <?php if (!empty($genres)): ?>
+        <div class="flex items-center gap-1">
+            <h3 class="text-xs uppercase tracking-wider text-muted">Genres</h3>
+            <div class="flex flex-wrap gap-1">
+                <?php foreach ($genres as $g): ?>
+                    <span class="px-2 py-0.5 rounded border border-neon-cyan/30 text-neon-cyan text-xs"><?= $g ?></span>
+                <?php endforeach ?>
+            </div>
+        </div>
+    <?php endif ?>
+    
+    <?php $tags = $page->tagList() ?>
+    <?php if (!empty($tags)): ?>
+        <div class="flex items-center gap-1">
+            <h3 class="text-xs uppercase tracking-wider text-muted">Tags</h3>
+            <div class="flex flex-wrap gap-1">
+                <?php foreach ($tags as $t): ?>
+                    <span class="px-2 py-0.5 rounded border border-neon-green/20 text-neon-green text-xs"><?= $t ?></span>
+                <?php endforeach ?>
+            </div>
+        </div>
+    <?php endif ?>
+</div>
+
+<div class="grid grid-cols-1 items-center lg:grid-cols-4 gap-6 mt-8 mb-8">
     <?php if ($cover = $page->cover()): ?>
         <div class="lg:col-span-1">
             <img src="<?= $cover->url() ?>" alt="" class="w-full rounded-lg">
@@ -123,30 +151,6 @@
     </div>
 
     <div class="lg:col-span-1 space-y-4 text-sm">
-        <?php $genres = $page->genreList() ?>
-        <?php if (!empty($genres)): ?>
-            <div>
-                <h3 class="text-xs uppercase tracking-wider text-muted mb-1">Genres</h3>
-                <div class="flex flex-wrap gap-1">
-                    <?php foreach ($genres as $g): ?>
-                        <span class="px-2 py-0.5 rounded border border-neon-cyan/30 text-neon-cyan text-xs"><?= $g ?></span>
-                    <?php endforeach ?>
-                </div>
-            </div>
-        <?php endif ?>
-
-        <?php $tags = $page->tagList() ?>
-        <?php if (!empty($tags)): ?>
-            <div>
-                <h3 class="text-xs uppercase tracking-wider text-muted mb-1">Tags</h3>
-                <div class="flex flex-wrap gap-1">
-                    <?php foreach ($tags as $t): ?>
-                        <span class="px-2 py-0.5 rounded border border-neon-green/20 text-neon-green text-xs"><?= $t ?></span>
-                    <?php endforeach ?>
-                </div>
-            </div>
-        <?php endif ?>
-
         <?php if ($page->rating()->isNotEmpty()): ?>
             <div>
                 <h3 class="text-xs uppercase tracking-wider text-muted mb-1">Rating</h3>
@@ -221,19 +225,19 @@
     <div id="lightbox" class="lightbox" role="dialog" aria-label="Screenshot lightbox">
         <button data-lightbox-close class="lightbox-close" aria-label="Close">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
         <button data-lightbox-prev class="lightbox-prev" aria-label="Previous">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
         <img src="" alt="">
         <span data-lightbox-counter class="lightbox-counter"></span>
         <button data-lightbox-next class="lightbox-next" aria-label="Next">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
         </button>
     </div>
