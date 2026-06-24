@@ -95,7 +95,10 @@ class GameImporter
         $slug = $gameData['slug'];
         $dir = "{$this->gamesDir}/{$slug}";
 
-        if (is_dir($dir)) return $slug;
+        if (is_dir($dir)) {
+            $this->importMissingMedia($gameData, $slug, $dir);
+            return $slug;
+        }
 
         mkdir($dir, 0755, true);
 
@@ -235,6 +238,48 @@ class GameImporter
             }
         }
         return [$developer, $publisher];
+    }
+
+    private function importMissingMedia(array $gameData, string $slug, string $dir): void
+    {
+        $coverPath = "{$dir}/{$slug}.jpg";
+        if (!file_exists($coverPath)) {
+            $coverData = $this->client->fetchCovers([$gameData['id']]);
+            $firstCover = $coverData[0] ?? null;
+            if ($firstCover && !empty($firstCover['image_id'])) {
+                $this->downloadCover($slug, $dir, $firstCover['image_id']);
+                echo "  downloaded missing cover for {$slug}\n";
+            }
+        }
+
+        $heroPath = "{$dir}/{$slug}-hero.jpg";
+        $screenshotsMissing = false;
+        $gameTxtPath = "{$dir}/game.txt";
+        $gameContent = file_get_contents($gameTxtPath);
+
+        if ($gameContent !== false) {
+            $screenshotsMissing = preg_match('/^Screenshots:\s*$/m', $gameContent);
+        }
+
+        if (!file_exists($heroPath) || $screenshotsMissing) {
+            $allScreenshots = $this->client->fetchScreenshots([$gameData['id']]);
+
+            if (!file_exists($heroPath)) {
+                $firstShot = $allScreenshots[0] ?? null;
+                if ($firstShot && !empty($firstShot['image_id'])) {
+                    $this->downloadHero($slug, $dir, $firstShot['image_id']);
+                    echo "  downloaded missing hero for {$slug}\n";
+                }
+            }
+
+            if ($screenshotsMissing && !empty($allScreenshots)) {
+                $ids = array_column($allScreenshots, 'image_id');
+                $newValue = implode(', ', $ids);
+                $gameContent = preg_replace('/^Screenshots:.*$/m', "Screenshots: {$newValue}", $gameContent);
+                file_put_contents($gameTxtPath, $gameContent);
+                echo "  updated screenshots for {$slug}\n";
+            }
+        }
     }
 
     private function downloadCover(string $slug, string $dir, string $imageId): void

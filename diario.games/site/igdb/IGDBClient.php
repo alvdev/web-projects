@@ -111,7 +111,7 @@ class IGDBClient
     public function searchGames(string $query): array
     {
         $safe = addslashes($query);
-        return $this->post('games', "search \"{$safe}\"; fields name,slug,first_release_date,cover,genres.name,involved_companies.company.name,platforms.name,rating,summary; where version_parent = null; limit 20;");
+        return $this->post('games', "search \"{$safe}\"; fields name,slug,first_release_date,cover,screenshots,genres.name,involved_companies.company.name,platforms.name,rating,summary; where version_parent = null; limit 20;");
     }
 
     public function fetchCovers(array $ids): array
