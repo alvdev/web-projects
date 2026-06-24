@@ -98,20 +98,20 @@ class IGDBClient
 
     public function fetchGameById(int $id): ?array
     {
-        $result = $this->post('games', 'fields name,slug,summary,first_release_date,cover,screenshots,genres,themes,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,platforms,rating,aggregated_rating; where id = ' . $id . ';');
+        $result = $this->post('games', 'fields name,slug,summary,first_release_date,cover,screenshots,videos,websites.category,websites.url,genres,themes,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,platforms,rating,aggregated_rating; where id = ' . $id . ';');
         return $result[0] ?? null;
     }
 
     public function fetchGameBySlug(string $slug): ?array
     {
-        $result = $this->post('games', 'fields name,slug,summary,first_release_date,cover,screenshots,genres,themes,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,platforms,rating,aggregated_rating; where slug = "' . $slug . '";');
+        $result = $this->post('games', 'fields name,slug,summary,first_release_date,cover,screenshots,videos,websites.category,websites.url,genres,themes,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,platforms,rating,aggregated_rating; where slug = "' . $slug . '";');
         return $result[0] ?? null;
     }
 
     public function searchGames(string $query): array
     {
         $safe = addslashes($query);
-        return $this->post('games', "search \"{$safe}\"; fields name,slug,first_release_date,cover,screenshots,genres.name,involved_companies.company.name,platforms.name,rating,summary; where version_parent = null; limit 20;");
+        return $this->post('games', "search \"{$safe}\"; fields name,slug,first_release_date,cover,screenshots,videos,websites.category,websites.url,genres.name,involved_companies.company.name,platforms.name,rating,summary; where version_parent = null; limit 20;");
     }
 
     public function fetchCovers(array $ids): array
@@ -124,6 +124,12 @@ class IGDBClient
     {
         if (empty($ids)) return [];
         return $this->post('screenshots', 'fields image_id,game; where game = (' . implode(',', $ids) . '); limit 500;');
+    }
+
+    public function fetchGameVideos(array $ids): array
+    {
+        if (empty($ids)) return [];
+        return $this->post('game_videos', 'fields video_id,game; where game = (' . implode(',', $ids) . '); limit 500;');
     }
 
     public function fetchGenres(array $ids): array

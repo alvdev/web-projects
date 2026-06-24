@@ -127,7 +127,29 @@ class GameImporter
             $screenshotStr = implode(', ', $ids);
         }
 
-        $content = "Title: {$name}\n\n----\n\nTemplate: game\n\n----\n\nSummary: {$summary}\n\n----\n\nReleaseDate: {$releaseDate}\n\n----\n\nDeveloper: {$developer}\n\n----\n\nPublisher: {$publisher}\n\n----\n\nGenres: {$genreNames}\n\n----\n\nTags: {$tagNames}\n\n----\n\nPlatforms: {$platformNames}\n\n----\n\nIgdbId: {$gameData['id']}\n\n----\n\nRating: {$rating}\n\n----\n\nAggregatedRating: {$aggRating}\n\n----\n\nFeatured:\n\n----\n\nScreenshots: {$screenshotStr}\n\n----\n";
+        $videoStr = '';
+        $videoYtIds = [];
+        $videoIds = $gameData['videos'] ?? [];
+        if (!empty($videoIds)) {
+            $allVideos = $this->client->fetchGameVideos([$gameData['id']]);
+            $videoYtIds = array_column($allVideos, 'video_id');
+            $videoStr = implode(', ', $videoYtIds);
+        }
+
+        $websiteStr = '';
+        $websiteData = $gameData['websites'] ?? [];
+        if (!empty($websiteData)) {
+            $pairs = [];
+            foreach ($websiteData as $w) {
+                if (!empty($w['url'])) {
+                    $cat = $w['category'] ?? 0;
+                    $pairs[] = $cat . ':' . $w['url'];
+                }
+            }
+            $websiteStr = implode(', ', $pairs);
+        }
+
+        $content = "Title: {$name}\n\n----\n\nTemplate: game\n\n----\n\nSummary: {$summary}\n\n----\n\nReleaseDate: {$releaseDate}\n\n----\n\nDeveloper: {$developer}\n\n----\n\nPublisher: {$publisher}\n\n----\n\nGenres: {$genreNames}\n\n----\n\nTags: {$tagNames}\n\n----\n\nPlatforms: {$platformNames}\n\n----\n\nIgdbId: {$gameData['id']}\n\n----\n\nRating: {$rating}\n\n----\n\nAggregatedRating: {$aggRating}\n\n----\n\nFeatured:\n\n----\n\nScreenshots: {$screenshotStr}\n\n----\n\nVideos: {$videoStr}\n\n----\n\nWebsites: {$websiteStr}\n\n----\n";
         file_put_contents("{$dir}/game.txt", $content);
 
         $coverId = $gameData['cover'] ?? null;
@@ -142,6 +164,15 @@ class GameImporter
         $firstShot = $allScreenshots[0] ?? null;
         if ($firstShot && !empty($firstShot['image_id'])) {
             $this->downloadHero($slug, $dir, $firstShot['image_id']);
+        }
+
+        if (!empty($allScreenshots)) {
+            $shotIds = array_column($allScreenshots, 'image_id');
+            $this->downloadScreenshots($slug, $dir, $shotIds);
+        }
+
+        if (!empty($videoYtIds)) {
+            $this->downloadVideoThumbs($slug, $dir, $videoYtIds);
         }
 
         return $slug;
@@ -254,6 +285,7 @@ class GameImporter
 
         $heroPath = "{$dir}/{$slug}-hero.jpg";
         $screenshotsMissing = false;
+        $screenshotFilesMissing = false;
         $gameTxtPath = "{$dir}/game.txt";
         $gameContent = file_get_contents($gameTxtPath);
 
@@ -261,7 +293,11 @@ class GameImporter
             $screenshotsMissing = preg_match('/^Screenshots:\s*$/m', $gameContent);
         }
 
-        if (!file_exists($heroPath) || $screenshotsMissing) {
+        if (!glob("{$dir}/screenshot-*.jpg")) {
+            $screenshotFilesMissing = true;
+        }
+
+        if (!file_exists($heroPath) || $screenshotsMissing || $screenshotFilesMissing) {
             $allScreenshots = $this->client->fetchScreenshots([$gameData['id']]);
 
             if (!file_exists($heroPath)) {
@@ -272,12 +308,62 @@ class GameImporter
                 }
             }
 
-            if ($screenshotsMissing && !empty($allScreenshots)) {
-                $ids = array_column($allScreenshots, 'image_id');
-                $newValue = implode(', ', $ids);
-                $gameContent = preg_replace('/^Screenshots:.*$/m', "Screenshots: {$newValue}", $gameContent);
-                file_put_contents($gameTxtPath, $gameContent);
-                echo "  updated screenshots for {$slug}\n";
+            if (!empty($allScreenshots)) {
+                $shotIds = array_column($allScreenshots, 'image_id');
+                if ($screenshotsMissing) {
+                    $newValue = implode(', ', $shotIds);
+                    $gameContent = preg_replace('/^Screenshots:.*$/m', "Screenshots: {$newValue}", $gameContent);
+                    file_put_contents($gameTxtPath, $gameContent);
+                    echo "  updated screenshots for {$slug}\n";
+                }
+                $this->downloadScreenshots($slug, $dir, $shotIds);
+            }
+        }
+
+        if ($gameContent !== false) {
+            $gameContent = rtrim($gameContent);
+
+            if (!str_ends_with($gameContent, '----')) {
+                $gameContent .= "\n\n----";
+            }
+            $gameContent .= "\n";
+
+            $videoIds = $gameData['videos'] ?? [];
+            if (!empty($videoIds)) {
+                $allVideos = $this->client->fetchGameVideos([$gameData['id']]);
+                $ytIds = array_column($allVideos, 'video_id');
+                $videoStr = implode(', ', $ytIds);
+                if (!preg_match('/^Videos:/m', $gameContent)) {
+                    $gameContent .= "Videos: {$videoStr}\n\n----\n";
+                    file_put_contents($gameTxtPath, $gameContent);
+                    echo "  added videos for {$slug}\n";
+                } elseif (preg_match('/^Videos:\s*$/m', $gameContent)) {
+                    $gameContent = preg_replace('/^Videos:.*$/m', "Videos: {$videoStr}", $gameContent);
+                    file_put_contents($gameTxtPath, $gameContent);
+                    echo "  updated videos for {$slug}\n";
+                }
+                $this->downloadVideoThumbs($slug, $dir, $ytIds);
+            }
+
+            $websiteData = $gameData['websites'] ?? [];
+            if (!empty($websiteData)) {
+                $pairs = [];
+                foreach ($websiteData as $w) {
+                    if (!empty($w['url'])) {
+                        $cat = $w['category'] ?? 0;
+                        $pairs[] = $cat . ':' . $w['url'];
+                    }
+                }
+                $websiteStr = implode(', ', $pairs);
+                if (!preg_match('/^Websites:/m', $gameContent)) {
+                    $gameContent .= "Websites: {$websiteStr}\n\n----\n";
+                    file_put_contents($gameTxtPath, $gameContent);
+                    echo "  added websites for {$slug}\n";
+                } elseif (preg_match('/^Websites:\s*$/m', $gameContent)) {
+                    $gameContent = preg_replace('/^Websites:.*$/m', "Websites: {$websiteStr}", $gameContent);
+                    file_put_contents($gameTxtPath, $gameContent);
+                    echo "  updated websites for {$slug}\n";
+                }
             }
         }
     }
@@ -303,6 +389,36 @@ class GameImporter
                 "{$dir}/{$slug}-hero.jpg.txt",
                 "Title: Hero\n\n----\n\nTemplate: hero\n\n----\n"
             );
+        }
+    }
+
+    public function downloadScreenshots(string $slug, string $dir, array $imageIds): void
+    {
+        foreach ($imageIds as $i => $imageId) {
+            $path = "{$dir}/screenshot-{$i}.jpg";
+            if (file_exists($path)) continue;
+            $url = igdbImageUrl($imageId, 'screenshot_huge');
+            if (downloadImage($url, $path)) {
+                file_put_contents(
+                    "{$dir}/screenshot-{$i}.jpg.txt",
+                    "Title: Screenshot {$i}\n\n----\n\nTemplate: screenshot\n\n----\n"
+                );
+            }
+        }
+    }
+
+    public function downloadVideoThumbs(string $slug, string $dir, array $videoIds): void
+    {
+        foreach ($videoIds as $i => $ytId) {
+            $path = "{$dir}/video-{$i}.jpg";
+            if (file_exists($path)) continue;
+            $url = 'https://img.youtube.com/vi/' . $ytId . '/hqdefault.jpg';
+            if (downloadImage($url, $path)) {
+                file_put_contents(
+                    "{$dir}/video-{$i}.jpg.txt",
+                    "Title: Video {$i}\n\n----\n\nTemplate: video-thumb\n\n----\n"
+                );
+            }
         }
     }
 }

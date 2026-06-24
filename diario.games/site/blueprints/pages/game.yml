@@ -73,3 +73,11 @@ columns:
             label: Featured game
             type: toggle
             text: Show on homepage hero
+          videos:
+            label: Videos
+            type: text
+            readonly: true
+          websites:
+            label: Websites
+            type: text
+            readonly: true
