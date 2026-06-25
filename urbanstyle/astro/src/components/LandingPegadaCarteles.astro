@@ -35,6 +35,30 @@ const campaigns = [
 ];
 ---
 
+<!-- Breadcrumbs for SEO -->
+<nav aria-label="Breadcrumb" class="container absolute inset-0 h-fit text-sm text-gray-500">
+    <ul class="list-none mx-auto flex flex-wrap items-center justify-center gap-2" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/" itemprop="item" class="hover:text-red-700 transition-colors">
+                <span itemprop="name">Portada</span>
+            </a>
+            <meta itemprop="position" content="1" />
+            <span class="mx-2">/</span>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/pegada-carteles" itemprop="item" class="hover:text-red-700 transition-colors">
+                <span itemprop="name">Pegada de carteles</span>
+            </a>
+            <meta itemprop="position" content="2" />
+            <span class="mx-2">/</span>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 font-medium">
+            <span itemprop="name" aria-current="page">{city.name}</span>
+            <meta itemprop="position" content="3" />
+        </li>
+    </ul>
+</nav>
+
 <section class="container">
     <hgroup class="text-center text-balance">
         <h2 class="text-4xl md:text-6xl font-bold">
@@ -45,6 +69,18 @@ const campaigns = [
         </p>
     </hgroup>
 </section>
+
+
+
+{city.description ? (
+    <section class="container mt-12">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-2xl text-gray-600 leading-relaxed text-balance">
+                {city.description}
+            </p>
+        </div>
+    </section>
+) : null}
 
 <section class="container mt-20">
     <div class="relative grid md:grid-cols-2 gap-12 items-start">
@@ -102,6 +138,47 @@ const campaigns = [
         </div>
     </div>
 </section>
+
+
+
+{Array.isArray(city.faq) && city.faq.length > 0 ? (
+    <section class="container mt-32">
+        <h2 class="text-4xl md:text-6xl font-bold text-center mb-16 text-balance">
+            Preguntas frecuentes sobre la pegada de carteles en {city.name}
+        </h2>
+        <div class="max-w-4xl mx-auto space-y-6" x-data="{ activeFaq: '' }">
+            {city.faq.map((item: any, i: number) => (
+                <div
+                    class="border-2 border-black rounded"
+                    x-data="{{ id: 'faq-' + {i} }}"
+                >
+                    <button
+                        @click="activeFaq = (activeFaq === id) ? '' : id"
+                        class="flex items-center justify-between w-full text-left p-6 text-xl font-semibold bg-white hover:bg-gray-50 transition-colors"
+                    >
+                        <span>{item.q}</span>
+                        <svg
+                            class="w-6 h-6 shrink-0 transition-transform duration-300"
+                            :class="{ 'rotate-45': activeFaq === id }"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                        </svg>
+                    </button>
+                    <div x-show="activeFaq === id" x-collapse class="border-t border-gray-200">
+                        <div class="p-6 text-lg text-gray-600 leading-relaxed">
+                            {item.a}
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </section>
+) : null}
 
 <section class="container my-24">
     <div class="text-center">
