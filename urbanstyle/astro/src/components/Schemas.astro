@@ -355,6 +355,14 @@ const schemaVariants = [
             "@graph": [webpage, blogPosting, organization],
         },
     },
+    // City (service page without localbusiness to avoid wrong-address issues)
+    {
+        match: () => hasTypes("city"),
+        item: {
+            "@context": "https://schema.org",
+            "@graph": [webpage, service, organization],
+        },
+    },
     // Default
     {
         match: () => hasTypes("webpage"),
