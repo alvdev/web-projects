@@ -71,13 +71,16 @@ const campaigns = [
 </section>
 
 {city.description ? (
-    <section class="container mt-12">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="text-2xl text-gray-600 leading-relaxed text-balance">
-                {city.description}
+    <div class="container grid grid-cols-1 md:grid-cols-2 items-center gap-6 mt-12">
+        <p class="px-10 py-8 bg-white border-2 border-gray-300 text-gray-600 leading-relaxed text-2xl text-pretty rounded shadow-md h-fit -rotate-1">
+            {city.description}
+        </p>
+        {city.description2 ? (
+            <p class="px-10 py-8 bg-white border-2 border-gray-300 text-gray-600 leading-relaxed text-2xl text-pretty rounded shadow-md h-fit rotate-1">
+                {city.description2}
             </p>
-        </div>
-    </section>
+        ) : null}
+    </div>
 ) : null}
 
 <section class="mt-32 torn-top torn-bottom">
@@ -154,13 +157,12 @@ const campaigns = [
                             </div>
                         </button>
                         <div class="pb-1" x-show="activeAccordion==id" x-collapse x-cloak>
-                            <div class="relative pl-10 pr-6 pt-6 pb-5 text-white">
-                                {item.a}
-                            </div>
+                        <div class="p-6 text-lg text-gray-200 leading-relaxed">
+                            {item.a}
                         </div>
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
     </section>
 ) : null}
