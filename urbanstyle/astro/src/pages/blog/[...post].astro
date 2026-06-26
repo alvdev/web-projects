@@ -69,7 +69,26 @@ const mentionedCities = [...cityUrlMap.entries()]
             <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
                 <div class="sticky top-28">
                     <PosterPasting />
-                    <Dossier />
+                    <div class="mt-12">
+                        <h3 class="text-2xl font-bold mb-4">Servicios relacionados</h3>
+                        <ul class="m-0 text-lg list-none">
+                            {
+                                mentionedCities.map(([name, url]) => {
+                                    const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+                                    return (
+                                        <li class="border-b-2 last:border-b-0 pb-2 border-gray-300 border-dashed">
+                                            <a
+                                                href={url}
+                                                class="text-red-700 hover:text-black font-semibold underline-offset-4 decoration-2 decoration-red-700/30 hover:decoration-black transition-all"
+                                            >
+                                                Pegada de carteles en {displayName}
+                                            </a>
+                                        </li>
+                                    );
+                                })
+                            }
+                        </ul>
+                    </div>
                 </div>
             </aside>
             <div
@@ -84,24 +103,9 @@ const mentionedCities = [...cityUrlMap.entries()]
 
             {
                 mentionedCities.length > 0 && (
-                    <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
-                        <div class="sticky top-28">
-                            <h3 class="text-2xl font-bold mb-4">Servicios relacionados</h3>
-                            <ul class="m-0 text-lg list-none">
-                                {mentionedCities.map(([name, url]) => {
-                                    const displayName = name.charAt(0).toUpperCase() + name.slice(1);
-                                    return (
-                                        <li class="border-b-2 last:border-b-0 pb-2 border-gray-300 border-dashed">
-                                            <a
-                                                href={url}
-                                                class="text-red-700 hover:text-black font-semibold underline-offset-4 decoration-2 decoration-red-700/30 hover:decoration-black transition-all"
-                                            >
-                                                Pegada de carteles en {displayName}
-                                            </a>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
+                    <aside class="banner not-prose w-1/5 hidden md:block">
+                        <div class="sticky top-12">
+                            <Dossier />
                         </div>
                     </aside>
                 )
