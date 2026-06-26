@@ -16,7 +16,7 @@
             </div>
         </div>
     <?php endif ?>
-    
+
     <?php $tags = $page->tagList() ?>
     <?php if (!empty($tags)): ?>
         <div class="flex items-center gap-1">
@@ -172,9 +172,16 @@
             </div>
         <?php endif ?>
 
+        <?php if ($page->developer()->isNotEmpty()): ?>
+            <span><?= $page->developer() ?></span>
+        <?php endif ?>
+        <?php if ($page->publisher()->isNotEmpty()): ?>
+            <span> • <?= $page->publisher() ?></span>
+        <?php endif ?>
+
         <?php $links = $page->websites() ?>
         <?php if (!empty($links)): ?>
-            <div>
+            <div class="mt-4">
                 <ul class="grid grid-cols-5 gap-4 border-t-2 border-white/10 pt-4">
                     <?php foreach ($links as $link): ?>
                         <li>
@@ -193,19 +200,11 @@
     </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <div class="lg:col-span-2">
-        <div class="text-sm text-muted mb-4">
-            <?php if ($page->developer()->isNotEmpty()): ?><span><?= $page->developer() ?></span><?php endif ?>
-            <?php if ($page->publisher()->isNotEmpty()): ?><span> • <?= $page->publisher() ?></span><?php endif ?>
-        </div>
-        <?php if ($page->summary()->isNotEmpty()): ?>
-            <div class="text-text leading-relaxed mb-8">
-                <?= $page->summary()->kt() ?>
-            </div>
-        <?php endif ?>
+<?php if ($page->summary()->isNotEmpty()): ?>
+    <div class="prose lg:prose-xl max-w-full dark:prose-invert text-text leading-relaxed mt-16 mb-10 bg-surface/50 backdrop-blur-sm border-4 border-border rounded-xl p-8">
+        <?= $page->summary()->kt() ?>
     </div>
-</div>
+<?php endif ?>
 
 <?php $shots = $page->screenshots() ?>
 <?php if (!empty($shots)): ?>
