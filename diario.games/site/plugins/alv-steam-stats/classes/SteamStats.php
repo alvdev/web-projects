@@ -287,7 +287,7 @@ class SteamStats
 
     private function getCurrentPlayers(int $appid): int
     {
-        $cached = $this->getCached('current-players.' . $appid, 900);
+        $cached = $this->getCached('current-players.' . $appid, 3600);
 
         if ($cached !== null) {
             return $cached['count'] ?? 0;
