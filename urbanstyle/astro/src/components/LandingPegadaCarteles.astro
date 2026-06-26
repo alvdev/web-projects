@@ -131,7 +131,7 @@ const campaigns = [
             class="relative max-w-4xl mx-auto"
         >
             <div class="relative w-full">
-                {city.faq.map((item, i) => (
+                {city.faq.map((item: any, i: number) => (
                     <div
                         x-data="{ id: $id('accordion') }"
                         :class="{ 'text-neutral-900': activeAccordion==id, '': activeAccordion!=id }"
