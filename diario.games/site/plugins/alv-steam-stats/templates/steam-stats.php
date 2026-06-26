@@ -40,6 +40,28 @@ function pageSparkline(array $history): string {
 <div class="mb-6">
     <h1 class="text-2xl font-bold text-text">Steam Charts</h1>
     <p class="text-sm text-muted mt-1">Top 100 most played and trending games on Steam</p>
+    <?php
+    $warmCache = kirby()->cache('alv/steam-stats.cache')->get('warm-last-run');
+    $lastRun = $warmCache['value'] ?? null;
+    if ($lastRun):
+        $ago = time() - $lastRun;
+    ?>
+    <p class="text-xs text-muted mt-2">
+        Last updated <span id="minutes-ago"><?= round($ago / 60) ?></span> min ago
+    </p>
+    <script>
+    (function(){
+        var ts = <?= $lastRun ?>;
+        var el = document.getElementById('minutes-ago');
+        if (el) {
+            el.textContent = Math.round((Date.now() / 1000 - ts) / 60);
+            setInterval(function(){
+                el.textContent = Math.round((Date.now() / 1000 - ts) / 60);
+            }, 60000);
+        }
+    })();
+    </script>
+    <?php endif ?>
 </div>
 
 <!-- Tabs -->
