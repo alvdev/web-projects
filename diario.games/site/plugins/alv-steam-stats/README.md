@@ -92,3 +92,17 @@ site/plugins/alv-steam-stats/
 └── templates/
     └── steam-stats.php         # Full rankings page
 ```
+
+## Cron Job (Required for Chart Data)
+
+The player count charts require hourly data collection. Set up a cron job:
+
+Via CLI script:
+```
+0 * * * * cd /path/to/project && php scripts/collect-steam-stats.php
+```
+
+Or via HTTP endpoint (requires warm key configured):
+```
+0 * * * * curl -s -X POST https://yoursite.com/steam-stats-api/collect -d "key=YOUR_WARM_KEY"
+```

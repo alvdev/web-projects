@@ -12,7 +12,8 @@ export default defineConfig({
         manifest: true,
         rollupOptions: {
             input: {
-                app: path.resolve(__dirname, 'assets/src/js/app.js')
+                app: path.resolve(__dirname, 'assets/src/js/app.js'),
+                'steam-chart': path.resolve(__dirname, 'assets/src/js/steam-chart.js')
             }
         }
     },

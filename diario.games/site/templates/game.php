@@ -242,6 +242,11 @@
     </div>
 <?php endif ?>
 
+<?php $steamData = $site->steamChartData($page->slug()); ?>
+<?php if ($steamData): ?>
+    <?php snippet('steam-chart', ['data' => $steamData]) ?>
+<?php endif ?>
+
 <?php $posts = $page->posts() ?>
 <?php if ($posts->count() > 0): ?>
     <div class="mt-8 pt-8 border-t border-border">
