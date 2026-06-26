@@ -72,8 +72,8 @@ sections:
       steam_stats_cache_ttl:
         label: Cache TTL (seconds)
         type: number
-        default: 3600
-        help: "How long to cache most played data (default: 1 hour)"
+        default: 7200
+        help: "How long to cache most played data (default: 2 hours)"
 
       steam_stats_history_ttl:
         label: History TTL (seconds)

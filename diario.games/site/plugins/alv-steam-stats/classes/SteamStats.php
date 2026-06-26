@@ -12,7 +12,7 @@ class SteamStats
     public function __construct(array $settings)
     {
         $this->apiKey = $settings['api_key'] ?? '';
-        $this->cacheTtl = $settings['cache_ttl'] ?? 3600;
+        $this->cacheTtl = $settings['cache_ttl'] ?? 7200;
         $this->historyTtl = $settings['history_ttl'] ?? 604800;
         $this->historyInterval = $settings['history_interval'] ?? 21600;
     }

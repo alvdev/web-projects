@@ -35,21 +35,28 @@ App::plugin('alv/steam-stats', [
                 $stats->updatePlayerHistory();
                 return ['status' => 'ok'];
             }
-        ]
-    ],
-    'hooks' => [
-        'route:before' => function () {
-            // Update history every 6 hours on page load
-            $cache = kirby()->cache('alv/steam-stats.cache');
-            $lastUpdate = $cache->get('history-last-update');
-            $now = time();
-            
-            if ($lastUpdate === null || ($now - $lastUpdate['timestamp']) > 21600) {
+        ],
+        [
+            'pattern' => 'steam-stats-warm',
+            'method' => 'POST',
+            'action' => function () {
+                $key = get('key');
+                $expectedKey = option('alv.steam-stats.warm-key');
+                if ($expectedKey && $key !== $expectedKey) {
+                    return ['error' => 'unauthorized'];
+                }
+
                 $stats = site()->steamStats();
+                $stats->getMostPlayed(100);
+                $stats->getTrending(100);
                 $stats->updatePlayerHistory();
-                $cache->set('history-last-update', ['timestamp' => $now]);
+
+                kirby()->cache('alv/steam-stats.cache')
+                    ->set('warm-last-run', ['value' => time(), 'timestamp' => time()]);
+
+                return ['status' => 'ok'];
             }
-        }
+        ]
     ],
     'templates' => [
         'steam-stats' => __DIR__ . '/templates/steam-stats.php',
