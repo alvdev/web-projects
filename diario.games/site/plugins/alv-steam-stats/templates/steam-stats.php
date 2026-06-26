@@ -41,8 +41,8 @@ function pageSparkline(array $history): string {
     <h1 class="text-2xl font-bold text-text">Steam Charts</h1>
     <p class="text-sm text-muted mt-1">Top 100 most played and trending games on Steam</p>
     <?php
-    $warmCache = kirby()->cache('alv/steam-stats.cache')->get('warm-last-run');
-    $lastRun = $warmCache['value'] ?? null;
+$warmCache = kirby()->cache('alv/steam-stats.cache')->get('warm-last-run');
+$lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
     if ($lastRun):
         $ago = time() - $lastRun;
     ?>
