@@ -31,15 +31,23 @@ STEAM_STATS_API_KEY=your_key_here
 'alv.steam-stats.api-key' => env('STEAM_STATS_API_KEY', ''),
 ```
 
-## Cron Job (Recommended)
-
-For reliable sparkline data, set up a cron job to poll every hour:
+5. (Optional) Add a warm key for the cron endpoint in your `.env`:
 
 ```
-30 * * * * curl -s -X POST https://yoursite.com/steam-stats-update-history >/dev/null 2>&1
+STEAM_STATS_WARM_KEY=choose_a_secret_key
 ```
 
-This triggers history collection at minute 30 past each hour. Without this, sparklines only update on page loads.
+## Cron Job (Required for Performance)
+
+The `/steam-stats` page loads instantly when caches are pre-warmed. Set up a cron job every 30 minutes:
+
+```
+*/30 * * * * curl -s -X POST https://yoursite.com/steam-stats-warm -d "key=YOUR_WARM_KEY" >/dev/null 2>&1
+```
+
+This calls the warm endpoint which pre-fetches all Steam data (most played, trending, player counts, game details, history) and populates the cache. The page then renders from cache in ~50ms instead of 2-5 seconds.
+
+Without this cron, the page falls back to synchronous fetching on cache miss (same as before caching).
 
 ## Usage
 
@@ -59,7 +67,7 @@ Panel fields (Site → Steam Stats):
 
 | Field | Default | Description |
 |-------|---------|-------------|
-| Cache TTL | 3600s | How long to cache most played data |
+| Cache TTL | 7200s | How long to cache most played data (2 hours) |
 | History TTL | 604800s | How long to keep sparkline data (7 days) |
 | History Interval | 21600s | How often to poll for sparkline data (6 hours) |
 
