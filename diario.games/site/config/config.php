@@ -32,6 +32,7 @@ return [
     ],
 
     'alv.steam-stats.api-key' => env('STEAM_STATS_API_KEY', ''),
+    'alv.steam-stats.warm-key' => env('STEAM_STATS_WARM_KEY', ''),
 
     'cache.alv/steam-stats.cache' => [
         'type' => 'file',
