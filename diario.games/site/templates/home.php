@@ -14,7 +14,7 @@ $hasEnabledPrograms = $bannerConfig['enabled'] && !empty(array_filter($bannerCon
         $i++;
     ?>
     <div class="bg-surface/50 backdrop-blur-sm border-4 border-border rounded-xl p-4">
-        <h2 class="text-xl font-bold uppercase tracking-wider text-white text-shadow-2xs text-shadow-neon-magenta mb-4">
+        <h2 class="uppercase tracking-wider text-shadow-neon-cyan mb-4">
             <?= htmlspecialchars($genre) ?>
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">

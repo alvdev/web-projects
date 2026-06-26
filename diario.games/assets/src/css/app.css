@@ -61,7 +61,7 @@ h1 {
 }
 
 h2 {
-    @apply text-4xl font-neon font-semibold uppercase text-neon-cyan drop-shadow-[0_0_10px_var(--color-neon-cyan)];
+    @apply text-3xl font-neon font-semibold uppercase text-white drop-shadow-[0_0_10px_var(--color-neon-cyan)];
 }
 
 .lightbox {
