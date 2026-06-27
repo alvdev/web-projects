@@ -96,6 +96,8 @@ class GamePage extends \Kirby\Cms\Page
             'facebook.com' => ['label' => 'Facebook', 'icon' => 'facebook'],
             'apps.apple.com' => ['label' => 'App Store', 'icon' => 'apple'],
             'play.google.com' => ['label' => 'Google Play', 'icon' => 'googleplay'],
+            'store.playstation.com' => ['label' => 'PlayStation', 'icon' => 'playstation'],
+            'xbox.com' => ['label' => 'Xbox', 'icon' => 'xbox'],
             'wikipedia.org' => ['label' => 'Wikipedia', 'icon' => 'wikipedia'],
             'fandom.com' => ['label' => 'Fandom', 'icon' => 'fandom'],
             'wikia.com' => ['label' => 'Fandom', 'icon' => 'fandom'],
@@ -112,7 +114,7 @@ class GamePage extends \Kirby\Cms\Page
             $host = parse_url($url, PHP_URL_HOST) ?? '';
             $info = ['label' => 'Website', 'icon' => 'globe'];
             foreach ($domainIcons as $domain => $mapping) {
-                if (str_contains($host, $domain)) {
+                if ($host === $domain || str_ends_with($host, ".$domain")) {
                     $info = $mapping;
                     break;
                 }
