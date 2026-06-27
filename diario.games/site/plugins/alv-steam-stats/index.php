@@ -65,11 +65,63 @@ App::plugin('alv/steam-stats', [
             'method' => 'GET',
             'action' => function () {
                 $q = get('q', '');
-                if (strlen($q) < 1) {
-                    return ['results' => []];
+                if (strlen($q) < 2) {
+                    return ['results' => [], 'fromIgdb' => false];
                 }
+
                 $db = new \Alv\SteamStats\SteamStatsDB();
-                return ['results' => $db->searchGames($q)];
+                $q = strtolower(trim($q));
+                $localResults = [];
+                $seen = [];
+                $limit = 15;
+
+                $games = site()->index()->filterBy('intendedTemplate', 'game');
+                foreach ($games as $game) {
+                    if (count($localResults) >= $limit) break;
+                    $title = $game->title()->value();
+                    if (str_contains(strtolower($title), $q)) {
+                        $slug = $game->slug();
+                        $seen[$slug] = true;
+                        $hasSteam = $db->getGameBySlug($slug) !== null;
+                        $localResults[] = [
+                            'slug' => $slug,
+                            'name' => $title,
+                            'hasSteam' => $hasSteam,
+                            'exists' => true,
+                        ];
+                    }
+                }
+
+                // If local results are few, fall back to IGDB search
+                $results = $localResults;
+                if (count($localResults) < 5) {
+                    try {
+                        $igdbConfig = kirby()->option('igdb');
+                        if (!empty($igdbConfig['client_id']) && !empty($igdbConfig['client_secret'])) {
+                            $root = dirname(__DIR__, 3);
+                            require_once $root . '/site/igdb/helpers.php';
+                            require_once $root . '/site/igdb/IGDBClient.php';
+                            $client = new \DiarioGames\IGDB\IGDBClient($igdbConfig['client_id'], $igdbConfig['client_secret']);
+                            $igdbResults = $client->searchGames($q);
+                            foreach ($igdbResults as $ig) {
+                                if (count($results) >= $limit) break;
+                                $slug = $ig['slug'] ?? '';
+                                if (!$slug || isset($seen[$slug])) continue;
+                                $seen[$slug] = true;
+                                $results[] = [
+                                    'slug' => $slug,
+                                    'name' => $ig['name'] ?? $slug,
+                                    'hasSteam' => false,
+                                    'exists' => false,
+                                ];
+                            }
+                        }
+                    } catch (\Throwable $e) {
+                        error_log('Steam search IGDB fallback error: ' . $e->getMessage());
+                    }
+                }
+
+                return ['results' => $results, 'fromIgdb' => count($localResults) < 5];
             }
         ],
         [

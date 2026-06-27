@@ -47,7 +47,7 @@ function initChart() {
                 pointHoverBackgroundColor: '#00ffff',
                 pointHoverBorderColor: '#ffffff',
                 pointHoverBorderWidth: 2,
-                tension: 0.1,
+                tension: 0,
             }]
         },
         options: {
@@ -138,7 +138,7 @@ function initSearch() {
     input.addEventListener('input', function () {
         clearTimeout(debounceTimer);
         var q = input.value.trim();
-        if (q.length < 1) {
+        if (q.length < 2) {
             results.classList.add('hidden');
             results.innerHTML = '';
             return;
@@ -155,8 +155,11 @@ function initSearch() {
                     data.results.forEach(function (game) {
                         var a = document.createElement('a');
                         a.href = '/games/' + game.slug;
-                        a.className = 'block px-4 py-2 text-sm text-text hover:bg-surface-alt transition border-b border-border/30 last:border-0';
-                        a.innerHTML = '<span class="font-medium">' + escapeHtml(game.name) + '</span> <span class="text-xs text-neon-cyan">Steam</span>';
+                        a.className = 'flex items-center justify-between gap-1 px-4 py-2 text-sm text-text hover:bg-surface-alt transition border-b border-border/30 last:border-0';
+                        var badges = '';
+                        if (game.hasSteam) badges += ' <span class="text-xs text-neon-cyan"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19V12"/><path d="M22 19V7"/></svg></span>';
+                        if (!game.exists) badges += ' <span class="text-xs text-neon-magenta"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span>';
+                        a.innerHTML = '<span class="font-medium">' + escapeHtml(game.name) + '</span>' + badges;
                         results.appendChild(a);
                     });
                     results.classList.remove('hidden');

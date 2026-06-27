@@ -59,9 +59,10 @@ return [
                 }
 
                 try {
-                    require_once kirby()->root('base') . '/site/igdb/helpers.php';
-                    require_once kirby()->root('base') . '/site/igdb/IGDBClient.php';
-                    require_once kirby()->root('base') . '/site/igdb/GameImporter.php';
+                    $igdbRoot = dirname(__DIR__, 2);
+                    require_once $igdbRoot . '/site/igdb/helpers.php';
+                    require_once $igdbRoot . '/site/igdb/IGDBClient.php';
+                    require_once $igdbRoot . '/site/igdb/GameImporter.php';
 
                     $client = new \DiarioGames\IGDB\IGDBClient($config['client_id'], $config['client_secret']);
                     $importer = new \DiarioGames\IGDB\GameImporter($client);
@@ -71,7 +72,7 @@ return [
                         go('/games/' . $slug);
                     }
                 } catch (\Throwable $e) {
-                    // fall through to 404
+                    error_log('IGDB import error for ' . $slug . ': ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
                 }
 
                 return page('error');
