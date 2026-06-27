@@ -7,6 +7,30 @@ function slugify(string $text): string
     return strtolower(trim(preg_replace('/[^a-z0-9-]+/', '-', strtolower($text)), '-'));
 }
 
+function romanToDigits(string $slug): string
+{
+    $replacements = [
+        '/\bxvi\b/i' => '16',
+        '/\bxv\b/i'  => '15',
+        '/\bxiv\b/i' => '14',
+        '/\bxiii\b/i'=> '13',
+        '/\bxii\b/i' => '12',
+        '/\bxi\b/i'  => '11',
+        '/\bix\b/i'  => '9',
+        '/\bviii\b/i'=> '8',
+        '/\bvii\b/i' => '7',
+        '/\bvi\b/i'  => '6',
+        '/\biv\b/i'  => '4',
+        '/\biii\b/i' => '3',
+        '/\bii\b/i'  => '2',
+        '/\bx\b/i'   => '10',
+        '/\bv\b/i'   => '5',
+        '/\bi\b/i'   => '1',
+    ];
+
+    return preg_replace(array_keys($replacements), array_values($replacements), $slug);
+}
+
 function igdbImageUrl(string $imageId, string $size = 'cover_big'): string
 {
     return "https://images.igdb.com/igdb/image/upload/t_{$size}/{$imageId}.jpg";

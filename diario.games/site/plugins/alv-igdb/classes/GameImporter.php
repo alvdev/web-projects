@@ -92,7 +92,17 @@ class GameImporter
             return null;
         }
 
-        $slug = $gameData['slug'];
+        $slug = \DiarioGames\IGDB\romanToDigits($gameData['slug']);
+        $rawSlug = $gameData['slug'];
+
+        // Migrate legacy directory with roman numeral slug
+        if ($slug !== $rawSlug) {
+            $oldDir = "{$this->gamesDir}/{$rawSlug}";
+            if (is_dir($oldDir) && !is_dir("{$this->gamesDir}/{$slug}")) {
+                rename($oldDir, "{$this->gamesDir}/{$slug}");
+            }
+        }
+
         $dir = "{$this->gamesDir}/{$slug}";
 
         if (is_dir($dir)) {

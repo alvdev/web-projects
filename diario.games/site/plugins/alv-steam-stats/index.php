@@ -107,9 +107,10 @@ App::plugin('alv/steam-stats', [
                             foreach ($igdbResults as $ig) {
                                 if (count($results) >= $limit) break;
                                 $slug = $ig['slug'] ?? '';
-                                if (!$slug || isset($seen[$slug])) continue;
+                                $normalizedSlug = $slug ? \DiarioGames\IGDB\romanToDigits($slug) : '';
+                                if (!$slug || isset($seen[$slug]) || isset($seen[$normalizedSlug])) continue;
                                 if (\DiarioGames\IGDB\GameImporter::isExcluded($ig)) continue;
-                                $seen[$slug] = true;
+                                $seen[$normalizedSlug] = true;
                                 $results[] = [
                                     'slug' => $slug,
                                     'name' => $ig['name'] ?? $slug,

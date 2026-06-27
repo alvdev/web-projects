@@ -141,15 +141,23 @@ class SteamStatsDB
 
     public static function normalizeSlug(string $slug): string
     {
-        // Multi-char first to avoid partial matches, then single chars with word boundaries
         $replacements = [
-            '/\bviii\b/i' => '8',
-            '/\biii\b/i'  => '3',
-            '/\bvii\b/i'  => '7',
-            '/\bix\b/i'   => '9',
-            '/\biv\b/i'   => '4',
-            '/\bvi\b/i'   => '6',
-            '/\bii\b/i'   => '2',
+            '/\bxvi\b/i' => '16',
+            '/\bxv\b/i'  => '15',
+            '/\bxiv\b/i' => '14',
+            '/\bxiii\b/i'=> '13',
+            '/\bxii\b/i' => '12',
+            '/\bxi\b/i'  => '11',
+            '/\bix\b/i'  => '9',
+            '/\bviii\b/i'=> '8',
+            '/\bvii\b/i' => '7',
+            '/\bvi\b/i'  => '6',
+            '/\biv\b/i'  => '4',
+            '/\biii\b/i' => '3',
+            '/\bii\b/i'  => '2',
+            '/\bx\b/i'   => '10',
+            '/\bv\b/i'   => '5',
+            '/\bi\b/i'   => '1',
         ];
 
         return preg_replace(array_keys($replacements), array_values($replacements), $slug);
