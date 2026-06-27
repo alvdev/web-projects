@@ -67,7 +67,7 @@ class GameImporter
     public function __construct(IGDBClient $client)
     {
         $this->client = $client;
-        $this->gamesDir = dirname(__DIR__, 2) . '/content/games';
+        $this->gamesDir = dirname(__DIR__, 4) . '/content/games';
     }
 
     private const EXCLUDED_PATTERNS = ['/season/i', '/battle.?pass/i', '/dlc.?pack/i'];

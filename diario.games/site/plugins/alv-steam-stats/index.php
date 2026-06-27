@@ -99,14 +99,16 @@ App::plugin('alv/steam-stats', [
                         $igdbConfig = kirby()->option('igdb');
                         if (!empty($igdbConfig['client_id']) && !empty($igdbConfig['client_secret'])) {
                             $root = dirname(__DIR__, 3);
-                            require_once $root . '/site/igdb/helpers.php';
-                            require_once $root . '/site/igdb/IGDBClient.php';
+                            require_once $root . '/site/plugins/alv-igdb/classes/helpers.php';
+                            require_once $root . '/site/plugins/alv-igdb/classes/IGDBClient.php';
+                            require_once $root . '/site/plugins/alv-igdb/classes/GameImporter.php';
                             $client = new \DiarioGames\IGDB\IGDBClient($igdbConfig['client_id'], $igdbConfig['client_secret']);
                             $igdbResults = $client->searchGames($q);
                             foreach ($igdbResults as $ig) {
                                 if (count($results) >= $limit) break;
                                 $slug = $ig['slug'] ?? '';
                                 if (!$slug || isset($seen[$slug])) continue;
+                                if (\DiarioGames\IGDB\GameImporter::isExcluded($ig)) continue;
                                 $seen[$slug] = true;
                                 $results[] = [
                                     'slug' => $slug,

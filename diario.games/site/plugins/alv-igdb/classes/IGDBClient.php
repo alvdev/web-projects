@@ -15,7 +15,7 @@ class IGDBClient
     {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
-        $this->tokenPath = dirname(__DIR__, 2) . '/storage/igdb_token.json';
+        $this->tokenPath = dirname(__DIR__, 4) . '/storage/igdb_token.json';
     }
 
     public function authenticate(): void

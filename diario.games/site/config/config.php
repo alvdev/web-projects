@@ -60,9 +60,9 @@ return [
 
                 try {
                     $igdbRoot = dirname(__DIR__, 2);
-                    require_once $igdbRoot . '/site/igdb/helpers.php';
-                    require_once $igdbRoot . '/site/igdb/IGDBClient.php';
-                    require_once $igdbRoot . '/site/igdb/GameImporter.php';
+                    require_once $igdbRoot . '/site/plugins/alv-igdb/classes/helpers.php';
+                    require_once $igdbRoot . '/site/plugins/alv-igdb/classes/IGDBClient.php';
+                    require_once $igdbRoot . '/site/plugins/alv-igdb/classes/GameImporter.php';
 
                     $client = new \DiarioGames\IGDB\IGDBClient($config['client_id'], $config['client_secret']);
                     $importer = new \DiarioGames\IGDB\GameImporter($client);

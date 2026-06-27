@@ -11,10 +11,10 @@
  */
 
 require_once dirname(__DIR__) . '/kirby/bootstrap.php';
-require_once dirname(__DIR__) . '/site/igdb/helpers.php';
-require_once dirname(__DIR__) . '/site/igdb/IGDBClient.php';
-require_once dirname(__DIR__) . '/site/igdb/GameImporter.php';
-require_once dirname(__DIR__) . '/site/igdb/AutoFetcher.php';
+require_once dirname(__DIR__) . '/site/plugins/alv-igdb/classes/helpers.php';
+require_once dirname(__DIR__) . '/site/plugins/alv-igdb/classes/IGDBClient.php';
+require_once dirname(__DIR__) . '/site/plugins/alv-igdb/classes/GameImporter.php';
+require_once dirname(__DIR__) . '/site/plugins/alv-igdb/classes/AutoFetcher.php';
 
 use DiarioGames\IGDB\IGDBClient;
 use DiarioGames\IGDB\GameImporter;
