@@ -50,13 +50,14 @@ Icon
 
 /site/config/.license
 
-# MagoScott specific ignores
+# diario.games specific ignores
 # ---------------
 
 /vendor/
 /public/assets/
 /storage/
 .superpowers
+.graymatter/
 kirby/
 README.md
 !site/plugins/
