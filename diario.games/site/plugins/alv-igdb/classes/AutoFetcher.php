@@ -17,6 +17,25 @@ class AutoFetcher
 
     public function run(int $maxGames = 0): array
     {
+        $allowedKeywords = ['pc', 'xbox', 'playstation', 'nintendo', 'android'];
+        $allPlatforms = $this->client->fetchAllPlatforms();
+        $allowedPlatformIds = [];
+        foreach ($allPlatforms as $p) {
+            $lower = mb_strtolower($p['name']);
+            foreach ($allowedKeywords as $keyword) {
+                if (str_contains($lower, $keyword)) {
+                    $allowedPlatformIds[] = $p['id'];
+                    break;
+                }
+            }
+        }
+
+        if (empty($allowedPlatformIds)) {
+            throw new \RuntimeException('No allowed platform IDs found from IGDB');
+        }
+
+        $platformWhere = 'platforms = (' . implode(',', $allowedPlatformIds) . ')';
+
         $offset = 0;
         $limit = 500;
 
@@ -29,7 +48,7 @@ class AutoFetcher
                  'genres', 'themes', 'involved_companies', 'platforms', 'rating', 'aggregated_rating'],
                 $limit,
                 $offset,
-                '',
+                $platformWhere,
                 'rating desc'
             );
 

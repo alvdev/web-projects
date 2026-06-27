@@ -132,6 +132,11 @@ class IGDBClient
         return $this->post('game_videos', 'fields video_id,game; where game = (' . implode(',', $ids) . '); limit 500;');
     }
 
+    public function fetchAllPlatforms(): array
+    {
+        return $this->post('platforms', 'fields id,name; limit 500;');
+    }
+
     public function fetchGenres(array $ids): array
     {
         if (empty($ids)) return [];

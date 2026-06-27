@@ -887,7 +887,7 @@ Add this in its place:
 ```html
 <div id="steam-header-search" class="relative shrink-0">
     <input type="text"
-        placeholder="Buscar en Steam..."
+        placeholder="Buscar juegos..."
         class="w-48 lg:w-64 px-3 py-1.5 text-sm bg-surface border border-border rounded-lg text-text placeholder-muted focus:outline-none focus:border-neon-cyan transition">
     <div class="steam-search-results hidden absolute top-full right-0 mt-1 w-72 bg-surface border border-border rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"></div>
 </div>

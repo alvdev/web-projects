@@ -78,6 +78,51 @@ function translate(string $text, string $to = 'es', string $from = 'en'): string
     return $data[0][0][0] ?? $text;
 }
 
+function normalizePlatformNames(string $platformStr): string
+{
+    if (empty(trim($platformStr))) return '';
+
+    if (str_contains($platformStr, 'Xbox (')) {
+        return $platformStr;
+    }
+
+    $excluded = ['Legacy Mobile Device', 'Windows Mobile', 'N-Gage'];
+
+    $names = array_map('trim', explode(',', $platformStr));
+    $result = [];
+    $xboxVariants = [];
+
+    foreach ($names as $name) {
+        if (in_array($name, $excluded)) continue;
+
+        $name = str_replace(' (Microsoft Windows)', '', $name);
+        $name = str_ireplace('playstation', 'PS', $name);
+        $name = preg_replace('/\bPS\s+(\d)/', 'PS$1', $name);
+
+        if (preg_match('/^Xbox\s+(.+)$/i', $name, $m)) {
+            $variant = preg_replace('/^Series\s+/i', '', $m[1]);
+            $xboxVariants[] = $variant;
+        } else {
+            $result[] = $name;
+        }
+    }
+
+    if (!empty($xboxVariants)) {
+        $xboxStr = count($xboxVariants) === 1
+            ? 'Xbox ' . $xboxVariants[0]
+            : 'Xbox (' . implode(', ', $xboxVariants) . ')';
+        $result[] = $xboxStr;
+    }
+
+    usort($result, function ($a, $b) {
+        if ($a === 'PC') return -1;
+        if ($b === 'PC') return 1;
+        return 0;
+    });
+
+    return implode(', ', $result);
+}
+
 function downloadImage(string $url, string $destPath): bool
 {
     $dir = dirname($destPath);

@@ -2,26 +2,34 @@
 
 return function ($site) {
     $query = get('q');
-    $results = null;
+    $results = [];
 
     if ($query && strlen(trim($query)) > 0) {
-        try {
-            $results = \arnoson\KirbyLoupe::search(query: trim($query), paginate: 20);
-        } catch (\Exception $e) {
-            $results = null;
-        }
+        $q = strtolower(trim($query));
 
-        if (!$results || $results->count() === 0) {
-            $results = $site->search(trim($query), 'title|summary|text');
-            $results = $results->paginate(20);
+        $games = site()->index()->filterBy('intendedTemplate', 'game');
+        foreach ($games as $game) {
+            if (count($results) >= 20) break;
+            if ($game->content()->get('Screenshots')->isEmpty() && $game->content()->get('Videos')->isEmpty()) continue;
+            $title = $game->title()->value();
+            if (!str_contains(strtolower($title), $q)) continue;
+            $releaseDate = $game->content()->get('ReleaseDate')->value();
+            $year = preg_match('/^\d{4}/', $releaseDate, $m) ? $m[0] : '';
+            $results[] = [
+                'slug' => $game->slug(),
+                'name' => $title,
+                'platforms' => \DiarioGames\IGDB\normalizePlatformNames($game->content()->get('Platforms')->value()),
+                'year' => $year,
+                'url' => $game->url(),
+                'summary' => $game->summary()->excerpt(120),
+                'exists' => true,
+            ];
         }
     }
-
-    $results = $results instanceof \Kirby\Cms\Pages ? $results : new \Kirby\Cms\Pages([]);
 
     return [
         'query' => $query,
         'results' => $results,
-        'pagination' => $results->pagination(),
+        'pagination' => null,
     ];
 };

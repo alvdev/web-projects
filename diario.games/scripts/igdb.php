@@ -1,6 +1,6 @@
 <?php
 /**
- * IGDB CLI — Seed, search, import, and auto-fetch games.
+ * IGDB CLI — Seed, search, import, auto-fetch, and migrate games.
  *
  * Usage:
  *   php scripts/igdb.php seed [--limit N]
@@ -8,6 +8,7 @@
  *   php scripts/igdb.php import <igdb-id>
  *   php scripts/igdb.php auto-fetch [--max N]
  *   php scripts/igdb.php clean
+ *   php scripts/igdb.php migrate-platforms
  */
 
 require_once dirname(__DIR__) . '/kirby/bootstrap.php';
@@ -117,10 +118,10 @@ try {
             echo "Done. Imported: {$result['imported']}, Skipped: {$result['skipped']}\n";
             break;
 
-        case 'clean':
+        case 'migrate-platforms':
             $gamesDir = $root . '/content/games';
             if (!is_dir($gamesDir)) {
-                echo "Nothing to clean.\n";
+                echo "Nothing to migrate.\n";
                 exit;
             }
             $dirs = glob($gamesDir . '/*', GLOB_ONLYDIR);
@@ -128,25 +129,33 @@ try {
             foreach ($dirs as $dir) {
                 $basename = basename($dir);
                 if ($basename === 'games') continue;
-                array_map('unlink', glob("{$dir}/*"));
-                rmdir($dir);
-                $count++;
-                echo "  removed: {$basename}\n";
+                $txtPath = "{$dir}/game.txt";
+                if (!file_exists($txtPath)) continue;
+                $content = file_get_contents($txtPath);
+                if ($content === false) continue;
+                if (preg_match('/^Platforms:\s*(.*)$/m', $content, $m)) {
+                    $current = trim($m[1]);
+                    $normalized = \DiarioGames\IGDB\normalizePlatformNames($current);
+                    if ($normalized !== $current) {
+                        $content = preg_replace('/^Platforms:.*$/m', "Platforms: {$normalized}", $content);
+                        file_put_contents($txtPath, $content);
+                        $count++;
+                        echo "  migrated: {$basename}\n";
+                    }
+                }
             }
-            if (file_exists($root . '/content/.seed-generated')) {
-                unlink($root . '/content/.seed-generated');
-            }
-            echo "Done. Removed {$count} games.\n";
+            echo "Done. Migrated {$count} games.\n";
             break;
 
         default:
             echo "Usage: php scripts/igdb.php <command> [options]\n\n";
             echo "Commands:\n";
-            echo "  seed [--limit=N]      Import top-rated games (default: all)\n";
-            echo "  search <query>         Search IGDB and import interactively\n";
-            echo "  import <id>            Import a game by IGDB ID\n";
-            echo "  auto-fetch [--max=N]   Bulk import all main games\n";
-            echo "  clean                  Remove all imported local games\n";
+            echo "  seed [--limit=N]        Import top-rated games (default: all)\n";
+            echo "  search <query>           Search IGDB and import interactively\n";
+            echo "  import <id>              Import a game by IGDB ID\n";
+            echo "  auto-fetch [--max=N]     Bulk import all main games\n";
+            echo "  clean                    Remove all imported local games\n";
+            echo "  migrate-platforms        Normalize platform names in all existing games\n";
             break;
     }
 } catch (\Throwable $e) {

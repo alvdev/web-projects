@@ -12,8 +12,8 @@
 
     <?php if ($query): ?>
     <p class="text-sm text-muted mb-4">
-        <?php if ($results->count() > 0): ?>
-            Found <?= $results->count() ?> result<?= $results->count() !== 1 ? 's' : '' ?> for "<?= html($query) ?>"
+        <?php if (count($results) > 0): ?>
+            Found <?= count($results) ?> result<?= count($results) !== 1 ? 's' : '' ?> for "<?= html($query) ?>"
         <?php else: ?>
             No results found for "<?= html($query) ?>"
         <?php endif ?>
@@ -21,23 +21,20 @@
 
     <div class="space-y-4">
         <?php foreach ($results as $result): ?>
-        <a href="<?= $result->url() ?>" class="block bg-surface border border-border rounded-lg p-4 hover:border-neon-cyan/50 transition">
-            <h3 class="font-semibold text-text"><?= $result->title() ?></h3>
-            <p class="text-sm text-muted mt-1"><?= $result->summary()->excerpt(120) ?></p>
+        <a href="<?= $result['url'] ?>" class="block bg-surface border border-border rounded-lg p-4 hover:border-neon-cyan/50 transition">
+            <h3 class="font-semibold text-text"><?= html($result['name']) ?></h3>
+            <?php if ($result['platforms']): ?>
+            <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-xs">
+                <span class="text-neon-cyan"><?= $result['platforms'] ?></span>
+                <?php if ($result['year']): ?>
+                <span class="text-muted">• <?= $result['year'] ?></span>
+                <?php endif ?>
+            </div>
+            <?php endif ?>
+            <p class="text-sm text-muted mt-1"><?= $result['summary'] ?></p>
         </a>
         <?php endforeach ?>
     </div>
-
-    <?php if ($pagination && $pagination->pages() > 1): ?>
-    <nav class="flex justify-center gap-2 mt-8">
-        <?php if ($pagination->hasPrevPage()): ?>
-        <a href="<?= $pagination->prevPageUrl() ?>" class="px-3 py-2 bg-surface border border-border rounded text-sm hover:border-neon-cyan/50 transition">&larr; Previous</a>
-        <?php endif ?>
-        <?php if ($pagination->hasNextPage()): ?>
-        <a href="<?= $pagination->nextPageUrl() ?>" class="px-3 py-2 bg-surface border border-border rounded text-sm hover:border-neon-cyan/50 transition">Next &rarr;</a>
-        <?php endif ?>
-    </nav>
-    <?php endif ?>
     <?php endif ?>
 </div>
 

@@ -78,14 +78,22 @@ App::plugin('alv/steam-stats', [
                 $games = site()->index()->filterBy('intendedTemplate', 'game');
                 foreach ($games as $game) {
                     if (count($localResults) >= $limit) break;
+                    if ($game->content()->get('Screenshots')->isEmpty() && $game->content()->get('Videos')->isEmpty()) continue;
                     $title = $game->title()->value();
                     if (str_contains(strtolower($title), $q)) {
                         $slug = $game->slug();
                         $seen[$slug] = true;
                         $hasSteam = $db->getGameBySlug($slug) !== null;
+                        $releaseDate = $game->content()->get('ReleaseDate')->value();
+                        $year = '';
+                        if (preg_match('/^\d{4}/', $releaseDate, $m)) {
+                            $year = $m[0];
+                        }
                         $localResults[] = [
                             'slug' => $slug,
                             'name' => $title,
+                            'platforms' => \DiarioGames\IGDB\normalizePlatformNames($game->content()->get('Platforms')->value()),
+                            'year' => $year,
                             'hasSteam' => $hasSteam,
                             'exists' => true,
                         ];
@@ -110,10 +118,34 @@ App::plugin('alv/steam-stats', [
                                 $normalizedSlug = $slug ? \DiarioGames\IGDB\romanToDigits($slug) : '';
                                 if (!$slug || isset($seen[$slug]) || isset($seen[$normalizedSlug])) continue;
                                 if (\DiarioGames\IGDB\GameImporter::isExcluded($ig)) continue;
+                                $igScreenshots = $ig['screenshots'] ?? [];
+                                $igVideos = $ig['videos'] ?? [];
+                                if (empty($igScreenshots) && empty($igVideos)) continue;
                                 $seen[$normalizedSlug] = true;
+                                $platformNames = [];
+                                if (!empty($ig['platforms'])) {
+                                    foreach ($ig['platforms'] as $p) {
+                                        if (is_array($p) && !empty($p['name'])) {
+                                            $platformNames[] = $p['name'];
+                                        } elseif (is_string($p)) {
+                                            $platformNames[] = $p;
+                                        }
+                                    }
+                                }
+                                $platformsStr = implode(', ', $platformNames);
+                                $lower = mb_strtolower($platformsStr);
+                                $allowedKeywords = ['pc', 'xbox', 'playstation', 'nintendo', 'android'];
+                                $hasAllowed = false;
+                                foreach ($allowedKeywords as $kw) {
+                                    if (str_contains($lower, $kw)) { $hasAllowed = true; break; }
+                                }
+                                if (!$hasAllowed) continue;
+                                $igYear = !empty($ig['first_release_date']) ? date('Y', $ig['first_release_date']) : '';
                                 $results[] = [
                                     'slug' => $slug,
                                     'name' => $ig['name'] ?? $slug,
+                                    'platforms' => \DiarioGames\IGDB\normalizePlatformNames(implode(', ', $platformNames)),
+                                    'year' => $igYear,
                                     'hasSteam' => false,
                                     'exists' => false,
                                 ];

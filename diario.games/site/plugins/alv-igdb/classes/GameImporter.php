@@ -33,6 +33,20 @@ class GameImporter
         'Card & Board Game' => 'Juego de mesa',
     ];
 
+    private const ALLOWED_PLATFORM_KEYWORDS = ['pc', 'xbox', 'playstation', 'nintendo', 'android'];
+
+    private static function isOnAllowedPlatforms(string $platformNames): bool
+    {
+        if (empty(trim($platformNames))) return false;
+        $lower = mb_strtolower($platformNames);
+        foreach (self::ALLOWED_PLATFORM_KEYWORDS as $keyword) {
+            if (str_contains($lower, $keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private const THEME_TO_GENRE = [
         'Horror' => 'Terror',
         'Survival' => 'Supervivencia',
@@ -113,9 +127,25 @@ class GameImporter
         mkdir($dir, 0755, true);
 
         $platformIds = $this->extractIds($gameData['platforms'] ?? []);
+        $platformNames = $this->resolvePlatformNames($platformIds);
+
+        if (!self::isOnAllowedPlatforms($platformNames)) {
+            echo "  skipped: {$gameData['name']} (not on PC/Xbox/PlayStation/Nintendo/Android)\n";
+            rmdir($dir);
+            return null;
+        }
+
+        $platformNames = \DiarioGames\IGDB\normalizePlatformNames($platformNames);
+
+        $screenshotIds = $gameData['screenshots'] ?? [];
+        $videoIds = $gameData['videos'] ?? [];
+        if (empty($screenshotIds) && empty($videoIds)) {
+            echo "  skipped: {$gameData['name']} (no screenshots or videos)\n";
+            rmdir($dir);
+            return null;
+        }
 
         [$genreNames, $tagNames] = $this->resolveGenresAndTags($gameData);
-        $platformNames = $this->resolvePlatformNames($platformIds);
         [$developer, $publisher] = $this->resolveInvolvedCompanies($gameData);
 
         $releaseDate = '';
@@ -313,6 +343,17 @@ class GameImporter
                     echo "  updated genres/tags for {$slug}\n";
                 }
                 $gameContent = file_get_contents($gameTxtPath);
+            }
+
+            if (preg_match('/^Platforms:\s*(.*)$/m', $gameContent, $pm)) {
+                $currentPlatforms = trim($pm[1]);
+                $normalizedPlatforms = \DiarioGames\IGDB\normalizePlatformNames($currentPlatforms);
+                if ($normalizedPlatforms !== $currentPlatforms) {
+                    $gameContent = preg_replace('/^Platforms:.*$/m', "Platforms: {$normalizedPlatforms}", $gameContent);
+                    file_put_contents($gameTxtPath, $gameContent);
+                    echo "  updated platforms for {$slug}\n";
+                    $gameContent = file_get_contents($gameTxtPath);
+                }
             }
         }
 
