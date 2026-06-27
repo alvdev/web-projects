@@ -124,6 +124,20 @@ class GameImporter
             return $slug;
         }
 
+        // If another directory already exists with the same IgdbId, use that instead
+        $gameId = $gameData['id'] ?? null;
+        if ($gameId) {
+            $existing = glob("{$this->gamesDir}/*/game.txt");
+            foreach ($existing as $path) {
+                $content = file_get_contents($path);
+                if ($content !== false && preg_match('/^IgdbId:\s*' . preg_quote($gameId, '/') . '\s*$/m', $content)) {
+                    $existingSlug = basename(dirname($path));
+                    echo "  skipped: {$gameData['name']} (already exists at /games/{$existingSlug})\n";
+                    return $existingSlug;
+                }
+            }
+        }
+
         mkdir($dir, 0755, true);
 
         $platformIds = $this->extractIds($gameData['platforms'] ?? []);
@@ -215,7 +229,34 @@ class GameImporter
             $this->downloadVideoThumbs($slug, $dir, $videoYtIds);
         }
 
+        // Register in Steam stats DB if the game has a Steam store link
+        $this->registerSteamGame($slug, $gameData, $name);
+
         return $slug;
+    }
+
+    private function registerSteamGame(string $slug, array $gameData, string $name): void
+    {
+        $websites = $gameData['websites'] ?? [];
+        if (empty($websites)) return;
+
+        $appid = null;
+        foreach ($websites as $w) {
+            $url = $w['url'] ?? '';
+            if (preg_match('/store\.steampowered\.com\/app\/(\d+)/i', $url, $m)) {
+                $appid = (int) $m[1];
+                break;
+            }
+        }
+        if ($appid === null) return;
+
+        try {
+            $db = new \Alv\SteamStats\SteamStatsDB();
+            $db->upsertGame($appid, $slug, $name, $gameData['id'] ?? null);
+        } catch (\Throwable $e) {
+            // Steam stats plugin might not be available
+            error_log('Failed to register Steam game: ' . $e->getMessage());
+        }
     }
 
     public function importBySlug(string $slug): ?string

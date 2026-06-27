@@ -27,9 +27,16 @@ class SteamStatsDB
             CREATE TABLE IF NOT EXISTS steam_games (
                 appid   INTEGER PRIMARY KEY,
                 slug    TEXT UNIQUE NOT NULL,
-                name    TEXT NOT NULL
+                name    TEXT NOT NULL,
+                igdb_id INTEGER
             )
         ');
+        // Add igdb_id column if upgrading an existing DB (ignore if already exists)
+        try {
+            $this->pdo->exec('ALTER TABLE steam_games ADD COLUMN igdb_id INTEGER');
+        } catch (\PDOException $e) {
+            // Column already exists — ignore
+        }
         $this->pdo->exec('
             CREATE TABLE IF NOT EXISTS player_counts (
                 appid        INTEGER NOT NULL,
@@ -42,37 +49,83 @@ class SteamStatsDB
         $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_pc_ts ON player_counts(timestamp)');
     }
 
-    public function upsertGame(int $appid, string $slug, string $name): void
+    public function upsertGame(int $appid, string $slug, string $name, ?int $igdbId = null): void
     {
         $normalized = self::normalizeSlug($slug);
+
+        $existing = $this->pdo->prepare('SELECT slug, igdb_id FROM steam_games WHERE appid = :appid');
+        $existing->execute([':appid' => $appid]);
+        $row = $existing->fetch(\PDO::FETCH_ASSOC);
+        if ($row) {
+            $existingSlug = $row['slug'];
+            $isNewDup = preg_match('/--\d+$/', $normalized);
+            $isOldDup = preg_match('/--\d+$/', $existingSlug);
+            if ($isNewDup && !$isOldDup) {
+                $stmt = $this->pdo->prepare('UPDATE steam_games SET name = :name, igdb_id = COALESCE(:igdb_id, igdb_id) WHERE appid = :appid');
+                $stmt->execute([':name' => $name, ':igdb_id' => $igdbId, ':appid' => $appid]);
+                return;
+            }
+            // If existing slug is also a dup, a non-dup is always better
+            // But at this point we're updating, so just merge igdb_id if missing
+            if ($igdbId !== null && $row['igdb_id'] === null) {
+                $stmt = $this->pdo->prepare('UPDATE steam_games SET slug = :slug, name = :name, igdb_id = :igdb_id WHERE appid = :appid');
+                $stmt->execute([':slug' => $normalized, ':name' => $name, ':igdb_id' => $igdbId, ':appid' => $appid]);
+                return;
+            }
+        }
+
         $stmt = $this->pdo->prepare('
-            INSERT INTO steam_games (appid, slug, name)
-            VALUES (:appid, :slug, :name)
-            ON CONFLICT(appid) DO UPDATE SET slug = :slug2, name = :name2
+            INSERT INTO steam_games (appid, slug, name, igdb_id)
+            VALUES (:appid, :slug, :name, :igdb_id)
+            ON CONFLICT(appid) DO UPDATE SET slug = :slug2, name = :name2, igdb_id = COALESCE(:igdb_id2, igdb_id)
         ');
         $stmt->execute([
-            ':appid' => $appid,
-            ':slug'  => $normalized,
-            ':name'  => $name,
-            ':slug2' => $normalized,
-            ':name2' => $name,
+            ':appid'    => $appid,
+            ':slug'     => $normalized,
+            ':name'     => $name,
+            ':igdb_id'  => $igdbId,
+            ':slug2'    => $normalized,
+            ':name2'    => $name,
+            ':igdb_id2' => $igdbId,
         ]);
     }
 
     public function getGameBySlug(string $slug): ?array
     {
         $normalized = self::normalizeSlug($slug);
-        $stmt = $this->pdo->prepare('SELECT appid, slug, name FROM steam_games WHERE slug = :slug');
+        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id FROM steam_games WHERE slug = :slug');
         $stmt->execute([':slug' => $normalized]);
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $row ?: null;
+    }
+
+    public function getGameByAppId(int $appid): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id FROM steam_games WHERE appid = :appid');
+        $stmt->execute([':appid' => $appid]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $row ?: null;
+    }
+
+    public function getGameByIgdbId(int $igdbId): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id FROM steam_games WHERE igdb_id = :igdb_id');
+        $stmt->execute([':igdb_id' => $igdbId]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $row ?: null;
+    }
+
+    public function getAllGames(): array
+    {
+        $stmt = $this->pdo->query('SELECT appid, slug, name, igdb_id FROM steam_games');
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     private const MAX_SEARCH_RESULTS = 15;
 
     public function searchGames(string $query): array
     {
-        $stmt = $this->pdo->prepare('SELECT appid, slug, name FROM steam_games WHERE name LIKE :query LIMIT ' . self::MAX_SEARCH_RESULTS);
+        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id FROM steam_games WHERE name LIKE :query LIMIT ' . self::MAX_SEARCH_RESULTS);
         $stmt->execute([':query' => '%' . $query . '%']);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }

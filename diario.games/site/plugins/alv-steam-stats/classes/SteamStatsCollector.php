@@ -37,7 +37,13 @@ class SteamStatsCollector
                 preg_match('/^Title:\s*(.+)/m', $content, $tm);
                 $name = trim($tm[1] ?? $slug);
 
-                $this->db->upsertGame($appid, $slug, $name);
+                // Extract IGDB ID
+                $igdbId = null;
+                if (preg_match('/^IgdbId:\s*(\d+)/m', $content, $im)) {
+                    $igdbId = (int) $im[1];
+                }
+
+                $this->db->upsertGame($appid, $slug, $name, $igdbId);
             }
         }
 

@@ -90,11 +90,20 @@ return [
                     foreach ($igdbResults as $ig) {
                         $igdbSlug = $ig['slug'] ?? '';
                         if (!$igdbSlug) continue;
-                        if (\DiarioGames\IGDB\romanToDigits($igdbSlug) === $slug && !\DiarioGames\IGDB\GameImporter::isExcluded($ig)) {
-                            $result = $importer->import($ig);
-                            if ($result) {
-                                go('/games/' . $result);
-                            }
+                        if (\DiarioGames\IGDB\romanToDigits($igdbSlug) !== $slug) continue;
+                        if (\DiarioGames\IGDB\GameImporter::isExcluded($ig)) continue;
+
+                        // If a local page with this IgdbId already exists, redirect to it
+                        $existingPage = site()->index()->filterBy('intendedTemplate', 'game')->filter(function ($p) use ($ig) {
+                            return (int) $p->content()->get('IgdbId')->value() === ($ig['id'] ?? 0);
+                        })->first();
+                        if ($existingPage) {
+                            go($existingPage->url());
+                        }
+
+                        $result = $importer->import($ig);
+                        if ($result) {
+                            go('/games/' . $result);
                         }
                     }
                 } catch (\Throwable $e) {
