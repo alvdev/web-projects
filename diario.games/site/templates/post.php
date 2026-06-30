@@ -31,9 +31,16 @@
         <h3 class="text-sm font-semibold text-muted mb-3">Also appears in:</h3>
         <div class="flex flex-wrap gap-2">
             <?php foreach ($related as $game): ?>
-            <a href="<?= $game->url() ?>" class="text-xs px-3 py-1 rounded-full border border-neon-green/30 text-neon-green bg-neon-green/5 hover:bg-neon-green/10 transition">
-                <?= $game->title() ?>
-            </a>
+            <div class="relative inline-flex items-center">
+                <button type="button"
+                    class="site-fav text-xs text-muted hover:text-yellow-400 transition mr-1"
+                    data-slug="<?= $game->slug() ?>"
+                    data-title="<?= htmlspecialchars($game->title()) ?>"
+                    data-cover="<?= ($cover = $game->cover()) ? $cover->url() : (($hero = $game->hero()) ? $hero->url() : '') ?>">☆</button>
+                <a href="<?= $game->url() ?>" class="text-xs px-3 py-1 rounded-full border border-neon-green/30 text-neon-green bg-neon-green/5 hover:bg-neon-green/10 transition">
+                    <?= $game->title() ?>
+                </a>
+            </div>
             <?php endforeach ?>
         </div>
     </div>

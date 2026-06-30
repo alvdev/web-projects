@@ -21,18 +21,25 @@
 
     <div class="space-y-4">
         <?php foreach ($results as $result): ?>
-        <a href="<?= $result['url'] ?>" class="block bg-surface border border-border rounded-lg p-4 hover:border-neon-cyan/50 transition">
-            <h3 class="font-semibold text-text"><?= html($result['name']) ?></h3>
-            <?php if ($result['platforms']): ?>
-            <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-xs">
-                <span class="text-neon-cyan"><?= $result['platforms'] ?></span>
-                <?php if ($result['year']): ?>
-                <span class="text-muted">• <?= $result['year'] ?></span>
+        <div class="relative bg-surface border border-border rounded-lg p-4 hover:border-neon-cyan/50 transition">
+            <button type="button"
+                class="site-fav absolute top-3 right-3 text-sm text-muted hover:text-yellow-400 transition"
+                data-slug="<?= $result['slug'] ?>"
+                data-title="<?= htmlspecialchars($result['name']) ?>"
+                data-cover="">☆</button>
+            <a href="<?= $result['url'] ?>" class="block">
+                <h3 class="font-semibold text-text"><?= html($result['name']) ?></h3>
+                <?php if ($result['platforms']): ?>
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-xs">
+                    <span class="text-neon-cyan"><?= $result['platforms'] ?></span>
+                    <?php if ($result['year']): ?>
+                    <span class="text-muted">• <?= $result['year'] ?></span>
+                    <?php endif ?>
+                </div>
                 <?php endif ?>
-            </div>
-            <?php endif ?>
-            <p class="text-sm text-muted mt-1"><?= $result['summary'] ?></p>
-        </a>
+                <p class="text-sm text-muted mt-1"><?= $result['summary'] ?></p>
+            </a>
+        </div>
         <?php endforeach ?>
     </div>
     <?php endif ?>

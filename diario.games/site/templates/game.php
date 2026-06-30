@@ -1,8 +1,15 @@
 <?php snippet('header') ?>
 
-<h1 class="mt-8 text-balance">
-    <?= $page->title() ?>
-</h1>
+<div class="relative flex items-center justify-center mt-8">
+    <h1 class="text-balance">
+        <?= $page->title() ?>
+    </h1>
+    <button type="button"
+        class="site-fav -mr-8 ml-4 text-xl text-muted hover:text-yellow-400 transition shrink-0"
+        data-slug="<?= $page->slug() ?>"
+        data-title="<?= htmlspecialchars($page->title()) ?>"
+        data-cover="<?= ($cover = $page->cover()) ? $cover->url() : (($hero = $page->hero()) ? $hero->url() : '') ?>">☆</button>
+</div>
 
 <div class="flex items-center justify-center gap-2 mt-4">
     <?php $genres = $page->genreList() ?>

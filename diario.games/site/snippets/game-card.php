@@ -1,5 +1,10 @@
 <?php $game = $game ?? $page; ?>
 <a href="<?= $game->url() ?>" class="relative block bg-surface border-2 border-border rounded-lg overflow-hidden hover:border-neon-magenta/50 transition group">
+    <button type="button"
+        class="site-fav absolute top-3 right-2 z-20 text-sm text-muted hover:text-yellow-400 transition"
+        data-slug="<?= $game->slug() ?>"
+        data-title="<?= htmlspecialchars($game->title()) ?>"
+        data-cover="<?= ($cover = $game->cover()) ? $cover->url() : (($hero = $game->hero()) ? $hero->url() : '') ?>">☆</button>
     <div class="aspect-2/3 bg-surface-alt overflow-hidden">
         <?php if ($cover = $game->cover()): ?>
             <img src="<?= $cover->url() ?>" alt="<?= $game->title() ?>" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">

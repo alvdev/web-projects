@@ -310,6 +310,11 @@ class SteamStats
         return [];
     }
 
+    public function getLivePlayerCount(int $appid): int
+    {
+        return $this->getCurrentPlayers($appid);
+    }
+
     public function updatePlayerHistory(): void
     {
         $tracked = [];

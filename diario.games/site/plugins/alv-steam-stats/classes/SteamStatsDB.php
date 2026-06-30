@@ -192,6 +192,52 @@ class SteamStatsDB
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 
+    public function getAllPlayerData(): array
+    {
+        $now = time();
+        $day = 86400;
+        $result = [];
+
+        // Current players (latest timestamp per appid)
+        $stmt = $this->pdo->query('
+            SELECT p1.appid, p1.player_count AS current_players
+            FROM player_counts p1
+            INNER JOIN (
+                SELECT appid, MAX(timestamp) AS max_ts
+                FROM player_counts
+                GROUP BY appid
+            ) p2 ON p1.appid = p2.appid AND p1.timestamp = p2.max_ts
+        ');
+        foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+            $result[(int)$row['appid']]['current_players'] = (int)$row['current_players'];
+        }
+
+        // Peak 24h
+        $stmt = $this->pdo->prepare('
+            SELECT appid, MAX(player_count) AS peak_24h
+            FROM player_counts
+            WHERE timestamp >= :since
+            GROUP BY appid
+        ');
+        $stmt->execute([':since' => $now - $day]);
+        foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+            $result[(int)$row['appid']]['peak_24h'] = (int)$row['peak_24h'];
+        }
+
+        // Fill defaults for all known games
+        $all = $this->getAllGames();
+        foreach ($all as $g) {
+            $appid = $g['appid'];
+            if (!isset($result[$appid])) {
+                $result[$appid] = ['current_players' => 0, 'peak_24h' => 0];
+            }
+            if (!isset($result[$appid]['current_players'])) $result[$appid]['current_players'] = 0;
+            if (!isset($result[$appid]['peak_24h'])) $result[$appid]['peak_24h'] = 0;
+        }
+
+        return $result;
+    }
+
     public static function normalizeSlug(string $slug): string
     {
         $replacements = [

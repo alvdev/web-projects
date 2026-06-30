@@ -111,9 +111,11 @@ App::plugin('alv/steam-stats', [
                     if (preg_match('/^\d{4}/', $releaseDate, $m)) {
                         $year = $m[0];
                     }
+                    $coverUrl = $game->cover() ? $game->cover()->url() : '';
                     $localResults[] = [
                         'slug' => $slug,
                         'name' => $title,
+                        'cover' => $coverUrl,
                         'platforms' => \DiarioGames\IGDB\normalizePlatformNames($game->content()->get('Platforms')->value()),
                         'year' => $year,
                         'hasSteam' => $hasSteam,
@@ -260,9 +262,11 @@ App::plugin('alv/steam-stats', [
                                         $results[] = $entry['localMatch'];
                                     } else {
                                         $hasSteam = $entry['steamInDb'];
+                                        $coverUrl = !empty($entry['ig']['cover']['url']) ? str_replace('t_thumb', 't_cover_big', $entry['ig']['cover']['url']) : '';
                                         $results[] = [
                                             'slug' => $entry['slug'],
                                             'name' => $entry['name'],
+                                            'cover' => $coverUrl,
                                             'platforms' => $entry['platforms'],
                                             'year' => $entry['year'],
                                             'hasSteam' => $hasSteam,
@@ -398,13 +402,28 @@ App::plugin('alv/steam-stats', [
             $now = time();
             $day = 86400;
 
+            $current = $db->getCurrentPlayers($appid);
+            $peak24h = $db->getPeakPlayers($appid, $now - $day);
+            $peak3m = $db->getPeakPlayers($appid, $now - 90 * $day);
+
+            // Fall back to live API when DB has no data
+            if ($current === null || $peak24h === null) {
+                $stats = site()->steamStats();
+                $live = $stats->getLivePlayerCount($appid);
+                if ($live > 0) {
+                    if ($current === null) $current = $live;
+                    if ($peak24h === null) $peak24h = $live;
+                    if ($peak3m === null) $peak3m = $live;
+                }
+            }
+
             $ranges = ['48h' => 2 * $day, '1w' => 7 * $day, '1m' => 30 * $day, '3m' => 90 * $day, '6m' => 180 * $day, '1y' => 365 * $day, 'max' => 0];
 
             $data = [
                 'game' => $game,
-                'current' => $db->getCurrentPlayers($appid),
-                'peak_24h' => $db->getPeakPlayers($appid, $now - $day),
-                'peak_3m' => $db->getPeakPlayers($appid, $now - 90 * $day),
+                'current' => $current ?? 0,
+                'peak_24h' => $peak24h ?? 0,
+                'peak_3m' => $peak3m ?? 0,
                 'ranges' => [],
             ];
 
