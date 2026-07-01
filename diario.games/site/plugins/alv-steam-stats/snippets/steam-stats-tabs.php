@@ -90,7 +90,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
         </button>
     </div>
 
-    <div data-tab-content="most-played">
+    <div data-tab-content="most-played" class="h-full">
         <?php if (empty($mostPlayed)): ?>
             <p class="text-muted text-sm text-center py-6">No hay datos</p>
         <?php else: ?>
@@ -120,7 +120,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
         <?php endif ?>
     </div>
 
-    <div data-tab-content="trending" class="hidden">
+    <div data-tab-content="trending" class="hidden h-full">
         <?php if (empty($trending)): ?>
             <p class="text-muted text-sm text-center py-6">No hay datos</p>
         <?php else: ?>

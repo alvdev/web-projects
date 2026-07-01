@@ -9,7 +9,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
     <?php if ($featured): ?>
         <?php $heroGame = $isPost ? $featured->parent() : $featured ?>
-        <div class="lg:col-span-2 relative rounded-xl overflow-hidden group border-4 border-border hover:border-neon-cyan/50 transition">
+        <div class="lg:col-span-2 relative rounded-xl overflow-hidden group border-4 border-border hover:border-neon-cyan/50 transition lg:min-h-[545px]">
             <button type="button"
                 class="site-fav absolute top-4 right-4 z-20 text-lg text-muted hover:text-yellow-400 transition bg-surface/50 backdrop-blur-md w-6 h-6 rounded-full leading-0"
                 data-slug="<?= $heroGame->slug() ?>"
