@@ -29,7 +29,7 @@ try {
 } catch (\Throwable $e) {}
 
 function pageFormatPlayers(int $count): string {
-    if ($count >= 1000000) return round($count / 1000000, 2) . 'M';
+    if ($count >= 1000000) return round($count / 1000000, 1) . 'M';
     if ($count >= 1000) return round($count / 1000, 1) . 'K';
     return (string) $count;
 }
@@ -192,8 +192,8 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
     var FAV_KEY = 'steam-favorites-v1';
 
     function fmtPlayers(n) {
-        if (n >= 1000000) return (n / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
-        if (n >= 1000) return Math.round(n / 1000) + 'K';
+        if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.?0+$/, '') + 'M';
+        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.?0+$/, '') + 'K';
         return String(n);
     }
 
