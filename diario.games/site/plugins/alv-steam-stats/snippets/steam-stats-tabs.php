@@ -1,7 +1,8 @@
 <?php
 
 $stats = site()->steamStats();
-$mostPlayed = $stats->getMostPlayed(10);
+$mostPlayedAll = $stats->getMostPlayed(100);
+$mostPlayed = array_slice($mostPlayedAll, 0, 10);
 $trending = $stats->getTrending(10);
 
 $steamSlugMap = [];
@@ -177,7 +178,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
     <?= json_encode($steamSlugMap) ?>
 </script>
 <script type="application/json" id="steam-most-played-data">
-    <?= json_encode(array_column($mostPlayed, null, 'appid')) ?>
+    <?= json_encode(array_column($mostPlayedAll, null, 'appid')) ?>
 </script>
 
 <script>
@@ -199,6 +200,14 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
             if (el) try {
                 mostPlayedByAppid = JSON.parse(el.textContent);
             } catch (e) {}
+        })();
+
+        var slugByAppid = {};
+        (function() {
+            Object.keys(slugMap).forEach(function(slug) {
+                var entry = slugMap[slug];
+                if (entry && entry.appid) slugByAppid[entry.appid] = entry;
+            });
         })();
 
         function getLS(k) {
@@ -268,7 +277,9 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
             });
 
             var appids = Object.keys(steamFavs).sort(function(a, b) {
-                return (steamFavs[b].current_players || 0) - (steamFavs[a].current_players || 0);
+                var ca = (mostPlayedByAppid[a] || slugByAppid[a] || steamFavs[a]).current_players || 0;
+                var cb = (mostPlayedByAppid[b] || slugByAppid[b] || steamFavs[b]).current_players || 0;
+                return cb - ca;
             });
             var display = appids.slice(0, 10);
 
@@ -282,9 +293,10 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
 
             var html = '';
             display.forEach(function(appid, i) {
-                var g = steamFavs[appid];
+                var g = mostPlayedByAppid[appid] || slugByAppid[appid] || steamFavs[appid];
                 if (!g) return;
-                var imgSrc = g.capsule_image || '';
+                var ls = steamFavs[appid];
+                var imgSrc = g.capsule_image || (ls && ls.capsule_image) || '';
                 var imgHtml = imgSrc ?
                     '<img src="' + escapeAttr(imgSrc) + '" alt="" class="w-20 h-7.5 object-cover rounded" loading="lazy">' :
                     '<div class="w-20 h-7.5 bg-surface-alt rounded flex items-center justify-center text-muted text-xs">--</div>';

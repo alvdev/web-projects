@@ -406,6 +406,20 @@ App::plugin('alv/steam-stats', [
             $peak24h = $db->getPeakPlayers($appid, $now - $day);
             $peak3m = $db->getPeakPlayers($appid, $now - 90 * $day);
 
+            // Prefer freshly scraped data from stats-most-played cache when available
+            try {
+                $scrapedCache = kirby()->cache('alv/steam-stats.cache')->get('stats-most-played');
+                if (is_array($scrapedCache) && isset($scrapedCache['value'])) {
+                    foreach ($scrapedCache['value'] as $entry) {
+                        if ((int)($entry['appid'] ?? 0) === $appid && ($entry['current_players'] ?? 0) > 0) {
+                            $current = (int)$entry['current_players'];
+                            $peak24h = (int)($entry['peak_today'] ?? $peak24h);
+                            break;
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {}
+
             // Fall back to live API when DB has no data
             if ($current === null || $peak24h === null) {
                 $stats = site()->steamStats();
