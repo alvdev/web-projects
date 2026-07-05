@@ -15,7 +15,7 @@
 <header class="border-b border-border bg-surface/50 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         <a href="/" class="flex items-center gap-3 shrink-0">
-            <img src="<?= url('logo.png') ?>" alt="Diario.Games" class="h-10 w-auto">
+            <img src="<?= url('/assets/images/diario-games-logo.webp') ?>" alt="Diario.Games" class="h-10 w-auto">
         </a>
 
         <?php snippet('genre-nav') ?>
