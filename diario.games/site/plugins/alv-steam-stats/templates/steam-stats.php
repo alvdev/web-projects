@@ -8,22 +8,19 @@ $trending = $stats->getTrending(100);
 $steamSlugMap = [];
 try {
     $db = new \Alv\SteamStats\SteamStatsDB();
-    $playerData = $db->getAllPlayerData();
-    $stats = site()->steamStats();
+    $playerData = $db->getAllPlayerDataCached();
     foreach ($db->getAllGames() as $g) {
         $pd = $playerData[$g['appid']] ?? ['current_players' => 0, 'peak_24h' => 0];
-        if ($pd['current_players'] === 0 && $pd['peak_24h'] === 0) {
-            $live = $stats->getLivePlayerCount($g['appid']);
-            if ($live > 0) {
-                $pd['current_players'] = $live;
-                $pd['peak_24h'] = $live;
-            }
-        }
+        $capsulePath = dirname(__DIR__, 4) . '/content/games/' . $g['slug'] . '/steam-capsule.jpg';
+        $capsuleUrl = file_exists($capsulePath)
+            ? '/media/steam-capsule/' . $g['slug'] . '.jpg'
+            : '';
         $steamSlugMap[$g['slug']] = [
             'appid' => (string)$g['appid'],
             'name' => $g['name'],
             'current_players' => $pd['current_players'],
             'peak_players' => $pd['peak_24h'],
+            'capsule_image' => $capsuleUrl,
         ];
     }
 } catch (\Throwable $e) {}
@@ -220,6 +217,14 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
             if (el) try { slugMap = JSON.parse(el.textContent); } catch(e){}
         })();
 
+        var slugByAppid = {};
+        (function() {
+            Object.keys(slugMap).forEach(function(slug) {
+                var entry = slugMap[slug];
+                if (entry && entry.appid) slugByAppid[entry.appid] = entry;
+            });
+        })();
+
         var favs;
         try { favs = JSON.parse(localStorage.getItem(FAV_KEY) || '{}'); } catch(e) { favs = {}; }
 
@@ -236,8 +241,8 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
                 favs[appid] = {
                     name: mp ? mp.name : (map.name || sf.title || 'Unknown'),
                     capsule_image: mp ? mp.capsule_image : (sf.cover || ''),
-                    current_players: mp ? mp.current_players : (map.current_players || 0),
-                    peak_players: mp ? mp.peak_players : (map.peak_players || 0)
+                    current_players: map.current_players || (mp ? mp.current_players : 0),
+                    peak_players: map.peak_players || (mp ? mp.peak_players : 0)
                 };
             });
         } catch(e) {}
@@ -251,12 +256,16 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
 
         var rows = [];
         appids.forEach(function(appid) {
-            var g = gamesByAppid[appid] || favs[appid];
+            var g = slugByAppid[appid] || gamesByAppid[appid] || favs[appid];
             if (!g) return;
+            var ls = favs[appid];
+            var capUrl = g.capsule_image || (ls && ls.capsule_image) || '';
+            // Discard legacy centralized paths
+            if (capUrl.indexOf('/assets/steam-capsules/') === 0) capUrl = '';
             rows.push({
                 appid: appid,
                 name: g.name || 'Unknown',
-                capsule_image: g.capsule_image || '',
+                capsule_image: capUrl,
                 current_players: g.current_players || 0,
                 peak_players: g.peak_players || 0
             });
@@ -279,8 +288,8 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
                 + '</div>'
                 + imgHtml
                 + '<div class="flex items-center"><a href="https://store.steampowered.com/app/' + g.appid + '/" target="_blank" rel="noopener" class="text-base font-semibold text-text hover:text-neon-magenta transition">' + esc(g.name) + '</a></div>'
-                + '<span class="text-sm text-text text-right font-mono">' + (cur ? fmtPlayers(cur) : '<span class="text-muted">&mdash;</span>') + '</span>'
-                + '<span class="text-sm text-muted text-right font-mono">' + (peak ? fmtPlayers(peak) : '<span class="text-muted">&mdash;</span>') + '</span>'
+                + '<span class="text-sm text-text text-right font-mono">' + fmtPlayers(cur) + '</span>'
+                + '<span class="text-sm text-muted text-right font-mono">' + fmtPlayers(peak) + '</span>'
                 + '</div>';
         });
 

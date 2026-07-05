@@ -47,6 +47,15 @@ class SteamStatsDB
         ');
         $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_pc_appid ON player_counts(appid)');
         $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_pc_ts ON player_counts(timestamp)');
+        $this->pdo->exec('
+            CREATE TABLE IF NOT EXISTS player_history (
+                appid        INTEGER NOT NULL,
+                timestamp    INTEGER NOT NULL,
+                player_count INTEGER NOT NULL,
+                PRIMARY KEY (appid, timestamp)
+            )
+        ');
+        $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_ph_appid ON player_history(appid)');
     }
 
     public function upsertGame(int $appid, string $slug, string $name, ?int $igdbId = null): void
@@ -133,14 +142,63 @@ class SteamStatsDB
     public function insertPlayerCount(int $appid, int $timestamp, int $playerCount): void
     {
         $stmt = $this->pdo->prepare('
-            INSERT OR IGNORE INTO player_counts (appid, timestamp, player_count)
+            INSERT INTO player_counts (appid, timestamp, player_count)
+            VALUES (:appid, :timestamp, :player_count)
+            ON CONFLICT(appid, timestamp) DO UPDATE SET player_count = :player_count2
+        ');
+        $stmt->execute([
+            ':appid'          => $appid,
+            ':timestamp'      => $timestamp,
+            ':player_count'   => $playerCount,
+            ':player_count2'  => $playerCount,
+        ]);
+    }
+
+    public function upsertPlayerHistory(int $appid, int $timestamp, int $playerCount): void
+    {
+        $stmt = $this->pdo->prepare('
+            INSERT OR REPLACE INTO player_history (appid, timestamp, player_count)
             VALUES (:appid, :timestamp, :player_count)
         ');
         $stmt->execute([
-            ':appid'        => $appid,
-            ':timestamp'    => $timestamp,
+            ':appid' => $appid,
+            ':timestamp' => $timestamp,
             ':player_count' => $playerCount,
         ]);
+    }
+
+    public function deletePlayerHistoryBefore(int $appid, int $timestamp): void
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM player_history WHERE appid = :appid AND timestamp < :timestamp');
+        $stmt->execute([':appid' => $appid, ':timestamp' => $timestamp]);
+    }
+
+    public function getRecentPlayerCounts(int $appid, int $limit = 28): array
+    {
+        // Prefer player_counts — has full historical data for site games (from collector)
+        $stmt = $this->pdo->prepare('
+            SELECT timestamp, player_count AS players
+            FROM player_counts
+            WHERE appid = :appid
+            ORDER BY timestamp DESC
+            LIMIT :limit
+        ');
+        $stmt->execute([':appid' => $appid, ':limit' => $limit]);
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        if (!empty($rows)) {
+            return array_reverse($rows);
+        }
+
+        // Fall back to player_history (for trending-only games not in site DB)
+        $stmt = $this->pdo->prepare('
+            SELECT timestamp, player_count AS players
+            FROM player_history
+            WHERE appid = :appid
+            ORDER BY timestamp DESC
+            LIMIT :limit
+        ');
+        $stmt->execute([':appid' => $appid, ':limit' => $limit]);
+        return array_reverse($stmt->fetchAll(\PDO::FETCH_ASSOC));
     }
 
     public function getPlayerCounts(int $appid, int $since): array
@@ -236,6 +294,28 @@ class SteamStatsDB
         }
 
         return $result;
+    }
+
+    public function getAllPlayerDataCached(): array
+    {
+        try {
+            $cache = kirby()->cache('alv/steam-stats.cache');
+            $cached = $cache->get('player-data-summary');
+            if (is_array($cached) && isset($cached['value'], $cached['timestamp'])) {
+                if ((time() - $cached['timestamp']) < 300) {
+                    return $cached['value'];
+                }
+            }
+        } catch (\Throwable $e) {}
+
+        $data = $this->getAllPlayerData();
+
+        try {
+            $cache = kirby()->cache('alv/steam-stats.cache');
+            $cache->set('player-data-summary', ['value' => $data, 'timestamp' => time()]);
+        } catch (\Throwable $e) {}
+
+        return $data;
     }
 
     public static function normalizeSlug(string $slug): string

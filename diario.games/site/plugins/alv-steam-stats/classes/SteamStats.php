@@ -52,6 +52,30 @@ class SteamStats
             ];
         }
 
+        // Overlay live API cache first (for scraped-only games not in site DB)
+        try {
+            foreach ($result as &$game) {
+                $live = $this->getCached('current-players.' . $game['appid'], 3600);
+                if ($live !== null && ($live['count'] ?? 0) > 0) {
+                    $game['current_players'] = (int)$live['count'];
+                }
+            }
+            unset($game);
+        } catch (\Throwable $e) {}
+
+        // Overlay DB data on top — wins for games tracked by the collector
+        try {
+            $dbData = (new SteamStatsDB())->getAllPlayerDataCached();
+            foreach ($result as &$game) {
+                $pd = $dbData[$game['appid']] ?? null;
+                if ($pd) {
+                    if ($pd['current_players'] > 0) $game['current_players'] = $pd['current_players'];
+                    if ($pd['peak_24h'] > 0) $game['peak_players'] = $pd['peak_24h'];
+                }
+            }
+            unset($game);
+        } catch (\Throwable $e) {}
+
         return $result;
     }
 
@@ -103,6 +127,18 @@ class SteamStats
             ];
         }
 
+        // Overlay fresher DB data sitewide for consistency
+        try {
+            $dbData = (new SteamStatsDB())->getAllPlayerDataCached();
+            foreach ($games as &$game) {
+                $pd = $dbData[$game['appid']] ?? null;
+                if ($pd && $pd['current_players'] > 0) {
+                    $game['current_players'] = $pd['current_players'];
+                }
+            }
+            unset($game);
+        } catch (\Throwable $e) {}
+
         return $games;
     }
 
@@ -131,6 +167,19 @@ class SteamStats
                 'peak_players' => $entry['peak_in_game'] ?? 0,
             ];
         }
+
+        // Overlay fresher DB data sitewide for consistency
+        try {
+            $dbData = (new SteamStatsDB())->getAllPlayerDataCached();
+            foreach ($games as &$game) {
+                $pd = $dbData[$game['appid']] ?? null;
+                if ($pd) {
+                    if ($pd['current_players'] > 0) $game['current_players'] = $pd['current_players'];
+                    if ($pd['peak_24h'] > 0) $game['peak_players'] = $pd['peak_24h'];
+                }
+            }
+            unset($game);
+        } catch (\Throwable $e) {}
 
         usort($games, fn($a, $b) => $b['current_players'] <=> $a['current_players']);
         foreach ($games as $index => &$game) {
@@ -224,6 +273,17 @@ class SteamStats
         return $data['response']['player_count'] ?? 0;
     }
 
+    private function resolveCapsuleUrl(int $appid): ?string
+    {
+        try {
+            $game = (new SteamStatsDB())->getGameByAppId($appid);
+            if ($game && file_exists(dirname(__DIR__, 4) . '/content/games/' . $game['slug'] . '/steam-capsule.jpg')) {
+                return '/media/steam-capsule/' . $game['slug'] . '.jpg';
+            }
+        } catch (\Throwable $e) {}
+        return null;
+    }
+
     private function fetchGameDetails(array $appids): array
     {
         if (empty($appids)) {
@@ -235,8 +295,13 @@ class SteamStats
 
         // Check cache for each app
         foreach ($appids as $appid) {
-            $cached = $this->getCached('game-details.' . $appid, 86400); // Cache for 24 hours
+            $cached = $this->getCached('game-details.' . $appid, 86400);
             if ($cached !== null) {
+                // Override capsule if local file exists
+                $capsuleUrl = $this->resolveCapsuleUrl($appid);
+                if ($capsuleUrl) {
+                    $cached['capsule_image'] = $capsuleUrl;
+                }
                 $results[$appid] = $cached;
             } else {
                 $uncachedAppids[] = $appid;
@@ -272,10 +337,11 @@ class SteamStats
             }
 
             $info = $entry['data'] ?? [];
+            $capsuleUrl = $this->resolveCapsuleUrl($appid) ?: ($info['capsule_image'] ?? '');
             $gameData = [
                 'name' => $info['name'] ?? '',
                 'header_image' => $info['header_image'] ?? '',
-                'capsule_image' => $info['capsule_image'] ?? '',
+                'capsule_image' => $capsuleUrl,
             ];
 
             $results[$appid] = $gameData;
@@ -301,8 +367,16 @@ class SteamStats
 
     private function getPlayerHistory(int $appid): array
     {
-        $cached = $this->getCached('history.' . $appid, $this->historyTtl);
+        // Prefer SQLite — always shared between CLI and web, has richer data
+        try {
+            $sqlite = (new SteamStatsDB())->getRecentPlayerCounts($appid, 28);
+            if (!empty($sqlite)) {
+                return $sqlite;
+            }
+        } catch (\Throwable $e) {}
 
+        // Fall back to file cache (namespace-specific, used when SQLite is empty)
+        $cached = $this->getCached('history.' . $appid, $this->historyTtl);
         if ($cached !== null) {
             return $cached['points'] ?? [];
         }
@@ -331,10 +405,11 @@ class SteamStats
             $tracked[$game['appid']] = $game['current_players'];
         }
 
+        $now = time();
         foreach ($tracked as $appid => $currentPlayers) {
             $history = $this->getPlayerHistory($appid);
             $history[] = [
-                'timestamp' => time(),
+                'timestamp' => $now,
                 'players' => $currentPlayers,
             ];
 
@@ -343,6 +418,14 @@ class SteamStats
             }
 
             $this->setCache('history.' . $appid, ['points' => $history]);
+
+            // Also store in SQLite for cross-namespace cache sharing
+            try {
+                $db = new SteamStatsDB();
+                $db->upsertPlayerHistory($appid, $now, $currentPlayers);
+                $oldest = $history[0]['timestamp'] ?? $now;
+                $db->deletePlayerHistoryBefore($appid, $oldest);
+            } catch (\Throwable $e) {}
         }
     }
 

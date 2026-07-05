@@ -8,22 +8,18 @@ $trending = $stats->getTrending(10);
 $steamSlugMap = [];
 try {
     $db = new \Alv\SteamStats\SteamStatsDB();
-    $playerData = $db->getAllPlayerData();
-    $stats = site()->steamStats();
+    $playerData = $db->getAllPlayerDataCached();
     foreach ($db->getAllGames() as $g) {
         $pd = $playerData[$g['appid']] ?? ['current_players' => 0, 'peak_24h' => 0];
-        if ($pd['current_players'] === 0 && $pd['peak_24h'] === 0) {
-            $live = $stats->getLivePlayerCount($g['appid']);
-            if ($live > 0) {
-                $pd['current_players'] = $live;
-                $pd['peak_24h'] = $live;
-            }
-        }
+        $capsulePath = dirname(__DIR__, 4) . '/content/games/' . $g['slug'] . '/steam-capsule.jpg';
         $steamSlugMap[$g['slug']] = [
             'appid' => (string)$g['appid'],
             'name' => $g['name'],
             'current_players' => $pd['current_players'],
             'peak_players' => $pd['peak_24h'],
+            'capsule_image' => file_exists($capsulePath)
+                ? '/media/steam-capsule/' . $g['slug'] . '.jpg'
+                : '',
         ];
     }
 } catch (\Throwable $e) {
@@ -271,14 +267,14 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                 steamFavs[appid] = {
                     name: mp ? mp.name : (map.name || sf.title || 'Unknown'),
                     capsule_image: mp ? mp.capsule_image : (sf.cover || ''),
-                    current_players: mp ? mp.current_players : (map.current_players || 0),
-                    peak_players: mp ? mp.peak_players : (map.peak_players || 0)
+                    current_players: map.current_players || (mp ? mp.current_players : 0),
+                    peak_players: map.peak_players || (mp ? mp.peak_players : 0)
                 };
             });
 
             var appids = Object.keys(steamFavs).sort(function(a, b) {
-                var ca = (mostPlayedByAppid[a] || slugByAppid[a] || steamFavs[a]).current_players || 0;
-                var cb = (mostPlayedByAppid[b] || slugByAppid[b] || steamFavs[b]).current_players || 0;
+                var ca = (slugByAppid[a] || mostPlayedByAppid[a] || steamFavs[a]).current_players || 0;
+                var cb = (slugByAppid[b] || mostPlayedByAppid[b] || steamFavs[b]).current_players || 0;
                 return cb - ca;
             });
             var display = appids.slice(0, 10);
@@ -293,10 +289,12 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
 
             var html = '';
             display.forEach(function(appid, i) {
-                var g = mostPlayedByAppid[appid] || slugByAppid[appid] || steamFavs[appid];
+                var g = slugByAppid[appid] || mostPlayedByAppid[appid] || steamFavs[appid];
                 if (!g) return;
                 var ls = steamFavs[appid];
                 var imgSrc = g.capsule_image || (ls && ls.capsule_image) || '';
+                // Discard legacy centralized paths
+                if (imgSrc.indexOf('/assets/steam-capsules/') === 0) imgSrc = '';
                 var imgHtml = imgSrc ?
                     '<img src="' + escapeAttr(imgSrc) + '" alt="" class="w-20 h-7.5 object-cover rounded" loading="lazy">' :
                     '<div class="w-20 h-7.5 bg-surface-alt rounded flex items-center justify-center text-muted text-xs">--</div>';
@@ -309,8 +307,8 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                     imgHtml +
                     '</div>' +
                     '<span class="text-text text-xs line-clamp-2">' + escapeHtml(g.name || 'Unknown') + '</span>' +
-                    '<span class="text-text text-sm text-right">' + (cur ? fmtPlayers(cur) : '<span class="text-muted">&mdash;</span>') + '</span>' +
-                    '<span class="text-muted text-sm text-right">' + (peak ? fmtPlayers(peak) : '<span class="text-muted">&mdash;</span>') + '</span>';
+                    '<span class="text-text text-sm text-right">' + fmtPlayers(cur) + '</span>' +
+                    '<span class="text-muted text-sm text-right">' + fmtPlayers(peak) + '</span>';
             });
             list.innerHTML = html;
             if (showMoreLink) {

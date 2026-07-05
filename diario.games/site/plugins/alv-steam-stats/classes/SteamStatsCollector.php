@@ -120,6 +120,62 @@ class SteamStatsCollector
         return $stats;
     }
 
+    public function downloadCapsule(int $appid, ?string $slug = null): ?string
+    {
+        if (!$slug) {
+            $game = $this->db->getGameByAppId($appid);
+            if (!$game) return null;
+            $slug = $game['slug'];
+        }
+
+        // Get correct capsule URL from Steam store API
+        $apiUrl = "https://store.steampowered.com/api/appdetails?appids={$appid}";
+        $ch = curl_init($apiUrl);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 15,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
+        ]);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200 || !$response) return null;
+
+        $data = json_decode($response, true);
+        if (!is_array($data) || !isset($data[$appid]['success']) || !$data[$appid]['success']) return null;
+
+        // Prefer header_image (largest), fall back to capsule_image
+        $info = $data[$appid]['data'] ?? [];
+        $imageUrl = $info['header_image'] ?? $info['capsule_image'] ?? '';
+        if (empty($imageUrl)) return null;
+
+        $destFile = dirname(__DIR__, 4) . '/content/games/' . $slug . '/steam-capsule.jpg';
+
+        $ch = curl_init($imageUrl);
+        $fp = fopen($destFile, 'wb');
+        curl_setopt_array($ch, [
+            CURLOPT_FILE => $fp,
+            CURLOPT_TIMEOUT => 15,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
+        ]);
+        curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        fclose($fp);
+
+        if ($httpCode === 200) {
+            $size = filesize($destFile);
+            if ($size > 1000) {
+                return '/media/steam-capsule/' . $slug . '.jpg';
+            }
+        }
+
+        @unlink($destFile);
+        return null;
+    }
+
     private function fetchCurrentPlayers(int $appid): ?int
     {
         if (empty($this->apiKey)) {

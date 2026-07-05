@@ -366,6 +366,23 @@ App::plugin('alv/steam-stats', [
                 return ['status' => 'ok', 'stats' => $stats];
             }
         ],
+        [
+            'pattern' => 'media/steam-capsule/(:any).jpg',
+            'method' => 'GET',
+            'action' => function (string $slug) {
+                $file = kirby()->root('content') . '/games/' . $slug . '/steam-capsule.jpg';
+                if (!file_exists($file)) {
+                    return new \Kirby\Http\Response('', 'text/plain', 404);
+                }
+                $mime = mime_content_type($file) ?: 'image/jpeg';
+                return new \Kirby\Http\Response(
+                    file_get_contents($file),
+                    $mime,
+                    200,
+                    ['Cache-Control' => 'public, max-age=86400']
+                );
+            }
+        ],
     ],
     'templates' => [
         'steam-stats' => __DIR__ . '/templates/steam-stats.php',
@@ -406,19 +423,21 @@ App::plugin('alv/steam-stats', [
             $peak24h = $db->getPeakPlayers($appid, $now - $day);
             $peak3m = $db->getPeakPlayers($appid, $now - 90 * $day);
 
-            // Prefer freshly scraped data from stats-most-played cache when available
-            try {
-                $scrapedCache = kirby()->cache('alv/steam-stats.cache')->get('stats-most-played');
-                if (is_array($scrapedCache) && isset($scrapedCache['value'])) {
-                    foreach ($scrapedCache['value'] as $entry) {
-                        if ((int)($entry['appid'] ?? 0) === $appid && ($entry['current_players'] ?? 0) > 0) {
-                            $current = (int)$entry['current_players'];
-                            $peak24h = (int)($entry['peak_today'] ?? $peak24h);
-                            break;
+            // Fall back to scraped cache when DB has no data
+            if (($current ?? 0) === 0) {
+                try {
+                    $scrapedCache = kirby()->cache('alv/steam-stats.cache')->get('stats-most-played');
+                    if (is_array($scrapedCache) && isset($scrapedCache['value'])) {
+                        foreach ($scrapedCache['value'] as $entry) {
+                            if ((int)($entry['appid'] ?? 0) === $appid && ($entry['current_players'] ?? 0) > 0) {
+                                $current = (int)$entry['current_players'];
+                                $peak24h = (int)($entry['peak_today'] ?? $peak24h);
+                                break;
+                            }
                         }
                     }
-                }
-            } catch (\Throwable $e) {}
+                } catch (\Throwable $e) {}
+            }
 
             // Fall back to live API when DB has no data
             if ($current === null || $peak24h === null) {
