@@ -139,6 +139,9 @@ class SteamStats
             unset($game);
         } catch (\Throwable $e) {}
 
+        // Filter out games whose details API call failed (no name/capsule)
+        $games = array_values(array_filter($games, fn($g) => $g['name'] !== ''));
+
         return $games;
     }
 
