@@ -107,31 +107,36 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
 <!-- Most Played Tab -->
 <div class="steam-page-tab-content" id="most-played-full">
     <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <!-- Table Header -->
-        <div class="grid grid-cols-[50px_120px_1fr_120px_120px] gap-4 p-4 border-b border-border bg-surface-alt">
-            <span class="text-xs font-bold text-muted uppercase">#</span>
-            <span></span>
-            <span class="text-xs font-bold text-muted uppercase">Title</span>
-            <span class="text-xs font-bold text-muted uppercase text-right">Current Players</span>
-            <span class="text-xs font-bold text-muted uppercase text-right">Peak Players</span>
+        <div class="p-6 pb-4">
+            <div class="grid grid-cols-[2fr_100px_100px] gap-x-6 text-text/70 text-sm">
+                <span>Jugadores en Steam</span>
+                <span class="text-right">Ahora</span>
+                <span class="text-right">24h</span>
+            </div>
         </div>
-        <!-- Table Body -->
         <?php if (empty($mostPlayed)): ?>
             <p class="text-muted text-sm text-center py-6">No data available.</p>
         <?php else: ?>
+            <div class="divide-y divide-border/30">
             <?php foreach ($mostPlayed as $game): ?>
-            <div class="grid grid-cols-[50px_120px_1fr_120px_120px] gap-4 p-4 border-b border-border/30 hover:bg-surface-alt/50 transition">
-                <span class="text-lg font-bold text-neon-cyan"><?= $game['rank'] ?></span>
-                <img src="<?= $game['capsule_image'] ?>" alt="" class="w-[120px] h-[45px] object-cover rounded" loading="lazy">
-                <div class="flex items-center">
-                    <a href="https://store.steampowered.com/app/<?= $game['appid'] ?>/" target="_blank" rel="noopener" class="text-base font-semibold text-text hover:text-neon-cyan transition">
-                        <?= htmlspecialchars($game['name']) ?>
-                    </a>
+            <div class="grid grid-cols-[160px_1fr_100px_100px] gap-x-6 items-center px-6 py-2">
+                <div class="relative flex items-center justify-center">
+                    <span class="absolute -left-3 text-neon-cyan text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
+                    <button type="button"
+                        class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0"
+                        data-appid="<?= $game['appid'] ?>"
+                        data-name="<?= htmlspecialchars($game['name']) ?>"
+                        data-capsule="<?= $game['capsule_image'] ?>"
+                        data-current="<?= $game['current_players'] ?>"
+                        data-peak="<?= $game['peak_players'] ?>">☆</button>
+                    <img src="<?= $game['capsule_image'] ?>" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">
                 </div>
-                <span class="text-sm text-text text-right font-mono"><?= pageFormatPlayers($game['current_players']) ?></span>
-                <span class="text-sm text-muted text-right font-mono"><?= pageFormatPlayers($game['peak_players']) ?></span>
+                <span class="text-text text-base line-clamp-2"><?= htmlspecialchars($game['name']) ?></span>
+                <span class="text-text text-base text-right"><?= pageFormatPlayers($game['current_players']) ?></span>
+                <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['peak_players']) ?></span>
             </div>
             <?php endforeach ?>
+            </div>
         <?php endif ?>
     </div>
 </div>
@@ -139,31 +144,36 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
 <!-- Trending Tab -->
 <div class="steam-page-tab-content hidden" id="trending-full">
     <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <!-- Table Header -->
-        <div class="grid grid-cols-[50px_120px_1fr_150px_120px] gap-4 p-4 border-b border-border bg-surface-alt">
-            <span class="text-xs font-bold text-muted uppercase">#</span>
-            <span></span>
-            <span class="text-xs font-bold text-muted uppercase">Title</span>
-            <span class="text-xs font-bold text-muted uppercase text-center">7 Days</span>
-            <span class="text-xs font-bold text-muted uppercase text-right">Current Players</span>
+        <div class="p-6 pb-4">
+            <div class="grid grid-cols-[1fr_100px_100px] gap-x-6 text-text/70 text-sm">
+                <span>Crecimiento en Steam</span>
+                <span class="text-center">Última semana</span>
+                <span class="text-right">Ahora</span>
+            </div>
         </div>
-        <!-- Table Body -->
         <?php if (empty($trending)): ?>
             <p class="text-muted text-sm text-center py-6">No data available.</p>
         <?php else: ?>
+            <div class="divide-y divide-border/30">
             <?php foreach ($trending as $game): ?>
-            <div class="grid grid-cols-[50px_120px_1fr_150px_120px] gap-4 p-4 border-b border-border/30 hover:bg-surface-alt/50 transition">
-                <span class="text-lg font-bold text-neon-green"><?= $game['rank'] ?></span>
-                <img src="<?= $game['capsule_image'] ?>" alt="" class="w-[120px] h-[45px] object-cover rounded" loading="lazy">
-                <div class="flex items-center">
-                    <a href="https://store.steampowered.com/app/<?= $game['appid'] ?>/" target="_blank" rel="noopener" class="text-base font-semibold text-text hover:text-neon-green transition">
-                        <?= htmlspecialchars($game['name']) ?>
-                    </a>
+            <div class="grid grid-cols-[160px_1fr_200px_100px] gap-x-6 items-center px-6 py-2">
+                <div class="relative flex items-center justify-center">
+                    <span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
+                    <button type="button"
+                        class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0"
+                        data-appid="<?= $game['appid'] ?>"
+                        data-name="<?= htmlspecialchars($game['name']) ?>"
+                        data-capsule="<?= $game['capsule_image'] ?>"
+                        data-current="<?= $game['current_players'] ?>"
+                        data-peak="0">☆</button>
+                <img src="<?= $game['capsule_image'] ?>" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">
                 </div>
-                <div class="flex justify-center items-center"><?= pageSparkline($game['history'] ?? []) ?></div>
-                <span class="text-sm text-text text-right font-mono"><?= pageFormatPlayers($game['current_players']) ?></span>
+                <span class="text-text text-base line-clamp-2"><?= htmlspecialchars($game['name']) ?></span>
+                <div class="flex ml-auto items-center"><?= pageSparkline($game['history'] ?? []) ?></div>
+                <span class="text-text text-base text-right"><?= pageFormatPlayers($game['current_players']) ?></span>
             </div>
             <?php endforeach ?>
+            </div>
         <?php endif ?>
     </div>
 </div>
@@ -171,12 +181,12 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
 <!-- Favorites Tab -->
 <div class="steam-page-tab-content hidden" id="favorites-full">
     <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <div class="grid grid-cols-[50px_120px_1fr_120px_120px] gap-4 p-4 border-b border-border bg-surface-alt">
-            <span class="text-xs font-bold text-muted uppercase">#</span>
-            <span></span>
-            <span class="text-xs font-bold text-muted uppercase">Title</span>
-            <span class="text-xs font-bold text-muted uppercase text-right">Current Players</span>
-            <span class="text-xs font-bold text-muted uppercase text-right">Peak Players</span>
+        <div class="p-6 pb-4">
+            <div class="grid grid-cols-[2fr_100px_100px] gap-x-6 text-text/70 text-sm">
+                <span>Jugadores en Steam</span>
+                <span class="text-right">Ahora</span>
+                <span class="text-right">24h</span>
+            </div>
         </div>
         <div id="steam-favorites-page-list">
             <p class="text-muted text-sm text-center py-6" id="steam-favorites-page-empty">Loading...</p>
@@ -277,25 +287,60 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
         rows.forEach(function(g, i) {
             var imgSrc = g.capsule_image || '';
             var imgHtml = imgSrc
-                ? '<img src="' + imgSrc + '" alt="" class="w-[120px] h-[45px] object-cover rounded" loading="lazy">'
-                : '<div class="w-[120px] h-[45px] bg-surface-alt rounded flex items-center justify-center text-muted text-xs">--</div>';
+                ? '<img src="' + imgSrc + '" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">'
+                : '<div class="aspect-8/3 bg-surface-alt rounded flex items-center justify-center text-muted text-xl">--</div>';
             var cur = g.current_players;
             var peak = g.peak_players;
-            html += '<div class="grid grid-cols-[50px_120px_1fr_120px_120px] gap-4 p-4 border-b border-border/30 hover:bg-surface-alt/50 transition">'
-                + '<div class="flex items-center gap-2">'
-                + '<span class="text-lg font-bold text-neon-magenta">' + (i + 1) + '</span>'
-                + '<button type="button" class="steam-fav-page-remove text-xs text-muted hover:text-neon-magenta transition" data-appid="' + g.appid + '">✕</button>'
-                + '</div>'
+            html += '<div class="grid grid-cols-[160px_1fr_100px_100px] gap-x-6 items-center px-6 py-2">'
+                + '<div class="relative flex items-center justify-center">'
+                + '<span class="absolute -left-3 text-neon-magenta text-base text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + (i + 1) + '</span>'
+                + '<button type="button" class="steam-fav-page-remove absolute -right-3 text-sm text-muted hover:text-white bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + g.appid + '">✕</button>'
                 + imgHtml
-                + '<div class="flex items-center"><a href="https://store.steampowered.com/app/' + g.appid + '/" target="_blank" rel="noopener" class="text-base font-semibold text-text hover:text-neon-magenta transition">' + esc(g.name) + '</a></div>'
-                + '<span class="text-sm text-text text-right font-mono">' + fmtPlayers(cur) + '</span>'
-                + '<span class="text-sm text-muted text-right font-mono">' + fmtPlayers(peak) + '</span>'
+                + '</div>'
+                + '<span class="text-text text-base line-clamp-2">' + esc(g.name) + '</span>'
+                + '<span class="text-text text-base text-right">' + fmtPlayers(cur) + '</span>'
+                + '<span class="text-muted text-base text-right">' + fmtPlayers(peak) + '</span>'
                 + '</div>';
         });
 
         list.innerHTML = html;
         if (empty) empty.style.display = 'none';
     }
+
+    function updatePageStars() {
+        var favs;
+        try { favs = JSON.parse(localStorage.getItem(FAV_KEY) || '{}'); } catch(e) { favs = {}; }
+        document.querySelectorAll('.steam-fav-page').forEach(function(btn) {
+            var appid = btn.getAttribute('data-appid');
+            var isFav = !!favs[appid];
+            btn.textContent = isFav ? '\u2605' : '\u2606';
+            btn.classList.toggle('text-yellow-400', isFav);
+            btn.classList.toggle('text-muted', !isFav);
+        });
+    }
+
+    // Toggle favorite from star buttons
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.steam-fav-page');
+        if (!btn) return;
+        var appid = btn.getAttribute('data-appid');
+        var favs;
+        try { favs = JSON.parse(localStorage.getItem(FAV_KEY) || '{}'); } catch(e) { favs = {}; }
+        if (favs[appid]) {
+            delete favs[appid];
+        } else {
+            favs[appid] = {
+                name: btn.getAttribute('data-name'),
+                capsule_image: btn.getAttribute('data-capsule'),
+                current_players: parseInt(btn.getAttribute('data-current'), 10) || 0,
+                peak_players: parseInt(btn.getAttribute('data-peak'), 10) || 0
+            };
+        }
+        try { localStorage.setItem(FAV_KEY, JSON.stringify(favs)); } catch(e) {}
+        updatePageStars();
+        renderPageFavorites();
+        e.stopPropagation();
+    });
 
     // Tab switching (3 tabs)
     var tabs = document.querySelectorAll('.steam-page-tab');
@@ -319,6 +364,7 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
             document.querySelectorAll('.steam-page-tab-content').forEach(function(c) {
                 c.classList.toggle('hidden', c.getAttribute('id') !== target);
             });
+            updatePageStars();
         });
     });
 
@@ -346,6 +392,7 @@ $lastRun = is_array($warmCache) ? ($warmCache['value'] ?? null) : null;
         e.stopPropagation();
     });
 
+    updatePageStars();
     renderPageFavorites();
 })();
 </script>
