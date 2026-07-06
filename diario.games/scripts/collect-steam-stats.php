@@ -32,6 +32,11 @@ if ($mode === 'backfill') {
     echo "Backfilling historical data from steamcharts.com...\n";
     $stats = $collector->backfill(function ($msg) { echo "  $msg\n"; });
     echo "Fetched: {$stats['fetched']}, Inserted: {$stats['inserted']}, Errors: " . count($stats['errors']) . "\n";
+} elseif ($mode === 'peaks') {
+    echo "Collecting all-time peaks from steamcharts.com...\n";
+    $limit = (int)($argv[2] ?? 100);
+    $stats = $collector->collectAllTimePeaks(function ($msg) { echo "  $msg\n"; }, $limit);
+    echo "Fetched: {$stats['fetched']}, Errors: " . count($stats['errors']) . "\n";
 } else {
     $stats = $collector->collect();
     echo "Scanned: {$stats['scanned']}, Updated: {$stats['updated']}, Errors: " . count($stats['errors']) . "\n";
@@ -141,4 +146,16 @@ try {
     if ($downloaded > 0) echo "Downloaded $downloaded capsule images.\n";
 } catch (\Throwable $e) {
     echo "Capsule download failed: " . $e->getMessage() . "\n";
+}
+
+// Collect all-time peaks from steamcharts (100 uncached games per run)
+if ($mode !== 'backfill') {
+    try {
+        $peakStats = $collector->collectAllTimePeaks(null, 100);
+        if ($peakStats['fetched'] > 0) {
+            echo "All-time peaks fetched: {$peakStats['fetched']}\n";
+        }
+    } catch (\Throwable $e) {
+        echo "All-time peaks failed: " . $e->getMessage() . "\n";
+    }
 }

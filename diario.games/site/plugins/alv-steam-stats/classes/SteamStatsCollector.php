@@ -65,6 +65,117 @@ class SteamStatsCollector
         return $stats;
     }
 
+    public function collectAllTimePeaks(?callable $log = null, int $limit = 100): array
+    {
+        $appids = [];
+
+        // Priority 1: top games from most-played
+        try {
+            $stats = site()->steamStats()->getMostPlayed(100);
+            foreach ($stats as $g) {
+                $appids[$g['appid']] = true;
+            }
+        } catch (\Throwable $e) {}
+
+        // Priority 2: local site games
+        try {
+            foreach ($this->db->getAllGames() as $g) {
+                $appids[$g['appid']] = true;
+            }
+        } catch (\Throwable $e) {}
+
+        $allAppids = array_keys($appids);
+
+        // Filter to games not yet in game_peaks table
+        $uncached = [];
+        foreach ($allAppids as $appid) {
+            $existing = $this->db->getGamePeak($appid);
+            if ($existing === null || $existing <= 0) {
+                $uncached[] = $appid;
+                if (count($uncached) >= $limit) break;
+            }
+        }
+
+        if (empty($uncached)) {
+            $log && $log('All games already have peaks recorded.');
+            return ['fetched' => 0, 'errors' => []];
+        }
+
+        $log && $log('Fetching all-time peaks for ' . count($uncached) . ' games...');
+
+        // Fetch in parallel batches of 5 to avoid rate limiting
+        $peaks = [];
+        $chunks = array_chunk($uncached, 5);
+        foreach ($chunks as $i => $chunk) {
+            $log && $log('  Batch ' . ($i + 1) . '/' . count($chunks) . '...');
+            $batch = $this->batchFetchPeaks($chunk);
+            foreach ($batch as $appid => $peak) {
+                $peaks[$appid] = $peak;
+            }
+            if ($i < count($chunks) - 1) {
+                usleep(200000);
+            }
+        }
+
+        // Store in DB
+        $stored = 0;
+        foreach ($peaks as $appid => $peak) {
+            $this->db->upsertGamePeak($appid, $peak);
+            $stored++;
+        }
+
+        return ['fetched' => $stored, 'errors' => []];
+    }
+
+    private function batchFetchPeaks(array $appids): array
+    {
+        $results = [];
+        $handles = [];
+        $mh = curl_multi_init();
+
+        foreach ($appids as $appid) {
+            $ch = curl_init('https://steamcharts.com/app/' . $appid . '/chart-data.json');
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 10,
+                CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
+            ]);
+            curl_multi_add_handle($mh, $ch);
+            $handles[$appid] = $ch;
+        }
+
+        if (!empty($handles)) {
+            do {
+                curl_multi_exec($mh, $running);
+                curl_multi_select($mh);
+            } while ($running > 0);
+
+            foreach ($handles as $appid => $ch) {
+                $response = curl_multi_getcontent($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                if ($httpCode === 200 && $response) {
+                    $data = json_decode($response, true);
+                    if (is_array($data)) {
+                        $peak = 0;
+                        foreach ($data as $point) {
+                            if (isset($point[1]) && $point[1] > $peak) {
+                                $peak = (int)$point[1];
+                            }
+                        }
+                        if ($peak > 0) {
+                            $results[$appid] = $peak;
+                        }
+                    }
+                }
+                curl_multi_remove_handle($mh, $ch);
+                curl_close($ch);
+            }
+        }
+
+        curl_multi_close($mh);
+        return $results;
+    }
+
     public function backfill(?callable $log = null): array
     {
         $appids = $this->db->getAllAppids();

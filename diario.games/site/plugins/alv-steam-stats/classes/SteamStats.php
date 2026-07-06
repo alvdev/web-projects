@@ -49,6 +49,7 @@ class SteamStats
                 'capsule_image' => $detail['capsule_image'] ?? '',
                 'current_players' => (int)($entry['current_players'] ?? 0),
                 'peak_players' => (int)($entry['peak_today'] ?? 0),
+                'all_time_peak' => 0,
             ];
         }
 
@@ -71,6 +72,7 @@ class SteamStats
                 if ($pd) {
                     if ($pd['current_players'] > 0) $game['current_players'] = $pd['current_players'];
                     if ($pd['peak_24h'] > 0) $game['peak_players'] = $pd['peak_24h'];
+                    if ($pd['peak_all_time'] > 0) $game['all_time_peak'] = $pd['peak_all_time'];
                 }
             }
             unset($game);
@@ -122,6 +124,7 @@ class SteamStats
                 'name' => $detail['name'] ?? '',
                 'capsule_image' => $detail['capsule_image'] ?? '',
                 'current_players' => $this->getCurrentPlayers($appid),
+                'all_time_peak' => 0,
                 'momentum' => $entry['momentum'],
                 'history' => $this->getPlayerHistory($appid),
             ];
@@ -134,6 +137,9 @@ class SteamStats
                 $pd = $dbData[$game['appid']] ?? null;
                 if ($pd && $pd['current_players'] > 0) {
                     $game['current_players'] = $pd['current_players'];
+                }
+                if ($pd && $pd['peak_all_time'] > 0) {
+                    $game['all_time_peak'] = $pd['peak_all_time'];
                 }
             }
             unset($game);
@@ -168,6 +174,7 @@ class SteamStats
                 'capsule_image' => $detail['capsule_image'] ?? '',
                 'current_players' => $this->getCurrentPlayers($appid),
                 'peak_players' => $entry['peak_in_game'] ?? 0,
+                'all_time_peak' => 0,
             ];
         }
 
@@ -179,6 +186,7 @@ class SteamStats
                 if ($pd) {
                     if ($pd['current_players'] > 0) $game['current_players'] = $pd['current_players'];
                     if ($pd['peak_24h'] > 0) $game['peak_players'] = $pd['peak_24h'];
+                    if ($pd['peak_all_time'] > 0) $game['all_time_peak'] = $pd['peak_all_time'];
                 }
             }
             unset($game);

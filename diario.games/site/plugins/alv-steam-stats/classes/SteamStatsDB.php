@@ -56,6 +56,13 @@ class SteamStatsDB
             )
         ');
         $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_ph_appid ON player_history(appid)');
+        $this->pdo->exec('
+            CREATE TABLE IF NOT EXISTS game_peaks (
+                appid         INTEGER PRIMARY KEY,
+                peak_all_time INTEGER NOT NULL DEFAULT 0,
+                updated_at    INTEGER NOT NULL
+            )
+        ');
     }
 
     public function upsertGame(int $appid, string $slug, string $name, ?int $igdbId = null): void
@@ -244,6 +251,30 @@ class SteamStatsDB
         return $row['peak'] !== null ? (int)$row['peak'] : null;
     }
 
+    public function upsertGamePeak(int $appid, int $peak): void
+    {
+        $stmt = $this->pdo->prepare('
+            INSERT INTO game_peaks (appid, peak_all_time, updated_at)
+            VALUES (:appid, :peak, :now)
+            ON CONFLICT(appid) DO UPDATE SET peak_all_time = :peak2, updated_at = :now2
+        ');
+        $stmt->execute([
+            ':appid'  => $appid,
+            ':peak'   => $peak,
+            ':now'    => time(),
+            ':peak2'  => $peak,
+            ':now2'   => time(),
+        ]);
+    }
+
+    public function getGamePeak(int $appid): ?int
+    {
+        $stmt = $this->pdo->prepare('SELECT peak_all_time FROM game_peaks WHERE appid = :appid');
+        $stmt->execute([':appid' => $appid]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $row ? (int)$row['peak_all_time'] : null;
+    }
+
     public function getAllAppids(): array
     {
         $stmt = $this->pdo->query('SELECT appid FROM steam_games');
@@ -282,15 +313,36 @@ class SteamStatsDB
             $result[(int)$row['appid']]['peak_24h'] = (int)$row['peak_24h'];
         }
 
+        // All-time peak: max of collector data and steamcharts scrape
+        $stmt = $this->pdo->query('
+            SELECT appid, MAX(player_count) AS peak_all_time
+            FROM player_counts
+            GROUP BY appid
+        ');
+        foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+            $result[(int)$row['appid']]['peak_all_time'] = (int)$row['peak_all_time'];
+        }
+        $stmt = $this->pdo->query('
+            SELECT appid, peak_all_time FROM game_peaks
+        ');
+        foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+            $aid = (int)$row['appid'];
+            $gp = (int)$row['peak_all_time'];
+            if ($gp > ($result[$aid]['peak_all_time'] ?? 0)) {
+                $result[$aid]['peak_all_time'] = $gp;
+            }
+        }
+
         // Fill defaults for all known games
         $all = $this->getAllGames();
         foreach ($all as $g) {
             $appid = $g['appid'];
             if (!isset($result[$appid])) {
-                $result[$appid] = ['current_players' => 0, 'peak_24h' => 0];
+                $result[$appid] = ['current_players' => 0, 'peak_24h' => 0, 'peak_all_time' => 0];
             }
             if (!isset($result[$appid]['current_players'])) $result[$appid]['current_players'] = 0;
             if (!isset($result[$appid]['peak_24h'])) $result[$appid]['peak_24h'] = 0;
+            if (!isset($result[$appid]['peak_all_time'])) $result[$appid]['peak_all_time'] = 0;
         }
 
         return $result;

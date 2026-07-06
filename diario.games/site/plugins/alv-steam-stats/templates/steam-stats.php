@@ -114,10 +114,11 @@ function pageSparkline(array $history): string
     <!-- Most Played Tab -->
     <div class="steam-page-tab-content" id="most-played-full">
         <div class="mb-6">
-            <div class="grid grid-cols-[2fr_100px_100px] gap-x-6 text-text/70 text-sm">
+            <div class="grid grid-cols-[2fr_100px_100px_100px] gap-x-6 text-text/70 text-sm">
                 <span>Jugadores en Steam</span>
                 <span class="text-right">Ahora</span>
                 <span class="text-right">24h</span>
+                <span class="text-right">Máx. histórico</span>
             </div>
         </div>
         <?php if (empty($mostPlayed)): ?>
@@ -125,7 +126,7 @@ function pageSparkline(array $history): string
         <?php else: ?>
             <div class="divide-y divide-border/30">
                 <?php foreach (array_slice($mostPlayed, 0, 20) as $game): ?>
-                    <div class="grid grid-cols-[160px_1fr_100px_100px] gap-x-6 items-center py-2">
+                    <div class="grid grid-cols-[160px_1fr_100px_100px_100px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-3 text-neon-cyan text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
                             <button type="button"
@@ -140,6 +141,7 @@ function pageSparkline(array $history): string
                         <span class="text-text text-base line-clamp-2"><?= htmlspecialchars($game['name']) ?></span>
                         <span class="text-text text-base text-right"><?= pageFormatPlayers($game['current_players']) ?></span>
                         <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['peak_players']) ?></span>
+                        <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['all_time_peak'] ?? 0) ?></span>
                     </div>
                 <?php endforeach ?>
             </div>
@@ -150,10 +152,11 @@ function pageSparkline(array $history): string
     <!-- Trending Tab -->
     <div class="steam-page-tab-content hidden" id="trending-full">
         <div class="mb-6">
-            <div class="grid grid-cols-[1fr_100px_100px] gap-x-6 text-text/70 text-sm">
+            <div class="grid grid-cols-[1fr_100px_100px_100px] gap-x-6 text-text/70 text-sm">
                 <span>Crecimiento en Steam</span>
                 <span class="text-center">Última semana</span>
                 <span class="text-right">Ahora</span>
+                <span class="text-right">Máx. histórico</span>
             </div>
         </div>
         <?php if (empty($trending)): ?>
@@ -161,7 +164,7 @@ function pageSparkline(array $history): string
         <?php else: ?>
             <div class="divide-y divide-border/30">
                 <?php foreach (array_slice($trending, 0, 20) as $game): ?>
-                    <div class="grid grid-cols-[160px_1fr_200px_100px] gap-x-6 items-center py-2">
+                    <div class="grid grid-cols-[160px_1fr_200px_100px_100px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
                             <button type="button"
@@ -176,6 +179,7 @@ function pageSparkline(array $history): string
                         <span class="text-text text-base line-clamp-2"><?= htmlspecialchars($game['name']) ?></span>
                         <div class="flex ml-auto items-center"><?= pageSparkline($game['history'] ?? []) ?></div>
                         <span class="text-text text-base text-right"><?= pageFormatPlayers($game['current_players']) ?></span>
+                        <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['all_time_peak'] ?? 0) ?></span>
                     </div>
                 <?php endforeach ?>
             </div>
@@ -186,10 +190,11 @@ function pageSparkline(array $history): string
     <!-- Favorites Tab -->
     <div class="steam-page-tab-content hidden" id="favorites-full">
         <div class="mb-4">
-            <div class="grid grid-cols-[2fr_100px_100px] gap-x-6 text-text/70 text-sm">
+            <div class="grid grid-cols-[2fr_100px_100px_100px] gap-x-6 text-text/70 text-sm">
                 <span>Jugadores en Steam</span>
                 <span class="text-right">Ahora</span>
                 <span class="text-right">24h</span>
+                <span class="text-right">Máx. histórico</span>
             </div>
         </div>
         <div id="steam-favorites-page-list">
@@ -238,7 +243,7 @@ function pageSparkline(array $history): string
         function renderGameRow(game, tabId) {
             if (!game.capsule_image) game.capsule_image = '';
             if (tabId === 'most-played-full') {
-                return '<div class="grid grid-cols-[160px_1fr_100px_100px] gap-x-6 items-center py-2">'
+                return '<div class="grid grid-cols-[160px_1fr_100px_100px_100px] gap-x-6 items-center py-2">'
                     + '<div class="relative flex items-center justify-center">'
                     + '<span class="absolute -left-3 text-neon-cyan text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + game.rank + '</span>'
                     + '<button type="button" class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + game.appid + '" data-name="' + esc(game.name) + '" data-capsule="' + game.capsule_image + '" data-current="' + game.current_players + '" data-peak="' + game.peak_players + '">☆</button>'
@@ -247,10 +252,11 @@ function pageSparkline(array $history): string
                     + '<span class="text-text text-base line-clamp-2">' + esc(game.name) + '</span>'
                     + '<span class="text-text text-base text-right">' + fmtPlayers(game.current_players) + '</span>'
                     + '<span class="text-muted text-base text-right">' + fmtPlayers(game.peak_players) + '</span>'
+                    + '<span class="text-muted text-base text-right">' + fmtPlayers(game.all_time_peak || 0) + '</span>'
                     + '</div>';
             }
             if (tabId === 'trending-full') {
-                return '<div class="grid grid-cols-[160px_1fr_200px_100px] gap-x-6 items-center py-2">'
+                return '<div class="grid grid-cols-[160px_1fr_200px_100px_100px] gap-x-6 items-center py-2">'
                     + '<div class="relative flex items-center justify-center">'
                     + '<span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + game.rank + '</span>'
                     + '<button type="button" class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + game.appid + '" data-name="' + esc(game.name) + '" data-capsule="' + game.capsule_image + '" data-current="' + game.current_players + '" data-peak="0">☆</button>'
@@ -259,6 +265,7 @@ function pageSparkline(array $history): string
                     + '<span class="text-text text-base line-clamp-2">' + esc(game.name) + '</span>'
                     + '<div class="flex ml-auto items-center">' + buildSparkline(game.history || []) + '</div>'
                     + '<span class="text-text text-base text-right">' + fmtPlayers(game.current_players) + '</span>'
+                    + '<span class="text-muted text-base text-right">' + fmtPlayers(game.all_time_peak || 0) + '</span>'
                     + '</div>';
             }
             return '';
@@ -377,6 +384,20 @@ function pageSparkline(array $history): string
                 });
             } catch (e) {}
 
+            // Build all_time_peak map from both datasets
+            var peakMap = {};
+            games.forEach(function(g) {
+                if (g.all_time_peak) peakMap[g.appid] = g.all_time_peak;
+            });
+            try {
+                var trendEl = document.getElementById('steam-trending-data');
+                if (trendEl) {
+                    JSON.parse(trendEl.textContent).forEach(function(g) {
+                        if (g.all_time_peak) peakMap[g.appid] = g.all_time_peak;
+                    });
+                }
+            } catch(e) {}
+
             var appids = Object.keys(favs);
 
             if (appids.length === 0) {
@@ -397,7 +418,8 @@ function pageSparkline(array $history): string
                     name: g.name || 'Unknown',
                     capsule_image: capUrl,
                     current_players: g.current_players || 0,
-                    peak_players: g.peak_players || 0
+                    peak_players: g.peak_players || 0,
+                    all_time_peak: peakMap[appid] || g.all_time_peak || 0
                 });
             });
 
@@ -413,7 +435,7 @@ function pageSparkline(array $history): string
                     '<div class="aspect-8/3 bg-surface-alt rounded flex items-center justify-center text-muted text-xl">--</div>';
                 var cur = g.current_players;
                 var peak = g.peak_players;
-                html += '<div class="grid grid-cols-[160px_1fr_100px_100px] gap-x-6 items-center py-2">' +
+                html += '<div class="grid grid-cols-[160px_1fr_100px_100px_100px] gap-x-6 items-center py-2">' +
                     '<div class="relative flex items-center justify-center">' +
                     '<span class="absolute -left-3 text-neon-magenta text-base text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + (i + 1) + '</span>' +
                     '<button type="button" class="steam-fav-page-remove absolute -right-3 text-sm text-muted hover:text-white bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + g.appid + '">✕</button>' +
@@ -422,6 +444,7 @@ function pageSparkline(array $history): string
                     '<span class="text-text text-base line-clamp-2">' + esc(g.name) + '</span>' +
                     '<span class="text-text text-base text-right">' + fmtPlayers(cur) + '</span>' +
                     '<span class="text-muted text-base text-right">' + fmtPlayers(peak) + '</span>' +
+                    '<span class="text-muted text-base text-right">' + fmtPlayers(g.all_time_peak || 0) + '</span>' +
                     '</div>';
             });
 
