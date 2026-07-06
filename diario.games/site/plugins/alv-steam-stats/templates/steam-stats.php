@@ -90,6 +90,9 @@ function pageSparkline(array $history): string
 <script type="application/json" id="steam-page-data">
     <?= json_encode($mostPlayed) ?>
 </script>
+<script type="application/json" id="steam-trending-data">
+    <?= json_encode($trending) ?>
+</script>
 <script type="application/json" id="steam-slug-map">
     <?= json_encode($steamSlugMap) ?>
 </script>
@@ -121,7 +124,7 @@ function pageSparkline(array $history): string
             <p class="text-muted text-sm text-center py-6">No data available.</p>
         <?php else: ?>
             <div class="divide-y divide-border/30">
-                <?php foreach ($mostPlayed as $game): ?>
+                <?php foreach (array_slice($mostPlayed, 0, 20) as $game): ?>
                     <div class="grid grid-cols-[160px_1fr_100px_100px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-3 text-neon-cyan text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
@@ -140,6 +143,7 @@ function pageSparkline(array $history): string
                     </div>
                 <?php endforeach ?>
             </div>
+            <div data-infinite-sentinel></div>
         <?php endif ?>
     </div>
 
@@ -156,7 +160,7 @@ function pageSparkline(array $history): string
             <p class="text-muted text-sm text-center py-6">No data available.</p>
         <?php else: ?>
             <div class="divide-y divide-border/30">
-                <?php foreach ($trending as $game): ?>
+                <?php foreach (array_slice($trending, 0, 20) as $game): ?>
                     <div class="grid grid-cols-[160px_1fr_200px_100px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
@@ -175,6 +179,7 @@ function pageSparkline(array $history): string
                     </div>
                 <?php endforeach ?>
             </div>
+            <div data-infinite-sentinel></div>
         <?php endif ?>
     </div>
 
@@ -207,6 +212,110 @@ function pageSparkline(array $history): string
             var d = document.createElement('div');
             d.appendChild(document.createTextNode(s));
             return d.innerHTML;
+        }
+
+        var BATCH_SIZE = 20;
+        var renderedCount = { 'most-played-full': 20, 'trending-full': 20 };
+        var scrollObserver = null;
+
+        function buildSparkline(history) {
+            if (!history || history.length === 0) return '<span class="text-xs text-muted">No data</span>';
+            var values = history.map(function(p) { return p.players || 0; });
+            var min = Math.min.apply(null, values);
+            var max = Math.max.apply(null, values);
+            var range = max - min;
+            if (range === 0) { range = 1; min = min - 1; }
+            var points = [];
+            var count = values.length;
+            values.forEach(function(v, i) {
+                var x = count > 1 ? (i / (count - 1)) * 100 : 50;
+                var y = 30 - ((v - min) / range) * 28;
+                points.push(Math.round(x * 10) / 10 + ',' + Math.round(y * 10) / 10);
+            });
+            return '<svg width="100" height="30" viewBox="0 0 100 30"><polyline points="' + points.join(' ') + '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+        }
+
+        function renderGameRow(game, tabId) {
+            if (!game.capsule_image) game.capsule_image = '';
+            if (tabId === 'most-played-full') {
+                return '<div class="grid grid-cols-[160px_1fr_100px_100px] gap-x-6 items-center py-2">'
+                    + '<div class="relative flex items-center justify-center">'
+                    + '<span class="absolute -left-3 text-neon-cyan text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + game.rank + '</span>'
+                    + '<button type="button" class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + game.appid + '" data-name="' + esc(game.name) + '" data-capsule="' + game.capsule_image + '" data-current="' + game.current_players + '" data-peak="' + game.peak_players + '">☆</button>'
+                    + '<img src="' + game.capsule_image + '" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">'
+                    + '</div>'
+                    + '<span class="text-text text-base line-clamp-2">' + esc(game.name) + '</span>'
+                    + '<span class="text-text text-base text-right">' + fmtPlayers(game.current_players) + '</span>'
+                    + '<span class="text-muted text-base text-right">' + fmtPlayers(game.peak_players) + '</span>'
+                    + '</div>';
+            }
+            if (tabId === 'trending-full') {
+                return '<div class="grid grid-cols-[160px_1fr_200px_100px] gap-x-6 items-center py-2">'
+                    + '<div class="relative flex items-center justify-center">'
+                    + '<span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + game.rank + '</span>'
+                    + '<button type="button" class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + game.appid + '" data-name="' + esc(game.name) + '" data-capsule="' + game.capsule_image + '" data-current="' + game.current_players + '" data-peak="0">☆</button>'
+                    + '<img src="' + game.capsule_image + '" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">'
+                    + '</div>'
+                    + '<span class="text-text text-base line-clamp-2">' + esc(game.name) + '</span>'
+                    + '<div class="flex ml-auto items-center">' + buildSparkline(game.history || []) + '</div>'
+                    + '<span class="text-text text-base text-right">' + fmtPlayers(game.current_players) + '</span>'
+                    + '</div>';
+            }
+            return '';
+        }
+
+        function loadMoreRows() {
+            var visibleTab = document.querySelector('.steam-page-tab-content:not(.hidden)');
+            if (!visibleTab) return;
+            var tabId = visibleTab.id;
+            if (tabId === 'favorites-full') return;
+
+            var dataId = tabId === 'trending-full' ? 'steam-trending-data' : 'steam-page-data';
+            var dataEl = document.getElementById(dataId);
+            if (!dataEl) return;
+            var allGames;
+            try { allGames = JSON.parse(dataEl.textContent); } catch(e) { return; }
+
+            var start = renderedCount[tabId];
+            var end = Math.min(start + BATCH_SIZE, allGames.length);
+            var batch = allGames.slice(start, end);
+            if (batch.length === 0) return;
+
+            var html = '';
+            batch.forEach(function(game) {
+                html += renderGameRow(game, tabId);
+            });
+
+            var sentinel = visibleTab.querySelector('[data-infinite-sentinel]');
+            if (sentinel) {
+                sentinel.insertAdjacentHTML('beforebegin', html);
+            }
+
+            renderedCount[tabId] = end;
+            updatePageStars();
+
+            if (end < allGames.length) {
+                observeSentinel();
+            } else if (sentinel) {
+                sentinel.remove();
+            }
+        }
+
+        function observeSentinel() {
+            if (scrollObserver) scrollObserver.disconnect();
+            var visibleTab = document.querySelector('.steam-page-tab-content:not(.hidden)');
+            if (!visibleTab) return;
+            var tabId = visibleTab.id;
+            if (tabId === 'favorites-full' || renderedCount[tabId] >= 100) return;
+            var sentinel = visibleTab.querySelector('[data-infinite-sentinel]');
+            if (!sentinel) return;
+            scrollObserver = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
+                    scrollObserver.disconnect();
+                    loadMoreRows();
+                }
+            }, { rootMargin: '400px' });
+            scrollObserver.observe(sentinel);
         }
 
         function renderPageFavorites() {
@@ -388,6 +497,7 @@ function pageSparkline(array $history): string
                     c.classList.toggle('hidden', c.getAttribute('id') !== target);
                 });
                 updatePageStars();
+                observeSentinel();
             });
         });
 
@@ -423,6 +533,7 @@ function pageSparkline(array $history): string
 
         updatePageStars();
         renderPageFavorites();
+        observeSentinel();
     })();
 </script>
 
