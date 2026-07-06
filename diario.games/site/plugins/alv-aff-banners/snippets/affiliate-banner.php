@@ -67,7 +67,7 @@ foreach ($matching as $program) {
 foreach ($grouped as $bpType => $programs):
     $bpClass = "alv-aff-bp-{$bpType}";
 ?>
-<section class="alv-aff-banner-wrapper <?= $grid ? 'col-span-full py-4 my-2' : '-mx-4 px-4 py-6 my-6' ?> <?= $bpClass ?>" aria-label="Ofertas de juegos">
+<section class="alv-aff-banner-wrapper <?= $grid ? 'col-span-full' : '-mx-4 px-4' ?> <?= $bpClass ?>" aria-label="Ofertas de juegos">
     <?php foreach ($programs as $program): ?>
         <?php
         $name = htmlspecialchars($program['name'] ?? 'Affiliate', ENT_QUOTES);
