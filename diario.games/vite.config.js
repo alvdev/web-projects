@@ -5,6 +5,13 @@ import path from 'path'
 export default defineConfig({
     plugins: [tailwindcss()],
     publicDir: false,
+    server: {
+        port: 5173,
+        strictPort: true,
+        watch: {
+            ignored: ['**/sqlite/**', '**/*.db', '**/*.db-wal', '**/*.db-shm'],
+        },
+    },
     build: {
         outDir: 'public/assets',
         assetsDir: '',
@@ -16,9 +23,5 @@ export default defineConfig({
                 'steam-chart': path.resolve(__dirname, 'assets/src/js/steam-chart.js')
             }
         }
-    },
-    server: {
-        port: 5173,
-        strictPort: true
     }
 })
