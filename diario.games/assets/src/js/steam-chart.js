@@ -154,7 +154,7 @@ function initSearch() {
                     }
                     data.results.forEach(function (game) {
                         var wrapper = document.createElement('div');
-                        wrapper.className = 'relative flex items-center border-b border-border/30 last:border-0';
+                        wrapper.className = 'relative flex items-center border-b border-border/30 last:border-0 text-balance';
                         if (game.hasSteam) {
                             var star = document.createElement('button');
                             star.type = 'button';
@@ -169,8 +169,8 @@ function initSearch() {
                         a.href = '/games/' + game.slug;
                         a.className = 'flex items-center justify-between gap-1 flex-1 px-2 py-2 text-sm text-text hover:bg-surface-alt transition';
                         var info = '';
-                        if (game.platforms) info += '<span class="text-xs text-neon-cyan">' + escapeHtml(game.platforms) + '</span>';
-                        if (game.year) info += '<span class="text-xs text-muted"> • ' + escapeHtml(game.year) + '</span>';
+                        if (game.platforms) info += '<span class="text-xs text-neon-cyan">' + escapeHtml(game.platforms) + (game.year ? ' <span class="text-xs text-muted">- ' + escapeHtml(game.year) + '</span>' : '') + '</span>';
+                        else if (game.year) info += '<span class="text-xs text-muted">' + escapeHtml(game.year) + '</span>';
                         var badges = '';
                         if (game.hasSteam) badges += ' <span class="text-xs text-neon-cyan"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19V12"/><path d="M22 19V7"/></svg></span>';
                         if (!game.exists) badges += ' <span class="text-xs text-neon-magenta"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span>';
