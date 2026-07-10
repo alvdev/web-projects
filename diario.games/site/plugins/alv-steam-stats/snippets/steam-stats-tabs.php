@@ -273,9 +273,14 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
             });
 
             var appids = Object.keys(steamFavs).sort(function(a, b) {
-                var ca = (slugByAppid[a] || mostPlayedByAppid[a] || steamFavs[a]).current_players || 0;
-                var cb = (slugByAppid[b] || mostPlayedByAppid[b] || steamFavs[b]).current_players || 0;
-                return cb - ca;
+                var ga = mostPlayedByAppid[a] || slugByAppid[a] || steamFavs[a];
+                var gb = mostPlayedByAppid[b] || slugByAppid[b] || steamFavs[b];
+                var ra = mostPlayedByAppid[a] && mostPlayedByAppid[a].rank;
+                var rb = mostPlayedByAppid[b] && mostPlayedByAppid[b].rank;
+                if (ra && rb) return ra - rb;
+                if (ra) return -1;
+                if (rb) return 1;
+                return (gb.current_players || 0) - (ga.current_players || 0);
             });
             var display = appids.slice(0, 10);
 
@@ -302,7 +307,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                 var peak = g.peak_players;
                 html += '' +
                     '<div class="relative flex items-center">' +
-                    '<span class="absolute -left-2.5 text-neon-cyan text-xs text-center bg-surface/70 w-4 h-4 rounded-full z-10">' + (i + 1) + '</span>' +
+                    '<span class="absolute -left-2.5 text-neon-cyan text-xs text-center bg-surface/70 w-4 h-4 rounded-full z-10 cursor-help"' + ((mostPlayedByAppid[appid] && mostPlayedByAppid[appid].rank) ? '' : ' title="Fuera del top 100"') + '>' + ((mostPlayedByAppid[appid] && mostPlayedByAppid[appid].rank) || '-') + '</span>' +
                     '<button type="button" class="steam-fav-remove absolute -right-2 text-[10px] text-muted hover:text-white bg-surface/70 w-4 h-4 rounded-full transition z-10 leading-0" data-appid="' + appid + '">\u2715</button>' +
                     imgHtml +
                     '</div>' +

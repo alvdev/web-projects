@@ -419,11 +419,15 @@ function pageSparkline(array $history): string
                     capsule_image: capUrl,
                     current_players: g.current_players || 0,
                     peak_players: g.peak_players || 0,
-                    all_time_peak: peakMap[appid] || g.all_time_peak || 0
+                    all_time_peak: peakMap[appid] || g.all_time_peak || 0,
+                    rank: (gamesByAppid[appid] && gamesByAppid[appid].rank) || null
                 });
             });
 
             rows.sort(function(a, b) {
+                if (a.rank && b.rank) return a.rank - b.rank;
+                if (a.rank) return -1;
+                if (b.rank) return 1;
                 return b.current_players - a.current_players;
             });
 
@@ -437,7 +441,7 @@ function pageSparkline(array $history): string
                 var peak = g.peak_players;
                 html += '<div class="grid grid-cols-[160px_1fr_100px_100px_100px] gap-x-6 items-center py-2">' +
                     '<div class="relative flex items-center justify-center">' +
-                    '<span class="absolute -left-3 text-neon-magenta text-base text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + (i + 1) + '</span>' +
+                    '<span class="absolute -left-3 text-neon-magenta text-base text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75 cursor-help"' + (g.rank ? '' : ' title="Fuera del top 100"') + '>' + (g.rank || '-') + '</span>' +
                     '<button type="button" class="steam-fav-page-remove absolute -right-3 text-sm text-muted hover:text-white bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + g.appid + '">✕</button>' +
                     imgHtml +
                     '</div>' +
