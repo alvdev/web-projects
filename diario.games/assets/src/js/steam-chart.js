@@ -155,26 +155,20 @@ function initSearch() {
                     data.results.forEach(function (game) {
                         var wrapper = document.createElement('div');
                         wrapper.className = 'relative flex items-center border-b border-border/30 last:border-0 text-balance';
-                        if (game.hasSteam) {
-                            var star = document.createElement('button');
-                            star.type = 'button';
-                            star.className = 'site-fav shrink-0 px-1.5 text-sm text-muted hover:text-yellow-400 transition';
-                            star.setAttribute('data-slug', game.slug);
-                            star.setAttribute('data-title', game.name);
-                            star.setAttribute('data-cover', game.cover || '');
-                            star.textContent = '\u2606';
-                            wrapper.appendChild(star);
-                        }
                         var a = document.createElement('a');
                         a.href = '/games/' + game.slug;
                         a.className = 'flex items-center justify-between gap-1 flex-1 px-2 py-2 text-sm text-text hover:bg-surface-alt transition';
                         var info = '';
                         if (game.platforms) info += '<span class="text-xs text-neon-cyan">' + escapeHtml(game.platforms) + (game.year ? ' <span class="text-xs text-muted">- ' + escapeHtml(game.year) + '</span>' : '') + '</span>';
                         else if (game.year) info += '<span class="text-xs text-muted">' + escapeHtml(game.year) + '</span>';
+                        var titleHtml = escapeHtml(game.name);
+                        if (game.hasSteam) {
+                            titleHtml += ' <button type="button" class="site-fav inline align-text-top text-sm text-muted hover:text-yellow-400 transition" data-slug="' + game.slug + '" data-title="' + escapeHtml(game.name) + '" data-cover="' + (game.cover || '') + '">\u2606</button>';
+                        }
                         var badges = '';
                         if (game.hasSteam) badges += ' <span class="text-xs text-neon-cyan"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19V12"/><path d="M22 19V7"/></svg></span>';
                         if (!game.exists) badges += ' <span class="text-xs text-neon-magenta"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span>';
-                        a.innerHTML = '<div><div class="font-medium">' + escapeHtml(game.name) + '</div><div class="flex items-center gap-1">' + info + '</div></div>' + badges;
+                        a.innerHTML = '<div><div class="font-medium">' + titleHtml + '</div><div class="flex items-center gap-1">' + info + '</div></div>' + badges;
                         wrapper.appendChild(a);
                         results.appendChild(wrapper);
                     });
