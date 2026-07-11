@@ -6,6 +6,7 @@ $mostPlayed = $stats->getMostPlayed(100);
 $trending = $stats->getTrending(100);
 
 $steamSlugMap = [];
+$appIdToSlug = [];
 try {
     $db = new \Alv\SteamStats\SteamStatsDB();
     $playerData = $db->getAllPlayerDataCached();
@@ -22,8 +23,34 @@ try {
             'peak_players' => $pd['peak_24h'],
             'capsule_image' => $capsuleUrl,
         ];
+        $appIdToSlug[(int)$g['appid']] = $g['slug'];
     }
 } catch (\Throwable $e) {
+}
+
+$existingSlugs = [];
+foreach (site()->find('games')->children() as $p) {
+    $existingSlugs[$p->slug()] = true;
+}
+
+$gamePageUrl = function (array $game) use ($appIdToSlug): string {
+    $appid = (int)($game['appid'] ?? 0);
+    return isset($appIdToSlug[$appid])
+        ? '/games/' . $appIdToSlug[$appid]
+        : '/games/by-appid/' . $appid;
+};
+
+$needsImport = function (array $game) use ($appIdToSlug, $existingSlugs): bool {
+    $appid = (int)($game['appid'] ?? 0);
+    if (!isset($appIdToSlug[$appid])) return true;
+    return !isset($existingSlugs[$appIdToSlug[$appid]]);
+};
+
+$importNeededAppids = [];
+foreach ($appIdToSlug as $appid => $slug) {
+    if (!isset($existingSlugs[$slug])) {
+        $importNeededAppids[] = $appid;
+    }
 }
 
 function pageFormatPlayers(int $count): string
@@ -96,6 +123,9 @@ function pageSparkline(array $history): string
 <script type="application/json" id="steam-slug-map">
     <?= json_encode($steamSlugMap) ?>
 </script>
+<script type="application/json" id="steam-import-needed">
+    <?= json_encode(array_values($importNeededAppids)) ?>
+</script>
 
 <div class="bg-surface border border-border rounded-xl p-6 overflow-hidden">
     <!-- Tabs -->
@@ -126,6 +156,7 @@ function pageSparkline(array $history): string
         <?php else: ?>
             <div class="divide-y divide-border/30">
                 <?php foreach (array_slice($mostPlayed, 0, 20) as $game): ?>
+                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
                     <div class="grid grid-cols-[160px_1fr_100px_100px_100px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-3 text-neon-cyan text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
@@ -136,9 +167,9 @@ function pageSparkline(array $history): string
                                 data-capsule="<?= $game['capsule_image'] ?>"
                                 data-current="<?= $game['current_players'] ?>"
                                 data-peak="<?= $game['peak_players'] ?>">☆</button>
-                            <img src="<?= $game['capsule_image'] ?>" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">
+                            <a href="<?= $gameUrl ?>" class="block"<?= $isImporting ?>><img src="<?= $game['capsule_image'] ?>" alt="<?= htmlspecialchars($game['name']) ?>" class="aspect-8/3 object-cover rounded" loading="lazy"></a>
                         </div>
-                        <span class="text-text text-base line-clamp-2"><?= htmlspecialchars($game['name']) ?></span>
+                        <a href="<?= $gameUrl ?>" class="text-text text-base line-clamp-2 hover:underline"<?= $isImporting ?>><?= htmlspecialchars($game['name']) ?></a>
                         <span class="text-text text-base text-right"><?= pageFormatPlayers($game['current_players']) ?></span>
                         <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['peak_players']) ?></span>
                         <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['all_time_peak'] ?? 0) ?></span>
@@ -164,6 +195,7 @@ function pageSparkline(array $history): string
         <?php else: ?>
             <div class="divide-y divide-border/30">
                 <?php foreach (array_slice($trending, 0, 20) as $game): ?>
+                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
                     <div class="grid grid-cols-[160px_1fr_200px_100px_100px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
@@ -174,9 +206,9 @@ function pageSparkline(array $history): string
                                 data-capsule="<?= $game['capsule_image'] ?>"
                                 data-current="<?= $game['current_players'] ?>"
                                 data-peak="0">☆</button>
-                            <img src="<?= $game['capsule_image'] ?>" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">
+                            <a href="<?= $gameUrl ?>" class="block"<?= $isImporting ?>><img src="<?= $game['capsule_image'] ?>" alt="<?= htmlspecialchars($game['name']) ?>" class="aspect-8/3 object-cover rounded" loading="lazy"></a>
                         </div>
-                        <span class="text-text text-base line-clamp-2"><?= htmlspecialchars($game['name']) ?></span>
+                        <a href="<?= $gameUrl ?>" class="text-text text-base line-clamp-2 hover:underline"<?= $isImporting ?>><?= htmlspecialchars($game['name']) ?></a>
                         <div class="flex ml-auto items-center"><?= pageSparkline($game['history'] ?? []) ?></div>
                         <span class="text-text text-base text-right"><?= pageFormatPlayers($game['current_players']) ?></span>
                         <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['all_time_peak'] ?? 0) ?></span>
@@ -206,6 +238,38 @@ function pageSparkline(array $history): string
 <script>
     (function() {
         var FAV_KEY = 'steam-favorites-v1';
+
+        var pageSlugByAppid = {};
+        (function() {
+            var el = document.getElementById('steam-slug-map');
+            if (el) try {
+                var map = JSON.parse(el.textContent);
+                Object.keys(map).forEach(function(slug) {
+                    var entry = map[slug];
+                    if (entry && entry.appid) pageSlugByAppid[entry.appid] = slug;
+                });
+            } catch (e) {}
+        })();
+
+        var pageImportNeeded = {};
+        (function() {
+            var el = document.getElementById('steam-import-needed');
+            if (el) try {
+                JSON.parse(el.textContent).forEach(function(appid) {
+                    pageImportNeeded[appid] = true;
+                });
+            } catch (e) {}
+        })();
+
+        function gamePageUrl(appid) {
+            var slug = pageSlugByAppid[appid];
+            return slug ? '/games/' + slug : '/games/by-appid/' + appid;
+        }
+
+        function gameImportingAttr(appid) {
+            if (!pageSlugByAppid[appid]) return ' data-importing';
+            return pageImportNeeded[appid] ? ' data-importing' : '';
+        }
 
         function fmtPlayers(n) {
             if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.?0+$/, '') + 'M';
@@ -242,14 +306,16 @@ function pageSparkline(array $history): string
 
         function renderGameRow(game, tabId) {
             if (!game.capsule_image) game.capsule_image = '';
+            var url = gamePageUrl(game.appid);
+            var importingAttr = gameImportingAttr(game.appid);
             if (tabId === 'most-played-full') {
                 return '<div class="grid grid-cols-[160px_1fr_100px_100px_100px] gap-x-6 items-center py-2">'
                     + '<div class="relative flex items-center justify-center">'
                     + '<span class="absolute -left-3 text-neon-cyan text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + game.rank + '</span>'
                     + '<button type="button" class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + game.appid + '" data-name="' + esc(game.name) + '" data-capsule="' + game.capsule_image + '" data-current="' + game.current_players + '" data-peak="' + game.peak_players + '">☆</button>'
-                    + '<img src="' + game.capsule_image + '" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">'
+                    + '<a href="' + url + '" class="block"' + importingAttr + '><img src="' + game.capsule_image + '" alt="' + esc(game.name) + '" class="aspect-8/3 object-cover rounded" loading="lazy"></a>'
                     + '</div>'
-                    + '<span class="text-text text-base line-clamp-2">' + esc(game.name) + '</span>'
+                    + '<a href="' + url + '" class="text-text text-base line-clamp-2 hover:underline"' + importingAttr + '>' + esc(game.name) + '</a>'
                     + '<span class="text-text text-base text-right">' + fmtPlayers(game.current_players) + '</span>'
                     + '<span class="text-muted text-base text-right">' + fmtPlayers(game.peak_players) + '</span>'
                     + '<span class="text-muted text-base text-right">' + fmtPlayers(game.all_time_peak || 0) + '</span>'
@@ -260,9 +326,9 @@ function pageSparkline(array $history): string
                     + '<div class="relative flex items-center justify-center">'
                     + '<span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + game.rank + '</span>'
                     + '<button type="button" class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + game.appid + '" data-name="' + esc(game.name) + '" data-capsule="' + game.capsule_image + '" data-current="' + game.current_players + '" data-peak="0">☆</button>'
-                    + '<img src="' + game.capsule_image + '" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">'
+                    + '<a href="' + url + '" class="block"' + importingAttr + '><img src="' + game.capsule_image + '" alt="' + esc(game.name) + '" class="aspect-8/3 object-cover rounded" loading="lazy"></a>'
                     + '</div>'
-                    + '<span class="text-text text-base line-clamp-2">' + esc(game.name) + '</span>'
+                    + '<a href="' + url + '" class="text-text text-base line-clamp-2 hover:underline"' + importingAttr + '>' + esc(game.name) + '</a>'
                     + '<div class="flex ml-auto items-center">' + buildSparkline(game.history || []) + '</div>'
                     + '<span class="text-text text-base text-right">' + fmtPlayers(game.current_players) + '</span>'
                     + '<span class="text-muted text-base text-right">' + fmtPlayers(game.all_time_peak || 0) + '</span>'
@@ -433,9 +499,11 @@ function pageSparkline(array $history): string
 
             var html = '';
             rows.forEach(function(g, i) {
+                var url = gamePageUrl(g.appid);
+                var importingAttr = gameImportingAttr(g.appid);
                 var imgSrc = g.capsule_image || '';
                 var imgHtml = imgSrc ?
-                    '<img src="' + imgSrc + '" alt="" class="aspect-8/3 object-cover rounded" loading="lazy">' :
+                    '<a href="' + url + '" class="block"' + importingAttr + '><img src="' + imgSrc + '" alt="' + esc(g.name || '') + '" class="aspect-8/3 object-cover rounded" loading="lazy"></a>' :
                     '<div class="aspect-8/3 bg-surface-alt rounded flex items-center justify-center text-muted text-xl">--</div>';
                 var cur = g.current_players;
                 var peak = g.peak_players;
@@ -445,7 +513,7 @@ function pageSparkline(array $history): string
                     '<button type="button" class="steam-fav-page-remove absolute -right-3 text-sm text-muted hover:text-white bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + g.appid + '">✕</button>' +
                     imgHtml +
                     '</div>' +
-                    '<span class="text-text text-base line-clamp-2">' + esc(g.name) + '</span>' +
+                    '<a href="' + url + '" class="text-text text-base line-clamp-2 hover:underline"' + importingAttr + '>' + esc(g.name) + '</a>' +
                     '<span class="text-text text-base text-right">' + fmtPlayers(cur) + '</span>' +
                     '<span class="text-muted text-base text-right">' + fmtPlayers(peak) + '</span>' +
                     '<span class="text-muted text-base text-right">' + fmtPlayers(g.all_time_peak || 0) + '</span>' +

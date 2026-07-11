@@ -6,6 +6,7 @@ Chart.register(...registerables);
 document.addEventListener('DOMContentLoaded', function () {
     initSearch();
     initChart();
+    initImportOverlay();
 });
 
 function formatNumber(n) {
@@ -214,4 +215,26 @@ function escapeHtml(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
+}
+
+function initImportOverlay() {
+    var overlay = null;
+
+    function showOverlay() {
+        if (overlay) return;
+        overlay = document.createElement('div');
+        overlay.className = 'fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center pointer-events-none';
+        overlay.innerHTML =
+            '<div class="text-center">' +
+            '<div class="inline-block w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin"></div>' +
+            '<p class="text-text mt-4 text-sm font-medium">Importando juego…</p>' +
+            '<p class="text-muted mt-1 text-xs">Esto puede tardar unos segundos</p>' +
+            '</div>';
+        document.body.appendChild(overlay);
+    }
+
+    document.addEventListener('mousedown', function (e) {
+        var a = e.target.closest('a[data-importing]');
+        if (a) showOverlay();
+    });
 }

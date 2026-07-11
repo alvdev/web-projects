@@ -6,23 +6,56 @@ $mostPlayed = array_slice($mostPlayedAll, 0, 10);
 $trending = $stats->getTrending(10);
 
 $steamSlugMap = [];
+$appIdToSlug = [];
 try {
     $db = new \Alv\SteamStats\SteamStatsDB();
     $playerData = $db->getAllPlayerDataCached();
     foreach ($db->getAllGames() as $g) {
         $pd = $playerData[$g['appid']] ?? ['current_players' => 0, 'peak_24h' => 0];
         $capsulePath = dirname(__DIR__, 4) . '/content/games/' . $g['slug'] . '/steam-capsule.jpg';
+        $capsuleUrl = file_exists($capsulePath)
+            ? '/media/steam-capsule/' . $g['slug'] . '.jpg'
+            : '';
         $steamSlugMap[$g['slug']] = [
             'appid' => (string)$g['appid'],
             'name' => $g['name'],
             'current_players' => $pd['current_players'],
             'peak_players' => $pd['peak_24h'],
-            'capsule_image' => file_exists($capsulePath)
-                ? '/media/steam-capsule/' . $g['slug'] . '.jpg'
-                : '',
+            'capsule_image' => $capsuleUrl,
         ];
+        $appIdToSlug[(int)$g['appid']] = $g['slug'];
     }
 } catch (\Throwable $e) {
+}
+
+// Build set of slugs that have actual content pages (already imported).
+$existingSlugs = [];
+foreach (site()->find('games')->children() as $p) {
+    $existingSlugs[$p->slug()] = true;
+}
+
+// Resolve a Steam stats game to its game-page URL. Games already imported as
+// content pages link directly; otherwise the URL routes through an on-the-fly
+// IGDB import that redirects to the resulting page.
+$gamePageUrl = function (array $game) use ($appIdToSlug): string {
+    $appid = (int)($game['appid'] ?? 0);
+    return isset($appIdToSlug[$appid])
+        ? '/games/' . $appIdToSlug[$appid]
+        : '/games/by-appid/' . $appid;
+};
+
+$needsImport = function (array $game) use ($appIdToSlug, $existingSlugs): bool {
+    $appid = (int)($game['appid'] ?? 0);
+    if (!isset($appIdToSlug[$appid])) return true;
+    return !isset($existingSlugs[$appIdToSlug[$appid]]);
+};
+
+// Appids that need on-the-fly import (for JS-rendered rows).
+$importNeededAppids = [];
+foreach ($appIdToSlug as $appid => $slug) {
+    if (!isset($existingSlugs[$slug])) {
+        $importNeededAppids[] = $appid;
+    }
 }
 
 function steamFormatPlayers(int $count): string
@@ -98,6 +131,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
             </div>
             <div class="grid grid-cols-[80px_1fr_50px_50px] gap-x-3 gap-y-2 items-center">
                 <?php foreach ($mostPlayed as $game): ?>
+                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
                     <div class="relative flex items-center">
                         <span class="absolute -left-2.5 text-neon-cyan text-xs text-center bg-surface/70 w-4 h-4 rounded-full z-10"><?= $game['rank'] ?></span>
                         <button type="button"
@@ -107,9 +141,9 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                             data-capsule="<?= $game['capsule_image'] ?>"
                             data-current="<?= $game['current_players'] ?>"
                             data-peak="<?= $game['peak_players'] ?>">☆</button>
-                        <img src="<?= $game['capsule_image'] ?>" alt="" class="w-20 h-7.5 object-cover rounded" loading="lazy">
+                        <a href="<?= $gameUrl ?>" class="block"<?= $isImporting ?>><img src="<?= $game['capsule_image'] ?>" alt="<?= htmlspecialchars($game['name']) ?>" class="w-20 h-7.5 object-cover rounded" loading="lazy"></a>
                     </div>
-                    <span class="text-text text-xs line-clamp-2"><?= htmlspecialchars($game['name']) ?></span>
+                    <a href="<?= $gameUrl ?>" class="text-text text-xs line-clamp-2 hover:underline"<?= $isImporting ?>><?= htmlspecialchars($game['name']) ?></a>
                     <span class="text-text text-sm text-right"><?= steamFormatPlayers($game['current_players']) ?></span>
                     <span class="text-muted text-sm text-right"><?= steamFormatPlayers($game['peak_players']) ?></span>
                 <?php endforeach ?>
@@ -128,6 +162,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
             </div>
             <div class="grid grid-cols-[80px_1fr_100px_50px] gap-x-3 gap-y-2 items-center">
                 <?php foreach ($trending as $game): ?>
+                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
                     <div class="relative flex items-center">
                         <span class="absolute -left-2.5 text-neon-cyan text-xs text-center bg-surface/70 w-4 h-4 rounded-full z-10"><?= $game['rank'] ?></span>
                         <button type="button"
@@ -137,9 +172,9 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                             data-capsule="<?= $game['capsule_image'] ?>"
                             data-current="<?= $game['current_players'] ?>"
                             data-peak="0">☆</button>
-                        <img src="<?= $game['capsule_image'] ?>" alt="" class="w-20 h-7.5 object-cover rounded" loading="lazy">
+                        <a href="<?= $gameUrl ?>" class="block"<?= $isImporting ?>><img src="<?= $game['capsule_image'] ?>" alt="<?= htmlspecialchars($game['name']) ?>" class="w-20 h-7.5 object-cover rounded" loading="lazy"></a>
                     </div>
-                    <span class="text-text text-xs line-clamp-2"><?= htmlspecialchars($game['name']) ?></span>
+                    <a href="<?= $gameUrl ?>" class="text-text text-xs line-clamp-2 hover:underline"<?= $isImporting ?>><?= htmlspecialchars($game['name']) ?></a>
                     <span class="flex justify-center"><?= steamSparkline($game['history'] ?? []) ?></span>
                     <span class="text-text text-sm text-right"><?= steamFormatPlayers($game['current_players']) ?></span>
                 <?php endforeach ?>
@@ -173,6 +208,9 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
 <script type="application/json" id="steam-slug-map">
     <?= json_encode($steamSlugMap) ?>
 </script>
+<script type="application/json" id="steam-import-needed">
+    <?= json_encode(array_values($importNeededAppids)) ?>
+</script>
 <script type="application/json" id="steam-most-played-data">
     <?= json_encode(array_column($mostPlayedAll, null, 'appid')) ?>
 </script>
@@ -202,9 +240,34 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
         (function() {
             Object.keys(slugMap).forEach(function(slug) {
                 var entry = slugMap[slug];
-                if (entry && entry.appid) slugByAppid[entry.appid] = entry;
+                if (entry && entry.appid) {
+                    entry.slug = slug;
+                    slugByAppid[entry.appid] = entry;
+                }
             });
         })();
+
+        var importNeededAppids = {};
+        (function() {
+            var el = document.getElementById('steam-import-needed');
+            if (el) try {
+                JSON.parse(el.textContent).forEach(function(appid) {
+                    importNeededAppids[appid] = true;
+                });
+            } catch (e) {}
+        })();
+
+        function gamePageUrl(appid) {
+            var entry = slugByAppid[appid];
+            return entry && entry.slug ? '/games/' + entry.slug : '/games/by-appid/' + appid;
+        }
+
+        function gameImportingAttr(appid) {
+            // Appids not in slugByAppid at all always need import.
+            // Appids in slugByAppid need import only if flagged in importNeeded.
+            if (!slugByAppid[appid]) return ' data-importing';
+            return importNeededAppids[appid] ? ' data-importing' : '';
+        }
 
         function getLS(k) {
             try {
@@ -300,8 +363,9 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                 var imgSrc = g.capsule_image || (ls && ls.capsule_image) || '';
                 // Discard legacy centralized paths
                 if (imgSrc.indexOf('/assets/steam-capsules/') === 0) imgSrc = '';
+                var importingAttr = gameImportingAttr(appid);
                 var imgHtml = imgSrc ?
-                    '<img src="' + escapeAttr(imgSrc) + '" alt="" class="w-20 h-7.5 object-cover rounded" loading="lazy">' :
+                    '<a href="' + gamePageUrl(appid) + '" class="block"' + importingAttr + '><img src="' + escapeAttr(imgSrc) + '" alt="' + escapeAttr(g.name || '') + '" class="w-20 h-7.5 object-cover rounded" loading="lazy"></a>' :
                     '<div class="w-20 h-7.5 bg-surface-alt rounded flex items-center justify-center text-muted text-xs">--</div>';
                 var cur = g.current_players;
                 var peak = g.peak_players;
@@ -311,7 +375,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                     '<button type="button" class="steam-fav-remove absolute -right-2 text-[10px] text-muted hover:text-white bg-surface/70 w-4 h-4 rounded-full transition z-10 leading-0" data-appid="' + appid + '">\u2715</button>' +
                     imgHtml +
                     '</div>' +
-                    '<span class="text-text text-xs line-clamp-2">' + escapeHtml(g.name || 'Unknown') + '</span>' +
+                    '<a href="' + gamePageUrl(appid) + '" class="text-text text-xs line-clamp-2 hover:underline"' + importingAttr + '>' + escapeHtml(g.name || 'Unknown') + '</a>' +
                     '<span class="text-text text-sm text-right">' + fmtPlayers(cur) + '</span>' +
                     '<span class="text-muted text-sm text-right">' + fmtPlayers(peak) + '</span>';
             });

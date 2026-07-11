@@ -47,6 +47,41 @@ return [
             },
         ],
         [
+            'pattern' => 'games/by-appid/(:num)',
+            'method' => 'GET',
+            'action' => function (string $appidStr) {
+                $appid = (int) $appidStr;
+
+                // 1. Already imported → permanent redirect to the game page.
+                try {
+                    $db = new \Alv\SteamStats\SteamStatsDB();
+                    $game = $db->getGameByAppId($appid);
+                    if ($game && page('games/' . $game['slug'])) {
+                        go('/games/' . $game['slug'], 301);
+                    }
+                } catch (\Throwable $e) {}
+
+                // 2. Resolve the IGDB slug for this Steam appid, then hand off to the
+                //    existing /games/(:any) route which already handles on-the-fly import.
+                $config = kirby()->option('igdb');
+                if (!empty($config['client_id']) && !empty($config['client_secret'])) {
+                    try {
+                        require_once dirname(__DIR__, 2) . '/site/plugins/alv-igdb/classes/IGDBClient.php';
+                        $client = new \DiarioGames\IGDB\IGDBClient($config['client_id'], $config['client_secret']);
+                        $gameData = $client->fetchGameBySteamAppId($appid);
+                        if (!empty($gameData['slug'])) {
+                            go('/games/' . $gameData['slug'], 302);
+                        }
+                    } catch (\Throwable $e) {
+                        error_log('by-appid slug lookup failed for ' . $appid . ': ' . $e->getMessage());
+                    }
+                }
+
+                // 3. Could not resolve a slug — fall back to the Steam store page.
+                go('https://store.steampowered.com/app/' . $appid, 302);
+            }
+        ],
+        [
             'pattern' => 'games/(:any)',
             'method' => 'GET',
             'action' => function (string $slug) {
@@ -85,12 +120,28 @@ return [
                     }
 
                     // Fallback: search IGDB when direct slug lookup fails
-                    // This handles URLs with digit slugs where IGDB uses roman numerals
-                    $igdbResults = $client->searchGames($slug);
+                    // Replace dashes with spaces — IGDB search expects natural-language queries, not URL slugs.
+                    $searchQuery = str_replace('-', ' ', $slug);
+                    $igdbResults = $client->searchGames($searchQuery);
+
+                    // If no results found, retry with a broader query (drop last word)
+                    // e.g. "grand theft auto 5 legacy" → "grand theft auto 5"
+                    if (empty($igdbResults)) {
+                        $words = explode(' ', $searchQuery);
+                        if (count($words) > 2) {
+                            array_pop($words);
+                            $broaderQuery = implode(' ', $words);
+                            $igdbResults = $client->searchGames($broaderQuery);
+                        }
+                    }
+
+                    $imported = false;
                     foreach ($igdbResults as $ig) {
                         $igdbSlug = $ig['slug'] ?? '';
                         if (!$igdbSlug) continue;
-                        if (\DiarioGames\IGDB\romanToDigits($igdbSlug) !== $slug) continue;
+                        // Strip IGDB duplicate suffix (--N) before normalizing roman numerals
+                        $canonicalSlug = preg_replace('/--\d+$/', '', $igdbSlug);
+                        if (\DiarioGames\IGDB\romanToDigits($canonicalSlug) !== $slug) continue;
                         if (\DiarioGames\IGDB\GameImporter::isExcluded($ig)) continue;
 
                         // If a local page with this IgdbId already exists, redirect to it
@@ -101,9 +152,29 @@ return [
                             go($existingPage->url());
                         }
 
+                        // Use the canonical slug (without --N suffix) so the content
+                        // directory matches the requested URL path.
+                        $ig['slug'] = $canonicalSlug;
                         $result = $importer->import($ig);
                         if ($result) {
                             go('/games/' . $result);
+                        }
+                        $imported = true;
+                    }
+
+                    // If no exact slug match was found, fall back to importing the
+                    // closest IGDB result under the requested slug.  This handles
+                    // Steam-specific sub-editions (e.g. "Legacy") that don't have a
+                    // dedicated IGDB entry — the base game data is imported instead.
+                    if (!$imported && !empty($igdbResults)) {
+                        foreach ($igdbResults as $ig) {
+                            if (\DiarioGames\IGDB\GameImporter::isExcluded($ig)) continue;
+                            $ig['slug'] = $slug;
+                            $result = $importer->import($ig);
+                            if ($result) {
+                                go('/games/' . $result);
+                            }
+                            break;
                         }
                     }
                 } catch (\Throwable $e) {

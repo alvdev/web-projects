@@ -108,6 +108,20 @@ class IGDBClient
         return $result[0] ?? null;
     }
 
+    public function fetchGameBySteamAppId(int $appid): ?array
+    {
+        // IGDB's external_games endpoint: category 1 = Steam, uid is the Steam appid (stored as string)
+        $safe = addslashes((string) $appid);
+        $external = $this->post('external_games', "fields game; where category = 1 & uid = \"{$safe}\"; limit 5;");
+        if (!is_array($external) || empty($external)) return null;
+        foreach ($external as $e) {
+            if (!empty($e['game'])) {
+                return $this->fetchGameById((int) $e['game']);
+            }
+        }
+        return null;
+    }
+
     public function searchGames(string $query): array
     {
         $safe = addslashes($query);
