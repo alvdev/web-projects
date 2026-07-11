@@ -220,6 +220,23 @@ App::plugin('alv/steam-stats', [
                                 ];
                             }
 
+                            // Fetch cover image IDs for non-local IGDB entries
+                            $coverByGameId = [];
+                            $needCovers = [];
+                            foreach ($annotated as $entry) {
+                                if ($entry['localMatch']) continue;
+                                if (!empty($entry['igdbId'])) $needCovers[] = $entry['igdbId'];
+                            }
+                            if (!empty($needCovers)) {
+                                $needCovers = array_values(array_unique($needCovers));
+                                $coversData = $client->fetchCovers($needCovers);
+                                foreach ($coversData as $c) {
+                                    if (!empty($c['game']) && !empty($c['image_id'])) {
+                                        $coverByGameId[$c['game']] = $c['image_id'];
+                                    }
+                                }
+                            }
+
                             // Group by name, dedup: prefer local > steam-in-db > has-steam-link > first
                             $grouped = [];
                             foreach ($annotated as $entry) {
@@ -262,7 +279,8 @@ App::plugin('alv/steam-stats', [
                                         $results[] = $entry['localMatch'];
                                     } else {
                                         $hasSteam = $entry['steamInDb'];
-                                        $coverUrl = !empty($entry['ig']['cover']['url']) ? str_replace('t_thumb', 't_cover_big', $entry['ig']['cover']['url']) : '';
+                                        $coverImgId = $coverByGameId[$entry['igdbId']] ?? null;
+                                        $coverUrl = $coverImgId ? \DiarioGames\IGDB\igdbImageUrl($coverImgId, 'cover_big') : '';
                                         $results[] = [
                                             'slug' => $entry['slug'],
                                             'name' => $entry['name'],
