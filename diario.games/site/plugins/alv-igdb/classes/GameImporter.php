@@ -266,6 +266,59 @@ class GameImporter
         return $this->import($data);
     }
 
+    /**
+     * Import a game from IGDB, resolving the slug against IGDB's database with
+     * fallback logic: direct slug lookup → natural-language search → broader
+     * search → exact suffix-normalised match → best-effort import.
+     *
+     * Returns the content slug on success, or null if no IGDB game was found
+     * or all candidates failed import.
+     */
+    public function importBySlugWithFallback(string $requestedSlug): ?string
+    {
+        // 1. Direct IGDB slug lookup
+        $result = $this->importBySlug($requestedSlug);
+        if ($result) return $result;
+
+        // 2. Natural-language search (dashes → spaces)
+        $searchQuery = str_replace('-', ' ', $requestedSlug);
+        $igdbResults = $this->client->searchGames($searchQuery);
+
+        // 3. Broader search: drop the last word (e.g. "grand theft auto 5 legacy" → "grand theft auto 5")
+        if (empty($igdbResults)) {
+            $words = explode(' ', $searchQuery);
+            if (count($words) > 2) {
+                array_pop($words);
+                $igdbResults = $this->client->searchGames(implode(' ', $words));
+            }
+        }
+
+        if (empty($igdbResults)) return null;
+
+        // 4. Exact match: strip IGDB duplicate suffix (--N), normalise roman
+        //    numerals, and compare against the requested slug.
+        foreach ($igdbResults as $ig) {
+            $igdbSlug = $ig['slug'] ?? '';
+            if (!$igdbSlug) continue;
+            $canonicalSlug = preg_replace('/--\d+$/', '', $igdbSlug);
+            if (\DiarioGames\IGDB\romanToDigits($canonicalSlug) !== $requestedSlug) continue;
+            if (self::isExcluded($ig)) continue;
+            $ig['slug'] = $canonicalSlug;
+            return $this->import($ig);
+        }
+
+        // 5. Best-effort fallback: import the first non-excluded IGDB result
+        //    under the requested slug.  Handles Steam-specific sub-editions
+        //    (e.g. "Legacy") that have no dedicated IGDB entry.
+        foreach ($igdbResults as $ig) {
+            if (self::isExcluded($ig)) continue;
+            $ig['slug'] = $requestedSlug;
+            return $this->import($ig);
+        }
+
+        return null;
+    }
+
     private function resolveGenresAndTags(array $gameData): array
     {
         $genreIds = $this->extractIds($gameData['genres'] ?? []);
