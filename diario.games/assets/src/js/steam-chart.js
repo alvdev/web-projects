@@ -159,6 +159,7 @@ function initSearch() {
                         var a = document.createElement('a');
                         a.href = '/games/' + game.slug;
                         a.className = 'flex items-center justify-between gap-2 flex-1 px-2 py-2 text-sm text-text hover:bg-surface-alt transition';
+                        if (!game.exists) a.setAttribute('data-importing', '');
                         var coverHtml = game.cover
                             ? '<img src="' + escapeHtml(game.cover) + '" alt="' + escapeHtml(game.name) + '" class="w-8 h-12 object-cover rounded shrink-0 bg-surface-alt">'
                             : '<div class="w-8 h-12 rounded shrink-0 bg-surface-alt flex items-center justify-center text-muted text-[8px] text-center leading-tight">Sin imagen</div>';
