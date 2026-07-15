@@ -100,3 +100,21 @@ h2 {
 .lightbox-next {
     @apply right-4;
 }
+
+.steam-search-results {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-neon-magenta) transparent;
+}
+
+.steam-search-results::-webkit-scrollbar {
+    width: 10px;
+}
+
+.steam-search-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.steam-search-results::-webkit-scrollbar-thumb {
+    background: var(--color-neon-magenta);
+    border-radius: 10px;
+}
