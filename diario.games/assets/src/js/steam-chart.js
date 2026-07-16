@@ -5,7 +5,6 @@ Chart.register(...registerables);
 
 document.addEventListener('DOMContentLoaded', function () {
     initSearch();
-    initCategoriesPopup();
     initChart();
     initImportOverlay();
 });
@@ -217,31 +216,6 @@ function escapeHtml(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
-}
-
-function initCategoriesPopup() {
-    var container = document.getElementById('categories-nav');
-    if (!container) return;
-
-    var btn = container.querySelector('.categories-toggle');
-    var popup = container.querySelector('.categories-popup');
-
-    btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        popup.classList.toggle('hidden');
-    });
-
-    document.addEventListener('click', function (e) {
-        if (!container.contains(e.target)) {
-            popup.classList.add('hidden');
-        }
-    });
-
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
-            popup.classList.add('hidden');
-        }
-    });
 }
 
 function initImportOverlay() {

@@ -118,3 +118,17 @@ h2 {
     background: var(--color-neon-magenta);
     border-radius: 10px;
 }
+
+#categories-nav {
+    anchor-name: --categories-btn;
+}
+
+#categories-popup:popover-open {
+    position: absolute;
+    inset: auto;
+    margin: 0;
+    position-anchor: --categories-btn;
+    top: anchor(bottom);
+    right: anchor(right);
+    margin-top: 4px;
+}

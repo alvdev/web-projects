@@ -15,11 +15,12 @@ $perColumn = (int) ceil($total / 3);
 $columns = array_chunk($genreKeys, $perColumn);
 ?>
 <div id="categories-nav" class="relative shrink-0">
-    <button type="button"
-        class="categories-toggle px-3 py-1.5 text-sm bg-surface border border-border rounded-lg text-text hover:border-neon-cyan transition whitespace-nowrap">
+    <button type="button" popovertarget="categories-popup"
+        class="px-3 py-1.5 text-sm bg-surface border border-border rounded-lg text-text hover:border-neon-cyan transition whitespace-nowrap">
         Categorías
     </button>
-    <div class="categories-popup hidden absolute top-full right-0 mt-1 w-[560px] max-w-[90vw] bg-surface border border-border rounded-lg shadow-xl z-50 p-4">
+    <div id="categories-popup" popover
+         class="w-140 max-w-[90vw] bg-surface border border-border rounded-lg shadow-xl z-50 p-4">
         <div class="flex gap-4">
             <?php foreach ($columns as $i => $colGenres): ?>
             <div class="flex-1 flex flex-col gap-1">
