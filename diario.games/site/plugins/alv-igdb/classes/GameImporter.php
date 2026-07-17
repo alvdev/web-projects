@@ -132,7 +132,7 @@ class GameImporter
                 $content = file_get_contents($path);
                 if ($content !== false && preg_match('/^IgdbId:\s*' . preg_quote($gameId, '/') . '\s*$/m', $content)) {
                     $existingSlug = basename(dirname($path));
-                    echo "  skipped: {$gameData['name']} (already exists at /games/{$existingSlug})\n";
+                    echo "  skipped: {$gameData['name']} (already exists at /{$existingSlug})\n";
                     return $existingSlug;
                 }
             }

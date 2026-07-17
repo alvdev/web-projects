@@ -2,6 +2,11 @@
 
 class GamePage extends \Kirby\Cms\Page
 {
+    public function url($options = null): string
+    {
+        return $this->kirby()->url('base') . '/' . $this->slug();
+    }
+
     public function genres(): string
     {
         return $this->content()->get('genres')->value() ?? '';

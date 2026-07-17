@@ -57,12 +57,12 @@ return [
                     $db = new \Alv\SteamStats\SteamStatsDB();
                     $game = $db->getGameByAppId($appid);
                     if ($game && page('games/' . $game['slug'])) {
-                        go('/games/' . $game['slug'], 301);
+                        go('/' . $game['slug'], 301);
                     }
                 } catch (\Throwable $e) {}
 
                 // 2. Resolve the IGDB slug for this Steam appid, then hand off to the
-                //    existing /games/(:any) route which already handles on-the-fly import.
+                //    root-level game route which already handles on-the-fly import.
                 $config = kirby()->option('igdb');
                 if (!empty($config['client_id']) && !empty($config['client_secret'])) {
                     try {
@@ -70,7 +70,7 @@ return [
                         $client = new \DiarioGames\IGDB\IGDBClient($config['client_id'], $config['client_secret']);
                         $gameData = $client->fetchGameBySteamAppId($appid);
                         if (!empty($gameData['slug'])) {
-                            go('/games/' . $gameData['slug'], 302);
+                            go('/' . $gameData['slug'], 302);
                         }
                     } catch (\Throwable $e) {
                         error_log('by-appid slug lookup failed for ' . $appid . ': ' . $e->getMessage());
@@ -82,9 +82,19 @@ return [
             }
         ],
         [
-            'pattern' => 'games/(:any)',
+            'pattern' => '(:any)',
             'method' => 'GET',
             'action' => function (string $slug) {
+                $reserved = ['search', 'genre', 'steam-stats', 'error', 'home'];
+                if (in_array($slug, $reserved)) {
+                    return page($slug);
+                }
+
+                $kirbyPage = page($slug);
+                if ($kirbyPage && $kirbyPage->intendedTemplate()->name() !== 'game') {
+                    return $kirbyPage;
+                }
+
                 $igdbRoot = dirname(__DIR__, 2);
                 require_once $igdbRoot . '/site/plugins/alv-igdb/classes/helpers.php';
 
@@ -97,7 +107,7 @@ return [
                         if (is_dir($oldDir) && !is_dir($newDir)) {
                             rename($oldDir, $newDir);
                         }
-                        go('/games/' . $canonical, 301);
+                        go('/' . $canonical, 301);
                     }
                     return $page;
                 }
@@ -116,7 +126,7 @@ return [
                     $result = $importer->importBySlugWithFallback($slug);
 
                     if ($result) {
-                        go('/games/' . $result);
+                        go('/' . $result);
                     }
                 } catch (\Throwable $e) {
                     error_log('IGDB import error for ' . $slug . ': ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());

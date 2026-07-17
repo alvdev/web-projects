@@ -40,7 +40,7 @@ foreach (site()->find('games')->children() as $p) {
 $gamePageUrl = function (array $game) use ($appIdToSlug): string {
     $appid = (int)($game['appid'] ?? 0);
     return isset($appIdToSlug[$appid])
-        ? '/games/' . $appIdToSlug[$appid]
+        ? '/' . $appIdToSlug[$appid]
         : '/games/by-appid/' . $appid;
 };
 
@@ -259,7 +259,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
 
         function gamePageUrl(appid) {
             var entry = slugByAppid[appid];
-            return entry && entry.slug ? '/games/' + entry.slug : '/games/by-appid/' + appid;
+            return entry && entry.slug ? '/' + entry.slug : '/games/by-appid/' + appid;
         }
 
         function gameImportingAttr(appid) {

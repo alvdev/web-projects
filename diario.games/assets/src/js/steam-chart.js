@@ -157,7 +157,7 @@ function initSearch() {
                         var wrapper = document.createElement('div');
                         wrapper.className = 'relative flex items-center border-b border-border/30 last:border-0 text-balance';
                         var a = document.createElement('a');
-                        a.href = '/games/' + game.slug;
+                        a.href = '/' + game.slug;
                         a.className = 'flex items-center justify-between gap-2 flex-1 px-2 py-2 text-sm text-text hover:bg-surface-alt transition';
                         if (!game.exists) a.setAttribute('data-importing', '');
                         var coverHtml = game.cover
