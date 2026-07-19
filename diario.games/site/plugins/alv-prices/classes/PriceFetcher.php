@@ -118,7 +118,22 @@ class PriceFetcher
 
         $itadKey = env('ITAD_API_KEY', '');
         if ($itadKey) {
-            $instance->setItad(new ItadAdapter($itadKey));
+            $affiliateIds = [];
+            $affMap = [
+                'GreenManGaming'  => 'PRICE_GREENMANGAMING_AFF_ID',
+                'Fanatical'       => 'PRICE_FANATICAL_AFF_ID',
+                'Humble Store'    => 'PRICE_HUMBLE_AFF_ID',
+                'GamersGate'      => 'PRICE_GAMERSGATE_AFF_ID',
+                'GameBillet'      => 'PRICE_GAMEBILLET_AFF_ID',
+                'Instant Gaming'  => 'INSTANT_GAMING_IGR',
+            ];
+            foreach ($affMap as $store => $envKey) {
+                $val = env($envKey, '');
+                if ($val) {
+                    $affiliateIds[$store] = $val;
+                }
+            }
+            $instance->setItad(new ItadAdapter($itadKey, $affiliateIds));
         }
 
         return $instance;

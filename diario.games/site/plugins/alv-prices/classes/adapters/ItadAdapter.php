@@ -10,32 +10,34 @@ class ItadAdapter extends StoreAdapter
     protected string $logo = 'itad';
     private string $apiKey;
     private string $country;
+    private array $affiliateIds;
 
     private const BASE = 'https://api.isthereanydeal.com';
 
     private array $storeMap = [
-        'Steam'            => ['logo' => 'steam'],
-        'GOG'              => ['logo' => 'gogdotcom'],
-        'Epic Games Store' => ['logo' => 'epicgames'],
-        'GreenManGaming'   => ['logo' => 'greenmangaming'],
-        'Fanatical'        => ['logo' => 'fanatical'],
-        'Humble Store'     => ['logo' => 'humble'],
-        'GameBillet'       => ['logo' => 'gamebillet'],
-        'GamersGate'       => ['logo' => 'gamersgate'],
-        'AllYouPlay'       => ['logo' => 'allyouplay'],
-        'IndieGala Store'  => ['logo' => 'indiegala'],
-        'GamesPlanet US'   => ['logo' => 'gamesplanet'],
-        'GamesPlanet FR'   => ['logo' => 'gamesplanet'],
-        'GamesPlanet DE'   => ['logo' => 'gamesplanet'],
-        'GamesPlanet UK'   => ['logo' => 'gamesplanet'],
-        'WinGameStore'     => ['logo' => 'wingamestore'],
-        'JoyBuggy'         => ['logo' => 'joybuggy'],
-        'eTail.Market'     => ['logo' => 'etail'],
+        'Steam'            => ['logo' => 'steam',            'domain' => 'store.steampowered.com'],
+        'GOG'              => ['logo' => 'gogdotcom',        'domain' => 'gog.com'],
+        'Epic Games Store' => ['logo' => 'epicgames',        'domain' => 'store.epicgames.com'],
+        'GreenManGaming'   => ['logo' => 'greenmangaming',   'domain' => 'greenmangaming.com'],
+        'Fanatical'        => ['logo' => 'fanatical',        'domain' => 'fanatical.com'],
+        'Humble Store'     => ['logo' => 'humble',           'domain' => 'humblebundle.com'],
+        'GameBillet'       => ['logo' => 'gamebillet',       'domain' => 'gamebillet.com'],
+        'GamersGate'       => ['logo' => 'gamersgate',       'domain' => 'gamersgate.com'],
+        'AllYouPlay'       => ['logo' => 'allyouplay',       'domain' => 'allyouplay.com'],
+        'IndieGala Store'  => ['logo' => 'indiegala',        'domain' => 'indiegala.com'],
+        'GamesPlanet US'   => ['logo' => 'gamesplanet',      'domain' => 'gamesplanet.com'],
+        'GamesPlanet FR'   => ['logo' => 'gamesplanet',      'domain' => 'gamesplanet.com'],
+        'GamesPlanet DE'   => ['logo' => 'gamesplanet',      'domain' => 'gamesplanet.com'],
+        'GamesPlanet UK'   => ['logo' => 'gamesplanet',      'domain' => 'gamesplanet.com'],
+        'WinGameStore'     => ['logo' => 'wingamestore',     'domain' => 'wingamestore.com'],
+        'JoyBuggy'         => ['logo' => 'joybuggy',         'domain' => 'joybuggy.com'],
+        'eTail.Market'     => ['logo' => 'etail',            'domain' => 'etail.market'],
     ];
 
-    public function __construct(string $apiKey, string $country = 'ES')
+    public function __construct(string $apiKey, array $affiliateIds = [], string $country = 'ES')
     {
         $this->apiKey = $apiKey;
+        $this->affiliateIds = $affiliateIds;
         $this->country = $country;
     }
 
@@ -71,7 +73,7 @@ class ItadAdapter extends StoreAdapter
             return [];
         }
 
-        return $this->fetchPrices($gameId);
+        return $this->fetchPrices($gameId, $gameName, $appid);
     }
 
     private function lookupGame(string $gameName, ?int $appid): ?string
@@ -101,7 +103,7 @@ class ItadAdapter extends StoreAdapter
         return null;
     }
 
-    private function fetchPrices(string $gameId): array
+    private function fetchPrices(string $gameId, string $gameName, ?int $appid): array
     {
         $url = self::BASE . "/games/prices/v3?key={$this->apiKey}&country={$this->country}";
 
@@ -152,6 +154,8 @@ class ItadAdapter extends StoreAdapter
                 $platformNames[] = $p['name'];
             }
 
+            $storeUrl = $this->resolveStoreUrl($deal['url'] ?? '', $shopName);
+
             $results[] = [
                 'storeName'    => $shopName,
                 'storeLogo'    => $storeInfo['logo'],
@@ -159,11 +163,108 @@ class ItadAdapter extends StoreAdapter
                 'initialPrice' => $regular !== $price ? (float) $regular : null,
                 'discount'     => $cut > 0 ? $cut : null,
                 'currency'     => $deal['price']['currency'] ?? $this->currency,
-                'url'          => $deal['url'] ?? '',
+                'url'          => $storeUrl,
                 'platforms'    => implode(', ', $platformNames),
             ];
         }
 
         return $results;
+    }
+
+    private function resolveStoreUrl(string $itadUrl, string $storeName): string
+    {
+        $affId = $this->affiliateIds[$storeName] ?? '';
+
+        if (empty($itadUrl)) {
+            return $this->buildFallbackUrl($storeName, $affId);
+        }
+
+        $resolved = $this->followRedirect($itadUrl);
+        if ($resolved === null) {
+            return $this->buildFallbackUrl($storeName, $affId);
+        }
+
+        if ($affId === '') {
+            return $resolved;
+        }
+
+        return $this->appendAffiliate($resolved, $storeName, $affId);
+    }
+
+    private function followRedirect(string $url): ?string
+    {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS      => 8,
+            CURLOPT_TIMEOUT        => 15,
+            CURLOPT_NOBODY         => false,
+            CURLOPT_USERAGENT      => 'Mozilla/5.0 (compatible; DiarioGames/1.0)',
+        ]);
+        curl_exec($ch);
+        $finalUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode >= 400 || empty($finalUrl) || $finalUrl === $url) {
+            return null;
+        }
+
+        return $finalUrl;
+    }
+
+    private function appendAffiliate(string $url, string $storeName, string $affId): string
+    {
+        $params = match ($storeName) {
+            'GreenManGaming'  => 'utm_source=affiliate&utm_medium=link&utm_campaign=',
+            'Fanatical'       => 'ref=',
+            'Humble Store'    => 'partner=',
+            'GamersGate'      => 'aff=',
+            'GameBillet'      => 'affiliate=',
+            default           => 'ref=',
+        };
+
+        $parsed = parse_url($url);
+        if ($parsed === false) {
+            return $url;
+        }
+
+        $base = ($parsed['scheme'] ?? 'https') . '://' . ($parsed['host'] ?? '');
+        $base .= $parsed['path'] ?? '/';
+
+        $queryParams = [];
+        if (isset($parsed['query'])) {
+            parse_str($parsed['query'], $queryParams);
+        }
+
+        $stripKeys = ['ref', 'aff', 'affiliate', 'partner', 'utm_source', 'utm_medium',
+            'utm_campaign', 'utm_content', 'utm_term', 'awc', 'irclickid', 'irgwc',
+            'sharedid', 'irpid', 'tracking', 'sv1', 'sv_campaign_id', 'utm_publisherID',
+            'utm_publisherurl', 'utm_promotiontype', 'publisherID', 'publisherurl',
+            'promotiontype', 'afsrc'];
+
+        foreach ($stripKeys as $k) {
+            unset($queryParams[$k]);
+        }
+
+        $sep = str_contains($base, '?') ? '&' : '?';
+        $base .= $sep . $params . urlencode($affId);
+
+        if (!empty($queryParams)) {
+            $base .= '&' . http_build_query($queryParams);
+        }
+
+        return $base;
+    }
+
+    private function buildFallbackUrl(string $storeName, string $affId): string
+    {
+        $domain = $this->storeMap[$storeName]['domain'] ?? '';
+        $url = "https://{$domain}/";
+        if ($affId) {
+            $url .= '?ref=' . urlencode($affId);
+        }
+        return $url;
     }
 }

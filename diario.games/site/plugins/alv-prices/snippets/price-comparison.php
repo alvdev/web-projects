@@ -67,6 +67,8 @@ $resolveFavicon = function (string $domain) use ($faviconDir): string {
             ?>
             <a href="<?= htmlspecialchars($url) ?>"
                target="_blank" rel="noopener sponsored"
+               data-store="<?= htmlspecialchars($item['storeName'] ?? '') ?>"
+               data-price="<?= $price ?>"
                class="flex items-center gap-4 p-4 bg-surface border border-border rounded-xl
                       hover:border-neon-cyan/50 hover:bg-surface-alt transition group">
                 <?php
