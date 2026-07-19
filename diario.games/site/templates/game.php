@@ -213,6 +213,9 @@
     </div>
 <?php endif ?>
 
+<?php $prices = $site->priceComparison($page->slug(), $page->title()->value()) ?>
+<?php snippet('price-comparison', ['prices' => $prices]) ?>
+
 <?php $shots = $page->screenshots() ?>
 <?php if (!empty($shots)): ?>
     <div class="mt-8 pt-8 border-t border-border">
