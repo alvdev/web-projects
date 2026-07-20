@@ -18,6 +18,7 @@ $storeFavicons = [
     'WinGameStore'     => 'wingamestore.com',
     'JoyBuggy'         => 'joybuggy.com',
     'eTail.Market'     => 'etail.market',
+    'Instant Gaming'   => 'instant-gaming.com',
 ];
 
 $faviconDir = __DIR__ . '/../favicons';
@@ -29,8 +30,16 @@ $resolveFavicon = function (string $domain) use ($faviconDir): string {
     $file = $faviconDir . '/' . $domain . '.png';
     if (!file_exists($file)) {
         $src = 'https://www.google.com/s2/favicons?domain=' . urlencode($domain) . '&sz=32';
-        $img = @file_get_contents($src);
-        if ($img !== false) {
+        $ch = curl_init($src);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT        => 5,
+            CURLOPT_USERAGENT      => 'Mozilla/5.0',
+        ]);
+        $img = curl_exec($ch);
+        curl_close($ch);
+        if ($img !== false && strlen($img) > 100) {
             @file_put_contents($file, $img);
         }
     }

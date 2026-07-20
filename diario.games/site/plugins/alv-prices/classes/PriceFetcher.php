@@ -3,12 +3,14 @@
 namespace Alv\Prices;
 
 use Alv\Prices\Adapters\ItadAdapter;
+use Alv\Prices\Adapters\InstantGamingAdapter;
 use Alv\SteamStats\SteamStatsDB;
 
 class PriceFetcher
 {
     private StorePriceDB $db;
     private ?ItadAdapter $itad = null;
+    private array $adapters = [];
     private int $cacheTtl;
 
     public function __construct(?StorePriceDB $db = null, int $cacheTtl = 86400)
@@ -22,6 +24,11 @@ class PriceFetcher
         $this->itad = $adapter;
     }
 
+    public function register(StoreAdapter $adapter): void
+    {
+        $this->adapters[] = $adapter;
+    }
+
     public function fetch(string $slug, string $gameName): array
     {
         $appid = $this->resolveAppid($slug);
@@ -29,30 +36,67 @@ class PriceFetcher
         $cached = $this->db->getAllPrices($slug);
         $allFresh = !empty($cached) && !$this->anyExpired($cached);
 
-        if ($allFresh) {
+        if ($allFresh && $this->adapterStoreAllCached($cached)) {
             return $this->formatResults($cached);
         }
 
         if ($this->itad !== null) {
-            try {
-                $itadPrices = $this->itad->fetchAllPrices($gameName, $appid);
-                foreach ($itadPrices as $price) {
-                    $this->db->upsertPrice($slug, $price['storeName'], [
-                        'price'        => $price['price'],
-                        'initialPrice' => $price['initialPrice'],
-                        'discount'     => $price['discount'],
-                        'currency'     => $price['currency'],
-                        'url'          => $price['url'],
-                        'platforms'    => $price['platforms'] ?? '',
-                    ]);
-                }
-            } catch (\Throwable $e) {
-                error_log("PriceFetcher: ITAD failed for {$slug}: " . $e->getMessage());
-            }
+            $this->refreshItad($slug, $gameName, $appid);
+        }
+
+        foreach ($this->adapters as $adapter) {
+            $this->refreshAdapter($slug, $gameName, $appid, $adapter);
         }
 
         $cached = $this->db->getAllPrices($slug);
         return $this->formatResults($cached);
+    }
+
+    private function adapterStoreAllCached(array $cached): bool
+    {
+        $cachedStores = array_column($cached, 'store');
+        foreach ($this->adapters as $adapter) {
+            if (!in_array($adapter->getName(), $cachedStores, true)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function refreshItad(string $slug, string $gameName, ?int $appid): void
+    {
+        try {
+            $itadPrices = $this->itad->fetchAllPrices($gameName, $appid);
+            foreach ($itadPrices as $price) {
+                $this->db->upsertPrice($slug, $price['storeName'], [
+                    'price'        => $price['price'],
+                    'initialPrice' => $price['initialPrice'],
+                    'discount'     => $price['discount'],
+                    'currency'     => $price['currency'],
+                    'url'          => $price['url'],
+                    'platforms'    => $price['platforms'] ?? '',
+                ]);
+            }
+        } catch (\Throwable $e) {
+            error_log("PriceFetcher: ITAD failed for {$slug}: " . $e->getMessage());
+        }
+    }
+
+    private function refreshAdapter(string $slug, string $gameName, ?int $appid, StoreAdapter $adapter): void
+    {
+        $cached = $this->db->getPrice($slug, $adapter->getName());
+        if ($cached && $cached['price'] !== null && !$this->db->isExpired((int)$cached['scraped_at'], $this->cacheTtl)) {
+            return;
+        }
+
+        try {
+            $priceData = $adapter->fetchPrice($gameName, $appid);
+            if ($priceData !== null) {
+                $this->db->upsertPrice($slug, $adapter->getName(), $priceData);
+            }
+        } catch (\Throwable $e) {
+            error_log("PriceFetcher: {$adapter->getName()} failed for {$slug}: " . $e->getMessage());
+        }
     }
 
     private function anyExpired(array $cached): bool
@@ -82,6 +126,7 @@ class PriceFetcher
             'WinGameStore'     => 'wingamestore',
             'JoyBuggy'         => 'joybuggy',
             'eTail.Market'     => 'etail',
+            'Instant Gaming'   => 'instant-gaming',
         ];
 
         foreach ($rows as $row) {
@@ -130,6 +175,11 @@ class PriceFetcher
                 }
             }
             $instance->setItad(new ItadAdapter($itadKey, $affiliateIds));
+        }
+
+        $igAffId = env('INSTANT_GAMING_IGR', '');
+        if ($igAffId) {
+            $instance->register(new InstantGamingAdapter($igAffId));
         }
 
         return $instance;
