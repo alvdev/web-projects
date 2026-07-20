@@ -45,7 +45,7 @@ const webpage = {
     primaryImageOfPage: {
         // Optional: if you have a main hero image for the homepage
         "@type": "ImageObject",
-        url: pageCover.src,
+        url: new URL(pageCover.src, baseUrl).href,
         width: pageCover.width,
         height: pageCover.height,
     },
@@ -167,7 +167,7 @@ const blogPosting = {
     description: pageDesc,
     image: {
         "@type": "ImageObject",
-        url: pageCover.src, // URL of the main image for the post
+        url: new URL(pageCover.src, baseUrl).href, // URL of the main image for the post
         height: pageCover.height, // Optional, but good
         width: pageCover.width, // Optional, but good
     },
@@ -181,7 +181,7 @@ const blogPosting = {
         name: webTitle,
         logo: {
             "@type": "ImageObject",
-            url: baseUrl + ".." + Logo.src,
+            url: new URL(Logo.src, baseUrl).href,
             width: Logo.width,
             height: Logo.height,
         },
@@ -205,7 +205,7 @@ const organization = {
     "@id": `${baseUrl}#organization`, // Main organization ID
     name: webTitle,
     url: baseUrl,
-    logo: baseUrl + ".." + Logo.src,
+    logo: new URL(Logo.src, baseUrl).href,
     description:
         "Agencia de publicidad exterior especializada en colocación y pegada de carteles, vallas publicitarias y otros soportes de publicidad exterior en Madrid, Barcelona y resto de España",
     sameAs: [

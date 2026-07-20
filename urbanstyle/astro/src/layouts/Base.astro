@@ -15,6 +15,11 @@ const {
     ogType = "website",
 } = Astro.props;
 
+const baseImage = Astro.props.cover ? Astro.props.cover : Cover;
+const imageUrl = new URL(baseImage.src, Astro.site).href;
+const imageWidth = baseImage.width;
+const imageHeight = baseImage.height;
+
 const faviconUrl = import.meta.env.PROD
     ? import.meta.env.BASE_URL + "favicon-48.png"
     : import.meta.env.BASE_URL + "favicon.svg";
@@ -40,7 +45,11 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
                 basic: {
                     title: title,
                     type: ogType,
-                    image: Astro.props.cover ? Astro.props.cover.src : cover,
+                    image: imageUrl,
+                },
+                image: {
+                    width: imageWidth,
+                    height: imageHeight,
                 },
                 optional: {
                     description: description,
@@ -49,7 +58,9 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
             }}
             ,
             twitter={{
+                card: "summary_large_image",
                 creator: "@pegadacarteles",
+                image: imageUrl,
             }}
         />
 
