@@ -4,6 +4,7 @@ namespace Alv\Prices;
 
 use Alv\Prices\Adapters\ItadAdapter;
 use Alv\Prices\Adapters\InstantGamingAdapter;
+use Alv\Prices\Adapters\G2AAdapter;
 use Alv\SteamStats\SteamStatsDB;
 
 class PriceFetcher
@@ -127,6 +128,7 @@ class PriceFetcher
             'JoyBuggy'         => 'joybuggy',
             'eTail.Market'     => 'etail',
             'Instant Gaming'   => 'instant-gaming',
+            'G2A'              => 'g2a',
         ];
 
         foreach ($rows as $row) {
@@ -180,6 +182,12 @@ class PriceFetcher
         $igAffId = env('INSTANT_GAMING_IGR', '');
         if ($igAffId) {
             $instance->register(new InstantGamingAdapter($igAffId));
+        }
+
+        $g2aClientId = env('G2A_CLIENT_ID', '');
+        $g2aApiKey = env('G2A_API_KEY', '');
+        if ($g2aClientId && $g2aApiKey && $g2aClientId !== 'qdaiciDiyMaTjxMt') {
+            $instance->register(new G2AAdapter($g2aClientId, $g2aApiKey));
         }
 
         return $instance;

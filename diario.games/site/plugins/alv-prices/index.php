@@ -7,6 +7,7 @@ require_once __DIR__ . '/classes/StoreAdapter.php';
 require_once __DIR__ . '/classes/PriceFetcher.php';
 require_once __DIR__ . '/classes/adapters/ItadAdapter.php';
 require_once __DIR__ . '/classes/adapters/InstantGamingAdapter.php';
+require_once __DIR__ . '/classes/adapters/G2AAdapter.php';
 
 App::plugin('alv/prices', [
     'snippets' => [

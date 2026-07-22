@@ -175,13 +175,13 @@ class ItadAdapter extends StoreAdapter
             return $this->buildFallbackUrl($storeName, $affId);
         }
 
-        $resolved = $this->followRedirect($itadUrl);
-        if ($resolved === null) {
-            return $this->buildFallbackUrl($storeName, $affId);
+        if ($affId === '') {
+            return $itadUrl;
         }
 
-        if ($affId === '') {
-            return $resolved;
+        $resolved = $this->followRedirect($itadUrl);
+        if ($resolved === null) {
+            return $itadUrl;
         }
 
         return $this->appendAffiliate($resolved, $storeName, $affId);
@@ -194,7 +194,8 @@ class ItadAdapter extends StoreAdapter
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS      => 8,
-            CURLOPT_TIMEOUT        => 15,
+            CURLOPT_TIMEOUT        => 5,
+            CURLOPT_CONNECTTIMEOUT => 3,
             CURLOPT_NOBODY         => false,
             CURLOPT_USERAGENT      => 'Mozilla/5.0 (compatible; DiarioGames/1.0)',
         ]);

@@ -19,6 +19,7 @@ $storeFavicons = [
     'JoyBuggy'         => 'joybuggy.com',
     'eTail.Market'     => 'etail.market',
     'Instant Gaming'   => 'instant-gaming.com',
+    'G2A'              => 'g2a.com',
 ];
 
 $faviconDir = __DIR__ . '/../favicons';

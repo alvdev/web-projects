@@ -45,6 +45,15 @@ class StorePriceDB
         } catch (\PDOException $e) {
             // column already exists
         }
+
+        $this->pdo->exec('
+            CREATE TABLE IF NOT EXISTS g2a_catalog (
+                product_id TEXT PRIMARY KEY,
+                name       TEXT NOT NULL,
+                updated_at INTEGER NOT NULL
+            )
+        ');
+        $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_g2a_name ON g2a_catalog(name)');
     }
 
     public function getPrice(string $slug, string $store): ?array
@@ -123,5 +132,61 @@ class StorePriceDB
     public function isExpired(int $scrapedAt, int $ttl = 86400): bool
     {
         return (time() - $scrapedAt) >= $ttl;
+    }
+
+    public function upsertG2aProduct(string $productId, string $name): void
+    {
+        $now = time();
+        $stmt = $this->pdo->prepare('
+            INSERT INTO g2a_catalog (product_id, name, updated_at)
+            VALUES (:pid, :name, :now)
+            ON CONFLICT(product_id) DO UPDATE SET name = :name2, updated_at = :now2
+        ');
+        $stmt->execute([
+            ':pid'   => $productId,
+            ':name'  => $name,
+            ':name2' => $name,
+            ':now'   => $now,
+            ':now2'  => $now,
+        ]);
+    }
+
+    public function findG2aProductId(string $gameName): ?string
+    {
+        $normalized = mb_strtolower(trim($gameName));
+
+        $stmt = $this->pdo->prepare(
+            'SELECT product_id, name FROM g2a_catalog ORDER BY updated_at DESC LIMIT 10000'
+        );
+        $stmt->execute();
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $bestScore = 0;
+        $bestId = null;
+
+        foreach ($rows as $row) {
+            $catName = mb_strtolower(trim($row['name']));
+
+            if ($catName === $normalized) {
+                return $row['product_id'];
+            }
+
+            if (str_contains($catName, $normalized) || str_contains($normalized, $catName)) {
+                $score = strlen($catName);
+                if ($score > $bestScore) {
+                    $bestScore = $score;
+                    $bestId = $row['product_id'];
+                }
+            }
+        }
+
+        return $bestId;
+    }
+
+    public function deleteStaleG2aProducts(int $olderThanHours = 48): void
+    {
+        $cutoff = time() - ($olderThanHours * 3600);
+        $stmt = $this->pdo->prepare('DELETE FROM g2a_catalog WHERE updated_at < :cutoff');
+        $stmt->execute([':cutoff' => $cutoff]);
     }
 }
