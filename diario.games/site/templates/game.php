@@ -270,28 +270,127 @@
     </div>
 <?php endif ?>
 
-<?php $guides = $page->guides() ?>
-<?php if ($guides->count() > 0): ?>
-    <div class="mt-8 pt-8 border-t border-border">
-        <h2 class="text-lg font-bold text-neon-magenta mb-6">📖 Guias de <?= $page->title() ?></h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <?php foreach ($guides as $guide): ?>
-                <?php snippet('guide-card', ['guide' => $guide]) ?>
-            <?php endforeach ?>
-        </div>
-    </div>
-<?php endif ?>
+<?php
+$guides = $page->guides()->sortBy('date', 'desc');
+$news = $page->news()->sortBy('date', 'desc');
+$guideSlides = $guides->chunk(2)->values(fn($p) => $p->values(fn($i) => $i));
+$newsSlides = $news->chunk(2)->values(fn($p) => $p->values(fn($i) => $i));
+?>
+<?php if (count($guideSlides) > 0 || count($newsSlides) > 0): ?>
+<div class="mt-8 pt-8 border-t border-border">
+    <h2 class="text-lg font-bold text-neon-magenta mb-6">📖 Guias y noticias de <?= $page->title() ?></h2>
 
-<?php $newsItems = $page->news() ?>
-<?php if ($newsItems->count() > 0): ?>
-    <div class="mt-8 pt-8 border-t border-border">
-        <h2 class="text-lg font-bold text-neon-cyan mb-6">📢 Noticias de <?= $page->title() ?></h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <?php foreach ($newsItems as $item): ?>
-                <?php snippet('news-card', ['news' => $item]) ?>
-            <?php endforeach ?>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <?php if (count($newsSlides) > 0): ?>
+        <div id="news-carousel" data-carousel="news" data-carousel-color="neon-green">
+            <h3 class="text-sm font-bold text-neon-green mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-neon-green"></span> Noticias
+            </h3>
+            <div class="relative">
+                <div class="overflow-hidden">
+                    <div class="flex transition-transform duration-300 ease-out" data-carousel-slides>
+                        <?php foreach ($newsSlides as $idx => $items): ?>
+                        <div class="w-full shrink-0 grid grid-cols-1 sm:grid-cols-2 gap-4" data-carousel-slide="<?= $idx ?>">
+                            <?php foreach ($items as $item): ?>
+                                <?php snippet('news-card', ['news' => $item]) ?>
+                            <?php endforeach ?>
+                        </div>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+                <?php if (count($newsSlides) > 1): ?>
+                <button data-carousel-prev class="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-surface border border-border text-muted hover:text-neon-green hover:border-neon-green/50 transition" aria-label="Previous">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button data-carousel-next class="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-surface border border-border text-muted hover:text-neon-green hover:border-neon-green/50 transition" aria-label="Next">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="flex items-center justify-center gap-1.5 mt-3" data-carousel-dots>
+                    <?php for ($i = 0; $i < count($newsSlides); $i++): ?>
+                    <button data-carousel-dot="<?= $i ?>" class="w-1.5 h-1.5 rounded-full transition <?= $i === 0 ? 'bg-neon-green w-3.5' : 'bg-neon-green/30 hover:bg-neon-green/50' ?>" aria-label="Slide <?= $i + 1 ?>"></button>
+                    <?php endfor ?>
+                </div>
+                <?php endif ?>
+            </div>
         </div>
+        <?php endif ?>
+
+        <?php if (count($guideSlides) > 0): ?>
+        <div id="guide-carousel" data-carousel="guide" data-carousel-color="neon-magenta">
+            <h3 class="text-sm font-bold text-neon-magenta mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-neon-magenta"></span> Guias
+            </h3>
+            <div class="relative">
+                <div class="overflow-hidden">
+                    <div class="flex transition-transform duration-300 ease-out" data-carousel-slides>
+                        <?php foreach ($guideSlides as $idx => $items): ?>
+                        <div class="w-full shrink-0 grid grid-cols-1 sm:grid-cols-2 gap-4" data-carousel-slide="<?= $idx ?>">
+                            <?php foreach ($items as $item): ?>
+                                <?php snippet('guide-card', ['guide' => $item]) ?>
+                            <?php endforeach ?>
+                        </div>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+                <?php if (count($guideSlides) > 1): ?>
+                <button data-carousel-prev class="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-surface border border-border text-muted hover:text-neon-magenta hover:border-neon-magenta/50 transition" aria-label="Previous">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button data-carousel-next class="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-surface border border-border text-muted hover:text-neon-magenta hover:border-neon-magenta/50 transition" aria-label="Next">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="flex items-center justify-center gap-1.5 mt-3" data-carousel-dots>
+                    <?php for ($i = 0; $i < count($guideSlides); $i++): ?>
+                    <button data-carousel-dot="<?= $i ?>" class="w-1.5 h-1.5 rounded-full transition <?= $i === 0 ? 'bg-neon-magenta w-3.5' : 'bg-neon-magenta/30 hover:bg-neon-magenta/50' ?>" aria-label="Slide <?= $i + 1 ?>"></button>
+                    <?php endfor ?>
+                </div>
+                <?php endif ?>
+            </div>
+        </div>
+        <?php endif ?>
     </div>
+</div>
+
+<script>
+(function(){
+    document.querySelectorAll('[data-carousel]').forEach(function(carousel){
+        var track = carousel.querySelector('[data-carousel-slides]');
+        var prev = carousel.querySelector('[data-carousel-prev]');
+        var next = carousel.querySelector('[data-carousel-next]');
+        var dots = carousel.querySelectorAll('[data-carousel-dot]');
+        var slides = carousel.querySelectorAll('[data-carousel-slide]');
+        var total = slides.length;
+        var current = 0;
+        var color = carousel.getAttribute('data-carousel-color') || 'neon-magenta';
+        if (total <= 1) return;
+
+        function goTo(idx) {
+            current = (idx + total) % total;
+            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            dots.forEach(function(d, i) {
+                d.className = 'w-1.5 h-1.5 rounded-full transition ' + (i === current
+                    ? 'bg-' + color + ' w-3.5'
+                    : 'bg-' + color + '/30 hover:bg-' + color + '/50');
+            });
+        }
+
+        if (prev) prev.addEventListener('click', function(){ goTo(current - 1); });
+        if (next) next.addEventListener('click', function(){ goTo(current + 1); });
+        dots.forEach(function(dot){
+            dot.addEventListener('click', function(){ goTo(parseInt(dot.getAttribute('data-carousel-dot'))); });
+        });
+
+        var startX = 0, dragging = false;
+        track.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; dragging = true; });
+        track.addEventListener('touchend', function(e){
+            if (!dragging) return;
+            dragging = false;
+            var diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+        });
+    });
+})();
+</script>
 <?php endif ?>
 
 <?php snippet('footer') ?>
