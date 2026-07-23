@@ -2,6 +2,8 @@
 
 namespace DiarioGames\IGDB;
 
+@include_once __DIR__ . '/../../alv-ai/classes/AIClient.php';
+
 function slugify(string $text): string
 {
     return strtolower(trim(preg_replace('/[^a-z0-9-]+/', '-', strtolower($text)), '-'));
