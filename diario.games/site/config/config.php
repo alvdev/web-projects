@@ -156,4 +156,32 @@ return [
             }
         ],
     ],
+
+    'hooks' => [
+        'page.create:after' => function (\Kirby\Cms\Page $page) {
+            $template = $page->intendedTemplate()->name();
+            if ($template === 'guide') {
+                GuidePage::generateDefaultHeader($page);
+            } elseif ($template === 'news') {
+                NewsPage::generateDefaultHeader($page);
+            }
+        },
+        'page.update:after' => function (\Kirby\Cms\Page $newPage) {
+            $template = $newPage->intendedTemplate()->name();
+            if ($template === 'guide') {
+                GuidePage::generateDefaultHeader($newPage);
+            } elseif ($template === 'news') {
+                NewsPage::generateDefaultHeader($newPage);
+            }
+        },
+        'page.render:before' => function (\Kirby\Cms\Page $page, string $contentType) {
+            if ($contentType !== 'html') return;
+            $template = $page->intendedTemplate()->name();
+            if ($template === 'guide') {
+                GuidePage::generateDefaultHeader($page);
+            } elseif ($template === 'news') {
+                NewsPage::generateDefaultHeader($page);
+            }
+        },
+    ],
 ];
