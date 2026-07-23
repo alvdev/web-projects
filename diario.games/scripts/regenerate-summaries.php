@@ -30,7 +30,7 @@ foreach ($argv as $arg) {
 }
 
 require_once $root . '/kirby/bootstrap.php';
-require_once $root . '/site/plugins/alv-igdb/classes/helpers.php';
+require_once $root . '/site/plugins/alv-ai/classes/AIClient.php';
 require_once $root . '/site/plugins/alv-igdb/classes/IGDBClient.php';
 
 $config = require $root . '/site/config/config.php';
@@ -142,7 +142,7 @@ foreach ($dirs as $i => $dir) {
             continue;
         }
 
-        $neutralSummary = \DiarioGames\IGDB\translate($englishSummary, 'es', 'en', 'opencode');
+        $neutralSummary = \DiarioGames\AI\AIClient::translate($englishSummary, 'opencode');
 
         if ($neutralSummary === $englishSummary || empty(trim($neutralSummary))) {
             echo "  {$status} FAIL — translation returned empty/unchanged\n";
