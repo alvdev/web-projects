@@ -180,6 +180,7 @@
         <?php endif ?>
 
         <?php if ($page->developer()->isNotEmpty()): ?>
+            <h3 class="text-xs uppercase tracking-wider text-muted mb-1">Developer/Publisher</h3>
             <span><?= $page->developer() ?></span>
         <?php endif ?>
         <?php if ($page->publisher()->isNotEmpty()): ?>
