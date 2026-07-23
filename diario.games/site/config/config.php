@@ -135,5 +135,25 @@ return [
                 return page('error');
             }
         ],
+        [
+            'pattern' => '(:any)/(:all)',
+            'method' => 'GET',
+            'action' => function (string $parentSlug, string $childPath) {
+                $reserved = ['search', 'genre', 'steam-stats', 'error', 'home', 'games'];
+                if (in_array($parentSlug, $reserved)) {
+                    return null;
+                }
+
+                $game = page('games/' . $parentSlug);
+                if ($game) {
+                    $child = $game->find($childPath);
+                    if ($child) {
+                        return $child;
+                    }
+                }
+
+                return null;
+            }
+        ],
     ],
 ];

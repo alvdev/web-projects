@@ -29,7 +29,17 @@ class GamePage extends \Kirby\Cms\Page
 
     public function posts(): \Kirby\Cms\Pages
     {
-        return $this->children()->sortBy('date', 'desc');
+        return $this->children()->filterBy('intendedTemplate', 'post')->sortBy('date', 'desc');
+    }
+
+    public function guides(): \Kirby\Cms\Pages
+    {
+        return $this->children()->filterBy('intendedTemplate', 'guide')->sortBy('date', 'desc');
+    }
+
+    public function news(): \Kirby\Cms\Pages
+    {
+        return $this->children()->filterBy('intendedTemplate', 'news')->sortBy('date', 'desc');
     }
 
     public function cover(): ?\Kirby\Cms\File

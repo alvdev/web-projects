@@ -1,0 +1,65 @@
+title: Guide
+preset: page
+
+columns:
+  main:
+    width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          header_image:
+            label: Header Image
+            type: files
+            template: header
+            uploads:
+              template: header
+          title:
+            label: Title
+            type: text
+            required: true
+          summary:
+            label: Summary
+            type: textarea
+            size: small
+          text:
+            label: Guide Content
+            type: textarea
+            size: large
+          author:
+            label: Author
+            type: text
+  sidebar:
+    width: 1/3
+    sections:
+      meta:
+        type: fields
+        fields:
+          date:
+            label: Publication Date
+            type: date
+            default: today
+          category:
+            label: Category
+            type: select
+            options:
+              walkthrough: Walkthrough
+              build: Build / Loadout
+              farming: Farming / Grinding
+              boss: Boss Guide
+              beginner: Beginner Guide
+              tips: Tips & Tricks
+              lore: Lore / Story
+              other: Other
+          difficulty:
+            label: Difficulty
+            type: select
+            options:
+              beginner: Beginner
+              intermediate: Intermediate
+              advanced: Advanced
+              expert: Expert
+          estimated_time:
+            label: Estimated Time
+            type: text
+            placeholder: e.g. 2 hours

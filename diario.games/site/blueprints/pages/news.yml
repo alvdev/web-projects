@@ -1,0 +1,56 @@
+title: News
+preset: page
+
+columns:
+  main:
+    width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          header_image:
+            label: Header Image
+            type: files
+            template: header
+            uploads:
+              template: header
+          title:
+            label: Title
+            type: text
+            required: true
+          summary:
+            label: Summary
+            type: textarea
+            size: small
+          text:
+            label: Article
+            type: textarea
+            size: large
+          author:
+            label: Author
+            type: text
+  sidebar:
+    width: 1/3
+    sections:
+      meta:
+        type: fields
+        fields:
+          date:
+            label: Publication Date
+            type: date
+            default: today
+          type:
+            label: News Type
+            type: select
+            options:
+              update: Game Update / Patch
+              dlc: DLC / Expansion
+              event: Event / Tournament
+              esports: Esports
+              community: Community
+              rumor: Rumor / Leak
+              other: Other
+          source:
+            label: Source
+            type: url
+            placeholder: https://

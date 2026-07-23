@@ -269,4 +269,28 @@
     </div>
 <?php endif ?>
 
+<?php $guides = $page->guides() ?>
+<?php if ($guides->count() > 0): ?>
+    <div class="mt-8 pt-8 border-t border-border">
+        <h2 class="text-lg font-bold text-neon-magenta mb-6">📖 Guias de <?= $page->title() ?></h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <?php foreach ($guides as $guide): ?>
+                <?php snippet('guide-card', ['guide' => $guide]) ?>
+            <?php endforeach ?>
+        </div>
+    </div>
+<?php endif ?>
+
+<?php $newsItems = $page->news() ?>
+<?php if ($newsItems->count() > 0): ?>
+    <div class="mt-8 pt-8 border-t border-border">
+        <h2 class="text-lg font-bold text-neon-cyan mb-6">📢 Noticias de <?= $page->title() ?></h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <?php foreach ($newsItems as $item): ?>
+                <?php snippet('news-card', ['news' => $item]) ?>
+            <?php endforeach ?>
+        </div>
+    </div>
+<?php endif ?>
+
 <?php snippet('footer') ?>
