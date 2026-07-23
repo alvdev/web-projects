@@ -36,18 +36,57 @@ function igdbImageUrl(string $imageId, string $size = 'cover_big'): string
     return "https://images.igdb.com/igdb/image/upload/t_{$size}/{$imageId}.jpg";
 }
 
-function translate(string $text, string $to = 'es', string $from = 'en'): string
+function getSystemPrompt(): string
+{
+    return 'Eres un experto en escribir textos de videojuegos en español internacional neutro, comprensible para hispanohablantes de cualquier país. Tono conversacional, cálido y divertido, como si hablaras con un amigo. REGLA #1 — CONJUGACIONES: Usa EXCLUSIVAMENTE las formas estándar de "tú": puedes, tienes, quieres, eres, haces, estás, vas, dices, ves, sabes, sales, pones, vienes, etc. JAMÁS uses "vos" (sos, podés, tenés, querés, hacés) ni "vosotros" (podéis, tenéis, sois). Esta es la regla más importante. REGLA #2 — SIN REGIONALISMOS: No uses expresiones de ningún país específico. Prohibido: españolismos ("ostras", "colega", "molar", "flipar", "chungo", "pasta", "movida", "liarla", "pringar", "pajolera", "pasada", "pipa", "chachi", "cañero", "pirarse", "petarlo", "ni de coña", "que no veas", "dar caña", "tío"), mexicanismos ("chido", "padre", "güey", "chingón", "neta"), chilenismos ("po", "cachai", "bacán"), colombianismos ("parce", "berraco"). REGLA #3 — REWRITE, NO TRADUZCAS: No hagas traducción literal. Reescribe con tus propias palabras, cambia estructura y orden de las ideas. Puedes usar anglicismos de gaming universales (pushear, pickear, farmear, grindear, buffear, nerfear). Si el texto original es muy corto (1-2 palabras como "Visual Novel"), responde igual de conciso ("Novela visual" o "Disparos"). Responde SOLO con el texto final en español, sin explicaciones.';
+}
+
+function translate(string $text, string $to = 'es', string $from = 'en', string $backend = 'openrouter'): string
 {
     if (empty(trim($text))) return $text;
 
+    $systemPrompt = getSystemPrompt();
+    $userMsg = "Texto original (inglés): {$text}\n\nReescríbelo en español neutro. NO traduzcas literal: reformula con tus propias palabras. Usa SIEMPRE 'tú' (eres, puedes, tienes) — NUNCA 'vos' (sos, podés, tenés).";
+
+    if ($backend === 'opencode') {
+        $apiKey = $_ENV['OPENCODE_API_KEY'] ?? $_SERVER['OPENCODE_API_KEY'] ?? getenv('OPENCODE_API_KEY');
+        if ($apiKey) {
+            $body = json_encode([
+                'model' => 'deepseek-v4-flash',
+                'messages' => [
+                    ['role' => 'system', 'content' => $systemPrompt],
+                    ['role' => 'user', 'content' => $userMsg],
+                ],
+            ]);
+            $ch = curl_init('https://opencode.ai/zen/go/v1/chat/completions');
+            curl_setopt_array($ch, [
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $body,
+                CURLOPT_HTTPHEADER => [
+                    'Content-Type: application/json',
+                    'Authorization: Bearer ' . $apiKey,
+                ],
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 60,
+            ]);
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            if ($response && $httpCode === 200) {
+                $data = json_decode($response, true);
+                $translated = $data['choices'][0]['message']['content'] ?? '';
+                if ($translated) return trim($translated);
+            }
+        }
+    }
+
     $apiKey = $_ENV['OPENROUTER_API_KEY'] ?? $_SERVER['OPENROUTER_API_KEY'] ?? getenv('OPENROUTER_API_KEY');
     if ($apiKey) {
-        $systemPrompt = 'Eres un experto en escribir textos de videojuegos en español internacional (neutro), comprensible para hispanohablantes de cualquier país. Tono conversacional, cálido y divertido, como si hablaras con un amigo. Reglas: usa lenguaje coloquial natural pero UNIVERSAL — NUNCA uses españolismos regionales de España como "ostras", "colega", "molar", "flipar", "chungo", "pasta" (dinero), "movida", "liarla", "pringar", "pajolera", "pasada", "pipa", "chachi", "tocino", "cañero", "pirarse", "petarlo", "ni de coña", "que no veas" etc. Evita el uso de "tío" como muletilla coloquial. Puedes usar anglicismos de gaming universales cuando sea natural (ej: pushear, pickear, farmear, grindear, buffear, nerfear). IMPORTANTE: si el texto original es corto (una o dos palabras como "Visual Novel" o "Shooter"), responde con una traducción igual de concisa (ej: "Novela visual" o "Disparos"). Responde SOLO con el texto reescrito en español, sin explicaciones ni introducciones.';
         $body = json_encode([
             'model' => 'openrouter/auto',
             'messages' => [
                 ['role' => 'system', 'content' => $systemPrompt],
-                ['role' => 'user', 'content' => "Texto original (inglés): {$text}\n\nReescríbelo en español con el tono descrito."]
+                ['role' => 'user', 'content' => $userMsg],
             ]
         ]);
         $ch = curl_init('https://openrouter.ai/api/v1/chat/completions');
