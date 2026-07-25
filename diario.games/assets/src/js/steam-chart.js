@@ -224,7 +224,7 @@ function initImportOverlay() {
     function showOverlay() {
         if (overlay) return;
         overlay = document.createElement('div');
-        overlay.className = 'fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center pointer-events-none';
+        overlay.className = 'fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center';
         overlay.innerHTML =
             '<div class="text-center">' +
             '<div class="inline-block w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin"></div>' +
