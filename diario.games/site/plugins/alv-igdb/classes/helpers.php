@@ -111,3 +111,93 @@ function downloadImage(string $url, string $destPath): bool
     }
     return true;
 }
+
+function getGameIndexPath(): string
+{
+    return dirname(__DIR__, 4) . '/data/games/index.php';
+}
+
+function getGameIndexIgdbPath(): string
+{
+    return dirname(__DIR__, 4) . '/data/games/index-igdb.php';
+}
+
+function loadGameIndex(): array
+{
+    $path = getGameIndexPath();
+    if (!file_exists($path)) return [];
+    return include $path;
+}
+
+function loadGameIndexIgdb(): array
+{
+    $path = getGameIndexIgdbPath();
+    if (!file_exists($path)) return [];
+    return include $path;
+}
+
+function resolveGamePath(string $slug): ?string
+{
+    $index = loadGameIndex();
+    return $index[$slug] ?? null;
+}
+
+function resolveGameByIgdbId(int $igdbId): ?string
+{
+    $index = loadGameIndexIgdb();
+    return $index[$igdbId] ?? null;
+}
+
+function saveGameIndex(array $index): void
+{
+    $path = getGameIndexPath();
+    $dir = dirname($path);
+    if (!is_dir($dir)) mkdir($dir, 0755, true);
+
+    $tmp = $path . '.tmp';
+    file_put_contents($tmp, '<?php return ' . var_export($index, true) . ';' . "\n");
+    rename($tmp, $path);
+
+    if (function_exists('opcache_invalidate')) {
+        opcache_invalidate($path, true);
+    }
+}
+
+function saveGameIndexIgdb(array $index): void
+{
+    $path = getGameIndexIgdbPath();
+    $dir = dirname($path);
+    if (!is_dir($dir)) mkdir($dir, 0755, true);
+
+    $tmp = $path . '.tmp';
+    file_put_contents($tmp, '<?php return ' . var_export($index, true) . ';' . "\n");
+    rename($tmp, $path);
+
+    if (function_exists('opcache_invalidate')) {
+        opcache_invalidate($path, true);
+    }
+}
+
+function addGameToIndex(string $slug, string $yearMonth, int $igdbId): void
+{
+    $index = loadGameIndex();
+    $index[$slug] = $yearMonth;
+    saveGameIndex($index);
+
+    if ($igdbId > 0) {
+        $igdbIndex = loadGameIndexIgdb();
+        $igdbIndex[$igdbId] = $slug;
+        saveGameIndexIgdb($igdbIndex);
+    }
+}
+
+function deriveYearMonth(string $releaseDate): array
+{
+    if (preg_match('/^(\d{4})-(\d{2})/', $releaseDate, $m)) {
+        return [$m[1], $m[2]];
+    }
+    if (preg_match('/^(\d{4})/', $releaseDate, $m)) {
+        return [$m[1], '00'];
+    }
+    return ['00', '00'];
+}
