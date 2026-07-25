@@ -58,15 +58,26 @@ foreach ($entries as $entry) {
         $year = $m[1];
     }
 
+    // Skip if target already exists (previous partial run)
     $newDir = "{$gamesDir}/{$year}/{$month}/{$entry}";
+    if (is_dir($newDir)) {
+        echo "  skip: {$entry} (already at games/{$year}/{$month}/{$entry})\n";
+        $skipped++;
+        continue;
+    }
+
     $newParent = "{$gamesDir}/{$year}/{$month}";
 
-    if (!is_dir($newParent)) {
-        mkdir($newParent, 0755, true);
+    if (!is_dir($newParent) && !mkdir($newParent, 0755, true)) {
+        echo "  error: cannot create directory {$newParent}\n";
+        exit(1);
     }
 
     echo "  move: {$entry} -> games/{$year}/{$month}/{$entry}\n";
-    rename($oldPath, $newDir);
+    if (!rename($oldPath, $newDir)) {
+        echo "  error: rename failed for {$entry}\n";
+        exit(1);
+    }
     $moved++;
 
     $index[$entry] = "{$year}/{$month}";
@@ -82,11 +93,25 @@ if (!is_dir($indexDir)) {
 }
 
 $indexPath = "{$indexDir}/index.php";
-file_put_contents($indexPath, '<?php return ' . var_export($index, true) . ';' . "\n");
+$tmp = $indexPath . '.tmp';
+if (file_put_contents($tmp, '<?php return ' . var_export($index, true) . ';' . "\n") === false || !rename($tmp, $indexPath)) {
+    echo "\nError: failed to write {$indexPath}\n";
+    exit(1);
+}
+if (function_exists('opcache_invalidate')) {
+    opcache_invalidate($indexPath, true);
+}
 echo "\nWrote {$indexPath} (" . count($index) . " entries)\n";
 
 $igdbPath = "{$indexDir}/index-igdb.php";
-file_put_contents($igdbPath, '<?php return ' . var_export($igdbIndex, true) . ';' . "\n");
+$tmp = $igdbPath . '.tmp';
+if (file_put_contents($tmp, '<?php return ' . var_export($igdbIndex, true) . ';' . "\n") === false || !rename($tmp, $igdbPath)) {
+    echo "Error: failed to write {$igdbPath}\n";
+    exit(1);
+}
+if (function_exists('opcache_invalidate')) {
+    opcache_invalidate($igdbPath, true);
+}
 echo "Wrote {$igdbPath} (" . count($igdbIndex) . " entries)\n";
 
 echo "\nDone: {$moved} moved, {$skipped} skipped.\n";
