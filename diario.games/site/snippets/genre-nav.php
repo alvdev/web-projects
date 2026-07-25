@@ -1,6 +1,6 @@
 <?php
 
-$games = $site->find('games')->children();
+$games = $site->find('games')->children()->children()->children()->filterBy('intendedTemplate', 'game');
 $allGenres = [];
 foreach ($games as $game) {
     foreach ($game->genreList() as $genre) {

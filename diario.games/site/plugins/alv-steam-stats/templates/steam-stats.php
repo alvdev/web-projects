@@ -29,7 +29,7 @@ try {
 }
 
 $existingSlugs = [];
-foreach (site()->find('games')->children() as $p) {
+foreach (site()->find('games')->children()->children()->children()->filterBy('intendedTemplate', 'game') as $p) {
     $existingSlugs[$p->slug()] = true;
 }
 

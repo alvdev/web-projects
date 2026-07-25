@@ -1,5 +1,5 @@
 <?php
-$allGames = $site->find('games')->children();
+$allGames = $site->find('games')->children()->children()->children()->filterBy('intendedTemplate', 'game');
 $allPosts = $allGames->children()->filterBy('template', 'post');
 
 $rankBySlug = [];

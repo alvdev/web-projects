@@ -1,7 +1,7 @@
 <?php
 
 return function ($site) {
-    $games = $site->find('games')->children()->sortBy('title', 'asc');
+    $games = $site->find('games')->children()->children()->children()->filterBy('intendedTemplate', 'game')->sortBy('title', 'asc');
 
     $allGenres = [];
     foreach ($games as $game) {

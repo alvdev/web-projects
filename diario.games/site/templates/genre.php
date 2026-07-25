@@ -2,7 +2,7 @@
 
 <?php
 $genreSlug = $genreSlug ?? param('genre');
-$allGames = $site->find('games')->children();
+$allGames = $site->find('games')->children()->children()->children()->filterBy('intendedTemplate', 'game');
 $games = $allGames->filter(function ($game) use ($genreSlug) {
     $gl = $game->genreList();
     return is_array($gl) && in_array($genreSlug, $gl);
