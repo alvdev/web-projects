@@ -148,34 +148,36 @@ function resolveGameByIgdbId(int $igdbId): ?string
     return $index[$igdbId] ?? null;
 }
 
-function saveGameIndex(array $index): void
+function _atomicSaveIndex(string $path, array $index): bool
 {
-    $path = getGameIndexPath();
     $dir = dirname($path);
-    if (!is_dir($dir)) mkdir($dir, 0755, true);
+    if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
+        return false;
+    }
 
     $tmp = $path . '.tmp';
-    file_put_contents($tmp, '<?php return ' . var_export($index, true) . ';' . "\n");
-    rename($tmp, $path);
+    if (file_put_contents($tmp, '<?php return ' . var_export($index, true) . ';' . "\n") === false) {
+        return false;
+    }
+    if (!rename($tmp, $path)) {
+        return false;
+    }
 
     if (function_exists('opcache_invalidate')) {
         opcache_invalidate($path, true);
     }
+
+    return true;
 }
 
-function saveGameIndexIgdb(array $index): void
+function saveGameIndex(array $index): bool
 {
-    $path = getGameIndexIgdbPath();
-    $dir = dirname($path);
-    if (!is_dir($dir)) mkdir($dir, 0755, true);
+    return _atomicSaveIndex(getGameIndexPath(), $index);
+}
 
-    $tmp = $path . '.tmp';
-    file_put_contents($tmp, '<?php return ' . var_export($index, true) . ';' . "\n");
-    rename($tmp, $path);
-
-    if (function_exists('opcache_invalidate')) {
-        opcache_invalidate($path, true);
-    }
+function saveGameIndexIgdb(array $index): bool
+{
+    return _atomicSaveIndex(getGameIndexIgdbPath(), $index);
 }
 
 function addGameToIndex(string $slug, string $yearMonth, int $igdbId): void
