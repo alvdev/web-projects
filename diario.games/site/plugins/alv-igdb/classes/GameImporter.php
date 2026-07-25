@@ -114,16 +114,32 @@ class GameImporter
             $releaseDate = date('Y-m-d', $gameData['first_release_date']);
         }
 
+        // Resolve location via index first
+        $yearMonth = \DiarioGames\IGDB\resolveGamePath($slug);
+
         // Migrate legacy directory with roman numeral slug
-        if ($slug !== $rawSlug) {
-            $oldDir = "{$this->gamesDir}/{$rawSlug}";
-            if (is_dir($oldDir) && !is_dir("{$this->gamesDir}/{$slug}")) {
-                rename($oldDir, "{$this->gamesDir}/{$slug}");
+        if ($slug !== $rawSlug && !$yearMonth) {
+            $yearMonth = \DiarioGames\IGDB\resolveGamePath($rawSlug);
+            if ($yearMonth) {
+                // Roman numeral slug exists in index — rename directory to canonical slug
+                $oldDir = "{$this->gamesDir}/{$yearMonth}/{$rawSlug}";
+                $newDir = "{$this->gamesDir}/{$yearMonth}/{$slug}";
+                if (is_dir($oldDir) && !is_dir($newDir)) {
+                    rename($oldDir, $newDir);
+                }
+                // Update index: remove old, add new
+                $index = \DiarioGames\IGDB\loadGameIndex();
+                unset($index[$rawSlug]);
+                $index[$slug] = $yearMonth;
+                \DiarioGames\IGDB\saveGameIndex($index);
             }
         }
 
-        [$year, $month] = \DiarioGames\IGDB\deriveYearMonth($releaseDate);
-        $yearMonth = "{$year}/{$month}";
+        if (!$yearMonth) {
+            [$year, $month] = \DiarioGames\IGDB\deriveYearMonth($releaseDate);
+            $yearMonth = "{$year}/{$month}";
+        }
+
         $dir = "{$this->gamesDir}/{$yearMonth}/{$slug}";
 
         if (is_dir($dir)) {
