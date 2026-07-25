@@ -261,7 +261,11 @@ class SteamStatsCollector
         $imageUrl = $info['header_image'] ?? $info['capsule_image'] ?? '';
         if (empty($imageUrl)) return null;
 
-        $destFile = dirname(__DIR__, 4) . '/content/games/' . $slug . '/steam-capsule.jpg';
+        $yearMonth = \DiarioGames\IGDB\resolveGamePath($slug);
+        if (!$yearMonth) return null;
+        $destDir = dirname(__DIR__, 4) . '/content/games/' . $yearMonth . '/' . $slug;
+        if (!is_dir($destDir)) mkdir($destDir, 0755, true);
+        $destFile = $destDir . '/steam-capsule.jpg';
 
         $ch = curl_init($imageUrl);
         $fp = fopen($destFile, 'wb');

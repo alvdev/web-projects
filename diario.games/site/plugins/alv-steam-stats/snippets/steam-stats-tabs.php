@@ -12,8 +12,9 @@ try {
     $playerData = $db->getAllPlayerDataCached();
     foreach ($db->getAllGames() as $g) {
         $pd = $playerData[$g['appid']] ?? ['current_players' => 0, 'peak_24h' => 0];
-        $capsulePath = dirname(__DIR__, 4) . '/content/games/' . $g['slug'] . '/steam-capsule.jpg';
-        $capsuleUrl = file_exists($capsulePath)
+        $yearMonth = \DiarioGames\IGDB\resolveGamePath($g['slug']);
+        $capsulePath = $yearMonth ? dirname(__DIR__, 4) . '/content/games/' . $yearMonth . '/' . $g['slug'] . '/steam-capsule.jpg' : null;
+        $capsuleUrl = ($capsulePath && file_exists($capsulePath))
             ? '/media/steam-capsule/' . $g['slug'] . '.jpg'
             : '';
         $steamSlugMap[$g['slug']] = [

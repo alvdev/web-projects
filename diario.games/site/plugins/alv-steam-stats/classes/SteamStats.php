@@ -288,7 +288,8 @@ class SteamStats
     {
         try {
             $game = (new SteamStatsDB())->getGameByAppId($appid);
-            if ($game && file_exists(dirname(__DIR__, 4) . '/content/games/' . $game['slug'] . '/steam-capsule.jpg')) {
+            $yearMonth = \DiarioGames\IGDB\resolveGamePath($game['slug']);
+            if ($game && $yearMonth && file_exists(dirname(__DIR__, 4) . '/content/games/' . $yearMonth . '/' . $game['slug'] . '/steam-capsule.jpg')) {
                 return '/media/steam-capsule/' . $game['slug'] . '.jpg';
             }
         } catch (\Throwable $e) {}

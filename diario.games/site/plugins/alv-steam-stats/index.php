@@ -322,7 +322,8 @@ App::plugin('alv/steam-stats', [
                 $db = new \Alv\SteamStats\SteamStatsDB();
                 $game = $db->getGameBySlug($slug);
                 if (!$game) {
-                    $page = page('games/' . $slug);
+                    $yearMonth = \DiarioGames\IGDB\resolveGamePath($slug);
+                $page = $yearMonth ? page('games/' . $yearMonth . '/' . $slug) : null;
                     if ($page) {
                         $igdbId = (int) $page->content()->get('IgdbId')->value();
                         if ($igdbId) {
@@ -388,8 +389,9 @@ App::plugin('alv/steam-stats', [
             'pattern' => 'media/steam-capsule/(:any).jpg',
             'method' => 'GET',
             'action' => function (string $slug) {
-                $file = kirby()->root('content') . '/games/' . $slug . '/steam-capsule.jpg';
-                if (!file_exists($file)) {
+                $yearMonth = \DiarioGames\IGDB\resolveGamePath($slug);
+                $file = $yearMonth ? kirby()->root('content') . '/games/' . $yearMonth . '/' . $slug . '/steam-capsule.jpg' : null;
+                if (!$file || !file_exists($file)) {
                     return new \Kirby\Http\Response('', 'text/plain', 404);
                 }
                 $mime = mime_content_type($file) ?: 'image/jpeg';
@@ -423,7 +425,8 @@ App::plugin('alv/steam-stats', [
             $game = $db->getGameBySlug($slug);
             if (!$game) {
                 // Fallback: try to find by IgdbId for pages with duplicate slugs
-                $page = page('games/' . $slug);
+                $yearMonth = \DiarioGames\IGDB\resolveGamePath($slug);
+                $page = $yearMonth ? page('games/' . $yearMonth . '/' . $slug) : null;
                 if ($page) {
                     $igdbId = (int) $page->content()->get('IgdbId')->value();
                     if ($igdbId) {
