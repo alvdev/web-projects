@@ -56,7 +56,9 @@ return [
                 try {
                     $db = new \Alv\SteamStats\SteamStatsDB();
                     $game = $db->getGameByAppId($appid);
-                    if ($game && page('games/' . $game['slug'])) {
+                    $appSlug = $game['slug'] ?? '';
+                    $appYearMonth = $appSlug ? \DiarioGames\IGDB\resolveGamePath($appSlug) : null;
+                    if ($game && $appYearMonth && page('games/' . $appYearMonth . '/' . $appSlug)) {
                         go('/' . $game['slug'], 301);
                     }
                 } catch (\Throwable $e) {}
@@ -98,17 +100,9 @@ return [
                 $igdbRoot = dirname(__DIR__, 2);
                 require_once $igdbRoot . '/site/plugins/alv-igdb/classes/helpers.php';
 
-                $page = page('games/' . $slug);
+                $yearMonth = \DiarioGames\IGDB\resolveGamePath($slug);
+                $page = $yearMonth ? page('games/' . $yearMonth . '/' . $slug) : null;
                 if ($page) {
-                    $canonical = \DiarioGames\IGDB\romanToDigits($slug);
-                    if ($canonical !== $slug) {
-                        $oldDir = $igdbRoot . '/content/games/' . $slug;
-                        $newDir = $igdbRoot . '/content/games/' . $canonical;
-                        if (is_dir($oldDir) && !is_dir($newDir)) {
-                            rename($oldDir, $newDir);
-                        }
-                        go('/' . $canonical, 301);
-                    }
                     return $page;
                 }
 
@@ -144,7 +138,8 @@ return [
                     return null;
                 }
 
-                $game = page('games/' . $parentSlug);
+                $yearMonth = \DiarioGames\IGDB\resolveGamePath($parentSlug);
+                $game = $yearMonth ? page('games/' . $yearMonth . '/' . $parentSlug) : null;
                 if ($game) {
                     $child = $game->find($childPath);
                     if ($child) {
