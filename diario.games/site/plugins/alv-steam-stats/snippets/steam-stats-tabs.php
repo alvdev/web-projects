@@ -329,7 +329,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                 var mp = mostPlayedByAppid[appid];
                 steamFavs[appid] = {
                     name: mp ? mp.name : (map.name || sf.title || 'Unknown'),
-                    capsule_image: mp ? mp.capsule_image : (sf.cover || ''),
+                    capsule_image: mp ? mp.capsule_image : '',
                     current_players: map.current_players || (mp ? mp.current_players : 0),
                     peak_players: map.peak_players || (mp ? mp.peak_players : 0)
                 };
@@ -360,9 +360,11 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                 var g = slugByAppid[appid] || mostPlayedByAppid[appid] || steamFavs[appid];
                 if (!g) return;
                 var ls = steamFavs[appid];
-                var imgSrc = g.capsule_image || (ls && ls.capsule_image) || '';
-                // Discard legacy centralized paths
+                var mp = mostPlayedByAppid[appid];
+                var imgSrc = g.capsule_image || (mp && mp.capsule_image) || (ls && ls.capsule_image) || 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/' + appid + '/capsule_231x87.jpg';
+                // Discard legacy centralized paths and site page covers
                 if (imgSrc.indexOf('/assets/steam-capsules/') === 0) imgSrc = '';
+                if (imgSrc.indexOf('/media/pages/games/') === 0) imgSrc = 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/' + appid + '/capsule_231x87.jpg';
                 var importingAttr = gameImportingAttr(appid);
                 var imgHtml = imgSrc ?
                     '<a href="' + gamePageUrl(appid) + '" class="block"' + importingAttr + '><img src="' + escapeAttr(imgSrc) + '" alt="' + escapeAttr(g.name || '') + '" class="w-20 h-7.5 object-cover rounded" loading="lazy"></a>' :

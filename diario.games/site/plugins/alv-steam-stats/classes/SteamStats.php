@@ -308,10 +308,16 @@ class SteamStats
         foreach ($appids as $appid) {
             $cached = $this->getCached('game-details.' . $appid, 86400);
             if ($cached !== null) {
-                // Override capsule if local file exists
                 $capsuleUrl = $this->resolveCapsuleUrl($appid);
                 if ($capsuleUrl) {
                     $cached['capsule_image'] = $capsuleUrl;
+                } elseif (!empty($cached['capsule_image']) && str_starts_with($cached['capsule_image'], '/media/steam-capsule/')) {
+                    if (!empty($cached['capsule_image_steam'])) {
+                        $cached['capsule_image'] = $cached['capsule_image_steam'];
+                    } else {
+                        $uncachedAppids[] = $appid;
+                        continue;
+                    }
                 }
                 $results[$appid] = $cached;
             } else {
@@ -348,11 +354,13 @@ class SteamStats
             }
 
             $info = $entry['data'] ?? [];
-            $capsuleUrl = $this->resolveCapsuleUrl($appid) ?: ($info['capsule_image'] ?? '');
+            $steamCdnUrl = $info['capsule_image'] ?? '';
+            $capsuleUrl = $this->resolveCapsuleUrl($appid) ?: $steamCdnUrl;
             $gameData = [
                 'name' => $info['name'] ?? '',
                 'header_image' => $info['header_image'] ?? '',
                 'capsule_image' => $capsuleUrl,
+                'capsule_image_steam' => $steamCdnUrl,
             ];
 
             $results[$appid] = $gameData;

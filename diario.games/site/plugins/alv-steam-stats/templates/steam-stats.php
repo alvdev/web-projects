@@ -443,7 +443,7 @@ function pageSparkline(array $history): string
                     var mp = gamesByAppid[appid];
                     favs[appid] = {
                         name: mp ? mp.name : (map.name || sf.title || 'Unknown'),
-                        capsule_image: mp ? mp.capsule_image : (sf.cover || ''),
+                        capsule_image: mp ? mp.capsule_image : '',
                         current_players: map.current_players || (mp ? mp.current_players : 0),
                         peak_players: map.peak_players || (mp ? mp.peak_players : 0)
                     };
@@ -476,9 +476,11 @@ function pageSparkline(array $history): string
                 var g = slugByAppid[appid] || gamesByAppid[appid] || favs[appid];
                 if (!g) return;
                 var ls = favs[appid];
-                var capUrl = g.capsule_image || (ls && ls.capsule_image) || '';
-                // Discard legacy centralized paths
+                var mp = gamesByAppid[appid];
+                var capUrl = g.capsule_image || (mp && mp.capsule_image) || (ls && ls.capsule_image) || 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/' + appid + '/capsule_231x87.jpg';
+                // Discard legacy centralized paths and site page covers
                 if (capUrl.indexOf('/assets/steam-capsules/') === 0) capUrl = '';
+                if (capUrl.indexOf('/media/pages/games/') === 0) capUrl = 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/' + appid + '/capsule_231x87.jpg';
                 rows.push({
                     appid: appid,
                     name: g.name || 'Unknown',
