@@ -11,8 +11,6 @@ foreach ($games as $game) {
 ksort($allGenres);
 $genreKeys = array_keys($allGenres);
 $total = count($genreKeys);
-$perColumn = (int) ceil($total / 3);
-$columns = array_chunk($genreKeys, $perColumn);
 ?>
 <div id="categories-nav" class="relative shrink-0">
     <button type="button" popovertarget="categories-popup"
@@ -21,6 +19,8 @@ $columns = array_chunk($genreKeys, $perColumn);
     </button>
     <div id="categories-popup" popover
          class="w-140 max-w-[90vw] bg-surface border border-border rounded-lg shadow-xl z-50 p-4">
+        <?php if ($total > 0): ?>
+        <?php $perColumn = (int) ceil($total / 3); $columns = array_chunk($genreKeys, $perColumn); ?>
         <div class="flex gap-4">
             <?php foreach ($columns as $i => $colGenres): ?>
             <div class="flex-1 flex flex-col gap-1">
@@ -35,5 +35,8 @@ $columns = array_chunk($genreKeys, $perColumn);
             </div>
             <?php endforeach ?>
         </div>
+        <?php else: ?>
+        <p class="text-sm text-muted">No hay categorías todavía.</p>
+        <?php endif ?>
     </div>
 </div>
