@@ -109,6 +109,11 @@ class GameImporter
         $slug = \DiarioGames\IGDB\romanToDigits($gameData['slug']);
         $rawSlug = $gameData['slug'];
 
+        $releaseDate = '';
+        if (!empty($gameData['first_release_date'])) {
+            $releaseDate = date('Y-m-d', $gameData['first_release_date']);
+        }
+
         // Migrate legacy directory with roman numeral slug
         if ($slug !== $rawSlug) {
             $oldDir = "{$this->gamesDir}/{$rawSlug}";
@@ -117,24 +122,22 @@ class GameImporter
             }
         }
 
-        $dir = "{$this->gamesDir}/{$slug}";
+        [$year, $month] = \DiarioGames\IGDB\deriveYearMonth($releaseDate);
+        $yearMonth = "{$year}/{$month}";
+        $dir = "{$this->gamesDir}/{$yearMonth}/{$slug}";
 
         if (is_dir($dir)) {
             $this->importMissingMedia($gameData, $slug, $dir);
             return $slug;
         }
 
-        // If another directory already exists with the same IgdbId, use that instead
+        // If another directory already exists with the same IgdbId, skip
         $gameId = $gameData['id'] ?? null;
         if ($gameId) {
-            $existing = glob("{$this->gamesDir}/*/game.txt");
-            foreach ($existing as $path) {
-                $content = file_get_contents($path);
-                if ($content !== false && preg_match('/^IgdbId:\s*' . preg_quote($gameId, '/') . '\s*$/m', $content)) {
-                    $existingSlug = basename(dirname($path));
-                    echo "  skipped: {$gameData['name']} (already exists at /{$existingSlug})\n";
-                    return $existingSlug;
-                }
+            $existingSlug = \DiarioGames\IGDB\resolveGameByIgdbId((int) $gameId);
+            if ($existingSlug) {
+                echo "  skipped: {$gameData['name']} (already exists at /{$existingSlug})\n";
+                return $existingSlug;
             }
         }
 
@@ -161,11 +164,6 @@ class GameImporter
 
         [$genreNames, $tagNames] = $this->resolveGenresAndTags($gameData);
         [$developer, $publisher] = $this->resolveInvolvedCompanies($gameData);
-
-        $releaseDate = '';
-        if (!empty($gameData['first_release_date'])) {
-            $releaseDate = date('Y-m-d', $gameData['first_release_date']);
-        }
 
         $name = $this->stringVal($gameData['name'] ?? '');
         $summary = \DiarioGames\IGDB\translate($this->stringVal($gameData['summary'] ?? ''));
@@ -231,6 +229,8 @@ class GameImporter
 
         // Register in Steam stats DB if the game has a Steam store link
         $this->registerSteamGame($slug, $gameData, $name);
+
+        \DiarioGames\IGDB\addGameToIndex($slug, $yearMonth, (int) $gameId);
 
         return $slug;
     }
