@@ -114,6 +114,8 @@ class GameImporter
             $releaseDate = date('Y-m-d', $gameData['first_release_date']);
         }
 
+        $gameId = $gameData['id'] ?? null;
+
         // Resolve location via index first
         $yearMonth = \DiarioGames\IGDB\resolveGamePath($slug);
 
@@ -121,17 +123,12 @@ class GameImporter
         if ($slug !== $rawSlug && !$yearMonth) {
             $yearMonth = \DiarioGames\IGDB\resolveGamePath($rawSlug);
             if ($yearMonth) {
-                // Roman numeral slug exists in index — rename directory to canonical slug
                 $oldDir = "{$this->gamesDir}/{$yearMonth}/{$rawSlug}";
                 $newDir = "{$this->gamesDir}/{$yearMonth}/{$slug}";
                 if (is_dir($oldDir) && !is_dir($newDir)) {
                     rename($oldDir, $newDir);
                 }
-                // Update index: remove old, add new
-                $index = \DiarioGames\IGDB\loadGameIndex();
-                unset($index[$rawSlug]);
-                $index[$slug] = $yearMonth;
-                \DiarioGames\IGDB\saveGameIndex($index);
+                \DiarioGames\IGDB\addGameToIndex($slug, $yearMonth, (int) $gameId);
             }
         }
 
@@ -148,12 +145,14 @@ class GameImporter
         }
 
         // If another directory already exists with the same IgdbId, skip
-        $gameId = $gameData['id'] ?? null;
         if ($gameId) {
             $existingSlug = \DiarioGames\IGDB\resolveGameByIgdbId((int) $gameId);
             if ($existingSlug) {
-                echo "  skipped: {$gameData['name']} (already exists at /{$existingSlug})\n";
-                return $existingSlug;
+                $existingYearMonth = \DiarioGames\IGDB\resolveGamePath($existingSlug);
+                if ($existingYearMonth && is_dir("{$this->gamesDir}/{$existingYearMonth}/{$existingSlug}")) {
+                    echo "  skipped: {$gameData['name']} (already exists at /{$existingSlug})\n";
+                    return $existingSlug;
+                }
             }
         }
 

@@ -37,6 +37,14 @@ class SteamStatsDB
         } catch (\PDOException $e) {
             // Column already exists — ignore
         }
+        // Add year_month column for game directory location
+        try {
+            $this->pdo->exec('ALTER TABLE steam_games ADD COLUMN year_month TEXT');
+        } catch (\PDOException $e) {
+            // Column already exists — ignore
+        }
+        $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_sg_slug ON steam_games(slug)');
+        $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_sg_igdb ON steam_games(igdb_id)');
         $this->pdo->exec('
             CREATE TABLE IF NOT EXISTS player_counts (
                 appid        INTEGER NOT NULL,
@@ -109,7 +117,7 @@ class SteamStatsDB
     public function getGameBySlug(string $slug): ?array
     {
         $normalized = self::normalizeSlug($slug);
-        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id FROM steam_games WHERE slug = :slug');
+        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id, year_month FROM steam_games WHERE slug = :slug');
         $stmt->execute([':slug' => $normalized]);
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $row ?: null;
@@ -117,7 +125,7 @@ class SteamStatsDB
 
     public function getGameByAppId(int $appid): ?array
     {
-        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id FROM steam_games WHERE appid = :appid');
+        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id, year_month FROM steam_games WHERE appid = :appid');
         $stmt->execute([':appid' => $appid]);
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $row ?: null;
@@ -125,10 +133,35 @@ class SteamStatsDB
 
     public function getGameByIgdbId(int $igdbId): ?array
     {
-        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id FROM steam_games WHERE igdb_id = :igdb_id');
+        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id, year_month FROM steam_games WHERE igdb_id = :igdb_id');
         $stmt->execute([':igdb_id' => $igdbId]);
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $row ?: null;
+    }
+
+    public function getYearMonth(string $slug): ?string
+    {
+        $normalized = self::normalizeSlug($slug);
+        $stmt = $this->pdo->prepare('SELECT year_month FROM steam_games WHERE slug = :slug');
+        $stmt->execute([':slug' => $normalized]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $row['year_month'] ?? null;
+    }
+
+    public function setYearMonth(string $slug, string $yearMonth): void
+    {
+        $normalized = self::normalizeSlug($slug);
+        $stmt = $this->pdo->prepare("
+            INSERT INTO steam_games (appid, slug, name, year_month)
+            VALUES (NULL, :slug, :name, :ym)
+            ON CONFLICT(slug) DO UPDATE SET year_month = :ym2
+        ");
+        $stmt->execute([
+            ':slug'  => $normalized,
+            ':name'  => $slug,
+            ':ym'    => $yearMonth,
+            ':ym2'   => $yearMonth,
+        ]);
     }
 
     public function getAllGames(): array

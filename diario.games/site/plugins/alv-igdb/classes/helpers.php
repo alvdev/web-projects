@@ -112,86 +112,39 @@ function downloadImage(string $url, string $destPath): bool
     return true;
 }
 
-function getGameIndexPath(): string
-{
-    return dirname(__DIR__, 4) . '/data/games/index.php';
-}
-
-function getGameIndexIgdbPath(): string
-{
-    return dirname(__DIR__, 4) . '/data/games/index-igdb.php';
-}
-
-function loadGameIndex(): array
-{
-    $path = getGameIndexPath();
-    if (!file_exists($path)) return [];
-    return include $path;
-}
-
-function loadGameIndexIgdb(): array
-{
-    $path = getGameIndexIgdbPath();
-    if (!file_exists($path)) return [];
-    return include $path;
-}
-
 function resolveGamePath(string $slug): ?string
 {
-    $index = loadGameIndex();
-    return $index[$slug] ?? null;
+    try {
+        $db = new \Alv\SteamStats\SteamStatsDB();
+        return $db->getYearMonth($slug);
+    } catch (\Throwable $e) {
+        return null;
+    }
 }
 
 function resolveGameByIgdbId(int $igdbId): ?string
 {
-    $index = loadGameIndexIgdb();
-    return $index[$igdbId] ?? null;
-}
-
-function _atomicSaveIndex(string $path, array $index): bool
-{
-    $dir = dirname($path);
-    if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
-        return false;
+    try {
+        $db = new \Alv\SteamStats\SteamStatsDB();
+        $game = $db->getGameByIgdbId($igdbId);
+        return $game['slug'] ?? null;
+    } catch (\Throwable $e) {
+        return null;
     }
-
-    $tmp = $path . '.tmp';
-    if (file_put_contents($tmp, '<?php return ' . var_export($index, true) . ';' . "\n") === false) {
-        return false;
-    }
-    if (!rename($tmp, $path)) {
-        return false;
-    }
-
-    if (function_exists('opcache_invalidate')) {
-        opcache_invalidate($path, true);
-    }
-
-    return true;
-}
-
-function saveGameIndex(array $index): bool
-{
-    return _atomicSaveIndex(getGameIndexPath(), $index);
-}
-
-function saveGameIndexIgdb(array $index): bool
-{
-    return _atomicSaveIndex(getGameIndexIgdbPath(), $index);
 }
 
 function addGameToIndex(string $slug, string $yearMonth, int $igdbId): void
 {
-    $index = loadGameIndex();
-    $index[$slug] = $yearMonth;
-    saveGameIndex($index);
-
-    if ($igdbId > 0) {
-        $igdbIndex = loadGameIndexIgdb();
-        $igdbIndex[$igdbId] = $slug;
-        saveGameIndexIgdb($igdbIndex);
-    }
+    try {
+        $db = new \Alv\SteamStats\SteamStatsDB();
+        $db->setYearMonth($slug, $yearMonth);
+    } catch (\Throwable $e) {}
 }
+
+function loadGameIndex(): array { return []; }
+function loadGameIndexIgdb(): array { return []; }
+function saveGameIndex(array $index): bool { return true; }
+function saveGameIndexIgdb(array $index): bool { return true; }
 
 function deriveYearMonth(string $releaseDate): array
 {

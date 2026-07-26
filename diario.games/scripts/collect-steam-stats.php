@@ -103,26 +103,26 @@ try {
     $gamesDir = dirname(__DIR__) . '/content/games';
     $downloaded = 0;
 
-    $dirs = new \DirectoryIterator($gamesDir);
-    foreach ($dirs as $dir) {
-        if (!$dir->isDir() || $dir->isDot()) continue;
+    $recursive = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($gamesDir, \FilesystemIterator::SKIP_DOTS)
+    );
+    foreach ($recursive as $item) {
+        if ($item->getFilename() !== 'game.txt') continue;
 
-        $slug = $dir->getFilename();
-        $gameFile = $dir->getPathname() . '/game.txt';
-        if (!file_exists($gameFile)) continue;
+        $gameDir = dirname($item->getPathname());
+        $slug = basename($gameDir);
+        $content = file_get_contents($item->getPathname());
 
-        $content = file_get_contents($gameFile);
         if (!preg_match('/store\.steampowered\.com\/app\/(\d+)/i', $content, $m)) continue;
 
         $appid = (int) $m[1];
-        $localPath = $gamesDir . '/' . $slug . '/steam-capsule.jpg';
+        $localPath = $gameDir . '/steam-capsule.jpg';
         if (file_exists($localPath)) continue;
 
         $result = $collector->downloadCapsule($appid, $slug);
         if ($result !== null) {
             $downloaded++;
         }
-        // Always clear cache to refresh URL (local or external)
         kirby()->cache('alv/steam-stats.cache')->remove('game-details.' . $appid);
         usleep(100000);
     }

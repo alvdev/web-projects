@@ -313,10 +313,25 @@ class SteamStatsCollector
         curl_close($ch);
 
         if ($httpCode !== 200 || !$response) {
+            // Steam returns 404 with a valid JSON body for unreleased/beta games.
+            // Check the response body for "no data" before giving up.
+            if ($response) {
+                $data = json_decode($response, true);
+                if (is_array($data)) {
+                    if (isset($data['response']['player_count'])) {
+                        return (int)$data['response']['player_count'];
+                    }
+                    // Valid Steam response without player_count — game has no data
+                    return 0;
+                }
+            }
             return null;
         }
 
         $data = json_decode($response, true);
-        return $data['response']['player_count'] ?? null;
+        if (isset($data['response']['player_count'])) {
+            return (int)$data['response']['player_count'];
+        }
+        return 0;
     }
 }
