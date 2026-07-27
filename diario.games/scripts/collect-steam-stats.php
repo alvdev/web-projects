@@ -37,6 +37,8 @@ if ($mode === 'player-update') {
     try {
         kirby()->cache('alv/steam-stats.cache')->remove('player-data-summary');
         (new \Alv\SteamStats\SteamStatsDB())->getAllPlayerDataCached();
+        kirby()->cache('alv/steam-stats.cache')
+            ->set('warm-last-run', ['value' => time(), 'timestamp' => time()]);
     } catch (\Throwable $e) {}
     exit(0);
 }
@@ -106,6 +108,8 @@ try {
     $stats->updatePlayerHistory();
     kirby()->cache('alv/steam-stats.cache')->remove('player-data-summary');
     (new \Alv\SteamStats\SteamStatsDB())->getAllPlayerDataCached();
+    kirby()->cache('alv/steam-stats.cache')
+        ->set('warm-last-run', ['value' => time(), 'timestamp' => time()]);
     echo "Caches warmed.\n";
 } catch (\Throwable $e) {
     echo "Cache warm failed: " . $e->getMessage() . "\n";
