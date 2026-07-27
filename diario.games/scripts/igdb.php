@@ -8,7 +8,6 @@
  *   php scripts/igdb.php import <igdb-id>
  *   php scripts/igdb.php auto-fetch [--max N]
  *   php scripts/igdb.php clean
- *   php scripts/igdb.php migrate-platforms
  */
 
 require_once dirname(__DIR__) . '/kirby/bootstrap.php';
@@ -118,35 +117,6 @@ try {
             echo "Done. Imported: {$result['imported']}, Skipped: {$result['skipped']}\n";
             break;
 
-        case 'migrate-platforms':
-            $gamesDir = $root . '/content/games';
-            if (!is_dir($gamesDir)) {
-                echo "Nothing to migrate.\n";
-                exit;
-            }
-            $dirs = glob($gamesDir . '/*', GLOB_ONLYDIR);
-            $count = 0;
-            foreach ($dirs as $dir) {
-                $basename = basename($dir);
-                if ($basename === 'games') continue;
-                $txtPath = "{$dir}/game.txt";
-                if (!file_exists($txtPath)) continue;
-                $content = file_get_contents($txtPath);
-                if ($content === false) continue;
-                if (preg_match('/^Platforms:\s*(.*)$/m', $content, $m)) {
-                    $current = trim($m[1]);
-                    $normalized = \DiarioGames\IGDB\normalizePlatformNames($current);
-                    if ($normalized !== $current) {
-                        $content = preg_replace('/^Platforms:.*$/m', "Platforms: {$normalized}", $content);
-                        file_put_contents($txtPath, $content);
-                        $count++;
-                        echo "  migrated: {$basename}\n";
-                    }
-                }
-            }
-            echo "Done. Migrated {$count} games.\n";
-            break;
-
         default:
             echo "Usage: php scripts/igdb.php <command> [options]\n\n";
             echo "Commands:\n";
@@ -155,7 +125,6 @@ try {
             echo "  import <id>              Import a game by IGDB ID\n";
             echo "  auto-fetch [--max=N]     Bulk import all main games\n";
             echo "  clean                    Remove all imported local games\n";
-            echo "  migrate-platforms        Normalize platform names in all existing games\n";
             break;
     }
 } catch (\Throwable $e) {

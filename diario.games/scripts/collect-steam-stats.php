@@ -127,19 +127,6 @@ try {
         usleep(100000);
     }
 
-    // Clear any remaining cache entries with the old centralized URL
-    $cache = kirby()->cache('alv/steam-stats.cache');
-    $pattern = dirname(__DIR__) . '/site/cache/*/alv_steam-stats/cache/game-details-*.cache';
-    foreach (glob($pattern) as $f) {
-        $data = json_decode(file_get_contents($f), true);
-        $url = $data['value']['value']['capsule_image'] ?? '';
-        if (strpos($url, '/assets/steam-capsules/') === 0) {
-            preg_match('/game-details-(\d+)_/', basename($f), $m);
-            if (!empty($m[1])) $cache->remove('game-details.' . $m[1]);
-        }
-    }
-
-    // Re-warm game details with resolved URLs (local or external)
     site()->steamStats()->getMostPlayed(100);
     site()->steamStats()->getTrending(100);
 

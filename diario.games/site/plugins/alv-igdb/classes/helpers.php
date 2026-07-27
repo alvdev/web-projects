@@ -112,10 +112,24 @@ function downloadImage(string $url, string $destPath): bool
     return true;
 }
 
+function _db(): ?\Alv\SteamStats\SteamStatsDB
+{
+    static $instance = null;
+    if ($instance === null) {
+        try {
+            $instance = new \Alv\SteamStats\SteamStatsDB();
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+    return $instance;
+}
+
 function resolveGamePath(string $slug): ?string
 {
     try {
-        $db = new \Alv\SteamStats\SteamStatsDB();
+        $db = _db();
+        if (!$db) return null;
         return $db->getYearMonth($slug);
     } catch (\Throwable $e) {
         return null;
@@ -125,7 +139,8 @@ function resolveGamePath(string $slug): ?string
 function resolveGameByIgdbId(int $igdbId): ?string
 {
     try {
-        $db = new \Alv\SteamStats\SteamStatsDB();
+        $db = _db();
+        if (!$db) return null;
         $game = $db->getGameByIgdbId($igdbId);
         return $game['slug'] ?? null;
     } catch (\Throwable $e) {
@@ -136,15 +151,11 @@ function resolveGameByIgdbId(int $igdbId): ?string
 function addGameToIndex(string $slug, string $yearMonth, int $igdbId): void
 {
     try {
-        $db = new \Alv\SteamStats\SteamStatsDB();
-        $db->setYearMonth($slug, $yearMonth);
+        $db = _db();
+        if (!$db) return;
+        $db->setYearMonth($slug, $yearMonth, $igdbId > 0 ? $igdbId : null);
     } catch (\Throwable $e) {}
 }
-
-function loadGameIndex(): array { return []; }
-function loadGameIndexIgdb(): array { return []; }
-function saveGameIndex(array $index): bool { return true; }
-function saveGameIndexIgdb(array $index): bool { return true; }
 
 function deriveYearMonth(string $releaseDate): array
 {
