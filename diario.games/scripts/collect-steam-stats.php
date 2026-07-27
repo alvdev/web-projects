@@ -28,6 +28,19 @@ $mode = $argv[1] ?? 'collect';
 
 $collector = new \Alv\SteamStats\SteamStatsCollector($key);
 
+if ($mode === 'player-update') {
+    $stats = $collector->collect();
+    echo "Scanned: {$stats['scanned']}, Updated: {$stats['updated']}, Errors: " . count($stats['errors']) . "\n";
+    if (!empty($stats['errors'])) {
+        echo "Failed appids: " . implode(', ', $stats['errors']) . "\n";
+    }
+    try {
+        kirby()->cache('alv/steam-stats.cache')->remove('player-data-summary');
+        (new \Alv\SteamStats\SteamStatsDB())->getAllPlayerDataCached();
+    } catch (\Throwable $e) {}
+    exit(0);
+}
+
 if ($mode === 'backfill') {
     echo "Backfilling historical data from steamcharts.com...\n";
     $stats = $collector->backfill(function ($msg) { echo "  $msg\n"; });

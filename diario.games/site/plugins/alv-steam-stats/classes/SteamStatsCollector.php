@@ -18,16 +18,16 @@ class SteamStatsCollector
         $gamesDir = dirname(__DIR__, 4) . '/content/games';
         $stats = ['scanned' => 0, 'updated' => 0, 'errors' => []];
 
-        $dirs = new \DirectoryIterator($gamesDir);
-        foreach ($dirs as $dir) {
-            if (!$dir->isDir() || $dir->isDot()) continue;
+        $recursive = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($gamesDir, \FilesystemIterator::SKIP_DOTS)
+        );
+        foreach ($recursive as $item) {
+            if ($item->getFilename() !== 'game.txt') continue;
 
-            $slug = $dir->getFilename();
-            $gameFile = $dir->getPathname() . '/game.txt';
-            if (!file_exists($gameFile)) continue;
+            $slug = basename(dirname($item->getPathname()));
+            $content = file_get_contents($item->getPathname());
 
             $stats['scanned']++;
-            $content = file_get_contents($gameFile);
 
             // Extract Steam app ID from Websites field
             if (preg_match('/store\.steampowered\.com\/app\/(\d+)/i', $content, $m)) {
