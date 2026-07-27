@@ -97,7 +97,7 @@ class GameImporter
         return false;
     }
 
-    public function import(array $gameData): ?string
+    public function import(array $gameData, ?callable $progress = null): ?string
     {
         if (empty($gameData['slug'])) return null;
 
@@ -115,6 +115,8 @@ class GameImporter
 
         $gameId = $gameData['id'] ?? null;
 
+        if ($progress) $progress('metadata');
+
         // Resolve location via index first
         $yearMonth = \DiarioGames\IGDB\resolveGamePath($slug);
 
@@ -126,6 +128,7 @@ class GameImporter
         $dir = "{$this->gamesDir}/{$yearMonth}/{$slug}";
 
         if (is_dir($dir)) {
+            \DiarioGames\IGDB\addGameToIndex($slug, $yearMonth, (int) $gameId);
             $this->importMissingMedia($gameData, $slug, $dir);
             return $slug;
         }
@@ -134,12 +137,17 @@ class GameImporter
         if ($gameId) {
             $existingSlug = \DiarioGames\IGDB\resolveGameByIgdbId((int) $gameId);
             if ($existingSlug) {
-                echo "  skipped: {$gameData['name']} (already exists at /{$existingSlug})\n";
-                return $existingSlug;
+                $existingYearMonth = \DiarioGames\IGDB\resolveGamePath($existingSlug);
+                if ($existingYearMonth && is_dir("{$this->gamesDir}/{$existingYearMonth}/{$existingSlug}")) {
+                    echo "  skipped: {$gameData['name']} (already exists at /{$existingSlug})\n";
+                    return $existingSlug;
+                }
             }
         }
 
         mkdir($dir, 0755, true);
+
+        if ($progress) $progress('platforms');
 
         $platformIds = $this->extractIds($gameData['platforms'] ?? []);
         $platformNames = $this->resolvePlatformNames($platformIds);
@@ -160,10 +168,15 @@ class GameImporter
             return null;
         }
 
+        if ($progress) $progress('genres');
+
         [$genreNames, $tagNames] = $this->resolveGenresAndTags($gameData);
         [$developer, $publisher] = $this->resolveInvolvedCompanies($gameData);
 
         $name = $this->stringVal($gameData['name'] ?? '');
+
+        if ($progress) $progress('description');
+
         $summary = \DiarioGames\IGDB\translate($this->stringVal($gameData['summary'] ?? ''));
         $rating = $this->stringVal($gameData['rating'] ?? '');
         $aggRating = $this->stringVal($gameData['aggregated_rating'] ?? '');
@@ -172,6 +185,7 @@ class GameImporter
         $screenshotStr = '';
         $screenshotIds = $gameData['screenshots'] ?? [];
         if (!empty($screenshotIds)) {
+            if ($progress) $progress('screenshots');
             $allScreenshots = $this->client->fetchScreenshots([$gameData['id']]);
             $ids = array_column($allScreenshots, 'image_id');
             $screenshotStr = implode(', ', $ids);
@@ -181,6 +195,7 @@ class GameImporter
         $videoYtIds = [];
         $videoIds = $gameData['videos'] ?? [];
         if (!empty($videoIds)) {
+            if ($progress) $progress('videos');
             $allVideos = $this->client->fetchGameVideos([$gameData['id']]);
             $videoYtIds = array_column($allVideos, 'video_id');
             $videoStr = implode(', ', $videoYtIds);
@@ -199,11 +214,14 @@ class GameImporter
             $websiteStr = implode(', ', $pairs);
         }
 
+        if ($progress) $progress('saving');
+
         $content = "Title: {$name}\n\n----\n\nTemplate: game\n\n----\n\nSummary: {$summary}\n\n----\n\nReleaseDate: {$releaseDate}\n\n----\n\nDeveloper: {$developer}\n\n----\n\nPublisher: {$publisher}\n\n----\n\nGenres: {$genreNames}\n\n----\n\nTags: {$tagNames}\n\n----\n\nPlatforms: {$platformNames}\n\n----\n\nIgdbId: {$gameData['id']}\n\n----\n\nRating: {$rating}\n\n----\n\nAggregatedRating: {$aggRating}\n\n----\n\nFeatured:\n\n----\n\nScreenshots: {$screenshotStr}\n\n----\n\nVideos: {$videoStr}\n\n----\n\nWebsites: {$websiteStr}\n\n----\n";
         file_put_contents("{$dir}/game.txt", $content);
 
         $coverId = $gameData['cover'] ?? null;
         if ($coverId) {
+            if ($progress) $progress('cover');
             $coverData = $this->client->fetchCovers([$gameData['id']]);
             $firstCover = $coverData[0] ?? null;
             if ($firstCover && !empty($firstCover['image_id'])) {
@@ -213,6 +231,7 @@ class GameImporter
 
         $firstShot = $allScreenshots[0] ?? null;
         if ($firstShot && !empty($firstShot['image_id'])) {
+            if ($progress) $progress('hero');
             $this->downloadHero($slug, $dir, $firstShot['image_id']);
         }
 
@@ -226,6 +245,7 @@ class GameImporter
         }
 
         // Register in Steam stats DB if the game has a Steam store link
+        if ($progress) $progress('steam');
         $this->registerSteamGame($slug, $gameData, $name);
 
         \DiarioGames\IGDB\addGameToIndex($slug, $yearMonth, (int) $gameId);
@@ -257,11 +277,11 @@ class GameImporter
         }
     }
 
-    public function importBySlug(string $slug): ?string
+    public function importBySlug(string $slug, ?callable $progress = null): ?string
     {
         $data = $this->client->fetchGameBySlug($slug);
         if (!$data) return null;
-        return $this->import($data);
+        return $this->import($data, $progress);
     }
 
     /**
@@ -272,10 +292,10 @@ class GameImporter
      * Returns the content slug on success, or null if no IGDB game was found
      * or all candidates failed import.
      */
-    public function importBySlugWithFallback(string $requestedSlug): ?string
+    public function importBySlugWithFallback(string $requestedSlug, ?callable $progress = null): ?string
     {
         // 1. Direct IGDB slug lookup
-        $result = $this->importBySlug($requestedSlug);
+        $result = $this->importBySlug($requestedSlug, $progress);
         if ($result) return $result;
 
         // 2. Natural-language search (dashes → spaces)
@@ -302,7 +322,7 @@ class GameImporter
             if (\DiarioGames\IGDB\romanToDigits($canonicalSlug) !== $requestedSlug) continue;
             if (self::isExcluded($ig)) continue;
             $ig['slug'] = $canonicalSlug;
-            return $this->import($ig);
+            return $this->import($ig, $progress);
         }
 
         // 5. Best-effort fallback: import the first non-excluded IGDB result
@@ -311,7 +331,7 @@ class GameImporter
         foreach ($igdbResults as $ig) {
             if (self::isExcluded($ig)) continue;
             $ig['slug'] = $requestedSlug;
-            return $this->import($ig);
+            return $this->import($ig, $progress);
         }
 
         return null;

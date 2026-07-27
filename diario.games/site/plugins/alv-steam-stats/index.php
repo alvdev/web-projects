@@ -386,6 +386,79 @@ App::plugin('alv/steam-stats', [
             }
         ],
         [
+            'pattern' => 'steam-stats-api/import-game',
+            'method' => 'GET|POST',
+            'action' => function () {
+                $slug = get('slug', '');
+                if (!$slug) {
+                    return ['error' => 'slug required'];
+                }
+
+                $importId = bin2hex(random_bytes(8));
+                $cache = kirby()->cache('alv/steam-stats.cache');
+                $cache->set("import-progress.{$importId}", ['phase' => 'start', 'text' => 'Iniciando importación...']);
+
+                $igdbConfig = kirby()->option('igdb');
+                $clientId = $igdbConfig['client_id'] ?? getenv('IGDB_CLIENT_ID');
+                $clientSecret = $igdbConfig['client_secret'] ?? getenv('IGDB_CLIENT_SECRET');
+
+                if (!$clientId || !$clientSecret) {
+                    $cache->set("import-progress.{$importId}", [
+                        'error' => true,
+                        'text' => 'Error: credenciales de IGDB no configuradas',
+                    ]);
+                    return ['id' => $importId, 'error' => 'igdb_credentials'];
+                }
+
+                try {
+                    $igdbConfig = kirby()->option('igdb');
+                    $clientId = $igdbConfig['client_id'] ?? getenv('IGDB_CLIENT_ID');
+                    $clientSecret = $igdbConfig['client_secret'] ?? getenv('IGDB_CLIENT_SECRET');
+
+                    if (!$clientId || !$clientSecret) {
+                        $cache->set("import-progress.{$importId}", [
+                            'error' => true,
+                            'text' => 'Error: credenciales de IGDB no configuradas',
+                        ]);
+                        return ['id' => $importId, 'error' => 'igdb_credentials'];
+                    }
+
+                    $cache->set("import-progress.{$importId}", [
+                        'phase' => 'start',
+                        'text'  => 'Conectando con IGDB...',
+                    ]);
+
+                    $script = kirby()->root('index') . '/scripts/import-game-cli.php';
+                    exec(sprintf(
+                        'php %s %s %s > /dev/null 2>&1 &',
+                        escapeshellarg($script),
+                        escapeshellarg($slug),
+                        escapeshellarg($importId)
+                    ));
+
+                    return ['id' => $importId, 'ok' => true];
+                } catch (\Throwable $e) {
+                    $cache->set("import-progress.{$importId}", [
+                        'error' => true,
+                        'text'  => 'Error: ' . $e->getMessage(),
+                    ]);
+                    return ['id' => $importId, 'error' => 'exception'];
+                }
+            }
+        ],
+        [
+            'pattern' => 'steam-stats-api/import-progress/(:any)',
+            'method' => 'GET',
+            'action' => function (string $importId) {
+                $cache = kirby()->cache('alv/steam-stats.cache');
+                $progress = $cache->get("import-progress.{$importId}");
+                if (!$progress) {
+                    return ['phase' => 'unknown', 'text' => 'Esperando...'];
+                }
+                return $progress;
+            }
+        ],
+        [
             'pattern' => 'media/steam-capsule/(:any).jpg',
             'method' => 'GET',
             'action' => function (string $slug) {

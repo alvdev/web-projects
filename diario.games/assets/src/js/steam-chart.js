@@ -220,42 +220,94 @@ function escapeHtml(str) {
 
 function initImportOverlay() {
     var overlay = null;
+    var pollTimer = null;
     var timeoutId = null;
 
     function hideOverlay() {
+        if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+        if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
         if (!overlay) return;
         overlay.remove();
         overlay = null;
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-            timeoutId = null;
-        }
     }
 
-    function showOverlay() {
-        if (overlay) return;
+    function updateOverlayText(text) {
+        if (!overlay) return;
+        var p = overlay.querySelector('.import-progress-text');
+        if (p) p.textContent = text;
+    }
+
+    function buildOverlay(text) {
         overlay = document.createElement('div');
         overlay.setAttribute('role', 'alertdialog');
         overlay.setAttribute('aria-label', 'Importando juego');
-        overlay.className = 'fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center pointer-events-none'; /* pointer-events-none is mandatory or importing process will be broken*/
+        overlay.className = 'fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center pointer-events-none';
         overlay.innerHTML =
             '<div class="text-center pointer-events-auto">' +
             '<div class="inline-block w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin"></div>' +
             '<p class="text-text mt-4 text-sm font-medium">Importando juego…</p>' +
-            '<p class="text-muted mt-1 text-xs">Esto puede tardar unos segundos</p>' +
+            '<p class="import-progress-text text-muted mt-1 text-xs">' + (text || 'Esto puede tardar unos segundos') + '</p>' +
             '<button class="mt-4 text-xs text-muted/60 hover:text-neon-cyan underline transition-colors" data-overlay-close>Cerrar</button>' +
             '</div>';
         document.body.appendChild(overlay);
 
         timeoutId = setTimeout(function () {
-            var msg = overlay.querySelector('.text-muted');
-            if (msg) msg.textContent = 'Parece estar tardando más de lo esperado. Puedes cerrar e intentar de nuevo.';
+            updateOverlayText('Parece estar tardando más de lo esperado. Puedes cerrar e intentar de nuevo.');
         }, 60000);
     }
 
-    document.addEventListener('mousedown', function (e) {
+    function pollProgress(importId) {
+        pollTimer = setInterval(function () {
+            fetch('/steam-stats-api/import-progress/' + importId)
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data.text) updateOverlayText(data.text);
+                    if (data.ready) {
+                        clearInterval(pollTimer);
+                        pollTimer = null;
+                        updateOverlayText('¡Listo! Redirigiendo…');
+                        setTimeout(function () {
+                            window.location = '/' + data.slug;
+                        }, 500);
+                    }
+                    if (data.error) {
+                        clearInterval(pollTimer);
+                        pollTimer = null;
+                        updateOverlayText('Error: ' + (data.text || 'No se pudo importar'));
+                        if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
+                    }
+                })
+                .catch(function () {});
+        }, 500);
+    }
+
+    function startImport(slug) {
+        if (overlay) return;
+        buildOverlay('Conectando con IGDB…');
+
+        fetch('/steam-stats-api/import-game?slug=' + encodeURIComponent(slug))
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data.id) {
+                    pollProgress(data.id);
+                } else {
+                    updateOverlayText('Error al iniciar la importación: ' + (data.error || ''));
+                    if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
+                }
+            })
+            .catch(function (err) {
+                updateOverlayText('Error: ' + (err.message || 'conexión fallida'));
+                if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
+            });
+    }
+
+    document.addEventListener('click', function (e) {
         var a = e.target.closest('a[data-importing]');
-        if (a) showOverlay();
+        if (!a) return;
+        var slug = a.getAttribute('href').replace(/^\/+/, '').replace(/\/+$/, '');
+        if (!slug) return;
+        e.preventDefault();
+        startImport(slug);
     });
 
     document.addEventListener('keydown', function (e) {
@@ -264,7 +316,9 @@ function initImportOverlay() {
         }
     });
 
-    window.addEventListener('pageshow', function () {
-        if (overlay) hideOverlay();
+    document.addEventListener('click', function (e) {
+        if (e.target.hasAttribute('data-overlay-close') && overlay) {
+            hideOverlay();
+        }
     });
 }
