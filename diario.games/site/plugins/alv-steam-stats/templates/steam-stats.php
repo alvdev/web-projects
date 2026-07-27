@@ -56,7 +56,7 @@ foreach ($appIdToSlug as $appid => $slug) {
 
 function pageFormatPlayers(int $count): string
 {
-    if ($count >= 1000000) return round($count / 1000000, 1) . 'M';
+    if ($count >= 1000000) return round($count / 1000000, 2) . 'M';
     if ($count >= 1000) return round($count / 1000, 1) . 'K';
     return (string) $count;
 }
@@ -273,7 +273,7 @@ function pageSparkline(array $history): string
         }
 
         function fmtPlayers(n) {
-            if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.?0+$/, '') + 'M';
+            if (n >= 1000000) return (n / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
             if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.?0+$/, '') + 'K';
             return String(n);
         }
