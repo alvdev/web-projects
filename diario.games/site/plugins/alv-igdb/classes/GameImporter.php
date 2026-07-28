@@ -250,6 +250,14 @@ class GameImporter
 
         \DiarioGames\IGDB\addGameToIndex($slug, $yearMonth, (int) $gameId);
 
+        // Fetch brand icons from thesvg.org for game websites
+        if (!empty($websiteData)) {
+            foreach ($websiteData as $w) {
+                $siteUrl = $w['url'] ?? '';
+                if ($siteUrl) \DiarioGames\IGDB\fetchThesvgIcon($siteUrl);
+            }
+        }
+
         return $slug;
     }
 

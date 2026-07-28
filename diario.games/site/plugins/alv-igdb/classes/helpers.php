@@ -47,45 +47,105 @@ function normalizePlatformNames(string $platformStr): string
 {
     if (empty(trim($platformStr))) return '';
 
-    if (str_contains($platformStr, 'Xbox (')) {
-        return $platformStr;
-    }
+    $excluded = ['Legacy Mobile Device', 'Windows Mobile', 'N-Gage', 'Google Stadia', 'Windows Phone'];
 
-    $excluded = ['Legacy Mobile Device', 'Windows Mobile', 'N-Gage'];
+    // Normalize Xbox "(X|S, One)" before comma splitting
+    $platformStr = preg_replace_callback('/Xbox\s*\(([^)]+)\)/i', function ($m) {
+        return 'Xbox ' . str_replace(',', ' ', $m[1]);
+    }, $platformStr);
 
     $names = array_map('trim', explode(',', $platformStr));
-    $result = [];
-    $xboxVariants = [];
+
+    $psVariants      = [];
+    $switchVariants  = [];
+    $xboxVariants    = [];
+    $entries         = [];
 
     foreach ($names as $name) {
-        if (in_array($name, $excluded)) continue;
+        if ($name === '' || in_array($name, $excluded)) continue;
 
         $name = str_replace(' (Microsoft Windows)', '', $name);
-        $name = str_ireplace('playstation', 'PS', $name);
-        $name = preg_replace('/\bPS\s+(\d)/', 'PS$1', $name);
+
+        if (preg_match('/^(?:PlayStation|PS)\s*(.+)$/i', $name, $m)) {
+            $psVariants[] = $m[1];
+            continue;
+        }
+
+        if (preg_match('/^Nintendo Switch(?:\s+(\d+))?$/i', $name, $m)) {
+            $switchVariants[] = isset($m[1]) ? $m[1] : '1';
+            continue;
+        }
 
         if (preg_match('/^Xbox\s+(.+)$/i', $name, $m)) {
-            $variant = preg_replace('/^Series\s+/i', '', $m[1]);
-            $xboxVariants[] = $variant;
+            $variant = trim($m[1]);
+            // "Series X|S" → "X|S"
+            $variant = preg_replace('/^Series\s+([XS]\|?[XS])$/i', '$1', $variant);
+            foreach (preg_split('/\s+/', $variant) as $part) {
+                $part = trim($part);
+                if ($part !== '') $xboxVariants[] = $part;
+            }
+            continue;
+        }
+
+        $entries[] = $name;
+    }
+
+    // Group PlayStation
+    if (!empty($psVariants)) {
+        $psVariants = array_unique($psVariants);
+        usort($psVariants, function ($a, $b) {
+            $aNum = is_numeric($a);
+            $bNum = is_numeric($b);
+            if ($aNum && $bNum) return (int)$a - (int)$b;
+            if ($aNum) return -1;
+            if ($bNum) return 1;
+            return strcasecmp($a, $b);
+        });
+        $entries[] = 'PS ' . implode('|', $psVariants);
+    }
+
+    // Group Switch
+    if (!empty($switchVariants)) {
+        $switchVariants = array_unique($switchVariants);
+        sort($switchVariants, SORT_NUMERIC);
+        if ($switchVariants === ['1']) {
+            $entries[] = 'Switch';
         } else {
-            $result[] = $name;
+            $entries[] = 'Switch ' . implode('|', $switchVariants);
         }
     }
 
+    // Group Xbox
     if (!empty($xboxVariants)) {
-        $xboxStr = count($xboxVariants) === 1
-            ? 'Xbox ' . $xboxVariants[0]
-            : 'Xbox (' . implode(', ', $xboxVariants) . ')';
-        $result[] = $xboxStr;
+        $xboxVariants = array_unique($xboxVariants);
+        usort($xboxVariants, function ($a, $b) {
+            $aOrder = in_array(strtoupper($a), ['X|S', 'S|X']) ? 0 : 1;
+            $bOrder = in_array(strtoupper($b), ['X|S', 'S|X']) ? 0 : 1;
+            if ($aOrder !== $bOrder) return $aOrder - $bOrder;
+            return strcasecmp($a, $b);
+        });
+        $entries[] = 'Xbox ' . implode('|', $xboxVariants);
     }
 
-    usort($result, function ($a, $b) {
+    // Sort: OS first → consoles → phones last
+    usort($entries, function ($a, $b) {
+        $catA = platformCategory($a);
+        $catB = platformCategory($b);
+        if ($catA !== $catB) return $catA - $catB;
         if ($a === 'PC') return -1;
         if ($b === 'PC') return 1;
-        return 0;
+        return strcasecmp($a, $b);
     });
 
-    return implode(', ', $result);
+    return implode(', ', $entries);
+}
+
+function platformCategory(string $name): int
+{
+    $lower = strtolower($name);
+    if (in_array($lower, ['pc', 'linux', 'mac'])) return 0;
+    if (preg_match('/^(iOS|Android|Windows Phone)/i', $name)) return 2;
+    return 1;
 }
 
 function downloadImage(string $url, string $destPath): bool
@@ -166,4 +226,54 @@ function deriveYearMonth(string $releaseDate): array
         return [$m[1], '00'];
     }
     return ['00', '00'];
+}
+
+function fetchThesvgIcon(string $url): ?array
+{
+    $host = parse_url($url, PHP_URL_HOST);
+    if (!$host) return null;
+
+    $host = preg_replace('/^www\./', '', $host);
+    $parts = explode('.', $host);
+    $name = strtolower($parts[0]);
+
+    $svgDir  = dirname(__DIR__, 4) . '/assets/svgs/';
+    $mapFile = dirname(__DIR__, 4) . '/data/website-icons.json';
+
+    // Existing local or explicit icons take priority
+    if (file_exists("{$svgDir}{$name}.svg")) return null;
+
+    $slugs = [$name];
+    $hyphenated = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $name));
+    if ($hyphenated !== $name) $slugs[] = $hyphenated;
+
+    foreach ($slugs as $slug) {
+        $cdnUrl = "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/{$slug}/default.svg";
+
+        $ch = curl_init($cdnUrl);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 10,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_USERAGENT      => 'diario.games/1.0',
+        ]);
+        $svg = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($code !== 200 || !$svg) continue;
+
+        $svg = preg_replace('/fill="[^"]*"/', 'fill="currentColor"', $svg, 1);
+        file_put_contents("{$svgDir}{$slug}.svg", $svg);
+
+        $mappings = file_exists($mapFile) ? json_decode(file_get_contents($mapFile), true) : [];
+        $label = ucfirst(str_replace('-', ' ', $slug));
+        $mappings[$host]         = ['label' => $label, 'icon' => $slug];
+        $mappings["www.{$host}"] = ['label' => $label, 'icon' => $slug];
+        file_put_contents($mapFile, json_encode($mappings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+        return ['label' => $label, 'icon' => $slug];
+    }
+
+    return null;
 }

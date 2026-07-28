@@ -99,10 +99,14 @@ class GamePage extends \Kirby\Cms\Page
 
         $domainIcons = [
             'store.steampowered.com' => ['label' => 'Steam', 'icon' => 'steam'],
-            'store.epicgames.com' => ['label' => 'Epic Games', 'icon' => 'epicgames'],
+            'store.epicgames.com'    => ['label' => 'Epic Games', 'icon' => 'epicgames'],
+            'epicgames.com'          => ['label' => 'Epic Games', 'icon' => 'epicgames'],
+            'fortnite.com'           => ['label' => 'Fortnite',    'icon' => 'fortnite'],
+            'pubg.com'               => ['label' => 'PUBG',       'icon' => 'pubg'],
             'gog.com' => ['label' => 'GOG', 'icon' => 'gogdotcom'],
             'reddit.com' => ['label' => 'Reddit', 'icon' => 'reddit'],
-            'discord.gg' => ['label' => 'Discord', 'icon' => 'discord'],
+            'discord.gg'             => ['label' => 'Discord', 'icon' => 'discord'],
+            'discord.com'            => ['label' => 'Discord', 'icon' => 'discord'],
             'twitch.tv' => ['label' => 'Twitch', 'icon' => 'twitch'],
             'twitter.com' => ['label' => 'Twitter / X', 'icon' => 'x'],
             'x.com' => ['label' => 'Twitter / X', 'icon' => 'x'],
@@ -118,6 +122,15 @@ class GamePage extends \Kirby\Cms\Page
             'wikia.com' => ['label' => 'Fandom', 'icon' => 'fandom'],
             'meta.com' => ['label' => 'Meta', 'icon' => 'meta'],
         ];
+
+        // Merge dynamic icons fetched from thesvg.org during import
+        $iconsFile = dirname(__DIR__, 2) . '/data/website-icons.json';
+        if (file_exists($iconsFile)) {
+            $dynamicIcons = json_decode(file_get_contents($iconsFile), true);
+            if (is_array($dynamicIcons)) {
+                $domainIcons = array_merge($dynamicIcons, $domainIcons);
+            }
+        }
 
         return array_map(function ($entry) use ($domainIcons) {
             $entry = trim($entry);
