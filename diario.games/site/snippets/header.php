@@ -24,7 +24,7 @@
                 <input type="text"
                     placeholder="Buscar juegos..."
                     class="w-48 lg:w-64 px-3 py-1.5 text-sm bg-surface border border-border rounded-lg text-text placeholder-muted focus:outline-none focus:border-neon-cyan transition">
-                <div class="steam-search-results hidden absolute top-full right-0 mt-1 w-72 bg-surface border border-border rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"></div>
+                <div class="steam-search-results hidden absolute top-full -inset-x-1/2 mt-1 bg-surface border border-border rounded-lg shadow-xl max-h-[80vh] overflow-y-auto z-50"></div>
             </div>
 
             <div class="flex items-center gap-4">
