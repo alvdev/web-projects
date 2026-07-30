@@ -61,6 +61,17 @@ function pageFormatPlayers(int $count): string
     return (string) $count;
 }
 
+function pageFormatGrowth(array $game): string
+{
+    if (!empty($game['is_new'])) {
+        return '<span class="text-neon-green font-semibold">Nuevo</span>';
+    }
+    $pct = $game['growth_pct'] ?? 0;
+    $sign = $pct >= 0 ? '+' : '';
+    $color = $pct >= 0 ? 'text-neon-green' : 'text-red-400';
+    return '<span class="' . $color . ' font-semibold">' . $sign . round($pct, 1) . '%</span>';
+}
+
 function pageSparkline(array $history): string
 {
     if (empty($history)) {
@@ -184,8 +195,9 @@ function pageSparkline(array $history): string
     <!-- Trending Tab -->
     <div class="steam-page-tab-content hidden" id="trending-full">
         <div class="mb-6">
-            <div class="grid grid-cols-[1fr_100px_100px_100px] gap-x-6 text-text/70 text-sm">
+            <div class="grid grid-cols-[1fr_60px_160px_70px_70px] gap-x-6 text-text/70 text-sm">
                 <span>Crecimiento en Steam</span>
+                <span class="text-center">7 días</span>
                 <span class="text-center">Última semana</span>
                 <span class="text-right">Ahora</span>
                 <span class="text-right">Máx. histórico</span>
@@ -197,7 +209,7 @@ function pageSparkline(array $history): string
             <div class="divide-y divide-border/30">
                 <?php foreach (array_slice($trending, 0, 20) as $game): ?>
                     <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
-                    <div class="grid grid-cols-[160px_1fr_200px_100px_100px] gap-x-6 items-center py-2">
+                    <div class="grid grid-cols-[160px_1fr_60px_160px_70px_70px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
                             <button type="button"
@@ -210,6 +222,7 @@ function pageSparkline(array $history): string
                             <a href="<?= $gameUrl ?>" class="block"<?= $isImporting ?>><img src="<?= $game['capsule_image'] ?>" alt="<?= htmlspecialchars($game['name']) ?>" class="aspect-8/3 object-cover rounded" loading="lazy"></a>
                         </div>
                         <a href="<?= $gameUrl ?>" class="text-text text-base line-clamp-2 hover:underline"<?= $isImporting ?>><?= htmlspecialchars($game['name']) ?></a>
+                        <span class="text-center text-sm whitespace-nowrap"><?= pageFormatGrowth($game) ?></span>
                         <div class="flex ml-auto items-center"><?= pageSparkline($game['history'] ?? []) ?></div>
                         <span class="text-text text-base text-right"><?= pageFormatPlayers($game['current_players']) ?></span>
                         <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['all_time_peak'] ?? 0) ?></span>
@@ -278,6 +291,14 @@ function pageSparkline(array $history): string
             return String(n);
         }
 
+        function fmtGrowth(game) {
+            if (game.is_new) return '<span class="text-neon-green font-semibold">Nuevo</span>';
+            var pct = game.growth_pct || 0;
+            var sign = pct >= 0 ? '+' : '';
+            var cls = pct >= 0 ? 'text-neon-green' : 'text-red-400';
+            return '<span class="' + cls + ' font-semibold">' + sign + pct.toFixed(1) + '%</span>';
+        }
+
         function esc(s) {
             var d = document.createElement('div');
             d.appendChild(document.createTextNode(s));
@@ -323,13 +344,14 @@ function pageSparkline(array $history): string
                     + '</div>';
             }
             if (tabId === 'trending-full') {
-                return '<div class="grid grid-cols-[160px_1fr_200px_100px_100px] gap-x-6 items-center py-2">'
+                return '<div class="grid grid-cols-[160px_1fr_60px_160px_70px_70px] gap-x-6 items-center py-2">'
                     + '<div class="relative flex items-center justify-center">'
                     + '<span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75">' + game.rank + '</span>'
                     + '<button type="button" class="steam-fav-page absolute -right-3 text-xl text-muted hover:text-yellow-400 bg-surface/70 w-6 h-6 rounded-full transition z-10 leading-0" data-appid="' + game.appid + '" data-name="' + esc(game.name) + '" data-capsule="' + game.capsule_image + '" data-current="' + game.current_players + '" data-peak="0">☆</button>'
                     + '<a href="' + url + '" class="block"' + importingAttr + '><img src="' + game.capsule_image + '" alt="' + esc(game.name) + '" class="aspect-8/3 object-cover rounded" loading="lazy"></a>'
                     + '</div>'
                     + '<a href="' + url + '" class="text-text text-base line-clamp-2 hover:underline"' + importingAttr + '>' + esc(game.name) + '</a>'
+                    + '<span class="text-center text-sm whitespace-nowrap">' + fmtGrowth(game) + '</span>'
                     + '<div class="flex ml-auto items-center">' + buildSparkline(game.history || []) + '</div>'
                     + '<span class="text-text text-base text-right">' + fmtPlayers(game.current_players) + '</span>'
                     + '<span class="text-muted text-base text-right">' + fmtPlayers(game.all_time_peak || 0) + '</span>'

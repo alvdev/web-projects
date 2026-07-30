@@ -81,74 +81,101 @@ class SteamStats
         return $result;
     }
 
-    public function getTrending(int $limit = 10): array
+    public function getTrending(int $limit = 10, int $minPlayers = 500): array
     {
-        $ranks = $this->getCached('peak-ranks', $this->cacheTtl);
-
-        if ($ranks === null) {
-            $ranks = $this->fetchMostPlayedFromSteam();
-            if (!empty($ranks)) {
-                $this->setCache('peak-ranks', $ranks);
+        $cached = $this->getCached('trending-growth', 600);
+        if ($cached !== null) {
+            $result = array_slice($cached, 0, $limit);
+            foreach ($result as $i => &$g) {
+                $g['rank'] = $i + 1;
             }
+            unset($g);
+            return $result;
         }
 
-        if (empty($ranks)) {
+        try {
+            $db = new SteamStatsDB();
+            $averages = $db->getWeeklyAverages();
+            $playerData = $db->getAllPlayerDataCached();
+            $allGames = $db->getAllGames();
+        } catch (\Throwable $e) {
             return [];
         }
 
-        $withMomentum = [];
-        foreach ($ranks as $entry) {
-            $lastWeek = $entry['last_week_rank'] ?? -1;
-            if ($lastWeek <= 0) {
-                continue;
-            }
-            $momentum = $lastWeek - $entry['rank'];
-            $withMomentum[] = array_merge($entry, ['momentum' => $momentum]);
+        $nameByAppid = [];
+        $slugByAppid = [];
+        foreach ($allGames as $g) {
+            $aid = (int)$g['appid'];
+            $nameByAppid[$aid] = $g['name'];
+            $slugByAppid[$aid] = $g['slug'];
         }
 
-        usort($withMomentum, fn($a, $b) => $b['momentum'] <=> $a['momentum']);
+        $scored = [];
+        foreach ($playerData as $appid => $pd) {
+            $currentPlayers = $pd['current_players'] ?? 0;
+            if ($currentPlayers < $minPlayers) {
+                continue;
+            }
 
-        $sliced = array_slice($withMomentum, 0, $limit);
-        $appids = array_column($sliced, 'appid');
+            $avg = $averages[$appid] ?? null;
+            $recentAvg = $avg['recent_avg'] ?? 0.0;
+            $priorAvg = $avg['prior_avg'] ?? 0.0;
+            $priorSamples = $avg['prior_samples'] ?? 0;
+
+            if ($priorSamples > 0 && $priorAvg > 0) {
+                $growthPct = (($recentAvg - $priorAvg) / $priorAvg) * 100;
+                $isNew = false;
+            } else {
+                $growthPct = $recentAvg;
+                $isNew = true;
+            }
+
+            $scored[] = [
+                'appid'           => $appid,
+                'growth_pct'       => $growthPct,
+                'is_new'           => $isNew,
+                'current_players'  => $currentPlayers,
+                'all_time_peak'    => $pd['peak_all_time'] ?? 0,
+                'name'             => $nameByAppid[$appid] ?? '',
+                'slug'             => $slugByAppid[$appid] ?? null,
+            ];
+        }
+
+        usort($scored, fn($a, $b) => $b['growth_pct'] <=> $a['growth_pct']);
+
+        $topGames = array_slice($scored, 0, max($limit, 100));
+        $appids = array_column($topGames, 'appid');
 
         $details = $this->fetchGameDetails($appids);
 
         $games = [];
-        foreach ($sliced as $entry) {
+        foreach ($topGames as $entry) {
             $appid = $entry['appid'];
-            $detail = $details[$appid] ?? [];
+            $detail = $details[$appid] ?? null;
 
             $games[] = [
-                'rank' => $entry['rank'],
-                'appid' => $appid,
-                'name' => $detail['name'] ?? '',
-                'capsule_image' => $detail['capsule_image'] ?? '',
-                'current_players' => $this->getCurrentPlayers($appid),
-                'all_time_peak' => 0,
-                'momentum' => $entry['momentum'],
-                'history' => $this->getPlayerHistory($appid),
+                'appid'           => $appid,
+                'name'            => $detail['name'] ?? $entry['name'],
+                'capsule_image'   => $detail['capsule_image'] ?? '',
+                'current_players' => $entry['current_players'],
+                'all_time_peak'   => $entry['all_time_peak'],
+                'growth_pct'       => $entry['growth_pct'],
+                'is_new'           => $entry['is_new'],
+                'history'         => $this->getPlayerHistory($appid),
             ];
         }
 
-        // Overlay fresher DB data sitewide for consistency
-        try {
-            $dbData = (new SteamStatsDB())->getAllPlayerDataCached();
-            foreach ($games as &$game) {
-                $pd = $dbData[$game['appid']] ?? null;
-                if ($pd && $pd['current_players'] > 0) {
-                    $game['current_players'] = $pd['current_players'];
-                }
-                if ($pd && $pd['peak_all_time'] > 0) {
-                    $game['all_time_peak'] = $pd['peak_all_time'];
-                }
-            }
-            unset($game);
-        } catch (\Throwable $e) {}
-
-        // Filter out games whose details API call failed (no name/capsule)
         $games = array_values(array_filter($games, fn($g) => $g['name'] !== ''));
 
-        return $games;
+        $this->setCache('trending-growth', $games);
+
+        $result = array_slice($games, 0, $limit);
+        foreach ($result as $i => &$g) {
+            $g['rank'] = $i + 1;
+        }
+        unset($g);
+
+        return $result;
     }
 
     private function getMostPlayedFallback(int $limit): array

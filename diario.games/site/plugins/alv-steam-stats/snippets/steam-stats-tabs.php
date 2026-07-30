@@ -70,6 +70,16 @@ function steamFormatPlayers(int $count): string
     return (string) $count;
 }
 
+function steamFormatGrowth(array $game): string
+{
+    if (!empty($game['is_new'])) {
+        return '<span class="text-neon-green font-semibold">Nuevo</span>';
+    }
+    $pct = $game['growth_pct'] ?? 0;
+    $sign = $pct >= 0 ? '+' : '';
+    $color = $pct >= 0 ? 'text-neon-green' : 'text-red-400';
+    return '<span class="' . $color . ' font-semibold">' . $sign . round($pct, 1) . '%</span>';
+}
 function steamSparkline(array $history, int $width = 100, int $height = 30): string
 {
     if (empty($history)) {
@@ -156,16 +166,16 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
         <?php if (empty($trending)): ?>
             <p class="text-muted text-sm text-center py-6">No hay datos</p>
         <?php else: ?>
-            <div class="grid grid-cols-[1fr_100px_50px] gap-x-3 text-text/70 text-xs mb-4">
+            <div class="grid grid-cols-[1fr_55px_50px] gap-x-3 text-text/70 text-xs mb-4">
                 <div>Crecimiento en Steam</div>
-                <div class="text-center">Última semana</div>
+                <div class="text-center">7 días</div>
                 <div class="text-right">Ahora</div>
             </div>
-            <div class="grid grid-cols-[80px_1fr_100px_50px] gap-x-3 gap-y-2 items-center">
+            <div class="grid grid-cols-[80px_1fr_55px_50px] gap-x-3 gap-y-2 items-center">
                 <?php foreach ($trending as $game): ?>
                     <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
                     <div class="relative flex items-center">
-                        <span class="absolute -left-2.5 text-neon-cyan text-xs text-center bg-surface/70 w-4 h-4 rounded-full z-10"><?= $game['rank'] ?></span>
+                        <span class="absolute -left-2.5 text-neon-green text-xs text-center bg-surface/70 w-4 h-4 rounded-full z-10"><?= $game['rank'] ?></span>
                         <button type="button"
                             class="steam-fav absolute -right-2 text-sm text-muted hover:text-yellow-400 bg-surface/70 w-4 h-4 rounded-full transition z-10 leading-0"
                             data-appid="<?= $game['appid'] ?>"
@@ -176,7 +186,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
                         <a href="<?= $gameUrl ?>" class="block"<?= $isImporting ?>><img src="<?= $game['capsule_image'] ?>" alt="<?= htmlspecialchars($game['name']) ?>" class="w-20 h-7.5 object-cover rounded" loading="lazy"></a>
                     </div>
                     <a href="<?= $gameUrl ?>" class="text-text text-xs line-clamp-2 hover:underline"<?= $isImporting ?>><?= htmlspecialchars($game['name']) ?></a>
-                    <span class="flex justify-center"><?= steamSparkline($game['history'] ?? []) ?></span>
+                    <span class="text-center text-xs leading-tight whitespace-nowrap"><?= steamFormatGrowth($game) ?></span>
                     <span class="text-text text-sm text-right"><?= steamFormatPlayers($game['current_players']) ?></span>
                 <?php endforeach ?>
             </div>

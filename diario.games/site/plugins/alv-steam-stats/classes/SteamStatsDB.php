@@ -264,6 +264,39 @@ class SteamStatsDB
         return $row !== false && $row !== null ? (int) $row : null;
     }
 
+    public function getWeeklyAverages(): array
+    {
+        $now = time();
+        $sevenDays = 7 * 86400;
+        $recentStart = $now - $sevenDays;
+        $priorStart = $now - 2 * $sevenDays;
+
+        $stmt = $this->pdo->prepare('
+            SELECT appid,
+                AVG(CASE WHEN timestamp >= :recent_start THEN player_count END) AS recent_avg,
+                AVG(CASE WHEN timestamp >= :prior_start AND timestamp < :recent_start THEN player_count END) AS prior_avg,
+                COUNT(CASE WHEN timestamp >= :prior_start AND timestamp < :recent_start THEN 1 END) AS prior_samples
+            FROM player_counts
+            WHERE timestamp >= :prior_start
+            GROUP BY appid
+        ');
+        $stmt->execute([
+            ':recent_start' => $recentStart,
+            ':prior_start'  => $priorStart,
+        ]);
+
+        $result = [];
+        foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+            $result[(int)$row['appid']] = [
+                'recent_avg'    => $row['recent_avg'] !== null ? (float)$row['recent_avg'] : 0.0,
+                'prior_avg'     => $row['prior_avg'] !== null ? (float)$row['prior_avg'] : 0.0,
+                'prior_samples' => (int)$row['prior_samples'],
+            ];
+        }
+
+        return $result;
+    }
+
     public function getCurrentPlayers(int $appid): ?int
     {
         $stmt = $this->pdo->prepare('
