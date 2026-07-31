@@ -82,7 +82,6 @@ function pageSparkline(array $history): string
     $max = max($values);
     $range = $max - $min;
 
-    // If all values are the same, use a fixed range to show a horizontal line
     if ($range === 0) {
         $range = 1;
         $min = $min - 1;
@@ -90,12 +89,20 @@ function pageSparkline(array $history): string
 
     $count = count($values);
     $points = [];
+    $dots = [];
     foreach ($values as $i => $v) {
         $x = $count > 1 ? ($i / ($count - 1)) * 100 : 50;
         $y = 30 - (($v - $min) / $range) * 28;
         $points[] = round($x, 1) . ',' . round($y, 1);
+
+        $ts = (int)($history[$i]['timestamp'] ?? 0);
+        $players = (int)($history[$i]['players'] ?? $v);
+        $dots[] = '<circle cx="' . round($x, 1) . '" cy="' . round($y, 1) . '" r="6" fill="transparent" class="sparkline-dot" data-ts="' . $ts . '" data-players="' . $players . '"/>';
     }
-    return '<svg width="100" height="30" viewBox="0 0 100 30"><polyline points="' . implode(' ', $points) . '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    return '<svg width="100" height="30" viewBox="0 0 100 30">'
+        . '<polyline points="' . implode(' ', $points) . '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+        . implode('', $dots)
+        . '</svg>';
 }
 ?>
 
@@ -316,14 +323,24 @@ function pageSparkline(array $history): string
             var max = Math.max.apply(null, values);
             var range = max - min;
             if (range === 0) { range = 1; min = min - 1; }
+            var svgParts = ['<svg width="100" height="30" viewBox="0 0 100 30">'];
             var points = [];
+            var dots = [];
             var count = values.length;
             values.forEach(function(v, i) {
                 var x = count > 1 ? (i / (count - 1)) * 100 : 50;
                 var y = 30 - ((v - min) / range) * 28;
-                points.push(Math.round(x * 10) / 10 + ',' + Math.round(y * 10) / 10);
+                var rx = Math.round(x * 10) / 10;
+                var ry = Math.round(y * 10) / 10;
+                points.push(rx + ',' + ry);
+                var ts = (history[i] && history[i].timestamp) || 0;
+                var pl = (history[i] && history[i].players) || v;
+                dots.push('<circle cx="' + rx + '" cy="' + ry + '" r="6" fill="transparent" class="sparkline-dot" data-ts="' + ts + '" data-players="' + pl + '"/>');
             });
-            return '<svg width="100" height="30" viewBox="0 0 100 30"><polyline points="' + points.join(' ') + '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+            svgParts.push('<polyline points="' + points.join(' ') + '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>');
+            svgParts.push.apply(svgParts, dots);
+            svgParts.push('</svg>');
+            return svgParts.join('');
         }
 
         function renderGameRow(game, tabId) {
@@ -655,6 +672,101 @@ function pageSparkline(array $history): string
         renderPageFavorites();
         observeSentinel();
     })();
+</script>
+
+<div id="sparkline-tooltip" class="sparkline-tooltip">
+    <div class="sparkline-tooltip-inner">
+        <span class="sparkline-tooltip-label"></span>
+    </div>
+</div>
+
+<style>
+.sparkline-tooltip {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transform: translate(-50%, calc(-100% - 8px));
+    transition: opacity 0.12s ease;
+}
+.sparkline-tooltip.visible {
+    opacity: 1;
+}
+.sparkline-tooltip-inner {
+    background: rgba(15, 15, 20, 0.96);
+    border: 1px solid #39ff14;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #e0e0e0;
+    white-space: nowrap;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+.sparkline-tooltip-label {
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+}
+</style>
+
+<script>
+(function() {
+    if (window.__sparklineTooltipsInited) return;
+    window.__sparklineTooltipsInited = true;
+
+    var DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+    function fmtPlayersTooltip(n) {
+        if (n >= 1000000) return (n / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
+        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.?0+$/, '') + 'K';
+        return String(n);
+    }
+
+    var tip = document.getElementById('sparkline-tooltip');
+    var label = tip ? tip.querySelector('.sparkline-tooltip-label') : null;
+    if (!tip || !label) return;
+
+    var currentDot = null;
+
+    function show(e, dot) {
+        var ts = parseInt(dot.getAttribute('data-ts'), 10);
+        var players = parseInt(dot.getAttribute('data-players'), 10);
+        var d = new Date(ts * 1000);
+        var day = DAYS[d.getDay()];
+        var h = String(d.getHours()).padStart(2, '0');
+        var m = String(d.getMinutes()).padStart(2, '0');
+        label.textContent = day + ' ' + h + ':' + m + ' — ' + fmtPlayersTooltip(players) + ' jugadores';
+        currentDot = dot;
+        tip.classList.add('visible');
+    }
+
+    function move(e) {
+        tip.style.left = e.clientX + 'px';
+        tip.style.top = e.clientY + 'px';
+    }
+
+    function hide() {
+        tip.classList.remove('visible');
+        currentDot = null;
+    }
+
+    document.addEventListener('mouseover', function(e) {
+        var dot = e.target.closest('.sparkline-dot');
+        if (!dot) return;
+        show(e, dot);
+    }, true);
+
+    document.addEventListener('mousemove', function(e) {
+        if (!currentDot) return;
+        move(e);
+    }, true);
+
+    document.addEventListener('mouseout', function(e) {
+        var dot = e.target.closest('.sparkline-dot');
+        if (dot && !dot.contains(e.relatedTarget)) {
+            hide();
+        }
+    }, true);
+})();
 </script>
 
 <?php snippet('footer') ?>

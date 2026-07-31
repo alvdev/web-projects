@@ -91,7 +91,6 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
     $max = max($values);
     $range = $max - $min;
 
-    // If all values are the same, use a fixed range to show a horizontal line
     if ($range === 0) {
         $range = 1;
         $min = $min - 1;
@@ -100,15 +99,21 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
     $count = count($values);
 
     $points = [];
+    $dots = [];
     foreach ($values as $i => $value) {
         $x = $count > 1 ? ($i / ($count - 1)) * $width : $width / 2;
         $y = $height - (($value - $min) / $range) * ($height - 4) - 2;
         $points[] = round($x, 1) . ',' . round($y, 1);
+
+        $ts = (int)($history[$i]['timestamp'] ?? 0);
+        $players = (int)($history[$i]['players'] ?? $value);
+        $dots[] = '<circle cx="' . round($x, 1) . '" cy="' . round($y, 1) . '" r="6" fill="transparent" class="sparkline-dot" data-ts="' . $ts . '" data-players="' . $players . '"/>';
     }
 
-    $polyline = implode(' ', $points);
-
-    return '<svg width="' . $width . '" height="' . $height . '" viewBox="0 0 ' . $width . ' ' . $height . '"><polyline points="' . $polyline . '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    return '<svg width="' . $width . '" height="' . $height . '" viewBox="0 0 ' . $width . ' ' . $height . '">'
+        . '<polyline points="' . implode(' ', $points) . '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+        . implode('', $dots)
+        . '</svg>';
 }
 ?>
 
@@ -486,4 +491,99 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
         updateSteamStars();
         renderFavorites();
     })();
+</script>
+
+<div id="sparkline-tooltip" class="sparkline-tooltip">
+    <div class="sparkline-tooltip-inner">
+        <span class="sparkline-tooltip-label"></span>
+    </div>
+</div>
+
+<style>
+.sparkline-tooltip {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transform: translate(-50%, calc(-100% - 8px));
+    transition: opacity 0.12s ease;
+}
+.sparkline-tooltip.visible {
+    opacity: 1;
+}
+.sparkline-tooltip-inner {
+    background: rgba(15, 15, 20, 0.96);
+    border: 1px solid #39ff14;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #e0e0e0;
+    white-space: nowrap;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+.sparkline-tooltip-label {
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+}
+</style>
+
+<script>
+(function() {
+    if (window.__sparklineTooltipsInited) return;
+    window.__sparklineTooltipsInited = true;
+
+    var DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+    function fmtPlayersTooltip(n) {
+        if (n >= 1000000) return (n / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
+        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.?0+$/, '') + 'K';
+        return String(n);
+    }
+
+    var tip = document.getElementById('sparkline-tooltip');
+    var label = tip ? tip.querySelector('.sparkline-tooltip-label') : null;
+    if (!tip || !label) return;
+
+    var currentDot = null;
+
+    function show(e, dot) {
+        var ts = parseInt(dot.getAttribute('data-ts'), 10);
+        var players = parseInt(dot.getAttribute('data-players'), 10);
+        var d = new Date(ts * 1000);
+        var day = DAYS[d.getDay()];
+        var h = String(d.getHours()).padStart(2, '0');
+        var m = String(d.getMinutes()).padStart(2, '0');
+        label.textContent = day + ' ' + h + ':' + m + ' — ' + fmtPlayersTooltip(players) + ' jugadores';
+        currentDot = dot;
+        tip.classList.add('visible');
+    }
+
+    function move(e) {
+        tip.style.left = e.clientX + 'px';
+        tip.style.top = e.clientY + 'px';
+    }
+
+    function hide() {
+        tip.classList.remove('visible');
+        currentDot = null;
+    }
+
+    document.addEventListener('mouseover', function(e) {
+        var dot = e.target.closest('.sparkline-dot');
+        if (!dot) return;
+        show(e, dot);
+    }, true);
+
+    document.addEventListener('mousemove', function(e) {
+        if (!currentDot) return;
+        move(e);
+    }, true);
+
+    document.addEventListener('mouseout', function(e) {
+        var dot = e.target.closest('.sparkline-dot');
+        if (dot && !dot.contains(e.relatedTarget)) {
+            hide();
+        }
+    }, true);
+})();
 </script>
