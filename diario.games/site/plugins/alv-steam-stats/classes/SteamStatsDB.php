@@ -321,6 +321,19 @@ class SteamStatsDB
         return $row['peak'] !== null ? (int)$row['peak'] : null;
     }
 
+    public function getPeakTimestamp(int $appid): ?array
+    {
+        $stmt = $this->pdo->prepare('
+            SELECT player_count, timestamp FROM player_counts
+            WHERE appid = :appid
+            ORDER BY player_count DESC
+            LIMIT 1
+        ');
+        $stmt->execute([':appid' => $appid]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $row ? ['count' => (int)$row['player_count'], 'timestamp' => (int)$row['timestamp']] : null;
+    }
+
     public function upsertGamePeak(int $appid, int $peak): void
     {
         $stmt = $this->pdo->prepare('

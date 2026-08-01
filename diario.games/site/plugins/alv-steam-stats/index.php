@@ -346,6 +346,7 @@ App::plugin('alv/steam-stats', [
                     'current' => $db->getCurrentPlayers($appid),
                     'peak_24h' => $db->getPeakPlayers($appid, $now - $day),
                     'peak_3m' => $db->getPeakPlayers($appid, $now - 90 * $day),
+                    'peak_all_time' => $db->getGamePeak($appid) ?? 0,
                     'ranges' => [],
                 ];
 
@@ -546,11 +547,55 @@ App::plugin('alv/steam-stats', [
 
             $ranges = ['48h' => 2 * $day, '1w' => 7 * $day, '1m' => 30 * $day, '3m' => 90 * $day, '6m' => 180 * $day, '1y' => 365 * $day, 'max' => 0];
 
+            $peakAllTime = $db->getGamePeak($appid);
+            $peakInfo = $db->getPeakTimestamp($appid);
+            if ($peakInfo && $peakInfo['count'] > ($peakAllTime ?? 0)) {
+                $peakAllTime = $peakInfo['count'];
+            }
+            $peakAgeLabel = 'Max. historico';
+            if ($peakInfo) {
+                $diffDays = (int)(($now - $peakInfo['timestamp']) / 86400);
+
+                if ($diffDays === 1) {
+                    $peakAgeLabel = 'Max. hace 1 dia';
+                } elseif ($diffDays < 7) {
+                    $peakAgeLabel = 'Max. hace ' . $diffDays . ' dias';
+                } elseif ($diffDays < 14) {
+                    $peakAgeLabel = 'Max. hace 1 semana';
+                } elseif ($diffDays < 30) {
+                    $weeks = (int)($diffDays / 7);
+                    $peakAgeLabel = 'Max. hace ' . $weeks . ' semanas';
+                } elseif ($diffDays < 60) {
+                    $peakAgeLabel = 'Max. hace 1 mes';
+                } elseif ($diffDays < 365) {
+                    $months = (int)($diffDays / 30);
+                    $peakAgeLabel = 'Max. hace ' . $months . ' meses';
+                } else {
+                    $totalMonths = (int)($diffDays / 30);
+                    $years = (int)($totalMonths / 12);
+                    $remainder = $totalMonths % 12;
+
+                    $yearText = $years === 1 ? '1 año' : $years . ' años';
+
+                    if ($remainder === 0) {
+                        $peakAgeLabel = 'Max. hace ' . $yearText;
+                    } elseif ($remainder === 6) {
+                        $peakAgeLabel = 'Max. hace ' . $yearText . ' y medio';
+                    } elseif ($remainder === 1) {
+                        $peakAgeLabel = 'Max. hace ' . $yearText . ' y 1 mes';
+                    } else {
+                        $peakAgeLabel = 'Max. hace ' . $yearText . ' y ' . $remainder . ' meses';
+                    }
+                }
+            }
+
             $data = [
                 'game' => $game,
                 'current' => $current ?? 0,
                 'peak_24h' => $peak24h ?? 0,
                 'peak_3m' => $peak3m ?? 0,
+                'peak_all_time' => $peakAllTime ?? 0,
+                'peak_all_time_age' => $peakAgeLabel,
                 'ranges' => [],
             ];
 

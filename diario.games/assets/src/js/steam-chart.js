@@ -26,6 +26,7 @@ function initChart() {
     document.getElementById('steam-current').textContent = formatNumber(data.current);
     document.getElementById('steam-peak-24h').textContent = formatNumber(data.peak_24h);
     document.getElementById('steam-peak-3m').textContent = formatNumber(data.peak_3m);
+    document.getElementById('steam-peak-alltime').textContent = formatNumber(data.peak_all_time);
 
     var activeRange = '48h';
     var chart = new Chart(canvas, {

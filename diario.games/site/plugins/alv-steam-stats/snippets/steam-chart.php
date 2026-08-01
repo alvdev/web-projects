@@ -4,7 +4,7 @@
 
     <div class="bg-surface border border-border rounded-xl p-6">
         <!-- Stats summary -->
-        <div class="grid grid-cols-3 gap-4 mb-6 text-center">
+        <div class="grid grid-cols-4 gap-4 mb-6 text-center">
             <div>
                 <div class="text-xs uppercase tracking-wider text-muted">Ahora</div>
                 <div class="text-xl font-bold text-neon-cyan" id="steam-current">-</div>
@@ -16,6 +16,10 @@
             <div>
                 <div class="text-xs uppercase tracking-wider text-muted">Pico 3 meses</div>
                 <div class="text-xl font-bold text-neon-green" id="steam-peak-3m">-</div>
+            </div>
+            <div>
+                <div class="text-xs uppercase tracking-wider text-muted"><?= esc($data['peak_all_time_age'] ?? 'Max. historico') ?></div>
+                <div class="text-xl font-bold text-yellow-400" id="steam-peak-alltime">-</div>
             </div>
         </div>
 
