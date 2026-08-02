@@ -57,9 +57,15 @@ class SteamStatsDB
             CREATE TABLE IF NOT EXISTS game_peaks (
                 appid         INTEGER PRIMARY KEY,
                 peak_all_time INTEGER NOT NULL DEFAULT 0,
+                peak_timestamp INTEGER,
                 updated_at    INTEGER NOT NULL
             )
         ');
+        try {
+            $this->pdo->exec('ALTER TABLE game_peaks ADD COLUMN peak_timestamp INTEGER');
+        } catch (\PDOException $e) {
+            // Column already exists
+        }
     }
 
     public function upsertGame(int $appid, string $slug, string $name, ?int $igdbId = null): void
@@ -334,19 +340,25 @@ class SteamStatsDB
         return $row ? ['count' => (int)$row['player_count'], 'timestamp' => (int)$row['timestamp']] : null;
     }
 
-    public function upsertGamePeak(int $appid, int $peak): void
+    public function upsertGamePeak(int $appid, int $peak, ?int $peakTimestamp = null): void
     {
+        $now = time();
         $stmt = $this->pdo->prepare('
-            INSERT INTO game_peaks (appid, peak_all_time, updated_at)
-            VALUES (:appid, :peak, :now)
-            ON CONFLICT(appid) DO UPDATE SET peak_all_time = :peak2, updated_at = :now2
+            INSERT INTO game_peaks (appid, peak_all_time, peak_timestamp, updated_at)
+            VALUES (:appid, :peak, :peak_ts, :now)
+            ON CONFLICT(appid) DO UPDATE SET
+                peak_all_time  = CASE WHEN :peak2 > game_peaks.peak_all_time THEN :peak2 ELSE game_peaks.peak_all_time END,
+                peak_timestamp = CASE WHEN :peak2 > game_peaks.peak_all_time AND :peak_ts2 IS NOT NULL THEN :peak_ts2 ELSE game_peaks.peak_timestamp END,
+                updated_at     = :now2
         ');
         $stmt->execute([
-            ':appid'  => $appid,
-            ':peak'   => $peak,
-            ':now'    => time(),
-            ':peak2'  => $peak,
-            ':now2'   => time(),
+            ':appid'    => $appid,
+            ':peak'     => $peak,
+            ':peak_ts'  => $peakTimestamp,
+            ':now'      => $now,
+            ':peak2'    => $peak,
+            ':peak_ts2' => $peakTimestamp,
+            ':now2'     => $now,
         ]);
     }
 
@@ -356,6 +368,14 @@ class SteamStatsDB
         $stmt->execute([':appid' => $appid]);
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $row ? (int)$row['peak_all_time'] : null;
+    }
+
+    public function getGamePeakTimestamp(int $appid): ?int
+    {
+        $stmt = $this->pdo->prepare('SELECT peak_timestamp FROM game_peaks WHERE appid = :appid AND peak_timestamp IS NOT NULL');
+        $stmt->execute([':appid' => $appid]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $row ? (int)$row['peak_timestamp'] : null;
     }
 
     public function getAllAppids(): array

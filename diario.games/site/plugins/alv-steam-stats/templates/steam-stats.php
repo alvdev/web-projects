@@ -11,7 +11,7 @@ try {
     $db = new \Alv\SteamStats\SteamStatsDB();
     $playerData = $db->getAllPlayerDataCached();
     foreach ($db->getAllGames() as $g) {
-        $pd = $playerData[$g['appid']] ?? ['current_players' => 0, 'peak_24h' => 0];
+        $pd = $playerData[$g['appid']] ?? ['current_players' => 0, 'peak_24h' => 0, 'peak_all_time' => 0];
         $yearMonth = \DiarioGames\IGDB\resolveGamePath($g['slug']);
         $capsulePath = $yearMonth ? dirname(__DIR__, 4) . '/content/games/' . $yearMonth . '/' . $g['slug'] . '/steam-capsule.jpg' : null;
         $capsuleUrl = ($capsulePath && file_exists($capsulePath))
@@ -22,6 +22,7 @@ try {
             'name' => $g['name'],
             'current_players' => $pd['current_players'],
             'peak_players' => $pd['peak_24h'],
+            'all_time_peak' => $pd['peak_all_time'] ?? 0,
             'capsule_image' => $capsuleUrl,
         ];
         $appIdToSlug[(int)$g['appid']] = $g['slug'];

@@ -52,6 +52,26 @@ if ($mode === 'backfill') {
     $limit = (int)($argv[2] ?? 100);
     $stats = $collector->collectAllTimePeaks(function ($msg) { echo "  $msg\n"; }, $limit);
     echo "Fetched: {$stats['fetched']}, Errors: " . count($stats['errors']) . "\n";
+} elseif ($mode === 'steamdb-peak') {
+    $appid = (int)($argv[2] ?? 0);
+    if ($appid > 0) {
+        echo "Fetching all-time peak from steamdb.info for appid $appid...\n";
+        $sd = $collector->collectSteamDBPeak($appid);
+        if ($sd) {
+            (new \Alv\SteamStats\SteamStatsDB())->upsertGamePeak($appid, $sd['peak'], $sd['timestamp']);
+            echo "Peak: {$sd['peak']} at " . date('Y-m-d', $sd['timestamp']) . "\n";
+            try {
+                kirby()->cache('alv/steam-stats.cache')->remove('player-data-summary');
+                kirby()->cache('alv/steam-stats.cache')->remove('trending-growth');
+                echo "Caches cleared.\n";
+            } catch (\Throwable $e) {}
+        } else {
+            echo "No peak data found from steamdb.info\n";
+        }
+    } else {
+        echo "Usage: php collect-steam-stats.php steamdb-peak <appid>\n";
+    }
+    exit(0);
 } else {
     $stats = $collector->collect();
     echo "Scanned: {$stats['scanned']}, Updated: {$stats['updated']}, Errors: " . count($stats['errors']) . "\n";

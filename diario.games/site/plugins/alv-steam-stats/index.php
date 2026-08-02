@@ -548,13 +548,15 @@ App::plugin('alv/steam-stats', [
             $ranges = ['48h' => 2 * $day, '1w' => 7 * $day, '1m' => 30 * $day, '3m' => 90 * $day, '6m' => 180 * $day, '1y' => 365 * $day, 'max' => 0];
 
             $peakAllTime = $db->getGamePeak($appid);
+            $peakTimestamp = $db->getGamePeakTimestamp($appid);
             $peakInfo = $db->getPeakTimestamp($appid);
             if ($peakInfo && $peakInfo['count'] > ($peakAllTime ?? 0)) {
                 $peakAllTime = $peakInfo['count'];
             }
             $peakAgeLabel = 'Max. historico';
-            if ($peakInfo) {
-                $diffDays = (int)(($now - $peakInfo['timestamp']) / 86400);
+            $peakTs = $peakTimestamp ?? ($peakInfo['timestamp'] ?? null);
+            if ($peakTs !== null) {
+                $diffDays = (int)(($now - $peakTs) / 86400);
 
                 if ($diffDays === 1) {
                     $peakAgeLabel = 'Max. hace 1 dia';

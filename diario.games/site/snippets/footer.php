@@ -23,7 +23,7 @@ try {
     $playerData = $db->getAllPlayerData();
     $stats = site()->steamStats();
     foreach ($db->getAllGames() as $g) {
-        $pd = $playerData[$g['appid']] ?? ['current_players' => 0, 'peak_24h' => 0];
+        $pd = $playerData[$g['appid']] ?? ['current_players' => 0, 'peak_24h' => 0, 'peak_all_time' => 0];
         if ($pd['current_players'] === 0 && $pd['peak_24h'] === 0) {
             $live = $stats->getLivePlayerCount($g['appid']);
             if ($live > 0) {
@@ -36,6 +36,7 @@ try {
             'name' => $g['name'],
             'current_players' => $pd['current_players'],
             'peak_players' => $pd['peak_24h'],
+            'all_time_peak' => $pd['peak_all_time'] ?? 0,
         ];
     }
 } catch (\Throwable $e) {}

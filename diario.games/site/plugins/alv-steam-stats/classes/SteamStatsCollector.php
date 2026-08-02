@@ -124,6 +124,22 @@ class SteamStatsCollector
             $stored++;
         }
 
+        // Second pass: enrich with timestamps from steamdb.info
+        $totalGames = count(array_keys($appids));
+        if ($totalGames <= 20) {
+            $enriched = 0;
+            foreach (array_keys($appids) as $appid) {
+                $sd = $this->collectSteamDBPeak($appid);
+                if ($sd) {
+                    $this->db->upsertGamePeak($appid, $sd['peak'], $sd['timestamp']);
+                    $enriched++;
+                }
+            }
+            if ($enriched > 0) {
+                $log && $log('  Enriched ' . $enriched . ' peaks with steamdb timestamps.');
+            }
+        }
+
         return ['fetched' => $stored, 'errors' => []];
     }
 
@@ -174,6 +190,46 @@ class SteamStatsCollector
 
         curl_multi_close($mh);
         return $results;
+    }
+
+    public function collectSteamDBPeak(int $appid): ?array
+    {
+        $scriptPath = dirname(__DIR__, 4) . '/scripts/fetch-steamdb-peak.mjs';
+        if (!file_exists($scriptPath)) return null;
+
+        $nodeBin = $this->findNodeBinary();
+        if (!$nodeBin) return null;
+
+        $cmd = escapeshellarg($nodeBin) . ' ' . escapeshellarg($scriptPath) . ' ' . escapeshellarg((string)$appid) . ' 2>/dev/null';
+        $output = [];
+        $exitCode = 0;
+        exec($cmd, $output, $exitCode);
+
+        if ($exitCode !== 0 || empty($output)) return null;
+
+        $data = json_decode($output[0], true);
+        if (!$data || empty($data['peak']) || empty($data['timestamp'])) return null;
+
+        return ['peak' => (int)$data['peak'], 'timestamp' => (int)$data['timestamp']];
+    }
+
+    private function findNodeBinary(): ?string
+    {
+        $nvmVersions = getenv('HOME') . '/.nvm/versions/node';
+        if (is_dir($nvmVersions)) {
+            $versions = scandir($nvmVersions, SCANDIR_SORT_DESCENDING);
+            foreach ($versions as $v) {
+                if ($v === '.' || $v === '..') continue;
+                $bin = $nvmVersions . '/' . $v . '/bin/node';
+                if (is_executable($bin)) return $bin;
+            }
+        }
+        $system = trim(shell_exec('which node 2>/dev/null') ?? '');
+        if ($system && is_executable($system)) {
+            $ver = trim(shell_exec($system . ' --version 2>/dev/null') ?? '');
+            if ($ver && version_compare(ltrim($ver, 'v'), '20.0.0', '>=')) return $system;
+        }
+        return null;
     }
 
     public function backfill(?callable $log = null): array
