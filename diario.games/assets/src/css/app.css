@@ -119,6 +119,18 @@ h2 {
     border-radius: 10px;
 }
 
+.hide-native-scrollbar {
+    scrollbar-width: none;
+}
+
+.hide-native-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+#screenshot-thumb {
+    transition: left 0.1s ease, width 0.1s ease;
+}
+
 #categories-nav {
     anchor-name: --categories-btn;
 }

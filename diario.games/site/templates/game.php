@@ -208,28 +208,126 @@
     </div>
 </div>
 
-<?php if ($page->summary()->isNotEmpty()): ?>
-    <div class="prose lg:prose-xl max-w-full dark:prose-invert text-text leading-relaxed mt-16 mb-10 bg-surface/50 backdrop-blur-sm border-4 border-border rounded-xl p-8">
-        <?= $page->summary()->kt() ?>
-    </div>
-<?php endif ?>
-
-<?php $prices = $site->priceComparison($page->slug(), $page->title()->value()) ?>
-<?php snippet('price-comparison', ['prices' => $prices]) ?>
-
 <?php $shots = $page->screenshots() ?>
 <?php if (!empty($shots)): ?>
     <div class="mt-8 pt-8 border-t border-border">
         <h2 class="text-lg font-bold text-neon-green mb-6">Capturas</h2>
-        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        <ul id="screenshot-scroll" class="flex overflow-x-scroll gap-3 relative hide-native-scrollbar">
             <?php foreach ($shots as $shot): ?>
-                <li>
+                <li class="shrink-0 w-1/4">
                     <a href="<?= $shot['full'] ?>" data-lightbox="<?= $shot['full'] ?>" class="block aspect-video rounded-lg overflow-hidden bg-surface-alt">
-                        <img src="<?= $shot['thumb'] ?>" alt="" loading="lazy" class="w-full h-full object-cover hover:opacity-80 transition">
+                        <img data-src="<?= $shot['thumb'] ?>" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3C/svg%3E" alt="" class="w-full h-full object-cover hover:opacity-80 transition">
                     </a>
                 </li>
             <?php endforeach ?>
         </ul>
+        <div id="screenshot-scrollbar" class="h-4 mt-3 rounded-full cursor-pointer relative" style="background:var(--color-surface-alt)">
+            <div id="screenshot-thumb" class="absolute top-0 h-full rounded-full" style="background:var(--color-neon-cyan);left:0;width:25%"></div>
+        </div>
+        <script>
+        (function() {
+            var container = document.getElementById('screenshot-scroll');
+            var scrollbar = document.getElementById('screenshot-scrollbar');
+            var thumb = document.getElementById('screenshot-thumb');
+            var dragging = false;
+            var startX, startLeft;
+
+            function updateThumb() {
+                var pct = container.scrollWidth > container.clientWidth
+                    ? container.scrollLeft / (container.scrollWidth - container.clientWidth) : 0;
+                var tw = (container.clientWidth / container.scrollWidth) * 100;
+                thumb.style.width = tw + '%';
+                thumb.style.left = pct * (100 - tw) + '%';
+            }
+
+            function scrollTo(ratio) {
+                container.scrollLeft = ratio * (container.scrollWidth - container.clientWidth);
+            }
+
+            thumb.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+                dragging = true;
+                startX = e.clientX;
+                startLeft = parseFloat(thumb.style.left) || 0;
+                document.body.style.userSelect = 'none';
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!dragging) return;
+                var dx = e.clientX - startX;
+                var barW = scrollbar.clientWidth - thumb.offsetWidth;
+                var newLeft = Math.max(0, Math.min(100, startLeft + (dx / scrollbar.clientWidth) * 100));
+                var ratio = newLeft / 100;
+                scrollTo(ratio);
+            });
+
+            document.addEventListener('mouseup', function() {
+                dragging = false;
+                document.body.style.userSelect = '';
+            });
+
+            scrollbar.addEventListener('click', function(e) {
+                if (e.target === thumb) return;
+                var rect = scrollbar.getBoundingClientRect();
+                var ratio = (e.clientX - rect.left - thumb.offsetWidth / 2) / (rect.width - thumb.offsetWidth);
+                scrollTo(Math.max(0, Math.min(1, ratio)));
+            });
+
+            var touchId = null;
+            thumb.addEventListener('touchstart', function(e) {
+                touchId = e.changedTouches[0].identifier;
+                startX = e.changedTouches[0].clientX;
+                startLeft = parseFloat(thumb.style.left) || 0;
+            });
+
+            document.addEventListener('touchmove', function(e) {
+                if (touchId === null) return;
+                var t = Array.from(e.changedTouches).find(function(t) { return t.identifier === touchId; });
+                if (!t) return;
+                var dx = t.clientX - startX;
+                var barW = scrollbar.clientWidth - thumb.offsetWidth;
+                var newLeft = Math.max(0, Math.min(100, startLeft + (dx / scrollbar.clientWidth) * 100));
+                scrollTo(newLeft / 100);
+            });
+
+            document.addEventListener('touchend', function(e) {
+                if (touchId === null) return;
+                var t = Array.from(e.changedTouches).find(function(t) { return t.identifier === touchId; });
+                if (t) touchId = null;
+            });
+
+            container.addEventListener('scroll', updateThumb, {passive: true});
+
+            window.addEventListener('load', function() {
+                var items = container.querySelectorAll('li');
+                if (!items.length) return;
+
+                var itemWidth = items[0].offsetWidth;
+                var gap = 12;
+
+                function loadVisible() {
+                    var s = container.scrollLeft;
+                    var cw = container.clientWidth;
+                    var start = Math.max(0, Math.floor((s - 200) / (itemWidth + gap)));
+                    var end = Math.min(items.length - 1, Math.ceil((s + cw + 200) / (itemWidth + gap)));
+
+                    for (var i = start; i <= end; i++) {
+                        var img = items[i].querySelector('img[data-src]');
+                        if (img) {
+                            img.src = img.dataset.src;
+                            delete img.dataset.src;
+                        }
+                    }
+                }
+
+                container.addEventListener('scroll', loadVisible, {passive: true});
+                loadVisible();
+                updateThumb();
+            });
+
+            window.addEventListener('resize', updateThumb);
+        })();
+        </script>
     </div>
 
     <div id="lightbox" class="lightbox" role="dialog" aria-label="Screenshot lightbox">
@@ -252,6 +350,15 @@
         </button>
     </div>
 <?php endif ?>
+
+<?php if ($page->summary()->isNotEmpty()): ?>
+    <div class="prose lg:prose-xl max-w-full dark:prose-invert text-text leading-relaxed mt-16 mb-10 bg-surface/50 backdrop-blur-sm border-4 border-border rounded-xl p-8">
+        <?= $page->summary()->kt() ?>
+    </div>
+<?php endif ?>
+
+<?php $prices = $site->priceComparison($page->slug(), $page->title()->value()) ?>
+<?php snippet('price-comparison', ['prices' => $prices]) ?>
 
 <?php $steamData = $site->steamChartData($page->slug()); ?>
 <?php if ($steamData): ?>
