@@ -230,7 +230,7 @@
             var scrollbar = document.getElementById('screenshot-scrollbar');
             var thumb = document.getElementById('screenshot-thumb');
             var dragging = false;
-            var startX, startLeft;
+            var startX, startRatio;
 
             function updateThumb() {
                 var pct = container.scrollWidth > container.clientWidth
@@ -248,17 +248,16 @@
                 e.preventDefault();
                 dragging = true;
                 startX = e.clientX;
-                startLeft = parseFloat(thumb.style.left) || 0;
+                startRatio = container.scrollLeft / (container.scrollWidth - container.clientWidth);
                 document.body.style.userSelect = 'none';
             });
 
             document.addEventListener('mousemove', function(e) {
                 if (!dragging) return;
-                var dx = e.clientX - startX;
-                var barW = scrollbar.clientWidth - thumb.offsetWidth;
-                var newLeft = Math.max(0, Math.min(100, startLeft + (dx / scrollbar.clientWidth) * 100));
-                var ratio = newLeft / 100;
-                scrollTo(ratio);
+                var usableRange = scrollbar.clientWidth - thumb.offsetWidth;
+                var ratio = startRatio + (e.clientX - startX) / usableRange;
+                ratio = Math.max(0, Math.min(1, ratio));
+                container.scrollLeft = ratio * (container.scrollWidth - container.clientWidth);
             });
 
             document.addEventListener('mouseup', function() {
@@ -277,17 +276,17 @@
             thumb.addEventListener('touchstart', function(e) {
                 touchId = e.changedTouches[0].identifier;
                 startX = e.changedTouches[0].clientX;
-                startLeft = parseFloat(thumb.style.left) || 0;
+                startRatio = container.scrollLeft / (container.scrollWidth - container.clientWidth);
             });
 
             document.addEventListener('touchmove', function(e) {
                 if (touchId === null) return;
                 var t = Array.from(e.changedTouches).find(function(t) { return t.identifier === touchId; });
                 if (!t) return;
-                var dx = t.clientX - startX;
-                var barW = scrollbar.clientWidth - thumb.offsetWidth;
-                var newLeft = Math.max(0, Math.min(100, startLeft + (dx / scrollbar.clientWidth) * 100));
-                scrollTo(newLeft / 100);
+                var usableRange = scrollbar.clientWidth - thumb.offsetWidth;
+                var ratio = startRatio + (t.clientX - startX) / usableRange;
+                ratio = Math.max(0, Math.min(1, ratio));
+                container.scrollLeft = ratio * (container.scrollWidth - container.clientWidth);
             });
 
             document.addEventListener('touchend', function(e) {
