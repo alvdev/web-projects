@@ -339,12 +339,35 @@ class SteamStatsCollector
         if ($httpCode === 200) {
             $size = filesize($destFile);
             if ($size > 1000) {
+                $this->resizeCapsule($destFile, 100);
                 return '/media/steam-capsule/' . $slug . '.jpg';
             }
         }
 
         @unlink($destFile);
         return null;
+    }
+
+    private function resizeCapsule(string $path, int $maxHeight): void
+    {
+        $src = @imagecreatefromjpeg($path);
+        if (!$src) return;
+
+        $origW = imagesx($src);
+        $origH = imagesy($src);
+        if ($origH <= $maxHeight) {
+            imagedestroy($src);
+            return;
+        }
+
+        $newW = (int) round($origW * $maxHeight / $origH);
+        $newH = $maxHeight;
+
+        $dst = imagecreatetruecolor($newW, $newH);
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newW, $newH, $origW, $origH);
+        imagejpeg($dst, $path, 85);
+        imagedestroy($dst);
+        imagedestroy($src);
     }
 
     private function fetchCurrentPlayers(int $appid): ?int

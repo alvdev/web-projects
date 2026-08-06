@@ -4,22 +4,36 @@
 
     <div class="bg-surface border border-border rounded-xl p-6">
         <!-- Stats summary -->
-        <div class="grid grid-cols-4 gap-4 mb-6 text-center">
-            <div>
-                <div class="text-xs uppercase tracking-wider text-muted">Ahora</div>
-                <div class="text-xl font-bold text-neon-cyan" id="steam-current">-</div>
-            </div>
-            <div>
-                <div class="text-xs uppercase tracking-wider text-muted">Pico 24h</div>
-                <div class="text-xl font-bold text-neon-magenta" id="steam-peak-24h">-</div>
-            </div>
-            <div>
-                <div class="text-xs uppercase tracking-wider text-muted">Pico 3 meses</div>
-                <div class="text-xl font-bold text-neon-green" id="steam-peak-3m">-</div>
-            </div>
-            <div>
-                <div class="text-xs uppercase tracking-wider text-muted"><?= esc($data['peak_all_time_age'] ?? 'Max. historico') ?></div>
-                <div class="text-xl font-bold text-yellow-400" id="steam-peak-alltime">-</div>
+        <?php
+        $gameSlug = $data['game']['slug'] ?? '';
+        $yearMonth = $data['game']['year_month'] ?? '';
+        $capsuleLocal = $yearMonth ? dirname(__DIR__, 4) . '/content/games/' . $yearMonth . '/' . $gameSlug . '/steam-capsule.jpg' : null;
+        $capsuleUrl = ($capsuleLocal && file_exists($capsuleLocal)) ? '/media/steam-capsule/' . $gameSlug . '.jpg' : null;
+        ?>
+        <div class="flex items-center gap-4 mb-6">
+            <?php if ($capsuleUrl): ?>
+                <img src="<?= $capsuleUrl ?>"
+                     alt="<?= esc($data['game']['name'] ?? '') ?>"
+                     class="h-[100px] w-auto rounded border border-border shrink-0"
+                     loading="lazy">
+            <?php endif ?>
+            <div class="grid grid-cols-4 gap-4 text-center flex-1">
+                <div>
+                    <div class="text-xs uppercase tracking-wider text-muted">Ahora</div>
+                    <div class="text-xl font-bold text-neon-cyan" id="steam-current">-</div>
+                </div>
+                <div>
+                    <div class="text-xs uppercase tracking-wider text-muted">Pico 24h</div>
+                    <div class="text-xl font-bold text-neon-magenta" id="steam-peak-24h">-</div>
+                </div>
+                <div>
+                    <div class="text-xs uppercase tracking-wider text-muted">Pico 3 meses</div>
+                    <div class="text-xl font-bold text-neon-green" id="steam-peak-3m">-</div>
+                </div>
+                <div>
+                    <div class="text-xs uppercase tracking-wider text-muted"><?= esc($data['peak_all_time_age'] ?? 'Max. historico') ?></div>
+                    <div class="text-xl font-bold text-yellow-400" id="steam-peak-alltime">-</div>
+                </div>
             </div>
         </div>
 
