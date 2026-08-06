@@ -262,6 +262,87 @@ class SteamStatsDB
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Daily peak: one point per day with the max concurrent users in that day.
+     */
+    public function getDailyPeakCounts(int $appid, int $since): array
+    {
+        $daySeconds = 86400;
+        $stmt = $this->pdo->prepare('
+            SELECT (timestamp / :day) * :day2 AS timestamp,
+                   MAX(player_count) AS p
+            FROM player_counts
+            WHERE appid = :appid AND timestamp >= :since
+            GROUP BY timestamp / :day3
+            ORDER BY timestamp ASC
+        ');
+        $stmt->execute([
+            ':appid' => $appid,
+            ':since' => $since,
+            ':day'   => $daySeconds,
+            ':day2'  => $daySeconds,
+            ':day3'  => $daySeconds,
+        ]);
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($rows as &$r) {
+            $r['timestamp'] = (int) $r['timestamp'];
+            $r['p'] = (int) $r['p'];
+        }
+        return $rows;
+    }
+
+    /**
+     * Weekly peak: one point per week with the max daily peak in that week.
+     */
+    public function getWeeklyPeakCounts(int $appid, int $since): array
+    {
+        $weekSeconds = 604800;
+        $stmt = $this->pdo->prepare("
+            SELECT (timestamp / :week) * :week2 AS timestamp,
+                   MAX(player_count) AS p
+            FROM player_counts
+            WHERE appid = :appid AND timestamp >= :since
+            GROUP BY timestamp / :week3
+            ORDER BY timestamp ASC
+        ");
+        $stmt->execute([
+            ':appid' => $appid,
+            ':since' => $since,
+            ':week'  => $weekSeconds,
+            ':week2' => $weekSeconds,
+            ':week3' => $weekSeconds,
+        ]);
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($rows as &$r) {
+            $r['timestamp'] = (int) $r['timestamp'];
+            $r['p'] = (int) $r['p'];
+        }
+        return $rows;
+    }
+
+    /**
+     * Monthly peak: one point per month with the max day peak in that month.
+     */
+    public function getMonthlyPeakCounts(int $appid, int $since): array
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT strftime('%Y-%m', datetime(timestamp, 'unixepoch')) AS month_key,
+                   MAX(player_count) AS p,
+                   MIN(timestamp) AS timestamp
+            FROM player_counts
+            WHERE appid = :appid AND timestamp >= :since
+            GROUP BY month_key
+            ORDER BY month_key ASC
+        ");
+        $stmt->execute([':appid' => $appid, ':since' => $since]);
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($rows as &$r) {
+            $r['timestamp'] = (int) $r['timestamp'];
+            $r['p'] = (int) $r['p'];
+        }
+        return $rows;
+    }
+
     public function getLatestTimestamp(int $appid): ?int
     {
         $stmt = $this->pdo->prepare('SELECT MAX(timestamp) FROM player_counts WHERE appid = :appid');
@@ -342,6 +423,9 @@ class SteamStatsDB
 
     public function upsertGamePeak(int $appid, int $peak, ?int $peakTimestamp = null): void
     {
+        if ($peakTimestamp !== null && $peakTimestamp <= 0) {
+            $peakTimestamp = null;
+        }
         $now = time();
         $stmt = $this->pdo->prepare('
             INSERT INTO game_peaks (appid, peak_all_time, peak_timestamp, updated_at)
@@ -372,7 +456,7 @@ class SteamStatsDB
 
     public function getGamePeakTimestamp(int $appid): ?int
     {
-        $stmt = $this->pdo->prepare('SELECT peak_timestamp FROM game_peaks WHERE appid = :appid AND peak_timestamp IS NOT NULL');
+        $stmt = $this->pdo->prepare('SELECT peak_timestamp FROM game_peaks WHERE appid = :appid AND peak_timestamp IS NOT NULL AND peak_timestamp > 0');
         $stmt->execute([':appid' => $appid]);
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $row ? (int)$row['peak_timestamp'] : null;

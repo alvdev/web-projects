@@ -318,7 +318,7 @@ class SteamStatsCollector
 
         $inserted = 0;
         $peak = 0;
-        $peakTs = 0;
+        $peakTs = null;
 
         foreach ($data as $point) {
             if (!isset($point[0], $point[1])) continue;

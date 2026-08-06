@@ -1,7 +1,18 @@
 <?php
 /**
  * Collect current Steam player counts for all tracked games.
- * Run via cron: 0 * * * * php /path/to/scripts/collect-steam-stats.php
+ *
+ * Usage:
+ *   php collect-steam-stats.php collect                     # default: hourly player count snapshot
+ *   php collect-steam-stats.php backfill                    # backfill from steamcharts.com
+ *   php collect-steam-stats.php player-update               # collect + clear cache
+ *   php collect-steam-stats.php peaks [limit]               # collect all-time peaks from steamcharts
+ *   php collect-steam-stats.php steamdb-peak <appid>        # fetch all-time peak from steamdb.info
+ *   php collect-steam-stats.php steamdb-history <appid>     # backfill history for one game (by Steam appid)
+ *   php collect-steam-stats.php steamdb-history-by-slug <slug>  # backfill history for one game (by diario.games slug)
+ *   php collect-steam-stats.php steamdb-backfill [limit]    # batch backfill history for up to N games
+ *
+ * Cron: run every hour for snapshots, every 30 min for backfill catch-up.
  *
  * Requires the Kirby autoloader for the plugin classes.
  */
@@ -88,6 +99,32 @@ if ($mode === 'backfill') {
         }
     } else {
         echo "Usage: php collect-steam-stats.php steamdb-history <appid>\n";
+    }
+    exit(0);
+} elseif ($mode === 'steamdb-history-by-slug') {
+    $slug = $argv[2] ?? '';
+    if ($slug === '') {
+        echo "Usage: php collect-steam-stats.php steamdb-history-by-slug <slug>\n";
+        exit(1);
+    }
+    $db = new \Alv\SteamStats\SteamStatsDB();
+    $game = $db->getGameBySlug($slug);
+    if (!$game) {
+        echo "Game not found for slug: $slug\n";
+        exit(1);
+    }
+    $appid = $game['appid'];
+    echo "Game: {$game['name']} (appid $appid)\n";
+    echo "Fetching historical player counts from steamdb.info...\n";
+    $result = $collector->collectSteamDBHistory($appid);
+    if ($result) {
+        echo "Inserted {$result['points']} data points, peak: {$result['peak']}\n";
+        try {
+            kirby()->cache('alv/steam-stats.cache')->remove('player-data-summary');
+            echo "Caches cleared.\n";
+        } catch (\Throwable $e) {}
+    } else {
+        echo "No data found from steamdb.info for $slug\n";
     }
     exit(0);
 } elseif ($mode === 'steamdb-backfill') {

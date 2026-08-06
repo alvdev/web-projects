@@ -102,6 +102,9 @@ function initChart() {
                     ticks: {
                         color: '#888888',
                         callback: function (value) { return formatNumber(value); }
+                    },
+                    afterFit: function (scale) {
+                        scale.width = 60;
                     }
                 }
             }
@@ -121,10 +124,21 @@ function initChart() {
             btn.classList.add('bg-neon-cyan/20', 'text-neon-cyan');
             btn.classList.remove('text-muted', 'hover:text-text');
 
-            chart.data.datasets[0].data = data.ranges[range].map(function (p) {
+            var newData = data.ranges[range].map(function (p) {
                 return { x: p.timestamp * 1000, y: p.p };
             });
-            chart.update('none');
+
+            chart.data.datasets[0].data = newData;
+            chart.data.datasets[0].pointRadius = 0;
+
+            // Force Chart.js to recalculate scale range from the new data
+            chart.options.scales.x.min = undefined;
+            chart.options.scales.x.max = undefined;
+
+            // Animate only vertically — skip X interpolation to avoid ghost sparklines
+            chart.options.animation = { x: { duration: 0 } };
+            chart.update();
+            chart.options.animation = {};
         });
     });
 }

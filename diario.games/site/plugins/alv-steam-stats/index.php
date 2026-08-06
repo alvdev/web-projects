@@ -339,7 +339,7 @@ App::plugin('alv/steam-stats', [
                 $now = time();
                 $day = 86400;
 
-                $ranges = ['48h' => 2 * $day, '1w' => 7 * $day, '1m' => 30 * $day, '3m' => 90 * $day, '6m' => 180 * $day, '1y' => 365 * $day, 'max' => 0];
+            $ranges = ['48h' => 'hourly', '1w' => 'hourly', '1m' => 'daily', '3m' => 'daily', '6m' => 'daily', '1y' => 'weekly', '3y' => 'monthly', '6y' => 'monthly', '9y' => 'monthly', '12y' => 'monthly', 'max' => 'auto'];
 
                 $data = [
                     'game' => $game,
@@ -350,17 +350,33 @@ App::plugin('alv/steam-stats', [
                     'ranges' => [],
                 ];
 
-                foreach ($ranges as $key => $duration) {
-                    $since = $duration > 0 ? $now - $duration : 0;
-                    $points = $db->getPlayerCounts($appid, $since);
-                    if (in_array($key, ['max', '1y', '6m', '3m'], true)) {
-                        $step = max(1, intdiv(count($points), 1000));
-                        $filtered = [];
-                        foreach ($points as $i => $pt) {
-                            if ($i % $step === 0) $filtered[] = $pt;
+                $allPoints = $db->getPlayerCounts($appid, 0);
+                $dataAgeSeconds = !empty($allPoints) ? $now - $allPoints[0]['timestamp'] : 0;
+                $durations = ['48h' => 2, '1w' => 7, '1m' => 30, '3m' => 90, '6m' => 180, '1y' => 365, '3y' => 3*365, '6y' => 6*365, '9y' => 9*365, '12y' => 12*365, 'max' => 0];
+
+                foreach ($ranges as $key => $method) {
+                    $since = $durations[$key] > 0 ? $now - $durations[$key] * $day : 0;
+
+                    if ($method === 'hourly') {
+                        $points = $db->getPlayerCounts($appid, $since);
+                    } elseif ($method === 'daily') {
+                        $points = $db->getDailyPeakCounts($appid, $since);
+                    } elseif ($method === 'weekly') {
+                        $points = $db->getWeeklyPeakCounts($appid, $since);
+                    } elseif ($method === 'monthly') {
+                        $points = $db->getMonthlyPeakCounts($appid, $since);
+                    } else {
+                        if ($dataAgeSeconds <= 7 * $day) {
+                            $points = $db->getPlayerCounts($appid, 0);
+                        } elseif ($dataAgeSeconds <= 30 * $day) {
+                            $points = $db->getDailyPeakCounts($appid, 0);
+                        } elseif ($dataAgeSeconds <= 365 * $day) {
+                            $points = $db->getWeeklyPeakCounts($appid, 0);
+                        } else {
+                            $points = $db->getMonthlyPeakCounts($appid, 0);
                         }
-                        $points = $filtered;
                     }
+
                     $data['ranges'][$key] = $points;
                 }
 
@@ -545,7 +561,7 @@ App::plugin('alv/steam-stats', [
                 }
             }
 
-            $ranges = ['48h' => 2 * $day, '1w' => 7 * $day, '1m' => 30 * $day, '3m' => 90 * $day, '6m' => 180 * $day, '1y' => 365 * $day, 'max' => 0];
+            $ranges = ['48h' => 'hourly', '1w' => 'hourly', '1m' => 'daily', '3m' => 'daily', '6m' => 'daily', '1y' => 'weekly', '3y' => 'monthly', '6y' => 'monthly', '9y' => 'monthly', '12y' => 'monthly', 'max' => 'auto'];
 
             $peakAllTime = $db->getGamePeak($appid);
             $peakTimestamp = $db->getGamePeakTimestamp($appid);
@@ -555,7 +571,7 @@ App::plugin('alv/steam-stats', [
             }
             $peakAgeLabel = 'Max. historico';
             $peakTs = $peakTimestamp ?? ($peakInfo['timestamp'] ?? null);
-            if ($peakTs !== null) {
+            if ($peakTs !== null && $peakTs > 0) {
                 $diffDays = (int)(($now - $peakTs) / 86400);
 
                 if ($diffDays === 1) {
@@ -601,19 +617,52 @@ App::plugin('alv/steam-stats', [
                 'ranges' => [],
             ];
 
-            foreach ($ranges as $key => $duration) {
-                $since = $duration > 0 ? $now - $duration : 0;
-                $points = $db->getPlayerCounts($appid, $since);
-                if (in_array($key, ['max', '1y', '6m', '3m'], true)) {
-                    $limit = 1000;
-                    $step = max(1, intdiv(count($points), $limit));
-                    $filtered = [];
-                    foreach ($points as $i => $pt) {
-                        if ($i % $step === 0) $filtered[] = $pt;
+            // Pre-fetch all raw points for max-range adaptive selection
+            $allPoints = $db->getPlayerCounts($appid, 0);
+            $earliestTs = !empty($allPoints) ? $allPoints[0]['timestamp'] : null;
+            $dataAgeSeconds = $earliestTs !== null ? $now - $earliestTs : 0;
+
+            $durations = ['48h' => 2, '1w' => 7, '1m' => 30, '3m' => 90, '6m' => 180, '1y' => 365, '3y' => 3*365, '6y' => 6*365, '9y' => 9*365, '12y' => 12*365, 'max' => 0];
+
+            // Build each range with the appropriate aggregation method
+            foreach ($ranges as $key => $method) {
+                $since = $durations[$key] > 0 ? $now - $durations[$key] * $day : 0;
+
+                if ($method === 'hourly') {
+                    $points = $db->getPlayerCounts($appid, $since);
+                } elseif ($method === 'daily') {
+                    $points = $db->getDailyPeakCounts($appid, $since);
+                } elseif ($method === 'weekly') {
+                    $points = $db->getWeeklyPeakCounts($appid, $since);
+                } elseif ($method === 'monthly') {
+                    $points = $db->getMonthlyPeakCounts($appid, $since);
+                } else {
+                    // auto: pick aggregation based on data age
+                    $maxSince = 0;
+                    if ($dataAgeSeconds <= 7 * $day) {
+                        $points = $db->getPlayerCounts($appid, $maxSince);
+                    } elseif ($dataAgeSeconds <= 30 * $day) {
+                        $points = $db->getDailyPeakCounts($appid, $maxSince);
+                    } elseif ($dataAgeSeconds <= 365 * $day) {
+                        $points = $db->getWeeklyPeakCounts($appid, $maxSince);
+                    } else {
+                        $points = $db->getMonthlyPeakCounts($appid, $maxSince);
                     }
-                    $points = $filtered;
                 }
+
                 $data['ranges'][$key] = $points;
+            }
+
+            // Determine which long-range tabs to show based on earliest data
+            $data['long_tabs'] = [];
+            if ($earliestTs !== null) {
+                $ageYears = $dataAgeSeconds / (365 * $day);
+                $thresholds = [3 => '3y', 6 => '6y', 9 => '9y', 12 => '12y'];
+                foreach ($thresholds as $years => $label) {
+                    if ($ageYears >= $years) {
+                        $data['long_tabs'][] = $label;
+                    }
+                }
             }
 
             return $data;
