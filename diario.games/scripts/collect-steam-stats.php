@@ -72,6 +72,33 @@ if ($mode === 'backfill') {
         echo "Usage: php collect-steam-stats.php steamdb-peak <appid>\n";
     }
     exit(0);
+} elseif ($mode === 'steamdb-history') {
+    $appid = (int)($argv[2] ?? 0);
+    if ($appid > 0) {
+        echo "Fetching historical player counts from steamdb.info for appid $appid...\n";
+        $result = $collector->collectSteamDBHistory($appid);
+        if ($result) {
+            echo "Inserted {$result['points']} data points, peak: {$result['peak']}\n";
+            try {
+                kirby()->cache('alv/steam-stats.cache')->remove('player-data-summary');
+                echo "Caches cleared.\n";
+            } catch (\Throwable $e) {}
+        } else {
+            echo "No data found from steamdb.info for appid $appid\n";
+        }
+    } else {
+        echo "Usage: php collect-steam-stats.php steamdb-history <appid>\n";
+    }
+    exit(0);
+} elseif ($mode === 'steamdb-backfill') {
+    $limit = (int)($argv[2] ?? 20);
+    echo "Backfilling SteamDB history for up to $limit games...\n";
+    $stats = $collector->backfillSteamDBHistory(function ($msg) { echo "  $msg\n"; }, $limit);
+    echo "Scanned: {$stats['scanned']}, Backfilled: {$stats['backfilled']}, Skipped: {$stats['skipped']}, Errors: " . count($stats['errors']) . "\n";
+    if (!empty($stats['errors'])) {
+        echo "Failed appids: " . implode(', ', $stats['errors']) . "\n";
+    }
+    exit(0);
 } else {
     $stats = $collector->collect();
     echo "Scanned: {$stats['scanned']}, Updated: {$stats['updated']}, Errors: " . count($stats['errors']) . "\n";

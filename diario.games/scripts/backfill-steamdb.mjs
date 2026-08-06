@@ -1,58 +1,109 @@
-import { firefox } from 'playwright';
+import { launchOptions } from 'camoufox-js';
+import { firefox } from 'playwright-core';
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const appid = process.argv[2] || '730';
 
-const browser = await firefox.launch({
+function loadEnv() {
+    const envPath = resolve(__dirname, '..', '.env');
+    try {
+        const content = readFileSync(envPath, 'utf-8');
+        const env = {};
+        for (const line of content.split('\n')) {
+            const trimmed = line.trim();
+            if (!trimmed || trimmed.startsWith('#')) continue;
+            const eqIdx = trimmed.indexOf('=');
+            if (eqIdx === -1) continue;
+            env[trimmed.slice(0, eqIdx)] = trimmed.slice(eqIdx + 1);
+        }
+        return env;
+    } catch { return {}; }
+}
+
+function buildProxyUrl(env) {
+    const host = env.PROXY_HOST, port = env.PROXY_PORT, user = env.PROXY_USER, pass = env.PROXY_PASS;
+    if (!host || !port) return null;
+    const p = { server: `http://${host}:${port}` };
+    if (user && pass) { p.username = user; p.password = pass; }
+    return p;
+}
+
+const env = loadEnv();
+const proxy = buildProxyUrl(env);
+
+const options = await launchOptions({
     headless: true,
-    args: ['--no-sandbox']
+    os: 'linux',
+    humanize: true,
+    geoip: !!proxy,
+    proxy: proxy || undefined,
+    enable_cache: false,
 });
 
-const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0',
-    viewport: { width: 1280, height: 900 }
-});
-
+const browser = await firefox.launch(options);
+const context = await browser.newContext({ viewport: null });
 const page = await context.newPage();
 
-// Intercept the API response
-const apiData = new Promise((resolve) => {
-    page.on('response', async (response) => {
-        const url = response.url();
-        if (url.includes('GetPlayerCountHistory')) {
-            try {
-                const json = await response.json();
-                resolve(json);
-            } catch {
-                resolve(null);
-            }
+let dailyData = null;
+let hourlyData = null;
+
+page.on('response', async (response) => {
+    const url = response.url();
+    if (!url.includes('/api/')) return;
+    try {
+        const json = await response.json();
+        if (!json?.success || !json?.data) return;
+        if (url.includes('GetGraphMax')) {
+            dailyData = json.data;
+        } else if (url.includes('GetGraphWeek')) {
+            hourlyData = json.data;
         }
-    });
+    } catch {}
 });
 
-console.log(`Navigating to https://steamdb.info/app/${appid}/charts/...`);
+console.error(`Navigating to https://steamdb.info/app/${appid}/charts/...`);
 await page.goto(`https://steamdb.info/app/${appid}/charts/`, {
-    waitUntil: 'networkidle0',
-    timeout: 45000
-}).catch(e => console.log('Navigation warning:', e.message));
+    waitUntil: 'networkidle',
+    timeout: 45000,
+}).catch(e => console.error('Navigation warning:', e.message));
 
-// Wait for the API data
-const data = await Promise.race([
-    apiData,
-    new Promise(r => setTimeout(() => r(null), 20000))
-]);
-
-if (data) {
-    console.log(`Got ${data.length} data points`);
-    // Output as JSON for the PHP collector to consume
-    process.stdout.write(JSON.stringify(data));
-} else {
-    // Check page state
-    const title = await page.title();
-    const url = page.url();
-    const body = await page.evaluate(() => document.body?.innerText?.substring(0, 500) || 'no body');
-    console.error(`No API data. Title: "${title}", URL: ${url}`);
-    console.error(`Body preview: ${body}`);
-    process.exit(1);
+const deadline = Date.now() + 20000;
+while ((!dailyData || !hourlyData) && Date.now() < deadline) {
+    await new Promise(r => setTimeout(r, 500));
 }
 
 await browser.close();
+
+if (!dailyData && !hourlyData) {
+    console.error('No API data received');
+    process.exit(1);
+}
+
+const points = [];
+const seenTs = new Set();
+
+if (dailyData) {
+    for (let i = 0; i < dailyData.values.length; i++) {
+        const ts = (dailyData.start + i * dailyData.step) * 1000;
+        points.push([ts, dailyData.values[i]]);
+        seenTs.add(dailyData.start + i * dailyData.step);
+    }
+}
+
+if (hourlyData) {
+    for (let i = 0; i < hourlyData.values.length; i++) {
+        const secondTs = hourlyData.start + i * hourlyData.step;
+        if (!seenTs.has(secondTs)) {
+            points.push([secondTs * 1000, hourlyData.values[i]]);
+            seenTs.add(secondTs);
+        }
+    }
+}
+
+points.sort((a, b) => a[0] - b[0]);
+
+console.error(`Got ${points.length} data points`);
+process.stdout.write(JSON.stringify(points));

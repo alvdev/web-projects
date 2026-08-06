@@ -279,6 +279,17 @@ class GameImporter
         try {
             $db = new \Alv\SteamStats\SteamStatsDB();
             $db->upsertGame($appid, $slug, $name, $gameData['id'] ?? null);
+
+            // Trigger async SteamDB history backfill for newly imported games.
+            // The command handles its own locking (per-appid lock file).
+            $scriptsDir = dirname(__DIR__, 4) . '/scripts';
+            $collectScript = $scriptsDir . '/collect-steam-stats.php';
+            if (file_exists($collectScript)) {
+                $cmd = 'php ' . escapeshellarg($collectScript)
+                     . ' steamdb-history ' . escapeshellarg((string)$appid)
+                     . ' > /dev/null 2>&1 &';
+                exec($cmd);
+            }
         } catch (\Throwable $e) {
             // Steam stats plugin might not be available
             error_log('Failed to register Steam game: ' . $e->getMessage());

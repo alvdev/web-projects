@@ -287,6 +287,109 @@ class SteamStatsCollector
         return $stats;
     }
 
+    public function collectSteamDBHistory(int $appid): ?array
+    {
+        $lockFile = sys_get_temp_dir() . '/steamdb-backfill-' . $appid . '.lock';
+        if (file_exists($lockFile)) return null;
+
+        $scriptPath = dirname(__DIR__, 4) . '/scripts/scrape-steamdb-history.mjs';
+        if (!file_exists($scriptPath)) return null;
+
+        $nodeBin = $this->findNodeBinary();
+        if (!$nodeBin) return null;
+
+        touch($lockFile);
+
+        $cmd = escapeshellarg($nodeBin) . ' ' . escapeshellarg($scriptPath) . ' ' . escapeshellarg((string)$appid) . ' 2>/dev/null';
+        $output = [];
+        $exitCode = 0;
+        exec($cmd, $output, $exitCode);
+
+        if ($exitCode !== 0 || empty($output)) {
+            @unlink($lockFile);
+            return null;
+        }
+
+        $data = json_decode(implode('', $output), true);
+        if (!is_array($data) || empty($data)) {
+            @unlink($lockFile);
+            return null;
+        }
+
+        $inserted = 0;
+        $peak = 0;
+        $peakTs = 0;
+
+        foreach ($data as $point) {
+            if (!isset($point[0], $point[1])) continue;
+            $ts = (int)($point[0] / 1000);
+            $count = (int)$point[1];
+            if ($count <= 0) continue;
+
+            $this->db->insertPlayerCount($appid, $ts, $count);
+            $inserted++;
+
+            if ($count > $peak) {
+                $peak = $count;
+                $peakTs = $ts;
+            }
+        }
+
+        if ($peak > 0) {
+            $this->db->upsertGamePeak($appid, $peak, $peakTs);
+        }
+
+        @unlink($lockFile);
+        return ['points' => $inserted, 'peak' => $peak];
+    }
+
+    public function backfillSteamDBHistory(?callable $log = null, int $limit = 20): array
+    {
+        $appids = $this->db->getAllAppids();
+        $stats = ['scanned' => 0, 'backfilled' => 0, 'skipped' => 0, 'errors' => []];
+
+        $sevenDaysAgo = time() - 7 * 86400;
+
+        $lockDir = sys_get_temp_dir();
+        $processed = 0;
+
+        foreach ($appids as $appid) {
+            if ($processed >= $limit) break;
+
+            $lockFile = $lockDir . '/steamdb-backfill-' . $appid . '.lock';
+            if (file_exists($lockFile)) {
+                $stats['skipped']++;
+                continue;
+            }
+
+            $latestTs = $this->db->getLatestTimestamp($appid);
+            if ($latestTs !== null && $latestTs >= $sevenDaysAgo) {
+                $stats['skipped']++;
+                continue;
+            }
+
+            $stats['scanned']++;
+            $processed++;
+
+            $log && $log("Backfilling SteamDB history for app $appid...");
+            $result = $this->collectSteamDBHistory($appid);
+
+            if ($result) {
+                $stats['backfilled']++;
+                $log && $log("  Inserted {$result['points']} points, peak {$result['peak']}");
+            } else {
+                $stats['errors'][] = $appid;
+                $log && $log("  Failed to fetch data");
+            }
+
+            if ($processed < $limit && $processed < count($appids)) {
+                usleep(500000);
+            }
+        }
+
+        return $stats;
+    }
+
     public function downloadCapsule(int $appid, ?string $slug = null): ?string
     {
         if (!$slug) {
