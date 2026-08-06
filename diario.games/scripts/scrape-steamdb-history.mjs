@@ -131,7 +131,18 @@ try {
     points.sort((a, b) => a[0] - b[0]);
 
     console.error(`[scrape-steamdb] Total: ${points.length} data points`);
-    process.stdout.write(JSON.stringify(points));
+
+    // Scrape the true all-time peak from the DOM (server-rendered, not in any API response)
+    const domPeak = await page.evaluate(() => {
+        const match = document.body.innerText.match(/([\d,]+)\s*\n?\s*all-time/i);
+        return match ? parseInt(match[1].replace(/,/g, ''), 10) : null;
+    });
+    if (domPeak) {
+        console.error(`[scrape-steamdb] DOM all-time peak: ${domPeak}`);
+    }
+
+    const output = { points, peak_all_time: domPeak || 0 };
+    process.stdout.write(JSON.stringify(output));
     process.exit(0);
 } catch (err) {
     console.error(`[scrape-steamdb] Fatal error: ${err.message}`);

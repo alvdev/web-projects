@@ -310,10 +310,19 @@ class SteamStatsCollector
             return null;
         }
 
-        $data = json_decode(implode('', $output), true);
-        if (!is_array($data) || empty($data)) {
+        $raw = json_decode(implode('', $output), true);
+        if (!is_array($raw) || empty($raw)) {
             @unlink($lockFile);
             return null;
+        }
+
+        // Support both old format [[ts,count],...] and new format {points, peak_all_time}
+        if (isset($raw['points'])) {
+            $data = $raw['points'];
+            $domPeak = (int)($raw['peak_all_time'] ?? 0);
+        } else {
+            $data = $raw;
+            $domPeak = 0;
         }
 
         $inserted = 0;
@@ -333,6 +342,12 @@ class SteamStatsCollector
                 $peak = $count;
                 $peakTs = $ts;
             }
+        }
+
+        // DOM peak takes priority if higher than the daily-bucket max
+        if ($domPeak > $peak) {
+            $peak = $domPeak;
+            $peakTs = 0;
         }
 
         if ($peak > 0) {

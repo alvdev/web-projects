@@ -423,9 +423,6 @@ class SteamStatsDB
 
     public function upsertGamePeak(int $appid, int $peak, ?int $peakTimestamp = null): void
     {
-        if ($peakTimestamp !== null && $peakTimestamp <= 0) {
-            $peakTimestamp = null;
-        }
         $now = time();
         $stmt = $this->pdo->prepare('
             INSERT INTO game_peaks (appid, peak_all_time, peak_timestamp, updated_at)
