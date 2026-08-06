@@ -39,30 +39,23 @@
 
         <!-- Time range tabs -->
         <div class="flex flex-wrap gap-1 mb-4 border-b border-border pb-2">
-            <?php $tabs = ['48h', '1w', '1m', '3m', '6m', '1y']; ?>
-            <?php foreach ($tabs as $i => $tab): ?>
-                <button type="button"
-                    class="steam-range-tab px-3 py-1 text-xs font-semibold rounded transition
-                    <?= $i === 0 ? 'bg-neon-cyan/20 text-neon-cyan' : 'text-muted hover:text-text' ?>"
-                    data-range="<?= $tab ?>">
-                    <?= strtoupper($tab) ?>
-                </button>
-            <?php endforeach ?>
             <?php
-            $longTabs = $data['long_tabs'] ?? [];
-            foreach ($longTabs as $tab):
+            $availableTabs = $data['available_tabs'] ?? ['48h', '1w', '1m', '3m', '6m', '1y', 'max'];
+            $first = true;
+            foreach ($availableTabs as $tab):
+                $upperTab = strtoupper($tab);
+                $isMax = $tab === 'max';
             ?>
                 <button type="button"
-                    class="steam-range-tab px-3 py-1 text-xs font-semibold rounded transition text-muted hover:text-text"
+                    class="steam-range-tab px-3 py-1 text-xs font-semibold rounded transition
+                    <?= $first ? 'bg-neon-cyan/20 text-neon-cyan' : 'text-muted hover:text-text' ?>"
                     data-range="<?= $tab ?>">
-                    <?= strtoupper($tab) ?>
+                    <?= $isMax ? 'MAX' : strtoupper($tab) ?>
                 </button>
-            <?php endforeach ?>
-            <button type="button"
-                class="steam-range-tab px-3 py-1 text-xs font-semibold rounded transition text-muted hover:text-text"
-                data-range="max">
-                MAX
-            </button>
+            <?php
+                $first = false;
+            endforeach;
+            ?>
         </div>
 
         <!-- Chart canvas -->

@@ -653,15 +653,31 @@ App::plugin('alv/steam-stats', [
                 $data['ranges'][$key] = $points;
             }
 
-            // Determine which long-range tabs to show based on earliest data
-            $data['long_tabs'] = [];
-            if ($earliestTs !== null) {
-                $ageYears = $dataAgeSeconds / (365 * $day);
-                $thresholds = [3 => '3y', 6 => '6y', 9 => '9y', 12 => '12y'];
-                foreach ($thresholds as $years => $label) {
-                    if ($ageYears >= $years) {
-                        $data['long_tabs'][] = $label;
-                    }
+            // Determine which tabs to show based on game release date (or earliest data)
+            $releaseDateStr = null;
+            $yearMonth = $game['year_month'] ?? \DiarioGames\IGDB\resolveGamePath($slug);
+            $kirbyPage = $yearMonth ? page('games/' . $yearMonth . '/' . $slug) : null;
+            if ($kirbyPage) {
+                $releaseDateStr = $kirbyPage->content()->get('ReleaseDate')->value();
+            }
+
+            $gameAgeDays = 0;
+            if ($releaseDateStr && preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $releaseDateStr, $rm)) {
+                $releaseTs = strtotime("{$rm[1]}-{$rm[2]}-{$rm[3]}");
+                if ($releaseTs && $releaseTs < $now) {
+                    $gameAgeDays = (int)(($now - $releaseTs) / $day);
+                }
+            }
+            if ($gameAgeDays <= 0 && $earliestTs !== null) {
+                $gameAgeDays = (int)(($now - $earliestTs) / $day);
+            }
+
+            // Tab display rules: hide tabs that span longer than the game has existed
+            $tabMinAges = ['48h' => 2, '1w' => 7, '1m' => 30, '3m' => 90, '6m' => 180, '1y' => 365, '3y' => 3*365, '6y' => 6*365, '9y' => 9*365, '12y' => 12*365, 'max' => 0];
+            $data['available_tabs'] = [];
+            foreach ($tabMinAges as $label => $minDays) {
+                if ($gameAgeDays >= $minDays) {
+                    $data['available_tabs'][] = $label;
                 }
             }
 
