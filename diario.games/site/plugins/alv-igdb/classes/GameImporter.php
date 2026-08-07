@@ -280,6 +280,16 @@ class GameImporter
             $db = new \Alv\SteamStats\SteamStatsDB();
             $db->upsertGame($appid, $slug, $name, $gameData['id'] ?? null);
 
+            // Fetch current player count immediately so the page shows live data
+            // while the async historical backfill runs in the background.
+            $apiKey = option('alv.steam-stats.api-key', '');
+            if ($apiKey) {
+                $liveCount = $this->fetchSteamCurrentPlayers($apiKey, $appid);
+                if ($liveCount !== null && $liveCount >= 0) {
+                    $db->insertPlayerCount($appid, time() - (time() % 3600), $liveCount);
+                }
+            }
+
             // Trigger async SteamDB history backfill for newly imported games.
             // The command handles its own locking (per-appid lock file).
             $scriptsDir = dirname(__DIR__, 4) . '/scripts';
@@ -294,6 +304,31 @@ class GameImporter
             // Steam stats plugin might not be available
             error_log('Failed to register Steam game: ' . $e->getMessage());
         }
+    }
+
+    private function fetchSteamCurrentPlayers(string $apiKey, int $appid): ?int
+    {
+        $url = 'https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?' . http_build_query([
+            'appid' => $appid,
+            'key'   => $apiKey,
+        ]);
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 10,
+            CURLOPT_USERAGENT      => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
+        ]);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        if (!$response) return null;
+
+        $data = json_decode($response, true);
+        if (isset($data['response']['player_count'])) {
+            return (int) $data['response']['player_count'];
+        }
+        return 0;
     }
 
     public function importBySlug(string $slug, ?callable $progress = null): ?string

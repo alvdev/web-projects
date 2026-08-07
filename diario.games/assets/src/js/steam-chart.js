@@ -73,8 +73,8 @@ function initChart() {
                         title: function (items) {
                             if (!items.length) return '';
                             var d = new Date(items[0].parsed.x);
-                            return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' })
-                                + ', ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+                            return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+                                + ', ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC';
                         },
                         label: function (item) {
                             return item.parsed.y.toLocaleString() + ' jugadores';
@@ -92,6 +92,9 @@ function initChart() {
                             day: 'MMM dd',
                             month: 'MMM yyyy',
                         }
+                    },
+                    adapters: {
+                        date: { zone: 'UTC' }
                     },
                     grid: { color: 'rgba(255,255,255,0.05)' },
                     ticks: { color: '#888888', maxTicksLimit: 10 }

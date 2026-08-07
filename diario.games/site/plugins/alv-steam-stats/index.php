@@ -361,20 +361,34 @@ App::plugin('alv/steam-stats', [
                         $points = $db->getPlayerCounts($appid, $since);
                     } elseif ($method === 'daily') {
                         $points = $db->getDailyPeakCounts($appid, $since);
+                        $currentBoundary = strtotime('today 00:00:00');
                     } elseif ($method === 'weekly') {
                         $points = $db->getWeeklyPeakCounts($appid, $since);
+                        $currentBoundary = $now - ($now % 604800);
                     } elseif ($method === 'monthly') {
                         $points = $db->getMonthlyPeakCounts($appid, $since);
+                        $currentBoundary = strtotime('first day of this month 00:00:00');
                     } else {
                         if ($dataAgeSeconds <= 7 * $day) {
                             $points = $db->getPlayerCounts($appid, 0);
                         } elseif ($dataAgeSeconds <= 30 * $day) {
                             $points = $db->getDailyPeakCounts($appid, 0);
+                            $currentBoundary = strtotime('today 00:00:00');
                         } elseif ($dataAgeSeconds <= 365 * $day) {
                             $points = $db->getWeeklyPeakCounts($appid, 0);
+                            $currentBoundary = $now - ($now % 604800);
                         } else {
                             $points = $db->getMonthlyPeakCounts($appid, 0);
+                            $currentBoundary = strtotime('first day of this month 00:00:00');
                         }
+                    }
+
+                    if (isset($currentBoundary) && count($points) > 1) {
+                        $last = end($points);
+                        if ($last['timestamp'] >= $currentBoundary) {
+                            array_pop($points);
+                        }
+                        unset($currentBoundary);
                     }
 
                     $data['ranges'][$key] = $points;
@@ -632,10 +646,13 @@ App::plugin('alv/steam-stats', [
                     $points = $db->getPlayerCounts($appid, $since);
                 } elseif ($method === 'daily') {
                     $points = $db->getDailyPeakCounts($appid, $since);
+                    $currentBoundary = strtotime('today 00:00:00');
                 } elseif ($method === 'weekly') {
                     $points = $db->getWeeklyPeakCounts($appid, $since);
+                    $currentBoundary = $now - ($now % 604800);
                 } elseif ($method === 'monthly') {
                     $points = $db->getMonthlyPeakCounts($appid, $since);
+                    $currentBoundary = strtotime('first day of this month 00:00:00');
                 } else {
                     // auto: pick aggregation based on data age
                     $maxSince = 0;
@@ -643,11 +660,23 @@ App::plugin('alv/steam-stats', [
                         $points = $db->getPlayerCounts($appid, $maxSince);
                     } elseif ($dataAgeSeconds <= 30 * $day) {
                         $points = $db->getDailyPeakCounts($appid, $maxSince);
+                        $currentBoundary = strtotime('today 00:00:00');
                     } elseif ($dataAgeSeconds <= 365 * $day) {
                         $points = $db->getWeeklyPeakCounts($appid, $maxSince);
+                        $currentBoundary = $now - ($now % 604800);
                     } else {
                         $points = $db->getMonthlyPeakCounts($appid, $maxSince);
+                        $currentBoundary = strtotime('first day of this month 00:00:00');
                     }
+                }
+
+                // Drop the last point if it falls in the current incomplete period
+                if (isset($currentBoundary) && count($points) > 1) {
+                    $last = end($points);
+                    if ($last['timestamp'] >= $currentBoundary) {
+                        array_pop($points);
+                    }
+                    unset($currentBoundary);
                 }
 
                 $data['ranges'][$key] = $points;
@@ -668,15 +697,19 @@ App::plugin('alv/steam-stats', [
                     $gameAgeDays = (int)(($now - $releaseTs) / $day);
                 }
             }
-            if ($gameAgeDays <= 0 && $earliestTs !== null) {
-                $gameAgeDays = (int)(($now - $earliestTs) / $day);
+
+            $dataAgeDays = $earliestTs !== null ? (int)(($now - $earliestTs) / $day) : 0;
+            if ($gameAgeDays <= 0) {
+                $gameAgeDays = $dataAgeDays;
             }
+            // Use whichever goes further back: release date or actual data
+            $effectiveAgeDays = max($gameAgeDays, $dataAgeDays);
 
             // Tab display rules: hide tabs that span longer than the game has existed
             $tabMinAges = ['48h' => 2, '1w' => 7, '1m' => 30, '3m' => 90, '6m' => 180, '1y' => 365, '3y' => 3*365, '6y' => 6*365, '9y' => 9*365, '12y' => 12*365, 'max' => 0];
             $data['available_tabs'] = [];
             foreach ($tabMinAges as $label => $minDays) {
-                if ($gameAgeDays >= $minDays) {
+                if ($effectiveAgeDays >= $minDays) {
                     $data['available_tabs'][] = $label;
                 }
             }

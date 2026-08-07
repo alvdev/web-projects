@@ -204,6 +204,23 @@ class SteamStatsDB
         ]);
     }
 
+    /**
+     * Like insertPlayerCount, but never overwrites existing data.
+     * Used for backfill data — hourly collector values take priority.
+     */
+    public function insertPlayerCountIfMissing(int $appid, int $timestamp, int $playerCount): void
+    {
+        $stmt = $this->pdo->prepare('
+            INSERT OR IGNORE INTO player_counts (appid, timestamp, player_count)
+            VALUES (:appid, :timestamp, :player_count)
+        ');
+        $stmt->execute([
+            ':appid'        => $appid,
+            ':timestamp'    => $timestamp,
+            ':player_count' => $playerCount,
+        ]);
+    }
+
     public function upsertPlayerHistory(int $appid, int $timestamp, int $playerCount): void
     {
         $stmt = $this->pdo->prepare('

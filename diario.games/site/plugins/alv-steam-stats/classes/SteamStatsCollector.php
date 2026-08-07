@@ -273,7 +273,7 @@ class SteamStatsCollector
                 $count = (int)$point[1];
 
                 // INSERT OR IGNORE handles duplicates
-                $this->db->insertPlayerCount($appid, $ts, $count);
+            $this->db->insertPlayerCountIfMissing($appid, $ts, $count);
                 $inserted++;
             }
 

@@ -104,24 +104,52 @@ try {
         process.exit(1);
     }
 
-    // Expand daily data: {start, step, values} -> [[timestamp_ms, count], ...]
+    // Try to extract the full historical dataset from Highstock's chart state.
+    // GetGraphMax only provides ~1 year; the chart itself holds all years of data.
+    let highstockRaw = null;
+    const htsDeadline = Date.now() + 15000;
+    while (Date.now() < htsDeadline) {
+        highstockRaw = await page.evaluate(() => {
+            try {
+                if (typeof Highcharts !== 'undefined' && Highcharts.charts[0]) {
+                    const s = Highcharts.charts[0].series[0];
+                    if (s && s.options && s.options.data && s.options.data.length > 0) {
+                        return s.options.data;
+                    }
+                }
+            } catch {}
+            return null;
+        });
+        if (highstockRaw && highstockRaw.length > 0) break;
+        await page.waitForTimeout(1000);
+    }
+
+    if (highstockRaw) {
+        console.error(`[scrape-steamdb] Highstock data: ${highstockRaw.length} points`);
+        console.error(`[scrape-steamdb]   first: ${new Date(highstockRaw[0][0]).toISOString().slice(0, 10)}`);
+        console.error(`[scrape-steamdb]   last:  ${new Date(highstockRaw[highstockRaw.length - 1][0]).toISOString().slice(0, 10)}`);
+    }
+
+    // Expand data into [[timestamp_ms, count], ...] pairs.
+    // Merge hourly FIRST so real hourly values take priority over daily peaks
+    // at shared timestamps (e.g. midnight). PHP uses INSERT OR IGNORE so first
+    // writer wins — hourly collector values must not be overwritten by daily peaks.
     const points = [];
     const seenTs = new Set();
 
-    if (dailyData) {
-        for (let i = 0; i < dailyData.values.length; i++) {
-            const ts = (dailyData.start + i * dailyData.step) * 1000;
-            points.push([ts, dailyData.values[i]]);
-            seenTs.add(dailyData.start + i * dailyData.step);
-        }
-    }
-
-    // Overlay hourly data (finer granularity for the last week), avoiding duplicate timestamps
     if (hourlyData) {
         for (let i = 0; i < hourlyData.values.length; i++) {
             const secondTs = hourlyData.start + i * hourlyData.step;
+            points.push([secondTs * 1000, hourlyData.values[i]]);
+            seenTs.add(secondTs);
+        }
+    }
+
+    if (dailyData) {
+        for (let i = 0; i < dailyData.values.length; i++) {
+            const secondTs = dailyData.start + i * dailyData.step;
             if (!seenTs.has(secondTs)) {
-                points.push([secondTs * 1000, hourlyData.values[i]]);
+                points.push([secondTs * 1000, dailyData.values[i]]);
                 seenTs.add(secondTs);
             }
         }
@@ -129,6 +157,17 @@ try {
 
     // Sort by timestamp ascending
     points.sort((a, b) => a[0] - b[0]);
+
+    // Prefer Highstock data if it covers more history than the API merge
+    if (highstockRaw && highstockRaw.length > points.length) {
+        points.length = 0;
+        for (const pt of highstockRaw) {
+            if (!pt || pt.length < 2 || pt[1] <= 0) continue;
+            points.push([pt[0], pt[1]]);
+        }
+        points.sort((a, b) => a[0] - b[0]);
+        console.error(`[scrape-steamdb] Using Highstock data: ${points.length} data points`);
+    }
 
     console.error(`[scrape-steamdb] Total: ${points.length} data points`);
 
