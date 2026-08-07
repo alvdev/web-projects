@@ -1,18 +1,32 @@
 import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import { getDisplayLabel, findCityMatch, findCountryMatch, isValidTimezone, getUtcOffset } from './timezones.js';
+import { initShare } from './share-chart.js';
 
 Chart.register(...registerables);
 
 var activeTimezone = 'UTC';
 var activeDisplayLabel = 'UTC';
 var chart;
+var activeRange = '48h';
 
 document.addEventListener('DOMContentLoaded', function () {
     initSearch();
     initTimezone();
     initChart();
     initImportOverlay();
+    initShare({
+        buttonSelector: '#steam-share-btn',
+        get chart() { return chart; },
+        get range() { return activeRange; },
+        get data() { return window.__STEAM_CHART_DATA; },
+        get title() { return (window.__STEAM_CHART_DATA && window.__STEAM_CHART_DATA.game) ? window.__STEAM_CHART_DATA.game.name : document.title; },
+        get slug() { return (window.__STEAM_CHART_DATA && window.__STEAM_CHART_DATA.game) ? window.__STEAM_CHART_DATA.game.slug : ''; },
+        get capsuleUrl() {
+            if (!window.__STEAM_CHART_DATA || !window.__STEAM_CHART_DATA.game) return '';
+            return '/media/steam-capsule/' + window.__STEAM_CHART_DATA.game.slug + '.jpg';
+        }
+    });
 });
 
 function formatNumber(n) {
@@ -34,7 +48,7 @@ function initChart() {
     document.getElementById('steam-peak-3m').textContent = formatNumber(data.peak_3m);
     document.getElementById('steam-peak-alltime').textContent = formatNumber(data.peak_all_time);
 
-    var activeRange = '48h';
+    activeRange = '48h';
     chart = new Chart(canvas, {
         type: 'line',
         data: {

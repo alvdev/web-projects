@@ -63,6 +63,12 @@
                 <div id="steam-tz-suggestions" class="hidden absolute top-full left-0 mt-1 bg-surface border border-border rounded shadow-lg z-50 min-w-[220px] max-h-48 overflow-y-auto py-1">
                 </div>
             </div>
+            <span class="text-muted mx-1 text-xs">·</span>
+            <button type="button"
+                id="steam-share-btn"
+                class="px-3 py-1 text-xs font-semibold rounded transition text-muted hover:text-neon-cyan">
+                Compartir
+            </button>
         </div>
 
         <!-- Chart canvas -->
