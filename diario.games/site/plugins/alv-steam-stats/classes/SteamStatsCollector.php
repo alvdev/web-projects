@@ -120,7 +120,7 @@ class SteamStatsCollector
         // Store in DB
         $stored = 0;
         foreach ($peaks as $appid => $peak) {
-            $this->db->upsertGamePeak($appid, $peak);
+            $this->db->upsertGamePeak($appid, $peak, 0);
             $stored++;
         }
 
