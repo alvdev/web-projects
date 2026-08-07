@@ -114,6 +114,7 @@ class GameImporter
         }
 
         $gameId = $gameData['id'] ?? null;
+        $name = $this->stringVal($gameData['name'] ?? '');
 
         if ($progress) $progress('metadata');
 
@@ -130,6 +131,7 @@ class GameImporter
         if (is_dir($dir)) {
             \DiarioGames\IGDB\addGameToIndex($slug, $yearMonth, (int) $gameId);
             $this->importMissingMedia($gameData, $slug, $dir);
+            $this->registerSteamGame($slug, $gameData, $name);
             return $slug;
         }
 
@@ -172,8 +174,6 @@ class GameImporter
 
         [$genreNames, $tagNames] = $this->resolveGenresAndTags($gameData);
         [$developer, $publisher] = $this->resolveInvolvedCompanies($gameData);
-
-        $name = $this->stringVal($gameData['name'] ?? '');
 
         if ($progress) $progress('description');
 
@@ -289,6 +289,10 @@ class GameImporter
                     $db->insertPlayerCount($appid, time() - (time() % 3600), $liveCount);
                 }
             }
+
+            // Download Steam capsule image so the sparkline section shows it immediately
+            $collector = new \Alv\SteamStats\SteamStatsCollector($apiKey);
+            $collector->downloadCapsule($appid, $slug);
         } catch (\Throwable $e) {
             // Steam stats plugin might not be available
             error_log('Failed to register Steam game: ' . $e->getMessage());

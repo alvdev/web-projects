@@ -4,18 +4,14 @@
 
     <div class="bg-surface border border-border rounded-xl p-6">
         <!-- Stats summary -->
-        <?php
-        $gameSlug = $data['game']['slug'] ?? '';
-        $yearMonth = $data['game']['year_month'] ?? '';
-        $capsuleLocal = $yearMonth ? dirname(__DIR__, 4) . '/content/games/' . $yearMonth . '/' . $gameSlug . '/steam-capsule.jpg' : null;
-        $capsuleUrl = ($capsuleLocal && file_exists($capsuleLocal)) ? '/media/steam-capsule/' . $gameSlug . '.jpg' : null;
-        ?>
+        <?php $gameSlug = $data['game']['slug'] ?? ''; ?>
         <div class="flex items-center gap-4 mb-6">
-            <?php if ($capsuleUrl): ?>
-                <img src="<?= $capsuleUrl ?>"
+            <?php if ($gameSlug): ?>
+                <img src="/media/steam-capsule/<?= $gameSlug ?>.jpg"
                      alt="<?= esc($data['game']['name'] ?? '') ?>"
                      class="h-[100px] w-auto rounded border border-border shrink-0"
-                     loading="lazy">
+                     loading="lazy"
+                     onerror="this.style.display='none'">
             <?php endif ?>
             <div class="grid grid-cols-4 gap-4 text-center flex-1">
                 <div>
