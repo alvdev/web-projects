@@ -383,6 +383,12 @@ class SteamStatsCollector
                 continue;
             }
 
+            // Skip games that have repeatedly failed SteamDB backfill
+            if ($this->db->getBackfillFailures($appid) >= 3) {
+                $stats['skipped']++;
+                continue;
+            }
+
             $stats['scanned']++;
             $processed++;
 
@@ -391,9 +397,11 @@ class SteamStatsCollector
 
             if ($result) {
                 $stats['backfilled']++;
+                $this->db->resetBackfillFailures($appid);
                 $log && $log("  Inserted {$result['points']} points, peak {$result['peak']}");
             } else {
                 $stats['errors'][] = $appid;
+                $this->db->incrementBackfillFailures($appid, 'SteamDB scrape returned no data');
                 $log && $log("  Failed to fetch data");
             }
 

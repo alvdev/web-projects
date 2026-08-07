@@ -276,6 +276,11 @@ class GameImporter
         }
         if ($appid === null) return;
 
+        if (!$this->verifySteamAppId($appid)) {
+            error_log("Skipping invalid Steam appid $appid for $slug");
+            return;
+        }
+
         try {
             $db = new \Alv\SteamStats\SteamStatsDB();
             $db->upsertGame($appid, $slug, $name, $gameData['id'] ?? null);
@@ -297,6 +302,25 @@ class GameImporter
             // Steam stats plugin might not be available
             error_log('Failed to register Steam game: ' . $e->getMessage());
         }
+    }
+
+    private function verifySteamAppId(int $appid): bool
+    {
+        $url = "https://store.steampowered.com/api/appdetails?appids={$appid}";
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 10,
+            CURLOPT_USERAGENT      => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
+        ]);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200 || !$response) return false;
+
+        $data = json_decode($response, true);
+        return isset($data[(string)$appid]['success']) && $data[(string)$appid]['success'] === true;
     }
 
     private function fetchSteamCurrentPlayers(string $apiKey, int $appid): ?int

@@ -25,11 +25,13 @@ class SteamStatsDB
     {
         $this->pdo->exec('
             CREATE TABLE IF NOT EXISTS steam_games (
-                appid      INTEGER PRIMARY KEY,
-                slug       TEXT UNIQUE NOT NULL,
-                name       TEXT NOT NULL,
-                igdb_id    INTEGER,
-                year_month TEXT
+                appid              INTEGER PRIMARY KEY,
+                slug               TEXT UNIQUE NOT NULL,
+                name               TEXT NOT NULL,
+                igdb_id            INTEGER,
+                year_month         TEXT,
+                backfill_attempts  INTEGER NOT NULL DEFAULT 0,
+                backfill_last_error TEXT
             )
         ');
         $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_sg_slug ON steam_games(slug)');
@@ -63,6 +65,16 @@ class SteamStatsDB
         ');
         try {
             $this->pdo->exec('ALTER TABLE game_peaks ADD COLUMN peak_timestamp INTEGER');
+        } catch (\PDOException $e) {
+            // Column already exists
+        }
+        try {
+            $this->pdo->exec('ALTER TABLE steam_games ADD COLUMN backfill_attempts INTEGER NOT NULL DEFAULT 0');
+        } catch (\PDOException $e) {
+            // Column already exists
+        }
+        try {
+            $this->pdo->exec('ALTER TABLE steam_games ADD COLUMN backfill_last_error TEXT');
         } catch (\PDOException $e) {
             // Column already exists
         }
@@ -145,6 +157,34 @@ class SteamStatsDB
         $stmt->execute([':igdb_id' => $igdbId]);
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $row ?: null;
+    }
+
+    public function incrementBackfillFailures(int $appid, string $error): void
+    {
+        $stmt = $this->pdo->prepare('
+            UPDATE steam_games
+            SET backfill_attempts = backfill_attempts + 1,
+                backfill_last_error = :error
+            WHERE appid = :appid
+        ');
+        $stmt->execute([':appid' => $appid, ':error' => $error]);
+    }
+
+    public function resetBackfillFailures(int $appid): void
+    {
+        $stmt = $this->pdo->prepare('
+            UPDATE steam_games
+            SET backfill_attempts = 0, backfill_last_error = NULL
+            WHERE appid = :appid
+        ');
+        $stmt->execute([':appid' => $appid]);
+    }
+
+    public function getBackfillFailures(int $appid): int
+    {
+        $stmt = $this->pdo->prepare('SELECT backfill_attempts FROM steam_games WHERE appid = :appid');
+        $stmt->execute([':appid' => $appid]);
+        return (int)($stmt->fetchColumn() ?: 0);
     }
 
     public function getYearMonth(string $slug): ?string

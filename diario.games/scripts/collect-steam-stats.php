@@ -148,9 +148,15 @@ if ($mode === 'backfill') {
     foreach ($appids as $appid) {
         if ($stats['processed'] >= $limit) break;
 
-        // Only catch up games with ≤ 1 data point (the immediate import snapshot)
-        $recentPoints = $db->getRecentPlayerCounts($appid, 1);
-        if (count($recentPoints) > 1) {
+        $totalPoints = count($db->getPlayerCounts($appid, 0));
+        if ($totalPoints > 5) {
+            $stats['skipped']++;
+            continue;
+        }
+
+        // Skip games that have repeatedly failed SteamDB backfill
+        $failures = $db->getBackfillFailures($appid);
+        if ($failures >= 3) {
             $stats['skipped']++;
             continue;
         }
@@ -167,9 +173,11 @@ if ($mode === 'backfill') {
         $result = $collector->collectSteamDBHistory($appid);
         if ($result) {
             $stats['backfilled']++;
+            $db->resetBackfillFailures($appid);
             echo "    Inserted {$result['points']} points, peak {$result['peak']}\n";
         } else {
             $stats['errors'][] = $appid;
+            $db->incrementBackfillFailures($appid, 'SteamDB scrape returned no data');
             echo "    Failed\n";
         }
     }
