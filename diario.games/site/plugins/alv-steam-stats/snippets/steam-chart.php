@@ -33,8 +33,8 @@
             </div>
         </div>
 
-        <!-- Time range tabs -->
-        <div class="flex flex-wrap gap-1 mb-4 w-fit mx-auto pb-2">
+        <!-- Time range tabs + timezone picker -->
+        <div class="flex flex-wrap items-center gap-1 mb-4 w-fit mx-auto pb-2">
             <?php
             $availableTabs = $data['available_tabs'] ?? ['48h', '1w', '1m', '3m', '6m', '1y', 'max'];
             $first = true;
@@ -52,6 +52,17 @@
                 $first = false;
             endforeach;
             ?>
+            <span class="text-muted mx-1 text-xs">·</span>
+            <div class="relative inline-block">
+                <input type="text"
+                    id="steam-timezone-input"
+                    class="steam-timezone-input px-2 py-1 text-xs w-36 rounded bg-surface border border-border text-muted placeholder:text-muted/50 focus:outline-none focus:border-neon-cyan/50 transition"
+                    placeholder="País o ciudad…"
+                    autocomplete="off"
+                    spellcheck="false">
+                <div id="steam-tz-suggestions" class="hidden absolute top-full left-0 mt-1 bg-surface border border-border rounded shadow-lg z-50 min-w-[220px] max-h-48 overflow-y-auto py-1">
+                </div>
+            </div>
         </div>
 
         <!-- Chart canvas -->

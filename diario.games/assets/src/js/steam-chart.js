@@ -1,10 +1,16 @@
 import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-date-fns';
+import { getDisplayLabel, findCityMatch, findCountryMatch, isValidTimezone, getUtcOffset } from './timezones.js';
 
 Chart.register(...registerables);
 
+var activeTimezone = 'UTC';
+var activeDisplayLabel = 'UTC';
+var chart;
+
 document.addEventListener('DOMContentLoaded', function () {
     initSearch();
+    initTimezone();
     initChart();
     initImportOverlay();
 });
@@ -29,7 +35,7 @@ function initChart() {
     document.getElementById('steam-peak-alltime').textContent = formatNumber(data.peak_all_time);
 
     var activeRange = '48h';
-    var chart = new Chart(canvas, {
+    chart = new Chart(canvas, {
         type: 'line',
         data: {
             datasets: [{
@@ -73,8 +79,13 @@ function initChart() {
                         title: function (items) {
                             if (!items.length) return '';
                             var d = new Date(items[0].parsed.x);
-                            return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
-                                + ', ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC';
+                            var tz = activeTimezone;
+                            if (tz === 'UTC') {
+                                return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+                                    + ', ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC';
+                            }
+                            return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric', timeZone: tz })
+                                + ', ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: tz });
                         },
                         label: function (item) {
                             return item.parsed.y.toLocaleString() + ' jugadores';
@@ -94,7 +105,7 @@ function initChart() {
                         }
                     },
                     adapters: {
-                        date: { zone: 'UTC' }
+                        date: { zone: getUtcOffset(activeTimezone) }
                     },
                     grid: { color: 'rgba(255,255,255,0.05)' },
                     ticks: { color: '#888888', maxTicksLimit: 10 }
@@ -144,6 +155,181 @@ function initChart() {
             chart.options.animation = {};
         });
     });
+}
+
+function initTimezone() {
+    var input = document.getElementById('steam-timezone-input');
+    var suggestions = document.getElementById('steam-tz-suggestions');
+    if (!input || !suggestions) return;
+
+    var browserTz;
+    try {
+        browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch (e) {
+        browserTz = 'UTC';
+    }
+
+    if (!isValidTimezone(browserTz)) browserTz = 'UTC';
+    activeTimezone = browserTz;
+    activeDisplayLabel = getDisplayLabel(browserTz);
+    input.value = activeDisplayLabel;
+
+    var blurTimeout;
+
+    function renderSuggestions(timezones) {
+        suggestions.innerHTML = '';
+        if (!timezones || timezones.length === 0) {
+            suggestions.classList.add('hidden');
+            return;
+        }
+        timezones.forEach(function (tz) {
+            var item = document.createElement('div');
+            var name = getDisplayLabel(tz);
+            var offset = getUtcOffset(tz);
+            item.className = 'steam-tz-option px-3 py-1.5 text-xs text-text hover:bg-surface-alt cursor-pointer flex justify-between items-center transition-colors';
+            item.setAttribute('data-tz', tz);
+            item.innerHTML = '<span>' + name + '</span><span class="text-muted ml-4">UTC' + offset + '</span>';
+            item.addEventListener('mousedown', function (e) {
+                e.preventDefault();
+                selectTimezone(tz);
+            });
+            suggestions.appendChild(item);
+        });
+        suggestions.classList.remove('hidden');
+    }
+
+    function selectTimezone(tz) {
+        activeTimezone = tz;
+        activeDisplayLabel = getDisplayLabel(tz);
+        input.value = activeDisplayLabel;
+        suggestions.classList.add('hidden');
+        applyTimezone(tz);
+    }
+
+    function applySearch(query) {
+        var cityTz = findCityMatch(query);
+        if (cityTz) {
+            renderSuggestions([cityTz]);
+            return;
+        }
+
+        var countryTzs = findCountryMatch(query);
+        if (countryTzs) {
+            renderSuggestions(countryTzs);
+            return;
+        }
+
+        if (query.toUpperCase() === 'UTC') {
+            renderSuggestions(['UTC']);
+            return;
+        }
+
+        var cleaned = query.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\/\-]/g, '');
+        if (isValidTimezone(cleaned)) {
+            renderSuggestions([cleaned]);
+            return;
+        }
+
+        suggestions.classList.add('hidden');
+    }
+
+    input.addEventListener('input', function () {
+        clearTimeout(blurTimeout);
+        var q = input.value.trim();
+        if (!q || q === activeDisplayLabel) {
+            suggestions.classList.add('hidden');
+            return;
+        }
+        applySearch(q);
+    });
+
+    input.addEventListener('focus', function () {
+        if (input.value === activeDisplayLabel) {
+            input.select();
+        }
+    });
+
+    input.addEventListener('blur', function () {
+        blurTimeout = setTimeout(function () {
+            suggestions.classList.add('hidden');
+            input.value = activeDisplayLabel;
+        }, 200);
+    });
+
+    input.addEventListener('keydown', function (e) {
+        var items = suggestions.querySelectorAll('.steam-tz-option');
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (items.length === 0) return;
+            var active = suggestions.querySelector('.steam-tz-option.bg-surface-alt');
+            var idx = Array.from(items).indexOf(active);
+            var next = (idx + 1) % items.length;
+            if (active) active.classList.remove('bg-surface-alt');
+            items[next].classList.add('bg-surface-alt');
+            items[next].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (items.length === 0) return;
+            var active = suggestions.querySelector('.steam-tz-option.bg-surface-alt');
+            var idx = Array.from(items).indexOf(active);
+            var prev = (idx - 1 + items.length) % items.length;
+            if (active) active.classList.remove('bg-surface-alt');
+            items[prev].classList.add('bg-surface-alt');
+            items[prev].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (items.length > 0) {
+                var highlighted = suggestions.querySelector('.steam-tz-option.bg-surface-alt');
+                if (highlighted) {
+                    selectTimezone(highlighted.getAttribute('data-tz'));
+                } else {
+                    selectTimezone(items[0].getAttribute('data-tz'));
+                }
+            } else {
+                var q = input.value.trim();
+                if (!q) return;
+                var cleaned = q.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\/\-]/g, '');
+                if (isValidTimezone(cleaned)) {
+                    selectTimezone(cleaned);
+                }
+            }
+        } else if (e.key === 'Escape') {
+            suggestions.classList.add('hidden');
+            input.value = activeDisplayLabel;
+            input.blur();
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!input.parentElement.contains(e.target)) {
+            suggestions.classList.add('hidden');
+        }
+    });
+}
+
+function applyTimezone(tz) {
+    if (!chart) return;
+    var offset = getUtcOffset(tz);
+    var utcZone = tz === 'UTC' ? 'UTC' : offset;
+    chart.options.scales.x.adapters.date.zone = utcZone;
+    chart.options.plugins.tooltip.callbacks.title = function (items) {
+        if (!items.length) return '';
+        var d = new Date(items[0].parsed.x);
+        if (tz === 'UTC') {
+            return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+                + ', ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC';
+        }
+        return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric', timeZone: tz })
+            + ', ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: tz });
+    };
+    chart.options.scales.x.ticks.callback = function (val, index, ticks) {
+        var d = new Date(val);
+        var label = d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', timeZone: tz });
+        if (tz === 'UTC') label += ' UTC';
+        return label;
+    };
+    chart.update();
 }
 
 function initSearch() {
