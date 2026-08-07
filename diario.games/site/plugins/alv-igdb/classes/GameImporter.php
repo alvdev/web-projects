@@ -280,25 +280,14 @@ class GameImporter
             $db = new \Alv\SteamStats\SteamStatsDB();
             $db->upsertGame($appid, $slug, $name, $gameData['id'] ?? null);
 
-            // Fetch current player count immediately so the page shows live data
-            // while the async historical backfill runs in the background.
+            // Fetch current player count immediately so the page shows live data.
+            // Historical backfill is handled separately by the steamdb-catchup cron.
             $apiKey = option('alv.steam-stats.api-key', '');
             if ($apiKey) {
                 $liveCount = $this->fetchSteamCurrentPlayers($apiKey, $appid);
                 if ($liveCount !== null && $liveCount >= 0) {
                     $db->insertPlayerCount($appid, time() - (time() % 3600), $liveCount);
                 }
-            }
-
-            // Trigger async SteamDB history backfill for newly imported games.
-            // The command handles its own locking (per-appid lock file).
-            $scriptsDir = dirname(__DIR__, 4) . '/scripts';
-            $collectScript = $scriptsDir . '/collect-steam-stats.php';
-            if (file_exists($collectScript)) {
-                $cmd = 'php ' . escapeshellarg($collectScript)
-                     . ' steamdb-history ' . escapeshellarg((string)$appid)
-                     . ' > /dev/null 2>&1 &';
-                exec($cmd);
             }
         } catch (\Throwable $e) {
             // Steam stats plugin might not be available

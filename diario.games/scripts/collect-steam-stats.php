@@ -10,9 +10,10 @@
  *   php collect-steam-stats.php steamdb-peak <appid>        # fetch all-time peak from steamdb.info
  *   php collect-steam-stats.php steamdb-history <appid>     # backfill history for one game (by Steam appid)
  *   php collect-steam-stats.php steamdb-history-by-slug <slug>  # backfill history for one game (by diario.games slug)
- *   php collect-steam-stats.php steamdb-backfill [limit]    # batch backfill history for up to N games
+ *   php collect-steam-stats.php steamdb-backfill [limit]    # batch backfill games with stale data
+ *   php collect-steam-stats.php steamdb-catchup [limit]     # catch up newly-imported games (≤ 1 data point)
  *
- * Cron: run every hour for snapshots, every 30 min for backfill catch-up.
+ * Cron: run every hour for snapshots, every 30 min for catch-up.
  *
  * Requires the Kirby autoloader for the plugin classes.
  */
@@ -131,6 +132,48 @@ if ($mode === 'backfill') {
     $limit = (int)($argv[2] ?? 20);
     echo "Backfilling SteamDB history for up to $limit games...\n";
     $stats = $collector->backfillSteamDBHistory(function ($msg) { echo "  $msg\n"; }, $limit);
+    echo "Scanned: {$stats['scanned']}, Backfilled: {$stats['backfilled']}, Skipped: {$stats['skipped']}, Errors: " . count($stats['errors']) . "\n";
+    if (!empty($stats['errors'])) {
+        echo "Failed appids: " . implode(', ', $stats['errors']) . "\n";
+    }
+    exit(0);
+} elseif ($mode === 'steamdb-catchup') {
+    $limit = (int)($argv[2] ?? 10);
+    echo "Catching up SteamDB history for up to $limit newly-imported games...\n";
+
+    $db = new \Alv\SteamStats\SteamStatsDB();
+    $appids = $db->getAllAppids();
+    $stats = ['scanned' => 0, 'backfilled' => 0, 'skipped' => 0, 'processed' => 0, 'errors' => []];
+
+    foreach ($appids as $appid) {
+        if ($stats['processed'] >= $limit) break;
+
+        // Only catch up games with ≤ 1 data point (the immediate import snapshot)
+        $recentPoints = $db->getRecentPlayerCounts($appid, 1);
+        if (count($recentPoints) > 1) {
+            $stats['skipped']++;
+            continue;
+        }
+
+        $lockFile = sys_get_temp_dir() . '/steamdb-backfill-' . $appid . '.lock';
+        if (file_exists($lockFile)) {
+            $stats['skipped']++;
+            continue;
+        }
+
+        $stats['scanned']++;
+        $stats['processed']++;
+        echo "  Backfilling appid $appid...\n";
+        $result = $collector->collectSteamDBHistory($appid);
+        if ($result) {
+            $stats['backfilled']++;
+            echo "    Inserted {$result['points']} points, peak {$result['peak']}\n";
+        } else {
+            $stats['errors'][] = $appid;
+            echo "    Failed\n";
+        }
+    }
+
     echo "Scanned: {$stats['scanned']}, Backfilled: {$stats['backfilled']}, Skipped: {$stats['skipped']}, Errors: " . count($stats['errors']) . "\n";
     if (!empty($stats['errors'])) {
         echo "Failed appids: " . implode(', ', $stats['errors']) . "\n";
