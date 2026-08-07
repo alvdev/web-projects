@@ -169,7 +169,11 @@ if ($mode === 'backfill') {
 
         $stats['scanned']++;
         $stats['processed']++;
-        echo "  Backfilling appid $appid...\n";
+
+        $game = $db->getGameByAppId($appid);
+        $gameName = $game ? $game['name'] : 'unknown';
+        echo "  Backfilling appid $appid ($gameName)...\n";
+
         $result = $collector->collectSteamDBHistory($appid);
         if ($result) {
             $stats['backfilled']++;
