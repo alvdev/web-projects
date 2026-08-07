@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         buttonSelector: '#steam-share-btn',
         get chart() { return chart; },
         get range() { return activeRange; },
+        get timezone() { return activeTimezone; },
         get data() { return window.__STEAM_CHART_DATA; },
         get title() { return (window.__STEAM_CHART_DATA && window.__STEAM_CHART_DATA.game) ? window.__STEAM_CHART_DATA.game.name : document.title; },
         get slug() { return (window.__STEAM_CHART_DATA && window.__STEAM_CHART_DATA.game) ? window.__STEAM_CHART_DATA.game.slug : ''; },

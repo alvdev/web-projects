@@ -1,12 +1,17 @@
 var RANGE_LABELS = {
-    '48h': 'Últimas 48 horas',
-    '1w': 'Última semana',
-    '1m': 'Último mes',
-    '3m': 'Últimos 3 meses',
-    '6m': 'Últimos 6 meses',
-    '1y': 'Último año',
-    'max': 'Máximo histórico'
+    '48h': 'Gráfico de las últimas 48 horas',
+    '1w': 'Gráfico de la última semana',
+    '1m': 'Gráfico del último mes',
+    '3m': 'Gráfico de los últimos 3 meses',
+    '6m': 'Gráfico de los últimos 6 meses',
+    '1y': 'Gráfico del último año',
+    'max': 'Gráfico histórico completo'
 };
+
+var MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+var PAD = 40;
 
 export function initShare(config) {
     var btn = document.querySelector(config.buttonSelector);
@@ -62,65 +67,96 @@ function composeImage(config) {
         var capsuleImg = results[0];
         var chartImg = results[1];
 
+        // --- Header: capsule (30% left) + title + stats (right) ---
+
+        var capsuleW = 0;
+        var capsuleH = 0;
+        var headerBottom = PAD;
+
         if (capsuleImg) {
-            var maxCapsuleW = 440;
+            var maxCapsuleW = 320;
             var maxCapsuleH = 200;
             var cw = capsuleImg.width;
             var ch = capsuleImg.height;
             var scale = Math.min(maxCapsuleW / cw, maxCapsuleH / ch, 1);
-            var drawW = cw * scale;
-            var drawH = ch * scale;
-            var cx = 40;
-            var cy = (H - drawH) / 2;
+            capsuleW = cw * scale;
+            capsuleH = ch * scale;
+            var cx = PAD;
+            var cy = PAD;
 
             ctx.save();
-            roundRect(ctx, cx, cy, drawW, drawH, 8);
+            roundRect(ctx, cx, cy, capsuleW, capsuleH, 8);
             ctx.clip();
-            ctx.drawImage(capsuleImg, cx, cy, drawW, drawH);
+            ctx.drawImage(capsuleImg, cx, cy, capsuleW, capsuleH);
             ctx.restore();
 
             ctx.strokeStyle = 'rgba(255,255,255,0.1)';
             ctx.lineWidth = 1;
-            roundRect(ctx, cx, cy, drawW, drawH, 8);
+            roundRect(ctx, cx, cy, capsuleW, capsuleH, 8);
             ctx.stroke();
+
+            headerBottom = PAD + capsuleH;
         }
 
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 28px system-ui, -apple-system, sans-serif';
-        var titleX = 520;
-        ctx.fillText(config.title || '', titleX, 90);
+        var rightX = PAD + 320 + 20;
 
+        // Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 26px system-ui, -apple-system, sans-serif';
+        ctx.fillText(config.title || '', rightX, 60);
+
+        // Stats — 4 columns, each: label line1 / label line2 / value
+        var data = config.data || {};
+        var cols = [rightX, rightX + 210, rightX + 420, rightX + 630];
+        var statLabel1 = ['Jugadores', 'Últimas', 'Últimos', 'Máximo'];
+        var statLabel2 = ['actuales', '24 horas', '3 meses', 'histórico'];
+        var statValues = [
+            formatNumber(data.current),
+            formatNumber(data.peak_24h),
+            formatNumber(data.peak_3m),
+            formatNumber(data.peak_all_time)
+        ];
+        var statColors = ['#00ffff', '#ff00aa', '#39ff14', '#facc15'];
+
+        var statsTop = 95;
+        for (var i = 0; i < 4; i++) {
+            ctx.fillStyle = 'rgba(255,255,255,0.45)';
+            ctx.font = '12px system-ui, -apple-system, sans-serif';
+            ctx.fillText(statLabel1[i], cols[i], statsTop);
+
+            ctx.fillText(statLabel2[i], cols[i], statsTop + 18);
+
+            ctx.fillStyle = statColors[i];
+            ctx.font = 'bold 20px system-ui, -apple-system, sans-serif';
+            ctx.fillText(statValues[i], cols[i], statsTop + 44);
+        }
+
+        var headerWithStatsBottom = Math.max(headerBottom, statsTop + 60);
+        headerBottom = headerWithStatsBottom;
+
+        // --- Context line ---
+        var ctxY = headerBottom + 25;
+        var rangeText = RANGE_LABELS[config.range] || '';
+        var dateText = formatShareDate(config.timezone);
+
+        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        ctx.font = '13px system-ui, -apple-system, sans-serif';
+        ctx.fillText(rangeText + ' — ' + dateText, PAD, ctxY);
+
+        // --- Body: sparkline full width ---
         if (chartImg) {
-            var chartX = 510;
-            var chartY = 120;
-            var chartW = 660;
-            var chartH = 280;
+            var chartY = ctxY + 25;
+            var chartX = PAD;
+            var chartW = W - PAD * 2;
+            var chartH = H - chartY - PAD - 25;
             ctx.drawImage(chartImg, chartX, chartY, chartW, chartH);
         }
 
-        var rangeLabel = RANGE_LABELS[config.range] || '';
-        if (rangeLabel) {
-            ctx.fillStyle = 'rgba(255,255,255,0.5)';
-            ctx.font = '14px system-ui, -apple-system, sans-serif';
-            ctx.textAlign = 'right';
-            ctx.fillText(rangeLabel, 1170, 115);
-            ctx.textAlign = 'start';
-        }
-
-        var data = config.data || {};
-        var statsY = 430;
-        var statsX = 520;
-        var colW = 310;
-
-        drawStat(ctx, '\u{1F464}', 'Ahora', formatNumber(data.current), statsX, statsY, '#00ffff');
-        drawStat(ctx, '\u{1F4C8}', 'Pico 24h', formatNumber(data.peak_24h), statsX + colW, statsY, '#ff00aa');
-        drawStat(ctx, '\u{1F4CA}', 'Pico 3m', formatNumber(data.peak_3m), statsX, statsY + 70, '#39ff14');
-        drawStat(ctx, '\u{1F3C6}', 'Max. histórico', formatNumber(data.peak_all_time), statsX + colW, statsY + 70, '#facc15');
-
+        // --- Footer ---
         ctx.fillStyle = 'rgba(255,255,255,0.3)';
-        ctx.font = '14px system-ui, -apple-system, sans-serif';
+        ctx.font = '13px system-ui, -apple-system, sans-serif';
         ctx.textAlign = 'right';
-        ctx.fillText('diario.games/' + (config.slug || ''), 1170, H - 30);
+        ctx.fillText('diario.games/' + (config.slug || ''), W - PAD, H - 30);
         ctx.textAlign = 'start';
 
         return new Promise(function (resolve) {
@@ -129,14 +165,34 @@ function composeImage(config) {
     });
 }
 
-function drawStat(ctx, icon, label, value, x, y, color) {
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '14px system-ui, -apple-system, sans-serif';
-    ctx.fillText(icon + ' ' + label, x, y);
+function formatShareDate(tz) {
+    var now = new Date();
+    var day = now.toLocaleDateString('es-ES', { day: 'numeric', timeZone: tz });
+    var monthNum = now.toLocaleDateString('es-ES', { month: 'numeric', timeZone: tz }).split('/')[0];
+    var month = MONTHS[parseInt(monthNum, 10) - 1] || '';
+    var year = now.toLocaleDateString('es-ES', { year: 'numeric', timeZone: tz });
+    var time = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: tz, hour12: false });
+    var offset = getUtcOffset(tz);
+    return 'Compartido el ' + day + ' de ' + month + ' de ' + year + ' a las ' + time + ' UTC' + offset;
+}
 
-    ctx.fillStyle = color;
-    ctx.font = 'bold 22px system-ui, -apple-system, sans-serif';
-    ctx.fillText(value, x, y + 28);
+function getUtcOffset(tz) {
+    try {
+        var d = new Date();
+        var utcParts = d.toLocaleString('en-US', { timeZone: 'UTC', hour: 'numeric', minute: 'numeric', hour12: false }).split(':');
+        var tzParts = d.toLocaleString('en-US', { timeZone: tz, hour: 'numeric', minute: 'numeric', hour12: false }).split(':');
+        var utcMin = parseInt(utcParts[0], 10) * 60 + parseInt(utcParts[1], 10);
+        var tzMin = parseInt(tzParts[0], 10) * 60 + parseInt(tzParts[1], 10);
+        var diff = tzMin - utcMin;
+        if (diff > 720) diff -= 1440;
+        if (diff < -720) diff += 1440;
+        var h = Math.floor(Math.abs(diff) / 60);
+        var m = Math.abs(diff) % 60;
+        var sign = diff >= 0 ? '+' : '-';
+        return sign + h + (m > 0 ? ':' + (m < 10 ? '0' : '') + m : '');
+    } catch (e) {
+        return '';
+    }
 }
 
 function formatNumber(n) {
