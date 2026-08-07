@@ -38,7 +38,7 @@
         </div>
 
         <!-- Time range tabs -->
-        <div class="flex flex-wrap gap-1 mb-4 border-b border-border pb-2">
+        <div class="flex flex-wrap gap-1 mb-4 w-fit mx-auto pb-2">
             <?php
             $availableTabs = $data['available_tabs'] ?? ['48h', '1w', '1m', '3m', '6m', '1y', 'max'];
             $first = true;
