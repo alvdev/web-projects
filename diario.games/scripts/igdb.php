@@ -15,6 +15,7 @@ require_once dirname(__DIR__) . '/site/plugins/alv-igdb/classes/helpers.php';
 require_once dirname(__DIR__) . '/site/plugins/alv-igdb/classes/IGDBClient.php';
 require_once dirname(__DIR__) . '/site/plugins/alv-igdb/classes/GameImporter.php';
 require_once dirname(__DIR__) . '/site/plugins/alv-igdb/classes/AutoFetcher.php';
+require_once dirname(__DIR__) . '/site/plugins/alv-steam-stats/classes/SteamStatsDB.php';
 
 use DiarioGames\IGDB\IGDBClient;
 use DiarioGames\IGDB\GameImporter;
