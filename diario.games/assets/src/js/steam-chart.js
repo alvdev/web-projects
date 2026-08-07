@@ -55,7 +55,7 @@ function initChart() {
                 pointHoverBackgroundColor: '#00ffff',
                 pointHoverBorderColor: '#ffffff',
                 pointHoverBorderWidth: 2,
-                tension: 0,
+                tension: 0.4,
             }]
         },
         options: {
