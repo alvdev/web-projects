@@ -1,5 +1,6 @@
 import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-date-fns';
+import { es } from 'date-fns/locale/es';
 import { getDisplayLabel, findCityMatch, findCountryMatch, isValidTimezone, getUtcOffset } from './timezones.js';
 import { initShare } from './share-chart.js';
 
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         get range() { return activeRange; },
         get timezone() { return activeTimezone; },
         get data() { return window.__STEAM_CHART_DATA; },
+        get appid() { return (window.__STEAM_CHART_DATA && window.__STEAM_CHART_DATA.game) ? window.__STEAM_CHART_DATA.game.appid : null; },
         get title() { return (window.__STEAM_CHART_DATA && window.__STEAM_CHART_DATA.game) ? window.__STEAM_CHART_DATA.game.name : document.title; },
         get slug() { return (window.__STEAM_CHART_DATA && window.__STEAM_CHART_DATA.game) ? window.__STEAM_CHART_DATA.game.slug : ''; },
         get capsuleUrl() {
@@ -120,7 +122,7 @@ function initChart() {
                         }
                     },
                     adapters: {
-                        date: { zone: getUtcOffset(activeTimezone) }
+                        date: { zone: getUtcOffset(activeTimezone), locale: es }
                     },
                     grid: { color: 'rgba(255,255,255,0.05)' },
                     ticks: { color: '#888888', maxTicksLimit: 10 }
