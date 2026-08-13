@@ -18,10 +18,10 @@
                 'class' => ''
             ],
             'column' => [
-                'class' => 'group flex flex-col gap-8 has-[textarea]:relative has-[textarea]:mt-8 has-[textarea]:block md:has-[textarea]:flex md:has-[textarea]:flex-row md:has-[textarea]:items-center'
+                'class' => 'group flex flex-col gap-8 has-[textarea]:relative has-[textarea]:mt-8 has-[textarea]:block'
             ],
             'field' => [
-                'class' => 'relative flex flex-col *:[span]:absolute *:[span]:left-6 has-[textarea]:border-4 has-[textarea]:border-blue-500 items-center has-[button]:mt-8 md:has-[button]:mt-0 md:has-[button]:absolute md:has-[button]:right-0'
+                'class' => 'relative flex flex-col *:[span]:absolute *:[span]:left-6 has-[textarea]:border-4 has-[textarea]:border-blue-500 items-center'
             ],
             'label' => [
                 'class' => 'hidden'
@@ -34,14 +34,14 @@
                     'class' => '',
                 ],
                 'field' => [
-                    'class' => 'w-full flex flex-col *:[textarea]:font-normal *:[textarea]:text-xl md:mr-16 md:*:[textarea]:pr-28 *:[textarea]:h-32 *:[span]:absolute *:[span]:left-6',
+                    'class' => 'w-full flex flex-col *:[textarea]:font-normal *:[textarea]:text-xl *:[textarea]:h-32',
                 ],
             ],
             'button' => [
-                'class' => 'w-min bg-violet-700 ring-4 ring-violet-400 uppercase font-semibold text-xl aspect-square rounded-full p-4 hover:bg-violet-800 hover:animate-wiggle after:content-[attr(after)] after:ml-2 after:mt-1 transition-all active:scale-90',
+                'class' => 'relative mt-8 h-34 w-full bg-violet-700 border-4 border-violet-400 uppercase font-semibold text-xl rounded-3xl p-4 hover:bg-violet-800 hover:animate-wiggle after:content-[attr(after)] after:ml-2 after:mt-1 transition-all active:scale-90',
             ],
             'error' => [
-                'class' => 'peer-not-placeholder-shown:hidden group-data-has-error:relative text-white text-sm text-shadow-md bg-red-700 px-2 leading-6 rounded-full -top-2.5'
+                'class' => 'peer-not-placeholder-shown:hidden group-data-has-error:relative text-white text-sm text-shadow-md bg-red-700 px-2 rounded-xl -top-2.5 leading-snug'
             ],
             'radio' => [
                 'label' => ['class' => 'text-sm font-medium text-slate-600 mb-2'],

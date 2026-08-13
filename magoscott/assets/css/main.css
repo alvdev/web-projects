@@ -128,5 +128,5 @@
 
 /* Turnstile */
 .cf-turnstile {
-    @apply absolute -bottom-26 w-full flex justify-center;
+    @apply float-left mt-8 mr-6 rounded-3xl border-x-2 border-[#313131]  overflow-hidden *:-m-px *:-mb-2;
 }
