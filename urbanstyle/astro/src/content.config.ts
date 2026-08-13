@@ -135,6 +135,7 @@ const posts = defineCollection({
       cover: z.object({
         url: image(),
         alt: z.string(),
+        objectPosition: z.enum(["top", "center", "bottom"]).optional(),
       }),
       slug: z.string(),
       pubDate: z.string(),

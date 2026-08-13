@@ -1,17 +1,12 @@
 ---
 import { getCollection } from "astro:content";
-import { parsePublishDate } from "@/utils/parseDate";
 import { getFilename } from "@/utils/getFilename";
 import LandPhoneIcon from "@/assets/icons/landphone.svg";
 import { Image } from "astro:assets";
 import footerImg from "../assets/images/ciudad-footer.webp";
 
 const services = await getCollection("services");
-const latestPosts = (await getCollection("posts"))
-    .sort((a, b) => parsePublishDate(b.data.pubDate).getTime() - parsePublishDate(a.data.pubDate).getTime())
-    .slice(0, 5);
 const baseUrl = import.meta.env.BASE_URL;
-const blogUrl = import.meta.env.BASE_URL + "blog/";
 const legalPages = Object.values(import.meta.glob("@/pages/legal/*.astro", { eager: true }));
 const slogan =
     Astro.url.pathname === import.meta.env.BASE_URL
@@ -57,27 +52,38 @@ const slogan =
             <div>
                 <h3 class="text-3xl text-gray-200">Últimos artículos</h3>
 
-                {
-                    latestPosts.map(
-                        post =>
-                            post.data.pubDate && (
-                                <div id="records" class="flex flex-col gap-4 mt-8" x-merge="append">
-                                    <article class="flex flex-col gap-4">
-                                        <div class="text-lg text-gray-500">
-                                            <h4 class="p-0 pb-1 my-0 text-base text-balance md:line-clamp-2">
-                                                <a
-                                                    href={post.data.slug ? blogUrl + post.data.slug : blogUrl + post.id}
-                                                    class="text-pretty inline-block leading-relaxed"
-                                                >
-                                                    {post.data.title}
-                                                </a>
-                                            </h4>
-                                        </div>
-                                    </article>
-                                </div>
-                            ),
-                    )
-                }
+                <div id="latest-posts" class="flex flex-col gap-4 mt-8">
+                    <!-- Rendered client-side from /blog/latest.json so the footer
+                         stays static across the site (only the JSON changes on publish) -->
+                </div>
+
+                <script>
+                    async function loadLatestPosts() {
+                        const container = document.getElementById("latest-posts");
+                        if (!container || container.dataset.loaded) return;
+                        try {
+                            const res = await fetch(import.meta.env.BASE_URL + "blog/latest.json");
+                            if (!res.ok) return;
+                            const posts = await res.json();
+                            container.dataset.loaded = "1";
+                            container.innerHTML = posts
+                                .map(
+                                    (post: { url: string; title: string }) => `
+                                        <article class="flex flex-col gap-4">
+                                            <div class="text-lg text-gray-500">
+                                                <h4 class="p-0 pb-1 my-0 text-base text-balance md:line-clamp-2">
+                                                    <a href="${post.url}" class="text-pretty inline-block leading-relaxed">${post.title}</a>
+                                                </h4>
+                                            </div>
+                                        </article>`,
+                                )
+                                .join("");
+                        } catch {
+                            // keep the section empty if the request fails
+                        }
+                    }
+                    loadLatestPosts();
+                </script>
             </div>
 
             <div class="flex flex-col self-stretch justify-between">

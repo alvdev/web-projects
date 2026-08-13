@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Urban Style instagram watcher hourly
+Requires=instagram-watcher.service
+
+[Timer]
+OnCalendar=*-*-* *:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

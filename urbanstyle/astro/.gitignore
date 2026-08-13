@@ -17,6 +17,11 @@ pnpm-debug.log*
 .env
 .env.production
 
+# instagram-to-blog state
+scripts/instagram-to-blog/.pending.json
+scripts/instagram-to-blog/.instructions.json
+scripts/instagram-to-blog/.deploy-manifest.json
+
 # macOS-specific files
 .DS_Store
 

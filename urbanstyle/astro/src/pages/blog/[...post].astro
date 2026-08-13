@@ -62,6 +62,8 @@ const mentionedCities = [...cityUrlMap.entries()]
     <Header
         cover={post.data.cover.url || defaultCover}
         coverAlt={post.data.cover.alt || post.data.title}
+        coverPosition={post.data.cover.objectPosition}
+        crop={true}
         classes={"min-h-[75vh]"}
     />
     <main class="relative z-10 pb-10">
