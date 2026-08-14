@@ -1,3 +1,11 @@
+<?php
+// In production, inline the main stylesheet to remove it from the critical path.
+// In dev, keep the regular link so Vite HMR keeps working.
+$cssUrl = vite()->file('assets/css/main.css');
+$cssContent = $cssUrl && !vite()->isDev()
+    ? @file_get_contents(kirby()->root('index') . $cssUrl)
+    : null;
+?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +20,11 @@
     <?php elseif ($cover = $page->cover()->toFile()): ?>
         <link rel="preload" as="image" imagesrcset="<?= $cover->staticSrcset('avif') ?>" imagesizes="(min-width: 1024px) 50vw, 100vw" fetchpriority="high">
     <?php endif ?>
-    <?= vite()->css('assets/css/main.css') ?>
+    <?php if ($cssContent): ?>
+        <style><?= str_replace('</style', '<\/style', $cssContent) ?></style>
+    <?php else: ?>
+        <?= vite()->css('assets/css/main.css') ?>
+    <?php endif ?>
     <?= vite()->js('assets/js/main.js', ['defer' => true]) ?>
 
     <?php if ($page->text()->toBlocks()->filterBy('type', 'code')->isNotEmpty() == 'true'): ?>
