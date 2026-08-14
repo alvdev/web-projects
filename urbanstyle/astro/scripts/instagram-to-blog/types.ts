@@ -59,14 +59,24 @@ export type PendingStatus = "pending" | "regenerating";
 
 export type LlmProvider = "gemini" | "deepseek";
 
-export type SocialStatus = "queued" | "in_progress" | "done";
+export type SocialStatus = "queued" | "approved" | "published" | "failed";
+
+export interface SocialPlatformState {
+  status: SocialStatus;
+  tweet?: string;        // approved tweet text
+  tweetProvider?: LlmProvider;  // provider chosen for the tweet
+  publishedAt?: string;
+  error?: string;
+}
 
 export interface PublishedEntry {
   id: string;
   slug: string;
   title: string;
   publishedAt: string;
-  socialStatus: SocialStatus;
+  caption?: string;
+  postTimestamp?: string;
+  social: Partial<Record<"x" | "facebook" | "gbp", SocialPlatformState>>;
 }
 
 export interface PendingEntry {

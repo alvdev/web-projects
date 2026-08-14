@@ -200,6 +200,92 @@ function parseArticle(raw: string): LlmArticle {
   return article;
 }
 
+/**
+ * Generic single-message completion for NON-article outputs (e.g. tweets).
+ * Uses the same providers/clients with availability + retry handling.
+ * Returns the raw text content (no schema parsing).
+ */
+export async function generateTextCompletion(
+  prompt: string,
+  provider: LlmProvider,
+  opts: { temperature?: number; maxTokens?: number } = {},
+): Promise<string> {
+  const temperature = opts.temperature ?? 0.7;
+  const maxTokens = opts.maxTokens ?? 2048;
+
+  const run = (): Promise<string> => {
+    if (provider === "gemini") {
+      return geminiWithChain("Gemini", async (model) => {
+        const generativeModel = gemini.getGenerativeModel({
+          model,
+          generationConfig: {
+            temperature,
+            maxOutputTokens: maxTokens,
+            responseMimeType: "text/plain",
+          },
+        });
+        const result = await generativeModel.generateContent(prompt);
+        const raw = result.response.text();
+        if (!raw) throw new Error("Gemini returned empty response");
+        return raw;
+      });
+    }
+    return withRetries(
+      () =>
+        deepseekClient.chat.completions
+          .create({
+            model: DEEPSEEK_MODEL,
+            messages: [
+              { role: "system", content: "You are an expert Spanish copywriter for a street marketing company." },
+              { role: "user", content: prompt },
+            ],
+            temperature,
+            max_tokens: maxTokens,
+          })
+          .then((c) => {
+            const raw = c.choices[0]?.message?.content;
+            if (!raw) throw new Error("DeepSeek returned empty response");
+            return raw;
+          }),
+      "DeepSeek",
+      "text",
+    );
+  };
+
+  return withAvailability(provider === "gemini" ? "Gemini" : "DeepSeek", run);
+}
+
+/**
+ * Gemini completion WITH Google Search grounding — answers questions that need
+ * live web knowledge (e.g. "¿Cuál es la cuenta oficial en X de Trueno?").
+ * Uses gemini-2.5-flash (verified to support google_search on this key).
+ */
+export async function groundedCompletion(
+  prompt: string,
+  opts: { temperature?: number; maxTokens?: number } = {},
+): Promise<string> {
+  const temperature = opts.temperature ?? 0.2;
+  const maxTokens = opts.maxTokens ?? 500;
+
+  return withAvailability("Gemini", () =>
+    geminiWithChain("Gemini", async (model) => {
+      const generativeModel = gemini.getGenerativeModel({
+        model,
+        generationConfig: {
+          temperature,
+          maxOutputTokens: maxTokens,
+          responseMimeType: "text/plain",
+        },
+        tools: [{ googleSearch: {} } as never],
+      });
+      const result = await generativeModel.generateContent(prompt);
+      const raw = result.response.text();
+      if (!raw) throw new Error("Grounded Gemini returned empty response");
+      return raw;
+    }),
+  );
+}
+
 async function fetchImageBase64(url: string): Promise<{ base64: string; mimeType: string } | null> {
   try {
     const res = await fetch(url);
@@ -276,11 +362,11 @@ async function callGemini(
   return article;
 }
 
-async function withRetries(
-  fn: () => Promise<LlmArticle>,
+async function withRetries<T>(
+  fn: () => Promise<T>,
   label: string,
   postId: string,
-): Promise<LlmArticle> {
+): Promise<T> {
   let lastError: unknown;
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {

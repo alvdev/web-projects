@@ -18,7 +18,7 @@ function truncate(text: string, max: number): string {
   return text.length > max ? text.slice(0, max - 1) + "…" : text;
 }
 
-function escMarkdown(text: string): string {
+export function escMarkdown(text: string): string {
   return text.replace(/([_*[\]`])/g, "\\$1");
 }
 
@@ -59,6 +59,7 @@ export function approvalKeyboard(entry: PendingEntry): InlineKeyboard {
     .row()
     .text("✏️ Título", `edit:title:${id}`)
     .text("✏️ Descripción", `edit:desc:${id}`)
+    .row()
     .text("✏️ Contenido", `edit:content:${id}`)
     .row()
     .text("📐 Top", `crop:top:${id}`)
@@ -75,9 +76,11 @@ export function dualPickKeyboard(entry: PendingEntry): InlineKeyboard {
   const kb = new InlineKeyboard();
   if (g && d) {
     kb.text("🧩 Gemini tít + Gemini cont", `mix:gemini:gemini:${id}`)
+      .row()
       .text("🧩 Gemini tít + DeepSeek cont", `mix:gemini:deepseek:${id}`)
       .row()
       .text("🧩 DeepSeek tít + Gemini cont", `mix:deepseek:gemini:${id}`)
+      .row()
       .text("🧩 DeepSeek tít + DeepSeek cont", `mix:deepseek:deepseek:${id}`);
   } else {
     if (g) kb.text("❤️ Gemini", `pick:gemini:${id}`);
@@ -108,23 +111,67 @@ function formatDualPreview(entry: PendingEntry): string {
   return lines.join("\n");
 }
 
+export function escHtml(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/**
+ * Minimal Markdown -> HTML for article content inside expandable blockquotes.
+ * Handles headings, bold, italic, bullet/numbered lists, and inline quotes.
+ */
+export function mdToHtml(md: string): string {
+  let html = escHtml(md);
+
+  // Headings
+  html = html.replace(/^### (.*)$/gm, "<b>$1</b>");
+  html = html.replace(/^## (.*)$/gm, "<b>$1</b>");
+  html = html.replace(/^# (.*)$/gm, "<b>$1</b>");
+
+  // Bold **text**
+  html = html.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+  // Italic *text* (not bold)
+  html = html.replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<i>$2</i>");
+
+  // Bullet lists
+  html = html.replace(/^- (.*)$/gm, "• $1");
+  // Numbered lists
+  html = html.replace(/^(\d+)\. (.*)$/gm, "$1. $2");
+
+  return html;
+}
+
+/**
+ * Format a full article as ONE expandable Telegram blockquote containing the
+ * whole content (Markdown rendered to HTML inside). If the total HTML would
+ * exceed Telegram's 4096 limit, the content is trimmed near the END at a word
+ * boundary, keeping as much of the article as possible.
+ */
 function formatFullArticle(entry: PendingEntry, provider: "gemini" | "deepseek"): string {
   const a = entry.articles?.[provider];
-  if (!a) return `❌ *${provider}*: versión no disponible`;
-  const lines = [
-    `📝 *${provider.toUpperCase()}* — artículo completo`,
+  if (!a) return `❌ <b>${provider}</b>: versión no disponible`;
+
+  const header = [
+    `📝 <b>${provider.toUpperCase()}</b> — artículo completo`,
     "",
-    `*Título:* ${escMarkdown(a.title)}`,
+    `<b>Título:</b> ${escHtml(a.title)}`,
     "",
-    `*Descripción:* ${escMarkdown(a.description)}`,
+    `<b>Descripción:</b> ${escHtml(a.description)}`,
     "",
-    `*Categoría:* ${escMarkdown(a.category)}`,
-    `*Tags:* ${escMarkdown(a.tags.join(", "))}`,
-    "",
-    `*Contenido:*`,
-    a.content,
-  ];
-  return lines.join("\n");
+    `<b>Categoría:</b> ${escHtml(a.category)}`,
+    `<b>Tags:</b> ${escHtml(a.tags.join(", "))}`,
+  ].join("\n");
+
+  const headerHtml = `${header}\n\n<b>Contenido:</b>\n`;
+  const budget = 4000 - headerHtml.length;
+
+  let contentHtml = mdToHtml(a.content);
+  if (contentHtml.length > budget) {
+    const trimmed = contentHtml.slice(0, budget);
+    const lastSpace = trimmed.lastIndexOf(" ");
+    contentHtml = lastSpace > 80 ? trimmed.slice(0, lastSpace) : trimmed;
+  }
+
+  return `${headerHtml}<blockquote expandable>${contentHtml}</blockquote>`;
 }
 
 export async function notifyTelegram(
@@ -153,15 +200,15 @@ export async function notifyTelegram(
       });
     }
     // Send both full articles so the reviewer can pick based on the entire
-    // article, not just the title.
+    // article, not just the title. Sections are collapsible (HTML blockquotes).
     if (entry.articles?.gemini) {
-      await api.sendMessage(cid, truncate(formatFullArticle(entry, "gemini"), 4096), {
-        parse_mode: "Markdown",
+      await api.sendMessage(cid, formatFullArticle(entry, "gemini"), {
+        parse_mode: "HTML",
       });
     }
     if (entry.articles?.deepseek) {
-      await api.sendMessage(cid, truncate(formatFullArticle(entry, "deepseek"), 4096), {
-        parse_mode: "Markdown",
+      await api.sendMessage(cid, formatFullArticle(entry, "deepseek"), {
+        parse_mode: "HTML",
       });
     }
   } else if (kind === "approval" && "prepared" in entry) {

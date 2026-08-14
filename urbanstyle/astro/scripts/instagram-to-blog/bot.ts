@@ -1,20 +1,20 @@
 import { Bot, Context, InlineKeyboard, session, type SessionFlavor } from "grammy";
 import { loadState, saveState, bumpCache } from "./state";
-import { formatEntryPreview, approvalKeyboard } from "./telegram";
 import { writePostFiles, BLOG_ROOT } from "./content";
 import { buildSite, uploadDist, removeRemoteDir } from "./deploy";
-import { generateArticle, generateArticles } from "./llm";
+import { generateArticle, generateArticles, generateTextCompletion } from "./llm";
 import { preparePost } from "./content";
+import { generateTweets, buildTweetPrompt } from "./tweet";
 import { addInstruction, loadInstructions, removeInstruction } from "./instructions";
 import { sendAlert } from "./mailer";
-import { notifyTelegram } from "./telegram";
-import type { PendingEntry, PendingState } from "./types";
+import { notifyTelegram, escMarkdown, mdToHtml, escHtml } from "./telegram";
+import type { PendingEntry, PendingState, PreparedPost } from "./types";
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
 
 interface SessionData {
   awaitingFeedbackFor?: string;
-  awaitingEditFor?: { postId: string; field: "title" | "desc" | "content" };
+  awaitingEditFor?: { postId: string; field: "title" | "desc" | "content" | "tweet" };
 }
 
 type MyContext = Context & SessionFlavor<SessionData>;
@@ -66,7 +66,7 @@ async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyCon
     await buildSite();
 
     await update(`⏳ Publicando (3/3) — subiendo archivos...`);
-    const { uploaded, skipped, pending } = await uploadDist((done, pendingCount) => {
+    const { uploaded, skipped } = await uploadDist((done, pendingCount) => {
       void update(`⏳ Publicando (3/3) — subiendo archivos: ${done}/${pendingCount}`);
     });
     console.log(`[bot] published ${entry.prepared.mdxPath}`);
@@ -81,7 +81,9 @@ async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyCon
       slug: entry.prepared.slug,
       title: entry.prepared.title,
       publishedAt: new Date().toISOString(),
-      socialStatus: "queued",
+      caption: entry.post.caption,
+      postTimestamp: entry.post.timestamp,
+      social: { x: { status: "queued" } },
     });
     await saveState(state);
 
@@ -90,7 +92,6 @@ async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyCon
     const publishedKeyboard = new InlineKeyboard()
       .text("🗑 Eliminar", `remove:${entry.id}`)
       .text("▶️ Publicar en redes", `social:${entry.id}`);
-
     await ctx.api.editMessageReplyMarkup(chatId, statusMsg.message_id, { reply_markup: publishedKeyboard });
 
     await sendAlert(`[Urban Sync] Publicado: ${entry.prepared.title}`, [
@@ -166,12 +167,407 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
     await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
     return;
   }
-  published.socialStatus = "queued";
-  await saveState(state);
-  await ctx.answerCallbackQuery({ text: "En cola para redes sociales" });
-  await ctx.reply(`▶️ *"${published.title}"* quedó en cola para publicarse en redes sociales (Facebook, X, Google Business Profile). El flujo de redes se implementa en la siguiente fase.`, {
+
+  const xState = published.social.x ?? { status: "queued" };
+  published.social.x = xState;
+
+  await ctx.answerCallbackQuery({ text: "Generando tweets..." });
+  await ctx.reply(`⏳ Generando propuestas de tweet para *"${published.title}"* (Gemini + DeepSeek)...`, {
     parse_mode: "Markdown",
   });
+
+  try {
+    // Rebuild the PreparedPost so tweet.ts has full data (title, desc, slug)
+    const pendingEntry = state.pending.find((e) => e.id === postId);
+    const source = pendingEntry?.prepared ?? {
+      title: published.title,
+      description: "",
+      content: "",
+      tags: [],
+      category: "",
+      slug: published.slug,
+      pubDate: published.publishedAt,
+      basePath: "",
+      media_url: "",
+      igMediaId: postId,
+      mdxPath: "",
+      imagePath: "",
+    };
+
+    const tweets = await generateTweets(
+      source as PreparedPost,
+      published.caption ?? pendingEntry?.post.caption ?? "",
+      published.postTimestamp ?? pendingEntry?.post.timestamp,
+    );
+    xState.status = "queued";
+    xState.tweet = undefined;
+    await saveState(state);
+
+    // Verify @handles in both versions
+    const { verifyTweetHandles, formatHandleStatus } = await import("./social/xverify");
+    const verifyFor = async (t: string): Promise<string[]> => {
+      const infos = await verifyTweetHandles(t);
+      return infos.map((i) => formatHandleStatus(i));
+    };
+
+    const lines: string[] = ["Selecciona la versión del tweet:"];
+    if (tweets.gemini) {
+      lines.push("", `📝 *GEMINI:*\n${escMarkdown(tweets.gemini)}`);
+      const statuses = await verifyFor(tweets.gemini);
+      if (statuses.length) lines.push("", ...statuses.map((s) => escMarkdown(s)));
+    }
+    if (tweets.deepseek) {
+      lines.push("", `📝 *DEEPSEEK:*\n${escMarkdown(tweets.deepseek)}`);
+      const statuses = await verifyFor(tweets.deepseek);
+      if (statuses.length) lines.push("", ...statuses.map((s) => escMarkdown(s)));
+    }
+    if (tweets.gemini && tweets.deepseek && tweets.gemini === tweets.deepseek) {
+      lines.push("", "⚠️ Ambas versiones son idénticas.");
+    }
+
+    // Dual picker buttons
+    const kb = new InlineKeyboard();
+    if (tweets.gemini) kb.text("❤️ Tweet Gemini", `pickTweet:gemini:${postId}`);
+    if (tweets.deepseek) kb.text("💙 Tweet DeepSeek", `pickTweet:deepseek:${postId}`);
+
+    await ctx.reply(lines.join("\n"), {
+      parse_mode: "Markdown",
+      reply_markup: kb,
+    });
+  } catch (err) {
+    console.error("[bot] tweet generation failed:", err);
+    await ctx.reply(`❌ Error generando tweets: ${(err as Error).message}`);
+  }
+});
+
+bot.callbackQuery(/^pickTweet:(gemini|deepseek):(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const provider = ctx.match[1] as "gemini" | "deepseek";
+  const postId = ctx.match[2];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) {
+    await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
+    return;
+  }
+  const xState = published.social.x ?? { status: "queued" };
+  await ctx.answerCallbackQuery({ text: `Tweet de ${provider} elegido` });
+
+  // Regenerate the chosen tweet (or use cached) — regenerate for accuracy
+  const pendingEntry = state.pending.find((e) => e.id === postId);
+  const source = pendingEntry?.prepared ?? {
+    title: published.title,
+    description: "",
+    content: "",
+    tags: [],
+    category: "",
+    slug: published.slug,
+    pubDate: published.publishedAt,
+    basePath: "",
+    media_url: "",
+    igMediaId: postId,
+    mdxPath: "",
+    imagePath: "",
+  };
+
+  const statusMsg = await ctx.reply(`⏳ Generando tweet definitivo con ${provider}...`);
+  try {
+    const prompt = buildTweetPrompt(source as PreparedPost, published.caption ?? "", published.postTimestamp ?? "");
+    const text = await generateTextCompletion(prompt, provider, { temperature: 0.8, maxTokens: 4000 });
+    const body = text
+      .trim()
+      .replace(/^["']|["']$/g, "")
+      .replace(/https?:\/\/\S+/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const url = `https://urbanstylepublicity.com/blog/${published.slug}`;
+    const maxBody = 280 - 23; // URL counts as 23 chars on X (t.co)
+    const trimmedBody = body.length > maxBody ? body.slice(0, maxBody) : body;
+    const tweet = `${trimmedBody} ${url}`.trim();
+
+    xState.status = "approved";
+    xState.tweet = tweet;
+    xState.tweetProvider = provider;
+    published.social.x = xState;
+    await saveState(state);
+
+    // Verify @handles in the final tweet; for invalid/suspicious handles,
+    // look up the official handle via Google-search-grounded Gemini and show
+    // the comparison so the user can decide.
+    const { verifyTweetHandles, formatHandleStatus, extractHandles, findOfficialHandle } = await import("./social/xverify");
+    const handleInfos = await verifyTweetHandles(tweet);
+    const hasInvalid = handleInfos.some((h) => h.status !== "verified");
+    const statusLines = handleInfos.map((h) => formatHandleStatus(h));
+    const suggestions: Record<string, string> = {}; // badHandle -> official handle
+
+    if (hasInvalid && extractHandles(tweet).length > 0) {
+      await ctx.api.editMessageText(
+        ctx.chat!.id,
+        statusMsg.message_id,
+        `⏳ Buscando cuentas oficiales en X (Google)...`,
+      );
+      const caption = published.caption ?? "";
+      for (const info of handleInfos) {
+        if (info.status !== "verified") {
+          const official = await findOfficialHandle(info.handle, caption);
+          if (official?.status === "verified") {
+            suggestions[info.handle] = official.handle;
+            statusLines.push(
+              "",
+              `↔️ @${info.handle} → *@${official.handle}* (${official.followers ? (official.followers >= 1_000_000 ? (official.followers / 1_000_000).toFixed(1) + "M" : official.followers >= 1000 ? (official.followers / 1000).toFixed(0) + "K" : String(official.followers)) : "?"} seguidores${official.isVerified ? ", verificado" : ""})`,
+            );
+          }
+        }
+      }
+    }
+
+    const kb = new InlineKeyboard()
+      .text("📤 Publicar en X", `postX:${postId}`)
+      .text("✏️ Editar tweet", `editTweet:${postId}`)
+      .row()
+      .text("❌ Rechazar", `rejectTweet:${postId}`);
+    const suggestionEntries = Object.entries(suggestions);
+    // First ✅ Usar pairs with ❌ on the same row; further ones pair 2 per row.
+    for (let i = 0; i < suggestionEntries.length; i++) {
+      const [bad, good] = suggestionEntries[i];
+      if (i % 2 === 1) kb.row();
+      kb.text(`✅ Usar @${good}`, `useHandle:${postId}:${bad}:${good}`);
+    }
+    if (hasInvalid && suggestionEntries.length === 0 && extractHandles(tweet).length > 0) {
+      kb.row().text("✂️ Auto-arreglar", `fixTweet:${postId}`);
+    }
+
+    await ctx.api.editMessageText(
+      ctx.chat!.id,
+      statusMsg.message_id,
+      `✅ Tweet listo (${tweet.length} caracteres):\n\n${escMarkdown(tweet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}`,
+      {
+        parse_mode: "Markdown",
+        reply_markup: kb,
+      },
+    );
+  } catch (err) {
+    console.error("[bot] tweet regeneration failed:", err);
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ Error: ${(err as Error).message}`);
+  }
+});
+
+// ---- Use official handle: replace @bad with @good in the approved tweet ----
+
+bot.callbackQuery(/^useHandle:(.+):(.+):(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const bad = ctx.match[2];
+  const good = ctx.match[3];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) {
+    await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
+    return;
+  }
+  const xState = published.social.x;
+  if (!xState?.tweet) {
+    await ctx.answerCallbackQuery({ text: "No hay tweet aprobado" });
+    return;
+  }
+
+  const replaced = xState.tweet.replace(new RegExp(`@${bad}`, "gi"), `@${good}`);
+  xState.tweet = replaced;
+  await saveState(state);
+
+  await ctx.answerCallbackQuery({ text: `@${bad} → @${good}` });
+  await ctx.reply(
+    `✅ Menciones corregidas: @${bad} → @${good}\n\n${escMarkdown(replaced)}`,
+    {
+      parse_mode: "Markdown",
+      reply_markup: new InlineKeyboard()
+        .text("📤 Publicar en X", `postX:${postId}`)
+        .text("✏️ Editar tweet", `editTweet:${postId}`)
+        .row()
+        .text("❌ Rechazar", `rejectTweet:${postId}`),
+    },
+  );
+});
+
+// ---- Auto-fix invalid @handles: strip @ + regenerate without the mention ----
+
+bot.callbackQuery(/^fixTweet:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) {
+    await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
+    return;
+  }
+  const xState = published.social.x;
+  if (!xState?.tweet || !xState.tweetProvider) {
+    await ctx.answerCallbackQuery({ text: "No hay tweet aprobado" });
+    return;
+  }
+
+  const { extractHandles, verifyTweetHandles, formatHandleStatus } = await import("./social/xverify");
+  const invalidHandles = (await verifyTweetHandles(xState.tweet))
+    .filter((h) => h.status === "invalid")
+    .map((h) => h.handle);
+
+  await ctx.answerCallbackQuery({ text: "Quitando menciones inválidas..." });
+  const statusMsg = await ctx.reply(`⏳ Regenerando sin las menciones inválidas: ${invalidHandles.map((h) => `@${h}`).join(", ")}...`);
+
+  try {
+    const pendingEntry = state.pending.find((e) => e.id === postId);
+    const source = pendingEntry?.prepared ?? {
+      title: published.title,
+      description: "",
+      content: "",
+      tags: [],
+      category: "",
+      slug: published.slug,
+      pubDate: published.publishedAt,
+      basePath: "",
+      media_url: "",
+      igMediaId: postId,
+      mdxPath: "",
+      imagePath: "",
+    };
+
+    const { buildTweetPrompt } = await import("./tweet");
+    const invalidList = invalidHandles.map((h) => `@${h}`).join(", ");
+    const feedback = `The tweet mentions ${invalidList}, which do not exist on X. Regenerate the tweet using the plain name (without @) for ${invalidList}. Keep everything else the same.`;
+    const prompt = `${buildTweetPrompt(source as PreparedPost, published.caption ?? "", published.postTimestamp ?? "")}\n\n${feedback}`;
+
+    const text = await generateTextCompletion(prompt, xState.tweetProvider, { temperature: 0.8, maxTokens: 4000 });
+    const body = text
+      .trim()
+      .replace(/^["']|["']$/g, "")
+      .replace(/https?:\/\/\S+/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const url = `https://urbanstylepublicity.com/blog/${published.slug}`;
+    const maxBody = 280 - 23;
+    const trimmedBody = body.length > maxBody ? body.slice(0, maxBody) : body;
+    const newTweet = `${trimmedBody} ${url}`.trim();
+
+    xState.tweet = newTweet;
+    await saveState(state);
+
+    // Re-verify after fix
+    const newInfos = await verifyTweetHandles(newTweet);
+    const statusLines = newInfos.map((h) => formatHandleStatus(h));
+    const kb = new InlineKeyboard()
+      .text("📤 Publicar en X", `postX:${postId}`)
+      .text("✏️ Editar tweet", `editTweet:${postId}`)
+      .row()
+      .text("❌ Rechazar", `rejectTweet:${postId}`);
+    if (newInfos.some((h) => h.status !== "verified") && extractHandles(newTweet).length > 0) {
+      kb.row().text("✂️ Auto-arreglar", `fixTweet:${postId}`);
+    }
+
+    await ctx.api.editMessageText(
+      ctx.chat!.id,
+      statusMsg.message_id,
+      `✂️ Tweet regenerado sin menciones inválidas (${newTweet.length} caracteres):\n\n${escMarkdown(newTweet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}`,
+      {
+        parse_mode: "Markdown",
+        reply_markup: kb,
+      },
+    );
+  } catch (err) {
+    console.error("[bot] fixTweet failed:", err);
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ Error: ${(err as Error).message}`);
+  }
+});
+
+// ---- Publish tweet to X via Buffer API ----
+
+/**
+ * Extract the blog post's header image URL (og:image) from the built page so
+ * Buffer can attach the same IG image that's live on the site.
+ */
+function getPostImageUrl(slug: string): string | null {
+  const { readFileSync, existsSync } = require("node:fs") as typeof import("node:fs");
+  const { join } = require("node:path") as typeof import("node:path");
+  const distPath = join(import.meta.dirname, "..", "..", "dist", "blog", slug, "index.html");
+  if (!existsSync(distPath)) return null;
+  const html = readFileSync(distPath, "utf8");
+
+  // 1) og:image meta tag (absolute URL)
+  const og = html.match(/<meta property="og:image" content="([^"]+)"/);
+  if (og?.[1]) return og[1];
+
+  // 2) Fallback: the fixed header img src + domain prefix
+  const img = html.match(/<img[^>]*class="fixed top-0[^>]*src="([^"]+)"/);
+  if (img?.[1]) return img[1].startsWith("http") ? img[1] : `https://urbanstylepublicity.com${img[1]}`;
+
+  return null;
+}
+
+bot.callbackQuery(/^postX:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) {
+    await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
+    return;
+  }
+  const xState = published.social.x;
+  if (!xState?.tweet) {
+    await ctx.answerCallbackQuery({ text: "No hay tweet aprobado" });
+    return;
+  }
+
+  await ctx.answerCallbackQuery({ text: "Publicando en X..." });
+  const statusMsg = await ctx.reply(`⏳ Publicando tweet en X (@pegadacarteles) vía Buffer...\n\n${xState.tweet}`);
+
+  try {
+    const { getXChannel, createPost } = await import("./social/buffer");
+    const channel = await getXChannel();
+    const imageUrl = getPostImageUrl(published.slug);
+
+    const post = await createPost(channel.id, xState.tweet, imageUrl ?? undefined);
+
+    xState.status = "published";
+    xState.publishedAt = new Date().toISOString();
+    xState.error = undefined;
+    await saveState(state);
+
+    const link = post.externalLink ?? `https://x.com/pegadacarteles`;
+    await ctx.api.editMessageText(
+      ctx.chat!.id,
+      statusMsg.message_id,
+      `✅ *Publicado en X:*\n\n${escMarkdown(xState.tweet)}\n\n${escMarkdown(link)}${imageUrl ? `\n\n🖼️ Imagen: ${escMarkdown(imageUrl)}` : ""}`,
+      { parse_mode: "Markdown" },
+    );
+    await sendAlert(`[Urban Sync] Tweet publicado en X: ${published.title}`, `${xState.tweet}\n\n${link}`);
+  } catch (err) {
+    console.error("[bot] postX failed:", err);
+    xState.status = "failed";
+    xState.error = (err as Error).message;
+    await saveState(state);
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ *Error publicando en X:*\n${(err as Error).message}`);
+    await sendAlert("[Urban Sync] Error publicando tweet en X", `${(err as Error).message}\n\nPost: ${published.title}`);
+  }
+});
+
+bot.callbackQuery(/^editTweet:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  await ctx.answerCallbackQuery({ text: "Envía el nuevo tweet..." });
+  await ctx.reply("✏️ Envía el texto del tweet (máx 280 caracteres):");
+  ctx.session.awaitingEditFor = { postId, field: "tweet" };
+});
+
+bot.callbackQuery(/^rejectTweet:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) return;
+  published.social.x = { status: "queued" };
+  await saveState(state);
+  await ctx.answerCallbackQuery({ text: "Tweet rechazado" });
+  await ctx.reply("❌ Tweet rechazado. Usa ▶️ Publicar en redes para regenerar.");
 });
 
 bot.command("eliminar", async (ctx) => {
@@ -362,8 +758,19 @@ bot.callbackQuery(/^preview:(.+)$/, async (ctx) => {
     return;
   }
   await ctx.answerCallbackQuery();
-  await ctx.reply(`📖 *Contenido completo* (${entry.prepared.title}):\n\n${entry.prepared.content}`, {
-    parse_mode: "Markdown",
+  // Collapsible preview: the whole content in ONE expandable HTML blockquote
+  // (Markdown rendered to HTML inside), trimmed near the end if over the limit.
+  let contentHtml = mdToHtml(entry.prepared.content);
+  const titleHtml = escHtml(entry.prepared.title);
+  const headerHtml = `📖 <b>Contenido completo</b> (${titleHtml}):\n\n`;
+  const budget = 4000 - headerHtml.length;
+  if (contentHtml.length > budget) {
+    const trimmed = contentHtml.slice(0, budget);
+    const lastSpace = trimmed.lastIndexOf(" ");
+    contentHtml = lastSpace > 80 ? trimmed.slice(0, lastSpace) : trimmed;
+  }
+  await ctx.reply(`${headerHtml}<blockquote expandable>${contentHtml}</blockquote>`, {
+    parse_mode: "HTML",
   });
 });
 
@@ -418,6 +825,34 @@ bot.on("message:text", async (ctx) => {
 
     if (!newText) {
       await ctx.reply("El texto no puede estar vacío. El valor anterior se mantiene.");
+      return;
+    }
+
+    // Tweet edit (published post social flow)
+    if (editFor.field === "tweet") {
+      if (newText.length > 280) {
+        await ctx.reply(`⚠️ El tweet tiene ${newText.length} caracteres (máx 280). Envíalo de nuevo más corto.`);
+        ctx.session.awaitingEditFor = editFor; // keep waiting
+        return;
+      }
+      const state = await freshState();
+      const published = state.published.find((e) => e.id === editFor.postId);
+      if (!published) {
+        await ctx.reply("Post no encontrado en publicados.");
+        return;
+      }
+      published.social.x = {
+        status: "approved",
+        tweet: newText,
+        tweetProvider: undefined,
+      };
+      await saveState(state);
+      await ctx.reply(`✅ Tweet actualizado (${newText.length} caracteres):\n\n${escMarkdown(newText)}`, {
+        parse_mode: "Markdown",
+        reply_markup: new InlineKeyboard()
+          .text("📤 Publicar en X", `postX:${editFor.postId}`)
+          .text("✏️ Editar tweet", `editTweet:${editFor.postId}`),
+      });
       return;
     }
 

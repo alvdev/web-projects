@@ -32,11 +32,24 @@ function generateSlug(text: string): string {
     .replace(/^-+/, "")
     .replace(/-+$/, "");
 
-  if (cleaned.length <= MAX_SLUG_LENGTH) return cleaned;
+  let slug = cleaned;
+  if (slug.length > MAX_SLUG_LENGTH) {
+    // Truncate at the last word boundary (dash) before the cap — never mid-word
+    const cut = cleaned.lastIndexOf("-", MAX_SLUG_LENGTH);
+    slug = cleaned.substring(0, cut > 0 ? cut : MAX_SLUG_LENGTH).replace(/-+$/, "");
+  }
 
-  // Truncate at the last word boundary (dash) before the cap — never mid-word
-  const cut = cleaned.lastIndexOf("-", MAX_SLUG_LENGTH);
-  return cleaned.substring(0, cut > 0 ? cut : MAX_SLUG_LENGTH).replace(/-+$/, "");
+  // Never end with a dangling preposition/article — walk back to the previous
+  // word boundary until the last segment is a meaningful word.
+  while (slug.length > 0) {
+    const last = slug.split("-").pop() ?? "";
+    if (!BAD_TITLE_ENDINGS.has(last)) break;
+    const prev = slug.lastIndexOf("-");
+    if (prev <= 0) break;
+    slug = slug.substring(0, prev).replace(/-+$/, "");
+  }
+
+  return slug;
 }
 
 function formatPubDate(timestamp: string): string {
