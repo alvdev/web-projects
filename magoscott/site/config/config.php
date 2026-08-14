@@ -223,6 +223,7 @@ return [
                 'srcsets' => [
                     'default' => [
                         '300w'  => ['width' => 300],
+                        '350w'  => ['width' => 350],
                         '400w'  => ['width' => 400],
                         '500w'  => ['width' => 500],
                         '600w'  => ['width' => 600],
@@ -234,6 +235,7 @@ return [
                     ],
                     'avif' => [
                         '300w'  => ['width' => 300, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
+                        '350w'  => ['width' => 350, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
                         '400w'  => ['width' => 400, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
                         '500w'  => ['width' => 500, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
                         '600w'  => ['width' => 600, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
@@ -245,6 +247,7 @@ return [
                     ],
                     'webp' => [
                         '300w'  => ['width' => 300, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
+                        '350w'  => ['width' => 350, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
                         '400w'  => ['width' => 400, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
                         '500w'  => ['width' => 500, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
                         '600w'  => ['width' => 600, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],

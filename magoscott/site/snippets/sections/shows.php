@@ -35,7 +35,7 @@
                         <h3 class="mt-8 text-3xl md:text-5xl lg:text-3xl text-pretty"><?= $show->title() ?></h3>
                         <p class="my-8 text-xl md:text-3xl lg:text-xl text-white/80"><?= $show->desc() ?></p>
                         <?php if ($video = $show->video()->toEmbed()): ?>
-                            <?php snippet('video', ['video' => $video, 'class' => 'mt-auto rounded-xl border-2 border-white/10']) ?>
+                            <?php snippet('video', ['video' => $video, 'class' => 'mt-auto rounded-xl border-2 border-white/10', 'sizes' => '(min-width: 1024px) calc(32vw - 6.25rem), (min-width: 768px) calc(94vw - 4.25rem), calc(94vw - 2.25rem)']) ?>
                         <?php endif ?>
                     </div>
                 <?php endforeach ?>

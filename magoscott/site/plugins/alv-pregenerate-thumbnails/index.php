@@ -42,16 +42,17 @@ App::plugin('alv/pregenerate-thumbnails', [
         ],
         [
             // Proxy and cache YouTube thumbnails on our own domain
-            'pattern' => 'youtube-thumbs/(:any).jpg',
+            // Variants: mq (320w), sd (640w), hq (480w), maxres (1280w)
+            'pattern' => 'youtube-thumbs/(:any)-(mq|sd|hq|maxres).jpg',
             'method'  => 'GET',
-            'action'  => function ($id) {
+            'action'  => function ($id, $variant) {
                 if (preg_match('/^[A-Za-z0-9_-]{11}$/', $id) !== 1) {
                     return false;
                 }
 
                 $kirby = kirby();
                 $cacheDir = $kirby->root('cache') . '/youtube-thumbs';
-                $file = $cacheDir . '/' . $id . '.jpg';
+                $file = $cacheDir . '/' . $id . '-' . $variant . '.jpg';
 
                 if (!F::exists($file)) {
                     $context = stream_context_create([
@@ -61,7 +62,7 @@ App::plugin('alv/pregenerate-thumbnails', [
                         ]
                     ]);
 
-                    $data = @file_get_contents('https://img.youtube.com/vi/' . $id . '/hqdefault.jpg', false, $context);
+                    $data = @file_get_contents('https://img.youtube.com/vi/' . $id . '/' . $variant . 'default.jpg', false, $context);
 
                     // Only accept valid JPEG payloads to avoid caching error responses
                     if ($data === false || strlen($data) > 500000 || str_starts_with($data, "\xFF\xD8") === false) {

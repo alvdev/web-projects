@@ -8,11 +8,11 @@
 
     <link rel="preload" href="<?= vite()->file('assets/fonts/ysabeau.woff2') ?>" as="font" type="font/woff2" crossorigin>
     <?php if ($page->intendedTemplate()->name() === 'home' && $formImage = $site->formImage()->toFile()): ?>
-        <link rel="preload" as="image" imagesrcset="<?= $formImage->srcset('avif') ?>" imagesizes="(min-width: 1024px) 48vw, 94vw" fetchpriority="high">
+        <link rel="preload" as="image" imagesrcset="<?= $formImage->srcset('avif') ?>" imagesizes="(min-width: 1024px) calc(48vw - 4rem), 94vw" fetchpriority="high">
     <?php elseif ($cover = $page->cover()->toFile()): ?>
         <link rel="preload" as="image" imagesrcset="<?= $cover->staticSrcset('avif') ?>" imagesizes="(min-width: 1024px) 50vw, 100vw" fetchpriority="high">
     <?php endif ?>
-    <?= vite()->css('assets/css/main.css', options:['defer' => true]) ?>
+    <?= vite()->css('assets/css/main.css') ?>
     <?= vite()->js('assets/js/main.js', ['defer' => true]) ?>
 
     <?php if ($page->text()->toBlocks()->filterBy('type', 'code')->isNotEmpty() == 'true'): ?>

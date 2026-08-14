@@ -11,11 +11,11 @@
         <div>
             <?php if ($image = ($site->formImage()->toFile() ?? asset('assets/images/headers/scott.png'))): ?>
                 <picture>
-                    <source srcset="<?= $image->srcset('avif') ?>" type="image/avif" sizes="(min-width: 1024px) 48vw, 94vw">
-                    <source srcset="<?= $image->srcset('webp') ?>" type="image/webp" sizes="(min-width: 1024px) 48vw, 94vw">
+                    <source srcset="<?= $image->srcset('avif') ?>" type="image/avif" sizes="(min-width: 1024px) calc(48vw - 4rem), 94vw">
+                    <source srcset="<?= $image->srcset('webp') ?>" type="image/webp" sizes="(min-width: 1024px) calc(48vw - 4rem), 94vw">
                     <img
                         srcset="<?= $image->srcset('default') ?>"
-                        sizes="(min-width: 1024px) 48vw, 94vw"
+                        sizes="(min-width: 1024px) calc(48vw - 4rem), 94vw"
                         src="<?= $image->resize(1200)->url() ?>"
                         width="<?= $image->width() ?>"
                         height="<?= $image->height() ?>"
