@@ -9,15 +9,15 @@
             </div>
 
             <div class="sticky top-36 lg:w-1/3 flex flex-col md:flex-row lg:flex-col gap-8 text-2xl *:min-w-1/2 *:border *:whitespace-nowrap *:text-center *:rounded-full *:px-8 *:pt-4 *:pb-4.75">
-                <?php if ($button = $site->introButton1()->toObject()): ?>
+                <?php if (($button = $site->introButton1()->toObject()) && $button->anchor()->isNotEmpty()): ?>
                     <a href="<?= $button->link()->toUrl() ?>">
                         <?= $button->anchor() ?>
                     </a>
                 <?php endif ?>
 
-                <?php if ($button = $site->introButton2()->toObject()): ?>
+                <?php if (($button = $site->introButton2()->toObject()) && $button->anchor()->isNotEmpty()): ?>
                     <a href="<?= $button->link()->toUrl() ?? 'https://entradas.com' ?>" target="_blank">
-                        <?= $button->anchor() ?? 'Comprar entradas' ?>
+                        <?= $button->anchor() ?>
                     </a>
                 <?php endif ?>
             </div>
