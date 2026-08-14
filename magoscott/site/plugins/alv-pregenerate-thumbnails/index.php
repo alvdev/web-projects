@@ -39,6 +39,47 @@ App::plugin('alv/pregenerate-thumbnails', [
                 }
                 return false;
             }
+        ],
+        [
+            // Proxy and cache YouTube thumbnails on our own domain
+            'pattern' => 'youtube-thumbs/(:any).jpg',
+            'method'  => 'GET',
+            'action'  => function ($id) {
+                if (preg_match('/^[A-Za-z0-9_-]{11}$/', $id) !== 1) {
+                    return false;
+                }
+
+                $kirby = kirby();
+                $cacheDir = $kirby->root('cache') . '/youtube-thumbs';
+                $file = $cacheDir . '/' . $id . '.jpg';
+
+                if (!F::exists($file)) {
+                    $context = stream_context_create([
+                        'http' => [
+                            'timeout'   => 5,
+                            'user_agent' => 'Mozilla/5.0 (compatible; Magoscott/1.0)',
+                        ]
+                    ]);
+
+                    $data = @file_get_contents('https://img.youtube.com/vi/' . $id . '/hqdefault.jpg', false, $context);
+
+                    // Only accept valid JPEG payloads to avoid caching error responses
+                    if ($data === false || strlen($data) > 500000 || str_starts_with($data, "\xFF\xD8") === false) {
+                        return false;
+                    }
+
+                    Dir::make($cacheDir);
+                    F::write($file, $data);
+                }
+
+                return Response::file($file, [
+                    'type' => 'image/jpeg',
+                    'headers' => [
+                        'Cache-Control' => 'public, max-age=31536000, immutable',
+                        'Expires'       => gmdate('D, d M Y H:i:s', time() + 31536000) . ' GMT',
+                    ]
+                ]);
+            }
         ]
     ],
     'fileMethods' => [

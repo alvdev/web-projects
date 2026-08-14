@@ -17,7 +17,13 @@ $iframe = str_replace(['<iframe', 'youtube.com'], ['<iframe loading="lazy"', 'yo
 
 <div x-data="{ playing: false }" class="relative w-full aspect-video overflow-hidden group <?= $class ?? '' ?>">
     <div x-show="!playing" @click="playing = true" class="absolute inset-0 cursor-pointer group">
-        <img src="<?= $video->image() ?>" alt="Play Video" class="w-full h-full object-cover transition-opacity" loading="lazy">
+        <?php if ($thumb = $video->image()): ?>
+            <?php $thumbUrl = str_replace('i.ytimg.com', 'img.youtube.com', (string) $thumb); ?>
+            <?php if (preg_match('#/vi/([A-Za-z0-9_-]{11})/#', $thumbUrl, $ytMatch)): ?>
+                <?php $thumbUrl = url('youtube-thumbs/' . $ytMatch[1] . '.jpg'); ?>
+            <?php endif ?>
+            <img src="<?= $thumbUrl ?>" alt="Play Video" referrerpolicy="no-referrer" onerror="this.style.display='none'" class="w-full h-full object-cover transition-opacity" loading="lazy">
+        <?php endif ?>
         <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
             <div class="bg-red-600 text-white rounded-full p-4 shadow-lg group-hover:scale-110 transition-transform">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
