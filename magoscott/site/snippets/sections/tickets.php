@@ -12,12 +12,14 @@
                 <?php if ($cover = $item->cover()->toFile()): ?>
                 <picture>
                     <source srcset="<?= $cover->srcset('avif') ?>"
+                            sizes="(min-width: 1024px) calc(32vw - 6.25rem), (min-width: 768px) calc(94vw - 4.25rem), calc(94vw - 2.25rem)"
                             type="image/avif">
                     <source srcset="<?= $cover->srcset('webp') ?>"
+                            sizes="(min-width: 1024px) calc(32vw - 6.25rem), (min-width: 768px) calc(94vw - 4.25rem), calc(94vw - 2.25rem)"
                             type="image/webp">
                     <img src="<?= $cover->resize(390)->url() ?>"
                          srcset="<?= $cover->srcset() ?>"
-                         sizes="(min-width: 1024px) 33vw, 100vw"
+                         sizes="(min-width: 1024px) calc(32vw - 6.25rem), (min-width: 768px) calc(94vw - 4.25rem), calc(94vw - 2.25rem)"
                          alt="<?= $cover->alt() ?>"
                          loading="lazy"
                          width="<?= $cover->resize(390)->width() ?>"

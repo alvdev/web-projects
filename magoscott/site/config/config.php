@@ -224,7 +224,9 @@ return [
                     'default' => [
                         '300w'  => ['width' => 300],
                         '400w'  => ['width' => 400],
+                        '500w'  => ['width' => 500],
                         '600w'  => ['width' => 600],
+                        '700w'  => ['width' => 700],
                         '800w'  => ['width' => 800],
                         '900w'  => ['width' => 900],
                         '1200w' => ['width' => 1200],
@@ -233,7 +235,9 @@ return [
                     'avif' => [
                         '300w'  => ['width' => 300, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
                         '400w'  => ['width' => 400, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
+                        '500w'  => ['width' => 500, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
                         '600w'  => ['width' => 600, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
+                        '700w'  => ['width' => 700, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
                         '800w'  => ['width' => 800, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
                         '900w'  => ['width' => 900, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
                         '1200w' => ['width' => 1200, 'format' => 'avif', 'quality' => 70, 'sharpen' => 35],
@@ -242,7 +246,9 @@ return [
                     'webp' => [
                         '300w'  => ['width' => 300, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
                         '400w'  => ['width' => 400, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
+                        '500w'  => ['width' => 500, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
                         '600w'  => ['width' => 600, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
+                        '700w'  => ['width' => 700, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
                         '800w'  => ['width' => 800, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
                         '900w'  => ['width' => 900, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
                         '1200w' => ['width' => 1200, 'format' => 'webp', 'quality' => 80, 'sharpen' => 35],
@@ -263,7 +269,9 @@ return [
                     'gallery-avif' => [
                         '300w'  => ['width' => 300, 'format' => 'avif', 'quality' => 60],
                         '400w'  => ['width' => 400, 'format' => 'avif', 'quality' => 60],
+                        '500w'  => ['width' => 500, 'format' => 'avif', 'quality' => 60],
                         '600w'  => ['width' => 600, 'format' => 'avif', 'quality' => 60],
+                        '700w'  => ['width' => 700, 'format' => 'avif', 'quality' => 60],
                         '800w'  => ['width' => 800, 'format' => 'avif', 'quality' => 60],
                         '900w'  => ['width' => 900, 'format' => 'avif', 'quality' => 60],
                         '1200w' => ['width' => 1200, 'format' => 'avif', 'quality' => 60],
@@ -271,7 +279,9 @@ return [
                     'gallery-webp' => [
                         '300w'  => ['width' => 300, 'format' => 'webp', 'quality' => 80],
                         '400w'  => ['width' => 400, 'format' => 'webp', 'quality' => 80],
+                        '500w'  => ['width' => 500, 'format' => 'webp', 'quality' => 80],
                         '600w'  => ['width' => 600, 'format' => 'webp', 'quality' => 80],
+                        '700w'  => ['width' => 700, 'format' => 'webp', 'quality' => 80],
                         '800w'  => ['width' => 800, 'format' => 'webp', 'quality' => 80],
                         '900w'  => ['width' => 900, 'format' => 'webp', 'quality' => 80],
                         '1200w' => ['width' => 1200, 'format' => 'webp', 'quality' => 80],
@@ -279,7 +289,9 @@ return [
                     'gallery-default' => [
                         '300w'  => ['width' => 300],
                         '400w'  => ['width' => 400],
+                        '500w'  => ['width' => 500],
                         '600w'  => ['width' => 600],
+                        '700w'  => ['width' => 700],
                         '800w'  => ['width' => 800],
                         '900w'  => ['width' => 900],
                         '1200w' => ['width' => 1200],
