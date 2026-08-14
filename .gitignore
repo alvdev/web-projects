@@ -35,6 +35,7 @@ _*
 **/images/[0-9a-z]/
 **/bin/
 **/dist/
+**/.graymatter
 
 # Include projects folders
 !/alfa.host/
