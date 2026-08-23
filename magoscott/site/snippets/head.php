@@ -6,6 +6,7 @@ $cssContent = $cssUrl && !vite()->isDev()
     ? @file_get_contents(kirby()->root('index') . $cssUrl)
     : null;
 ?>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,9 @@ $cssContent = $cssUrl && !vite()->isDev()
         <link rel="preload" as="image" imagesrcset="<?= $cover->staticSrcset('avif') ?>" imagesizes="(min-width: 1024px) 50vw, 100vw" fetchpriority="high">
     <?php endif ?>
     <?php if ($cssContent): ?>
-        <style><?= str_replace('</style', '<\/style', $cssContent) ?></style>
+        <style>
+            <?= str_replace('</style', '<\/style', $cssContent) ?>
+        </style>
     <?php else: ?>
         <?= vite()->css('assets/css/main.css') ?>
     <?php endif ?>
@@ -31,4 +34,31 @@ $cssContent = $cssUrl && !vite()->isDev()
         <?= vite()->js('assets/js/prism.js') ?>
         <?= vite()->css('assets/css/prism.css') ?>
     <?php endif ?>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1370252487923870');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1370252487923870&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>

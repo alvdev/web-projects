@@ -1,3 +1,4 @@
+<?php $go = fn($to) => site()->url() . '/qr/go?to=' . rawurlencode($to); ?>
 <!DOCTYPE html>
 <html lang="es"
       class="h-full">
@@ -17,7 +18,7 @@
 
                 <a href="tel:+34630818123">+34 630 81 81 23</a>
                 <a href="mailto:mail@magoscott.com">mail@magoscott.com</a>
-                <a href="https://www.magoscott.com"
+                <a href="<?= $go('https://www.magoscott.com') ?>"
                    target="_self">www.magoscott.com</a>
             </div>
 
@@ -45,7 +46,7 @@
                 <?php if ($button = $site->introButton2()->toObject()) {
                         $link = $button->link()->toUrl() ?? 'https://abonoteatro.com';
                     } ?>
-                <a href="https://magoscott.com/entradas"
+                <a href="<?= $go('https://magoscott.com/entradas') ?>"
                    target="_self"
                    class="flex items-center gap-6 px-2 md:px-0 text-lg text-gray-600 active:bg-linear-to-r active:from-transparent active:via-cyan-200 active:to-transparent">
                     <div class="min-w-10 h-10 *:[svg]:fill-purple-500">
@@ -59,7 +60,7 @@
                 <?php endif; ?>
 
                 <?php if ($page->youtube()): ?>
-                <a href="<?= $page->youtube() ?>"
+                <a href="<?= $go($page->youtube()) ?>"
                    target="_self"
                    class="flex items-center gap-6 px-2 md:px-0 text-lg text-gray-600 active:bg-linear-to-r active:from-transparent active:via-red-200 active:to-transparent">
                     <div class="w-10 h-10 *:[svg]:w-12 *:[svg]:fill-red-600 -ml-1 mr-1">
@@ -73,7 +74,7 @@
                 <?php endif; ?>
 
                 <?php if ($page->whatsapp()): ?>
-                <a href="<?= $page->whatsapp() ?>"
+                <a href="<?= $go($page->whatsapp()) ?>"
                    target="_self"
                    class="flex items-center gap-6 px-2 md:px-0 text-lg text-gray-600 active:bg-linear-to-r active:from-transparent active:via-green-200 active:to-transparent">
                     <div class="w-10 h-10">
@@ -87,7 +88,7 @@
                 <?php endif; ?>
 
                 <?php if ($page->instagram()): ?>
-                <a href="<?= $page->instagram() ?>"
+                <a href="<?= $go($page->instagram()) ?>"
                    target="_self"
                    class="flex items-center gap-6 px-2 md:px-0 text-lg text-gray-600 active:bg-linear-to-r active:from-transparent active:via-pink-200 active:to-transparent">
                     <div class="w-10 h-10 *:[svg]:fill-pink-500">
@@ -101,7 +102,7 @@
                 <?php endif; ?>
 
                 <?php if ($page->facebook()): ?>
-                <a href="<?= $page->facebook() ?>"
+                <a href="<?= $go($page->facebook()) ?>"
                    target="_self"
                    class="flex items-center gap-6 px-2 md:px-0 text-lg text-gray-600 active:bg-linear-to-r active:from-transparent active:via-blue-200 active:to-transparent">
                     <div class="w-10 h-10">
@@ -114,6 +115,18 @@
                 </a>
                 <?php endif; ?>
             </section>
+
+            <button type="button"
+                    x-data="{ copied: false }"
+                    @click="navigator.share
+                        ? navigator.share({ title: '<?= $page->title()->esc() ?>', text: '<?= $page->title()->esc() ?> — mago, humorista y showman', url: '<?= $page->url() ?>' }).catch(() => {})
+                        : navigator.clipboard.writeText('<?= $page->url() ?>').then(() => { copied = true; setTimeout(() => copied = false, 2000) })"
+                    class="mt-4 w-full py-4 rounded-xl border border-white flex items-center justify-center gap-3 font-sans text-lg active:border-fuchsia-400/10 active:bg-fuchsia-400/20">
+                <span class="w-6 h-6 *:[svg]:fill-current">
+                    <?= svg('assets/svgs/share.svg') ?>
+                </span>
+                <span x-text="copied ? '¡Enlace copiado!' : 'Compartir'"></span>
+            </button>
         </main>
     </div>
 </body>

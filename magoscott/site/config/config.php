@@ -64,6 +64,33 @@ return [
                     ]);
                 }
             }
+        ],
+        [
+            'pattern' => 'qr/go',
+            'action' => function () {
+                $to = get('to');
+                $host = $to ? strtolower(parse_url($to, PHP_URL_HOST) ?? '') : '';
+                $allowed = [
+                    'magoscott.com',
+                    'www.magoscott.com',
+                    'youtube.com',
+                    'm.youtube.com',
+                    'www.youtube.com',
+                    'youtu.be',
+                    'wa.me',
+                    'api.whatsapp.com',
+                    'instagram.com',
+                    'www.instagram.com',
+                    'facebook.com',
+                    'www.facebook.com',
+                    'abonoteatro.com',
+                    'www.abonoteatro.com',
+                ];
+                if (!in_array($host, $allowed, true)) {
+                    return new Kirby\Cms\Response('Enlace no permitido', 'text/plain', 400);
+                }
+                return new Kirby\Cms\Response(snippet('go', ['to' => $to], true), 'html', 200);
+            }
         ]
     ],
     'hooks' => [
