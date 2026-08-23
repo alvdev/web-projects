@@ -476,63 +476,74 @@ async function showFbApproval(
   }
   ctx.session.fbSuggestions = { ...ctx.session.fbSuggestions, [postId]: suggestions };
 
-  const unresolved = extractHandles(fbText).length > 0;
-  const kb = new InlineKeyboard();
-  kb.text("✏️ Editar texto", `editFb:${postId}`).text("✏️ Editar menciones", `editHandlesFb:${postId}`).text("❌ Rechazar", `rejectFb:${postId}`);
-  // Each suggestion: [✅ Usar "page"] + [🔗 Página] opening the verified page
-  // URL (always the official page — never a Facebook search).
   const { isValidFbPageUrl } = await import("./social/fbverify");
   const fbPageUrlFor = (s: { pageName: string; pageUrl?: string }): string =>
     s.pageUrl && isValidFbPageUrl(s.pageUrl)
       ? s.pageUrl
       : `https://www.facebook.com/${encodeURIComponent(s.pageName)}`;
-  suggestions.forEach((s, i) => {
-    const pageUrl = fbPageUrlFor(s);
-    const label = s.pageName.length > 40 ? `${s.pageName.slice(0, 40)}…` : s.pageName;
-    kb.row().text(`✅ Usar "${label}"`, `useFbPage:${postId}:${i}`).url("🔗 Página", pageUrl);
-  });
-  // Quitar menciones is ALWAYS available while mentions remain, on the same
-  // row as a 🔗 button to each verified page (when one was found).
+
+  // AUTO-APPLY the verification: record each verified page per @handle in
+  // state WITHOUT touching the text — the @mentions stay as-is so the user
+  // can add the real tags in the Facebook editor later.
+  const existingMentions = fbState?.fbMentions ?? [];
+  const mentionsByHandle = new Map(existingMentions.map((m) => [m.handle.toLowerCase(), m]));
+  let mentionsChanged = false;
+  for (const s of suggestions) {
+    const key = s.handle.toLowerCase();
+    if (!mentionsByHandle.has(key) || mentionsByHandle.get(key)?.pageName !== s.pageName) {
+      mentionsByHandle.set(key, { handle: s.handle, pageName: s.pageName, pageUrl: fbPageUrlFor(s) });
+      mentionsChanged = true;
+    }
+  }
+  if (mentionsChanged) {
+    fbState!.fbMentions = [...mentionsByHandle.values()];
+    await saveState(state);
+  }
+  const mentionMap = mentionsByHandle;
+
+  const handlesInText = extractHandles(fbText);
+  const unverified = handlesInText.filter((h) => !mentionMap.has(h.toLowerCase()));
+  const allHandlesVerified = handlesInText.length === 0 || unverified.length === 0;
   const approvedWithHandles = fbState?.handlesApproved === true;
-  if (unresolved) {
+
+  const kb = new InlineKeyboard();
+  kb.text("✏️ Editar texto", `editFb:${postId}`).text("✏️ Editar menciones", `editHandlesFb:${postId}`).text("❌ Rechazar", `rejectFb:${postId}`);
+  // ✂️ Quitar menciones ALWAYS while mentions remain — with the verified-page
+  // 🔗 buttons on the SAME row (deduplicated by URL, one per page).
+  if (handlesInText.length > 0) {
     kb.row().text("✂️ Quitar menciones", `fixFb:${postId}`);
     const seenUrls = new Set<string>();
-    for (const s of suggestions) {
-      const url = fbPageUrlFor(s);
+    for (const m of mentionMap.values()) {
+      if (!m.pageUrl) continue;
+      const url = fbPageUrlFor(m);
       if (seenUrls.has(url.toLowerCase())) continue;
       seenUrls.add(url.toLowerCase());
-      const label = s.pageName.length > 25 ? `${s.pageName.slice(0, 25)}…` : s.pageName;
+      const label = m.pageName.length > 25 ? `${m.pageName.slice(0, 25)}…` : m.pageName;
       kb.url(`🔗 ${label}`, url);
     }
-    // Approve the text AS-IS (the @mentions stay — real tags can only be
-    // added in the Facebook editor).
-    if (!approvedWithHandles) {
+    // Approve the text AS-IS (unverified @mentions stay — tags added in FB editor).
+    if (unverified.length > 0 && !approvedWithHandles) {
       kb.row().text("✅ Aprobar", `approveFbHandles:${postId}`);
     }
   }
-  // When everything is approved (no mentions OR explicitly approved with
-  // mentions), the publish trigger lives HERE (last message) — the user must
-  // never scroll back to the original post message.
-  if (!unresolved || approvedWithHandles) {
+  // The publish trigger lives HERE (last message) — never scroll back.
+  if (allHandlesVerified || approvedWithHandles) {
     kb.row().text("📤 Publicar en redes", `social:${postId}`);
   }
 
-  // Render the text with every VERIFIED mention clickable (link to the found
-  // page). Unresolved @handles stay as plain text — no Facebook search links.
-  // Works on the RAW text (before escaping) so underscores etc. never break
-  // the match; non-matched pieces are escMarkdown'd. The stored/published
-  // text stays clean — only the Telegram rendering links.
+  // Render the text with every VERIFIED @handle clickable (link to its page).
+  // Unverified @handles stay as plain text — no Facebook search links.
   const escapeRegex = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const linkKeys = new Map<string, string>(); // raw token -> url
-  const statusLines: string[] = [];
-  for (const s of suggestions) {
-    const url = fbPageUrlFor(s);
-    linkKeys.set(`@${s.handle}`, url);
-    linkKeys.set(`@${s.handle.toLowerCase()}`, url);
-    linkKeys.set(s.pageName, url);
-    linkKeys.set(s.pageName.toLowerCase(), url);
-    const via = s.source === "gemini" ? "vía Gemini" : "vía búsqueda web";
-    statusLines.push(`ℹ️ @${escMarkdown(s.handle)} → página oficial FB: [${s.pageName}](${url}) (${via})`);
+  const verifiedLines: string[] = [];
+  for (const m of mentionMap.values()) {
+    if (!m.pageUrl) continue;
+    const url = fbPageUrlFor(m);
+    linkKeys.set(`@${m.handle}`, url);
+    linkKeys.set(`@${m.handle.toLowerCase()}`, url);
+    linkKeys.set(m.pageName, url);
+    linkKeys.set(m.pageName.toLowerCase(), url);
+    verifiedLines.push(`@${escMarkdown(m.handle)} → [${m.pageName}](${url})`);
   }
   let rendered: string;
   if (linkKeys.size === 0) {
@@ -547,9 +558,10 @@ async function showFbApproval(
       .map((part) => (linkKeys.has(part) ? `[${part}](${linkKeys.get(part)})` : escMarkdown(part)))
       .join("");
   }
-  const body = unresolved && !approvedWithHandles
-    ? `📝 *Texto de Facebook:*\n\n${rendered}${statusLines.length ? `\n\n${statusLines.join("\n")}` : ""}\n\n⚠️ Resuelve las menciones antes de publicar (o pulsa ✅ Aprobar).`
-    : `✅ *Texto de Facebook aprobado:*\n\n${rendered}${approvedWithHandles ? `\n\n*Nota:* las @menciones se mantienen en el texto — puedes añadir los tags reales en el editor de Facebook.` : ""}\n\n✅ Textos de X y Facebook aprobados.\n\nPulsa 📤 Publicar en redes para publicar.`;
+  const verifiedNote = verifiedLines.length > 0 ? `\n\n✅ Menciones verificadas: ${verifiedLines.join(" · ")}` : "";
+  const body = allHandlesVerified || approvedWithHandles
+    ? `✅ *Texto de Facebook aprobado:*\n\n${rendered}${verifiedNote}${approvedWithHandles ? `\n\n*Nota:* las @menciones se mantienen — añade los tags reales en el editor de Facebook.` : ""}\n\n✅ Textos de X y Facebook aprobados.\n\nPulsa 📤 Publicar en redes para publicar.`
+    : `📝 *Texto de Facebook:*\n\n${rendered}${verifiedNote}\n\n⚠️ Hay menciones sin página verificada: usa ✂️ Quitar menciones o ✅ Aprobar.`;
   const text = header ? `${header}\n\n${body}` : body;
 
   if (statusMsg) {
@@ -611,9 +623,13 @@ async function publishToFb(published: PublishedEntry, state: PendingState): Prom
   if (fbState.status === "published") return { ok: true, line: "✅ *Facebook:* ya estaba publicado" };
   try {
     const { extractHandles } = await import("./social/xverify");
-    // Gate: refuse unresolved @mentions unless the user approved them as-is.
-    if (extractHandles(fbState.tweet).length > 0 && fbState.handlesApproved !== true) {
-      return { ok: false, line: "❌ *Facebook:* menciones sin resolver — resuélvelas o pulsa ✅ Aprobar." };
+    // Gate: refuse @mentions that are neither verified (in fbMentions) nor
+    // explicitly approved (✅ Aprobar).
+    const handles = extractHandles(fbState.tweet);
+    const mentions = fbState.fbMentions ?? [];
+    const unverified = handles.filter((h) => !mentions.some((m) => m.handle.toLowerCase() === h.toLowerCase()));
+    if (unverified.length > 0 && fbState.handlesApproved !== true) {
+      return { ok: false, line: "❌ *Facebook:* menciones sin verificar — usa ✂️ Quitar menciones o ✅ Aprobar." };
     }
     const blogUrl = `https://urbanstylepublicity.com/blog/${published.slug}`;
 
@@ -696,9 +712,14 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
   }
   if (fbClean && !fbDone && fbState?.tweet) {
     const { extractHandles } = await import("./social/xverify");
-    // Clean when no @mentions remain OR the user explicitly approved the
-    // text with mentions (✅ Aprobar → tags added manually in the FB editor).
-    fbClean = extractHandles(fbState.tweet).length === 0 || fbState.handlesApproved === true;
+    // Clean when no @mentions remain, OR every @handle has a verified page in
+    // fbMentions, OR the user explicitly approved with ✅ Aprobar.
+    const handles = extractHandles(fbState.tweet);
+    const mentions = fbState.fbMentions ?? [];
+    fbClean =
+      handles.length === 0 ||
+      handles.every((h) => mentions.some((m) => m.handle.toLowerCase() === h.toLowerCase())) ||
+      fbState.handlesApproved === true;
   }
 
   if (xClean && fbClean) {

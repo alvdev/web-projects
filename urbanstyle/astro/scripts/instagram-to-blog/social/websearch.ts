@@ -275,6 +275,18 @@ export async function searchProfile(
   return candidates[0] ?? null;
 }
 
+/** Remove the `locale` query param (and a leftover "?") from search-derived URLs. */
+export function stripLocaleParam(url: string): string {
+  try {
+    const parsed = new URL(url);
+    parsed.searchParams.delete("locale");
+    parsed.search = parsed.searchParams.toString();
+    return parsed.toString();
+  } catch {
+    return url;
+  }
+}
+
 /**
  * Like searchProfile but returns up to `max` matching profile candidates
  * (deduplicated by user) so callers can try each with their guards until one
@@ -306,7 +318,7 @@ export async function searchProfileCandidates(
       const key = user.toLowerCase();
       if (!user || seenUsers.has(key) || reserved.has(key) || /^\d+$/.test(user) || !userRegex.test(user)) continue;
       seenUsers.add(key);
-      found.push({ user, url });
+      found.push({ user, url: stripLocaleParam(url) });
       if (found.length >= max) return found;
     }
   }

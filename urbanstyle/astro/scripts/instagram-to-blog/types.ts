@@ -69,6 +69,7 @@ export interface SocialPlatformState {
   publishedAt?: string;
   error?: string;
   handlesApproved?: boolean; // user approved the FB text WITH @mentions as-is
+  fbMentions?: { handle: string; pageName: string; pageUrl?: string }[]; // verified pages per @handle
 }
 
 export interface PublishedEntry {

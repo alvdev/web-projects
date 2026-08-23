@@ -1,6 +1,6 @@
 import { extractHandles } from "./xverify";
 import { groundedCompletion } from "../llm";
-import { textsRelate, entityPhraseForHandle, sentenceForEntity } from "./websearch";
+import { textsRelate, entityPhraseForHandle, sentenceForEntity, stripLocaleParam } from "./websearch";
 
 export interface FbPageSuggestion {
   handle: string;   // the @token found in the text
@@ -129,7 +129,7 @@ function parseFbResponse(badHandle: string, raw: string): FbPageSuggestion | nul
     for (const u of urls) name = name.replace(u, " ");
     name = name.replace(/\|/g, " ").trim();
     if (isValidFbPageUrl(candidate)) {
-      pageUrl = candidate;
+      pageUrl = stripLocaleParam(candidate);
       // The exact user/mention is the path segment of the URL (the model's
       // pretty name is unreliable) — e.g. facebook.com/alejandrosanz → "alejandrosanz".
       const user = decodeURIComponent(candidate.replace(/\/+$/, "").split("/").pop() ?? "");
