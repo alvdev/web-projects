@@ -8,7 +8,8 @@ const BASE_DELAY_MS = 2000;
 
 // Availability retry: on 503/429, wait 30s -> 60s -> 120s -> 120s... until the provider
 // is back. 30s is far below any rate limit; 503 means the server itself asks to
-// retry later, so escalating slowly is safe and effective. Keeps trying forever.
+// retry later, so escalating slowly is safe and effective. withAvailability bounds
+// the loop (see below) so a fully quota-exhausted day can never block the flow forever.
 const AVAILABILITY_INTERVALS_MS = [30_000, 60_000, 120_000, 120_000];
 
 const deepseekClient = new OpenAI({
@@ -74,17 +75,20 @@ async function withAvailability503<T>(label: string, fn: () => Promise<T>): Prom
 }
 
 /**
- * Run fn; if it fails with 503 OR 429, keep retrying with escalating waits.
- * Used at the top level: both mean "unavailable right now", and retrying the
- * whole chain (which starts from the primary model again) is safe.
+ * Run fn; if it fails with 503 OR 429, retry with escalating waits — but only
+ * for a BOUNDED number of cycles. Transient unavailability resolves within
+ * minutes; a daily quota exhaustion (all models 429) does not, so after ~2
+ * retry cycles (~90s + chain time) the error surfaces and callers fall back
+ * (DeepSeek / repair path) instead of blocking the flow forever.
  */
 async function withAvailability<T>(label: string, fn: () => Promise<T>): Promise<T> {
   let intervalIndex = 0;
-  for (;;) {
+  for (let cycle = 0; ; cycle++) {
     try {
       return await fn();
     } catch (err) {
       if (!is503(err) && !is429(err)) throw err;
+      if (cycle >= 2) throw err;
       const waitMs =
         intervalIndex < AVAILABILITY_INTERVALS_MS.length
           ? AVAILABILITY_INTERVALS_MS[intervalIndex]

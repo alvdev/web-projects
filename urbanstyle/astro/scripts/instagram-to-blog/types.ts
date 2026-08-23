@@ -53,6 +53,7 @@ export interface NewPost {
   caption: string;
   mediaUrl: string;
   timestamp: string;
+  mediaType: string;
 }
 
 export type PendingStatus = "pending" | "regenerating";
@@ -63,10 +64,11 @@ export type SocialStatus = "queued" | "approved" | "published" | "failed";
 
 export interface SocialPlatformState {
   status: SocialStatus;
-  tweet?: string;        // approved tweet text
+  tweet?: string;        // approved tweet text (FB text for facebook)
   tweetProvider?: LlmProvider;  // provider chosen for the tweet
   publishedAt?: string;
   error?: string;
+  handlesApproved?: boolean; // user approved the FB text WITH @mentions as-is
 }
 
 export interface PublishedEntry {
@@ -76,6 +78,7 @@ export interface PublishedEntry {
   publishedAt: string;
   caption?: string;
   postTimestamp?: string;
+  mediaType?: string;
   social: Partial<Record<"x" | "facebook" | "gbp", SocialPlatformState>>;
 }
 
@@ -103,6 +106,8 @@ export interface PendingState {
   skippedIds: string[];
   pending: PendingEntry[];
   published: PublishedEntry[];
+  knownXHandles?: Record<string, string>; // artista (normalizado) → @handle X verificado
+  knownFbPages?: Record<string, { user: string; url: string }>; // @handle → página FB verificada
 }
 
 export interface Instruction {

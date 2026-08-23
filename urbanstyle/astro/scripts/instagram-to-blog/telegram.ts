@@ -59,7 +59,6 @@ export function approvalKeyboard(entry: PendingEntry): InlineKeyboard {
     .row()
     .text("✏️ Título", `edit:title:${id}`)
     .text("✏️ Descripción", `edit:desc:${id}`)
-    .row()
     .text("✏️ Contenido", `edit:content:${id}`)
     .row()
     .text("📐 Top", `crop:top:${id}`)

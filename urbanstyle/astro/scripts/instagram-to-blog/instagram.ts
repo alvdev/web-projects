@@ -56,6 +56,7 @@ export function filterNewPosts(posts: IgPost[], stopId: string | null): NewPost[
       caption: cleanCaption(post.caption),
       mediaUrl,
       timestamp: post.timestamp,
+      mediaType: post.media_type,
     });
   }
 

@@ -94,6 +94,7 @@ async function main(): Promise<void> {
           caption: post.caption,
           mediaUrl: post.media_url ?? post.thumbnail_url ?? "",
           timestamp: post.timestamp,
+          mediaType: post.media_type,
         },
         state,
         { notify: true },

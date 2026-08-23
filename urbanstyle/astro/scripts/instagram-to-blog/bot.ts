@@ -8,13 +8,15 @@ import { generateTweets, buildTweetPrompt } from "./tweet";
 import { addInstruction, loadInstructions, removeInstruction } from "./instructions";
 import { sendAlert } from "./mailer";
 import { notifyTelegram, escMarkdown, mdToHtml, escHtml } from "./telegram";
-import type { PendingEntry, PendingState, PreparedPost } from "./types";
+import type { PendingEntry, PendingState, PreparedPost, PublishedEntry } from "./types";
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
 
 interface SessionData {
   awaitingFeedbackFor?: string;
-  awaitingEditFor?: { postId: string; field: "title" | "desc" | "content" | "tweet" };
+  awaitingEditFor?: { postId: string; field: "title" | "desc" | "content" | "tweet" | "fbtext" | "xhandles" | "fbhandles" };
+  fbSuggestions?: Record<string, { handle: string; pageName: string; pageUrl?: string; source?: "web" | "gemini" }[]>;
+  tweetCandidates?: Record<string, { gemini?: string; deepseek?: string }>;
 }
 
 type MyContext = Context & SessionFlavor<SessionData>;
@@ -83,6 +85,7 @@ async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyCon
       publishedAt: new Date().toISOString(),
       caption: entry.post.caption,
       postTimestamp: entry.post.timestamp,
+      mediaType: entry.post.mediaType,
       social: { x: { status: "queued" } },
     });
     await saveState(state);
@@ -158,27 +161,63 @@ bot.callbackQuery(/^remove:(.+)$/, async (ctx) => {
   await removePublishedPost(ctx.match[1], ctx);
 });
 
-bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
-  if (!isAllowed(ctx)) return;
-  const postId = ctx.match[1];
-  const state = await freshState();
-  const published = state.published.find((e) => e.id === postId);
-  if (!published) {
-    await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
-    return;
-  }
+/**
+ * Extract the main artist name from the caption: the first meaningful words
+ * (up to 3), stripped of hashtags, emojis, URLs, @tokens and separators.
+ * Returns progressively shorter candidates ("DEI V llega a" → "DEI V").
+ */
+function extractArtistName(caption: string): string[] {
+  const clean = caption
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/#\w+/g, " ")
+    .replace(/@\w+/g, " ")
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu, " ")
+    .replace(/[\s•·—–\-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const words = clean
+    .split(/\s+/)
+    .filter(Boolean)
+    // Strip leading/trailing punctuation so "¡DEI V" → "DEI V".
+    .map((w) => w.replace(/^[¡¿«“'([\]]+|[.,;:!?»”')\]]+$/g, ""))
+    .filter(Boolean);
+  const candidates = [words.slice(0, 3).join(" "), words.slice(0, 2).join(" "), words[0]].filter(
+    (w): w is string => !!w && w.length >= 2,
+  );
+  return [...new Set(candidates)];
+}
 
+/**
+ * Escape text for Telegram Markdown while turning every @handle into a
+ * clickable link (with the @ symbol) to its x.com profile. When a whitelist
+ * (lowercase handles) is given, ONLY those handles are linked — the rest
+ * stay as plain escaped text. Escapes the non-handle pieces; handles are
+ * regex-validated and safe inside link text.
+ */
+function linkifyHandles(text: string, whitelist?: Set<string>): string {
+  return text
+    .split(/(@[A-Za-z0-9_]{1,15})/g)
+    .map((part) => {
+      if (/^@[A-Za-z0-9_]{1,15}$/.test(part)) {
+        const h = part.slice(1).toLowerCase();
+        if (!whitelist || whitelist.has(h)) return `[${part}](https://x.com/${part.slice(1)})`;
+      }
+      return escMarkdown(part);
+    })
+    .join("");
+}
+
+async function startTweetFlow(published: PublishedEntry, state: PendingState, ctx: MyContext): Promise<void> {
   const xState = published.social.x ?? { status: "queued" };
   published.social.x = xState;
 
-  await ctx.answerCallbackQuery({ text: "Generando tweets..." });
   await ctx.reply(`⏳ Generando propuestas de tweet para *"${published.title}"* (Gemini + DeepSeek)...`, {
     parse_mode: "Markdown",
   });
 
   try {
     // Rebuild the PreparedPost so tweet.ts has full data (title, desc, slug)
-    const pendingEntry = state.pending.find((e) => e.id === postId);
+    const pendingEntry = state.pending.find((e) => e.id === published.id);
     const source = pendingEntry?.prepared ?? {
       title: published.title,
       description: "",
@@ -189,7 +228,7 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
       pubDate: published.publishedAt,
       basePath: "",
       media_url: "",
-      igMediaId: postId,
+      igMediaId: published.id,
       mdxPath: "",
       imagePath: "",
     };
@@ -199,36 +238,125 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
       published.caption ?? pendingEntry?.post.caption ?? "",
       published.postTimestamp ?? pendingEntry?.post.timestamp,
     );
+
+    // Inject the main artist's @mention when the LLM wrote the plain name
+    // ("DEI V" → "@DeiV"), so the artist is always mentioned on X (and, via
+    // the FB flow, its Facebook page). The handle is resolved via web search
+    // + x.com verification; if it cannot be verified the text stays plain.
+    const { findArtistHandle, extractHandles } = await import("./social/xverify");
+    const { textsRelate } = await import("./social/websearch");
+    const artistCandidates = extractArtistName(published.caption ?? pendingEntry?.post.caption ?? "");
+    const captionText = published.caption ?? pendingEntry?.post.caption ?? "";
+    const injectArtistMention = async (text?: string): Promise<string | undefined> => {
+      if (!text || artistCandidates.length === 0) return text;
+      const existing = extractHandles(text).filter((h) => textsRelate(h, artistCandidates[0]));
+      if (existing.length > 0) return text;
+      for (const artistName of artistCandidates) {
+        const idx = text.toLowerCase().indexOf(artistName.toLowerCase());
+        if (idx === -1) continue;
+        const official = await findArtistHandle(artistName, captionText);
+        if (!official?.handle) continue; // try the shorter candidate
+        return `${text.slice(0, idx)}@${official.handle}${text.slice(idx + artistName.length)}`.trim();
+      }
+      return text;
+    };
+    if (tweets.gemini) tweets.gemini = await injectArtistMention(tweets.gemini);
+    if (tweets.deepseek) tweets.deepseek = await injectArtistMention(tweets.deepseek);
+
+    // Persist verified artist-handles found during injection.
+    const { dumpKnownArtistHandles } = await import("./social/xverify");
+    const dumpedHandles = dumpKnownArtistHandles();
+    if (Object.keys(dumpedHandles).length > 0) {
+      state.knownXHandles = { ...state.knownXHandles, ...dumpedHandles };
+    }
+
     xState.status = "queued";
     xState.tweet = undefined;
     await saveState(state);
 
-    // Verify @handles in both versions
-    const { verifyTweetHandles, formatHandleStatus } = await import("./social/xverify");
-    const verifyFor = async (t: string): Promise<string[]> => {
-      const infos = await verifyTweetHandles(t);
-      return infos.map((i) => formatHandleStatus(i));
+    // Verify every @mention in both versions ONCE. Only existing accounts get
+    // a 🔗 profile button; non-existent ones are resolved via the official
+    // handle lookup and announced (the actual fix happens at pickTweet).
+    const { verifyHandle, formatHandleStatus, findOfficialHandle } = await import("./social/xverify");
+    type HandleInfo = Awaited<ReturnType<typeof verifyHandle>>;
+    const allHandles = [
+      ...new Set([tweets.gemini ?? "", tweets.deepseek ?? ""].flatMap((t) => extractHandles(t))),
+    ];
+    const statusByHandle = new Map<string, HandleInfo>();
+    const corrections: Record<string, string> = {}; // badHandle -> official handle
+    const caption = published.caption ?? pendingEntry?.post.caption ?? "";
+    for (const h of allHandles) {
+      const info = await verifyHandle(h);
+      statusByHandle.set(h, info);
+      if (info.status !== "verified") {
+        const official = await findOfficialHandle(h, caption);
+        if (official?.status === "verified") corrections[h] = official.handle;
+      }
+    }
+    const statusLineFor = (t: string): string[] =>
+      extractHandles(t)
+        .map((h) => statusByHandle.get(h))
+        .filter((i): i is HandleInfo => !!i)
+        .map((i) => formatHandleStatus(i));
+
+    // Only VERIFIED handles and correction officials get clickable links in
+    // the version texts — non-existent mentions stay as plain text.
+    const linkWhitelist = new Set([
+      ...allHandles.filter((h) => statusByHandle.get(h)?.status === "verified").map((h) => h.toLowerCase()),
+      ...Object.values(corrections).map((h) => h.toLowerCase()),
+    ]);
+    // Persist the exact versions so pickTweet uses the picked text verbatim
+    // (no regeneration dropping mentions like @movistararenaes).
+    ctx.session.tweetCandidates = {
+      ...ctx.session.tweetCandidates,
+      [published.id]: { gemini: tweets.gemini, deepseek: tweets.deepseek },
     };
 
     const lines: string[] = ["Selecciona la versión del tweet:"];
     if (tweets.gemini) {
-      lines.push("", `📝 *GEMINI:*\n${escMarkdown(tweets.gemini)}`);
-      const statuses = await verifyFor(tweets.gemini);
+      lines.push("", `📝 *GEMINI:*\n${linkifyHandles(tweets.gemini, linkWhitelist)}`);
+      const statuses = statusLineFor(tweets.gemini);
       if (statuses.length) lines.push("", ...statuses.map((s) => escMarkdown(s)));
     }
     if (tweets.deepseek) {
-      lines.push("", `📝 *DEEPSEEK:*\n${escMarkdown(tweets.deepseek)}`);
-      const statuses = await verifyFor(tweets.deepseek);
+      lines.push("", `📝 *DEEPSEEK:*\n${linkifyHandles(tweets.deepseek, linkWhitelist)}`);
+      const statuses = statusLineFor(tweets.deepseek);
       if (statuses.length) lines.push("", ...statuses.map((s) => escMarkdown(s)));
     }
     if (tweets.gemini && tweets.deepseek && tweets.gemini === tweets.deepseek) {
       lines.push("", "⚠️ Ambas versiones son idénticas.");
     }
+    const correctionEntries = Object.entries(corrections);
+    if (correctionEntries.length > 0) {
+      lines.push(
+        "",
+        ...correctionEntries.map(([bad, good]) => `❌ @${escMarkdown(bad)} no existe en X → se corregirá a *@${escMarkdown(good)}* al elegir versión.`),
+      );
+    }
 
     // Dual picker buttons
     const kb = new InlineKeyboard();
-    if (tweets.gemini) kb.text("❤️ Tweet Gemini", `pickTweet:gemini:${postId}`);
-    if (tweets.deepseek) kb.text("💙 Tweet DeepSeek", `pickTweet:deepseek:${postId}`);
+    if (tweets.gemini) kb.text("❤️ Tweet Gemini", `pickTweet:gemini:${published.id}`);
+    if (tweets.deepseek) kb.text("💙 Tweet DeepSeek", `pickTweet:deepseek:${published.id}`);
+
+    // Clickable profile links ONLY for accounts that exist (verified handles +
+    // resolved official corrections). Non-existent mentions never get a button.
+    // Deduplicated case-insensitively (Deivpr == deivpr).
+    const buttonHandles = [
+      ...new Map(
+        [
+          ...allHandles.filter((h) => statusByHandle.get(h)?.status === "verified"),
+          ...correctionEntries.map(([, good]) => good),
+        ].map((h) => [h.toLowerCase(), h]),
+      ).values(),
+    ].sort();
+    if (buttonHandles.length > 0) {
+      kb.row();
+      buttonHandles.forEach((h, i) => {
+        if (i > 0 && i % 4 === 0) kb.row();
+        kb.url(`🔗 @${h}`, `https://x.com/${h}`);
+      });
+    }
 
     await ctx.reply(lines.join("\n"), {
       parse_mode: "Markdown",
@@ -237,6 +365,384 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
   } catch (err) {
     console.error("[bot] tweet generation failed:", err);
     await ctx.reply(`❌ Error generando tweets: ${(err as Error).message}`);
+  }
+}
+
+async function startFbFlow(published: PublishedEntry, state: PendingState, ctx: MyContext): Promise<void> {
+  const xTweet = published.social.x?.tweet;
+  const fbState = published.social.facebook ?? { status: "queued" };
+  published.social.facebook = fbState;
+
+  if (xTweet) {
+    // Primary path: Facebook reuses the exact approved X tweet text (the X
+    // rules — tense, RAE, style — apply by construction).
+    fbState.status = "approved";
+    fbState.tweet = xTweet;
+    fbState.tweetProvider = published.social.x?.tweetProvider;
+    await saveState(state);
+
+    await showFbApproval(
+      published,
+      state,
+      ctx,
+      xTweet,
+      published.caption ?? "",
+      "📋 Usamos para Facebook el mismo texto aprobado para X:",
+    );
+    return;
+  }
+
+  // Fallback (no approved X tweet): dual-LLM FB text picker.
+  await ctx.reply(`⏳ Generando propuestas de post para Facebook *"${published.title}"* (Gemini + DeepSeek)...`, {
+    parse_mode: "Markdown",
+  });
+
+  try {
+    const pendingEntry = state.pending.find((e) => e.id === published.id);
+    const source = pendingEntry?.prepared ?? {
+      title: published.title,
+      description: "",
+      content: "",
+      tags: [],
+      category: "",
+      slug: published.slug,
+      pubDate: published.publishedAt,
+      basePath: "",
+      media_url: "",
+      igMediaId: published.id,
+      mdxPath: "",
+      imagePath: "",
+    };
+
+    const { generateFbTexts } = await import("./social/fbpost");
+    const texts = await generateFbTexts(
+      source as PreparedPost,
+      published.caption ?? pendingEntry?.post.caption ?? "",
+      published.postTimestamp ?? pendingEntry?.post.timestamp,
+    );
+    fbState.status = "queued";
+    fbState.tweet = undefined;
+    await saveState(state);
+
+    const lines: string[] = ["Selecciona la versión del post para Facebook:"];
+    if (texts.gemini) {
+      lines.push("", `📝 *GEMINI:*\n${escMarkdown(texts.gemini)}`);
+    }
+    if (texts.deepseek) {
+      lines.push("", `📝 *DEEPSEEK:*\n${escMarkdown(texts.deepseek)}`);
+    }
+    if (texts.gemini && texts.deepseek && texts.gemini === texts.deepseek) {
+      lines.push("", "⚠️ Ambas versiones son idénticas.");
+    }
+
+    const kb = new InlineKeyboard();
+    if (texts.gemini) kb.text("❤️ FB Gemini", `pickFb:gemini:${published.id}`);
+    if (texts.deepseek) kb.text("💙 FB DeepSeek", `pickFb:deepseek:${published.id}`);
+
+    await ctx.reply(lines.join("\n"), {
+      parse_mode: "Markdown",
+      reply_markup: kb,
+    });
+  } catch (err) {
+    console.error("[bot] fb generation failed:", err);
+    await ctx.reply(`❌ Error generando post de Facebook: ${(err as Error).message}`);
+  }
+}
+
+/**
+ * Show the Facebook approval state for the given text: grounded page
+ * suggestions (✅ Usar), repair options and — when clean — the 📤 Publicar en
+ * redes button right here in the last message (no scrolling back).
+ */
+async function showFbApproval(
+  published: PublishedEntry,
+  state: PendingState,
+  ctx: MyContext,
+  fbText: string,
+  caption: string,
+  header = "",
+  statusMsg?: { chatId: number; messageId: number },
+): Promise<void> {
+  const postId = published.id;
+  const fbState = published.social.facebook;
+  const { extractHandles } = await import("./social/xverify");
+  let suggestions: { handle: string; pageName: string; pageUrl?: string; source?: "web" | "gemini" }[] = [];
+  try {
+    const { suggestFbPages } = await import("./social/fbverify");
+    suggestions = await suggestFbPages(fbText, caption);
+  } catch (err) {
+    console.warn("[bot] FB page suggestions failed:", (err as Error).message);
+    // Fall through with no suggestions — the repair keyboard must still show.
+  }
+  ctx.session.fbSuggestions = { ...ctx.session.fbSuggestions, [postId]: suggestions };
+
+  const unresolved = extractHandles(fbText).length > 0;
+  const kb = new InlineKeyboard();
+  kb.text("✏️ Editar texto", `editFb:${postId}`).text("✏️ Editar menciones", `editHandlesFb:${postId}`).text("❌ Rechazar", `rejectFb:${postId}`);
+  // Each suggestion: [✅ Usar "page"] + [🔗 Página] opening the verified page
+  // URL (always the official page — never a Facebook search).
+  const { isValidFbPageUrl } = await import("./social/fbverify");
+  const fbPageUrlFor = (s: { pageName: string; pageUrl?: string }): string =>
+    s.pageUrl && isValidFbPageUrl(s.pageUrl)
+      ? s.pageUrl
+      : `https://www.facebook.com/${encodeURIComponent(s.pageName)}`;
+  suggestions.forEach((s, i) => {
+    const pageUrl = fbPageUrlFor(s);
+    const label = s.pageName.length > 40 ? `${s.pageName.slice(0, 40)}…` : s.pageName;
+    kb.row().text(`✅ Usar "${label}"`, `useFbPage:${postId}:${i}`).url("🔗 Página", pageUrl);
+  });
+  // Quitar menciones is ALWAYS available while mentions remain, on the same
+  // row as a 🔗 button to each verified page (when one was found).
+  const approvedWithHandles = fbState?.handlesApproved === true;
+  if (unresolved) {
+    kb.row().text("✂️ Quitar menciones", `fixFb:${postId}`);
+    const seenUrls = new Set<string>();
+    for (const s of suggestions) {
+      const url = fbPageUrlFor(s);
+      if (seenUrls.has(url.toLowerCase())) continue;
+      seenUrls.add(url.toLowerCase());
+      const label = s.pageName.length > 25 ? `${s.pageName.slice(0, 25)}…` : s.pageName;
+      kb.url(`🔗 ${label}`, url);
+    }
+    // Approve the text AS-IS (the @mentions stay — real tags can only be
+    // added in the Facebook editor).
+    if (!approvedWithHandles) {
+      kb.row().text("✅ Aprobar", `approveFbHandles:${postId}`);
+    }
+  }
+  // When everything is approved (no mentions OR explicitly approved with
+  // mentions), the publish trigger lives HERE (last message) — the user must
+  // never scroll back to the original post message.
+  if (!unresolved || approvedWithHandles) {
+    kb.row().text("📤 Publicar en redes", `social:${postId}`);
+  }
+
+  // Render the text with every VERIFIED mention clickable (link to the found
+  // page). Unresolved @handles stay as plain text — no Facebook search links.
+  // Works on the RAW text (before escaping) so underscores etc. never break
+  // the match; non-matched pieces are escMarkdown'd. The stored/published
+  // text stays clean — only the Telegram rendering links.
+  const escapeRegex = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const linkKeys = new Map<string, string>(); // raw token -> url
+  const statusLines: string[] = [];
+  for (const s of suggestions) {
+    const url = fbPageUrlFor(s);
+    linkKeys.set(`@${s.handle}`, url);
+    linkKeys.set(`@${s.handle.toLowerCase()}`, url);
+    linkKeys.set(s.pageName, url);
+    linkKeys.set(s.pageName.toLowerCase(), url);
+    const via = s.source === "gemini" ? "vía Gemini" : "vía búsqueda web";
+    statusLines.push(`ℹ️ @${escMarkdown(s.handle)} → página oficial FB: [${s.pageName}](${url}) (${via})`);
+  }
+  let rendered: string;
+  if (linkKeys.size === 0) {
+    rendered = escMarkdown(fbText);
+  } else {
+    const linkRegex = new RegExp(
+      `(${[...linkKeys.keys()].sort((a, b) => b.length - a.length).map(escapeRegex).join("|")})`,
+      "g",
+    );
+    rendered = fbText
+      .split(linkRegex)
+      .map((part) => (linkKeys.has(part) ? `[${part}](${linkKeys.get(part)})` : escMarkdown(part)))
+      .join("");
+  }
+  const body = unresolved && !approvedWithHandles
+    ? `📝 *Texto de Facebook:*\n\n${rendered}${statusLines.length ? `\n\n${statusLines.join("\n")}` : ""}\n\n⚠️ Resuelve las menciones antes de publicar (o pulsa ✅ Aprobar).`
+    : `✅ *Texto de Facebook aprobado:*\n\n${rendered}${approvedWithHandles ? `\n\n*Nota:* las @menciones se mantienen en el texto — puedes añadir los tags reales en el editor de Facebook.` : ""}\n\n✅ Textos de X y Facebook aprobados.\n\nPulsa 📤 Publicar en redes para publicar.`;
+  const text = header ? `${header}\n\n${body}` : body;
+
+  if (statusMsg) {
+    await ctx.api.editMessageText(statusMsg.chatId, statusMsg.messageId, text, { parse_mode: "Markdown", reply_markup: kb });
+  } else {
+    await ctx.reply(text, { parse_mode: "Markdown", reply_markup: kb });
+  }
+
+  // Persist verified FB pages found during this approval.
+  const { dumpKnownFbPages } = await import("./social/fbverify");
+  const dumpedPages = dumpKnownFbPages();
+  if (Object.keys(dumpedPages).length > 0) {
+    state.knownFbPages = { ...state.knownFbPages, ...dumpedPages };
+    await saveState(state);
+  }
+}
+
+// ---- Publish helpers (server-side gates enforced here) ----
+
+interface PublishResult {
+  ok: boolean;
+  line: string;
+}
+
+async function publishToX(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
+  const xState = published.social.x;
+  if (!xState?.tweet) return { ok: false, line: "❌ *X:* no hay tweet aprobado" };
+  if (xState.status === "published") return { ok: true, line: "✅ *X:* ya estaba publicado" };
+  try {
+    const { verifyTweetHandles } = await import("./social/xverify");
+    const handleInfos = await verifyTweetHandles(xState.tweet);
+    if (handleInfos.some((h) => h.status !== "verified")) {
+      return { ok: false, line: "❌ *X:* menciones sin verificar — pulsa ▶️ Publicar en redes para arreglarlas." };
+    }
+    const { getXChannel, createPost } = await import("./social/buffer");
+    const channel = await getXChannel();
+    const imageUrl = getPostImageUrl(published.slug);
+    const post = await createPost(channel.id, xState.tweet, imageUrl ?? undefined);
+    xState.status = "published";
+    xState.publishedAt = new Date().toISOString();
+    xState.error = undefined;
+    await saveState(state);
+    const link = post.externalLink ?? `https://x.com/pegadacarteles`;
+    await sendAlert(`[Urban Sync] Tweet publicado en X: ${published.title}`, `${xState.tweet}\n\n${link}`);
+    return { ok: true, line: `✅ *X:* ${escMarkdown(link)}` };
+  } catch (err) {
+    console.error("[bot] postX failed:", err);
+    xState.status = "failed";
+    xState.error = (err as Error).message;
+    await saveState(state);
+    await sendAlert("[Urban Sync] Error publicando tweet en X", `${(err as Error).message}\n\nPost: ${published.title}`);
+    return { ok: false, line: `❌ *X:* ${(err as Error).message}` };
+  }
+}
+
+async function publishToFb(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
+  const fbState = published.social.facebook;
+  if (!fbState?.tweet) return { ok: false, line: "❌ *Facebook:* no hay post aprobado" };
+  if (fbState.status === "published") return { ok: true, line: "✅ *Facebook:* ya estaba publicado" };
+  try {
+    const { extractHandles } = await import("./social/xverify");
+    // Gate: refuse unresolved @mentions unless the user approved them as-is.
+    if (extractHandles(fbState.tweet).length > 0 && fbState.handlesApproved !== true) {
+      return { ok: false, line: "❌ *Facebook:* menciones sin resolver — resuélvelas o pulsa ✅ Aprobar." };
+    }
+    const blogUrl = `https://urbanstylepublicity.com/blog/${published.slug}`;
+
+    // Direct Facebook Graph API (own page token) → REAL mentions (message_tags).
+    // Falls back to Buffer when no token is configured or the call fails.
+    if (process.env.FB_ACCESS_TOKEN && process.env.FB_PAGE_ID) {
+      try {
+        const { createFbPost } = await import("./social/facebook");
+        const post = await createFbPost(fbState.tweet, blogUrl);
+        fbState.status = "published";
+        fbState.publishedAt = new Date().toISOString();
+        fbState.error = undefined;
+        await saveState(state);
+        await sendAlert(`[Urban Sync] Publicado en Facebook (Graph API): ${published.title}`, `${fbState.tweet}\n\n${post.externalLink}`);
+        return { ok: true, line: `✅ *Facebook (directo):* ${escMarkdown(post.externalLink)}` };
+      } catch (err) {
+        // Fallback to Buffer below (no post was created on a failed call).
+        console.warn("[bot] postFb direct FB failed — falling back to Buffer:", (err as Error).message);
+      }
+    }
+
+    const { getFbChannel, createPost } = await import("./social/buffer");
+    const channel = await getFbChannel();
+    const imageUrl = getPostImageUrl(published.slug);
+    const fbType = published.mediaType === "VIDEO" ? "reel" : "post";
+    const post = await createPost(channel.id, fbState.tweet, imageUrl ?? undefined, fbType);
+    fbState.status = "published";
+    fbState.publishedAt = new Date().toISOString();
+    fbState.error = undefined;
+    await saveState(state);
+    const link = post.externalLink ?? "";
+    await sendAlert(`[Urban Sync] Publicado en Facebook: ${published.title}`, `${fbState.tweet}\n\n${link}`);
+    return { ok: true, line: link ? `✅ *Facebook:* ${escMarkdown(link)}` : "✅ *Facebook:* publicado" };
+  } catch (err) {
+    console.error("[bot] postFb failed:", err);
+    fbState.status = "failed";
+    fbState.error = (err as Error).message;
+    await saveState(state);
+    await sendAlert("[Urban Sync] Error publicando en Facebook", `${(err as Error).message}\n\nPost: ${published.title}`);
+    return { ok: false, line: `❌ *Facebook:* ${(err as Error).message}` };
+  }
+}
+
+bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  console.log(`[bot] social: tapped ${postId}`);
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) {
+    await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
+    return;
+  }
+
+  const xDone = published.social.x?.status === "published";
+  const fbDone = published.social.facebook?.status === "published";
+  const xState = published.social.x;
+  const fbState = published.social.facebook;
+
+  await ctx.answerCallbackQuery({ text: "Preparando redes..." }).catch(() => {
+    // Stale/expired callback query (e.g. double tap or bot restart) — the
+    // handler must keep running, the answer is only a toast.
+  });
+  // Immediate visible feedback: the readiness checks (X handle scraping +
+  // grounded lookups) can take a minute or two — never leave the tap silent.
+  const statusMsg = await ctx.reply("⏳ Comprobando textos aprobados y menciones...", { parse_mode: "Markdown" });
+  if (xDone && fbDone) {
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "✅ Este post ya está publicado en X y en Facebook.", { parse_mode: "Markdown" });
+    return;
+  }
+
+  // Readiness: "clean" = an approved/published text exists with all mentions
+  // resolved, for platforms still pending. A fresh post (no state at all) is
+  // NOT clean — it must go through the preparation flows first.
+  let xClean = !!xState?.tweet && (xState.status === "approved" || xState.status === "published");
+  let fbClean = !!fbState?.tweet && (fbState.status === "approved" || fbState.status === "published");
+  if (xClean && !xDone && xState?.tweet) {
+    const { verifyTweetHandles } = await import("./social/xverify");
+    xClean = (await verifyTweetHandles(xState.tweet)).every((h) => h.status === "verified");
+  }
+  if (fbClean && !fbDone && fbState?.tweet) {
+    const { extractHandles } = await import("./social/xverify");
+    // Clean when no @mentions remain OR the user explicitly approved the
+    // text with mentions (✅ Aprobar → tags added manually in the FB editor).
+    fbClean = extractHandles(fbState.tweet).length === 0 || fbState.handlesApproved === true;
+  }
+
+  if (xClean && fbClean) {
+    // Everything approved → publish the remaining platforms.
+    const statusMsg = await ctx.reply("⏳ Publicando en redes...", { parse_mode: "Markdown" });
+    const lines: string[] = [];
+    if (!xDone) {
+      await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Publicando en X (@pegadacarteles) vía Buffer...", { parse_mode: "Markdown" });
+      const rx = await publishToX(published, state);
+      lines.push(rx.line);
+      if (!rx.ok) {
+        await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, lines.join("\n"), { parse_mode: "Markdown" });
+        return;
+      }
+    }
+    if (!fbDone) {
+      await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Publicando en Facebook (Urban Style Publicity) vía Buffer...", { parse_mode: "Markdown" });
+      const rf = await publishToFb(published, state);
+      lines.push(rf.line);
+      if (!rf.ok) {
+        await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, lines.join("\n"), { parse_mode: "Markdown" });
+        return;
+      }
+    }
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `✅ *Publicado en redes:*\n\n${lines.join("\n")}`, { parse_mode: "Markdown" });
+    return;
+  }
+
+  // Not ready yet → prepare the pending platform (X first).
+  if (!xDone && !xClean) {
+    published.social.x = { status: "queued" };
+    await saveState(state);
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Preparando texto de X (Gemini + DeepSeek)...", { parse_mode: "Markdown" });
+    await startTweetFlow(published, state, ctx);
+  } else if (!fbDone && !fbClean) {
+    published.social.facebook = { status: "queued" };
+    await saveState(state);
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Preparando texto de Facebook...", { parse_mode: "Markdown" });
+    await startFbFlow(published, state, ctx);
+  } else {
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "✅ Textos listos. Pulsa 📤 Publicar en redes para publicar.", {
+      parse_mode: "Markdown",
+      reply_markup: new InlineKeyboard().text("📤 Publicar en redes", `social:${postId}`),
+    });
   }
 });
 
@@ -253,7 +759,9 @@ bot.callbackQuery(/^pickTweet:(gemini|deepseek):(.+)$/, async (ctx) => {
   const xState = published.social.x ?? { status: "queued" };
   await ctx.answerCallbackQuery({ text: `Tweet de ${provider} elegido` });
 
-  // Regenerate the chosen tweet (or use cached) — regenerate for accuracy
+  // Use the EXACT version the user picked (stored by startTweetFlow) — no
+  // regeneration, so mentions like @movistararenaes are never dropped.
+  // Falls back to regeneration only if the session was lost (bot restart).
   const pendingEntry = state.pending.find((e) => e.id === postId);
   const source = pendingEntry?.prepared ?? {
     title: published.title,
@@ -270,20 +778,27 @@ bot.callbackQuery(/^pickTweet:(gemini|deepseek):(.+)$/, async (ctx) => {
     imagePath: "",
   };
 
-  const statusMsg = await ctx.reply(`⏳ Generando tweet definitivo con ${provider}...`);
+  const statusMsg = await ctx.reply(`⏳ Preparando el tweet elegido con ${provider}...`);
   try {
-    const prompt = buildTweetPrompt(source as PreparedPost, published.caption ?? "", published.postTimestamp ?? "");
-    const text = await generateTextCompletion(prompt, provider, { temperature: 0.8, maxTokens: 4000 });
-    const body = text
-      .trim()
-      .replace(/^["']|["']$/g, "")
-      .replace(/https?:\/\/\S+/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-    const url = `https://urbanstylepublicity.com/blog/${published.slug}`;
-    const maxBody = 280 - 23; // URL counts as 23 chars on X (t.co)
-    const trimmedBody = body.length > maxBody ? body.slice(0, maxBody) : body;
-    const tweet = `${trimmedBody} ${url}`.trim();
+    const candidates = ctx.session.tweetCandidates?.[postId];
+    let tweet: string;
+    const picked = candidates?.[provider];
+    if (picked) {
+      tweet = picked;
+    } else {
+      const prompt = buildTweetPrompt(source as PreparedPost, published.caption ?? "", published.postTimestamp ?? "");
+      const text = await generateTextCompletion(prompt, provider, { temperature: 0.8, maxTokens: 8000 });
+      const body = text
+        .trim()
+        .replace(/^["']|["']$/g, "")
+        .replace(/https?:\/\/\S+/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      const url = `https://urbanstylepublicity.com/blog/${published.slug}`;
+      const maxBody = 280 - 23; // URL counts as 23 chars on X (t.co)
+      const trimmedBody = body.length > maxBody ? body.slice(0, maxBody) : body;
+      tweet = `${trimmedBody} ${url}`.trim();
+    }
 
     xState.status = "approved";
     xState.tweet = tweet;
@@ -292,15 +807,16 @@ bot.callbackQuery(/^pickTweet:(gemini|deepseek):(.+)$/, async (ctx) => {
     await saveState(state);
 
     // Verify @handles in the final tweet; for invalid/suspicious handles,
-    // look up the official handle via Google-search-grounded Gemini and show
-    // the comparison so the user can decide.
+    // look up the official handle (web search first, grounded Gemini as
+    // fallback) and AUTO-APPLY the correction — no manual "Usar" button.
     const { verifyTweetHandles, formatHandleStatus, extractHandles, findOfficialHandle } = await import("./social/xverify");
-    const handleInfos = await verifyTweetHandles(tweet);
-    const hasInvalid = handleInfos.some((h) => h.status !== "verified");
+    let finalTweet = tweet;
+    let handleInfos = await verifyTweetHandles(finalTweet);
+    let hasInvalid = handleInfos.some((h) => h.status !== "verified");
     const statusLines = handleInfos.map((h) => formatHandleStatus(h));
-    const suggestions: Record<string, string> = {}; // badHandle -> official handle
+    const suggestionLines: string[] = []; // pre-escaped, raw *bold* markers
 
-    if (hasInvalid && extractHandles(tweet).length > 0) {
+    if (hasInvalid && extractHandles(finalTweet).length > 0) {
       await ctx.api.editMessageText(
         ctx.chat!.id,
         statusMsg.message_id,
@@ -311,41 +827,62 @@ bot.callbackQuery(/^pickTweet:(gemini|deepseek):(.+)$/, async (ctx) => {
         if (info.status !== "verified") {
           const official = await findOfficialHandle(info.handle, caption);
           if (official?.status === "verified") {
-            suggestions[info.handle] = official.handle;
-            statusLines.push(
-              "",
-              `↔️ @${info.handle} → *@${official.handle}* (${official.followers ? (official.followers >= 1_000_000 ? (official.followers / 1_000_000).toFixed(1) + "M" : official.followers >= 1000 ? (official.followers / 1000).toFixed(0) + "K" : String(official.followers)) : "?"} seguidores${official.isVerified ? ", verificado" : ""})`,
+            finalTweet = finalTweet.replace(new RegExp(`@${info.handle}`, "gi"), `@${official.handle}`);
+            suggestionLines.push(
+              `✅ Menciones corregidas automáticamente: @${escMarkdown(info.handle)} → *@${escMarkdown(official.handle)}*`,
             );
           }
         }
       }
+      if (suggestionLines.length > 0) {
+        xState.tweet = finalTweet;
+        await saveState(state);
+        // Re-verify after the automatic corrections.
+        handleInfos = await verifyTweetHandles(finalTweet);
+        statusLines.length = 0;
+        statusLines.push(...handleInfos.map((h) => formatHandleStatus(h)));
+        hasInvalid = handleInfos.some((h) => h.status !== "verified");
+      }
     }
 
-    const kb = new InlineKeyboard()
-      .text("📤 Publicar en X", `postX:${postId}`)
-      .text("✏️ Editar tweet", `editTweet:${postId}`)
-      .row()
-      .text("❌ Rechazar", `rejectTweet:${postId}`);
-    const suggestionEntries = Object.entries(suggestions);
-    // First ✅ Usar pairs with ❌ on the same row; further ones pair 2 per row.
-    for (let i = 0; i < suggestionEntries.length; i++) {
-      const [bad, good] = suggestionEntries[i];
-      if (i % 2 === 1) kb.row();
-      kb.text(`✅ Usar @${good}`, `useHandle:${postId}:${bad}:${good}`);
-    }
-    if (hasInvalid && suggestionEntries.length === 0 && extractHandles(tweet).length > 0) {
+    const canPublish = handleInfos.every((h) => h.status === "verified");
+    // Only verified handles are clickable in the final text.
+    const verifiedSet = new Set(handleInfos.filter((h) => h.status === "verified").map((h) => h.handle.toLowerCase()));
+    const kb = new InlineKeyboard();
+    kb.text("✏️ Editar tweet", `editTweet:${postId}`).text("✏️ Editar menciones", `editHandlesX:${postId}`).text("❌ Rechazar", `rejectTweet:${postId}`);
+    if (hasInvalid && extractHandles(finalTweet).length > 0) {
       kb.row().text("✂️ Auto-arreglar", `fixTweet:${postId}`);
+    }
+    // Clickable profile links ONLY for accounts that exist (verified),
+    // deduplicated case-insensitively.
+    const verifiedHandles = [
+      ...new Map(handleInfos.filter((h) => h.status === "verified").map((h) => [h.handle.toLowerCase(), h.handle])).values(),
+    ];
+    if (verifiedHandles.length > 0) {
+      kb.row();
+      verifiedHandles.forEach((h, i) => {
+        if (i > 0 && i % 4 === 0) kb.row();
+        kb.url(`🔗 @${h}`, `https://x.com/${h}`);
+      });
     }
 
     await ctx.api.editMessageText(
       ctx.chat!.id,
       statusMsg.message_id,
-      `✅ Tweet listo (${tweet.length} caracteres):\n\n${escMarkdown(tweet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}`,
+      `✅ Tweet listo (${finalTweet.length} caracteres):\n\n${linkifyHandles(finalTweet, verifiedSet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}${suggestionLines.length ? `\n\n${suggestionLines.join("\n")}` : ""}${canPublish ? "\n\n✅ Tweet aprobado — preparando Facebook..." : `\n\n⚠️ Resuelve las menciones antes de publicar.`}`,
       {
         parse_mode: "Markdown",
         reply_markup: kb,
       },
     );
+    // Auto-advance to the Facebook flow once the tweet is clean.
+    if (canPublish && published.social.facebook?.status !== "published") {
+      try {
+        await startFbFlow(published, state, ctx);
+      } catch (err) {
+        console.error("[bot] fb continuation failed:", err);
+      }
+    }
   } catch (err) {
     console.error("[bot] tweet regeneration failed:", err);
     await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ Error: ${(err as Error).message}`);
@@ -375,18 +912,33 @@ bot.callbackQuery(/^useHandle:(.+):(.+):(.+)$/, async (ctx) => {
   xState.tweet = replaced;
   await saveState(state);
 
+  const { verifyTweetHandles, formatHandleStatus, extractHandles } = await import("./social/xverify");
+  const infos = await verifyTweetHandles(replaced);
+  const canPublish = infos.every((h) => h.status === "verified");
+  const kb = new InlineKeyboard();
+  kb.text("✏️ Editar tweet", `editTweet:${postId}`);
+  kb.row().text("❌ Rechazar", `rejectTweet:${postId}`);
+  if (!canPublish && extractHandles(replaced).length > 0) {
+    kb.row().text("✂️ Auto-arreglar", `fixTweet:${postId}`);
+  }
+  kb.row().url(`🔗 Ver @${good}`, `https://x.com/${good}`);
+
   await ctx.answerCallbackQuery({ text: `@${bad} → @${good}` });
   await ctx.reply(
-    `✅ Menciones corregidas: @${bad} → @${good}\n\n${escMarkdown(replaced)}`,
+    `✅ Menciones corregidas: @${escMarkdown(bad)} → @${escMarkdown(good)}\n\n${escMarkdown(replaced)}${!canPublish && extractHandles(replaced).length > 0 ? `\n\n⚠️ Resuelve las menciones antes de publicar.` : ""}${infos.length > 0 ? `\n\n${infos.map((i) => escMarkdown(formatHandleStatus(i))).join("\n")}` : ""}${canPublish ? `\n\n✅ Tweet aprobado — preparando Facebook...` : ""}`,
     {
       parse_mode: "Markdown",
-      reply_markup: new InlineKeyboard()
-        .text("📤 Publicar en X", `postX:${postId}`)
-        .text("✏️ Editar tweet", `editTweet:${postId}`)
-        .row()
-        .text("❌ Rechazar", `rejectTweet:${postId}`),
+      reply_markup: kb,
     },
   );
+  // Auto-advance to the Facebook flow once the tweet is clean.
+  if (canPublish && published.social.facebook?.status !== "published") {
+    try {
+      await startFbFlow(published, state, ctx);
+    } catch (err) {
+      console.error("[bot] fb continuation failed:", err);
+    }
+  }
 });
 
 // ---- Auto-fix invalid @handles: strip @ + regenerate without the mention ----
@@ -401,7 +953,7 @@ bot.callbackQuery(/^fixTweet:(.+)$/, async (ctx) => {
     return;
   }
   const xState = published.social.x;
-  if (!xState?.tweet || !xState.tweetProvider) {
+  if (!xState?.tweet) {
     await ctx.answerCallbackQuery({ text: "No hay tweet aprobado" });
     return;
   }
@@ -436,7 +988,7 @@ bot.callbackQuery(/^fixTweet:(.+)$/, async (ctx) => {
     const feedback = `The tweet mentions ${invalidList}, which do not exist on X. Regenerate the tweet using the plain name (without @) for ${invalidList}. Keep everything else the same.`;
     const prompt = `${buildTweetPrompt(source as PreparedPost, published.caption ?? "", published.postTimestamp ?? "")}\n\n${feedback}`;
 
-    const text = await generateTextCompletion(prompt, xState.tweetProvider, { temperature: 0.8, maxTokens: 4000 });
+    const text = await generateTextCompletion(prompt, xState.tweetProvider ?? "gemini", { temperature: 0.8, maxTokens: 8000 });
     const body = text
       .trim()
       .replace(/^["']|["']$/g, "")
@@ -454,9 +1006,9 @@ bot.callbackQuery(/^fixTweet:(.+)$/, async (ctx) => {
     // Re-verify after fix
     const newInfos = await verifyTweetHandles(newTweet);
     const statusLines = newInfos.map((h) => formatHandleStatus(h));
-    const kb = new InlineKeyboard()
-      .text("📤 Publicar en X", `postX:${postId}`)
-      .text("✏️ Editar tweet", `editTweet:${postId}`)
+    const canPublish = newInfos.every((h) => h.status === "verified");
+    const kb = new InlineKeyboard();
+    kb.text("✏️ Editar tweet", `editTweet:${postId}`)
       .row()
       .text("❌ Rechazar", `rejectTweet:${postId}`);
     if (newInfos.some((h) => h.status !== "verified") && extractHandles(newTweet).length > 0) {
@@ -466,14 +1018,182 @@ bot.callbackQuery(/^fixTweet:(.+)$/, async (ctx) => {
     await ctx.api.editMessageText(
       ctx.chat!.id,
       statusMsg.message_id,
-      `✂️ Tweet regenerado sin menciones inválidas (${newTweet.length} caracteres):\n\n${escMarkdown(newTweet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}`,
+      `✂️ Tweet regenerado sin menciones inválidas (${newTweet.length} caracteres):\n\n${escMarkdown(newTweet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}${!canPublish && extractHandles(newTweet).length > 0 ? `\n\n⚠️ Resuelve las menciones antes de publicar.` : `\n\n✅ Tweet aprobado — preparando Facebook...`}`,
       {
         parse_mode: "Markdown",
         reply_markup: kb,
       },
     );
+    // Auto-advance to the Facebook flow once the tweet is clean.
+    if (canPublish && published.social.facebook?.status !== "published") {
+      try {
+        await startFbFlow(published, state, ctx);
+      } catch (err) {
+        console.error("[bot] fb continuation failed:", err);
+      }
+    }
   } catch (err) {
     console.error("[bot] fixTweet failed:", err);
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ Error: ${(err as Error).message}`);
+  }
+});
+
+// ---- Pick FB post version, regenerate final text, suggest FB pages ----
+
+bot.callbackQuery(/^pickFb:(gemini|deepseek):(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const provider = ctx.match[1] as "gemini" | "deepseek";
+  const postId = ctx.match[2];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) {
+    await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
+    return;
+  }
+  const fbState = published.social.facebook ?? { status: "queued" };
+  await ctx.answerCallbackQuery({ text: `Post de ${provider} elegido` });
+
+  const pendingEntry = state.pending.find((e) => e.id === postId);
+  const source = pendingEntry?.prepared ?? {
+    title: published.title,
+    description: "",
+    content: "",
+    tags: [],
+    category: "",
+    slug: published.slug,
+    pubDate: published.publishedAt,
+    basePath: "",
+    media_url: "",
+    igMediaId: postId,
+    mdxPath: "",
+    imagePath: "",
+  };
+
+  const statusMsg = await ctx.reply(`⏳ Generando post definitivo de Facebook con ${provider}...`);
+  try {
+    const { buildFbPrompt } = await import("./social/fbpost");
+    const prompt = buildFbPrompt(source as PreparedPost, published.caption ?? "", published.postTimestamp ?? "");
+    const text = await generateTextCompletion(prompt, provider, { temperature: 0.8, maxTokens: 8000 });
+    let body = text
+      .trim()
+      .replace(/^["']|["']$/g, "")
+      .replace(/https?:\/\/\S+/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (body.length > 1000) {
+      // Cap at a word boundary, mirroring editFb's limit
+      body = body.slice(0, 1000);
+      const lastSpace = body.lastIndexOf(" ");
+      if (lastSpace > 60) body = body.slice(0, lastSpace);
+    }
+    const url = `https://urbanstylepublicity.com/blog/${published.slug}`;
+    const fbText = `${body} ${url}`.trim();
+
+    fbState.status = "approved";
+    fbState.tweet = fbText;
+    fbState.tweetProvider = provider;
+    published.social.facebook = fbState;
+    await saveState(state);
+
+    await showFbApproval(published, state, ctx, fbText, published.caption ?? pendingEntry?.post.caption ?? "", "", { chatId: ctx.chat!.id, messageId: statusMsg.message_id });
+  } catch (err) {
+    console.error("[bot] fb regeneration failed:", err);
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ Error: ${(err as Error).message}`);
+  }
+});
+
+// ---- Use suggested FB page: replace @handle with the page name ----
+
+bot.callbackQuery(/^useFbPage:(.+):(\d+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const index = Number(ctx.match[2]);
+  const suggestions = ctx.session.fbSuggestions?.[postId] ?? [];
+  const suggestion = suggestions[index];
+  if (!suggestion) {
+    await ctx.answerCallbackQuery({ text: "Sugerencia expirada — regenera el post" });
+    return;
+  }
+
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  const fbState = published?.social.facebook;
+  if (!published || !fbState?.tweet) {
+    await ctx.answerCallbackQuery({ text: "No hay post de Facebook aprobado" });
+    return;
+  }
+
+  const replaced = fbState.tweet.replace(new RegExp(`@${suggestion.handle}`, "gi"), () => suggestion.pageName);
+  fbState.tweet = replaced;
+  await saveState(state);
+
+  const ackText = `@${suggestion.handle} → ${suggestion.pageName}`;
+  await ctx.answerCallbackQuery({ text: ackText.slice(0, 199) });
+
+  await showFbApproval(
+    published,
+    state,
+    ctx,
+    replaced,
+    published.caption ?? "",
+    `✅ Mención corregida: @${escMarkdown(suggestion.handle)} → *${escMarkdown(suggestion.pageName)}*`,
+  );
+});
+
+// ---- Auto-fix @mentions in FB post: regenerate with plain names ----
+
+bot.callbackQuery(/^fixFb:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  const fbState = published?.social.facebook;
+  if (!published || !fbState?.tweet) {
+    await ctx.answerCallbackQuery({ text: "No hay post de Facebook aprobado" });
+    return;
+  }
+
+  await ctx.answerCallbackQuery({ text: "Quitando menciones..." });
+  const statusMsg = await ctx.reply(`⏳ Regenerando sin menciones...`);
+
+  try {
+    const pendingEntry = state.pending.find((e) => e.id === postId);
+    const source = pendingEntry?.prepared ?? {
+      title: published.title,
+      description: "",
+      content: "",
+      tags: [],
+      category: "",
+      slug: published.slug,
+      pubDate: published.publishedAt,
+      basePath: "",
+      media_url: "",
+      igMediaId: postId,
+      mdxPath: "",
+      imagePath: "",
+    };
+
+    const { buildTweetPrompt } = await import("./tweet");
+    const feedback = "Do not use any @mentions — write the plain name of each artist/brand instead. Keep everything else the same.";
+    const prompt = `${buildTweetPrompt(source as PreparedPost, published.caption ?? "", published.postTimestamp ?? "")}\n\n${feedback}`;
+
+    const provider = fbState.tweetProvider ?? "gemini";
+    const text = await generateTextCompletion(prompt, provider, { temperature: 0.8, maxTokens: 8000 });
+    const body = text
+      .trim()
+      .replace(/^["']|["']$/g, "")
+      .replace(/https?:\/\/\S+/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const url = `https://urbanstylepublicity.com/blog/${published.slug}`;
+    const maxBody = 280 - 23;
+    const trimmedBody = body.length > maxBody ? body.slice(0, maxBody) : body;
+    fbState.tweet = `${trimmedBody} ${url}`.trim();
+    await saveState(state);
+
+    await showFbApproval(published, state, ctx, fbState.tweet, published.caption ?? "", "✂️ Post regenerado sin menciones", { chatId: ctx.chat!.id, messageId: statusMsg.message_id });
+  } catch (err) {
+    console.error("[bot] fixFb failed:", err);
     await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ Error: ${(err as Error).message}`);
   }
 });
@@ -516,38 +1236,40 @@ bot.callbackQuery(/^postX:(.+)$/, async (ctx) => {
     await ctx.answerCallbackQuery({ text: "No hay tweet aprobado" });
     return;
   }
+  if (xState.status === "published") {
+    await ctx.answerCallbackQuery({ text: "Ya publicado en X" });
+    return;
+  }
 
   await ctx.answerCallbackQuery({ text: "Publicando en X..." });
-  const statusMsg = await ctx.reply(`⏳ Publicando tweet en X (@pegadacarteles) vía Buffer...\n\n${xState.tweet}`);
+  const statusMsg = await ctx.reply(`⏳ Publicando tweet en X (@pegadacarteles) vía Buffer...`, { parse_mode: "Markdown" });
+  const rx = await publishToX(published, state);
+  await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, rx.line, { parse_mode: "Markdown" });
+});
 
-  try {
-    const { getXChannel, createPost } = await import("./social/buffer");
-    const channel = await getXChannel();
-    const imageUrl = getPostImageUrl(published.slug);
-
-    const post = await createPost(channel.id, xState.tweet, imageUrl ?? undefined);
-
-    xState.status = "published";
-    xState.publishedAt = new Date().toISOString();
-    xState.error = undefined;
-    await saveState(state);
-
-    const link = post.externalLink ?? `https://x.com/pegadacarteles`;
-    await ctx.api.editMessageText(
-      ctx.chat!.id,
-      statusMsg.message_id,
-      `✅ *Publicado en X:*\n\n${escMarkdown(xState.tweet)}\n\n${escMarkdown(link)}${imageUrl ? `\n\n🖼️ Imagen: ${escMarkdown(imageUrl)}` : ""}`,
-      { parse_mode: "Markdown" },
-    );
-    await sendAlert(`[Urban Sync] Tweet publicado en X: ${published.title}`, `${xState.tweet}\n\n${link}`);
-  } catch (err) {
-    console.error("[bot] postX failed:", err);
-    xState.status = "failed";
-    xState.error = (err as Error).message;
-    await saveState(state);
-    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ *Error publicando en X:*\n${(err as Error).message}`);
-    await sendAlert("[Urban Sync] Error publicando tweet en X", `${(err as Error).message}\n\nPost: ${published.title}`);
+bot.callbackQuery(/^postFb:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) {
+    await ctx.answerCallbackQuery({ text: "Post no encontrado en publicados" });
+    return;
   }
+  const fbState = published.social.facebook;
+  if (!fbState?.tweet) {
+    await ctx.answerCallbackQuery({ text: "No hay post de Facebook aprobado" });
+    return;
+  }
+  if (fbState.status === "published") {
+    await ctx.answerCallbackQuery({ text: "Ya publicado en Facebook" });
+    return;
+  }
+
+  await ctx.answerCallbackQuery({ text: "Publicando en Facebook..." });
+  const statusMsg = await ctx.reply(`⏳ Publicando en Facebook (Urban Style Publicity) vía Buffer...`, { parse_mode: "Markdown" });
+  const rf = await publishToFb(published, state);
+  await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, rf.line, { parse_mode: "Markdown" });
 });
 
 bot.callbackQuery(/^editTweet:(.+)$/, async (ctx) => {
@@ -556,6 +1278,49 @@ bot.callbackQuery(/^editTweet:(.+)$/, async (ctx) => {
   await ctx.answerCallbackQuery({ text: "Envía el nuevo tweet..." });
   await ctx.reply("✏️ Envía el texto del tweet (máx 280 caracteres):");
   ctx.session.awaitingEditFor = { postId, field: "tweet" };
+});
+
+// ---- Manual mention replacement (fallback when verification fails) ----
+
+bot.callbackQuery(/^editHandlesX:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  await ctx.answerCallbackQuery({ text: "Envía la sustitución..." });
+  await ctx.reply("✏️ Envía la sustitución de mención (ej. `@Anuel_2A → @Anuel_2bleA`):", { parse_mode: "Markdown" });
+  ctx.session.awaitingEditFor = { postId, field: "xhandles" };
+});
+
+bot.callbackQuery(/^editHandlesFb:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  await ctx.answerCallbackQuery({ text: "Envía la sustitución..." });
+  await ctx.reply("✏️ Envía la sustitución de mención (ej. `@movistararenaes → @movistararena`):", { parse_mode: "Markdown" });
+  ctx.session.awaitingEditFor = { postId, field: "fbhandles" };
+});
+
+// ---- Approve the FB text AS-IS (the @mentions stay for the FB editor) ----
+
+bot.callbackQuery(/^approveFbHandles:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  const fbState = published?.social.facebook;
+  if (!published || !fbState?.tweet) {
+    await ctx.answerCallbackQuery({ text: "No hay post de Facebook aprobado" });
+    return;
+  }
+  fbState.handlesApproved = true;
+  await saveState(state);
+  await ctx.answerCallbackQuery({ text: "Texto aprobado con menciones" });
+  await showFbApproval(
+    published,
+    state,
+    ctx,
+    fbState.tweet,
+    published.caption ?? "",
+    "✅ Aprobado — las @menciones se mantienen; añade los tags reales en el editor de Facebook.",
+  );
 });
 
 bot.callbackQuery(/^rejectTweet:(.+)$/, async (ctx) => {
@@ -568,6 +1333,26 @@ bot.callbackQuery(/^rejectTweet:(.+)$/, async (ctx) => {
   await saveState(state);
   await ctx.answerCallbackQuery({ text: "Tweet rechazado" });
   await ctx.reply("❌ Tweet rechazado. Usa ▶️ Publicar en redes para regenerar.");
+});
+
+bot.callbackQuery(/^editFb:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  await ctx.answerCallbackQuery({ text: "Envía el nuevo texto..." });
+  await ctx.reply("✏️ Envía el texto del post de Facebook:");
+  ctx.session.awaitingEditFor = { postId, field: "fbtext" };
+});
+
+bot.callbackQuery(/^rejectFb:(.+)$/, async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const postId = ctx.match[1];
+  const state = await freshState();
+  const published = state.published.find((e) => e.id === postId);
+  if (!published) return;
+  published.social.facebook = { status: "queued" };
+  await saveState(state);
+  await ctx.answerCallbackQuery({ text: "Post rechazado" });
+  await ctx.reply("❌ Post de Facebook rechazado. Usa ▶️ Publicar en redes para regenerar.");
 });
 
 bot.command("eliminar", async (ctx) => {
@@ -847,12 +1632,143 @@ bot.on("message:text", async (ctx) => {
         tweetProvider: undefined,
       };
       await saveState(state);
-      await ctx.reply(`✅ Tweet actualizado (${newText.length} caracteres):\n\n${escMarkdown(newText)}`, {
+      const { verifyTweetHandles, extractHandles } = await import("./social/xverify");
+      const infos = await verifyTweetHandles(newText);
+      const canPublish = infos.every((h) => h.status === "verified");
+      const kb = new InlineKeyboard();
+      kb.text("✏️ Editar tweet", `editTweet:${editFor.postId}`).text("✏️ Editar menciones", `editHandlesX:${editFor.postId}`).text("❌ Rechazar", `rejectTweet:${editFor.postId}`);
+      if (!canPublish && extractHandles(newText).length > 0) {
+        kb.row().text("✂️ Auto-arreglar", `fixTweet:${editFor.postId}`);
+      }
+      // Every handle in the edited text gets a 🔗 so the user can check in the
+      // browser that the account exists (manual-edit = verification fallback).
+      const editHandles = extractHandles(newText);
+      if (editHandles.length > 0) {
+        kb.row();
+        editHandles.forEach((h, i) => {
+          if (i > 0 && i % 4 === 0) kb.row();
+          kb.url(`🔗 @${h}`, `https://x.com/${h}`);
+        });
+      }
+      await ctx.reply(`✅ Tweet actualizado (${newText.length} caracteres):\n\n${linkifyHandles(newText)}${!canPublish && extractHandles(newText).length > 0 ? `\n\n⚠️ Resuelve las menciones antes de publicar.` : `\n\n✅ Tweet aprobado — preparando Facebook...`}`, {
         parse_mode: "Markdown",
-        reply_markup: new InlineKeyboard()
-          .text("📤 Publicar en X", `postX:${editFor.postId}`)
-          .text("✏️ Editar tweet", `editTweet:${editFor.postId}`),
+        reply_markup: kb,
       });
+      // Auto-advance to the Facebook flow once the tweet is clean.
+      if (canPublish && published.social.facebook?.status !== "published") {
+        try {
+          await startFbFlow(published, state, ctx);
+        } catch (err) {
+          console.error("[bot] fb continuation failed:", err);
+        }
+      }
+      return;
+    }
+
+    // Manual mention replacement (X) — fallback when verification fails.
+    if (editFor.field === "xhandles") {
+      const m = newText.match(/@?([A-Za-z0-9_]{1,15})\s*(?:→|->|=>|a)\s*@?([A-Za-z0-9_]{1,15})/i);
+      if (!m) {
+        await ctx.reply("⚠️ Formato: `@handle_actual → @handle_nuevo`. Envíalo de nuevo:", { parse_mode: "Markdown" });
+        ctx.session.awaitingEditFor = editFor; // keep waiting
+        return;
+      }
+      const bad = m[1];
+      const good = m[2];
+      const state = await freshState();
+      const published = state.published.find((e) => e.id === editFor.postId);
+      if (!published) {
+        await ctx.reply("Post no encontrado en publicados.");
+        return;
+      }
+      const xState = published.social.x;
+      if (!xState?.tweet) {
+        await ctx.reply("No hay tweet aprobado.");
+        return;
+      }
+      xState.tweet = xState.tweet.replace(new RegExp(`@${bad}`, "gi"), `@${good}`);
+      xState.status = "approved";
+      await saveState(state);
+
+      const { verifyTweetHandles, extractHandles, formatHandleStatus } = await import("./social/xverify");
+      const infos = await verifyTweetHandles(xState.tweet);
+      const canPublish = infos.every((h) => h.status === "verified");
+      const statusLines = infos.map((h) => formatHandleStatus(h));
+      const kb = new InlineKeyboard();
+      kb.text("✏️ Editar tweet", `editTweet:${editFor.postId}`).text("✏️ Editar menciones", `editHandlesX:${editFor.postId}`).text("❌ Rechazar", `rejectTweet:${editFor.postId}`);
+      if (!canPublish && extractHandles(xState.tweet).length > 0) {
+        kb.row().text("✂️ Auto-arreglar", `fixTweet:${editFor.postId}`);
+      }
+      const checkHandles = extractHandles(xState.tweet);
+      if (checkHandles.length > 0) {
+        kb.row();
+        checkHandles.forEach((h, i) => {
+          if (i > 0 && i % 4 === 0) kb.row();
+          kb.url(`🔗 @${h}`, `https://x.com/${h}`);
+        });
+      }
+      await ctx.reply(
+        `✅ Mención cambiada: @${escMarkdown(bad)} → *@${escMarkdown(good)}*\n\n${linkifyHandles(xState.tweet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}${canPublish ? "\n\n✅ Tweet aprobado — preparando Facebook..." : "\n\n⚠️ Resuelve las menciones antes de publicar."}`,
+        { parse_mode: "Markdown", reply_markup: kb },
+      );
+      if (canPublish && published.social.facebook?.status !== "published") {
+        try {
+          await startFbFlow(published, state, ctx);
+        } catch (err) {
+          console.error("[bot] fb continuation failed:", err);
+        }
+      }
+      return;
+    }
+
+    // Manual mention replacement (Facebook) — fallback when verification fails.
+    if (editFor.field === "fbhandles") {
+      const m = newText.match(/@?([A-Za-z0-9._-]{1,60})\s*(?:→|->|=>|a)\s*@?([A-Za-z0-9._-]{1,60})/i);
+      if (!m) {
+        await ctx.reply("⚠️ Formato: `@handle_actual → @handle_nuevo`. Envíalo de nuevo:", { parse_mode: "Markdown" });
+        ctx.session.awaitingEditFor = editFor; // keep waiting
+        return;
+      }
+      const bad = m[1];
+      const good = m[2];
+      const state = await freshState();
+      const published = state.published.find((e) => e.id === editFor.postId);
+      if (!published) {
+        await ctx.reply("Post no encontrado en publicados.");
+        return;
+      }
+      const fbState = published.social.facebook;
+      if (!fbState?.tweet) {
+        await ctx.reply("No hay texto de Facebook aprobado.");
+        return;
+      }
+      fbState.tweet = fbState.tweet.replace(new RegExp(`@${bad}`, "gi"), `@${good}`);
+      fbState.status = "approved";
+      await saveState(state);
+      await showFbApproval(published, state, ctx, fbState.tweet, published.caption ?? "", `✅ Mención cambiada: @${escMarkdown(bad)} → *@${escMarkdown(good)}*`);
+      return;
+    }
+
+    // Facebook post edit (published post social flow)
+    if (editFor.field === "fbtext") {
+      if (newText.length > 1000) {
+        await ctx.reply(`⚠️ El texto tiene ${newText.length} caracteres (máx 1000). Envíalo de nuevo más corto.`);
+        ctx.session.awaitingEditFor = editFor; // keep waiting
+        return;
+      }
+      const state = await freshState();
+      const published = state.published.find((e) => e.id === editFor.postId);
+      if (!published) {
+        await ctx.reply("Post no encontrado en publicados.");
+        return;
+      }
+      published.social.facebook = {
+        status: "approved",
+        tweet: newText,
+        tweetProvider: undefined,
+      };
+      await saveState(state);
+      await showFbApproval(published, state, ctx, newText, published.caption ?? "", "✅ Texto de Facebook actualizado");
       return;
     }
 
@@ -996,4 +1912,19 @@ bot.catch((err) => {
 });
 
 console.log("[bot] starting Telegram bot...");
+
+// Seed the verified-lookup caches from persisted state.
+(async () => {
+  try {
+    const state = await loadState();
+    const { seedKnownArtistHandles } = await import("./social/xverify");
+    const { seedKnownFbPages } = await import("./social/fbverify");
+    seedKnownArtistHandles(state.knownXHandles);
+    seedKnownFbPages(state.knownFbPages);
+    console.log("[bot] caches sembrados:", Object.keys(state.knownXHandles ?? {}).length, "artistas,", Object.keys(state.knownFbPages ?? {}).length, "páginas FB");
+  } catch (err) {
+    console.warn("[bot] no se pudieron sembrar caches:", (err as Error).message);
+  }
+})();
+
 bot.start({ onStart: (me) => console.log(`[bot] running as @${me.username}`) });

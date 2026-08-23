@@ -43,8 +43,8 @@ interface CreatePostResult {
     | { message?: string };
 }
 
-/** Find the X/Twitter channel (service "twitter") for the Buffer organization. */
-export async function getXChannel(): Promise<{ id: string; name: string }> {
+/** Find a channel by Buffer service name for the Buffer organization. */
+async function getChannel(service: "twitter" | "facebook"): Promise<{ id: string; name: string }> {
   const orgId =
     process.env.BUFFER_ORGANIZATION_ID ??
     (async () => {
@@ -56,20 +56,36 @@ export async function getXChannel(): Promise<{ id: string; name: string }> {
     "query Channels($orgId: OrganizationId!) { channels(input: { organizationId: $orgId }) { id name service } }",
     { orgId: await orgId },
   );
-  const x = channels.find((c) => c.service === "twitter");
-  if (!x) throw new Error("No X/Twitter channel found in Buffer");
-  return { id: x.id, name: x.name };
+  const channel = channels.find((c) => c.service === service);
+  if (!channel) throw new Error(`No ${service} channel found in Buffer`);
+  return { id: channel.id, name: channel.name };
+}
+
+/** Find the X/Twitter channel. */
+export async function getXChannel(): Promise<{ id: string; name: string }> {
+  return getChannel("twitter");
+}
+
+/** Find the Facebook page channel. */
+export async function getFbChannel(): Promise<{ id: string; name: string }> {
+  return getChannel("facebook");
 }
 
 /**
  * Publish a post immediately (mode: shareNow) to the given channel.
  * If imageUrl is provided, Buffer fetches it server-side and attaches it.
+ * facebookType is REQUIRED by Buffer for Facebook channels (metadata.facebook.type
+ * is NON_NULL in the schema: post | story | reel); other services ignore it.
+ * facebookAnnotations lets Buffer tag spans of the text (mentions/link
+ * annotations): { content, indices: [start, end], text, url }.
  * Returns the post's external link (the X status URL) when available.
  */
 export async function createPost(
   channelId: string,
   text: string,
   imageUrl?: string,
+  facebookType?: "post" | "story" | "reel",
+  facebookAnnotations?: { content: string; indices: number[]; text: string; url: string }[],
 ): Promise<{ id: string; externalLink?: string }> {
   const assets = imageUrl ? [{ image: { url: imageUrl } }] : [];
   const result = await gql<CreatePostResult>(
@@ -89,6 +105,16 @@ export async function createPost(
         mode: "shareNow",
         schedulingType: "automatic",
         assets,
+        ...(facebookType || facebookAnnotations
+          ? {
+              metadata: {
+                facebook: {
+                  ...(facebookType ? { type: facebookType } : {}),
+                  ...(facebookAnnotations ? { annotations: facebookAnnotations } : {}),
+                },
+              },
+            }
+          : {}),
       },
     },
   );

@@ -86,7 +86,7 @@ RULES:
 - The TEXT BODY (everything before the URL) must be at most 250 characters. The URL will be appended separately, so do NOT include the URL in your response — just the tweet body text.
 - Base the tweet ONLY on the real details present in the Instagram caption and the blog title/description. Do not invent dates, cities, artists or song names that are not there. Use the exact names, dates and cities from the caption.
 - Natural, colloquial Spanish, like a real person — specific and concrete, not generic. Mention the actual artists/events/dates/cities from the caption.
-- MENTIONS: use the CORRECT Twitter/X handle of the artist/brand based on your knowledge — never blindly copy the Instagram handle from the caption (IG and X handles often differ). If the artist/brand has multiple official accounts by country, ALWAYS use the SPAIN account. If you do not know the artist's real X handle with confidence, do NOT write an @mention — just use the plain name.
+- MENTIONS: use the CORRECT Twitter/X handle for the artists AND venues/stadiums/brands mentioned in the caption (e.g. "Movistar Arena" → @movistararenaes, which exists) based on your knowledge — never blindly copy an Instagram handle from the caption (IG and X handles often differ). If the artist/brand has multiple official accounts by country, ALWAYS use the SPAIN account. If you do not know the real X handle with confidence, do NOT write an @mention — just use the plain name.
 - RAE: any work title (album, tour, song, event) must be in double quotes, e.g. "Cruz" or "Nuestros últimos acordes".
 - ${tenseRule}
 - Do NOT mention that there is a blog article, do not say "blog" or "artículo".
@@ -123,8 +123,8 @@ export async function generateTweets(
   };
 
   const [geminiResult, deepseekResult] = await Promise.allSettled([
-    generateTextCompletion(prompt, "gemini", { temperature: 0.8, maxTokens: 4000 }),
-    generateTextCompletion(prompt, "deepseek", { temperature: 0.8, maxTokens: 4000 }),
+    generateTextCompletion(prompt, "gemini", { temperature: 0.8, maxTokens: 8000 }),
+    generateTextCompletion(prompt, "deepseek", { temperature: 0.8, maxTokens: 8000 }),
   ]);
 
   const tweets: { gemini?: string; deepseek?: string } = {};
