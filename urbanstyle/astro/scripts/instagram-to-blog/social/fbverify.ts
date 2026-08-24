@@ -21,6 +21,70 @@ export function dumpKnownFbPages(): Record<string, { user: string; url: string }
   return Object.fromEntries(knownFbPages);
 }
 
+const FB_MIN_FOLLOWERS = 10_000;
+
+/** Parse a follower/like count string ("8,694,825", "8,7M", "2.1K") → number. */
+function parseFollowerNumber(s: string): number | null {
+  const t = s.replace(/\s+/g, "");
+  const m = t.match(/^([\d.,]+)([KM])?$/i);
+  if (!m) return null;
+  const suffix = (m[2] ?? "").toUpperCase();
+  let num: number;
+  if (suffix) num = parseFloat(m[1].replace(/,/g, ".")); // "8,7M" → 8.7
+  else num = parseFloat(m[1].replace(/,/g, "")); // "8,694,825" → 8694825
+  if (isNaN(num)) return null;
+  if (suffix === "K") num *= 1_000;
+  if (suffix === "M") num *= 1_000_000;
+  return num;
+}
+
+/**
+ * Resolve the follower/like count of a Facebook page (for the >=10k rule).
+ * Source: Gemini grounded — the reliable phrasing is "¿Cuántos likes o
+ * seguidores tiene la página de Facebook X? Solo el número." (search snippets
+ * proved unreliable: they can surface unrelated small-page counts).
+ */
+export async function resolveFbPageFollowers(pageName: string): Promise<number | null> {
+  const { groundedCompletion } = await import("../llm");
+  const prompt = `¿Cuántos likes o seguidores tiene la página de Facebook "${pageName}"? Solo el número.`;
+  // Gemini grounding can return empty transiently — retry once.
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const raw = await groundedCompletion(prompt, { temperature: 0.2, maxTokens: 300 });
+      const n = parseFollowerNumber(raw);
+      if (n !== null) return n;
+    } catch (err) {
+      console.warn(`[fbverify] followers lookup (Gemini) failed for "${pageName}" (intento ${attempt}):`, (err as Error).message);
+    }
+  }
+  return null;
+}
+
+/**
+ * The >=10k followers gate. Order:
+ * 1) FB page count (Gemini grounded) — known <10k → REJECT.
+ * 2) Unknown FB count → cross-check the @handle on X: if the X account has
+ *    >=10k followers, accept (the entity is an official big account).
+ * 3) Neither → NOT verified (never auto-applies nor enters the caches).
+ */
+async function verifyFbFollowers(pageName: string, handle: string): Promise<boolean> {
+  const count = await resolveFbPageFollowers(pageName);
+  if (count !== null) {
+    if (count >= FB_MIN_FOLLOWERS) return true;
+    console.warn(`[fbverify] "${pageName}": ${count} seguidores (< ${FB_MIN_FOLLOWERS}) — descartada`);
+    return false;
+  }
+  // Unknown FB count → cross-check the handle on X (the text carries X handles).
+  const { verifyHandle } = await import("./xverify");
+  const info = await verifyHandle(handle);
+  if (info.status === "verified" && (info.followers ?? 0) >= FB_MIN_FOLLOWERS) {
+    console.warn(`[fbverify] "${pageName}": conteo FB desconocido, aceptada vía X (@${handle}, ${info.followers} seguidores)`);
+    return true;
+  }
+  console.warn(`[fbverify] "${pageName}": seguidores FB desconocidos y X sin 10k (@${handle} ${info.followers ?? "?"}) — no auto-verificada`);
+  return false;
+}
+
 /**
  * Ask Gemini with Google Search grounding for the OFFICIAL Facebook page of
  * the artist/brand mentioned. This is the SAME prompt system as X's
@@ -59,15 +123,15 @@ export async function findOfficialFbPage(
       /^[A-Za-z0-9._-]{1,60}$/,
       5,
     );
-    // Try each candidate with the relation guard (e.g. search engines mapping
-    // "movistararenaes" to the artist's page must be rejected).
+    // Try each candidate with the relation guard AND the >=10k followers gate.
     for (const web of webCandidates) {
       if (!fbPageRelatesToHandle(web.user, badHandle)) continue;
+      if (!(await verifyFbFollowers(web.user, badHandle))) continue;
       knownFbPages.set(badHandle.toLowerCase(), { user: web.user, url: web.url });
       return { handle: badHandle, pageName: web.user, pageUrl: web.url, source: "web" };
     }
     if (webCandidates.length > 0) {
-      console.warn(`[fbverify] web candidates unrelated to @${badHandle} — discarded`);
+      console.warn(`[fbverify] web candidates rejected for @${badHandle}`);
     }
   } catch (err) {
     console.warn(`[fbverify] web search failed for @${badHandle}:`, (err as Error).message);
@@ -88,11 +152,11 @@ ${context}
   try {
     const raw = await groundedCompletion(prompt, { temperature: 0.2, maxTokens: 200 });
     const suggestion = parseFbResponse(badHandle, raw);
-    if (suggestion) {
-      if (suggestion.pageUrl) {
+    if (suggestion && suggestion.pageUrl) {
+      if (await verifyFbFollowers(suggestion.pageName, badHandle)) {
         knownFbPages.set(badHandle.toLowerCase(), { user: suggestion.pageName, url: suggestion.pageUrl });
+        return { ...suggestion, source: "gemini" as const };
       }
-      return { ...suggestion, source: "gemini" as const };
     }
   } catch (err) {
     console.warn(`[fbverify] grounded lookup failed for @${badHandle}:`, (err as Error).message);

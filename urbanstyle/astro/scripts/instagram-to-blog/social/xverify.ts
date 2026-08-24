@@ -246,14 +246,13 @@ export async function findArtistHandle(
   caption: string,
   verify: (h: string) => Promise<HandleInfo> = verifyHandle,
 ): Promise<HandleInfo | null> {
-  // Only accept accounts that LOOK official: blue-verified or a real following.
-  // A handle that merely exists (e.g. a fan account with 18 followers) must
-  // never be injected as the artist's mention. Threshold: >=1k followers or
-  // blue check (newer artists often have small but official accounts).
+  // Only accept accounts with a real following: >=10k followers (the blue check
+// is NOT a bypass — small accounts can buy it; e.g. @pieldeasfalto 321
+// followers was blue and had to be rejected).
   const acceptOfficial = (info: HandleInfo): HandleInfo | null => {
     if (info.status !== "verified") return null;
-    if (info.isVerified || (info.followers ?? 0) >= 1_000) return info;
-    console.warn(`[xverify] artist-handle "@${info.handle}" exists but looks unofficial (${info.followers ?? 0} followers) — not injected`);
+    if ((info.followers ?? 0) >= 10_000) return info;
+    console.warn(`[xverify] artist-handle "@${info.handle}" too small (${info.followers ?? 0} followers) — not injected`);
     return null;
   };
 

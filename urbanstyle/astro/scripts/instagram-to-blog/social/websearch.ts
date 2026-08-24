@@ -163,16 +163,7 @@ export async function fetchSearchResults(
  * real target URLs directly.
  */
 async function fetchBraveHtml(query: string): Promise<string[]> {
-  const proxyUrl = process.env.WEBSEARCH_PROXY;
-  if (!proxyUrl) throw new Error("WEBSEARCH_PROXY not set");
-  const res = await fetch(`https://search.brave.com/search?q=${encodeURIComponent(query)}`, {
-    headers: { "User-Agent": UA, "Accept-Language": "es-ES,es;q=0.9" },
-    signal: AbortSignal.timeout(20_000),
-    proxy: proxyUrl,
-  } as RequestInit & { proxy?: string });
-  if (!res.ok) throw new Error(`Brave HTML HTTP ${res.status}`);
-  const html = await res.text();
-
+  const html = await fetchBraveHtmlRaw(query);
   const out: string[] = [];
   for (const match of html.matchAll(/href="(https?:\/\/[^"]+)"/g)) {
     let url: string;
@@ -184,6 +175,18 @@ async function fetchBraveHtml(query: string): Promise<string[]> {
     if (/^https?:\/\//.test(url)) out.push(url);
   }
   return out;
+}
+
+async function fetchBraveHtmlRaw(query: string): Promise<string> {
+  const proxyUrl = process.env.WEBSEARCH_PROXY;
+  if (!proxyUrl) throw new Error("WEBSEARCH_PROXY not set");
+  const res = await fetch(`https://search.brave.com/search?q=${encodeURIComponent(query)}`, {
+    headers: { "User-Agent": UA, "Accept-Language": "es-ES,es;q=0.9" },
+    signal: AbortSignal.timeout(20_000),
+    proxy: proxyUrl,
+  } as RequestInit & { proxy?: string });
+  if (!res.ok) throw new Error(`Brave HTML HTTP ${res.status}`);
+  return res.text();
 }
 
 export interface WebProfile {
@@ -326,13 +329,7 @@ export async function searchProfileCandidates(
 }
 
 async function fetchBing(query: string): Promise<string[]> {
-  const res = await fetch(`https://www.bing.com/search?q=${encodeURIComponent(query)}&setlang=es`, {
-    headers: { "User-Agent": UA, "Accept-Language": "es-ES,es;q=0.9" },
-    signal: AbortSignal.timeout(15_000),
-  });
-  if (!res.ok) throw new Error(`Bing HTTP ${res.status}`);
-  const html = await res.text();
-
+  const html = await fetchBingHtml(query);
   const out: string[] = [];
   // Organic results are wrapped in www.bing.com/ck/a?...&u=a1<base64url>
   for (const match of html.matchAll(/u=a1([A-Za-z0-9_-]+)/g)) {
@@ -346,19 +343,17 @@ async function fetchBing(query: string): Promise<string[]> {
   return out;
 }
 
-async function fetchDuckDuckGo(query: string): Promise<string[]> {
-  const waitMs = DDG_MIN_INTERVAL_MS - (Date.now() - lastDdgCall);
-  if (waitMs > 0) await new Promise((r) => setTimeout(r, waitMs));
-  lastDdgCall = Date.now();
-
-  const res = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`, {
+async function fetchBingHtml(query: string): Promise<string> {
+  const res = await fetch(`https://www.bing.com/search?q=${encodeURIComponent(query)}&setlang=es`, {
     headers: { "User-Agent": UA, "Accept-Language": "es-ES,es;q=0.9" },
-    signal: AbortSignal.timeout(8_000),
+    signal: AbortSignal.timeout(15_000),
   });
-  if (res.status === 202) throw new Error("DuckDuckGo rate limited (202 anomaly)");
-  if (!res.ok) throw new Error(`DuckDuckGo HTTP ${res.status}`);
-  const html = await res.text();
+  if (!res.ok) throw new Error(`Bing HTTP ${res.status}`);
+  return res.text();
+}
 
+async function fetchDuckDuckGo(query: string): Promise<string[]> {
+  const html = await fetchDuckDuckGoHtml(query);
   const out: string[] = [];
   for (const match of html.matchAll(/uddg=([^&"]+)/g)) {
     try {
@@ -369,4 +364,18 @@ async function fetchDuckDuckGo(query: string): Promise<string[]> {
     }
   }
   return out;
+}
+
+async function fetchDuckDuckGoHtml(query: string): Promise<string> {
+  const waitMs = DDG_MIN_INTERVAL_MS - (Date.now() - lastDdgCall);
+  if (waitMs > 0) await new Promise((r) => setTimeout(r, waitMs));
+  lastDdgCall = Date.now();
+
+  const res = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`, {
+    headers: { "User-Agent": UA, "Accept-Language": "es-ES,es;q=0.9" },
+    signal: AbortSignal.timeout(8_000),
+  });
+  if (res.status === 202) throw new Error("DuckDuckGo rate limited (202 anomaly)");
+  if (!res.ok) throw new Error(`DuckDuckGo HTTP ${res.status}`);
+  return res.text();
 }
