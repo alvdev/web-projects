@@ -579,6 +579,80 @@ async function showFbApproval(
   }
 }
 
+/**
+ * Show the X tweet approval state for the given text: verified-handle status
+ * lines, repair options and — when clean — the 📤 Publicar en redes button
+ * right here in the last message (mirror of showFbApproval). Verification is
+ * best-effort: failures degrade to "sin verificar" instead of blocking the
+ * render or silently dropping an edit.
+ */
+async function showTweetApproval(
+  published: PublishedEntry,
+  state: PendingState,
+  ctx: MyContext,
+  tweet: string,
+  caption: string,
+  header = "",
+  statusMsg?: { chatId: number; messageId: number },
+): Promise<void> {
+  const postId = published.id;
+  const { extractHandles, verifyTweetHandles, formatHandleStatus } = await import("./social/xverify");
+
+  let handleInfos: import("./social/xverify").HandleInfo[] = [];
+  let verifyFailed = false;
+  try {
+    handleInfos = await verifyTweetHandles(tweet);
+  } catch (err) {
+    verifyFailed = true;
+    console.warn("[bot] X handle verification failed:", (err as Error).message);
+  }
+
+  const hasHandles = extractHandles(tweet).length > 0;
+  const canPublish = !verifyFailed && handleInfos.every((h) => h.status === "verified");
+  const statusLines = handleInfos.map((h) => formatHandleStatus(h));
+  const verifiedSet = new Set(handleInfos.filter((h) => h.status === "verified").map((h) => h.handle.toLowerCase()));
+  const hasInvalid = handleInfos.some((h) => h.status !== "verified");
+
+  const kb = new InlineKeyboard();
+  kb.text("✏️ Editar tweet", `editTweet:${postId}`).text("✏️ Editar menciones", `editHandlesX:${postId}`).text("❌ Rechazar", `rejectTweet:${postId}`);
+  if (hasInvalid && hasHandles) {
+    kb.row().text("✂️ Auto-arreglar", `fixTweet:${postId}`);
+  }
+  const verifiedHandles = [...new Map(handleInfos.filter((h) => h.status === "verified").map((h) => [h.handle.toLowerCase(), h.handle])).values()];
+  if (verifiedHandles.length > 0) {
+    kb.row();
+    verifiedHandles.forEach((h, i) => {
+      if (i > 0 && i % 4 === 0) kb.row();
+      kb.url(`🔗 @${h}`, `https://x.com/${h}`);
+    });
+  }
+  // The publish trigger lives HERE (last message) — never scroll back.
+  if (canPublish) {
+    kb.row().text("📤 Publicar en redes", `social:${postId}`);
+  }
+
+  const verifyNote = verifyFailed ? `\n\n⚠️ No se pudo verificar las menciones ahora — revisa los enlaces 🔗 o edita el texto.` : "";
+  const body = canPublish
+    ? `✅ *Tweet aprobado:*\n\n${linkifyHandles(tweet, verifiedSet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}${verifyNote}\n\nPulsa 📤 Publicar en redes para publicar.`
+    : `📝 *Tweet:*\n\n${linkifyHandles(tweet, verifiedSet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}${verifyNote}${hasHandles && !verifyFailed ? `\n\n⚠️ Resuelve las menciones antes de publicar.` : ""}`;
+  const text = header ? `${header}\n\n${body}` : body;
+
+  if (statusMsg) {
+    await ctx.api.editMessageText(statusMsg.chatId, statusMsg.messageId, text, { parse_mode: "Markdown", reply_markup: kb });
+  } else {
+    await ctx.reply(text, { parse_mode: "Markdown", reply_markup: kb });
+  }
+
+  // Auto-advance to the Facebook flow once the tweet is clean.
+  if (canPublish && published.social.facebook?.status !== "published") {
+    try {
+      await startFbFlow(published, state, ctx);
+    } catch (err) {
+      console.error("[bot] fb continuation failed:", err);
+    }
+  }
+}
+
 // ---- Publish helpers (server-side gates enforced here) ----
 
 interface PublishResult {
@@ -872,11 +946,10 @@ bot.callbackQuery(/^pickTweet:(gemini|deepseek):(.+)$/, async (ctx) => {
     // Verify @handles in the final tweet; for invalid/suspicious handles,
     // look up the official handle (web search first, grounded Gemini as
     // fallback) and AUTO-APPLY the correction — no manual "Usar" button.
-    const { verifyTweetHandles, formatHandleStatus, extractHandles, findOfficialHandle } = await import("./social/xverify");
+    const { verifyTweetHandles, extractHandles, findOfficialHandle } = await import("./social/xverify");
     let finalTweet = tweet;
     let handleInfos = await verifyTweetHandles(finalTweet);
     let hasInvalid = handleInfos.some((h) => h.status !== "verified");
-    const statusLines = handleInfos.map((h) => formatHandleStatus(h));
     const suggestionLines: string[] = []; // pre-escaped, raw *bold* markers
 
     if (hasInvalid && extractHandles(finalTweet).length > 0) {
@@ -900,52 +973,17 @@ bot.callbackQuery(/^pickTweet:(gemini|deepseek):(.+)$/, async (ctx) => {
       if (suggestionLines.length > 0) {
         xState.tweet = finalTweet;
         await saveState(state);
-        // Re-verify after the automatic corrections.
+        // Re-verify after the automatic corrections (showTweetApproval renders).
         handleInfos = await verifyTweetHandles(finalTweet);
-        statusLines.length = 0;
-        statusLines.push(...handleInfos.map((h) => formatHandleStatus(h)));
         hasInvalid = handleInfos.some((h) => h.status !== "verified");
       }
     }
 
-    const canPublish = handleInfos.every((h) => h.status === "verified");
-    // Only verified handles are clickable in the final text.
-    const verifiedSet = new Set(handleInfos.filter((h) => h.status === "verified").map((h) => h.handle.toLowerCase()));
-    const kb = new InlineKeyboard();
-    kb.text("✏️ Editar tweet", `editTweet:${postId}`).text("✏️ Editar menciones", `editHandlesX:${postId}`).text("❌ Rechazar", `rejectTweet:${postId}`);
-    if (hasInvalid && extractHandles(finalTweet).length > 0) {
-      kb.row().text("✂️ Auto-arreglar", `fixTweet:${postId}`);
-    }
-    // Clickable profile links ONLY for accounts that exist (verified),
-    // deduplicated case-insensitively.
-    const verifiedHandles = [
-      ...new Map(handleInfos.filter((h) => h.status === "verified").map((h) => [h.handle.toLowerCase(), h.handle])).values(),
-    ];
-    if (verifiedHandles.length > 0) {
-      kb.row();
-      verifiedHandles.forEach((h, i) => {
-        if (i > 0 && i % 4 === 0) kb.row();
-        kb.url(`🔗 @${h}`, `https://x.com/${h}`);
-      });
-    }
-
-    await ctx.api.editMessageText(
-      ctx.chat!.id,
-      statusMsg.message_id,
-      `✅ Tweet listo (${finalTweet.length} caracteres):\n\n${linkifyHandles(finalTweet, verifiedSet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}${suggestionLines.length ? `\n\n${suggestionLines.join("\n")}` : ""}${canPublish ? "\n\n✅ Tweet aprobado — preparando Facebook..." : `\n\n⚠️ Resuelve las menciones antes de publicar.`}`,
-      {
-        parse_mode: "Markdown",
-        reply_markup: kb,
-      },
-    );
-    // Auto-advance to the Facebook flow once the tweet is clean.
-    if (canPublish && published.social.facebook?.status !== "published") {
-      try {
-        await startFbFlow(published, state, ctx);
-      } catch (err) {
-        console.error("[bot] fb continuation failed:", err);
-      }
-    }
+    const header = suggestionLines.length > 0 ? `✅ Menciones corregidas automáticamente:\n${suggestionLines.join("\n")}` : "";
+    await showTweetApproval(published, state, ctx, finalTweet, published.caption ?? "", header, {
+      chatId: ctx.chat!.id,
+      messageId: statusMsg.message_id,
+    });
   } catch (err) {
     console.error("[bot] tweet regeneration failed:", err);
     await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ Error: ${(err as Error).message}`);
@@ -1066,35 +1104,10 @@ bot.callbackQuery(/^fixTweet:(.+)$/, async (ctx) => {
     xState.tweet = newTweet;
     await saveState(state);
 
-    // Re-verify after fix
-    const newInfos = await verifyTweetHandles(newTweet);
-    const statusLines = newInfos.map((h) => formatHandleStatus(h));
-    const canPublish = newInfos.every((h) => h.status === "verified");
-    const kb = new InlineKeyboard();
-    kb.text("✏️ Editar tweet", `editTweet:${postId}`)
-      .row()
-      .text("❌ Rechazar", `rejectTweet:${postId}`);
-    if (newInfos.some((h) => h.status !== "verified") && extractHandles(newTweet).length > 0) {
-      kb.row().text("✂️ Auto-arreglar", `fixTweet:${postId}`);
-    }
-
-    await ctx.api.editMessageText(
-      ctx.chat!.id,
-      statusMsg.message_id,
-      `✂️ Tweet regenerado sin menciones inválidas (${newTweet.length} caracteres):\n\n${escMarkdown(newTweet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}${!canPublish && extractHandles(newTweet).length > 0 ? `\n\n⚠️ Resuelve las menciones antes de publicar.` : `\n\n✅ Tweet aprobado — preparando Facebook...`}`,
-      {
-        parse_mode: "Markdown",
-        reply_markup: kb,
-      },
-    );
-    // Auto-advance to the Facebook flow once the tweet is clean.
-    if (canPublish && published.social.facebook?.status !== "published") {
-      try {
-        await startFbFlow(published, state, ctx);
-      } catch (err) {
-        console.error("[bot] fb continuation failed:", err);
-      }
-    }
+    await showTweetApproval(published, state, ctx, newTweet, published.caption ?? "", `✂️ Tweet regenerado sin menciones inválidas (${newTweet.length} caracteres)`, {
+      chatId: ctx.chat!.id,
+      messageId: statusMsg.message_id,
+    });
   } catch (err) {
     console.error("[bot] fixTweet failed:", err);
     await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `❌ Error: ${(err as Error).message}`);
@@ -1338,9 +1351,9 @@ bot.callbackQuery(/^postFb:(.+)$/, async (ctx) => {
 bot.callbackQuery(/^editTweet:(.+)$/, async (ctx) => {
   if (!isAllowed(ctx)) return;
   const postId = ctx.match[1];
-  await ctx.answerCallbackQuery({ text: "Envía el nuevo tweet..." });
-  await ctx.reply("✏️ Envía el texto del tweet (máx 280 caracteres):");
   ctx.session.awaitingEditFor = { postId, field: "tweet" };
+  await ctx.answerCallbackQuery({ text: "Envía el nuevo tweet..." }).catch(() => {});
+  await ctx.reply("✏️ Envía el texto del tweet (máx 280 caracteres):");
 });
 
 // ---- Manual mention replacement (fallback when verification fails) ----
@@ -1348,17 +1361,17 @@ bot.callbackQuery(/^editTweet:(.+)$/, async (ctx) => {
 bot.callbackQuery(/^editHandlesX:(.+)$/, async (ctx) => {
   if (!isAllowed(ctx)) return;
   const postId = ctx.match[1];
-  await ctx.answerCallbackQuery({ text: "Envía la sustitución..." });
-  await ctx.reply("✏️ Envía la sustitución de mención (ej. `@Anuel_2A → @Anuel_2bleA`):", { parse_mode: "Markdown" });
   ctx.session.awaitingEditFor = { postId, field: "xhandles" };
+  await ctx.answerCallbackQuery({ text: "Envía la sustitución..." }).catch(() => {});
+  await ctx.reply("✏️ Envía la sustitución de mención (ej. `@Anuel_2A → @Anuel_2bleA` o `@Anuel_2A → Anuel AA`):", { parse_mode: "Markdown" });
 });
 
 bot.callbackQuery(/^editHandlesFb:(.+)$/, async (ctx) => {
   if (!isAllowed(ctx)) return;
   const postId = ctx.match[1];
-  await ctx.answerCallbackQuery({ text: "Envía la sustitución..." });
-  await ctx.reply("✏️ Envía la sustitución de mención (ej. `@movistararenaes → @movistararena`):", { parse_mode: "Markdown" });
   ctx.session.awaitingEditFor = { postId, field: "fbhandles" };
+  await ctx.answerCallbackQuery({ text: "Envía la sustitución..." }).catch(() => {});
+  await ctx.reply("✏️ Envía la sustitución de mención (ej. `@movistararenaes → @movistararena`):", { parse_mode: "Markdown" });
 });
 
 // ---- Approve the FB text AS-IS (the @mentions stay for the FB editor) ----
@@ -1401,9 +1414,9 @@ bot.callbackQuery(/^rejectTweet:(.+)$/, async (ctx) => {
 bot.callbackQuery(/^editFb:(.+)$/, async (ctx) => {
   if (!isAllowed(ctx)) return;
   const postId = ctx.match[1];
-  await ctx.answerCallbackQuery({ text: "Envía el nuevo texto..." });
-  await ctx.reply("✏️ Envía el texto del post de Facebook:");
   ctx.session.awaitingEditFor = { postId, field: "fbtext" };
+  await ctx.answerCallbackQuery({ text: "Envía el nuevo texto..." }).catch(() => {});
+  await ctx.reply("✏️ Envía el texto del post de Facebook:");
 });
 
 bot.callbackQuery(/^rejectFb:(.+)$/, async (ctx) => {
@@ -1591,9 +1604,9 @@ bot.callbackQuery(/^reject:(.+)$/, async (ctx) => {
     await ctx.answerCallbackQuery({ text: "Post no encontrado o ya procesado" });
     return;
   }
-  await ctx.answerCallbackQuery({ text: "Esperando feedback..." });
-  await ctx.reply(`Describe los cambios necesarios para el post "${entry.prepared.title}":`);
+  await ctx.answerCallbackQuery({ text: "Esperando feedback..." }).catch(() => {});
   ctx.session.awaitingFeedbackFor = postId;
+  await ctx.reply(`Describe los cambios necesarios para el post "${entry.prepared.title}":`);
 });
 
 bot.callbackQuery(/^preview:(.+)$/, async (ctx) => {
@@ -1652,12 +1665,12 @@ bot.callbackQuery(/^edit:(title|desc|content):(.+)$/, async (ctx) => {
     await ctx.answerCallbackQuery({ text: "Post no encontrado o ya procesado" });
     return;
   }
-  await ctx.answerCallbackQuery({ text: "Esperando nuevo texto..." });
+  await ctx.answerCallbackQuery({ text: "Esperando nuevo texto..." }).catch(() => {});
+  ctx.session.awaitingEditFor = { postId, field };
   const fieldLabel = { title: "título", desc: "descripción", content: "contenido" }[field];
   await ctx.reply(`✏️ Envía el nuevo *${fieldLabel}* para el post "${entry.prepared.title}":`, {
     parse_mode: "Markdown",
   });
-  ctx.session.awaitingEditFor = { postId, field };
 });
 
 // ---- Text feedback for reject -> regenerate ----
@@ -1695,49 +1708,21 @@ bot.on("message:text", async (ctx) => {
         tweetProvider: undefined,
       };
       await saveState(state);
-      const { verifyTweetHandles, extractHandles } = await import("./social/xverify");
-      const infos = await verifyTweetHandles(newText);
-      const canPublish = infos.every((h) => h.status === "verified");
-      const kb = new InlineKeyboard();
-      kb.text("✏️ Editar tweet", `editTweet:${editFor.postId}`).text("✏️ Editar menciones", `editHandlesX:${editFor.postId}`).text("❌ Rechazar", `rejectTweet:${editFor.postId}`);
-      if (!canPublish && extractHandles(newText).length > 0) {
-        kb.row().text("✂️ Auto-arreglar", `fixTweet:${editFor.postId}`);
-      }
-      // Every handle in the edited text gets a 🔗 so the user can check in the
-      // browser that the account exists (manual-edit = verification fallback).
-      const editHandles = extractHandles(newText);
-      if (editHandles.length > 0) {
-        kb.row();
-        editHandles.forEach((h, i) => {
-          if (i > 0 && i % 4 === 0) kb.row();
-          kb.url(`🔗 @${h}`, `https://x.com/${h}`);
-        });
-      }
-      await ctx.reply(`✅ Tweet actualizado (${newText.length} caracteres):\n\n${linkifyHandles(newText)}${!canPublish && extractHandles(newText).length > 0 ? `\n\n⚠️ Resuelve las menciones antes de publicar.` : `\n\n✅ Tweet aprobado — preparando Facebook...`}`, {
-        parse_mode: "Markdown",
-        reply_markup: kb,
-      });
-      // Auto-advance to the Facebook flow once the tweet is clean.
-      if (canPublish && published.social.facebook?.status !== "published") {
-        try {
-          await startFbFlow(published, state, ctx);
-        } catch (err) {
-          console.error("[bot] fb continuation failed:", err);
-        }
-      }
+      await showTweetApproval(published, state, ctx, newText, published.caption ?? "", `✅ Tweet actualizado (${newText.length} caracteres)`);
       return;
     }
 
     // Manual mention replacement (X) — fallback when verification fails.
+    // Accepts `@handle → @handle` or `@handle → Nombre del artista` (free text).
     if (editFor.field === "xhandles") {
-      const m = newText.match(/@?([A-Za-z0-9_]{1,15})\s*(?:→|->|=>|a)\s*@?([A-Za-z0-9_]{1,15})/i);
+      const m = newText.match(/@?([A-Za-z0-9_]{1,15})\s*(?:→|->|=>|a)\s*(.+)/i);
       if (!m) {
-        await ctx.reply("⚠️ Formato: `@handle_actual → @handle_nuevo`. Envíalo de nuevo:", { parse_mode: "Markdown" });
+        await ctx.reply("⚠️ Formato: `@handle_actual → @handle_nuevo` o `@handle_actual → Nombre del artista`. Envíalo de nuevo:", { parse_mode: "Markdown" });
         ctx.session.awaitingEditFor = editFor; // keep waiting
         return;
       }
       const bad = m[1];
-      const good = m[2];
+      const good = m[2].trim();
       const state = await freshState();
       const published = state.published.find((e) => e.id === editFor.postId);
       if (!published) {
@@ -1749,38 +1734,10 @@ bot.on("message:text", async (ctx) => {
         await ctx.reply("No hay tweet aprobado.");
         return;
       }
-      xState.tweet = xState.tweet.replace(new RegExp(`@${bad}`, "gi"), `@${good}`);
+      xState.tweet = xState.tweet.replace(new RegExp(`@${bad}`, "gi"), good);
       xState.status = "approved";
       await saveState(state);
-
-      const { verifyTweetHandles, extractHandles, formatHandleStatus } = await import("./social/xverify");
-      const infos = await verifyTweetHandles(xState.tweet);
-      const canPublish = infos.every((h) => h.status === "verified");
-      const statusLines = infos.map((h) => formatHandleStatus(h));
-      const kb = new InlineKeyboard();
-      kb.text("✏️ Editar tweet", `editTweet:${editFor.postId}`).text("✏️ Editar menciones", `editHandlesX:${editFor.postId}`).text("❌ Rechazar", `rejectTweet:${editFor.postId}`);
-      if (!canPublish && extractHandles(xState.tweet).length > 0) {
-        kb.row().text("✂️ Auto-arreglar", `fixTweet:${editFor.postId}`);
-      }
-      const checkHandles = extractHandles(xState.tweet);
-      if (checkHandles.length > 0) {
-        kb.row();
-        checkHandles.forEach((h, i) => {
-          if (i > 0 && i % 4 === 0) kb.row();
-          kb.url(`🔗 @${h}`, `https://x.com/${h}`);
-        });
-      }
-      await ctx.reply(
-        `✅ Mención cambiada: @${escMarkdown(bad)} → *@${escMarkdown(good)}*\n\n${linkifyHandles(xState.tweet)}${statusLines.length ? `\n\n${statusLines.map((s) => escMarkdown(s)).join("\n")}` : ""}${canPublish ? "\n\n✅ Tweet aprobado — preparando Facebook..." : "\n\n⚠️ Resuelve las menciones antes de publicar."}`,
-        { parse_mode: "Markdown", reply_markup: kb },
-      );
-      if (canPublish && published.social.facebook?.status !== "published") {
-        try {
-          await startFbFlow(published, state, ctx);
-        } catch (err) {
-          console.error("[bot] fb continuation failed:", err);
-        }
-      }
+      await showTweetApproval(published, state, ctx, xState.tweet, published.caption ?? "", `✅ Mención cambiada: @${escMarkdown(bad)} → *${escMarkdown(good)}*`);
       return;
     }
 
@@ -1864,7 +1821,12 @@ bot.on("message:text", async (ctx) => {
 
   // 2) Feedback regeneration in progress (❌ Rechazar)
   const awaiting = ctx.session.awaitingFeedbackFor;
-  if (!awaiting) return;
+  if (!awaiting) {
+    // Never drop user input silently: with no pending edit/feedback, tell
+    // them how to arm one.
+    await ctx.reply("No hay una edición en curso. Pulsa ✏️ Editar tweet, ✏️ Editar menciones o ❌ Rechazar en el mensaje del post.");
+    return;
+  }
 
   const feedback = ctx.message.text;
   ctx.session.awaitingFeedbackFor = undefined;
