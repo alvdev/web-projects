@@ -777,6 +777,37 @@ async function publishToGbp(published: PublishedEntry, state: PendingState): Pro
   }
 }
 
+async function publishToLinkedIn(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
+  const fbState = published.social.facebook;
+  const liState = published.social.linkedin ?? { status: "queued" };
+  published.social.linkedin = liState;
+  if (!fbState?.tweet) return { ok: false, line: "❌ *LinkedIn:* no hay texto de Facebook aprobado" };
+  if (liState.status === "published") return { ok: true, line: "✅ *LinkedIn:* ya estaba publicado" };
+  try {
+    const { stripMentions } = await import("./social/gbp");
+    const { createLinkedInPost } = await import("./social/linkedin");
+    const text = stripMentions(fbState.tweet, fbState.fbMentions ?? []);
+    if (!text) return { ok: false, line: "❌ *LinkedIn:* texto vacío tras quitar menciones" };
+    const imageUrl = getPostImageUrl(published.slug);
+    const post = await createLinkedInPost(text, imageUrl ?? undefined);
+    liState.status = "published";
+    liState.tweet = text;
+    liState.publishedAt = new Date().toISOString();
+    liState.error = undefined;
+    await saveState(state);
+    const link = post.externalLink ?? "";
+    await sendAlert(`[Urban Sync] Publicado en LinkedIn: ${published.title}`, `${text}\n\n${link}`);
+    return { ok: true, line: link ? `✅ *LinkedIn:* ${escMarkdown(link)}` : "✅ *LinkedIn:* publicado" };
+  } catch (err) {
+    console.error("[bot] postLinkedIn failed:", err);
+    liState.status = "failed";
+    liState.error = (err as Error).message;
+    await saveState(state);
+    await sendAlert("[Urban Sync] Error publicando en LinkedIn", `${(err as Error).message}\n\nPost: ${published.title}`);
+    return { ok: false, line: `❌ *LinkedIn:* ${(err as Error).message}` };
+  }
+}
+
 bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
   if (!isAllowed(ctx)) return;
   const postId = ctx.match[1];
@@ -791,6 +822,7 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
   const xDone = published.social.x?.status === "published";
   const fbDone = published.social.facebook?.status === "published";
   const gbpDone = published.social.gbp?.status === "published";
+  const linkedinDone = published.social.linkedin?.status === "published";
   const xState = published.social.x;
   const fbState = published.social.facebook;
 
@@ -801,8 +833,8 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
   // Immediate visible feedback: the readiness checks (X handle scraping +
   // grounded lookups) can take a minute or two — never leave the tap silent.
   const statusMsg = await ctx.reply("⏳ Comprobando textos aprobados y menciones...", { parse_mode: "Markdown" });
-  if (xDone && fbDone && gbpDone) {
-    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "✅ Este post ya está publicado en X, Facebook y Google.", { parse_mode: "Markdown" });
+  if (xDone && fbDone && gbpDone && linkedinDone) {
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "✅ Este post ya está publicado en X, Facebook, Google y LinkedIn.", { parse_mode: "Markdown" });
     return;
   }
 
@@ -828,9 +860,9 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
   }
 
   if (xClean && fbClean) {
-    // Everything approved → publish the remaining platforms. GBP is derived
-    // from the approved FB text (mentions stripped), so fbClean implies GBP
-    // is ready — no separate GBP approval step.
+    // Everything approved → publish the remaining platforms. GBP and LinkedIn
+    // are derived from the approved FB text (mentions stripped), so fbClean
+    // implies both are ready — no separate approval step.
     const statusMsg = await ctx.reply("⏳ Publicando en redes...", { parse_mode: "Markdown" });
     const lines: string[] = [];
     if (!xDone) {
@@ -856,6 +888,15 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
       const rg = await publishToGbp(published, state);
       lines.push(rg.line);
       if (!rg.ok) {
+        await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, lines.join("\n"), { parse_mode: "Markdown" });
+        return;
+      }
+    }
+    if (!linkedinDone) {
+      await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Publicando en LinkedIn (urban-style-publicity) vía Buffer...", { parse_mode: "Markdown" });
+      const rl = await publishToLinkedIn(published, state);
+      lines.push(rl.line);
+      if (!rl.ok) {
         await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, lines.join("\n"), { parse_mode: "Markdown" });
         return;
       }

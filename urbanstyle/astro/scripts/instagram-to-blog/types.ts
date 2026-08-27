@@ -80,7 +80,7 @@ export interface PublishedEntry {
   caption?: string;
   postTimestamp?: string;
   mediaType?: string;
-  social: Partial<Record<"x" | "facebook" | "gbp", SocialPlatformState>>;
+  social: Partial<Record<"x" | "facebook" | "gbp" | "linkedin", SocialPlatformState>>;
 }
 
 export interface PendingEntry {

@@ -18,7 +18,7 @@ Automated content pipeline: Instagram posts → AI-generated blog articles (Astr
 | `watcher.ts` | Hourly: only when `backlogDone=true` AND no pending — detects truly new IG posts (id > highestSeenId) → queue |
 | `bot.ts` | Telegram bot (grammy). Callbacks: dual-LLM combo pick (`mix:`), approve/reject/feedback, crop (📐 top/center/bottom), manual edits (✏️ title/desc/content), remove/redes after publish, tweet flow, FB flow (`pickFb`/`useFbPage`/`fixFb`/`editFb`/`rejectFb`), publish helpers (`publishToX`/`publishToFb`, server-side gates), postX/postFb safety wrappers, useHandle, fixTweet. Publish only via ▶️ Publicar en redes after both texts approved. Uses `freshState()` (bypasses cache — critical) |
 | `state.ts` | `.pending.json` read/write (shared across processes). Fields: pending[], published[], skippedIds[], lastProcessedId, highestSeenId, tokenExpiresAt, backlogDone, chatId |
-| `types.ts` | Zod schemas + interfaces (PendingEntry, PublishedEntry with per-platform `social: {x?, facebook?, gbp?}`, LlmProvider, etc.) |
+| `types.ts` | Zod schemas + interfaces (PendingEntry, PublishedEntry with per-platform `social: {x?, facebook?, gbp?, linkedin?}`, LlmProvider, etc.) |
 | `llm.ts` | Gemini (primary, model chain 3.6→3.5→2.5-flash for quota 429) + DeepSeek (opencode-go `deepseek-v4-flash`). `generateArticles` (dual), `generateTextCompletion` (raw text), `groundedCompletion` (Google Search grounding), 503/429 availability retry (30s→60s→120s), describeImage (Gemini vision), guillemets «» → italic `*"..."*` normalization |
 | `tweet.ts` | `buildTweetPrompt(post, caption, postTimestamp)` — IG-caption-based tweet, style examples, RAE quotes, Spain-handle rule, past-tense detection (`shouldUsePastTense`: >1 week old OR caption date in past). `generateTweets` appends URL (23-char t.co budget, body ≤257), strips URLs LLM sneaks in |
 | `content.ts` | `preparePost`, `buildMdx` (frontmatter incl. `objectPosition`), `writePostFiles`, `generateSlug` (max 100, word-boundary, no dangling prepositions), `validateTitleEnding` |
@@ -31,6 +31,8 @@ Automated content pipeline: Instagram posts → AI-generated blog articles (Astr
 | `social/fbpost.ts` | FB post text generation: `buildFbPrompt` (tweet-adapted, no 280 limit, 2-3 sentences, RAE + Spain rules, past-tense detection), `generateFbTexts` (dual Gemini/DeepSeek, URL appended in code) |
 | `social/websearch.ts` | Web-search for official-account lookups. Chain: **Bing** (direct, decodes `u=a1`) → **DuckDuckGo HTML** (direct, throttled 4s, 8s timeout) → **Brave HTML via `WEBSEARCH_PROXY`** (ONLY last fallback when no usable result for the host filter; PacketStream residential). Circuit breaker per engine (3 fails → skip 10 min); usable results prioritized. Shared `searchProfile`, `buildSearchQueries`, `entityPhraseForHandle`, `sentenceForEntity`, `textsRelate` |
 | `social/fbverify.ts` | `suggestFbPages(text, caption)` — per @mention official FB page lookup: web search FIRST (`searchProfile`: handle-scoped + caption ENTITY-PHRASE natural-language queries "X facebook página oficial" via `entityPhraseForHandle`; Spain variants; URL-derived user) with relation guard (`fbPageRelatesToHandle`), then **grounded Gemini as fallback** (same prompt system as X, Spain rule). Result carries `source: "web" | "gemini"`. No suggestion → ✂️/✏️ only (no FB-search links) |
+| `social/gbp.ts` | GBP local posts via Buffer (`GBP_BUFFER_ACCESS_TOKEN`, separate workspace): `getGbpChannel()` (service "googlebusiness"), `createGbpPost` (requires `metadata.google.type: "whats_new"`), `stripMentions` (deterministic @mention removal shared with LinkedIn) |
+| `social/linkedin.ts` | LinkedIn posts via Buffer — SAME workspace/key as GBP: `getLinkedInChannel()` (service "linkedin", page "urban-style-publicity", id `6a90c4c6ccaf649a672e0050`), `createLinkedInPost` (no metadata required). Mentions stripped via `stripMentions` (real LinkedIn mentions need org URNs — future work) |
 
 ## 3. Key rules (prompt/UX constraints)
 
@@ -64,6 +66,8 @@ Blog picker → combo pick → crop → approve → publish (build+FTPS) → `�
 | Facebook "Urban Style Publicity" | `662130b9f1ac4a3c941ff00a` |
 | YouTube | `662131f7f1ac4a3c94344a34` |
 | StartPage | `662132c54ed7b60c24f0b77b` |
+| LinkedIn "urban-style-publicity" (GBP workspace) | `6a90c4c6ccaf649a672e0050` |
+| Google Business Profile (GBP workspace) | `6a8e268bccaf649a6718e8da` |
 
 ## 7. Buffer GraphQL cheat sheet
 
@@ -90,9 +94,10 @@ Blog picker → combo pick → crop → approve → publish (build+FTPS) → `�
 ## 10. Facebook publishing (implemented 2026-08-14)
 
 - FB page channel id: `662130b9f1ac4a3c941ff00a` (discovered via `getFbChannel()`, service "facebook")
-- User decisions: ▶️ Publicar en redes prepares BOTH platforms, then publishes only after mentions+texts are approved; FB text = the exact approved X tweet (X rules apply by construction); FB mentions verified via grounded Gemini lookup (FB blocks scraping) — same prompt system as X's `findOfficialHandle`
+- User decisions: ▶️ Publicar en redes prepares ALL platforms, then publishes only after mentions+texts are approved; FB text = the exact approved X tweet (X rules apply by construction); FB mentions verified via grounded Gemini lookup (FB blocks scraping) — same prompt system as X's `findOfficialHandle`
 - Verification gating (both platforms): nothing is published while mentions are unresolved — X: every handle scrapes as `verified` (`xverify`); FB: zero @handles remain in the text (each replaced with the official page name via ✅ Usar, or removed via ✂️). The `social:` handler re-checks readiness (server-side) before the combined publish; `publishToX`/`publishToFb` helpers enforce the same gates.
-- Flow: ▶️ Publicar en redes → readiness check → not ready: `startTweetFlow` (dual tweet picker → `pickTweet` → xverify handle check → ✅ Usar/✂️) → tweet clean → auto-advance `startFbFlow` (FB text = approved tweet verbatim; `social/fbverify.ts` `findOfficialFbPage`, Google Search grounding, Spain rule → `✅ Usar [page]` / ✂️ Quitar menciones / ✏️ / ❌) → "✅ Textos aprobados — pulsa ▶️" → ready: combined publish X then FB (`publishToX` → `publishToFb`, one progress message)
+- Flow: ▶️ Publicar en redes → readiness check → not ready: `startTweetFlow` (dual tweet picker → `pickTweet` → xverify handle check → ✅ Usar/✂️) → tweet clean → auto-advance `startFbFlow` (FB text = approved tweet verbatim; `social/fbverify.ts` `findOfficialFbPage`, Google Search grounding, Spain rule → `✅ Usar [page]` / ✂️ Quitar menciones / ✏️ / ❌) → "✅ Textos aprobados — pulsa ▶️" → ready: combined publish X → FB → GBP → LinkedIn (`publishToX` → `publishToFb` → `publishToGbp` → `publishToLinkedIn`, one progress message)
+- **GBP + LinkedIn (2026-08-28)**: both derived from the approved FB text with @mentions stripped (`stripMentions`, gbp.ts). GBP via `metadata.google.type: "whats_new"`; LinkedIn needs no metadata (channel "urban-style-publicity" lives in the GBP Buffer workspace, `GBP_BUFFER_ACCESS_TOKEN`). No separate approval step — fbClean implies both are ready. LinkedIn real mentions (org URNs, `AnnotationInputLinkedIn`) left as future work.
 - No per-platform publish buttons: `postX`/`postFb` exist only as safety wrappers for stale keyboards; the only publish trigger is ▶️ Publicar en redes
 - State: reuses `social.x` and `social.facebook` slots as-is (`tweet` field holds the FB text); suggestions kept in bot session `fbSuggestions[postId]` indexed by button (FB page names can exceed Telegram's 64-byte callback_data limit); `PublishedEntry.mediaType` (from IG `media_type`) drives the FB post type (VIDEO→reel, else post)
 - Callbacks: `pickFb:`, `postFb:`, `editFb:`, `rejectFb:`, `useFbPage:`, `fixFb:`
