@@ -360,7 +360,7 @@ function initSearch() {
     input.addEventListener('input', function () {
         clearTimeout(debounceTimer);
         var q = input.value.trim();
-        if (q.length < 2) {
+        if (q.length < 1) {
             results.classList.add('hidden');
             results.innerHTML = '';
             return;
@@ -403,7 +403,7 @@ function initSearch() {
                 .catch(function () {
                     results.classList.add('hidden');
                 });
-        }, 300);
+        }, 150);
     });
 
     document.addEventListener('click', function (e) {
