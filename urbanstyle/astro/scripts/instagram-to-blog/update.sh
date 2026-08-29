@@ -13,16 +13,21 @@ BEFORE=$(git -C "$REPO" rev-parse HEAD)
 git -C "$REPO" pull --ff-only
 AFTER=$(git -C "$REPO" rev-parse HEAD)
 
-CHANGED=""
+CHANGED="${CHANGED:-}"
+PULLED=0
 if [ "$BEFORE" != "$AFTER" ]; then
+  PULLED=1
   CHANGED=$(git -C "$REPO" diff --name-only "$BEFORE" "$AFTER")
 fi
 
 # If the pull replaced update.sh itself, re-exec the new version — bash may
 # have read the old file incrementally and would otherwise keep running stale
-# logic (e.g. wrong bot-restart list).
-if echo "$CHANGED" | grep -q "urbanstyle/astro/scripts/instagram-to-blog/update.sh"; then
+# logic (e.g. wrong bot-restart list). CHANGED is exported so the restarted
+# run still applies the pending actions (bot restart, bun install) even though
+# its own pull finds nothing new.
+if [ "$PULLED" = 1 ] && echo "$CHANGED" | grep -q "urbanstyle/astro/scripts/instagram-to-blog/update.sh"; then
   echo "=== update.sh changed — re-running new version ==="
+  export CHANGED
   exec bash "$0"
 fi
 
