@@ -4,11 +4,13 @@
 
 ## 1. What this system does
 
-Automated content pipeline: Instagram posts → AI-generated blog articles (Astro/MDX) → Telegram approval → publish to production site (FTPS) → social posting (X + Facebook via Buffer; GBP next).
+Automated content pipeline: Instagram posts → AI-generated blog articles (Astro/MDX) → Telegram approval → publish to production site (FTPS) → social posting (X, Facebook, GBP, LinkedIn via Buffer) → auto-commit generated posts back to git.
 
 - All code lives in: `scripts/instagram-to-blog/` (TypeScript, run with **Bun**)
-- Project root: `/home/alvdev/dev/www/web-projects/urbanstyle/astro`
-- Server (production pipeline + future): `kv55.local` (192.168.1.132), project at `~/dev/urban`, SSH key `~/.ssh/urban-kv55` (`ssh -i ~/.ssh/urban-kv55 alvdev@kv55.local`)
+- **Production** (pipeline, bot, timers, build + FTPS deploy): `kv55.local` (192.168.1.132, ssh alias `kv55` port 22, key `~/.ssh/urban-kv55`). Project = sparse git clone of the `web-projects` monorepo at `~/dev/urban` with only `urbanstyle/astro` checked out; the Astro project root is `~/dev/urban/urbanstyle/astro`. Runs via **systemd user units** (bot + daily timer + hourly watcher), `loginctl enable-linger` on.
+- **Dev machine** (`/home/alvdev/dev/www/web-projects/urbanstyle/astro`): edit features/content → `git push` → on kv55 run `update.sh` (pull + bun install if lockfile changed + bot restart if bot code changed + `.env` freshness reminder). Local systemd units are **disabled** (no double-publish).
+- Sync via GitHub (public repo `alvdev/web-projects`): kv55 pulls code; kv55 auto-commits published posts (`content: add blog post from IG`) and pushes with a fine-grained PAT in `~/.git-credentials` (Contents R&W, web-projects only). Dev machine `git pull`s to see generated content.
+- Deploy-only files (gitignored, synced by hand): `.env`, `public/vendor/` (composer deps for the PHP contact form), runtime artifacts stay on the server. On kv55 `.env` keep `NODE_BIN_DIR=/home/alvdev/.bun/bin` (build prepends it to PATH).
 
 ## 2. Modules
 
@@ -50,7 +52,7 @@ Blog picker → combo pick → crop → approve → publish (build+FTPS) → `�
 
 ## 5. Environment (.env at project root)
 
-- Instagram: `IG_ACCESS_TOKEN` (expires — alert flow), `IG_APP_ID`, `IG_APP_SECRET`, `IG_STOP_POST_ID` (18064397023917410), `IG_FIRST_RUN_STOP_ID`
+- Instagram: `IG_ACCESS_TOKEN` (expires — alert flow), `IG_APP_ID`, `IG_APP_SECRET`, `IG_STOP_POST_ID` (18032403803293824 = Post Malone post; processing walks newest-first from the API and stops AT it, so the backlog starts at DGlSRwyK6Dn / 2025-02-27 and runs through the newest post DWTajwgDR4k / 2026-03-25; candidates queue **oldest-first**), `IG_FIRST_RUN_STOP_ID` (dead config, unused)
 - LLM: `OPENCODE_API_KEY` (opencode-go), `OPENCODE_BASE_URL=https://opencode.ai/zen/go/v1`, `OPENCODE_MODEL=deepseek-v4-flash`, `GEMINI_API_KEY`, `GEMINI_MODEL=gemini-3.6-flash`, `GEMINI_MODELS=gemini-3.6-flash,gemini-3.5-flash,gemini-2.5-flash`
 - Telegram: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID=1345910809`
 - Buffer: `BUFFER_ACCESS_TOKEN`, `BUFFER_ORGANIZATION_ID=6621306828ef537f6f59f9ff`
@@ -78,9 +80,14 @@ Blog picker → combo pick → crop → approve → publish (build+FTPS) → `�
 - **Facebook REQUIRES** `metadata: { facebook: { type } }` (`PostTypeFacebook`: post | story | reel) — without it Buffer errors "Facebook posts require a type". Auto-chosen by IG media type in `postFb`: `VIDEO` → `reel`, else `post`. X needs no metadata.
 - **FB page mentions (concluded 2026-08-17):** NOT possible via any API path. Tested: Buffer annotations (only `@[url]`), direct Graph API `message_tags` (ignored on create), `@[page-id]`/`@[id:name]` in message (stripped/not converted), `tags` (blocked), `AnnotationType.mention` (output-only). Facebook only allows mentioning other pages from its composer UI. `postFb` publishes via **direct Graph API** (`social/facebook.ts`, `FB_ACCESS_TOKEN`/`FB_PAGE_ID`, own Meta app) when configured — benefits: real `link` preview (og:image) + API deletion — else falls back to Buffer. No mention machinery in state.
 
-## 8. Systemd (dev machine, user units)
+## 8. Systemd (kv55, user units)
 
-- `instagram-bot.service` (bot.ts), `instagram-to-blog.timer` (daily 11:00-12:00 Europe/Madrid + RandomizedDelaySec=3600), `instagram-watcher.timer` (hourly). Units in `systemd/`. **Remove `User=` lines** in user units (group errors otherwise).
+- `instagram-bot.service` (bot.ts), `instagram-to-blog.timer` (daily 11:00-12:00 Europe/Madrid + RandomizedDelaySec=3600), `instagram-watcher.timer` (hourly). Units in `systemd/` (committed, kv55 paths). Installed at `~/.config/systemd/user/` on kv55, `loginctl enable-linger alvdev` on, running. **Dev-machine units are disabled.**
+- `update.sh` (committed): pull → bun install if lockfile changed → restart bot if bot/gitSync/deploy/state/types changed → reinstall units if systemd/ changed → `.env` freshness reminder (mtime vs last pull + key-diff vs `.env.example`).
+
+## 8b. Git auto-commit of published posts
+
+- `gitSync.ts` → `commitAndPushBlogPost(slug)`: `git add urbanstyle/astro/src/content/blog/<slug>` (repo-root-relative, works on dev machine AND kv55 sparse clone), skip if nothing staged, `commit -m "content: add blog post from IG"`, `push origin main`. Non-blocking: called in `bot.ts` after a successful `uploadDist()`; failures alert but never fail the publish.
 
 ## 9. Known gotchas
 
