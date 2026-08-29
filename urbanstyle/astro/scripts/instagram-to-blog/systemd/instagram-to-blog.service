@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/alvdev/dev/www/web-projects/urbanstyle/astro
-Environment=PATH=/home/alvdev/.nvm/versions/node/v22.23.2/bin:/home/alvdev/.bun/bin:/usr/local/bin:/usr/bin:/bin
+WorkingDirectory=/home/alvdev/dev/urban/urbanstyle/astro
+Environment=PATH=/home/alvdev/.bun/bin:/usr/local/bin:/usr/bin:/bin
 ExecStart=/home/alvdev/.bun/bin/bun run scripts/instagram-to-blog/index.ts
 Nice=10
