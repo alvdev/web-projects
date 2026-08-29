@@ -129,7 +129,9 @@ async function main(): Promise<void> {
       return;
     }
 
-    const toProcess = candidates.slice(0, MAX_POSTS_PER_RUN);
+    // Process oldest-first: the IG backlog publishes in chronological order
+    // (candidates come newest-first from the API; reverse before slicing).
+    const toProcess = candidates.reverse().slice(0, MAX_POSTS_PER_RUN);
     for (const candidate of toProcess) {
       const entry = await queuePost(candidate, state, { notify: true });
       console.log(`[sync] queued post ${candidate.id} for approval -> ${entry.prepared.mdxPath}`);

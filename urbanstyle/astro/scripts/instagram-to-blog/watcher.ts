@@ -85,7 +85,7 @@ async function main(): Promise<void> {
 
     state.highestSeenId = latest;
     console.log(`[watcher] ${newest.length} truly new post(s) found`);
-    const toProcess = newest.slice(0, Number(process.env.MAX_POSTS_PER_RUN ?? 1));
+    const toProcess = newest.reverse().slice(0, Number(process.env.MAX_POSTS_PER_RUN ?? 1));
 
     for (const post of toProcess) {
       const entry = await queuePost(
