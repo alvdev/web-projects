@@ -73,6 +73,17 @@ async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyCon
     });
     console.log(`[bot] published ${entry.prepared.mdxPath}`);
 
+    try {
+      const { commitAndPushBlogPost } = await import("./gitSync");
+      commitAndPushBlogPost(entry.prepared.slug);
+    } catch (err) {
+      console.warn(`[git] commit/push failed: ${(err as Error).message}`);
+      await sendAlert(
+        "[Urban Sync] git sync failed",
+        `Post published but commit/push errored: ${(err as Error).message}\n\nSlug: ${entry.prepared.slug}`,
+      );
+    }
+
     state.pending = state.pending.filter((e) => e.id !== entry.id);
     if (!state.lastProcessedId || BigInt(entry.id) > BigInt(state.lastProcessedId)) {
       state.lastProcessedId = entry.id;
