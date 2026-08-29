@@ -1743,8 +1743,11 @@ bot.on("message:text", async (ctx) => {
 
     // Tweet edit (published post social flow)
     if (editFor.field === "tweet") {
-      if (newText.length > 280) {
-        await ctx.reply(`⚠️ El tweet tiene ${newText.length} caracteres (máx 280). Envíalo de nuevo más corto.`);
+      // X counts any URL as 23 chars (t.co) — validate against the effective
+      // length so a pasted tweet with the long blog URL isn't over-rejected.
+      const effective = newText.replace(/https?:\/\/\S+/g, "x".repeat(23));
+      if (effective.length > 280) {
+        await ctx.reply(`⚠️ El tweet tiene ${effective.length} caracteres efectivos (máx 280; cada URL cuenta como 23). Envíalo de nuevo más corto.`);
         ctx.session.awaitingEditFor = editFor; // keep waiting
         return;
       }
@@ -1754,13 +1757,17 @@ bot.on("message:text", async (ctx) => {
         await ctx.reply("Post no encontrado en publicados.");
         return;
       }
+      // Auto-append the canonical blog URL when the pasted text lacks it.
+      const url = `https://urbanstylepublicity.com/blog/${published.slug}`;
+      let tweet = newText.trim();
+      if (!tweet.includes(url)) tweet = `${tweet} ${url}`.trim();
       published.social.x = {
         status: "approved",
-        tweet: newText,
+        tweet,
         tweetProvider: undefined,
       };
       await saveState(state);
-      await showTweetApproval(published, state, ctx, newText, published.caption ?? "", `✅ Tweet actualizado (${newText.length} caracteres)`);
+      await showTweetApproval(published, state, ctx, tweet, published.caption ?? "", `✅ Tweet actualizado (${effective.length} caracteres efectivos)`);
       return;
     }
 
