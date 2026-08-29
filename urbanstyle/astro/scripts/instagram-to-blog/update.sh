@@ -9,17 +9,21 @@ REPO=/home/alvdev/dev/urban
 BUN=/home/alvdev/.bun/bin/bun
 
 echo "=== pulling $REPO ==="
+BEFORE=$(git -C "$REPO" rev-parse HEAD)
 git -C "$REPO" pull --ff-only
+AFTER=$(git -C "$REPO" rev-parse HEAD)
 
 CHANGED=""
-CHANGED=$(git -C "$REPO" diff --name-only HEAD@{1} HEAD 2>/dev/null || true)
+if [ "$BEFORE" != "$AFTER" ]; then
+  CHANGED=$(git -C "$REPO" diff --name-only "$BEFORE" "$AFTER")
+fi
 
 # If the pull replaced update.sh itself, re-exec the new version — bash may
 # have read the old file incrementally and would otherwise keep running stale
 # logic (e.g. wrong bot-restart list).
 if echo "$CHANGED" | grep -q "urbanstyle/astro/scripts/instagram-to-blog/update.sh"; then
   echo "=== update.sh changed — re-running new version ==="
-  exec bash "$ASTRO/scripts/instagram-to-blog/update.sh"
+  exec bash "$0"
 fi
 
 if echo "$CHANGED" | grep -q "urbanstyle/astro/bun.lock"; then
