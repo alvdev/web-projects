@@ -36,8 +36,8 @@ if echo "$CHANGED" | grep -q "urbanstyle/astro/scripts/instagram-to-blog/systemd
   cp "$ASTRO"/scripts/instagram-to-blog/systemd/*.{service,timer} ~/.config/systemd/user/
   systemctl --user daemon-reload
   systemctl --user restart instagram-bot.service
-elif echo "$CHANGED" | grep -qE "urbanstyle/astro/scripts/instagram-to-blog/(bot|gitSync|deploy|state|types|content)\.ts"; then
-  echo "=== bot code changed — restarting bot ==="
+elif echo "$CHANGED" | grep -q "urbanstyle/astro/scripts/instagram-to-blog/"; then
+  echo "=== pipeline code changed — restarting bot ==="
   systemctl --user restart instagram-bot.service
 fi
 

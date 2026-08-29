@@ -62,6 +62,17 @@ export type LlmProvider = "gemini" | "deepseek";
 
 export type SocialStatus = "queued" | "approved" | "published" | "failed";
 
+export interface VerifiedHandle {
+  handle: string;
+  status: "verified" | "invalid" | "unverified";
+  exists?: boolean;
+  followers?: number;
+  isVerified?: boolean;
+  displayName?: string;
+  error?: string;
+  verifiedAt: string;
+}
+
 export interface SocialPlatformState {
   status: SocialStatus;
   tweet?: string;        // approved tweet text (FB text for facebook)
@@ -70,6 +81,7 @@ export interface SocialPlatformState {
   error?: string;
   handlesApproved?: boolean; // user approved the FB text WITH @mentions as-is
   fbMentions?: { handle: string; pageName: string; pageUrl?: string }[]; // verified pages per @handle
+  verifiedHandles?: VerifiedHandle[]; // X verification cache (with verifiedAt)
 }
 
 export interface PublishedEntry {

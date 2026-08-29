@@ -5,6 +5,8 @@
  * then reports "unverified".
  */
 
+import type { VerifiedHandle } from "../types";
+
 export interface HandleInfo {
   handle: string;
   status: "verified" | "invalid" | "unverified";
@@ -50,7 +52,10 @@ function parseProfile(html: string, handle: string): HandleInfo {
 
 export async function verifyHandle(handle: string, maxRetries = 3): Promise<HandleInfo> {
   const clean = handle.replace(/^@/, "");
-  let delay = 30_000;
+  if (isBlocked()) {
+    return { handle: clean, status: "unverified", error: "X bloqueado temporalmente" };
+  }
+  let delay = 5_000;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -60,17 +65,20 @@ export async function verifyHandle(handle: string, maxRetries = 3): Promise<Hand
           "Accept-Language": "en-US,en;q=0.9",
         },
         redirect: "follow",
-        signal: AbortSignal.timeout(30_000),
+        signal: AbortSignal.timeout(10_000),
       });
 
       if (res.status === 200) {
         const html = await res.text();
+        recordSuccess();
         return parseProfile(html, clean);
       }
       if (res.status === 404) {
+        recordSuccess();
         return { handle: clean, status: "invalid", exists: false };
       }
       // 403/429/5xx → retry with backoff
+      recordBlock();
       console.warn(`[xverify] ${clean}: HTTP ${res.status}, retry ${attempt}/${maxRetries}`);
     } catch (err) {
       console.warn(`[xverify] ${clean}: fetch error (${(err as Error).message}), retry ${attempt}/${maxRetries}`);
@@ -83,6 +91,31 @@ export async function verifyHandle(handle: string, maxRetries = 3): Promise<Hand
   }
 
   return { handle: clean, status: "unverified", error: "X blocked verification (403/429)" };
+}
+
+// ---- Circuit breaker: x.com anti-bot blocks (403/429/5xx) are all-or-nothing
+// per IP — after BLOCK_THRESHOLD consecutive ones, stop scraping for a cooldown
+// instead of burning the retry gauntlet on every handle. ----
+let blockStreak = 0;
+let blockedUntil = 0;
+const BLOCK_THRESHOLD = 3;
+const BLOCK_COOLDOWN_MS = 10 * 60 * 1000;
+
+function isBlocked(): boolean {
+  return Date.now() < blockedUntil;
+}
+
+function recordBlock(): void {
+  blockStreak++;
+  if (blockStreak >= BLOCK_THRESHOLD && !isBlocked()) {
+    blockedUntil = Date.now() + BLOCK_COOLDOWN_MS;
+    console.warn(`[xverify] ${blockStreak} consecutive blocks — pausing X scraping until ${new Date(blockedUntil).toISOString()}`);
+  }
+}
+
+function recordSuccess(): void {
+  blockStreak = 0;
+  blockedUntil = 0;
 }
 
 export function extractHandles(text: string): string[] {
@@ -107,13 +140,50 @@ export function formatHandleStatus(info: HandleInfo): string {
   }
 }
 
-export async function verifyTweetHandles(text: string): Promise<HandleInfo[]> {
+export async function verifyTweetHandles(
+  text: string,
+  onProgress?: (handle: string, done: number, total: number) => void,
+): Promise<HandleInfo[]> {
   const handles = extractHandles(text);
   const results: HandleInfo[] = [];
-  for (const handle of handles) {
-    results.push(await verifyHandle(handle));
-  }
+  let done = 0;
+  await Promise.all(
+    handles.map(async (handle) => {
+      const info = await verifyHandle(handle);
+      results.push(info);
+      done++;
+      onProgress?.(handle, done, handles.length);
+    }),
+  );
   return results;
+}
+
+const DEFAULT_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
+
+/**
+ * True when a cached verification (from state.social.x.verifiedHandles) covers
+ * every @handle in `text` with status "verified" and is still fresh — so the
+ * publish path can skip re-scraping x.com entirely. Tweets with no handles
+ * trivially pass (nothing to verify).
+ */
+export function cachedHandlesCover(
+  text: string,
+  cached: VerifiedHandle[] | undefined,
+  maxAgeMs = DEFAULT_CACHE_MAX_AGE_MS,
+): boolean {
+  if (!cached || cached.length === 0) return false;
+  const handles = extractHandles(text);
+  if (handles.length === 0) return true;
+  if (handles.length !== cached.length) return false;
+
+  const byHandle = new Map(cached.map((c) => [c.handle.toLowerCase(), c]));
+  const now = Date.now();
+  for (const h of handles) {
+    const entry = byHandle.get(h.toLowerCase());
+    if (!entry || entry.status !== "verified") return false;
+    if (now - Date.parse(entry.verifiedAt) > maxAgeMs) return false;
+  }
+  return true;
 }
 
 /**

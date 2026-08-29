@@ -618,6 +618,15 @@ async function showTweetApproval(
     console.warn("[bot] X handle verification failed:", (err as Error).message);
   }
 
+  // Persist the verification as a cache so the publish path (social: +
+  // publishToX) can skip re-scraping x.com for the same handle set.
+  const xState = published.social.x;
+  if (xState) {
+    const verifiedAt = new Date().toISOString();
+    xState.verifiedHandles = handleInfos.map((h) => ({ ...h, verifiedAt }));
+    await saveState(state);
+  }
+
   const hasHandles = extractHandles(tweet).length > 0;
   const canPublish = !verifyFailed && handleInfos.every((h) => h.status === "verified");
   const statusLines = handleInfos.map((h) => formatHandleStatus(h));
@@ -676,8 +685,15 @@ async function publishToX(published: PublishedEntry, state: PendingState): Promi
   if (!xState?.tweet) return { ok: false, line: "❌ *X:* no hay tweet aprobado" };
   if (xState.status === "published") return { ok: true, line: "✅ *X:* ya estaba publicado" };
   try {
-    const { verifyTweetHandles } = await import("./social/xverify");
-    const handleInfos = await verifyTweetHandles(xState.tweet);
+    const { cachedHandlesCover, verifyTweetHandles } = await import("./social/xverify");
+    let handleInfos: import("./social/xverify").HandleInfo[];
+    if (cachedHandlesCover(xState.tweet, xState.verifiedHandles)) {
+      handleInfos = xState.verifiedHandles ?? [];
+    } else {
+      handleInfos = await verifyTweetHandles(xState.tweet);
+      xState.verifiedHandles = handleInfos.map((h) => ({ ...h, verifiedAt: new Date().toISOString() }));
+      await saveState(state);
+    }
     if (handleInfos.some((h) => h.status !== "verified")) {
       return { ok: false, line: "❌ *X:* menciones sin verificar — pulsa ▶️ Publicar en redes para arreglarlas." };
     }
@@ -855,8 +871,19 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
   let xClean = !!xState?.tweet && (xState.status === "approved" || xState.status === "published");
   let fbClean = !!fbState?.tweet && (fbState.status === "approved" || fbState.status === "published");
   if (xClean && !xDone && xState?.tweet) {
-    const { verifyTweetHandles } = await import("./social/xverify");
-    xClean = (await verifyTweetHandles(xState.tweet)).every((h) => h.status === "verified");
+    const { cachedHandlesCover, verifyTweetHandles } = await import("./social/xverify");
+    if (cachedHandlesCover(xState.tweet, xState.verifiedHandles)) {
+      xClean = true;
+    } else {
+      const handleInfos = await verifyTweetHandles(xState.tweet, (h, done, total) => {
+        void ctx.api
+          .editMessageText(ctx.chat!.id, statusMsg.message_id, `⏳ Verificando menciones de X (${done}/${total}): @${h}...`, { parse_mode: "Markdown" })
+          .catch(() => {});
+      });
+      xState.verifiedHandles = handleInfos.map((h) => ({ ...h, verifiedAt: new Date().toISOString() }));
+      await saveState(state);
+      xClean = handleInfos.every((h) => h.status === "verified");
+    }
   }
   if (fbClean && !fbDone && fbState?.tweet) {
     const { extractHandles } = await import("./social/xverify");
