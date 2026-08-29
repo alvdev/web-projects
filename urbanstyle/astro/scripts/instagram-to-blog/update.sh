@@ -14,6 +14,14 @@ git -C "$REPO" pull --ff-only
 CHANGED=""
 CHANGED=$(git -C "$REPO" diff --name-only HEAD@{1} HEAD 2>/dev/null || true)
 
+# If the pull replaced update.sh itself, re-exec the new version — bash may
+# have read the old file incrementally and would otherwise keep running stale
+# logic (e.g. wrong bot-restart list).
+if echo "$CHANGED" | grep -q "urbanstyle/astro/scripts/instagram-to-blog/update.sh"; then
+  echo "=== update.sh changed — re-running new version ==="
+  exec bash "$ASTRO/scripts/instagram-to-blog/update.sh"
+fi
+
 if echo "$CHANGED" | grep -q "urbanstyle/astro/bun.lock"; then
   echo "=== bun install (lockfile changed) ==="
   (cd "$ASTRO" && "$BUN" install)
