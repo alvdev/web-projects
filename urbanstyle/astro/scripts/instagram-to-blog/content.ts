@@ -59,12 +59,14 @@ function formatPubDate(timestamp: string): string {
 }
 
 function escapeMdx(value: string): string {
-  return value.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+  // Frontmatter is written as YAML single-quoted scalars: apostrophes are
+  // escaped by doubling (''), backslashes are literal — never backslash-escape.
+  return value.replace(/'/g, "''");
 }
 
 export function preparePost(article: LlmArticle, post: NewPost): PreparedPost {
   // Safety net: normalize work-title formatting regardless of provider output.
-  const fixEscapes = (s: string) => s.replace(/\\"/g, '"');
+  const fixEscapes = (s: string) => s.replace(/\\"/g, '"').replace(/\\'/g, "'");
   let title = fixEscapes(article.title).trim();
   let description = fixEscapes(article.description).trim();
   let content = fixEscapes(article.content);
