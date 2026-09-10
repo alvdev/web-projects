@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { randomUUID } from "node:crypto";
 import { GoogleGenerativeAI, type GenerateContentResult } from "@google/generative-ai";
 import { LlmArticleSchema, type LlmArticle, type LlmProvider, type NewPost } from "./types";
 import { loadInstructions, formatInstructions, markInstructionsApplied } from "./instructions";
@@ -12,9 +13,18 @@ const BASE_DELAY_MS = 2000;
 // the loop (see below) so a fully quota-exhausted day can never block the flow forever.
 const AVAILABILITY_INTERVALS_MS = [30_000, 60_000, 120_000, 120_000];
 
+// Stable session id for opencode Go API (x-opencode-session header, required
+// since ~2026-09-07 for routing/prompt-caching). One per process — retries of a
+// request reuse it.
+const OPENCODE_SESSION_ID = `urbanstyle-ig-blog-${randomUUID()}`;
+
 const deepseekClient = new OpenAI({
   apiKey: process.env.OPENCODE_API_KEY ?? "",
   baseURL: process.env.OPENCODE_BASE_URL ?? "https://opencode.ai/zen/go/v1",
+  defaultHeaders: {
+    "x-opencode-session": OPENCODE_SESSION_ID,
+    "User-Agent": "urbanstyle-ig-blog/1.0",
+  },
   timeout: 180_000,
   maxRetries: 0,
 });
