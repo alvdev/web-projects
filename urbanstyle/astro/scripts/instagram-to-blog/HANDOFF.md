@@ -82,7 +82,7 @@ Blog picker → combo pick → crop → approve → publish (build+FTPS) → `�
 
 ## 8. Systemd (kv55, user units)
 
-- `instagram-bot.service` (bot.ts), `instagram-to-blog.timer` (daily 11:00-12:00 Europe/Madrid + RandomizedDelaySec=3600), `instagram-watcher.timer` (hourly). Units in `systemd/` (committed, kv55 paths). Installed at `~/.config/systemd/user/` on kv55, `loginctl enable-linger alvdev` on, running. **Dev-machine units are disabled.**
+- `instagram-bot.service` (bot.ts), `instagram-to-blog.timer` (daily 12:00-13:00 Europe/Madrid + RandomizedDelaySec=3600), `instagram-watcher.timer` (hourly). Units in `systemd/` (committed, kv55 paths). Installed at `~/.config/systemd/user/` on kv55, `loginctl enable-linger alvdev` on, running. **Dev-machine units are disabled.**
 - `update.sh` (committed): pull → bun install if lockfile changed → restart bot if bot/gitSync/deploy/state/types changed → reinstall units if systemd/ changed → `.env` freshness reminder (mtime vs last pull + key-diff vs `.env.example`).
 
 ## 8b. Git auto-commit of published posts

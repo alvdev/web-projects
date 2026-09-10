@@ -3,7 +3,7 @@ Description=Run Urban Style instagram-to-blog sync daily
 Requires=instagram-to-blog.service
 
 [Timer]
-OnCalendar=*-*-* 11:00:00 Europe/Madrid
+OnCalendar=*-*-* 12:00:00 Europe/Madrid
 RandomizedDelaySec=3600
 Persistent=true
 
