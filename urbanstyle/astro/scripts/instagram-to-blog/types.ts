@@ -119,7 +119,7 @@ export interface PendingState {
   skippedIds: string[];
   pending: PendingEntry[];
   published: PublishedEntry[];
-  translationsPending?: string[]; // blog slugs whose locale translations still need to be generated
+  translationsPending?: string[]; // blog slugs whose locale translations still need to be generated or deployed
   knownXHandles?: Record<string, string>; // artista (normalizado) → @handle X verificado
   knownFbPages?: Record<string, { user: string; url: string }>; // @handle → página FB verificada
 }

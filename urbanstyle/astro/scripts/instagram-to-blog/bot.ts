@@ -125,6 +125,31 @@ async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyCon
 }
 
 /**
+ * Build the site with freshly translated content, upload it to production and
+ * commit the locale files. Git commit/push failures are non-fatal (mirrors the
+ * publish flow); build/upload failures throw so the caller can retry.
+ */
+async function deployTranslations(slugs: string[]): Promise<void> {
+  console.log(`[bot] building site with translations (${slugs.join(", ")})...`);
+  await buildSite();
+  const { uploaded, skipped } = await uploadDist();
+  console.log(`[bot] deployed translations: ${uploaded} uploaded, ${skipped} unchanged`);
+
+  for (const slug of slugs) {
+    try {
+      const { commitAndPushTranslations } = await import("./gitSync");
+      commitAndPushTranslations(slug);
+    } catch (err) {
+      console.warn(`[git] translation commit/push failed for ${slug}: ${(err as Error).message}`);
+      await sendAlert(
+        "[Urban Sync] git sync failed",
+        `Translations deployed but commit/push errored: ${(err as Error).message}\n\nSlug: ${slug}`,
+      );
+    }
+  }
+}
+
+/**
  * Translate the freshly published post into en/it/fr/pt. Runs non-blocking so
  * publishing is never delayed; failures are queued in state.translationsPending
  * and retried on the next bot run / publish.
@@ -134,10 +159,11 @@ async function runPostTranslations(slug: string): Promise<void> {
     const written = await translatePostBySlug(slug);
     if (written.length > 0) {
       console.log(`[bot] translations written for ${slug}: ${written.length} locale(s)`);
-      const state = await freshState();
-      state.translationsPending = (state.translationsPending ?? []).filter((s) => s !== slug);
-      await saveState(state);
     }
+    await deployTranslations([slug]);
+    const state = await freshState();
+    state.translationsPending = (state.translationsPending ?? []).filter((s) => s !== slug);
+    await saveState(state);
   } catch (err) {
     console.warn(`[bot] translations failed for ${slug}, queued for retry:`, (err as Error).message);
     try {
@@ -156,7 +182,31 @@ async function retryPendingTranslations(): Promise<void> {
   const slugs = [...new Set(state.translationsPending ?? [])];
   if (slugs.length === 0) return;
   console.log(`[bot] retrying pending translations for: ${slugs.join(", ")}`);
-  await Promise.allSettled(slugs.map((slug) => runPostTranslations(slug)));
+
+  const results = await Promise.allSettled(
+    slugs.map(async (slug) => {
+      await translatePostBySlug(slug);
+    }),
+  );
+  const ok: string[] = [];
+  const failed: string[] = [];
+  slugs.forEach((slug, i) => {
+    if (results[i].status === "fulfilled") ok.push(slug);
+    else failed.push(slug);
+  });
+
+  if (ok.length > 0) {
+    try {
+      await deployTranslations(ok);
+    } catch (err) {
+      console.warn(`[bot] translation deploy failed for ${ok.join(", ")}, queued for retry:`, (err as Error).message);
+      failed.push(...ok);
+    }
+  }
+
+  const fresh = await freshState();
+  fresh.translationsPending = [...new Set(failed)];
+  await saveState(fresh);
 }
 
 // ---- Remove / social queue after publish ----
@@ -1605,10 +1655,12 @@ bot.command("retraducir", async (ctx) => {
   await ctx.reply(`⏳ Traduciendo "${slug}"...`);
   try {
     const written = await translatePostBySlug(slug);
+    await ctx.reply(`⏳ Compilando y subiendo traducciones...`);
+    await deployTranslations([slug]);
     await ctx.reply(
       written.length > 0
-        ? `✅ Traducciones generadas (${written.length}): ${written.join(", ")}`
-        : "ℹ️ Todas las traducciones ya existían.",
+        ? `✅ Traducciones generadas y desplegadas (${written.length}): ${written.join(", ")}`
+        : "ℹ️ Todas las traducciones ya existían — desplegadas.",
     );
   } catch (err) {
     await ctx.reply(`❌ Error: ${(err as Error).message}`);
