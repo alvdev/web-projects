@@ -434,6 +434,178 @@ export function generateGeminiArticle(post: NewPost, feedback?: string, imageDes
   );
 }
 
+export type TranslationKind = "blog" | "service" | "section";
+
+const TRANSLATION_RULES = (locale: string) => `Translate the file below from Spanish into ${locale.toUpperCase()} with MAXIMUM FIDELITY.
+
+TRANSLATION RULES (non-negotiable):
+- FAITHFUL TRANSLATION ONLY: preserve meaning, tone, structure, and length. NEVER rewrite, summarize, embellish, omit, or invent content. This is a translation, not copywriting or SEO rewriting.
+- Keep proper nouns, brand names, artist names, event/venue names, work titles (albums, tours, concerts, movies, songs), URLs, phone numbers and email addresses UNTRANSLATED.
+- Work titles: in the BODY keep the «guillemets» convention («Title»); in title/description frontmatter keep the escaped double quotes (\\"Title\\") exactly as the source uses them.
+- Preserve Markdown syntax exactly: heading levels, lists, bold/italic markers, links [..](..), images ![..](..), blank lines, and inline HTML.
+- MDX: preserve ALL component tags (<Desc1 ... />, <Faqs />, <Reviews />, ...), their attribute names, class names, and all non-text attribute values (paths like './images/x.webp', ids, folder names, video ids, numbers, quoted CSS classes) EXACTLY as-is. Translate ONLY visible text content and translatable text-bearing attributes (title, description, subtitle, videoCaption, spanLine1, spanLine2, alt text).
+- Frontmatter: translate only human-readable fields (title, description, shortTitle, coverAlt, seo.title, seo.description, taxonomy categories and tags, review texts, faq questions/answers). Keep technical fields byte-identical (cover paths, order, pubDate, objectPosition, image paths). Do NOT include any 'slug' field in the output frontmatter.
+- Keep the same YAML quoting style as the source (single-quoted with doubled apostrophes '' or double-quoted).
+- Use correct accented characters of the target language. Keep numbers, dates and measurements unchanged.
+
+Respond ONLY with a JSON object: {"file": "<the complete translated file, frontmatter included>"}. No markdown fences, no commentary.`;
+
+async function callDeepseekTranslate(source: string, locale: string, kind: TranslationKind): Promise<string> {
+  const prompt = `${TRANSLATION_RULES(locale)}
+
+Source file (kind: ${kind}):
+\`\`\`
+${source}
+\`\`\``;
+
+  const completion = await deepseekClient.chat.completions.create({
+    model: DEEPSEEK_MODEL,
+    messages: [
+      {
+        role: "system",
+        content: `You are a professional translator for a Spanish outdoor advertising company (wild posting / poster pasting). You translate website content with the highest possible fidelity.`,
+      },
+      { role: "user", content: prompt },
+    ],
+    temperature: 0.2,
+    max_tokens: 16_000,
+    response_format: { type: "json_object" },
+  });
+
+  const raw = completion.choices[0]?.message?.content;
+  if (!raw) throw new Error("DeepSeek returned empty response");
+  const data = JSON.parse(raw.replace(/```json\n?|\n?```/g, "").trim()) as { file?: string };
+  if (!data.file) throw new Error("Translation response missing 'file' field");
+  return data.file;
+}
+
+async function callGeminiTranslate(model: string, source: string, locale: string, kind: TranslationKind): Promise<string> {
+  const prompt = `${TRANSLATION_RULES(locale)}
+
+Source file (kind: ${kind}):
+\`\`\`
+${source}
+\`\`\``;
+
+  const generativeModel = gemini.getGenerativeModel({
+    model,
+    generationConfig: {
+      temperature: 0.2,
+      maxOutputTokens: 16_000,
+      responseMimeType: "application/json",
+    },
+  });
+
+  const result = await generativeModel.generateContent(prompt);
+  const raw = result.response.text();
+  if (!raw) throw new Error("Gemini returned empty response");
+  const data = JSON.parse(raw.replace(/```json\n?|\n?```/g, "").trim()) as { file?: string };
+  if (!data.file) throw new Error("Translation response missing 'file' field");
+  return data.file;
+}
+
+/**
+ * Faithfully translate a full MDX/MD file (frontmatter + body) from Spanish
+ * into the target locale. Primary provider: DeepSeek (JSON mode). Falls back
+ * to the Gemini model chain on 429/503. The translation is literal — never
+ * creative or SEO-rewritten (see TRANSLATION_RULES).
+ */
+export async function translateFileContent(
+  source: string,
+  locale: string,
+  kind: TranslationKind,
+): Promise<string> {
+  const runDeepseek = (): Promise<string> =>
+    withAvailability("DeepSeek/translate", () =>
+      withRetries(
+        () => callDeepseekTranslate(source, locale, kind),
+        "DeepSeek/translate",
+        `${kind}:${locale}`,
+      ),
+    );
+
+  try {
+    return await runDeepseek();
+  } catch (err) {
+    console.warn(`[llm] DeepSeek translation failed for ${kind}/${locale}, trying Gemini:`, (err as Error).message);
+    return withAvailability("Gemini/translate", () =>
+      geminiWithChain("Gemini/translate", (model) =>
+        withRetries(
+          () => callGeminiTranslate(model, source, locale, kind),
+          `Gemini/translate/${model}`,
+          `${kind}:${locale}`,
+        ),
+      ),
+    );
+  }
+}
+
+const CITY_JSON_RULES = (locale: string) => `Translate the following Spanish JSON data into ${locale.toUpperCase()} with MAXIMUM FIDELITY.
+
+TRANSLATION RULES (non-negotiable):
+- FAITHFUL TRANSLATION ONLY: translate meaning exactly. Never rewrite, summarize, embellish, omit or invent content.
+- Keep proper nouns, place names, neighborhood names, brand names, URLs and slugs UNTRANSLATED.
+- Translate only human-readable values: province "title"/"type", city "title"/"description"/"description2"/"type", and every faq "q"/"a".
+- Output a JSON object with EXACTLY this structure:
+{"province": {"title": "...", "type": "..."}, "cities": {"<citySlug>": {"title": "...", "description": "...", "description2": "...", "type": "...", "faq": [{"q": "...", "a": "..."}]}}}
+- Include a city object ONLY for cities present in the input. Include a field ONLY if it exists in that city's input (omit "description2" if absent, omit "faq" if absent, omit "description" if absent).
+- Use correct accented characters of the target language.
+- Respond ONLY with the JSON object. No markdown fences, no commentary.`;
+
+async function callDeepseekJson(source: string, locale: string): Promise<string> {
+  const completion = await deepseekClient.chat.completions.create({
+    model: DEEPSEEK_MODEL,
+    messages: [
+      {
+        role: "system",
+        content: "You are a professional translator for a Spanish outdoor advertising company. You translate structured JSON data with the highest possible fidelity.",
+      },
+      { role: "user", content: `${CITY_JSON_RULES(locale)}\n\nSource JSON:\n${source}` },
+    ],
+    temperature: 0.2,
+    max_tokens: 16_000,
+    response_format: { type: "json_object" },
+  });
+
+  const raw = completion.choices[0]?.message?.content;
+  if (!raw) throw new Error("DeepSeek returned empty response");
+  return raw;
+}
+
+async function callGeminiJson(model: string, source: string, locale: string): Promise<string> {
+  const generativeModel = gemini.getGenerativeModel({
+    model,
+    generationConfig: {
+      temperature: 0.2,
+      maxOutputTokens: 16_000,
+      responseMimeType: "application/json",
+    },
+  });
+  const result = await generativeModel.generateContent(`${CITY_JSON_RULES(locale)}\n\nSource JSON:\n${source}`);
+  const raw = result.response.text();
+  if (!raw) throw new Error("Gemini returned empty response");
+  return raw;
+}
+
+/** Translate a JSON data payload (city/province data) from Spanish into the target locale. */
+export async function translateJsonContent(source: string, locale: string): Promise<string> {
+  const runDeepseek = (): Promise<string> =>
+    withAvailability("DeepSeek/json", () =>
+      withRetries(() => callDeepseekJson(source, locale), "DeepSeek/json", `json:${locale}`),
+    );
+
+  try {
+    return await runDeepseek();
+  } catch (err) {
+    console.warn(`[llm] DeepSeek JSON translation failed for ${locale}, trying Gemini:`, (err as Error).message);
+    return withAvailability("Gemini/json", () =>
+      geminiWithChain("Gemini/json", (model) =>
+        withRetries(() => callGeminiJson(model, source, locale), `Gemini/json/${model}`, `json:${locale}`),
+      ),
+    );
+  }
+}
+
 /**
  * Generate with the chosen provider only (used for regeneration after feedback).
  * Defaults to gemini (primary provider), falls back to deepseek.

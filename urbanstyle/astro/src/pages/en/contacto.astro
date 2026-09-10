@@ -1,0 +1,141 @@
+---
+import Base from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
+import madrid from "@/assets/images/madrid.webp";
+import barcelona from "@/assets/images/barcelona.webp";
+import ContactForm from "@/components/ContactForm.astro";
+import LocationIcon from "@/assets/icons/location.svg";
+import LandPhoneIcon from "@/assets/icons/landphone.svg";
+import EmailIcon from "@/assets/icons/email.svg";
+---
+
+<Base
+    title="Contact us | Urban Style Publicity"
+    description="Call or visit our offices. You can also use our contact form or email us."
+>
+    <header class="fixed inset-0">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.7357061946236!2d-3.704869124079127!3d40.39254985711087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd418909bc1f734b%3A0xf9f7d7df34c0e583!2sUrban%20Style%20Publicity!5e0!3m2!1sen!2ses!4v1689272129273!5m2!1sen!2ses"
+            style="border: 0; margin-top: -130px"
+            width="100%"
+            height="850"
+            allowfullscreen=""
+            referrerpolicy="no-referrer-when-downgrade"
+        >
+        </iframe>
+    </header>
+
+    <main class="torn-top before:rotate-0 relative z-10 mt-[55vh] pb-4">
+        <section class="container grid gap-24 md:gap-8 items-center lg:grid-cols-2 lg:gap-24 mt-24">
+            <div class="grid gap-16">
+                <h1 class="text-4xl md:text-6xl font-bold">Call or visit our offices</h1>
+
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16">
+                    <div>
+                        <h3 class="text-3xl font-semibold">Madrid</h3>
+                        <address
+                            class="mt-8 flex flex-col gap-4 **:font-normal **:[a]:text-black/80 **:[a]:hover:text-red-800"
+                        >
+                            <div class="flex gap-2">
+                                <LocationIcon />
+                                <a
+                                    href="https://maps.app.goo.gl/DiryCTKNXY3yaZAs8"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="font-normal"
+                                >
+                                    Avenida Manzanares 202-204 <br /> 28026 Madrid, España
+                                </a>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <LandPhoneIcon />
+                                <div>
+                                    <a href="tel:+34913052922" target="_blank" rel="noopener noreferrer">
+                                        +34 91 305 29 22
+                                    </a>
+                                    <br />
+                                    <a href="tel:+34609151772" target="_blank" rel="noopener noreferrer">
+                                        +34 609 15 17 72
+                                    </a>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                    <Image
+                        src={madrid}
+                        class="md:mt-16 aspect-video rounded-xl [mask-image:linear-gradient(black,transparent)] md:w-full"
+                        alt="Poster pasting company in Madrid"
+                        format="webp"
+                        width={550}
+                        height={300}
+                    />
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16">
+                    <div>
+                        <h3 class="text-3xl font-semibold">Barcelona</h3>
+                        <address
+                            class="mt-8 flex flex-col gap-4 **:font-normal **:[a]:text-black/80 **:[a]:hover:text-red-800"
+                        >
+                            <div class="flex gap-2">
+                                <LocationIcon />
+                                <a
+                                    href="https://maps.app.goo.gl/d36TJ5VQiKP6Ebf3A"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Calle Tamarit 104 local<br />08015 Barcelona, España
+                                </a>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <LandPhoneIcon />
+                                <div>
+                                    <a href="tel:+34913052922" target="_blank" rel="noopener noreferrer">
+                                        +34 91 305 29 22
+                                    </a>
+                                    <br />
+                                    <a href="tel:+34609151772" target="_blank" rel="noopener noreferrer">
+                                        +34 609 15 17 72
+                                    </a>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                    <Image
+                        src={barcelona}
+                        class="md:mt-16 sm:w-1/2 aspect-video rounded-xl [mask-image:linear-gradient(black,transparent)] md:w-full"
+                        alt="Poster pasting company in Barcelona"
+                        format="webp"
+                        width={550}
+                        height={300}
+                    />
+                </div>
+
+                <div
+                    class="mt-8 md:mt-16 px-6 py-4 border-2 border-dashed border-yellow-700 text-yellow-700 leading-snug"
+                >
+                    <div class="font-semibold">Note:</div>We regret to inform you that we do not do door-to-door leaflet
+                    distribution. Please keep this in mind before requesting a quote.
+                </div>
+            </div>
+
+            <div class="h-full">
+                <div class="sticky top-24">
+                    <h3 class="text-3xl md:text-4xl font-bold">
+                        You can also use the form below or write to us at:
+                    </h3>
+
+                    <div
+                        class="mt-4 text-lg sm:text-2xl inline-flex items-end gap-2 no-underline not-italic text-red-800 font-semibold"
+                    >
+                        <EmailIcon />produccion@urbanstylepublicity.com
+                    </div>
+
+                    <ContactForm />
+                </div>
+            </div>
+        </section>
+    </main>
+</Base>

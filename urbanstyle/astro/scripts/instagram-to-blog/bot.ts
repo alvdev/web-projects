@@ -8,6 +8,7 @@ import { generateTweets, buildTweetPrompt } from "./tweet";
 import { addInstruction, loadInstructions, removeInstruction } from "./instructions";
 import { sendAlert } from "./mailer";
 import { notifyTelegram, escMarkdown, mdToHtml, escHtml } from "./telegram";
+import { translatePostBySlug } from "./translate";
 import type { PendingEntry, PendingState, PreparedPost, PublishedEntry } from "./types";
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
@@ -114,11 +115,48 @@ async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyCon
       `Fecha: ${entry.prepared.pubDate}`,
       `Uploaded: ${uploaded}, unchanged: ${skipped}`,
     ].join("\n"));
+
+    void runPostTranslations(entry.prepared.slug);
   } catch (err) {
     console.error("[bot] publish failed:", err);
     await update(`❌ Error al publicar: ${(err as Error).message}`);
     await sendAlert("[Urban Sync] Error al publicar", (err as Error).message);
   }
+}
+
+/**
+ * Translate the freshly published post into en/it/fr/pt. Runs non-blocking so
+ * publishing is never delayed; failures are queued in state.translationsPending
+ * and retried on the next bot run / publish.
+ */
+async function runPostTranslations(slug: string): Promise<void> {
+  try {
+    const written = await translatePostBySlug(slug);
+    if (written.length > 0) {
+      console.log(`[bot] translations written for ${slug}: ${written.length} locale(s)`);
+      const state = await freshState();
+      state.translationsPending = (state.translationsPending ?? []).filter((s) => s !== slug);
+      await saveState(state);
+    }
+  } catch (err) {
+    console.warn(`[bot] translations failed for ${slug}, queued for retry:`, (err as Error).message);
+    try {
+      const state = await freshState();
+      state.translationsPending = [...new Set([...(state.translationsPending ?? []), slug])];
+      await saveState(state);
+    } catch (saveErr) {
+      console.warn(`[bot] could not persist translation retry for ${slug}:`, (saveErr as Error).message);
+    }
+  }
+}
+
+/** Retry any posts whose translations failed earlier. Called at bot startup. */
+async function retryPendingTranslations(): Promise<void> {
+  const state = await freshState();
+  const slugs = [...new Set(state.translationsPending ?? [])];
+  if (slugs.length === 0) return;
+  console.log(`[bot] retrying pending translations for: ${slugs.join(", ")}`);
+  await Promise.allSettled(slugs.map((slug) => runPostTranslations(slug)));
 }
 
 // ---- Remove / social queue after publish ----
@@ -1557,6 +1595,26 @@ bot.command("estado", async (ctx) => {
   await ctx.reply(`Posts pendientes (${state.pending.length}):\n${lines}`);
 });
 
+bot.command("retraducir", async (ctx) => {
+  if (!isAllowed(ctx)) return;
+  const slug = (ctx.match ?? "").trim();
+  if (!slug) {
+    await ctx.reply("Uso: /retraducir <slug> — regenera las traducciones del post (en/it/fr/pt)");
+    return;
+  }
+  await ctx.reply(`⏳ Traduciendo "${slug}"...`);
+  try {
+    const written = await translatePostBySlug(slug);
+    await ctx.reply(
+      written.length > 0
+        ? `✅ Traducciones generadas (${written.length}): ${written.join(", ")}`
+        : "ℹ️ Todas las traducciones ya existían.",
+    );
+  } catch (err) {
+    await ctx.reply(`❌ Error: ${(err as Error).message}`);
+  }
+});
+
 bot.command("instrucciones", async (ctx) => {
   if (!isAllowed(ctx)) return;
   const instructions = await loadInstructions();
@@ -2039,3 +2097,4 @@ console.log("[bot] starting Telegram bot...");
 })();
 
 bot.start({ onStart: (me) => console.log(`[bot] running as @${me.username}`) });
+void retryPendingTranslations();

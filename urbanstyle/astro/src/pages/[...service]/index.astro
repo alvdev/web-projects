@@ -3,14 +3,18 @@ import { getCollection } from "astro:content";
 import Header from "@/components/Header.astro";
 import Base from "@/layouts/Base.astro";
 import { render } from "astro:content";
+import { entryMatchesLocale, type Locale } from "@/i18n/ui";
+
+// This file is duplicated under src/pages/{en,it,fr,pt}/[...service]/ — change only this line per locale.
 
 export async function getStaticPaths() {
-    const services = await getCollection("services");
+    const LOCALE: Locale = "es";
+    const services = (await getCollection("services")).filter(e => entryMatchesLocale(e, LOCALE));
     return services.map(landing => ({
         params: {
             service:
-                // Take slug if exists, otherwise file name
-                landing.data.slug || landing.filePath?.match(/^src\/content\/services\/(.+)\/[^/]+\.(md|mdx)$/)?.[1],
+                // Take slug if exists, otherwise the folder name (localized copies derive it from the path)
+                landing.data.slug || String(landing.id).split("/").pop(),
         },
         props: { landing },
     }));

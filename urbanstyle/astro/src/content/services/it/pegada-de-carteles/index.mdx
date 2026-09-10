@@ -1,0 +1,76 @@
+---
+title: 'Affissione di manifesti a Madrid, Barcellona e resto della Spagna'
+shortTitle: 'Affissione di manifesti'
+description: 'Affiggiamo il 90% dei manifesti che vedi ogni giorno in strada perché disponiamo della più ampia copertura di zone e del team necessario per il loro posizionamento e la loro supervisione.'
+cover: './images/pegada-de-carteles.webp'
+coverAlt: 'Affissione di manifesti'
+order: 10
+seo:
+  title: 'Affissione di manifesti a Madrid, Barcellona e resto della Spagna'
+  description: 'Azienda leader nell''affissione di manifesti a Madrid. Specialisti in Wild Posting, pubblicità esterna e fissaggio di cartellonistica con garanzia di sostituzione.'
+---
+
+import Desc1 from '@/components/Desc1.astro';
+import Layout from '@/layouts/Base.astro';
+import Reviews from '@/components/Reviews.astro';
+import Logos from '@/components/Logos.astro';
+import Desc2 from '@/components/Desc2.astro';
+import Desc3 from '@/components/Desc3.astro';
+import Videos from '@/components/Videos.astro';
+import Faqs from '@/components/Faqs.astro';
+import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
+import BenefitsGrid from '@/components/BenefitsGrid.astro';
+import VerticalTabs from '@/components/VerticalTabs.astro';
+
+<Desc1
+  title="Ogni giorno affiggiamo <mark class='under'>il 90% dei manifesti</mark> che vedi in strada"
+  description="Siamo specialisti in <strong>affissione di manifesti a Madrid e Barcellona</strong>. Gestiamo anche il fissaggio di cartellonistica e coordiniamo azioni simultanee nel resto delle province spagnole."
+/>
+<Videos
+  videoId1="0_LpZYxl5Iw"
+  videoId2="03Gma06CTl8"
+  spanLine1="Affissione di manifesti da"
+  spanLine2="il team di Urban Style Publicity"
+/>
+
+<div class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold text-balance text-black uppercase md:text-7xl">
+    Alcune delle nostre
+    <br /> affissioni di manifesti
+  </h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">Supervisioniamo le campagne <mark class="under">24/7 (giorno e notte)</mark> per sostituire i manifesti danneggiati o coperti.</p>
+</div>
+<div class="torn-top torn-bottom bg-black">
+  <InfiniteCarousel
+    folder="carousel1"
+    speed="slow"
+    classes="**:border-0 mt-16 **:gap-2 pt-6"
+    descPosition="top"
+    itemsWidth="300"
+    itemsHeight="400"
+  />
+  <InfiniteCarousel
+    folder="carousel2"
+    speed="slow"
+    direction="left"
+    classes="mt-2 **:gap-2 pb-6"
+    itemsWidth="300"
+    itemsHeight="400"
+  />
+</div>
+
+<VerticalTabs folderName="addon-services" />
+
+<Desc3
+  title="Affissioni di manifesti con grande impatto"
+  subtitle="perché abbiamo il team necessario per poter coprire il maggior numero di zone esclusive."
+  description="Se vuoi fare un'affissione di manifesti per promuovere un evento, un'opera teatrale, un'attività locale, una fiera commerciale o una mostra, un lancio discografico o un concerto;<br/> contattaci prima di deciderlo"
+  classes="wall-full bg-red-900 pb-42"
+/>
+{<BenefitsGrid classes="relative z-20 -mt-28" />}
+
+<Faqs />
+
+<Reviews />
+
+<Logos title="" subtitle="" />

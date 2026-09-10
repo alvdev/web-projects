@@ -1,0 +1,56 @@
+---
+import { provincesMetadata, allSpainCities } from "@/data/cities/localized/fr.js";
+import LandingPegadaCarteles from "@/components/LandingPegadaCarteles.astro";
+import Header from "@/components/Header.astro";
+import defaultCover from "@/assets/images/landings/acciones-marketing-local.webp";
+import Layout from "@/layouts/Base.astro";
+import { useTranslations, type Locale } from "@/i18n/ui";
+
+export async function getStaticPaths() {
+    const images = import.meta.glob("/src/assets/images/landings/cities/**/*.{jpg,jpeg,png,webp}");
+
+    return Promise.all(
+        Object.entries(provincesMetadata).map(async ([slug, province]) => {
+            const cities = (allSpainCities as any)[slug] || [];
+            // Buscamos si la provincia tiene datos específicos en la lista de ciudades (como Madrid)
+            const cityData = cities.find((c: any) => c.slug === slug) || { ...province, slug };
+
+            let cover = defaultCover;
+            if (cityData.cover && images[cityData.cover]) {
+                const imageModule = (await images[cityData.cover]()) as any;
+                cover = imageModule.default;
+            }
+
+            return {
+                params: {
+                    service: undefined,
+                    province: slug,
+                },
+                props: { city: cityData, cover },
+            };
+        }),
+    );
+}
+
+const { city, cover } = Astro.props;
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
+---
+
+<Layout
+    title={`${t("city.seoTitle")} ${city.name} | Urban Style`}
+    description={`${t("city.seoDesc")} ${city.name}. ${city.title}`}
+    schema="city"
+>
+    <Header
+        title={`${t("city.seoTitle")} ${city.name}`}
+        cover={cover}
+        coverAlt={`${t("city.coverAlt")} ${city.name}`}
+        loading="eager"
+        classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+
+    <main class="relative z-10 pb-6 pt-28">
+        <LandingPegadaCarteles city={city} />
+    </main>
+</Layout>

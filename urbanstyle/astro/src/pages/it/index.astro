@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from "astro:content";
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Base.astro";
+import cover from "@/assets/images/header/pegada-de-carteles.webp";
+import { entryMatchesLocale, type Locale } from "@/i18n/ui";
+
+const locale = (Astro.currentLocale ?? "it") as Locale;
+const allServices = await getCollection("services");
+const pegada =
+    allServices.find(
+        e => entryMatchesLocale(e, locale) && (e.data.slug === "./" || String(e.id).endsWith("/pegada-de-carteles")),
+    ) ?? allServices.find(e => e.data.slug === "./");
+const { Content } = await render(pegada as any);
+---
+
+<Layout
+    cover={cover}
+    title="Affissione manifesti a Madrid, Barcellona e nel resto della Spagna"
+    description="Specialisti nell'affissione manifesti a Madrid e Barcellona. Ogni giorno affiggiamo il 90% dei manifesti che vedi in strada."
+    schema="website"
+>
+    <Header
+        title="Affissione manifesti a Madrid, Barcellona e nel resto della Spagna"
+        cover={cover}
+        coverAlt="Un ragazzo che affigge un manifesto su un muro"
+        loading="eager"
+        classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+    <main class="relative z-10 pb-6 pt-28">
+        <Content />
+    </main>
+</Layout>

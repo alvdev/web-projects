@@ -1,8 +1,17 @@
 ---
-import PegadaCarteles from "@/content/services/pegada-de-carteles/index.mdx";
+import { getCollection, render } from "astro:content";
 import Header from "@/components/Header.astro";
 import Layout from "@/layouts/Base.astro";
 import cover from "@/assets/images/header/pegada-de-carteles.webp";
+import { entryMatchesLocale, type Locale } from "@/i18n/ui";
+
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const allServices = await getCollection("services");
+const pegada =
+    allServices.find(
+        e => entryMatchesLocale(e, locale) && (e.data.slug === "./" || String(e.id).endsWith("/pegada-de-carteles")),
+    ) ?? allServices.find(e => e.data.slug === "./");
+const { Content } = await render(pegada as any);
 ---
 
 <Layout
@@ -19,6 +28,6 @@ import cover from "@/assets/images/header/pegada-de-carteles.webp";
         classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
     />
     <main class="relative z-10 pb-6 pt-28">
-        <PegadaCarteles />
+        <Content />
     </main>
 </Layout>

@@ -6,14 +6,15 @@ import Dossier from "@/components/banners/Dossier.astro";
 import Header from "@/components/Header.astro";
 import headerImg from "@/content/services/tu-publicidad-aqui.webp";
 import Hdivider from "@/assets/images/h-divider.svg";
+import { entryMatchesLocale, useTranslations, type Locale } from "@/i18n/ui";
 
-const services = await getCollection("services");
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
+const pathPrefix = import.meta.env.BASE_URL + (locale === "es" ? "" : `${locale}/`);
+const services = (await getCollection("services")).filter(e => entryMatchesLocale(e, locale));
 const serviceSlugs = services
     .sort((a, b) => a.data.order - b.data.order)
-    .map(page => {
-        const match = page.filePath?.match(/^src\/content\/services\/(.+)\/[^/]+\.(md|mdx)$/);
-        return page.data.slug || import.meta.env.BASE_URL + (match?.[1] ?? "");
-    });
+    .map(page => page.data.slug || String(page.id).split("/").pop());
 
 const whatWeOffer = [
     "Somos expertos en difundir tu publicidad a través de cualquier ciudad y lugar de la geografía española.",
@@ -25,11 +26,15 @@ const whatWeOffer = [
 ];
 
 const title = "Servicios <br>publicitarios";
+const dossierTitle = " Ya puedes descargar nuestro catálogo completo de servicios";
+const pageTitle = "Servicios publicitarios | Urban Style Publicity";
+const pageDescription =
+    "Somos expertos en expandir tu mensaje en cualquier ciudad y lugar. Gestionamos los permisos necesarios para promocionar tu campaña publicitaria o evento.";
 ---
 
 <Base
-    title="Servicios publicitarios | Urban Style Publicity"
-    description="Somos expertos en expandir tu mensaje en cualquier ciudad y lugar. Gestionamos los permisos necesarios para promocionar tu campaña publicitaria o evento."
+    title={pageTitle}
+    description={pageDescription}
     cover={headerImg}
 >
     <Header title={title} cover={headerImg} classes="h-[75vh]" />
@@ -69,7 +74,7 @@ const title = "Servicios <br>publicitarios";
                                         class={`relative flex flex-col justify-between gap-4 mt-24 first:mt-0 lg:flex-row lg:gap-16 ${reverseStyles}`}
                                     >
                                         <div class="relative border-2 border-black overflow-clip rounded-sm shadow-xl lg:w-1/2 aspect-video">
-                                            <a href={import.meta.env.BASE_URL + serviceSlugs[index]} class="group +++">
+                                            <a href={pathPrefix + serviceSlugs[index]} class="group +++">
                                                 <Image
                                                     src={page.data.cover}
                                                     class="m-0 aspect-video w-full h-full! group-hover:scale-105 transition-all duration-700"
@@ -93,9 +98,9 @@ const title = "Servicios <br>publicitarios";
                                             <p>{page.data.description}</p>
                                             <a
                                                 class="btn w-fit h-fit self-end text-lg mb-1 px-6 py-3 shadow-gray-400"
-                                                href={import.meta.env.BASE_URL + serviceSlugs[index]}
+                                                href={pathPrefix + serviceSlugs[index]}
                                             >
-                                                Ver servicio
+                                                {t("services.view")}
                                             </a>
                                         </div>
                                     </div>
@@ -110,7 +115,7 @@ const title = "Servicios <br>publicitarios";
                             class="flex flex-col md:flex-row text-center items-stretch gap-8 text-balance md:gap-16 xl:flex-col xl:gap-8"
                         >
                             <Dossier
-                                title=" Ya puedes descargar nuestro catálogo completo de servicios"
+                                title={dossierTitle}
                                 classes="mt-8"
                             />
                         </div>

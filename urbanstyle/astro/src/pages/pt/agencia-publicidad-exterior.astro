@@ -1,0 +1,83 @@
+---
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Base.astro";
+import Logos from "@/components/Logos.astro";
+import VideoWithDesc from "@/components/VideoWithDesc.astro";
+import CloudServices from "@/components/CloudServices.astro";
+import cover from "@/assets/images/header/agencia-publicidad-exterior.webp";
+---
+
+<Layout
+    title="Agência de publicidade exterior especializada em colagem de cartazes"
+    description="Agência de publicidade exterior com presença em Madrid, Barcelona e nas principais cidades. Especialistas em colagem de cartazes."
+    cover={cover}
+    schema="webpage"
+>
+    <Header
+        title="Agência de publicidade exterior"
+        description="Publicidade exterior em Madrid, Barcelona e em toda a Espanha, dedicada a campanhas para eventos culturais, espetáculos, congressos, exposições e lançamentos."
+        cover={cover}
+        classes="h-[50vh] xl:h-[85vh] *:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+
+    <main class="relative z-10 pb-6">
+        <VideoWithDesc
+            videoId="ILOKwRc6TKc"
+            videoCaption="A fazer publicidade exterior<br>em Madrid e Barcelona 🚀"
+            title="A Urban Style Publicity é uma agência de publicidade exterior especializada em <a href='/'>colagem de cartazes</a>."
+        />
+
+        <div class="container mt-24 lg:mt-28 xl:mt-32 text-2xl">
+            <hgroup class="text-center text-balance">
+                <div
+                    class="text-black/50 text-3xl text-balance font-semibold leading-snug md:leading-relaxed *:text-balance grid gap-4"
+                >
+                    <p>A publicidade exterior dirige-se a todo o tipo de público para causar o maior impacto possível.</p>
+                    <p>O objetivo é promover o seu negócio e afirmar a sua marca de forma contundente junto do público.</p>
+                </div>
+                <h2
+                    class="mt-8 lg:mt-12 xl:mt-16 text-5xl lg:text-6xl xl:text-7xl font-bold text-balance text-black uppercase"
+                >
+                    Fazer publicidade exterior é <mark class="under">sinónimo de resultados</mark>
+                </h2>
+            </hgroup>
+
+            <ul class="container p-0 mt-16 grid lg:grid-cols-2 gap-4 lg:gap-8 text-pretty">
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    O street marketing ou marketing urbano é mais barato do que os anúncios na televisão e na rádio.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    4 em cada 10 pessoas visitam a loja de uma marca através de cartazes publicitários.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    1 em cada 10 espetadores entra no site da marca depois de ver a publicidade na rua.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    As marcas de sucesso destinam 13% do seu orçamento publicitário a empresas de publicidade exterior.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    8 em cada 10 pessoas veem publicidade exterior, das quais 46% reconhecem ver com frequência os anúncios em mupis e painéis.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    A publicidade exterior tem uma taxa de recordação de 82%, sendo um dos meios com maior impacto na memória do consumidor.
+                </li>
+            </ul>
+        </div>
+
+        <CloudServices title="Os nossos serviços de<br>publicidade exterior" />
+
+        <Logos />
+    </main>
+</Layout>

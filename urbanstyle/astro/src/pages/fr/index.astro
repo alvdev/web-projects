@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from "astro:content";
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Base.astro";
+import cover from "@/assets/images/header/pegada-de-carteles.webp";
+import { entryMatchesLocale, type Locale } from "@/i18n/ui";
+
+const locale = (Astro.currentLocale ?? "fr") as Locale;
+const allServices = await getCollection("services");
+const pegada =
+    allServices.find(
+        e => entryMatchesLocale(e, locale) && (e.data.slug === "./" || String(e.id).endsWith("/pegada-de-carteles")),
+    ) ?? allServices.find(e => e.data.slug === "./");
+const { Content } = await render(pegada as any);
+---
+
+<Layout
+    cover={cover}
+    title="Collage d'affiches à Madrid, Barcelone et dans le reste de l'Espagne"
+    description="Spécialistes du collage d'affiches à Madrid et Barcelone. Chaque jour, nous collons 90 % des affiches que vous voyez dans la rue."
+    schema="website"
+>
+    <Header
+        title="Collage d'affiches à Madrid, Barcelone et dans le reste de l'Espagne"
+        cover={cover}
+        coverAlt="Un homme collant une affiche sur un mur"
+        loading="eager"
+        classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+    <main class="relative z-10 pb-6 pt-28">
+        <Content />
+    </main>
+</Layout>

@@ -1,8 +1,10 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { dirname } from "node:path";
+import { mkdir, writeFile, readdir, copyFile, stat } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import type { LlmArticle, NewPost, PreparedPost } from "./types";
 
 export const BLOG_ROOT = `${process.cwd()}/src/content/blog`;
+
+export const TRANSLATION_LOCALES = ["en", "it", "fr", "pt"] as const;
 
 const BAD_TITLE_ENDINGS = new Set([
   "de", "del", "para", "con", "en", "por", "a", "al", "la", "el", "los", "las",
@@ -134,4 +136,59 @@ export async function writePostFiles(data: PreparedPost): Promise<void> {
   await mkdir(dirname(data.mdxPath), { recursive: true });
   await writeFile(data.mdxPath, buildMdx(data), "utf8");
   await downloadImage(data.media_url, data.imagePath);
+}
+
+/**
+ * Localized blog copies must NOT carry a `slug` frontmatter field: the glob
+ * loader uses it as the entry id, so a translated post with the same slug
+ * would collide with the Spanish original. Path-derived ids (en/<slug>) are
+ * unique and keep the same public URL once the locale prefix is stripped.
+ */
+export function stripSlugFrontmatter(file: string): string {
+  return file.replace(/^---\n([\s\S]*?)\n---/, (_m, fm: string) => {
+    const cleaned = fm
+      .split("\n")
+      .filter(line => !/^\s*slug:\s*/.test(line))
+      .join("\n");
+    return `---\n${cleaned}\n---`;
+  });
+}
+
+export async function copyDirAssets(fromDir: string, toDir: string): Promise<void> {
+  let entries: string[] = [];
+  try {
+    entries = await readdir(fromDir);
+  } catch {
+    return;
+  }
+  await mkdir(toDir, { recursive: true });
+  for (const name of entries) {
+    if (/\.(md|mdx)$/i.test(name)) continue;
+    const src = join(fromDir, name);
+    const info = await stat(src).catch(() => null);
+    if (!info) continue;
+    if (info.isDirectory()) {
+      await copyDirAssets(src, join(toDir, name));
+    } else {
+      await copyFile(src, join(toDir, name));
+    }
+  }
+}
+
+/**
+ * Write the faithfully translated MDX for one locale of a published post and
+ * mirror all media assets from the Spanish post folder.
+ * Returns the path of the written file.
+ */
+export async function writeLocalizedPostFiles(
+  prepared: PreparedPost,
+  locale: string,
+  translatedFile: string,
+): Promise<string> {
+  const localeDir = `${BLOG_ROOT}/${locale}/${prepared.slug}`;
+  const localeMdx = `${localeDir}/index.mdx`;
+  await mkdir(localeDir, { recursive: true });
+  await writeFile(localeMdx, stripSlugFrontmatter(translatedFile), "utf8");
+  await copyDirAssets(dirname(prepared.mdxPath), localeDir);
+  return localeMdx;
 }

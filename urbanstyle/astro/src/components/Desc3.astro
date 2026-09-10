@@ -2,7 +2,12 @@
 import Arrow from "@/assets/images/handwritten-arrow.svg";
 import WhatsappIcon from "@/assets/icons/whatsapp.svg";
 import PhoneIcon from "@/assets/icons/call.svg";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations, type Locale } from "@/i18n/ui";
 const { title, description, subtitle, classes } = Astro.props;
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
+const contactUrl = getRelativeLocaleUrl(locale, "contacto");
 ---
 
 <section class="torn-top torn-bottom mt-36">
@@ -38,17 +43,17 @@ const { title, description, subtitle, classes } = Astro.props;
             class="container mx-auto flex flex-col md:flex-row justify-center items-center md:items-stretch gap-4 my-16"
         >
             <a
-                href="/contacto"
+                href={contactUrl}
                 class="w-fit px-12 py-8 text-center text-balance font-semibold uppercase hover:border-gray-300 rounded-full focus:ring focus:ring-gray-50 bg-black text-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
             >
-                Pide más información sobre nuestra pegada de carteles
+                {t("desc3.cta")}
             </a>
 
             <div class="flex gap-4 mt-4 md:mt-0">
                 <a
                     href="https://wa.me/34609151772"
                     class="inline-flex min-w-24 min-h-24 bg-black px-8 py-4 rounded-full uppercase *:[svg]:w-8 **:[path]:fill-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
-                    aria-label="Escribir por Whatsapp"
+                    aria-label={t("desc3.whatsapp")}
                     target="_blank"
                 >
                     <WhatsappIcon />
@@ -56,7 +61,7 @@ const { title, description, subtitle, classes } = Astro.props;
                 <a
                     href="tel:+34913052922"
                     class="inline-flex min-w-24 min-h-24 bg-black px-8 py-4 rounded-full uppercase *:[svg]:w-8 **:[path]:fill-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
-                    aria-label="Llamar por teléfono"
+                    aria-label={t("desc3.call")}
                 >
                     <PhoneIcon />
                 </a>

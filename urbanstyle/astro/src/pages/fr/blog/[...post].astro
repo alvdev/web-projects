@@ -1,0 +1,124 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import Header from "@/components/Header.astro";
+import PosterPasting from "@/components/banners/PosterPasting.astro";
+import Dossier from "@/components/banners/Dossier.astro";
+import { allSpainCities, provincesMetadata } from "@/data/cities/allSpainCities.js";
+import { useTranslations, entryMatchesLocale, coverageSlugs, type Locale } from "@/i18n/ui";
+
+import defaultCover from "@/assets/images/header/post-cover-placeholder.webp";
+
+// This file is duplicated under src/pages/{en,it,fr,pt}/blog/ — change only this line per locale.
+
+export async function getStaticPaths() {
+    const LOCALE: Locale = "fr";
+    const posts = (await getCollection("posts")).filter(e => entryMatchesLocale(e, LOCALE));
+    return posts.map(post => ({
+        params: { post: post.id.split("/").pop() },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const locale = (Astro.currentLocale ?? "fr") as Locale;
+const t = useTranslations(locale);
+const seoTitle = post.data.seo?.title || post.data.title;
+const postSanitizedDescription = (post.body ?? "")
+    .replace(/<[^>]+>/g, "") // remove HTML tags
+    .replace(/!\[.*?\]\(.*?\)/g, "") // remove images
+    .replace(/\[.*?\]\(.*?\)/g, "") // remove links
+    .replace(/[`*_>#-]/g, "") // remove markdown symbols
+    .replace(/\r?\n|\r/g, " ") // replace newlines with spaces
+    .replace(/\s+/g, " ") // collapse multiple spaces
+    .trim()
+    .slice(0, 155);
+const seoDescription = post.data.seo?.description || postSanitizedDescription;
+
+// Build city name to URL mapping for related services (city pages stay Spanish-only)
+const cityUrlPrefix = import.meta.env.BASE_URL + (locale === "es" ? "" : `${locale}/`) + coverageSlugs[locale];
+const cityUrlMap = new Map();
+Object.entries(allSpainCities).forEach(([provinceSlug, cities]) => {
+    cities.forEach(city => {
+        const name = city.name.toLowerCase();
+        if (city.slug === provinceSlug) {
+            cityUrlMap.set(name, `${cityUrlPrefix}/${provinceSlug}/`);
+        } else {
+            cityUrlMap.set(name, `${cityUrlPrefix}/${provinceSlug}/${city.slug}/`);
+        }
+    });
+});
+// Also add province-level names
+Object.entries(provincesMetadata).forEach(([slug, meta]) => {
+    cityUrlMap.set(meta.name.toLowerCase(), `${cityUrlPrefix}/${slug}/`);
+});
+
+// Find which cities this post mentions
+const postText = (post.data.title + " " + (post.body || "")).toLowerCase();
+const mentionedCities = [...cityUrlMap.entries()]
+    .filter(([name]) => {
+        const regex = new RegExp(`\\b${name.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}`, "i");
+        return regex.test(postText);
+    })
+    .slice(0, 4);
+---
+
+<Base title={seoTitle} description={seoDescription} cover={post.data.cover.url}>
+    <Header
+        cover={post.data.cover.url || defaultCover}
+        coverAlt={post.data.cover.alt || post.data.title}
+        coverPosition={post.data.cover.objectPosition}
+        crop={true}
+        classes={"min-h-[75vh]"}
+    />
+    <main class="relative z-10 pb-10">
+        <div class="container relative z-10 flex gap-8">
+            <aside class="banner not-prose w-1/5 pt-24 hidden md:block">
+                <div class="sticky top-28">
+                    <PosterPasting />
+                    <div class="mt-12">
+                        <h3 class="text-2xl font-bold mb-4">{t("blog.related")}</h3>
+                        <ul class="m-0 text-lg list-none">
+                            {
+                                mentionedCities.map(([name, url]) => {
+                                    const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+                                    return (
+                                        <li class="border-b-2 last:border-b-0 pb-2 border-gray-300 border-dashed">
+                                            <a
+                                                href={url}
+                                                class="text-red-700 hover:text-black font-semibold underline-offset-4 decoration-2 decoration-red-700/30 hover:decoration-black transition-all"
+                                            >
+                                                {t("blog.posterPastingIn")} {displayName}
+                                            </a>
+                                        </li>
+                                    );
+                                })
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+            <div
+                class="prose-xl prose-h1:text-5xl prose-h1:font-extrabold prose-h2:text-3xl prose-h2:font-bold prose-h3:text-2xl prose-h3:font-semibold prose-p:text-gray-600 prose-ul:ml-0 prose-ol:ml-0 relative px-4 py-4 bg-white border border-black md:w-3/5 -mt-28 lg:px-16 lg:py-12 after:absolute after:w-full after:h-full after:left-1 after:top-1 after:border after:border-black after:shadow-xl after:bg-white after:-z-20"
+            >
+                <h1>
+                    {post.data.title}
+                </h1>
+
+                <Content />
+            </div>
+
+            {
+                mentionedCities.length > 0 && (
+                    <aside class="banner not-prose w-1/5 hidden md:block">
+                        <div class="sticky top-12">
+                            <Dossier />
+                        </div>
+                    </aside>
+                )
+            }
+        </div>
+    </main>
+</Base>

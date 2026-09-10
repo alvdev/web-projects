@@ -5,11 +5,14 @@ import Ga4 from "@/components/Ga4.astro";
 import Footer from "@/components/Footer.astro";
 import Navbar from "@/components/Navbar.astro";
 import Cover from "@/assets/images/header/pegada-de-carteles.webp";
+import { siteDefaults, ogLocales, type Locale } from "@/i18n/ui";
 import "../styles/global.css";
 
+const locale = (Astro.currentLocale ?? "es") as Locale;
+
 const {
-    title = "Agencia de publicidad exterior | Urban Style Publicity",
-    description = "Agencia de publicidad exterior con presencia en Madrid, Barcelona y principales ciudades. Especialistas en pegar el 90% de carteles que ves a diario.",
+    title = siteDefaults[locale].title,
+    description = siteDefaults[locale].description,
     Cover: { src: cover } = { src: Cover.src },
     schema = "webpage",
     ogType = "website",
@@ -28,7 +31,7 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={locale}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -53,7 +56,7 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
                 },
                 optional: {
                     description: description,
-                    locale: "es_ES",
+                    locale: ogLocales[locale],
                 },
             }}
             ,

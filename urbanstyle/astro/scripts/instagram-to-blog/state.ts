@@ -21,6 +21,7 @@ export async function loadState(): Promise<PendingState> {
     if (!Array.isArray(parsed.pending)) parsed.pending = [];
     if (!Array.isArray(parsed.skippedIds)) parsed.skippedIds = [];
     if (!Array.isArray(parsed.published)) parsed.published = [];
+    if (!Array.isArray(parsed.translationsPending)) parsed.translationsPending = [];
     cache = parsed;
     return parsed;
   } catch {

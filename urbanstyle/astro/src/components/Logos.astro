@@ -1,8 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
-import { getCollection } from "astro:content";
-const collection = await getCollection("logos");
+import { getLocalizedCollection, type Locale } from "@/i18n/ui";
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const collection = await getLocalizedCollection("logos", locale);
 
 const { title, subtitle } = Astro.props;
 ---
@@ -22,7 +23,7 @@ const { title, subtitle } = Astro.props;
     >
         {
             collection.map(item =>
-                item.data.logos.map(img => <Image src={img.src as ImageMetadata} alt={img.alt} format="webp" />)
+                item.data.logos.map((img: any) => <Image src={img.src as ImageMetadata} alt={img.alt} format="webp" />)
             )
         }
     </div>

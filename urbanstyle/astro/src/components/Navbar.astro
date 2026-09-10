@@ -1,16 +1,21 @@
 ---
 import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import logo from "../assets/images/logo-urban-250.webp";
+import LanguageSelector from "@/components/LanguageSelector.astro";
+import { useTranslations, coverageSlugs, type Locale } from "@/i18n/ui";
 
-const baseUrl = import.meta.env.BASE_URL;
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
+
 const link = {
-    home: baseUrl,
-    posters: baseUrl + "pegada-carteles",
-    services: baseUrl + "servicios-publicitarios",
-    jobs: baseUrl + "trabajos",
-    agency: baseUrl + "agencia-publicidad-exterior",
-    blog: baseUrl + "blog",
-    contact: baseUrl + "contacto",
+    home: getRelativeLocaleUrl(locale, ""),
+    posters: getRelativeLocaleUrl(locale, coverageSlugs[locale]),
+    services: getRelativeLocaleUrl(locale, "servicios-publicitarios"),
+    jobs: getRelativeLocaleUrl(locale, "trabajos"),
+    agency: getRelativeLocaleUrl(locale, "agencia-publicidad-exterior"),
+    blog: getRelativeLocaleUrl(locale, "blog"),
+    contact: getRelativeLocaleUrl(locale, "contacto"),
 };
 ---
 
@@ -21,50 +26,53 @@ const link = {
     x-intersect:leave="scrollNav = false"
 >
     <div
-        class="container fixed w-[94%] lg:w-[86%] left-0 right-0 top-8 mx-auto flex items-center justify-between gap-4 pl-2 pr-6 py-2 bg-white/90 backdrop-blur-md rounded-full border shadow-xl transition-all"
+        class="container max-w-none fixed w-[94%] lg:w-[86%] left-0 right-0 top-8 mx-auto flex items-center justify-between gap-4 pl-2 pr-6 py-2 bg-white/90 backdrop-blur-md rounded-full border shadow-xl transition-all"
         :class="{ 'top-8 pl-2 pr-6 py-2': scrollNav, 'top-2 pl-1 pr-3 py-1': !scrollNav }"
     >
         <div
             class="w-36 flex flex-wrap items-center transition-all"
             :class="{'w-36 min-w-36': scrollNav, 'w-24 min-w-24': !scrollNav}"
         >
-            <a href={baseUrl}>
+            <a href={link.home}>
                 <Image src={logo} alt="Logo Urban" width={250} height={146} format="webp" />
             </a>
         </div>
 
-        <div class="flex flex-wrap items-center">
-            <div class="w-auto hidden lg:block">
+        <div class="flex flex-wrap items-center flex-1">
+            <div class="w-full hidden lg:block">
                 <ul
-                    class="flex items-center justify-between uppercase *:transition-all **:[a]:relative **:[a>span]:absolute **:[a>span]:-z-10 **:[a>span]:[text-shadow:1px_1px_black] **:[a>span]:block **:[a>span]:bg-red-800 **:[a>span]:text-white **:[a>span]:font-normal **:[a>span]:normal-case **:[a>span]:px-1 **:[a>span]:pb-0.5 **:[a>span]:text-xs"
+                    class="text-center flex flex-wrap items-center justify-center gap-x-4 w-full uppercase *:transition-all **:[a]:relative **:[a>span]:absolute **:[a>span]:-z-10 **:[a>span]:[text-shadow:1px_1px_black] **:[a>span]:block **:[a>span]:bg-red-800 **:[a>span]:text-white **:[a>span]:font-normal **:[a>span]:normal-case **:[a>span]:px-1 **:[a>span]:pb-0.5 **:[a>span]:text-xs *:grow-0 *:shrink-0 lg:*:basis-1/3 **:[a]:w-fit xl:*:basis-auto xl:**:[a]:px-3"
                 >
-                    <li class="mr-9 hover:scale-105">
-                        <a href={link.home} class="text-black font-bold p-4 hover:text-red-800">Portada</a>
-                    </li>
-                    <li class="mr-9 hover:scale-105">
-                        <a href={link.posters} class="block text-black font-bold p-4 hover:text-red-800">
-                            <span class="top-1.5">Pegada de</span> carteles
-                        </a>
-                    </li>
-                    <li class="mr-9 hover:scale-105">
-                        <a href={link.services} class="block text-black font-bold p-4 hover:text-red-800">
-                            Servicios <span class="right-0 bottom-1">publicitarios</span>
-                        </a>
-                    </li>
-                    <li class="mr-9 hover:scale-105">
-                        <a href={link.jobs} class="text-black font-bold p-4 hover:text-red-800">Trabajos</a>
-                    </li>
-                    <li class="mr-9 hover:scale-105">
-                        <a href={link.agency} class="text-black font-bold p-4 hover:text-red-800">Agencia</a>
+                    <li class="hover:scale-105">
+                        <a href={link.home} class="text-black font-bold p-4 hover:text-red-800">{t("nav.home")}</a>
                     </li>
                     <li class="hover:scale-105">
-                        <a href={link.blog} class="text-black font-bold p-4 hover:text-red-800">Blog</a>
+                        <a href={link.posters} class="block text-black font-bold p-4 hover:text-red-800">
+                            <span class="top-1.5">{t("nav.postersTop")}</span> {t("nav.postersBottom")}
+                        </a>
+                    </li>
+                    <li class="hover:scale-105">
+                        <a href={link.services} class="block text-black font-bold p-4 hover:text-red-800">
+                            {t("nav.servicesTop")} <span class="right-0 bottom-1">{t("nav.servicesBottom")}</span>
+                        </a>
+                    </li>
+                    <li class="hover:scale-105">
+                        <a href={link.jobs} class="text-black font-bold p-4 hover:text-red-800">{t("nav.jobs")}</a>
+                    </li>
+                    <li class="hover:scale-105">
+                        <a href={link.agency} class="text-black font-bold p-4 hover:text-red-800">{t("nav.agency")}</a>
+                    </li>
+                    <li class="hover:scale-105">
+                        <a href={link.blog} class="text-black font-bold p-4 hover:text-red-800">{t("nav.blog")}</a>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="flex flex-wrap items-center">
+        <div class="flex items-center justify-end gap-2">
+            <div class="hidden lg:block">
+                <LanguageSelector variant="desktop" />
+            </div>
             <div class="w-auto hidden lg:block">
                 <div class="inline-block">
                     <a
@@ -73,12 +81,12 @@ const link = {
                         type="button"
                         :class="{ 'py-3': scrollNav, 'py-2': !scrollNav }"
                     >
-                        Contacto
+                        {t("nav.contact")}
                     </a>
                 </div>
             </div>
             <div class="flex items-center lg:hidden">
-                <button x-on:click="mobileNavOpen = !mobileNavOpen" aria-label="Abrir menú de navegación">
+                <button x-on:click="mobileNavOpen = !mobileNavOpen" aria-label={t("nav.openMenu")}>
                     <svg
                         class="text-red-black"
                         width="51"
@@ -116,7 +124,7 @@ const link = {
                 <button
                     class="absolute -right-24 bottom-1/2 bg-black flex items-center justify-center rounded-full w-14 h-14"
                     x-on:click="mobileNavOpen = !mobileNavOpen"
-                    aria-label="Cerrar menú de navegación"
+                    aria-label={t("nav.closeMenu")}
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -131,7 +139,7 @@ const link = {
                 </button>
 
                 <div class="flex items-center justify-between w-36">
-                    <a class="inline-block" href={baseUrl}>
+                    <a class="inline-block" href={link.home}>
                         <Image
                             src={logo}
                             class="w-full [filter:grayscale(1)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)_drop-shadow(0px_0px_1px_white)]"
@@ -147,30 +155,31 @@ const link = {
                 >
                     <li>
                         <a class="font-medium block p-4 py-6" href={link.posters}>
-                            <span class="top-2.5 left-0 right-1/4">Pegada de</span> carteles
+                            <span class="top-2.5 left-0 right-1/4">{t("nav.postersTop")}</span> {t("nav.postersBottom")}
                         </a>
                     </li>
                     <li>
                         <a class="font-medium block p-4 py-6" href={link.services}>
-                            Servicios <span class="bottom-2.5 left-1/4 right-0">publicitarios</span>
+                            {t("nav.servicesTop")} <span class="bottom-2.5 left-1/4 right-0">{t("nav.servicesBottom")}</span>
                         </a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6" href={link.jobs}>Trabajos</a>
+                        <a class="font-medium block p-4 py-6" href={link.jobs}>{t("nav.jobs")}</a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6" href={link.agency}>Agencia</a>
+                        <a class="font-medium block p-4 py-6" href={link.agency}>{t("nav.agency")}</a>
                     </li>
                     <li>
-                        <a class="font-medium block p-4 py-6" href={link.blog}>Blog</a>
+                        <a class="font-medium block p-4 py-6" href={link.blog}>{t("nav.blog")}</a>
                     </li>
                 </ul>
-                <div class="flex flex-col justify-end w-full">
+                <div class="flex flex-col justify-end w-full gap-4">
+                    <LanguageSelector variant="mobile" classes="mx-auto" />
                     <a
                         href={link.contact}
                         class="py-3 px-5 w-full font-semibold uppercase rounded-full focus:ring-4 focus:ring-white bg-white text-black text-center hover:ring-4 hover:ring-white hover:transition-all transition-all"
                     >
-                        Contacto
+                        {t("nav.contact")}
                     </a>
                 </div>
             </div>

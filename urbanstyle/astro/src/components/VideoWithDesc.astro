@@ -1,7 +1,10 @@
 ---
 import { YouTube } from "astro-embed";
+import { ui, type Locale } from "@/i18n/ui";
 
 const { videoId, videoCaption, title, description } = Astro.props;
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const items = ui[locale]["videoWithDesc.items"] ?? ui.es["videoWithDesc.items"];
 ---
 
 <section class="container mt-28">
@@ -47,12 +50,11 @@ const { videoId, videoCaption, title, description } = Astro.props;
             }
 
             <ul class="m-0 mt-8 list-none flex justify-center flex-wrap gap-4 text-white leading-tight">
-                <li><mark class="brush pb-1">Impresión en pequeño y gran formato</mark></li>
-                <li><mark class="brush pb-1">Diseño y maquetación</mark></li>
-                <li><mark class="brush pb-1">Pegada de carteles</mark></li>
-                <li><mark class="brush pb-1">Arte urbano</mark></li>
-                <li><mark class="brush pb-1">Carteles en locales</mark></li>
-                <li><mark class="brush pb-1">Instalación de lonas y vinilos</mark></li>
+                {
+                    items.map(item => (
+                        <li><mark class="brush pb-1">{item}</mark></li>
+                    ))
+                }
             </ul>
         </div>
     </div>

@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from "astro:content";
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Base.astro";
+import cover from "@/assets/images/header/pegada-de-carteles.webp";
+import { entryMatchesLocale, type Locale } from "@/i18n/ui";
+
+const locale = (Astro.currentLocale ?? "pt") as Locale;
+const allServices = await getCollection("services");
+const pegada =
+    allServices.find(
+        e => entryMatchesLocale(e, locale) && (e.data.slug === "./" || String(e.id).endsWith("/pegada-de-carteles")),
+    ) ?? allServices.find(e => e.data.slug === "./");
+const { Content } = await render(pegada as any);
+---
+
+<Layout
+    cover={cover}
+    title="Colagem de cartazes em Madrid, Barcelona e no resto de Espanha"
+    description="Especialistas em colagem de cartazes em Madrid e Barcelona. Todos os dias colamos 90% dos cartazes que vê na rua."
+    schema="website"
+>
+    <Header
+        title="Colagem de cartazes em Madrid, Barcelona e no resto de Espanha"
+        cover={cover}
+        coverAlt="Um rapaz a colar um cartaz numa parede"
+        loading="eager"
+        classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+    <main class="relative z-10 pb-6 pt-28">
+        <Content />
+    </main>
+</Layout>

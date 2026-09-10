@@ -3,6 +3,9 @@ Options -Indexes
 DirectoryIndex index.php index.html index.htm
 # End - Prevent Browsing and Set Default Resources
 
+# Custom error pages
+ErrorDocument 404 /404.html
+
 # Deny all access to .db files
 <FilesMatch "\.(db|sqlite|sqlite3|env)$">
     Require all denied

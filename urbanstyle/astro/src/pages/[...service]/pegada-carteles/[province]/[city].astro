@@ -4,6 +4,7 @@ import LandingPegadaCarteles from "@/components/LandingPegadaCarteles.astro";
 import Header from "@/components/Header.astro";
 import actions from "@/assets/images/landings/acciones-marketing-local.webp";
 import Layout from "@/layouts/Base.astro";
+import { useTranslations, type Locale } from "@/i18n/ui";
 
 export async function getStaticPaths() {
     const images = import.meta.glob("/src/assets/images/landings/cities/**/*.{jpg,jpeg,png,webp}");
@@ -39,17 +40,19 @@ export async function getStaticPaths() {
 }
 
 const { city, cover } = Astro.props;
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
 ---
 
 <Layout
-    title={`Pegada de carteles en ${city.name} | Urban Style`}
-    description={`Servicio profesional de pegada de carteles en ${city.name}. ${city.title}`}
+    title={`${t("city.seoTitle")} ${city.name} | Urban Style`}
+    description={`${t("city.seoDesc")} ${city.name}. ${city.title}`}
     schema="city"
 >
     <Header
-        title={`Pegada de carteles en ${city.name}`}
+        title={`${t("city.seoTitle")} ${city.name}`}
         cover={cover}
-        coverAlt={`Fotografía panorámica de la ciudad de ${city.name}`}
+        coverAlt={`${t("city.coverAlt")} ${city.name}`}
         loading="eager"
         classes="*:[img]:top-0"
     />

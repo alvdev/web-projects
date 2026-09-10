@@ -1,0 +1,83 @@
+---
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Base.astro";
+import Logos from "@/components/Logos.astro";
+import VideoWithDesc from "@/components/VideoWithDesc.astro";
+import CloudServices from "@/components/CloudServices.astro";
+import cover from "@/assets/images/header/agencia-publicidad-exterior.webp";
+---
+
+<Layout
+    title="Agenzia di pubblicità esterna specializzata in affissione manifesti"
+    description="Agenzia di pubblicità esterna con presenza a Madrid, Barcellona e nelle principali città. Specialisti nell'affissione manifesti."
+    cover={cover}
+    schema="webpage"
+>
+    <Header
+        title="Agenzia di pubblicità esterna"
+        description="Pubblicità esterna a Madrid, Barcellona e in tutta la Spagna, dedicata a campagne per eventi culturali, spettacoli, congressi, mostre e lanci."
+        cover={cover}
+        classes="h-[50vh] xl:h-[85vh] *:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+
+    <main class="relative z-10 pb-6">
+        <VideoWithDesc
+            videoId="ILOKwRc6TKc"
+            videoCaption="Facciamo pubblicità esterna<br>a Madrid e Barcellona 🚀"
+            title="Urban Style Publicity è un'agenzia di pubblicità esterna specializzata in <a href='/'>affissione manifesti</a>."
+        />
+
+        <div class="container mt-24 lg:mt-28 xl:mt-32 text-2xl">
+            <hgroup class="text-center text-balance">
+                <div
+                    class="text-black/50 text-3xl text-balance font-semibold leading-snug md:leading-relaxed *:text-balance grid gap-4"
+                >
+                    <p>La pubblicità esterna si rivolge a ogni tipo di pubblico per ottenere il massimo impatto possibile.</p>
+                    <p>Il suo obiettivo è promuovere la tua attività e affermare il tuo marchio in modo deciso presso il pubblico.</p>
+                </div>
+                <h2
+                    class="mt-8 lg:mt-12 xl:mt-16 text-5xl lg:text-6xl xl:text-7xl font-bold text-balance text-black uppercase"
+                >
+                    Fare pubblicità esterna è <mark class="under">sinonimo di risultati</mark>
+                </h2>
+            </hgroup>
+
+            <ul class="container p-0 mt-16 grid lg:grid-cols-2 gap-4 lg:gap-8 text-pretty">
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    Il street marketing o marketing urbano costa meno degli annunci in televisione e radio.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    4 persone su 10 visitano il negozio di un marchio grazie ai manifesti pubblicitari.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    1 spettatore su 10 entra nel sito web del marchio dopo aver visto la pubblicità in strada.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    I marchi di successo destinano il 13% del loro budget pubblicitario alle aziende di pubblicità esterna.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    8 persone su 10 vedono pubblicità esterna, e il 46% dichiara di notare spesso i cartelloni pubblicitari.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    La pubblicità esterna ha un tasso di ricordo dell'82%, uno dei mezzi con maggiore impatto sulla memoria del consumatore.
+                </li>
+            </ul>
+        </div>
+
+        <CloudServices title="I nostri servizi di<br>pubblicità esterna" />
+
+        <Logos />
+    </main>
+</Layout>

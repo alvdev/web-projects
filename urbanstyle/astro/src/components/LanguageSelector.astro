@@ -1,0 +1,127 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { languages, type Locale } from "@/i18n/ui";
+import EsFlag from "@/assets/icons/es-flag.svg";
+import EnFlag from "@/assets/icons/en-flag.svg";
+import ItFlag from "@/assets/icons/it-flag.svg";
+import FrFlag from "@/assets/icons/fr-flag.svg";
+import PtFlag from "@/assets/icons/pt-flag.svg";
+
+const flags: Record<Locale, typeof EsFlag> = {
+    es: EsFlag,
+    en: EnFlag,
+    it: ItFlag,
+    fr: FrFlag,
+    pt: PtFlag,
+};
+
+const locales: Locale[] = ["es", "en", "it", "fr", "pt"];
+
+const current = (Astro.currentLocale ?? "es") as Locale;
+
+// Current page path without the locale prefix, so every locale links to the
+// same page in its own language.
+const rawPath = Astro.url.pathname.replace(/^\/(en|it|fr|pt)(?=\/|$)/, "") || "/";
+const pagePath = rawPath.endsWith("/") && rawPath !== "/" ? rawPath.slice(0, -1) : rawPath;
+
+const { variant = "desktop", classes = "" } = Astro.props;
+const dark = variant === "mobile";
+---
+
+<div class={`relative ${classes}`} x-data="{ open: false }">
+    <button
+        type="button"
+        x-on:click="open = !open"
+        x-on:click.outside="open = false"
+        x-bind:aria-expanded="open"
+        aria-haspopup="listbox"
+        :class="dark ? 'text-white hover:text-red-800' : 'text-black hover:text-red-800'"
+        class="flex items-center justify-end gap-1.5 min-w-max pl-3 py-3 font-bold uppercase transition-all hover:scale-105"
+    >
+        <svg
+            class="w-3 h-3 transition-transform duration-200"
+            :class="{ 'rotate-180': open }"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="m6 9 6 6 6-6"></path>
+        </svg>
+        <img
+            src={flags[current].src}
+            alt=""
+            class="w-10 h-10 rounded-full shadow-sm object-cover"
+            width="20"
+            height="20"
+            loading="lazy"
+        />
+    </button>
+
+    <div
+        x-show="open"
+        x-cloak
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 translate-y-1"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        :class="dark ? 'bg-black border-white/20' : 'bg-white border-gray-200'"
+        role="listbox"
+        aria-label="Language"
+        class="absolute right-0 top-full z-50 mt-2 min-w-40 border shadow-xl rounded-lg overflow-hidden"
+    >
+        <ul class="py-1 bg-white">
+            {
+                locales.map(locale => {
+                    const active = locale === current;
+                    const url = getRelativeLocaleUrl(locale, pagePath);
+                    return (
+                        <li>
+                            <a
+                                href={url}
+                                role="option"
+                                aria-selected={active}
+                                class={`flex items-center gap-2.5 px-4 py-2.5 text-sm font-semibold transition-all ${
+                                    active
+                                        ? dark
+                                            ? "text-red-500 bg-white/10"
+                                            : "text-red-700 bg-red-50"
+                                        : dark
+                                          ? "text-white hover:bg-white/10"
+                                          : "text-gray-700 hover:bg-gray-100"
+                                }`}
+                            >
+                                <img
+                                    src={flags[locale].src}
+                                    alt=""
+                                    class="w-5 h-4 rounded-[2px] shadow-sm object-cover"
+                                    width="20"
+                                    height="16"
+                                    loading="lazy"
+                                />
+                                <span>{languages[locale]}</span>
+                                {active && (
+                                    <svg
+                                        class="ml-auto w-3.5 h-3.5"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path d="M20 6 9 17l-5-5" />
+                                    </svg>
+                                )}
+                            </a>
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+---
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Base.astro";
+import Logos from "@/components/Logos.astro";
+import VideoWithDesc from "@/components/VideoWithDesc.astro";
+import CloudServices from "@/components/CloudServices.astro";
+import cover from "@/assets/images/header/agencia-publicidad-exterior.webp";
+---
+
+<Layout
+    title="Outdoor advertising agency specialised in poster pasting"
+    description="Outdoor advertising agency with a presence in Madrid, Barcelona and major cities. Specialists in poster pasting."
+    cover={cover}
+    schema="webpage"
+>
+    <Header
+        title="Outdoor advertising agency"
+        description="Outdoor advertising in Madrid, Barcelona and across Spain, focused on campaigns for cultural events, shows, conferences, exhibitions and launches."
+        cover={cover}
+        classes="h-[50vh] xl:h-[85vh] *:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+
+    <main class="relative z-10 pb-6">
+        <VideoWithDesc
+            videoId="ILOKwRc6TKc"
+            videoCaption="Doing outdoor advertising<br>in Madrid and Barcelona 🚀"
+            title="Urban Style Publicity is an outdoor advertising agency specialised in <a href='/'>poster pasting</a>."
+        />
+
+        <div class="container mt-24 lg:mt-28 xl:mt-32 text-2xl">
+            <hgroup class="text-center text-balance">
+                <div
+                    class="text-black/50 text-3xl text-balance font-semibold leading-snug md:leading-relaxed *:text-balance grid gap-4"
+                >
+                    <p>Outdoor advertising reaches all kinds of audiences to create the greatest possible impact.</p>
+                    <p>Its goal is to promote your business and establish your brand decisively in the public eye.</p>
+                </div>
+                <h2
+                    class="mt-8 lg:mt-12 xl:mt-16 text-5xl lg:text-6xl xl:text-7xl font-bold text-balance text-black uppercase"
+                >
+                    Doing outdoor advertising is <mark class="under">synonymous with results</mark>
+                </h2>
+            </hgroup>
+
+            <ul class="container p-0 mt-16 grid lg:grid-cols-2 gap-4 lg:gap-8 text-pretty">
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    Street marketing or urban marketing is cheaper than television and radio advertising.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    4 out of 10 people visit a brand's store after seeing its advertising posters.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    1 out of 10 viewers visits the brand's website after seeing its advertising on the street.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    Successful brands allocate 13% of their advertising budget to outdoor advertising companies.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    8 out of 10 people see outdoor advertising, and 46% of them say they frequently notice billboards.
+                </li>
+                <li
+                    class="flex flex-col px-10 py-8 bg-white border-2 border-gray-300 leading-relaxed text-xl rounded shadow-md h-fit -rotate-1"
+                >
+                    Outdoor advertising has an 82% recall rate, making it one of the media with the greatest impact on consumer memory.
+                </li>
+            </ul>
+        </div>
+
+        <CloudServices title="Our outdoor<br>advertising services" />
+
+        <Logos />
+    </main>
+</Layout>

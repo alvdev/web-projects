@@ -5,13 +5,17 @@ import Header from "@/components/Header.astro";
 import PosterPasting from "@/components/banners/PosterPasting.astro";
 import Dossier from "@/components/banners/Dossier.astro";
 import { allSpainCities, provincesMetadata } from "@/data/cities/allSpainCities.js";
+import { useTranslations, entryMatchesLocale, coverageSlugs, type Locale } from "@/i18n/ui";
 
 import defaultCover from "@/assets/images/header/post-cover-placeholder.webp";
 
+// This file is duplicated under src/pages/{en,it,fr,pt}/blog/ — change only this line per locale.
+
 export async function getStaticPaths() {
-    const posts = await getCollection("posts");
+    const LOCALE: Locale = "es";
+    const posts = (await getCollection("posts")).filter(e => entryMatchesLocale(e, LOCALE));
     return posts.map(post => ({
-        params: { post: post.id },
+        params: { post: post.id.split("/").pop() },
         props: { post },
     }));
 }
@@ -19,6 +23,8 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
 const seoTitle = post.data.seo?.title || post.data.title;
 const postSanitizedDescription = (post.body ?? "")
     .replace(/<[^>]+>/g, "") // remove HTML tags
@@ -31,21 +37,22 @@ const postSanitizedDescription = (post.body ?? "")
     .slice(0, 155);
 const seoDescription = post.data.seo?.description || postSanitizedDescription;
 
-// Build city name to URL mapping for related services
+// Build city name to URL mapping for related services (city pages stay Spanish-only)
+const cityUrlPrefix = import.meta.env.BASE_URL + (locale === "es" ? "" : `${locale}/`) + coverageSlugs[locale];
 const cityUrlMap = new Map();
 Object.entries(allSpainCities).forEach(([provinceSlug, cities]) => {
     cities.forEach(city => {
         const name = city.name.toLowerCase();
         if (city.slug === provinceSlug) {
-            cityUrlMap.set(name, `/pegada-carteles/${provinceSlug}/`);
+            cityUrlMap.set(name, `${cityUrlPrefix}/${provinceSlug}/`);
         } else {
-            cityUrlMap.set(name, `/pegada-carteles/${provinceSlug}/${city.slug}/`);
+            cityUrlMap.set(name, `${cityUrlPrefix}/${provinceSlug}/${city.slug}/`);
         }
     });
 });
 // Also add province-level names
 Object.entries(provincesMetadata).forEach(([slug, meta]) => {
-    cityUrlMap.set(meta.name.toLowerCase(), `/pegada-carteles/${slug}/`);
+    cityUrlMap.set(meta.name.toLowerCase(), `${cityUrlPrefix}/${slug}/`);
 });
 
 // Find which cities this post mentions
@@ -72,7 +79,7 @@ const mentionedCities = [...cityUrlMap.entries()]
                 <div class="sticky top-28">
                     <PosterPasting />
                     <div class="mt-12">
-                        <h3 class="text-2xl font-bold mb-4">Servicios relacionados</h3>
+                        <h3 class="text-2xl font-bold mb-4">{t("blog.related")}</h3>
                         <ul class="m-0 text-lg list-none">
                             {
                                 mentionedCities.map(([name, url]) => {
@@ -83,7 +90,7 @@ const mentionedCities = [...cityUrlMap.entries()]
                                                 href={url}
                                                 class="text-red-700 hover:text-black font-semibold underline-offset-4 decoration-2 decoration-red-700/30 hover:decoration-black transition-all"
                                             >
-                                                Pegada de carteles en {displayName}
+                                                {t("blog.posterPastingIn")} {displayName}
                                             </a>
                                         </li>
                                     );

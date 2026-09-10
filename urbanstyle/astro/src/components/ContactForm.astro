@@ -3,24 +3,28 @@ import UserIcon from "@/assets/icons/user.svg";
 import AtIcon from "@/assets/icons/at.svg";
 import PhoneIcon from "@/assets/icons/phone.svg";
 import QuestionIcon from "@/assets/icons/question.svg";
+import { useTranslations, type Locale } from "@/i18n/ui";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
 const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}$`;
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
+const turnstileLang = { es: "es", en: "en", it: "it", fr: "fr", pt: "pt" }[locale];
 ---
 
-<form id="contact-form" action={baseUrl + "php/contactForm.php"} method="post" class="mt-16 grid gap-8 md:gap-10">
+<form id="contact-form" action={baseUrl + "php/contactForm.php"} method="post" class="mt-16 grid gap-8 md:gap-10" data-err-required={t("form.errRequired")} data-err-connection={t("form.errConnection")}>
     <div class="field name relative">
         <UserIcon class="absolute z-10 w-6 h-6 top-4" />
         <input
             class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
             type="text"
             name="name"
-            placeholder="Dinos tu nombre"
-            pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+"
-            title="El nombre sólo puede tener letras y espacios"
+            placeholder={t("form.name")}
+            pattern="[A-Za-zÁÉÍÓÚáéíóúñÑÀ-ÿ ]+"
+            title={t("form.nameTitle")}
             required
         />
-        <span class="absolute top-4 right-4 text-sm text-gray-400">* Necesario</span>
+        <span class="absolute top-4 right-4 text-sm text-gray-400">{t("form.required")}</span>
         <div class="error-message hidden" data-field="name"></div>
     </div>
 
@@ -31,11 +35,11 @@ const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\
             type="email"
             name="email"
             pattern={emailPattern}
-            placeholder="Introduce tu email"
-            title="El email debe tener un formato correcto (ejemplo: usuario@dominio.com)"
+            placeholder={t("form.email")}
+            title={t("form.emailTitle")}
             required
         />
-        <span class="absolute top-4 right-4 text-sm text-gray-400">* Necesario</span>
+        <span class="absolute top-4 right-4 text-sm text-gray-400">{t("form.required")}</span>
         <div class="error-message hidden" data-field="email"></div>
     </div>
 
@@ -45,9 +49,9 @@ const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\
             class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
             type="tel"
             name="phone"
-            placeholder="Tu teléfono si quieres que te llamemos"
+            placeholder={t("form.phone")}
             pattern="[0-9]{9}"
-            title="El teléfono debe tener al menos 9 dígitos"
+            title={t("form.phoneTitle")}
             minlength="9"
         />
         <div class="error-message hidden" data-field="phone"></div>
@@ -59,7 +63,7 @@ const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\
             class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
             type="text"
             name="website"
-            placeholder="Website"
+            placeholder={t("form.website")}
         />
     </div>
 
@@ -68,15 +72,15 @@ const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\
         <textarea
             class="text-xl md:text-2xl pl-12 pt-2.5 placeholder:text-gray-500 focus:placeholder:opacity-50"
             name="message"
-            placeholder="Escribe tu consulta"
-            title="La consulta no puede estar vacía"
+            placeholder={t("form.message")}
+            title={t("form.messageTitle")}
             required
         ></textarea>
-        <span class="absolute top-4 right-4 text-sm text-gray-400">* Necesario</span>
+        <span class="absolute top-4 right-4 text-sm text-gray-400">{t("form.required")}</span>
         <div class="error-message hidden" data-field="message"></div>
     </div>
 
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAABDZCgsB3a37MyyA" data-theme="light" data-language="es"></div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAABDZCgsB3a37MyyA" data-theme="light" data-language={turnstileLang}></div>
 
     <div
         id="response-banner"
@@ -86,9 +90,9 @@ const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\
 
     <div class="grid sm:grid-cols-2 gap-8 mt-8">
         <button type="submit" class="btn shadow-black bg-red-800 text-white border-black border">
-            Enviar Consulta
+            {t("form.submit")}
         </button>
-        <button type="reset" class="btn px-4">Reiniciar formulario</button>
+        <button type="reset" class="btn px-4">{t("form.reset")}</button>
     </div>
 </form>
 
@@ -110,10 +114,11 @@ const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\
 
             // Validate required fields. Only working if HTML5 validation is disabled
             let isValid = true;
+            const errRequired = form.dataset.errRequired || "This field is required";
             const required = ["name", "email", "message"];
             required.forEach(field => {
                 if (!formData.get(field).trim()) {
-                    showError(field, `● Este campo es requerido`);
+                    showError(field, `● ${errRequired}`);
                     isValid = false;
                 }
             });
@@ -148,7 +153,7 @@ const emailPattern = String.raw`^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\
                 }
             } catch (error) {
                 feedback.style.color = "text-red-700";
-                feedback.textContent = "● Error de conexión";
+                feedback.textContent = `● ${form.dataset.errConnection || "Connection error"}`;
             } finally {
                 submitBtn.disabled = false;
             }

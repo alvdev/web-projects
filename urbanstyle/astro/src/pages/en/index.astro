@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from "astro:content";
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Base.astro";
+import cover from "@/assets/images/header/pegada-de-carteles.webp";
+import { entryMatchesLocale, type Locale } from "@/i18n/ui";
+
+const locale = (Astro.currentLocale ?? "en") as Locale;
+const allServices = await getCollection("services");
+const pegada =
+    allServices.find(
+        e => entryMatchesLocale(e, locale) && (e.data.slug === "./" || String(e.id).endsWith("/pegada-de-carteles")),
+    ) ?? allServices.find(e => e.data.slug === "./");
+const { Content } = await render(pegada as any);
+---
+
+<Layout
+    cover={cover}
+    title="Poster pasting in Madrid, Barcelona and the rest of Spain"
+    description="Specialists in poster pasting in Madrid and Barcelona. Every day we paste 90% of the posters you see on the street."
+    schema="website"
+>
+    <Header
+        title="Poster pasting in Madrid, Barcelona and the rest of Spain"
+        cover={cover}
+        coverAlt="A man pasting a poster on a wall"
+        loading="eager"
+        classes="*:[img]:-top-36 md:*:[img]:-top-12 xl:*:[img]:-top-36"
+    />
+    <main class="relative z-10 pb-6 pt-28">
+        <Content />
+    </main>
+</Layout>

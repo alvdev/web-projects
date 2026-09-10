@@ -99,7 +99,7 @@ const tabs = defineCollection({
 });
 
 const services = defineCollection({
-  loader: glob({ pattern: "*/{index.md,index.mdx}", base: "./src/content/services" }),
+  loader: glob({ pattern: ["*/{index.md,index.mdx}", "*/*/{index.md,index.mdx}"], base: "./src/content/services" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -137,7 +137,7 @@ const posts = defineCollection({
         alt: z.string(),
         objectPosition: z.enum(["top", "center", "bottom"]).optional(),
       }),
-      slug: z.string(),
+      slug: z.string().optional(),
       pubDate: z.string(),
       taxonomy: z.object({
         categories: z.array(z.string()),

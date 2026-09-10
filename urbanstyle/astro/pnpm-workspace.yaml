@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: set this to true or false
+  sharp: set this to true or false
+minimumReleaseAgeExclude:
+  - '@alpinejs/collapse@3.17.0'
+  - '@alpinejs/intersect@3.17.0'
+  - alpinejs@3.17.0

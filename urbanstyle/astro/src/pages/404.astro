@@ -1,1 +1,32 @@
-This is 404 page
+---
+import Base from "@/layouts/Base.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getLocaleFromUrl, useTranslations } from "@/i18n/ui";
+
+const locale = getLocaleFromUrl(Astro.url.pathname);
+const t = useTranslations(locale);
+const homeUrl = getRelativeLocaleUrl(locale, "");
+
+const copy = {
+    es: { title: "Página no encontrada | Urban Style Publicity", heading: "404 — Página no encontrada", text: "La página que buscas no existe o ha cambiado de dirección.", back: "Volver a la portada" },
+    en: { title: "Page not found | Urban Style Publicity", heading: "404 — Page not found", text: "The page you are looking for does not exist or has moved.", back: "Back to home" },
+    it: { title: "Pagina non trovata | Urban Style Publicity", heading: "404 — Pagina non trovata", text: "La pagina che cerchi non esiste o ha cambiato indirizzo.", back: "Torna alla home" },
+    fr: { title: "Page introuvable | Urban Style Publicity", heading: "404 — Page introuvable", text: "La page que vous recherchez n'existe pas ou a changé d'adresse.", back: "Retour à l'accueil" },
+    pt: { title: "Página não encontrada | Urban Style Publicity", heading: "404 — Página não encontrada", text: "A página que procura não existe ou mudou de endereço.", back: "Voltar ao início" },
+}[locale];
+---
+
+<Base title={copy.title} description={copy.text}>
+    <main class="relative z-10 pt-56 pb-24 min-h-screen flex items-center justify-center">
+        <div class="container text-center text-balance">
+            <h1 class="text-6xl md:text-8xl font-black uppercase text-black">{copy.heading}</h1>
+            <p class="mt-8 text-3xl text-gray-600">{copy.text}</p>
+            <a
+                href={homeUrl}
+                class="mt-12 inline-flex px-10 py-5 font-semibold uppercase rounded-full bg-black text-white hover:ring-3 hover:ring-black transition ease-in-out duration-200"
+            >
+                {copy.back}
+            </a>
+        </div>
+    </main>
+</Base>

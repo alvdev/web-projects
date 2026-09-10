@@ -5,29 +5,35 @@ import ActionsImg from "@/assets/images/landings/acciones-marketing-local.webp";
 import CulturalImg from "@/assets/images/landings/campañas-culturales.webp";
 import EventsImg from "@/assets/images/landings/promocion-de-eventos.webp";
 import LaunchImg from "@/assets/images/landings/lanzamientos-de-marca.webp";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations, coverageSlugs, type Locale } from "@/i18n/ui";
 
 const { city } = Astro.props;
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
+const homeUrl = getRelativeLocaleUrl(locale, "");
+const coverageUrl = getRelativeLocaleUrl(locale, coverageSlugs[locale]);
 const campaigns = [
     {
-        title: "Campañas culturales",
+        title: t("city.campaignCultural"),
         img: ActionsImg,
         imgClasses: "z-0 rotate-1",
         titleClasses: "-rotate-10 -left-12",
     },
     {
-        title: "Promoción de eventos",
+        title: t("city.campaignEvents"),
         img: EventsImg,
         imgClasses: "relative -z-0 md:-top-8 -left-8 -rotate-1",
         titleClasses: "rotate-10 -right-8 md:-right-12",
     },
     {
-        title: "Acciones de marketing local",
+        title: t("city.campaignLocal"),
         img: CulturalImg,
         imgClasses: "md:-top-0 md:left-2 -z-0 -rotate-2",
         titleClasses: "rotate-10 -left-12 bottom-0",
     },
     {
-        title: "Lanzamientos de marca",
+        title: t("city.campaignLaunch"),
         img: LaunchImg,
         imgClasses: "md:-top-8 -left-4 z-0 rotate-2",
         titleClasses: "-rotate-10 -right-8 md:-right-12 bottom-0",
@@ -39,15 +45,15 @@ const campaigns = [
 <nav aria-label="Breadcrumb" class="container absolute inset-0 h-fit text-sm text-gray-500">
     <ul class="list-none mx-auto flex flex-wrap items-center justify-center gap-2" itemscope itemtype="https://schema.org/BreadcrumbList">
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="/" itemprop="item" class="hover:text-red-700 transition-colors">
-                <span itemprop="name">Portada</span>
+            <a href={homeUrl} itemprop="item" class="hover:text-red-700 transition-colors">
+                <span itemprop="name">{t("nav.home")}</span>
             </a>
             <meta itemprop="position" content="1" />
             <span class="mx-2">/</span>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="/pegada-carteles" itemprop="item" class="hover:text-red-700 transition-colors">
-                <span itemprop="name">Pegada de carteles</span>
+            <a href={coverageUrl} itemprop="item" class="hover:text-red-700 transition-colors">
+                <span itemprop="name">{t("posterPasting.link")}</span>
             </a>
             <meta itemprop="position" content="2" />
             <span class="mx-2">/</span>
@@ -65,7 +71,7 @@ const campaigns = [
             {city.title}
         </h2>
         <p class="font-script text-4xl font-semibold text-gray-500 mt-8">
-            Trabajamos principalmente en <mark class="under text-gray-700">{city.type}</mark>.
+            {t("city.workMostlyIn")} <mark class="under text-gray-700">{city.type}</mark>.
         </p>
     </hgroup>
 </section>
@@ -89,7 +95,7 @@ const campaigns = [
             <h2
                 class="font-bold [text-shadow:2px_2px_2px_black] text-5xl md:text-6xl uppercase xl:m-0 text-center text-white"
             >
-                Tipos de campañas de cartelería en {city.name}
+                {t("city.campaignTypes")} {city.name}
             </h2>
 
             <ul class="mt-32 grid md:grid-cols-2 list-none uppercase text-4xl">
@@ -124,7 +130,7 @@ const campaigns = [
 {Array.isArray(city.faq) && city.faq.length > 0 ? (
     <section class="container mt-32">
         <h2 class="text-4xl md:text-6xl font-bold text-center mb-16 text-balance">
-            Preguntas frecuentes sobre la pegada de carteles en {city.name}
+            {t("city.faqTitle")} {city.name}
         </h2>
         <div
             x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }"
@@ -170,11 +176,10 @@ const campaigns = [
 <section class="container my-24">
     <div class="text-center">
         <h2 class="text-4xl md:text-6xl font-bold mb-6 text-balance">
-            Presupuesto para hacer una pegada de carteles en {city.name}
+            {t("city.budgetTitle")} {city.name}
         </h2>
         <p class="mb-8 text-balance text-3xl leading-normal font-script">
-            Solicita un presupuesto personalizado para tu campaña en {city.name}
-            completando el formulario o llamándonos al
+            {t("city.budgetText")} {city.name} {t("city.budgetTextEnd")}
             <a href="tel:+34913052922" class="inline-block relative top-0.5 ml-1 font-bolder text-3xl">91 305 29 22</a>
         </p>
     </div>

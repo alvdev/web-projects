@@ -1,0 +1,76 @@
+---
+title: 'Pose d''affiches à Madrid, Barcelone et dans le reste de l''Espagne'
+shortTitle: 'Pose d''affiches'
+description: 'Nous collons 90% des affiches que vous voyez chaque jour dans la rue car nous disposons de la plus grande couverture de zones et de l''équipe nécessaire pour leur pose et leur supervision.'
+cover: './images/pegada-de-carteles.webp'
+coverAlt: 'Pose d''affiches'
+order: 10
+seo:
+  title: 'Pose d''affiches à Madrid, Barcelone et dans le reste de l''Espagne'
+  description: 'Entreprise leader de pose d''affiches à Madrid. Spécialistes du Wild Posting, de la publicité extérieure et de la fixation d''affiches avec garantie de remplacement.'
+---
+
+import Desc1 from '@/components/Desc1.astro';
+import Layout from '@/layouts/Base.astro';
+import Reviews from '@/components/Reviews.astro';
+import Logos from '@/components/Logos.astro';
+import Desc2 from '@/components/Desc2.astro';
+import Desc3 from '@/components/Desc3.astro';
+import Videos from '@/components/Videos.astro';
+import Faqs from '@/components/Faqs.astro';
+import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
+import BenefitsGrid from '@/components/BenefitsGrid.astro';
+import VerticalTabs from '@/components/VerticalTabs.astro';
+
+<Desc1
+  title="Chaque jour, nous collons <mark class='under'>90% des affiches</mark> que vous voyez dans la rue"
+  description="Nous sommes spécialistes de <strong>la pose d'affiches à Madrid et à Barcelone</strong>. Nous gérons également la fixation d'affiches et coordonnons des actions simultanées dans le reste des provinces espagnoles."
+/>
+<Videos
+  videoId1="0_LpZYxl5Iw"
+  videoId2="03Gma06CTl8"
+  spanLine1="Pose d'affiches par"
+  spanLine2="l'équipe d'Urban Style Publicity"
+/>
+
+<div class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold text-balance text-black uppercase md:text-7xl">
+    Quelques-unes de nos
+    <br /> poses d'affiches
+  </h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">Nous supervisons les campagnes <mark class="under">24/7 (jour et nuit)</mark> pour remplacer les affiches endommagées ou recouvertes.</p>
+</div>
+<div class="torn-top torn-bottom bg-black">
+  <InfiniteCarousel
+    folder="carousel1"
+    speed="slow"
+    classes="**:border-0 mt-16 **:gap-2 pt-6"
+    descPosition="top"
+    itemsWidth="300"
+    itemsHeight="400"
+  />
+  <InfiniteCarousel
+    folder="carousel2"
+    speed="slow"
+    direction="left"
+    classes="mt-2 **:gap-2 pb-6"
+    itemsWidth="300"
+    itemsHeight="400"
+  />
+</div>
+
+<VerticalTabs folderName="addon-services" />
+
+<Desc3
+  title="Poses d'affiches à grand impact"
+  subtitle="parce que nous avons l'équipe nécessaire pour pouvoir couvrir le plus grand nombre de zones exclusives."
+  description="Si vous souhaitez faire une pose d'affiches pour promouvoir un événement, une pièce de théâtre, un commerce local, une foire commerciale ou une exposition, un lancement discographique ou un concert;<br/> contactez-nous avant de vous décider"
+  classes="wall-full bg-red-900 pb-42"
+/>
+{<BenefitsGrid classes="relative z-20 -mt-28" />}
+
+<Faqs />
+
+<Reviews />
+
+<Logos title="" subtitle="" />

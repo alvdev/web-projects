@@ -26,7 +26,18 @@ export default defineConfig({
     }),
     alpinejs({ entrypoint: "/src/alpinejs" }),
     mdx(),
-    sitemap(),
+    sitemap({
+      i18n: {
+        defaultLocale: "es",
+        locales: {
+          es: "es",
+          en: "en",
+          it: "it",
+          fr: "fr",
+          pt: "pt",
+        },
+      },
+    }),
   ],
 
   vite: {
@@ -50,7 +61,7 @@ export default defineConfig({
   },
 
   i18n: {
-    locales: ["es", "en"],
+    locales: ["es", "en", "it", "fr", "pt"],
     defaultLocale: "es",
     routing: {
       prefixDefaultLocale: false,

@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import Header from "@/components/Header.astro";
+import Base from "@/layouts/Base.astro";
+import { render } from "astro:content";
+import { entryMatchesLocale, type Locale } from "@/i18n/ui";
+
+// This file is duplicated under src/pages/{en,it,fr,pt}/[...service]/ — change only this line per locale.
+
+export async function getStaticPaths() {
+    const LOCALE: Locale = "en";
+    const services = (await getCollection("services")).filter(e => entryMatchesLocale(e, LOCALE));
+    return services.map(landing => ({
+        params: {
+            service:
+                // Take slug if exists, otherwise the folder name (localized copies derive it from the path)
+                landing.data.slug || String(landing.id).split("/").pop(),
+        },
+        props: { landing },
+    }));
+}
+
+const { landing } = Astro.props;
+const { Content } = await render(landing);
+
+const seoTitle = landing.data.seo?.title || landing.data.title;
+const seoDescription = landing.data.seo?.description || landing.data.description;
+---
+
+<Base title={seoTitle} description={seoDescription} cover={landing.data.cover}>
+    <Header title={landing.data.title} cover={landing.data.cover} />
+    <main class="relative z-20 *:first:mt-28">
+        <Content />
+    </main>
+</Base>

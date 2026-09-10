@@ -1,0 +1,76 @@
+---
+title: 'Poster pasting in Madrid, Barcelona and the rest of Spain'
+shortTitle: 'Poster pasting'
+description: 'We paste 90% of the posters you see on the street every day because we have the widest coverage of areas and the team needed for their placement and supervision.'
+cover: './images/pegada-de-carteles.webp'
+coverAlt: 'Poster pasting'
+order: 10
+seo:
+  title: 'Poster pasting in Madrid, Barcelona and the rest of Spain'
+  description: 'Leading poster pasting company in Madrid. Specialists in Wild Posting, outdoor advertising and poster fixing with replacement guarantee.'
+---
+
+import Desc1 from '@/components/Desc1.astro';
+import Layout from '@/layouts/Base.astro';
+import Reviews from '@/components/Reviews.astro';
+import Logos from '@/components/Logos.astro';
+import Desc2 from '@/components/Desc2.astro';
+import Desc3 from '@/components/Desc3.astro';
+import Videos from '@/components/Videos.astro';
+import Faqs from '@/components/Faqs.astro';
+import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
+import BenefitsGrid from '@/components/BenefitsGrid.astro';
+import VerticalTabs from '@/components/VerticalTabs.astro';
+
+<Desc1
+  title="Every day we paste <mark class='under'>90% of the posters</mark> you see on the street"
+  description="We are specialists in <strong>poster pasting in Madrid and Barcelona</strong>. We also manage poster fixing and coordinate simultaneous actions in the rest of the Spanish provinces."
+/>
+<Videos
+  videoId1="0_LpZYxl5Iw"
+  videoId2="03Gma06CTl8"
+  spanLine1="Poster pasting by"
+  spanLine2="the Urban Style Publicity team"
+/>
+
+<div class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold text-balance text-black uppercase md:text-7xl">
+    Some of our
+    <br /> poster pastings
+  </h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">We supervise the campaigns <mark class="under">24/7 (day and night)</mark> to replace damaged or covered posters.</p>
+</div>
+<div class="torn-top torn-bottom bg-black">
+  <InfiniteCarousel
+    folder="carousel1"
+    speed="slow"
+    classes="**:border-0 mt-16 **:gap-2 pt-6"
+    descPosition="top"
+    itemsWidth="300"
+    itemsHeight="400"
+  />
+  <InfiniteCarousel
+    folder="carousel2"
+    speed="slow"
+    direction="left"
+    classes="mt-2 **:gap-2 pb-6"
+    itemsWidth="300"
+    itemsHeight="400"
+  />
+</div>
+
+<VerticalTabs folderName="addon-services" />
+
+<Desc3
+  title="Poster pastings with great impact"
+  subtitle="because we have the necessary team to be able to cover the greatest number of exclusive areas."
+  description="If you want to do a poster pasting to promote an event, play, local business, trade fair or exhibition, a record release or a concert;<br/> contact us before deciding"
+  classes="wall-full bg-red-900 pb-42"
+/>
+{<BenefitsGrid classes="relative z-20 -mt-28" />}
+
+<Faqs />
+
+<Reviews />
+
+<Logos title="" subtitle="" />

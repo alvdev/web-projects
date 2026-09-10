@@ -1,8 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
+import { getLocalizedCollection, type Locale } from "@/i18n/ui";
 
-const services = await getCollection("services");
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const services = await getLocalizedCollection("services", locale);
 const { title, classes = "mt-24 lg:mt-28 xl:mt-32" } = Astro.props;
 const servicesAreEven = services.length % 2 === 0;
 ---

@@ -1,8 +1,15 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
+import { getLocalizedCollection, useTranslations, type Locale } from "@/i18n/ui";
 
 const { folderName } = Astro.props;
-const tabEntries = await getCollection("tabs", ({ id }) => id.startsWith(folderName));
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
+const tabEntries = await getLocalizedCollection(
+    "tabs",
+    locale,
+    ({ id }) => String(id).split("/").includes(folderName),
+);
 
 // Render all entries
 const tabs = await Promise.all(
@@ -19,9 +26,9 @@ const tabs = await Promise.all(
 <section class="mt-32">
     <div class="container" x-data="{ tab: 0 }">
         <h2
+            set:html={t("tabs.title")}
             class="text-5xl lg:text-6xl text-balance text-center text-black font-bold uppercase xl:m-0 leading-tight break-words hyphens-auto"
         >
-            Servicios de cartelería <br />complementarios
         </h2>
 
         <div class="mt-12 lg:mt-16 xl:mt-24 flex flex-col lg:flex-row gap-16 xl:gap-24 items-center">
