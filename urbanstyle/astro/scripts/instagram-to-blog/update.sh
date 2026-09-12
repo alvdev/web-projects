@@ -10,8 +10,18 @@ BUN=/home/alvdev/.bun/bin/bun
 
 echo "=== pulling $REPO ==="
 BEFORE=$(git -C "$REPO" rev-parse HEAD)
-git -C "$REPO" pull --ff-only
+# Rebase instead of --ff-only: kv55 may hold unpushed bot-generated commits
+# (stranded by a rejected push), which would block a plain fast-forward pull.
+# --autostash protects any in-flight tracked edits from a running bot publish.
+git -C "$REPO" pull --rebase --autostash
 AFTER=$(git -C "$REPO" rev-parse HEAD)
+
+# Publish any locally generated commits (e.g. stranded bot pushes) so the
+# remote and the dev machine stay in sync; never fail the update on push errors.
+if [ "$(git -C "$REPO" rev-list --count origin/main..HEAD 2>/dev/null || echo 0)" -gt 0 ]; then
+  echo "=== pushing local commits ==="
+  git -C "$REPO" push origin main || echo "⚠️  push failed — retried automatically on next bot publish"
+fi
 
 CHANGED="${CHANGED:-}"
 PULLED=0
