@@ -40,6 +40,7 @@ export interface PreparedPost {
   category: string;
   slug: string;
   pubDate: string;
+  updatedDate: string;
   basePath: string;
   media_url: string;
   igMediaId: string;

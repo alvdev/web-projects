@@ -95,6 +95,7 @@ export function preparePost(article: LlmArticle, post: NewPost): PreparedPost {
     category: article.category,
     slug,
     pubDate: formatPubDate(post.timestamp),
+    updatedDate: formatPubDate(new Date().toISOString()),
     basePath,
     media_url: post.mediaUrl,
     igMediaId: post.id,
@@ -116,6 +117,7 @@ taxonomy:
   categories: ['${escapeMdx(data.category)}']
   tags: [${data.tags.map((t) => `'${escapeMdx(t)}'`).join(", ")}]
 pubDate: '${data.pubDate}'
+updatedDate: '${data.updatedDate}'
 ---
 
 ![${data.title}](./header.jpg)

@@ -139,6 +139,7 @@ const posts = defineCollection({
       }),
       slug: z.string().optional(),
       pubDate: z.string(),
+      updatedDate: z.string().optional(),
       taxonomy: z.object({
         categories: z.array(z.string()),
         tags: z.array(z.string()),

@@ -457,6 +457,7 @@ TRANSLATION RULES (non-negotiable):
 - Frontmatter: translate only human-readable fields (title, description, shortTitle, coverAlt, seo.title, seo.description, taxonomy categories and tags, review texts, faq questions/answers). Keep technical fields byte-identical (cover paths, order, pubDate, objectPosition, image paths). Do NOT include any 'slug' field in the output frontmatter.
 - Keep the same YAML quoting style as the source (single-quoted with doubled apostrophes '' or double-quoted).
 - Use correct accented characters of the target language. Keep numbers, dates and measurements unchanged.
+- QUALITY CHECK: before returning, reread the full translation. Remove any untranslated words, fix grammar/agreement errors, and keep terminology consistent with the rest of the site (e.g. "pegada de carteles" → "poster pasting" EN, "collage d'affiches" FR, "affissione manifesti" IT, "colagem de cartazes" PT).
 
 Respond ONLY with a JSON object: {"file": "<the complete translated file, frontmatter included>"}. No markdown fences, no commentary.`;
 
