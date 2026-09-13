@@ -6,6 +6,7 @@ import PosterPasting from "@/components/banners/PosterPasting.astro";
 import Dossier from "@/components/banners/Dossier.astro";
 import { allSpainCities, provincesMetadata } from "@/data/cities/allSpainCities.js";
 import { useTranslations, entryMatchesLocale, coverageSlugs, type Locale } from "@/i18n/ui";
+import { getPostLocaleVariants } from "@/i18n/content";
 
 import defaultCover from "@/assets/images/header/post-cover-placeholder.webp";
 
@@ -21,6 +22,8 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const postSlug = post.id.split("/").pop()!;
+const hreflangLocales = await getPostLocaleVariants(postSlug);
 const { Content } = await render(post);
 
 const locale = (Astro.currentLocale ?? "pt") as Locale;
@@ -65,7 +68,7 @@ const mentionedCities = [...cityUrlMap.entries()]
     .slice(0, 4);
 ---
 
-<Base title={seoTitle} description={seoDescription} cover={post.data.cover.url}>
+<Base title={seoTitle} description={seoDescription} cover={post.data.cover.url} hreflangLocales={hreflangLocales}>
     <Header
         cover={post.data.cover.url || defaultCover}
         coverAlt={post.data.cover.alt || post.data.title}

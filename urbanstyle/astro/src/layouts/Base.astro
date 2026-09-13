@@ -6,6 +6,7 @@ import Footer from "@/components/Footer.astro";
 import Navbar from "@/components/Navbar.astro";
 import Cover from "@/assets/images/header/pegada-de-carteles.webp";
 import { siteDefaults, ogLocales, type Locale } from "@/i18n/ui";
+import { hreflangAlternates } from "@/i18n/hreflang";
 import "../styles/global.css";
 
 const locale = (Astro.currentLocale ?? "es") as Locale;
@@ -16,7 +17,10 @@ const {
     Cover: { src: cover } = { src: Cover.src },
     schema = "webpage",
     ogType = "website",
+    hreflangLocales,
 } = Astro.props;
+
+const alternates = hreflangAlternates(Astro.url.pathname, Astro.site, hreflangLocales);
 
 const baseImage = Astro.props.cover ? Astro.props.cover : Cover;
 const imageUrl = new URL(baseImage.src, Astro.site).href;
@@ -41,6 +45,7 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
         <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + "favicon-180.png"} />
         <link rel="icon" href={import.meta.env.BASE_URL + "favicon-192.png"} />
         <link rel="sitemap" href={sitemapUrl} />
+        {alternates.map(({ lang, url }) => <link rel="alternate" hreflang={lang} href={url} />)}
         <Seo
             title={title}
             description={description}

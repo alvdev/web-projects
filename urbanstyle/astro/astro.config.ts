@@ -8,6 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 
 import sitemap from "@astrojs/sitemap";
+import { hreflangAlternates } from "./src/i18n/hreflang";
 
 import partytown from "@astrojs/partytown";
 
@@ -27,15 +28,10 @@ export default defineConfig({
     alpinejs({ entrypoint: "/src/alpinejs" }),
     mdx(),
     sitemap({
-      i18n: {
-        defaultLocale: "es",
-        locales: {
-          es: "es",
-          en: "en",
-          it: "it",
-          fr: "fr",
-          pt: "pt",
-        },
+      serialize(item) {
+        const url = new URL(item.url);
+        item.links = hreflangAlternates(url.pathname, url);
+        return item;
       },
     }),
   ],

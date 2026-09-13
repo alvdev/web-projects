@@ -1,32 +1,8 @@
 import { getCollection } from "astro:content";
+import { defaultLocale, localePrefixes, type Locale } from "./config";
 
-export const languages = {
-    es: "Español",
-    en: "English",
-    it: "Italiano",
-    fr: "Français",
-    pt: "Português",
-} as const;
-
-export type Locale = keyof typeof languages;
-
-export const defaultLocale: Locale = "es";
-
-export const coverageSlugs: Record<Locale, string> = {
-    es: "pegada-carteles",
-    en: "poster-pasting",
-    it: "affissione-manifesti",
-    fr: "collage-affiches",
-    pt: "colagem-cartazes",
-};
-
-export const ogLocales: Record<Locale, string> = {
-    es: "es_ES",
-    en: "en_US",
-    it: "it_IT",
-    fr: "fr_FR",
-    pt: "pt_PT",
-};
+export { languages, defaultLocale, coverageSlugs, ogLocales, localePrefixes } from "./config";
+export type { Locale } from "./config";
 
 export const siteDefaults: Record<Locale, { title: string; description: string }> = {
     es: {
@@ -573,8 +549,6 @@ export function getLocaleFromUrl(pathname: string): Locale {
     const match = pathname.match(/^\/(en|it|fr|pt)(?:\/|$)/);
     return match ? (match[1] as Locale) : defaultLocale;
 }
-
-export const localePrefixes = ["en", "it", "fr", "pt"] as const;
 
 export function entryMatchesLocale(entry: { id: string }, locale: Locale): boolean {
     if (locale === defaultLocale) return !localePrefixes.some(prefix => entry.id.startsWith(`${prefix}/`));

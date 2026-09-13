@@ -29,6 +29,18 @@ ErrorDocument 404 /404.html
     # RewriteRule ^pegada-carteles/?$ / [R=301,L]
     RewriteRule ^pegada-de-carteles/?$ / [R=301,L]
 
+    # Localized service landing consolidated into the locale homepage
+    RewriteRule ^en/pegada-de-carteles/?$ /en/ [R=301,L]
+    RewriteRule ^fr/pegada-de-carteles/?$ /fr/ [R=301,L]
+    RewriteRule ^it/pegada-de-carteles/?$ /it/ [R=301,L]
+    RewriteRule ^pt/pegada-de-carteles/?$ /pt/ [R=301,L]
+
+    # Blog post slug/directory normalization
+    RewriteRule ^en/blog/accion-espececial-xpecado/?$ /en/blog/accion-especial-xpecado-madrid/ [R=301,L]
+    RewriteRule ^fr/blog/accion-espececial-xpecado/?$ /fr/blog/accion-especial-xpecado-madrid/ [R=301,L]
+    RewriteRule ^it/blog/accion-espececial-xpecado/?$ /it/blog/accion-especial-xpecado-madrid/ [R=301,L]
+    RewriteRule ^pt/blog/accion-espececial-xpecado/?$ /pt/blog/accion-especial-xpecado-madrid/ [R=301,L]
+
     ## Begin - Security inherited from Grav
     # Block all direct access for these folders
     RewriteRule ^(\.git|cache|bin|logs|backup|webserver-configs|tests)/(.*) error [F]

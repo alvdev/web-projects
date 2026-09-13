@@ -42,11 +42,13 @@ const latestJsonUrl =
                                 (a.data.shortTitle || a.data.title).localeCompare(b.data.shortTitle || b.data.title),
                             )
                             .map(service => {
+                                const isHomeService =
+                                    service.data.slug === "./" ||
+                                    String(service.id).endsWith("/pegada-de-carteles");
                                 const slug = service.data.slug || String(service.id).split("/").pop();
-                                const href =
-                                    slug === "./" || slug === "."
-                                        ? getRelativeLocaleUrl(locale, "")
-                                        : getRelativeLocaleUrl(locale, slug);
+                                const href = isHomeService
+                                    ? getRelativeLocaleUrl(locale, "")
+                                    : getRelativeLocaleUrl(locale, slug);
                                 return (
                                     <li class="mb-5">
                                         <a href={href}>

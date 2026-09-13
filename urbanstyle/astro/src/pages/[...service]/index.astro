@@ -9,7 +9,11 @@ import { entryMatchesLocale, type Locale } from "@/i18n/ui";
 
 export async function getStaticPaths() {
     const LOCALE: Locale = "es";
-    const services = (await getCollection("services")).filter(e => entryMatchesLocale(e, LOCALE));
+    const services = (await getCollection("services")).filter(
+        e =>
+            entryMatchesLocale(e, LOCALE) &&
+            !(e.data.slug === "./" || String(e.id).endsWith("/pegada-de-carteles")),
+    );
     return services.map(landing => ({
         params: {
             service:
