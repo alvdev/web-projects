@@ -78,6 +78,30 @@ class SteamStatsDB
         } catch (\PDOException $e) {
             // Column already exists
         }
+        $this->pdo->exec('
+            CREATE TABLE IF NOT EXISTS chart_chunks (
+                chunk       INTEGER PRIMARY KEY,
+                fetched_at  INTEGER NOT NULL DEFAULT 0,
+                status      TEXT NOT NULL DEFAULT \'missing\',
+                entry_count INTEGER NOT NULL DEFAULT 0,
+                last_error  TEXT
+            )
+        ');
+        $this->pdo->exec('
+            CREATE TABLE IF NOT EXISTS chart_entries (
+                appid            INTEGER PRIMARY KEY,
+                chunk            INTEGER NOT NULL,
+                rank             INTEGER NOT NULL,
+                name             TEXT NOT NULL,
+                current_players  INTEGER NOT NULL DEFAULT 0,
+                peak_24h         INTEGER NOT NULL DEFAULT 0,
+                peak_all_time    INTEGER NOT NULL DEFAULT 0,
+                peak_all_time_ts INTEGER NOT NULL DEFAULT 0,
+                scraped_at       INTEGER NOT NULL DEFAULT 0
+            )
+        ');
+        $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_ce_chunk_rank ON chart_entries(chunk, rank)');
+        $this->pdo->exec('CREATE INDEX IF NOT EXISTS idx_ce_rank ON chart_entries(rank)');
     }
 
     public function upsertGame(int $appid, string $slug, string $name, ?int $igdbId = null): void
@@ -609,6 +633,109 @@ class SteamStatsDB
         } catch (\Throwable $e) {}
 
         return $data;
+    }
+
+    public const CHART_CHUNK_SIZE = 100;
+
+    public function getChartChunk(int $chunk): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT chunk, fetched_at, status, entry_count, last_error FROM chart_chunks WHERE chunk = :chunk');
+        $stmt->execute([':chunk' => $chunk]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $row ?: null;
+    }
+
+    public function getChartEntriesByChunk(int $chunk): array
+    {
+        $stmt = $this->pdo->prepare('
+            SELECT appid, chunk, rank, name, current_players, peak_24h, peak_all_time, peak_all_time_ts, scraped_at
+            FROM chart_entries
+            WHERE chunk = :chunk
+            ORDER BY rank ASC
+        ');
+        $stmt->execute([':chunk' => $chunk]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function countChartEntries(): int
+    {
+        $row = $this->pdo->query('SELECT COUNT(*) FROM chart_entries')->fetchColumn();
+        return (int) $row;
+    }
+
+    /**
+     * Replace the whole chart snapshot. Rows must be in rank order and each
+     * contain: rank, appid, name, current, peak_24h, peak_all_time.
+     */
+    public function replaceChartEntries(array $rows, int $scrapedAt): int
+    {
+        $this->pdo->beginTransaction();
+        try {
+            $this->pdo->exec('DELETE FROM chart_entries');
+            $stmt = $this->pdo->prepare('
+                INSERT INTO chart_entries (appid, chunk, rank, name, current_players, peak_24h, peak_all_time, peak_all_time_ts, scraped_at)
+                VALUES (:appid, :chunk, :rank, :name, :current, :peak_24h, :peak_all_time, 0, :scraped_at)
+            ');
+            $inserted = 0;
+            foreach ($rows as $row) {
+                $rank = (int) ($row['rank'] ?? 0);
+                $appid = (int) ($row['appid'] ?? 0);
+                if ($rank <= 0 || $appid <= 0) continue;
+
+                $stmt->execute([
+                    ':appid'         => $appid,
+                    ':chunk'         => intdiv($rank - 1, self::CHART_CHUNK_SIZE),
+                    ':rank'          => $rank,
+                    ':name'          => (string) ($row['name'] ?? ''),
+                    ':current'       => (int) ($row['current'] ?? 0),
+                    ':peak_24h'      => (int) ($row['peak_24h'] ?? 0),
+                    ':peak_all_time' => (int) ($row['peak_all_time'] ?? 0),
+                    ':scraped_at'    => $scrapedAt,
+                ]);
+                $inserted++;
+            }
+            $this->pdo->commit();
+            return $inserted;
+        } catch (\Throwable $e) {
+            $this->pdo->rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Mark every chunk covered by a snapshot of $count entries as fresh.
+     */
+    public function markChartChunksFresh(int $count, int $scrapedAt): void
+    {
+        $chunks = (int) ceil($count / self::CHART_CHUNK_SIZE);
+        $stmt = $this->pdo->prepare('
+            INSERT INTO chart_chunks (chunk, fetched_at, status, entry_count, last_error)
+            VALUES (:chunk, :fetched_at, \'fresh\', :entry_count, NULL)
+            ON CONFLICT(chunk) DO UPDATE SET
+                fetched_at  = :fetched_at2,
+                status      = \'fresh\',
+                entry_count = :entry_count2,
+                last_error  = NULL
+        ');
+        for ($i = 0; $i < $chunks; $i++) {
+            $stmt->execute([
+                ':chunk'         => $i,
+                ':fetched_at'    => $scrapedAt,
+                ':entry_count'   => min(self::CHART_CHUNK_SIZE, $count - $i * self::CHART_CHUNK_SIZE),
+                ':fetched_at2'   => $scrapedAt,
+                ':entry_count2'  => min(self::CHART_CHUNK_SIZE, $count - $i * self::CHART_CHUNK_SIZE),
+            ]);
+        }
+    }
+
+    public function markChartChunkError(int $chunk, string $error): void
+    {
+        $stmt = $this->pdo->prepare('
+            INSERT INTO chart_chunks (chunk, fetched_at, status, entry_count, last_error)
+            VALUES (:chunk, 0, \'error\', 0, :error)
+            ON CONFLICT(chunk) DO UPDATE SET status = \'error\', last_error = :error2
+        ');
+        $stmt->execute([':chunk' => $chunk, ':error' => $error, ':error2' => $error]);
     }
 
     public static function normalizeSlug(string $slug): string

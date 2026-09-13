@@ -12,6 +12,7 @@
  *   php collect-steam-stats.php steamdb-history-by-slug <slug>  # backfill history for one game (by diario.games slug)
  *   php collect-steam-stats.php steamdb-backfill [limit]    # batch backfill games with stale data
  *   php collect-steam-stats.php steamdb-catchup [limit]     # catch up newly-imported games (≤ 1 data point)
+ *   php collect-steam-stats.php charts [chunk]              # fetch SteamDB charts ranking (on demand, locked)
  *
  * Cron: run every hour for snapshots, every 30 min for catch-up.
  *
@@ -189,6 +190,62 @@ if ($mode === 'backfill') {
     echo "Scanned: {$stats['scanned']}, Backfilled: {$stats['backfilled']}, Skipped: {$stats['skipped']}, Errors: " . count($stats['errors']) . "\n";
     if (!empty($stats['errors'])) {
         echo "Failed appids: " . implode(', ', $stats['errors']) . "\n";
+    }
+    exit(0);
+} elseif ($mode === 'charts') {
+    $chunk = max(0, (int)($argv[2] ?? 0));
+    $limit = max(1000, min(5000, ($chunk + 1) * 100));
+
+    $lockFile = sys_get_temp_dir() . '/steamdb-charts-browser.lock';
+    if (file_exists($lockFile) && (time() - filemtime($lockFile)) < 300) {
+        echo "Charts scrape already running; skipping.\n";
+        exit(0);
+    }
+    if (file_exists($lockFile)) @unlink($lockFile);
+    touch($lockFile);
+
+    try {
+        echo "Fetching SteamDB charts (chunk $chunk, limit $limit)...\n";
+        $result = $collector->collectSteamDBCharts($limit);
+
+        if ($result) {
+            $db = new \Alv\SteamStats\SteamStatsDB();
+            $scrapedAt = time();
+            $count = $db->replaceChartEntries($result['rows'], $scrapedAt);
+            $db->markChartChunksFresh($count, $scrapedAt);
+
+            $hourSlot = $scrapedAt - ($scrapedAt % 3600);
+            $snapshots = 0;
+            foreach ($result['rows'] as $row) {
+                $appid = (int)($row['appid'] ?? 0);
+                $rank = (int)($row['rank'] ?? 0);
+                if ($appid <= 0) continue;
+
+                $peak = (int)($row['peak_all_time'] ?? 0);
+                if ($peak > 0) {
+                    $db->upsertGamePeak($appid, $peak, 0);
+                }
+                if ($rank > 0 && $rank <= 300) {
+                    $db->insertPlayerCount($appid, $hourSlot, (int)($row['current'] ?? 0));
+                    $snapshots++;
+                }
+            }
+
+            try {
+                kirby()->cache('alv/steam-stats.cache')->remove('player-data-summary');
+            } catch (\Throwable $e) {}
+
+            echo "Charts: stored $count rows (" . count($result['rows']) . " fetched, {$result['total']} total), $snapshots player snapshots.\n";
+        } else {
+            try {
+                (new \Alv\SteamStats\SteamStatsDB())->markChartChunkError($chunk, 'SteamDB charts scrape returned no data');
+            } catch (\Throwable $e) {}
+            echo "Charts scrape failed.\n";
+        }
+    } catch (\Throwable $e) {
+        echo "Charts error: " . $e->getMessage() . "\n";
+    } finally {
+        @unlink($lockFile);
     }
     exit(0);
 } else {

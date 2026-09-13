@@ -358,6 +358,34 @@ class SteamStatsCollector
         return ['points' => $inserted, 'peak' => $peak];
     }
 
+    /**
+     * Fetch the SteamDB charts ranking snapshot (rank, current, 24h peak,
+     * all-time peak) for the top $limit games.
+     */
+    public function collectSteamDBCharts(int $limit = 1000): ?array
+    {
+        $scriptPath = dirname(__DIR__, 4) . '/scripts/scrape-steamdb-charts.mjs';
+        if (!file_exists($scriptPath)) return null;
+
+        $nodeBin = $this->findNodeBinary();
+        if (!$nodeBin) return null;
+
+        $cmd = escapeshellarg($nodeBin) . ' ' . escapeshellarg($scriptPath) . ' ' . escapeshellarg((string)$limit) . ' 2>/dev/null';
+        $output = [];
+        $exitCode = 0;
+        exec($cmd, $output, $exitCode);
+
+        if ($exitCode !== 0 || empty($output)) return null;
+
+        $data = json_decode(implode('', $output), true);
+        if (!is_array($data) || empty($data['rows'])) return null;
+
+        return [
+            'total' => (int)($data['total'] ?? count($data['rows'])),
+            'rows'  => $data['rows'],
+        ];
+    }
+
     public function backfillSteamDBHistory(?callable $log = null, int $limit = 20): array
     {
         $appids = $this->db->getAllAppids();

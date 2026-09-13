@@ -61,6 +61,68 @@ App::plugin('alv/steam-stats', [
             }
         ],
         [
+            'pattern' => 'steam-stats-api/rankings',
+            'method' => 'GET',
+            'action' => function () {
+                $chunk = max(0, (int) get('chunk', 0));
+                $ttl = (int) option('alv.steam-stats.charts-ttl', 900);
+                $db = new \Alv\SteamStats\SteamStatsDB();
+
+                $chunkRow = $db->getChartChunk($chunk);
+                $fetchedAt = (int) ($chunkRow['fetched_at'] ?? 0);
+                $status = $chunkRow['status'] ?? 'missing';
+                $fresh = $status === 'fresh' && $fetchedAt > 0 && (time() - $fetchedAt) <= $ttl;
+
+                $totalEntries = $db->countChartEntries();
+                $maxChunk = $totalEntries > 0 ? (int) ceil($totalEntries / \Alv\SteamStats\SteamStatsDB::CHART_CHUNK_SIZE) - 1 : -1;
+
+                $refreshPending = false;
+                if (!$fresh && ($maxChunk < 0 || $chunk <= $maxChunk)) {
+                    $lockFile = sys_get_temp_dir() . '/steamdb-charts-browser.lock';
+                    $locked = file_exists($lockFile) && (time() - filemtime($lockFile)) < 300;
+
+                    $cooldownOk = true;
+                    try {
+                        $cache = kirby()->cache('alv/steam-stats.cache');
+                        $lastSpawn = $cache->get('charts-spawn');
+                        $cooldownOk = !(is_array($lastSpawn) && (time() - ($lastSpawn['value'] ?? 0)) < 60);
+                    } catch (\Throwable $e) {}
+
+                    if ($locked) {
+                        $refreshPending = true;
+                    } elseif ($cooldownOk) {
+                        $php = PHP_BINDIR . '/php';
+                        if (!is_executable($php)) $php = PHP_BINARY;
+                        if (!is_executable($php)) $php = 'php';
+
+                        $script = dirname(__DIR__, 3) . '/scripts/collect-steam-stats.php';
+                        $cmd = 'nohup ' . escapeshellarg($php) . ' ' . escapeshellarg($script)
+                            . ' charts ' . $chunk . ' > /dev/null 2>&1 &';
+                        @exec($cmd);
+
+                        try {
+                            kirby()->cache('alv/steam-stats.cache')
+                                ->set('charts-spawn', ['value' => time(), 'timestamp' => time()]);
+                        } catch (\Throwable $e) {}
+
+                        $refreshPending = true;
+                    }
+                }
+
+                $rows = $db->getChartEntriesByChunk($chunk);
+
+                return [
+                    'chunk'           => $chunk,
+                    'status'          => $status,
+                    'fresh'           => $fresh,
+                    'fetched_at'      => $fetchedAt,
+                    'ttl'             => $ttl,
+                    'refresh_pending' => $refreshPending,
+                    'rows'            => $rows,
+                ];
+            }
+        ],
+        [
             'pattern' => 'steam-stats-api/search',
             'method' => 'GET',
             'action' => function () {

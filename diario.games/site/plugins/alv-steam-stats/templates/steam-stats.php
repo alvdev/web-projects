@@ -2,8 +2,34 @@
 
 <?php
 $stats = site()->steamStats();
-$mostPlayed = $stats->getMostPlayed(100);
 $trending = $stats->getTrending(100);
+
+$chartTtl = (int) option('alv.steam-stats.charts-ttl', 900);
+$chartDb = new \Alv\SteamStats\SteamStatsDB();
+$chartRows = $chartDb->getChartEntriesByChunk(0);
+$chartChunk = $chartDb->getChartChunk(0);
+$chartFresh = $chartChunk !== null
+    && ($chartChunk['status'] ?? '') === 'fresh'
+    && (int)($chartChunk['fetched_at'] ?? 0) > 0
+    && (time() - (int)$chartChunk['fetched_at']) <= $chartTtl;
+$usingChartFallback = empty($chartRows);
+
+$mostPlayed = [];
+if (!$usingChartFallback) {
+    foreach ($chartRows as $row) {
+        $mostPlayed[] = [
+            'rank' => (int)$row['rank'],
+            'appid' => (int)$row['appid'],
+            'name' => $row['name'],
+            'capsule_image' => '',
+            'current_players' => (int)$row['current_players'],
+            'peak_players' => (int)$row['peak_24h'],
+            'all_time_peak' => (int)$row['peak_all_time'],
+        ];
+    }
+} else {
+    $mostPlayed = $stats->getMostPlayed(100);
+}
 
 $steamSlugMap = [];
 $appIdToSlug = [];
@@ -29,6 +55,20 @@ try {
     }
 } catch (\Throwable $e) {
 }
+
+// Resolve capsule images: prefer the locally stored capsule, otherwise the
+// Steam CDN pattern (no API calls for the full ranked catalog).
+foreach ($mostPlayed as &$mpGame) {
+    $mpAppid = (int)($mpGame['appid'] ?? 0);
+    $mpSlug = $appIdToSlug[$mpAppid] ?? null;
+    if ($mpSlug && !empty($steamSlugMap[$mpSlug]['capsule_image'])) {
+        $mpGame['capsule_image'] = $steamSlugMap[$mpSlug]['capsule_image'];
+    } elseif (empty($mpGame['capsule_image'])) {
+        $mpGame['capsule_image'] = 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/'
+            . $mpAppid . '/capsule_231x87.jpg';
+    }
+}
+unset($mpGame);
 
 $existingSlugs = [];
 foreach (site()->find('games')->children()->children()->children()->filterBy('intendedTemplate', 'game') as $p) {
@@ -137,6 +177,14 @@ function pageSparkline(array $history): string
 <script type="application/json" id="steam-page-data">
     <?= json_encode($mostPlayed) ?>
 </script>
+<script type="application/json" id="steam-chunk-status">
+    <?= json_encode([
+        'chunk' => 0,
+        'fresh' => $chartFresh,
+        'using_fallback' => $usingChartFallback,
+        'chunk_size' => \Alv\SteamStats\SteamStatsDB::CHART_CHUNK_SIZE,
+    ]) ?>
+</script>
 <script type="application/json" id="steam-trending-data">
     <?= json_encode($trending) ?>
 </script>
@@ -190,9 +238,9 @@ function pageSparkline(array $history): string
                             <a href="<?= $gameUrl ?>" class="block"<?= $isImporting ?>><img src="<?= $game['capsule_image'] ?>" alt="<?= htmlspecialchars($game['name']) ?>" class="aspect-8/3 object-cover rounded" loading="lazy"></a>
                         </div>
                         <a href="<?= $gameUrl ?>" class="text-text text-base line-clamp-2 hover:underline"<?= $isImporting ?>><?= htmlspecialchars($game['name']) ?></a>
-                        <span class="text-text text-base text-right"><?= pageFormatPlayers($game['current_players']) ?></span>
-                        <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['peak_players']) ?></span>
-                        <span class="text-muted text-base text-right"><?= pageFormatPlayers($game['all_time_peak'] ?? 0) ?></span>
+                        <span class="js-current text-text text-base text-right" data-appid="<?= $game['appid'] ?>"><?= pageFormatPlayers($game['current_players']) ?></span>
+                        <span class="js-peak24 text-muted text-base text-right" data-appid="<?= $game['appid'] ?>"><?= pageFormatPlayers($game['peak_players']) ?></span>
+                        <span class="js-peak-all text-muted text-base text-right" data-appid="<?= $game['appid'] ?>"><?= pageFormatPlayers($game['all_time_peak'] ?? 0) ?></span>
                     </div>
                 <?php endforeach ?>
             </div>
@@ -314,8 +362,15 @@ function pageSparkline(array $history): string
         }
 
         var BATCH_SIZE = 20;
+        var CHUNK_SIZE = 100;
         var renderedCount = { 'most-played-full': 20, 'trending-full': 20 };
         var scrollObserver = null;
+
+        var loadedGames = [];
+        var loadedAppids = {};
+        var noMoreChunks = false;
+        var pendingChunks = {};
+        var skeletonCounts = {};
 
         function buildSparkline(history) {
             if (!history || history.length === 0) return '<span class="text-xs text-muted">No data</span>';
@@ -356,9 +411,9 @@ function pageSparkline(array $history): string
                     + '<a href="' + url + '" class="block"' + importingAttr + '><img src="' + game.capsule_image + '" alt="' + esc(game.name) + '" class="aspect-8/3 object-cover rounded" loading="lazy"></a>'
                     + '</div>'
                     + '<a href="' + url + '" class="text-text text-base line-clamp-2 hover:underline"' + importingAttr + '>' + esc(game.name) + '</a>'
-                    + '<span class="text-text text-base text-right">' + fmtPlayers(game.current_players) + '</span>'
-                    + '<span class="text-muted text-base text-right">' + fmtPlayers(game.peak_players) + '</span>'
-                    + '<span class="text-muted text-base text-right">' + fmtPlayers(game.all_time_peak || 0) + '</span>'
+                    + '<span class="js-current text-text text-base text-right" data-appid="' + game.appid + '">' + fmtPlayers(game.current_players) + '</span>'
+                    + '<span class="js-peak24 text-muted text-base text-right" data-appid="' + game.appid + '">' + fmtPlayers(game.peak_players) + '</span>'
+                    + '<span class="js-peak-all text-muted text-base text-right" data-appid="' + game.appid + '">' + fmtPlayers(game.all_time_peak || 0) + '</span>'
                     + '</div>';
             }
             if (tabId === 'trending-full') {
@@ -378,41 +433,261 @@ function pageSparkline(array $history): string
             return '';
         }
 
+        function getInitialGames() {
+            var dataEl = document.getElementById('steam-page-data');
+            if (!dataEl) return [];
+            try { return JSON.parse(dataEl.textContent) || []; } catch (e) { return []; }
+        }
+
+        function getTrendingGames() {
+            var dataEl = document.getElementById('steam-trending-data');
+            if (!dataEl) return [];
+            try { return JSON.parse(dataEl.textContent) || []; } catch (e) { return []; }
+        }
+
+        function getLoadedGames() {
+            return loadedGames.length ? loadedGames : getInitialGames();
+        }
+
+        var capsuleByAppid = {};
+        (function() {
+            var el = document.getElementById('steam-slug-map');
+            if (!el) return;
+            try {
+                var map = JSON.parse(el.textContent) || {};
+                Object.keys(map).forEach(function(slug) {
+                    var entry = map[slug];
+                    if (entry && entry.appid && entry.capsule_image) {
+                        capsuleByAppid[entry.appid] = entry.capsule_image;
+                    }
+                });
+            } catch (e) {}
+        })();
+
+        function capsuleFor(appid) {
+            return capsuleByAppid[appid]
+                || ('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/' + appid + '/capsule_231x87.jpg');
+        }
+
+        function mapApiRow(row) {
+            return {
+                rank: row.rank,
+                appid: row.appid,
+                name: row.name,
+                capsule_image: capsuleFor(row.appid),
+                current_players: row.current_players,
+                peak_players: row.peak_24h,
+                all_time_peak: row.all_time_peak
+            };
+        }
+
+        function fetchRankings(chunk) {
+            return fetch('/steam-stats-api/rankings?chunk=' + encodeURIComponent(chunk) + '&_=' + Date.now(), {
+                headers: { 'Accept': 'application/json' }
+            }).then(function(r) { return r.json(); });
+        }
+
+        function updateNumbersForRows(rows) {
+            rows.forEach(function(row) {
+                var appid = String(row.appid);
+                var cur = document.querySelector('.js-current[data-appid="' + appid + '"]');
+                if (cur) cur.textContent = fmtPlayers(row.current_players || 0);
+                var p24 = document.querySelector('.js-peak24[data-appid="' + appid + '"]');
+                if (p24) p24.textContent = fmtPlayers(row.peak_24h || 0);
+                var pall = document.querySelector('.js-peak-all[data-appid="' + appid + '"]');
+                if (pall) pall.textContent = fmtPlayers(row.all_time_peak || 0);
+            });
+        }
+
+        function applyChunkRows(chunk, apiRows) {
+            var mapped = apiRows.map(mapApiRow);
+            var chunkAppids = {};
+            mapped.forEach(function(g) {
+                chunkAppids[g.appid] = true;
+                if (!loadedAppids[g.appid]) {
+                    loadedAppids[g.appid] = true;
+                    loadedGames.push(g);
+                }
+            });
+            updateNumbersForRows(apiRows);
+            loadedGames.forEach(function(g) {
+                if (!chunkAppids[g.appid]) return;
+                var fresh = null;
+                for (var i = 0; i < mapped.length; i++) {
+                    if (mapped[i].appid === g.appid) { fresh = mapped[i]; break; }
+                }
+                if (fresh) {
+                    g.current_players = fresh.current_players;
+                    g.peak_players = fresh.peak_players;
+                    g.all_time_peak = fresh.all_time_peak;
+                    g.rank = fresh.rank;
+                    g.name = fresh.name;
+                }
+            });
+            return mapped.length;
+        }
+
+        function setChunkLoading(chunk, loading) {
+            var appids = {};
+            getLoadedGames().forEach(function(g) {
+                if (g.rank > chunk * CHUNK_SIZE && g.rank <= (chunk + 1) * CHUNK_SIZE) appids[g.appid] = true;
+            });
+            Object.keys(appids).forEach(function(appid) {
+                ['.js-current', '.js-peak24', '.js-peak-all'].forEach(function(sel) {
+                    var el = document.querySelector(sel + '[data-appid="' + appid + '"]');
+                    if (!el) return;
+                    el.classList.toggle('opacity-60', loading);
+                    var sib = el.nextElementSibling;
+                    if (loading) {
+                        if (!sib || !sib.classList.contains('steam-spinner')) {
+                            var s = document.createElement('span');
+                            s.className = 'steam-spinner';
+                            el.insertAdjacentElement('afterend', s);
+                        }
+                    } else if (sib && sib.classList.contains('steam-spinner')) {
+                        sib.remove();
+                    }
+                });
+            });
+        }
+
+        function pollChunk(chunk, attempt) {
+            if (attempt >= 15) {
+                setChunkLoading(chunk, false);
+                pendingChunks[chunk] = false;
+                return;
+            }
+            setTimeout(function() {
+                fetchRankings(chunk).then(function(data) {
+                    if (data && data.fresh) {
+                        if (chunk === 0 && window.__steamInitialUsingFallback) {
+                            resetMostPlayedFromFallback();
+                        }
+                        applyChunkRows(chunk, data.rows || []);
+                        setChunkLoading(chunk, false);
+                        pendingChunks[chunk] = false;
+                        updatePageStars();
+                        renderPageFavorites();
+                        loadMoreRows();
+                    } else {
+                        pollChunk(chunk, attempt + 1);
+                    }
+                }).catch(function() {
+                    pollChunk(chunk, attempt + 1);
+                });
+            }, 4000);
+        }
+
+        function resetMostPlayedFromFallback() {
+            window.__steamInitialUsingFallback = false;
+            loadedGames = [];
+            loadedAppids = {};
+            noMoreChunks = false;
+            renderedCount['most-played-full'] = 0;
+            var container = document.getElementById('most-played-full');
+            if (container) {
+                var wrap = container.querySelector('.divide-y');
+                if (wrap) wrap.innerHTML = '';
+            }
+        }
+
+        function appendSkeletons(chunk) {
+            var visibleTab = document.getElementById('most-played-full');
+            var sentinel = visibleTab ? visibleTab.querySelector('[data-infinite-sentinel]') : null;
+            if (!visibleTab || !sentinel || skeletonCounts[chunk]) return;
+            skeletonCounts[chunk] = 6;
+            var html = '';
+            for (var i = 0; i < 6; i++) {
+                html += '<div class="grid grid-cols-[160px_1fr_100px_100px_100px] gap-x-6 items-center py-2 opacity-50" data-skeleton-chunk="' + chunk + '">'
+                    + '<div class="flex items-center justify-center"><div class="w-20 h-7.5 bg-white/10 rounded"></div></div>'
+                    + '<div class="h-3 w-2/3 bg-white/10 rounded"></div>'
+                    + '<span class="flex justify-end"><span class="steam-spinner"></span></span>'
+                    + '<span class="flex justify-end"><span class="steam-spinner"></span></span>'
+                    + '<span class="flex justify-end"><span class="steam-spinner"></span></span>'
+                    + '</div>';
+            }
+            sentinel.insertAdjacentHTML('beforebegin', html);
+        }
+
+        function removeSkeletons(chunk) {
+            var visibleTab = document.getElementById('most-played-full');
+            if (!visibleTab) return;
+            var els = visibleTab.querySelectorAll('[data-skeleton-chunk="' + chunk + '"]');
+            for (var i = 0; i < els.length; i++) els[i].remove();
+            skeletonCounts[chunk] = 0;
+        }
+
+        function renderNextBatch(tabId) {
+            var visibleTab = document.getElementById(tabId);
+            if (!visibleTab) return false;
+            var all = tabId === 'most-played-full' ? getLoadedGames() : getTrendingGames();
+            var start = renderedCount[tabId];
+            var end = Math.min(start + BATCH_SIZE, all.length);
+            if (end <= start) return false;
+            var html = '';
+            all.slice(start, end).forEach(function(game) {
+                html += renderGameRow(game, tabId);
+            });
+            var sentinel = visibleTab.querySelector('[data-infinite-sentinel]');
+            if (sentinel) sentinel.insertAdjacentHTML('beforebegin', html);
+            renderedCount[tabId] = end;
+            updatePageStars();
+            return true;
+        }
+
         function loadMoreRows() {
             var visibleTab = document.querySelector('.steam-page-tab-content:not(.hidden)');
             if (!visibleTab) return;
             var tabId = visibleTab.id;
             if (tabId === 'favorites-full') return;
 
-            var dataId = tabId === 'trending-full' ? 'steam-trending-data' : 'steam-page-data';
-            var dataEl = document.getElementById(dataId);
-            if (!dataEl) return;
-            var allGames;
-            try { allGames = JSON.parse(dataEl.textContent); } catch(e) { return; }
-
-            var start = renderedCount[tabId];
-            var end = Math.min(start + BATCH_SIZE, allGames.length);
-            var batch = allGames.slice(start, end);
-            if (batch.length === 0) return;
-
-            var html = '';
-            batch.forEach(function(game) {
-                html += renderGameRow(game, tabId);
-            });
-
-            var sentinel = visibleTab.querySelector('[data-infinite-sentinel]');
-            if (sentinel) {
-                sentinel.insertAdjacentHTML('beforebegin', html);
+            if (tabId === 'trending-full') {
+                if (renderNextBatch('trending-full')) {
+                    observeSentinel();
+                }
+                return;
             }
 
-            renderedCount[tabId] = end;
-            updatePageStars();
+            if (renderNextBatch('most-played-full')) {
+                if (renderedCount[tabId] < getLoadedGames().length || !noMoreChunks) observeSentinel();
+                return;
+            }
 
-            if (end < allGames.length) {
+            if (noMoreChunks) {
+                var doneSentinel = visibleTab.querySelector('[data-infinite-sentinel]');
+                if (doneSentinel) doneSentinel.remove();
+                return;
+            }
+
+            var nextChunk = Math.floor(getLoadedGames().length / CHUNK_SIZE);
+            if (pendingChunks[nextChunk]) return;
+
+            pendingChunks[nextChunk] = true;
+            appendSkeletons(nextChunk);
+
+            fetchRankings(nextChunk).then(function(data) {
+                removeSkeletons(nextChunk);
+                var rows = (data && data.rows) || [];
+                if (!rows.length) {
+                    noMoreChunks = true;
+                    pendingChunks[nextChunk] = false;
+                    loadMoreRows();
+                    return;
+                }
+                applyChunkRows(nextChunk, rows);
+                if (data.fresh) {
+                    pendingChunks[nextChunk] = false;
+                } else {
+                    setChunkLoading(nextChunk, true);
+                    pollChunk(nextChunk, 0);
+                }
+                loadMoreRows();
+            }).catch(function(err) {
+                console.error('steam rankings chunk failed', nextChunk, err);
+                removeSkeletons(nextChunk);
+                pendingChunks[nextChunk] = false;
                 observeSentinel();
-            } else if (sentinel) {
-                sentinel.remove();
-            }
+            });
         }
 
         function observeSentinel() {
@@ -420,7 +695,12 @@ function pageSparkline(array $history): string
             var visibleTab = document.querySelector('.steam-page-tab-content:not(.hidden)');
             if (!visibleTab) return;
             var tabId = visibleTab.id;
-            if (tabId === 'favorites-full' || renderedCount[tabId] >= 100) return;
+            if (tabId === 'favorites-full') return;
+            if (tabId === 'trending-full') {
+                if (renderedCount[tabId] >= getTrendingGames().length) return;
+            } else if (noMoreChunks && renderedCount[tabId] >= getLoadedGames().length) {
+                return;
+            }
             var sentinel = visibleTab.querySelector('[data-infinite-sentinel]');
             if (!sentinel) return;
             scrollObserver = new IntersectionObserver(function(entries) {
@@ -432,18 +712,28 @@ function pageSparkline(array $history): string
             scrollObserver.observe(sentinel);
         }
 
+        function initChunkStatus() {
+            var el = document.getElementById('steam-chunk-status');
+            var initial = { fresh: true, using_fallback: false, chunk_size: 100 };
+            if (el) {
+                try { initial = JSON.parse(el.textContent) || initial; } catch (e) {}
+            }
+            if (initial.chunk_size) CHUNK_SIZE = initial.chunk_size;
+            loadedGames = getInitialGames();
+            loadedGames.forEach(function(g) { loadedAppids[g.appid] = true; });
+            window.__steamInitialUsingFallback = !!initial.using_fallback;
+            if (!initial.fresh) {
+                setChunkLoading(0, true);
+                pollChunk(0, 0);
+            }
+        }
+
         function renderPageFavorites() {
-            var data = document.getElementById('steam-page-data');
             var list = document.getElementById('steam-favorites-page-list');
             var empty = document.getElementById('steam-favorites-page-empty');
-            if (!data || !list) return;
+            if (!list) return;
 
-            var games;
-            try {
-                games = JSON.parse(data.textContent);
-            } catch (e) {
-                games = [];
-            }
+            var games = getLoadedGames();
             var gamesByAppid = {};
             games.forEach(function(g) {
                 gamesByAppid[g.appid] = g;
@@ -669,6 +959,7 @@ function pageSparkline(array $history): string
             e.stopPropagation();
         });
 
+        initChunkStatus();
         updatePageStars();
         renderPageFavorites();
         observeSentinel();
@@ -706,6 +997,20 @@ function pageSparkline(array $history): string
 }
 .sparkline-tooltip-label {
     font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+}
+.steam-spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 6px;
+    vertical-align: -2px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #39ff14;
+    border-radius: 50%;
+    animation: steam-spin 0.7s linear infinite;
+}
+@keyframes steam-spin {
+    to { transform: rotate(360deg); }
 }
 </style>
 
