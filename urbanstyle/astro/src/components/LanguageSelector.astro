@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { languages, type Locale } from "@/i18n/ui";
+import { localizedPath } from "@/i18n/hreflang";
 import EsFlag from "@/assets/icons/es-flag.svg";
 import EnFlag from "@/assets/icons/en-flag.svg";
 import ItFlag from "@/assets/icons/it-flag.svg";
@@ -19,10 +20,9 @@ const locales: Locale[] = ["es", "en", "it", "fr", "pt"];
 
 const current = (Astro.currentLocale ?? "es") as Locale;
 
-// Current page path without the locale prefix, so every locale links to the
-// same page in its own language.
-const rawPath = Astro.url.pathname.replace(/^\/(en|it|fr|pt)(?=\/|$)/, "") || "/";
-const pagePath = rawPath.endsWith("/") && rawPath !== "/" ? rawPath.slice(0, -1) : rawPath;
+// Same page in the target language, translating localized slugs (coverage).
+// Legal pages only exist in Spanish, so send users to the locale home instead.
+const isLegal = Astro.url.pathname.replace(/^\/(en|it|fr|pt)(?=\/|$)/, "").startsWith("/legal/");
 
 const { variant = "desktop", classes = "" } = Astro.props;
 const dark = variant === "mobile";
@@ -78,7 +78,9 @@ const dark = variant === "mobile";
             {
                 locales.map(locale => {
                     const active = locale === current;
-                    const url = getRelativeLocaleUrl(locale, pagePath);
+                    const url = isLegal
+                        ? getRelativeLocaleUrl(locale, "")
+                        : localizedPath(Astro.url.pathname, locale);
                     return (
                         <li>
                             <a
