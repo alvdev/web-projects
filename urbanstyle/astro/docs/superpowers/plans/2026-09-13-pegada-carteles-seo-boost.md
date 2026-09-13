@@ -112,3 +112,33 @@
 
 - [ ] Weekly GSC report; success = homepage ≤3 head query (Madrid UULE, pws=0) in 4–6 weeks
 - [ ] 100% sitemap hreflang coverage; zero 404s on renamed URLs
+
+---
+
+## Results (2026-09-13)
+
+**Commits**
+- `894fd0d5` seo: GSC reporting + hreflang verification scripts
+- `3edc6c53` fix(i18n): hreflang in HTML + sitemap, duplicate localized landings consolidated
+- `f5623b78` feat(seo): BlogPosting schema, banner anchor diversification, homepage CTA in posts
+- `661f9f6d` content(seo): homepage depth + internal links
+- `5d581783` feat(seo): dateModified + translation QA guardrail
+- `9467a6c7` fix(i18n): language selector localized coverage slugs
+
+**Verification**
+- `bun run build`: 1149 pages, no errors
+- `bun scripts/seo/verify-hreflang.ts`: 1148 pages checked, all alternates exist + reciprocal
+- `dist/sitemap-0.xml`: 1148/1148 URLs carry hreflang alternates (was 263/1127)
+- Blog posts: valid BlogPosting JSON-LD (mainEntityOfPage = canonical, dates, inLanguage, keywords)
+- Homepage: 1 H1, new service/format/city/blog sections, city links + blog links present
+- Language selector: coverage pages cross-link correctly (`/pegada-carteles/` <-> `/en/poster-pasting/`)
+
+**GSC baseline (Sep 13)**
+- Head query "pegada de carteles": homepage avg position 16.7 (16 months), stable ~15.4 -> 15.9 before/after Sep 10; low daily volume (2-21 impressions/day), last 2-3 days incomplete
+- No GSC-visible collapse around the Sep 10 i18n deploy; #3 -> #4 is likely tracker/local fluctuation on top of the i18n re-crawl
+- 68 pages compete for the head query; homepage is the main ranker (10 clicks / 3998 impressions)
+- Reports: `seo/reports/` (gitignored)
+
+**Pending deployment**
+- Push to origin/main, then on kv55: `bash update.sh` (pull + bun install for googleapis + bot restart)
+- Site rebuild/upload happens with the next pipeline publish; then re-request indexing of key URLs in GSC
