@@ -131,7 +131,7 @@ const seo = {
                                     <div class="grid grid-cols-1 gap-3">
                                         {/* Provincia Principal */}
                                         <a
-                                            href={`${cityUrlPrefix}/${slug}`}
+                                            href={`${cityUrlPrefix}/${slug}/`}
                                             class="flex items-center justify-between p-4 bg-gray-50 hover:text-black transition-colors group/item h-full"
                                         >
                                             <div>
@@ -150,7 +150,7 @@ const seo = {
                                             ?.filter((c: any) => c.slug !== slug)
                                             .map((city: any) => (
                                                 <a
-                                                    href={`${cityUrlPrefix}/${slug}/${city.slug}`}
+                                                    href={`${cityUrlPrefix}/${slug}/${city.slug}/`}
                                                     class="flex items-center p-4 transition-all hover:bg-red-100"
                                                 >
                                                     <span class="font-medium text-gray-700 whitespace-normal wrap-break-word text-balance text-left leading-tight">

@@ -77,7 +77,7 @@ export const ui = {
         "dossier.alt": "dossier para pegadas de carteles",
         "dossier.download": "Descargar dossier",
         "posterPasting.title": "Conoce nuestro servicio de",
-        "posterPasting.link": "pegada de carteles",
+        "posterPasting.link": "cobertura de pegada de carteles en toda España",
         "posterPasting.alt": "pegada de carteles",
 
         "tabs.title": "Servicios de cartelería <br />complementarios",
@@ -98,6 +98,10 @@ export const ui = {
         "blog.readMore": "Seguir leyendo",
         "blog.related": "Servicios relacionados",
         "blog.posterPastingIn": "Pegada de carteles en",
+        "blog.ctaTitle": "¿Necesitas una pegada de carteles?",
+        "blog.ctaText":
+            "Somos especialistas en pegada de carteles en Madrid, Barcelona y toda España, con supervisión 24/7 y reposición garantizada.",
+        "blog.ctaLink": "servicio de pegada de carteles",
 
         "city.workMostlyIn": "Trabajamos principalmente en",
         "city.campaignTypes": "Tipos de campañas de cartelería en",
@@ -177,7 +181,7 @@ export const ui = {
         "dossier.alt": "dossier for poster pasting",
         "dossier.download": "Download dossier",
         "posterPasting.title": "Check out our",
-        "posterPasting.link": "poster pasting",
+        "posterPasting.link": "poster pasting coverage across Spain",
         "posterPasting.alt": "poster pasting",
 
         "tabs.title": "Complementary <br />poster services",
@@ -198,6 +202,10 @@ export const ui = {
         "blog.readMore": "Read more",
         "blog.related": "Related services",
         "blog.posterPastingIn": "Poster pasting in",
+        "blog.ctaTitle": "Need a poster pasting campaign?",
+        "blog.ctaText":
+            "We specialise in poster pasting in Madrid, Barcelona and across Spain, with 24/7 supervision and a replacement guarantee.",
+        "blog.ctaLink": "poster pasting service",
 
         "city.workMostlyIn": "We mainly work in",
         "city.campaignTypes": "Types of poster campaigns in",
@@ -277,7 +285,7 @@ export const ui = {
         "dossier.alt": "dossier per affissione manifesti",
         "dossier.download": "Scarica dossier",
         "posterPasting.title": "Scopri il nostro servizio di",
-        "posterPasting.link": "affissione manifesti",
+        "posterPasting.link": "copertura di affissione manifesti in tutta la Spagna",
         "posterPasting.alt": "affissione manifesti",
 
         "tabs.title": "Servizi complementari <br />di cartellonistica",
@@ -298,6 +306,10 @@ export const ui = {
         "blog.readMore": "Leggi di più",
         "blog.related": "Servizi correlati",
         "blog.posterPastingIn": "Affissione manifesti a",
+        "blog.ctaTitle": "Hai bisogno di un'affissione manifesti?",
+        "blog.ctaText":
+            "Siamo specializzati in affissione manifesti a Madrid, Barcellona e in tutta la Spagna, con supervisione 24/7 e sostituzione garantita.",
+        "blog.ctaLink": "servizio di affissione manifesti",
 
         "city.workMostlyIn": "Lavoriamo principalmente in",
         "city.campaignTypes": "Tipi di campagne di affissione a",
@@ -377,7 +389,7 @@ export const ui = {
         "dossier.alt": "dossier pour collage d'affiches",
         "dossier.download": "Télécharger le dossier",
         "posterPasting.title": "Découvrez notre service de",
-        "posterPasting.link": "collage d'affiches",
+        "posterPasting.link": "couverture de collage d'affiches en Espagne",
         "posterPasting.alt": "collage d'affiches",
 
         "tabs.title": "Services complémentaires <br />d'affichage",
@@ -398,6 +410,10 @@ export const ui = {
         "blog.readMore": "Lire la suite",
         "blog.related": "Services liés",
         "blog.posterPastingIn": "Collage d'affiches à",
+        "blog.ctaTitle": "Besoin d'une campagne de collage d'affiches ?",
+        "blog.ctaText":
+            "Nous sommes spécialisés dans le collage d'affiches à Madrid, Barcelone et dans toute l'Espagne, avec supervision 24/7 et remplacement garanti.",
+        "blog.ctaLink": "service de collage d'affiches",
 
         "city.workMostlyIn": "Nous travaillons principalement dans",
         "city.campaignTypes": "Types de campagnes d'affichage à",
@@ -477,7 +493,7 @@ export const ui = {
         "dossier.alt": "dossier para colagem de cartazes",
         "dossier.download": "Descarregar dossier",
         "posterPasting.title": "Conheça o nosso serviço de",
-        "posterPasting.link": "colagem de cartazes",
+        "posterPasting.link": "cobertura de colagem de cartazes em toda a Espanha",
         "posterPasting.alt": "colagem de cartazes",
 
         "tabs.title": "Serviços complementares <br />de cartazaria",
@@ -498,6 +514,10 @@ export const ui = {
         "blog.readMore": "Continuar a ler",
         "blog.related": "Serviços relacionados",
         "blog.posterPastingIn": "Colagem de cartazes em",
+        "blog.ctaTitle": "Precisa de uma campanha de colagem de cartazes?",
+        "blog.ctaText":
+            "Somos especialistas em colagem de cartazes em Madrid, Barcelona e em toda a Espanha, com supervisão 24/7 e reposição garantida.",
+        "blog.ctaLink": "serviço de colagem de cartazes",
 
         "city.workMostlyIn": "Trabalhamos principalmente em",
         "city.campaignTypes": "Tipos de campanhas de cartazes em",

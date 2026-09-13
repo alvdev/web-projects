@@ -3,10 +3,12 @@ import { getCollection, render } from "astro:content";
 import Base from "@/layouts/Base.astro";
 import Header from "@/components/Header.astro";
 import PosterPasting from "@/components/banners/PosterPasting.astro";
+import ServiceCta from "@/components/banners/ServiceCta.astro";
 import Dossier from "@/components/banners/Dossier.astro";
 import { allSpainCities, provincesMetadata } from "@/data/cities/allSpainCities.js";
 import { useTranslations, entryMatchesLocale, coverageSlugs, type Locale } from "@/i18n/ui";
 import { getPostLocaleVariants } from "@/i18n/content";
+import { parsePublishDate } from "@/utils/parseDate";
 
 import defaultCover from "@/assets/images/header/post-cover-placeholder.webp";
 
@@ -68,7 +70,15 @@ const mentionedCities = [...cityUrlMap.entries()]
     .slice(0, 4);
 ---
 
-<Base title={seoTitle} description={seoDescription} cover={post.data.cover.url} hreflangLocales={hreflangLocales}>
+<Base
+    title={seoTitle}
+    description={seoDescription}
+    cover={post.data.cover.url}
+    hreflangLocales={hreflangLocales}
+    schema="blogposting"
+    datePublished={parsePublishDate(post.data.pubDate).toISOString()}
+    keywords={post.data.taxonomy.tags.join(", ")}
+>
     <Header
         cover={post.data.cover.url || defaultCover}
         coverAlt={post.data.cover.alt || post.data.title}
@@ -111,6 +121,8 @@ const mentionedCities = [...cityUrlMap.entries()]
                 </h1>
 
                 <Content />
+
+                <ServiceCta />
             </div>
 
             {

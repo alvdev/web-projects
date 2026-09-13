@@ -13,7 +13,18 @@ const {
     articleBody,
     datePublished,
     dateModified,
+    keywords,
+    locale = "es",
 } = Astro.props;
+
+const langMap: Record<string, string> = {
+    es: "es-ES",
+    en: "en",
+    it: "it-IT",
+    fr: "fr-FR",
+    pt: "pt-PT",
+};
+const inLanguage = langMap[locale] ?? langMap.es;
 
 const baseUrl = Astro.url.protocol + "//" + Astro.url.host + import.meta.env.BASE_URL;
 const pageUrl = Astro.url.origin + Astro.url.pathname;
@@ -28,7 +39,7 @@ const website = {
     publisher: {
         "@id": `${baseUrl}#organization`,
     },
-    inLanguage: "es-ES",
+    inLanguage,
 };
 
 const webpage = {
@@ -37,6 +48,7 @@ const webpage = {
     url: pageUrl,
     name: pageTitle, // The <title> or H1 of the homepage
     description: pageDesc, // Homepage meta description
+    inLanguage,
     publisher: {
         "@type": "Organization",
         "@id": `${baseUrl}#organization`,
@@ -157,27 +169,28 @@ const service = {
 
 const blogPosting = {
     "@type": "BlogPosting",
-    "@id": `${baseUrl + pageTitle}/#article`, // Unique ID for this article
+    "@id": `${pageUrl}#article`,
     mainEntityOfPage: {
         "@type": "WebPage",
-        "@id": `${baseUrl}blog/${pageTitle}`, // The canonical URL of the blog post
+        "@id": pageUrl,
     },
     headline: pageTitle,
-    name: pageTitle, // Often same as headline
+    name: pageTitle,
     description: pageDesc,
     image: {
         "@type": "ImageObject",
-        url: new URL(pageCover.src, baseUrl).href, // URL of the main image for the post
-        height: pageCover.height, // Optional, but good
-        width: pageCover.width, // Optional, but good
+        url: new URL(pageCover.src, baseUrl).href,
+        height: pageCover.height,
+        width: pageCover.width,
     },
     author: {
-        "@type": "Organization", // Or "Organization" if the org is the author
+        "@type": "Organization",
         name: webTitle,
-        // url: "https://www.yourdomain.com/authors/john-doe/", // Optional URL to author's bio page
+        url: baseUrl,
     },
     publisher: {
         "@type": "Organization",
+        "@id": `${baseUrl}#organization`,
         name: webTitle,
         logo: {
             "@type": "ImageObject",
@@ -186,14 +199,12 @@ const blogPosting = {
             height: Logo.height,
         },
     },
-    datePublished: datePublished, // "2023-10-27T09:30:00+00:00", // ISO 8601 format
-    dateModified: dateModified, // "2023-10-27T09:30:00+00:00", // ISO 8601 format
-    articleBody: articleBody,
-    keywords: "keyword1, keyword2, relevant topic", // Comma-separated keywords
-    inLanguage: "en-ES", // Language of the article
-    // "commentCount": "15", // Optional: if you have comments
+    datePublished,
+    dateModified: dateModified ?? datePublished,
+    ...(articleBody ? { articleBody } : {}),
+    ...(keywords ? { keywords } : {}),
+    inLanguage,
     isPartOf: {
-        // Optional: if your blog post is part of a series or a larger collection
         "@type": "Blog",
         name: "Urban Style Publicity Blog",
         url: `${baseUrl}blog/`,

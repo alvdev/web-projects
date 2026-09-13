@@ -1,0 +1,14 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations, type Locale } from "@/i18n/ui";
+
+const locale = (Astro.currentLocale ?? "es") as Locale;
+const t = useTranslations(locale);
+const homeUrl = getRelativeLocaleUrl(locale, "");
+---
+
+<aside class="not-prose mt-16 border-2 border-black bg-white p-8 shadow-[4px_4px_0_black]">
+    <h2 class="mt-0 text-2xl font-bold">{t("blog.ctaTitle")}</h2>
+    <p class="my-4 text-lg text-gray-600">{t("blog.ctaText")}</p>
+    <a href={homeUrl} class="btn btn--primary">{t("blog.ctaLink")}</a>
+</aside>

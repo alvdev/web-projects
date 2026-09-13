@@ -18,6 +18,9 @@ const {
     schema = "webpage",
     ogType = "website",
     hreflangLocales,
+    datePublished,
+    dateModified,
+    keywords,
 } = Astro.props;
 
 const alternates = hreflangAlternates(Astro.url.pathname, Astro.site, hreflangLocales);
@@ -72,7 +75,16 @@ const sitemapUrl = import.meta.env.BASE_URL + "sitemap-index.xml";
             }}
         />
 
-        <Schemas pageTitle={title} pageDesc={description} pageCover={Astro.props.cover} types={[schema]} />
+        <Schemas
+            pageTitle={title}
+            pageDesc={description}
+            pageCover={Astro.props.cover}
+            types={[schema]}
+            datePublished={datePublished}
+            dateModified={dateModified}
+            keywords={keywords}
+            locale={locale}
+        />
 
         <!-- Toggle DEV/PROD to enable Clarity -->
         { import.meta.env.PROD && <>
