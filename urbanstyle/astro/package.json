@@ -32,6 +32,7 @@
     "astro-seo-schema": "^5.2.0",
     "basic-ftp": "^6.2.1",
     "concurrently": "^9.2.4",
+    "googleapis": "^180.0.0",
     "grammy": "^1.46.0",
     "install": "^0.13.0",
     "nodemailer": "^9.1.1",
