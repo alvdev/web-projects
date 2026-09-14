@@ -224,7 +224,7 @@ function pageSparkline(array $history): string
         <?php else: ?>
             <div class="divide-y divide-border/30">
                 <?php foreach (array_slice($mostPlayed, 0, 20) as $game): ?>
-                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
+                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing rel="nofollow"' : '' ?>
                     <div class="grid grid-cols-[160px_1fr_100px_100px_100px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-3 text-neon-cyan text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
@@ -264,7 +264,7 @@ function pageSparkline(array $history): string
         <?php else: ?>
             <div class="divide-y divide-border/30">
                 <?php foreach (array_slice($trending, 0, 20) as $game): ?>
-                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
+                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing rel="nofollow"' : '' ?>
                     <div class="grid grid-cols-[160px_1fr_60px_160px_70px_70px] gap-x-6 items-center py-2">
                         <div class="relative flex items-center justify-center">
                             <span class="absolute -left-2 text-neon-green text-sm text-center bg-surface/70 w-6 h-6 rounded-full z-10 leading-5.75"><?= $game['rank'] ?></span>
@@ -337,8 +337,8 @@ function pageSparkline(array $history): string
         }
 
         function gameImportingAttr(appid) {
-            if (!pageSlugByAppid[appid]) return ' data-importing';
-            return pageImportNeeded[appid] ? ' data-importing' : '';
+            if (!pageSlugByAppid[appid]) return ' data-importing rel="nofollow"';
+            return pageImportNeeded[appid] ? ' data-importing rel="nofollow"' : '';
         }
 
         function fmtPlayers(n) {

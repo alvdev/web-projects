@@ -191,6 +191,21 @@ eventually renders (challenge solving reloads the page).
 - `refresh_pending` responses never block; the client stops polling after ~60 s
   and re-tries on the next scroll/tab interaction.
 
+## Crawler / IGDB quota protection
+
+Ranking rows link to `/games/by-appid/{appid}` (or a slug without a content
+page), and those routes perform on-the-fly IGDB lookups/imports on first hit.
+To keep crawlers from burning the IGDB quota:
+
+- Links that trigger an import carry `rel="nofollow"` alongside
+  `data-importing`, in the `/steam-stats` template (server-rendered and
+  JS-rendered rows) and in the hero snippet. Imported games keep plain
+  crawlable `/slug` links.
+- `robots.txt` disallows `/games/by-appid/` via
+  `tearoom1.meta-kit.robots.rules` in `site/config/config.php`. The meta-kit
+  generator duplicates `customDirectives` when set from config, so the `rules`
+  mechanism is used instead.
+
 ## Verification
 
 - Phase 0 inspect output reviewed before wiring.

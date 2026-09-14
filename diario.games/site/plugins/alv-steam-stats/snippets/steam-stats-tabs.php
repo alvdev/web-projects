@@ -147,7 +147,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
             </div>
             <div class="grid grid-cols-[80px_1fr_50px_50px] gap-x-3 gap-y-2 items-center">
                 <?php foreach ($mostPlayed as $game): ?>
-                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
+                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing rel="nofollow"' : '' ?>
                     <div class="relative flex items-center">
                         <span class="absolute -left-2.5 text-neon-cyan text-xs text-center bg-surface/70 w-4 h-4 rounded-full z-10"><?= $game['rank'] ?></span>
                         <button type="button"
@@ -178,7 +178,7 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
             </div>
             <div class="grid grid-cols-[80px_1fr_55px_50px] gap-x-3 gap-y-2 items-center">
                 <?php foreach ($trending as $game): ?>
-                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing' : '' ?>
+                    <?php $gameUrl = $gamePageUrl($game); $isImporting = $needsImport($game) ? ' data-importing rel="nofollow"' : '' ?>
                     <div class="relative flex items-center">
                         <span class="absolute -left-2.5 text-neon-green text-xs text-center bg-surface/70 w-4 h-4 rounded-full z-10"><?= $game['rank'] ?></span>
                         <button type="button"
@@ -281,8 +281,8 @@ function steamSparkline(array $history, int $width = 100, int $height = 30): str
         function gameImportingAttr(appid) {
             // Appids not in slugByAppid at all always need import.
             // Appids in slugByAppid need import only if flagged in importNeeded.
-            if (!slugByAppid[appid]) return ' data-importing';
-            return importNeededAppids[appid] ? ' data-importing' : '';
+            if (!slugByAppid[appid]) return ' data-importing rel="nofollow"';
+            return importNeededAppids[appid] ? ' data-importing rel="nofollow"' : '';
         }
 
         function getLS(k) {

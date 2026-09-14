@@ -29,6 +29,14 @@ return [
     'tearoom1.meta-kit' => [
         'api.key' => env('OPENROUTER_API_KEY'),
         'api.model' => 'openai/gpt-oss-20b:free',
+        'robots' => [
+            'rules' => [
+                [
+                    'userAgent' => '*',
+                    'disallow' => ['/games/by-appid/'],
+                ],
+            ],
+        ],
     ],
 
     'alv.steam-stats.api-key' => env('STEAM_STATS_API_KEY', ''),
