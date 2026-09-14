@@ -126,20 +126,14 @@ App::plugin('alv/steam-stats', [
             'pattern' => 'steam-stats-api/search',
             'method' => 'GET',
             'action' => function () {
-                $q = get('q', '');
-                if (strlen($q) < 1) {
+                $q = strtolower(trim(get('q', '')));
+                $source = get('source', '');
+                if ($q === '') {
                     return ['results' => [], 'fromIgdb' => false];
                 }
 
                 $cache = kirby()->cache('alv/steam-stats.cache');
-                $cacheKey = 'search-' . md5($q);
-                $cached = $cache->get($cacheKey);
-                if ($cached !== null) {
-                    return $cached;
-                }
-
                 $db = new \Alv\SteamStats\SteamStatsDB();
-                $q = strtolower(trim($q));
                 $limit = 15;
 
                 $extractSteamAppId = function ($websites): ?int {
@@ -159,38 +153,203 @@ App::plugin('alv/steam-stats', [
                 };
                 $nq = $normalize($q);
 
+                // 2. IGDB long-tail fallback: separate request so the first paint stays fast
+                if ($source === 'igdb') {
+                    if (mb_strlen($nq) < 3) {
+                        return ['results' => [], 'fromIgdb' => false];
+                    }
+
+                    $cacheKey = 'search-igdb-' . md5($nq);
+                    $cached = $cache->get($cacheKey);
+                    if ($cached !== null) {
+                        return $cached;
+                    }
+
+                    $results = [];
+                    try {
+                        $igdbConfig = kirby()->option('igdb');
+                        if (!empty($igdbConfig['client_id']) && !empty($igdbConfig['client_secret'])) {
+                            $client = new \DiarioGames\IGDB\IGDBClient($igdbConfig['client_id'], $igdbConfig['client_secret']);
+                            $igdbRaw = $client->searchGames($q);
+
+                            $localIgdbIds = [];
+                            foreach (site()->index()->filterBy('intendedTemplate', 'game') as $game) {
+                                $id = (int) $game->content()->get('IgdbId')->value();
+                                if ($id) $localIgdbIds[$id] = true;
+                            }
+
+                            // Annotate each IGDB result with Steam and local info
+                            $annotated = [];
+                            foreach ($igdbRaw as $ig) {
+                                $slug = $ig['slug'] ?? '';
+                                $normalizedSlug = $slug ? \DiarioGames\IGDB\romanToDigits($slug) : '';
+                                if (!$slug) continue;
+                                if (\DiarioGames\IGDB\GameImporter::isExcluded($ig)) continue;
+                                if (isset($localIgdbIds[$ig['id'] ?? 0])) continue;
+
+                                $screenshots = $ig['screenshots'] ?? [];
+                                $videos = $ig['videos'] ?? [];
+                                if (empty($screenshots) && empty($videos)) continue;
+
+                                $igdbId = $ig['id'] ?? null;
+                                $appid = $extractSteamAppId($ig['websites'] ?? []);
+                                $steamInDb = $appid !== null && $db->getGameByAppId($appid) !== null;
+
+                                $platformNames = [];
+                                if (!empty($ig['platforms'])) {
+                                    foreach ($ig['platforms'] as $p) {
+                                        if (is_array($p) && !empty($p['name'])) {
+                                            $platformNames[] = $p['name'];
+                                        } elseif (is_string($p)) {
+                                            $platformNames[] = $p;
+                                        }
+                                    }
+                                }
+                                $platformsStr = implode(', ', $platformNames);
+                                $lower = mb_strtolower($platformsStr);
+                                $allowedKeywords = ['pc', 'xbox', 'playstation', 'nintendo', 'android'];
+                                $hasAllowed = false;
+                                foreach ($allowedKeywords as $kw) {
+                                    if (str_contains($lower, $kw)) { $hasAllowed = true; break; }
+                                }
+                                if (!$hasAllowed) continue;
+
+                                $igYear = !empty($ig['first_release_date']) ? date('Y', $ig['first_release_date']) : '';
+                                $name = $ig['name'] ?? $slug;
+
+                                $annotated[] = [
+                                    'slug' => $slug,
+                                    'normalizedSlug' => $normalizedSlug,
+                                    'igdbId' => $igdbId,
+                                    'appid' => $appid,
+                                    'steamInDb' => $steamInDb,
+                                    'name' => $name,
+                                    'year' => $igYear,
+                                    'platforms' => \DiarioGames\IGDB\normalizePlatformNames(implode(', ', $platformNames)),
+                                ];
+                            }
+
+                            // Fetch cover image IDs for IGDB entries
+                            $coverByGameId = [];
+                            $needCovers = [];
+                            foreach ($annotated as $entry) {
+                                if (!empty($entry['igdbId'])) $needCovers[] = $entry['igdbId'];
+                            }
+                            if (!empty($needCovers)) {
+                                $needCovers = array_values(array_unique($needCovers));
+                                $coversData = $client->fetchCovers($needCovers);
+                                foreach ($coversData as $c) {
+                                    if (!empty($c['game']) && !empty($c['image_id'])) {
+                                        $coverByGameId[$c['game']] = $c['image_id'];
+                                    }
+                                }
+                            }
+
+                            // Group by name, dedup: prefer steam-in-db > has-steam-link > first
+                            $grouped = [];
+                            foreach ($annotated as $entry) {
+                                $nameKey = $normalize($entry['name']);
+                                $grouped[$nameKey][] = $entry;
+                            }
+
+                            $seenSlugs = [];
+                            foreach ($grouped as $group) {
+                                if (count($group) > 1) {
+                                    usort($group, function ($a, $b) {
+                                        $prio = function ($e) {
+                                            if ($e['steamInDb']) return 0;
+                                            if ($e['appid'] !== null) return 1;
+                                            return 2;
+                                        };
+                                        return $prio($a) <=> $prio($b);
+                                    });
+                                    $group = [$group[0]];
+                                }
+
+                                foreach ($group as $entry) {
+                                    if (isset($seenSlugs[$entry['slug']]) || isset($seenSlugs[$entry['normalizedSlug']])) continue;
+                                    $seenSlugs[$entry['slug']] = true;
+                                    $seenSlugs[$entry['normalizedSlug']] = true;
+
+                                    $coverImgId = $coverByGameId[$entry['igdbId']] ?? null;
+                                    $coverUrl = $coverImgId ? \DiarioGames\IGDB\igdbImageUrl($coverImgId, 'cover_big') : '';
+                                    $results[] = [
+                                        'slug' => $entry['slug'],
+                                        'name' => $entry['name'],
+                                        'cover' => $coverUrl,
+                                        'platforms' => $entry['platforms'],
+                                        'year' => $entry['year'],
+                                        'hasSteam' => $entry['steamInDb'],
+                                        'exists' => false,
+                                        'igdbId' => $entry['igdbId'],
+                                    ];
+                                }
+                            }
+
+                            // Sort: Steam-verified first, then alphabetical
+                            usort($results, function ($a, $b) {
+                                if ($a['hasSteam'] !== $b['hasSteam']) {
+                                    return $b['hasSteam'] <=> $a['hasSteam'];
+                                }
+                                return strcmp($a['name'], $b['name']);
+                            });
+
+                            $results = array_slice($results, 0, $limit);
+                        }
+                    } catch (\Throwable $e) {
+                        error_log('Steam search IGDB fallback error: ' . $e->getMessage());
+                    }
+
+                    $response = ['results' => $results, 'fromIgdb' => true];
+                    $cache->set($cacheKey, $response, 21600);
+                    return $response;
+                }
+
+                $cacheKey = 'search-v2-' . md5($nq);
+                $cached = $cache->get($cacheKey);
+                if ($cached !== null) {
+                    return $cached;
+                }
+
                 // 1. Search local pages
                 $localResults = [];
+                $localBySlug = [];
+                $localByIgdbId = [];
                 $games = site()->index()->filterBy('intendedTemplate', 'game');
                 foreach ($games as $game) {
-                    if (count($localResults) >= $limit) break;
-                    if ($game->content()->get('Screenshots')->isEmpty() && $game->content()->get('Videos')->isEmpty()) continue;
                     $title = $game->title()->value();
-                    if (!str_contains($normalize($title), $nq)) continue;
-
                     $slug = $game->slug();
                     $igdbId = (int) $game->content()->get('IgdbId')->value();
-                    $hasSteam = $db->getGameBySlug($slug) !== null;
-                    // Also check by IgdbId in case slug has --N suffix
-                    if (!$hasSteam && $igdbId) {
-                        $hasSteam = $db->getGameByIgdbId($igdbId) !== null;
-                    }
                     $releaseDate = $game->content()->get('ReleaseDate')->value();
                     $year = '';
                     if (preg_match('/^\d{4}/', $releaseDate, $m)) {
                         $year = $m[0];
                     }
-                    $coverUrl = $game->cover() ? $game->cover()->url() : '';
-                    $localResults[] = [
+                    $entry = [
                         'slug' => $slug,
                         'name' => $title,
-                        'cover' => $coverUrl,
+                        'cover' => $game->cover() ? $game->cover()->url() : '',
                         'platforms' => \DiarioGames\IGDB\normalizePlatformNames($game->content()->get('Platforms')->value()),
                         'year' => $year,
-                        'hasSteam' => $hasSteam,
+                        'hasSteam' => false,
                         'exists' => true,
                         'igdbId' => $igdbId,
                     ];
+
+                    // Keep an index for dedupe even when the page is not searchable
+                    $localBySlug[$slug] = $entry;
+                    if ($igdbId) $localByIgdbId[$igdbId] = $entry;
+
+                    if (count($localResults) >= $limit) continue;
+                    if ($game->content()->get('Screenshots')->isEmpty() && $game->content()->get('Videos')->isEmpty()) continue;
+                    if (!str_contains($normalize($title), $nq)) continue;
+
+                    $entry['hasSteam'] = $db->getGameBySlug($slug) !== null;
+                    // Also check by IgdbId in case slug has --N suffix
+                    if (!$entry['hasSteam'] && $igdbId) {
+                        $entry['hasSteam'] = $db->getGameByIgdbId($igdbId) !== null;
+                    }
+                    $localResults[] = $entry;
                 }
 
                 // Deduplicate local results by name: prefer non-duplicate slug, then Steam-verified
@@ -210,11 +369,96 @@ App::plugin('alv/steam-stats', [
                         }
                     }
                 }
-                $localResults = array_values($localByName);
-                $results = $localResults;
+                $results = array_values($localByName);
 
-                $cache->set($cacheKey, ['results' => $results], 300);
-                return ['results' => $results];
+                $seenNames = [];
+                $seenSlugs = [];
+                $seenAppids = [];
+                foreach ($results as $r) {
+                    $seenNames[$normalize($r['name'])] = true;
+                    $seenSlugs[$r['slug']] = true;
+                }
+
+                $addResult = function (array $entry, ?int $appid = null) use (&$results, &$seenNames, &$seenSlugs, &$seenAppids, $normalize, $limit) {
+                    if (count($results) >= $limit) return;
+                    $nameKey = $normalize($entry['name']);
+                    if (isset($seenNames[$nameKey]) || isset($seenSlugs[$entry['slug']])) return;
+                    if ($appid !== null && isset($seenAppids[$appid])) return;
+                    $seenNames[$nameKey] = true;
+                    $seenSlugs[$entry['slug']] = true;
+                    if ($appid !== null) $seenAppids[$appid] = true;
+                    $results[] = $entry;
+                };
+
+                $trackedAppids = array_flip(array_filter(array_map('intval', $db->getAllAppids())));
+
+                // 2. Tracked Steam games from the local DB (instant)
+                if (count($results) < $limit) {
+                    foreach ($db->searchGames($q) as $row) {
+                        $appid = (int) $row['appid'];
+                        $slug = (string) $row['slug'];
+
+                        if (isset($localBySlug[$slug])) {
+                            $local = $localBySlug[$slug];
+                            $local['hasSteam'] = $appid > 0;
+                            $addResult($local, $appid > 0 ? $appid : null);
+                            continue;
+                        }
+                        $igdbId = (int) ($row['igdb_id'] ?? 0);
+                        if ($igdbId && isset($localByIgdbId[$igdbId])) {
+                            $local = $localByIgdbId[$igdbId];
+                            $local['hasSteam'] = $appid > 0;
+                            $addResult($local, $appid > 0 ? $appid : null);
+                            continue;
+                        }
+
+                        $year = '';
+                        if (!empty($row['year_month']) && preg_match('/^(\d{4})/', $row['year_month'], $m)) {
+                            $year = $m[0];
+                        }
+                        $addResult([
+                            'slug' => $slug,
+                            'name' => (string) $row['name'],
+                            'cover' => $appid > 0 ? 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/' . $appid . '/library_600x900.jpg' : '',
+                            'platforms' => '',
+                            'year' => $year,
+                            'hasSteam' => true,
+                            'exists' => false,
+                            'igdbId' => $igdbId ?: null,
+                        ], $appid > 0 ? $appid : null);
+                    }
+                }
+
+                // 3. SteamDB chart entries: popular games not necessarily tracked yet (instant)
+                if (count($results) < $limit) {
+                    foreach ($db->searchChartEntries($q, $limit) as $row) {
+                        $appid = (int) $row['appid'];
+                        if ($appid <= 0) continue;
+                        $name = (string) $row['name'];
+                        $slug = \DiarioGames\IGDB\romanToDigits(\DiarioGames\IGDB\slugify($name));
+
+                        if (isset($localBySlug[$slug])) {
+                            $local = $localBySlug[$slug];
+                            $local['hasSteam'] = isset($trackedAppids[$appid]);
+                            $addResult($local, $appid);
+                            continue;
+                        }
+                        $addResult([
+                            'slug' => $slug,
+                            'name' => $name,
+                            'cover' => 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/' . $appid . '/library_600x900.jpg',
+                            'platforms' => '',
+                            'year' => '',
+                            'hasSteam' => isset($trackedAppids[$appid]),
+                            'exists' => false,
+                            'igdbId' => null,
+                        ], $appid);
+                    }
+                }
+
+                $response = ['results' => $results, 'fromIgdb' => false];
+                $cache->set($cacheKey, $response, 300);
+                return $response;
             }
         ],
         [

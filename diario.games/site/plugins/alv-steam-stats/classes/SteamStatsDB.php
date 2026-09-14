@@ -248,7 +248,21 @@ class SteamStatsDB
 
     public function searchGames(string $query): array
     {
-        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id FROM steam_games WHERE name LIKE :query LIMIT ' . self::MAX_SEARCH_RESULTS);
+        $stmt = $this->pdo->prepare('SELECT appid, slug, name, igdb_id, year_month FROM steam_games WHERE name LIKE :query ORDER BY LENGTH(name) ASC LIMIT ' . self::MAX_SEARCH_RESULTS);
+        $stmt->execute([':query' => '%' . $query . '%']);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function searchChartEntries(string $query, int $limit = self::MAX_SEARCH_RESULTS): array
+    {
+        $limit = max(1, min(self::MAX_SEARCH_RESULTS, $limit));
+        $stmt = $this->pdo->prepare('
+            SELECT appid, rank, name
+            FROM chart_entries
+            WHERE name LIKE :query
+            ORDER BY rank ASC
+            LIMIT ' . $limit
+        );
         $stmt->execute([':query' => '%' . $query . '%']);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }

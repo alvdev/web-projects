@@ -356,51 +356,137 @@ function initSearch() {
     var input = container.querySelector('input');
     var results = container.querySelector('.steam-search-results');
     var debounceTimer;
+    var igdbTimer;
+    var requestSeq = 0;
+    var fastController = null;
+    var igdbController = null;
+    var igdbCache = {};
+
+    function normalizeKey(name) {
+        return (name || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+    }
+
+    function renderGame(game) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'relative flex items-center border-b border-border/30 last:border-0 text-balance';
+        wrapper.setAttribute('data-name', normalizeKey(game.name));
+        var a = document.createElement('a');
+        a.href = '/' + game.slug;
+        a.className = 'flex items-center justify-between gap-2 flex-1 px-2 py-2 text-sm text-text hover:bg-surface-alt transition';
+        if (!game.exists) a.setAttribute('data-importing', '');
+        var coverHtml = game.cover
+            ? '<img src="' + escapeHtml(game.cover) + '" alt="' + escapeHtml(game.name) + '" class="w-8 h-12 object-cover rounded shrink-0 bg-surface-alt">'
+            : '<div class="w-8 h-12 rounded shrink-0 bg-surface-alt flex items-center justify-center text-muted text-[8px] text-center leading-tight">Sin imagen</div>';
+        var info = '';
+        if (game.platforms) info += '<span class="text-xs text-neon-cyan">' + escapeHtml(game.platforms) + (game.year ? ' <span class="text-xs text-muted">- ' + escapeHtml(game.year) + '</span>' : '') + '</span>';
+        else if (game.year) info += '<span class="text-xs text-muted">' + escapeHtml(game.year) + '</span>';
+        var titleHtml = escapeHtml(game.name);
+        if (game.hasSteam) {
+            titleHtml += ' <button type="button" class="site-fav inline align-text-top text-sm text-muted hover:text-yellow-400 transition" data-slug="' + game.slug + '" data-title="' + escapeHtml(game.name) + '" data-cover="' + (game.cover || '') + '">\u2606</button>';
+        }
+        var badges = '';
+        if (game.hasSteam) badges += ' <span class="text-xs text-neon-cyan"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19V12"/><path d="M22 19V7"/></svg></span>';
+        if (!game.exists) badges += ' <span class="text-xs text-neon-magenta"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span>';
+        a.innerHTML = coverHtml + '<div class="flex-1 min-w-0"><div class="font-medium truncate">' + titleHtml + '</div><div class="flex items-center gap-1">' + info + '</div></div>' + badges;
+
+        var img = a.querySelector('img');
+        if (img) {
+            img.addEventListener('error', function () {
+                var placeholder = document.createElement('div');
+                placeholder.className = 'w-8 h-12 rounded shrink-0 bg-surface-alt flex items-center justify-center text-muted text-[8px] text-center leading-tight';
+                placeholder.textContent = 'Sin imagen';
+                img.replaceWith(placeholder);
+            });
+        }
+
+        wrapper.appendChild(a);
+        return wrapper;
+    }
+
+    function appendGames(games) {
+        if (!games || !games.length) return false;
+        var seenNames = {};
+        var seenSlugs = {};
+        Array.prototype.forEach.call(results.children, function (child) {
+            var name = child.getAttribute('data-name');
+            if (name) seenNames[name] = true;
+            var link = child.querySelector('a');
+            if (link) seenSlugs[link.getAttribute('href').replace(/^\/+/, '')] = true;
+        });
+        var added = false;
+        games.forEach(function (game) {
+            var nameKey = normalizeKey(game.name);
+            if (!game.slug || seenSlugs[game.slug] || seenNames[nameKey]) return;
+            seenSlugs[game.slug] = true;
+            seenNames[nameKey] = true;
+            results.appendChild(renderGame(game));
+            added = true;
+        });
+        return added;
+    }
+
+    function fetchIgdb(query, seq) {
+        igdbController = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        var options = igdbController ? { signal: igdbController.signal } : {};
+        fetch('/steam-stats-api/search?q=' + encodeURIComponent(query) + '&source=igdb', options)
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (seq !== requestSeq || input.value.trim() !== query) return;
+                var games = data.results || [];
+                igdbCache[query] = games;
+                if (appendGames(games)) {
+                    results.classList.remove('hidden');
+                }
+            })
+            .catch(function () {});
+    }
 
     input.addEventListener('input', function () {
         clearTimeout(debounceTimer);
+        clearTimeout(igdbTimer);
         var q = input.value.trim();
+        var seq = ++requestSeq;
+        if (fastController) fastController.abort();
+        if (igdbController) igdbController.abort();
         if (q.length < 1) {
             results.classList.add('hidden');
             results.innerHTML = '';
             return;
         }
         debounceTimer = setTimeout(function () {
-            fetch('/steam-stats-api/search?q=' + encodeURIComponent(q))
+            if (seq !== requestSeq) return;
+            fastController = typeof AbortController !== 'undefined' ? new AbortController() : null;
+            var options = fastController ? { signal: fastController.signal } : {};
+            fetch('/steam-stats-api/search?q=' + encodeURIComponent(q), options)
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
+                    if (seq !== requestSeq) return;
                     results.innerHTML = '';
-                    if (!data.results || data.results.length === 0) {
-                        results.classList.add('hidden');
-                        return;
-                    }
-                    data.results.forEach(function (game) {
-                        var wrapper = document.createElement('div');
-                        wrapper.className = 'relative flex items-center border-b border-border/30 last:border-0 text-balance';
-                        var a = document.createElement('a');
-                        a.href = '/' + game.slug;
-                        a.className = 'flex items-center justify-between gap-2 flex-1 px-2 py-2 text-sm text-text hover:bg-surface-alt transition';
-                        if (!game.exists) a.setAttribute('data-importing', '');
-                        var coverHtml = game.cover
-                            ? '<img src="' + escapeHtml(game.cover) + '" alt="' + escapeHtml(game.name) + '" class="w-8 h-12 object-cover rounded shrink-0 bg-surface-alt">'
-                            : '<div class="w-8 h-12 rounded shrink-0 bg-surface-alt flex items-center justify-center text-muted text-[8px] text-center leading-tight">Sin imagen</div>';
-                        var info = '';
-                        if (game.platforms) info += '<span class="text-xs text-neon-cyan">' + escapeHtml(game.platforms) + (game.year ? ' <span class="text-xs text-muted">- ' + escapeHtml(game.year) + '</span>' : '') + '</span>';
-                        else if (game.year) info += '<span class="text-xs text-muted">' + escapeHtml(game.year) + '</span>';
-                        var titleHtml = escapeHtml(game.name);
-                        if (game.hasSteam) {
-                            titleHtml += ' <button type="button" class="site-fav inline align-text-top text-sm text-muted hover:text-yellow-400 transition" data-slug="' + game.slug + '" data-title="' + escapeHtml(game.name) + '" data-cover="' + (game.cover || '') + '">\u2606</button>';
-                        }
-                        var badges = '';
-                        if (game.hasSteam) badges += ' <span class="text-xs text-neon-cyan"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19V12"/><path d="M22 19V7"/></svg></span>';
-                        if (!game.exists) badges += ' <span class="text-xs text-neon-magenta"><svg class="inline w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span>';
-                        a.innerHTML = coverHtml + '<div class="flex-1 min-w-0"><div class="font-medium truncate">' + titleHtml + '</div><div class="flex items-center gap-1">' + info + '</div></div>' + badges;
-                        wrapper.appendChild(a);
-                        results.appendChild(wrapper);
+                    var games = data.results || [];
+                    games.forEach(function (game) {
+                        results.appendChild(renderGame(game));
                     });
-                    results.classList.remove('hidden');
+
+                    if (igdbCache[q]) {
+                        appendGames(igdbCache[q]);
+                    }
+
+                    if (results.children.length === 0) {
+                        results.classList.add('hidden');
+                    } else {
+                        results.classList.remove('hidden');
+                    }
+
+                    if (!igdbCache[q] && q.length >= 3 && games.length < 5) {
+                        igdbTimer = setTimeout(function () {
+                            if (seq !== requestSeq) return;
+                            fetchIgdb(q, seq);
+                        }, 250);
+                    }
                 })
-                .catch(function () {
+                .catch(function (err) {
+                    if (err && err.name === 'AbortError') return;
+                    if (seq !== requestSeq) return;
                     results.classList.add('hidden');
                 });
         }, 150);
