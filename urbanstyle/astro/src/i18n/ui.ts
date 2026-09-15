@@ -116,6 +116,8 @@ export const ui = {
         "city.seoTitle": "Pegada de carteles en",
         "city.seoDesc": "Servicio profesional de pegada de carteles en",
         "city.coverAlt": "Fotografía panorámica de la ciudad de",
+        "city.homeLinkLead": "Descubre por qué somos la",
+        "city.homeLinkAnchor": "empresa de pegada de carteles en",
 
         "services.view": "Ver servicio",
 
@@ -220,6 +222,8 @@ export const ui = {
         "city.seoTitle": "Poster pasting in",
         "city.seoDesc": "Professional poster pasting service in",
         "city.coverAlt": "Panoramic photograph of the city of",
+        "city.homeLinkLead": "Discover why we are the",
+        "city.homeLinkAnchor": "poster pasting company in",
 
         "services.view": "View service",
 
@@ -324,6 +328,8 @@ export const ui = {
         "city.seoTitle": "Affissione manifesti a",
         "city.seoDesc": "Servizio professionale di affissione manifesti a",
         "city.coverAlt": "Foto panoramica della città di",
+        "city.homeLinkLead": "Scopri perché siamo la",
+        "city.homeLinkAnchor": "società di affissione manifesti a",
 
         "services.view": "Vedi servizio",
 
@@ -428,6 +434,8 @@ export const ui = {
         "city.seoTitle": "Collage d'affiches à",
         "city.seoDesc": "Service professionnel de collage d'affiches à",
         "city.coverAlt": "Photographie panoramique de la ville de",
+        "city.homeLinkLead": "Découvrez pourquoi nous sommes l'",
+        "city.homeLinkAnchor": "entreprise de collage d'affiches à",
 
         "services.view": "Voir le service",
 
@@ -532,6 +540,8 @@ export const ui = {
         "city.seoTitle": "Colagem de cartazes em",
         "city.seoDesc": "Serviço profissional de colagem de cartazes em",
         "city.coverAlt": "Fotografia panorâmica da cidade de",
+        "city.homeLinkLead": "Descubra porque somos a",
+        "city.homeLinkAnchor": "empresa de colagem de cartazes em",
 
         "services.view": "Ver serviço",
 
