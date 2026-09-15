@@ -22,6 +22,7 @@ import Faqs from '@/components/Faqs.astro';
 import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
 import BenefitsGrid from '@/components/BenefitsGrid.astro';
 import VerticalTabs from '@/components/VerticalTabs.astro';
+import BlogPostCards from '@/components/BlogPostCards.astro';
 
 <Desc1
   title="Cada día pegamos <mark class='under'>el 90% de carteles</mark> que ves en la calle"
@@ -136,14 +137,14 @@ import VerticalTabs from '@/components/VerticalTabs.astro';
   <p class="mt-10 text-xl text-gray-600">¿No ves tu ciudad? Consulta nuestra <a href="/pegada-carteles/">cobertura de pegada de carteles en España</a>.</p>
 </section>
 
-<section class="container mt-32">
-  <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Aprende más sobre publicidad exterior</h2>
-  <ul class="mt-8 space-y-3 text-xl list-none">
-    <li><a href="/blog/es-legal-pegar-carteles-en-la-calle/">¿Es legal pegar carteles en la calle?</a></li>
-    <li><a href="/blog/la-importancia-del-diseno-en-la-pegada-de-carteles/">La importancia del diseño en la pegada de carteles</a></li>
-    <li><a href="/blog/como-usar-de-manera-correcta-una-campana-de-wild-posting-y-pegada-de-carteles/">Cómo usar correctamente una campaña de wild posting y pegada de carteles</a></li>
-  </ul>
-</section>
+<BlogPostCards
+  title="Aprende más sobre publicidad exterior"
+  slugs={[
+    "es-legal-pegar-carteles-en-la-calle",
+    "la-importancia-del-diseno-en-la-pegada-de-carteles",
+    "como-usar-de-manera-correcta-una-campana-de-wild-posting-y-pegada-de-carteles",
+  ]}
+/>
 
 <Faqs />
 

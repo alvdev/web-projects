@@ -21,6 +21,7 @@ import Faqs from '@/components/Faqs.astro';
 import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
 import BenefitsGrid from '@/components/BenefitsGrid.astro';
 import VerticalTabs from '@/components/VerticalTabs.astro';
+import BlogPostCards from '@/components/BlogPostCards.astro';
 
 <Desc1
   title="Todos os dias afixamos <mark class='under'>90% dos cartazes</mark> que vês na rua"
@@ -68,6 +69,81 @@ import VerticalTabs from '@/components/VerticalTabs.astro';
   classes="wall-full bg-red-900 pb-42"
 />
 {<BenefitsGrid classes="relative z-20 -mt-28" />}
+
+<section class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold text-balance text-black uppercase md:text-7xl">
+    O que inclui a nossa
+    <br /> colagem de cartazes
+  </h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">Um serviço completo, da impressão à <mark class="under">reposição</mark></p>
+
+  <div class="grid gap-4 mt-16 md:grid-cols-2 lg:grid-cols-3">
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Planeamento de rotas</h3>
+      <p class="mt-4">Analisamos o teu público e desenhamos um circuito por zonas de grande movimento: ruas comerciais, interfaces de transporte, zonas universitárias e locais de diversão noturna.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Design e impressão</h3>
+      <p class="mt-4">Imprimimos em todos os formatos, do A3 ao grande formato. Se precisares, a nossa equipa desenha o cartaz adaptado à tua campanha.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Equipa própria de coladores</h3>
+      <p class="mt-4">Contamos com equipas locais em Madrid, Barcelona e nas principais capitais, com cobertura em todo o território nacional.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Supervisão 24/7</h3>
+      <p class="mt-4">Verificamos as localizações dia e noite durante toda a campanha para que o teu cartaz continue a ser visto onde o contrataste.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Reposição garantida</h3>
+      <p class="mt-4">Se um cartaz aparecer danificado, arrancado ou tapado, repomo-lo. A garantia de reposição está incluída durante o período de exibição.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Relatório fotográfico</h3>
+      <p class="mt-4">Documentamos cada localização com fotos no início, durante e no final da campanha, para que verifiques o trabalho realizado.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-32 grid gap-16 lg:grid-cols-2">
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Formatos e suportes</h2>
+    <p class="mt-6 text-xl text-gray-600">Colamos cartazes em todos os formatos habituais da publicidade exterior e adaptamos o suporte a cada campanha:</p>
+    <ul class="mt-6 space-y-2 text-lg">
+      <li>Cartazes A3, A2 e B2 para lojas, bares e espaços interiores.</li>
+      <li>Grande formato B1 e B0 em colunas publicitárias e muros autorizados.</li>
+      <li>Mobiliário urbano: abrigos, paragens de autocarro e painéis.</li>
+      <li>Circuitos interiores em universidades, locais de diversão noturna e lojas.</li>
+    </ul>
+  </div>
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Zonas autorizadas e regulamentação</h2>
+    <p class="mt-6 text-xl text-gray-600">Trabalhamos em espaços autorizados e respeitamos os regulamentos municipais de cada localidade. A nossa equipa conhece as zonas autorizadas e os requisitos de cada município, para que a tua campanha decorra sem surpresas e com a máxima visibilidade.</p>
+    <a href="/pt/contacto/" class="btn mt-8">Pedir orçamento</a>
+  </div>
+</section>
+
+<section class="container mt-32 text-center">
+  <h2 class="text-5xl font-extrabold uppercase text-black md:text-7xl">Colagem de cartazes por cidade</h2>
+  <p class="font-script mt-8 text-4xl font-bold text-balance md:text-5xl">Temos presença direta e equipas locais nas principais capitais</p>
+  <ul class="mt-12 flex flex-wrap justify-center gap-4 list-none">
+    <li><a href="/pt/colagem-cartazes/madrid/" class="btn">Colagem de cartazes em Madrid</a></li>
+    <li><a href="/pt/colagem-cartazes/barcelona/" class="btn">Colagem de cartazes em Barcelona</a></li>
+    <li><a href="/pt/colagem-cartazes/valencia/" class="btn">Colagem de cartazes em Valência</a></li>
+    <li><a href="/pt/colagem-cartazes/sevilla/" class="btn">Colagem de cartazes em Sevilha</a></li>
+    <li><a href="/pt/colagem-cartazes/malaga/" class="btn">Colagem de cartazes em Málaga</a></li>
+  </ul>
+  <p class="mt-10 text-xl text-gray-600">Não vês a tua cidade? Consulta a nossa <a href="/pt/colagem-cartazes/">cobertura de colagem de cartazes em Espanha</a>.</p>
+</section>
+
+<BlogPostCards
+  title="Aprende mais sobre publicidade exterior"
+  slugs={[
+    "es-legal-pegar-carteles-en-la-calle",
+    "la-importancia-del-diseno-en-la-pegada-de-carteles",
+    "como-usar-de-manera-correcta-una-campana-de-wild-posting-y-pegada-de-carteles",
+  ]}
+/>
 
 <Faqs />
 

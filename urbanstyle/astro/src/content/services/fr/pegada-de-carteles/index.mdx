@@ -21,6 +21,7 @@ import Faqs from '@/components/Faqs.astro';
 import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
 import BenefitsGrid from '@/components/BenefitsGrid.astro';
 import VerticalTabs from '@/components/VerticalTabs.astro';
+import BlogPostCards from '@/components/BlogPostCards.astro';
 
 <Desc1
   title="Chaque jour, nous collons <mark class='under'>90% des affiches</mark> que vous voyez dans la rue"
@@ -68,6 +69,81 @@ import VerticalTabs from '@/components/VerticalTabs.astro';
   classes="wall-full bg-red-900 pb-42"
 />
 {<BenefitsGrid classes="relative z-20 -mt-28" />}
+
+<section class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold text-balance text-black uppercase md:text-7xl">
+    Ce que comprend notre
+    <br /> collage d'affiches
+  </h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">Un service complet, de l'impression au <mark class="under">remplacement</mark></p>
+
+  <div class="grid gap-4 mt-16 md:grid-cols-2 lg:grid-cols-3">
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Planification des tournées</h3>
+      <p class="mt-4">Nous analysons votre public et concevons un circuit dans les zones à fort passage : rues commerçantes, pôles d'échange, quartiers universitaires et lieux de sortie.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Design et impression</h3>
+      <p class="mt-4">Nous imprimons dans tous les formats, du A3 au grand format. Si vous en avez besoin, notre équipe conçoit l'affiche adaptée à votre campagne.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Équipe de colleurs dédiée</h3>
+      <p class="mt-4">Nous disposons d'équipes locales à Madrid, Barcelone et dans les principales capitales, avec une couverture sur tout le territoire national.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Supervision 24/7</h3>
+      <p class="mt-4">Nous vérifions les emplacements jour et nuit pendant toute la campagne pour que votre affiche reste visible là où vous l'avez réservée.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Remplacement garanti</h3>
+      <p class="mt-4">Si une affiche est endommagée, arrachée ou recouverte, nous la remplaçons. La garantie de remplacement est incluse pendant la période d'affichage.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Rapport photo</h3>
+      <p class="mt-4">Nous documentons chaque emplacement avec des photos au début, pendant et à la fin de la campagne, pour que vous puissiez vérifier le travail réalisé.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-32 grid gap-16 lg:grid-cols-2">
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Formats et supports</h2>
+    <p class="mt-6 text-xl text-gray-600">Nous collons des affiches dans tous les formats habituels de la publicité extérieure et adaptons le support à chaque campagne :</p>
+    <ul class="mt-6 space-y-2 text-lg">
+      <li>Affiches A3, A2 et B2 pour commerces, bars et espaces intérieurs.</li>
+      <li>Grand format B1 et B0 sur colonnes d'affichage et murs autorisés.</li>
+      <li>Mobilier urbain : abris-bus, arrêts de bus et panneaux.</li>
+      <li>Circuits intérieurs dans les universités, les lieux de sortie et les boutiques.</li>
+    </ul>
+  </div>
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Zones autorisées et réglementation</h2>
+    <p class="mt-6 text-xl text-gray-600">Nous travaillons sur des espaces autorisés et respectons les règlements municipaux de chaque commune. Notre équipe connaît les zones habilitées et les exigences de chaque mairie, pour que votre campagne se déroule sans surprise et avec une visibilité maximale.</p>
+    <a href="/fr/contacto/" class="btn mt-8">Demander un devis</a>
+  </div>
+</section>
+
+<section class="container mt-32 text-center">
+  <h2 class="text-5xl font-extrabold uppercase text-black md:text-7xl">Collage d'affiches par ville</h2>
+  <p class="font-script mt-8 text-4xl font-bold text-balance md:text-5xl">Nous avons une présence directe et des équipes locales dans les principales capitales</p>
+  <ul class="mt-12 flex flex-wrap justify-center gap-4 list-none">
+    <li><a href="/fr/collage-affiches/madrid/" class="btn">Collage d'affiches à Madrid</a></li>
+    <li><a href="/fr/collage-affiches/barcelona/" class="btn">Collage d'affiches à Barcelone</a></li>
+    <li><a href="/fr/collage-affiches/valencia/" class="btn">Collage d'affiches à Valence</a></li>
+    <li><a href="/fr/collage-affiches/sevilla/" class="btn">Collage d'affiches à Séville</a></li>
+    <li><a href="/fr/collage-affiches/malaga/" class="btn">Collage d'affiches à Malaga</a></li>
+  </ul>
+  <p class="mt-10 text-xl text-gray-600">Votre ville n'apparaît pas ? Consultez notre <a href="/fr/collage-affiches/">couverture du collage d'affiches en Espagne</a>.</p>
+</section>
+
+<BlogPostCards
+  title="En savoir plus sur la publicité extérieure"
+  slugs={[
+    "es-legal-pegar-carteles-en-la-calle",
+    "la-importancia-del-diseno-en-la-pegada-de-carteles",
+    "como-usar-de-manera-correcta-una-campana-de-wild-posting-y-pegada-de-carteles",
+  ]}
+/>
 
 <Faqs />
 

@@ -21,6 +21,7 @@ import Faqs from '@/components/Faqs.astro';
 import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
 import BenefitsGrid from '@/components/BenefitsGrid.astro';
 import VerticalTabs from '@/components/VerticalTabs.astro';
+import BlogPostCards from '@/components/BlogPostCards.astro';
 
 <Desc1
   title="Every day we paste <mark class='under'>90% of the posters</mark> you see on the street"
@@ -68,6 +69,81 @@ import VerticalTabs from '@/components/VerticalTabs.astro';
   classes="wall-full bg-red-900 pb-42"
 />
 {<BenefitsGrid classes="relative z-20 -mt-28" />}
+
+<section class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold text-balance text-black uppercase md:text-7xl">
+    What our
+    <br /> poster pasting includes
+  </h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">A complete service, from printing to <mark class="under">replacement</mark></p>
+
+  <div class="grid gap-4 mt-16 md:grid-cols-2 lg:grid-cols-3">
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Route planning</h3>
+      <p class="mt-4">We analyze your audience and design a circuit through high-traffic areas: shopping streets, transport hubs, university areas and nightlife venues.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Design and printing</h3>
+      <p class="mt-4">We print in every format, from A3 to large format. If you need it, our team designs the poster tailored to your campaign.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Our own team of pasters</h3>
+      <p class="mt-4">We have local teams in Madrid, Barcelona and the main capitals, with coverage across the whole country.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">24/7 supervision</h3>
+      <p class="mt-4">We check the locations day and night throughout the campaign so that your poster keeps being seen where you booked it.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Guaranteed replacement</h3>
+      <p class="mt-4">If a poster is damaged, torn down or covered, we replace it. The replacement guarantee is included during the display period.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Photo report</h3>
+      <p class="mt-4">We document every location with photos at the start, during and at the end of the campaign, so you can verify the work carried out.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-32 grid gap-16 lg:grid-cols-2">
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Formats and media</h2>
+    <p class="mt-6 text-xl text-gray-600">We paste posters in all the usual outdoor advertising formats and adapt the medium to each campaign:</p>
+    <ul class="mt-6 space-y-2 text-lg">
+      <li>A3, A2 and B2 posters for shops, bars and indoor spaces.</li>
+      <li>Large format B1 and B0 on advertising columns and authorized walls.</li>
+      <li>Street furniture: bus shelters, bus stops and panels.</li>
+      <li>Indoor circuits in universities, nightlife venues and shops.</li>
+    </ul>
+  </div>
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Authorized areas and regulations</h2>
+    <p class="mt-6 text-xl text-gray-600">We work on authorized spaces and respect each municipality's local ordinances. Our team knows the enabled areas and each council's requirements, so your campaign runs without surprises and with maximum visibility.</p>
+    <a href="/en/contacto/" class="btn mt-8">Request a quote</a>
+  </div>
+</section>
+
+<section class="container mt-32 text-center">
+  <h2 class="text-5xl font-extrabold uppercase text-black md:text-7xl">Poster pasting by city</h2>
+  <p class="font-script mt-8 text-4xl font-bold text-balance md:text-5xl">We have a direct presence and local teams in the main capitals</p>
+  <ul class="mt-12 flex flex-wrap justify-center gap-4 list-none">
+    <li><a href="/en/poster-pasting/madrid/" class="btn">Poster pasting in Madrid</a></li>
+    <li><a href="/en/poster-pasting/barcelona/" class="btn">Poster pasting in Barcelona</a></li>
+    <li><a href="/en/poster-pasting/valencia/" class="btn">Poster pasting in Valencia</a></li>
+    <li><a href="/en/poster-pasting/sevilla/" class="btn">Poster pasting in Seville</a></li>
+    <li><a href="/en/poster-pasting/malaga/" class="btn">Poster pasting in Malaga</a></li>
+  </ul>
+  <p class="mt-10 text-xl text-gray-600">Don't see your city? Check our <a href="/en/poster-pasting/">poster pasting coverage across Spain</a>.</p>
+</section>
+
+<BlogPostCards
+  title="Learn more about outdoor advertising"
+  slugs={[
+    "es-legal-pegar-carteles-en-la-calle",
+    "la-importancia-del-diseno-en-la-pegada-de-carteles",
+    "como-usar-de-manera-correcta-una-campana-de-wild-posting-y-pegada-de-carteles",
+  ]}
+/>
 
 <Faqs />
 

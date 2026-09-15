@@ -21,6 +21,7 @@ import Faqs from '@/components/Faqs.astro';
 import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
 import BenefitsGrid from '@/components/BenefitsGrid.astro';
 import VerticalTabs from '@/components/VerticalTabs.astro';
+import BlogPostCards from '@/components/BlogPostCards.astro';
 
 <Desc1
   title="Ogni giorno affiggiamo <mark class='under'>il 90% dei manifesti</mark> che vedi in strada"
@@ -68,6 +69,81 @@ import VerticalTabs from '@/components/VerticalTabs.astro';
   classes="wall-full bg-red-900 pb-42"
 />
 {<BenefitsGrid classes="relative z-20 -mt-28" />}
+
+<section class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold text-balance text-black uppercase md:text-7xl">
+    Cosa comprende la nostra
+    <br /> affissione di manifesti
+  </h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">Un servizio completo, dalla stampa alla <mark class="under">sostituzione</mark></p>
+
+  <div class="grid gap-4 mt-16 md:grid-cols-2 lg:grid-cols-3">
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Pianificazione dei percorsi</h3>
+      <p class="mt-4">Analizziamo il tuo pubblico e progettiamo un circuito nelle zone ad alto passaggio: vie commerciali, nodi di scambio, quartieri universitari e locali notturni.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Design e stampa</h3>
+      <p class="mt-4">Stampiamo in tutti i formati, dall'A3 al grande formato. Se ne hai bisogno, il nostro team progetta il manifesto adatto alla tua campagna.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Squadra di affissori propria</h3>
+      <p class="mt-4">Disponiamo di squadre locali a Madrid, Barcellona e nelle principali capitali, con copertura su tutto il territorio nazionale.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Supervisione 24/7</h3>
+      <p class="mt-4">Controlliamo le posizioni giorno e notte per tutta la campagna, così il tuo manifesto continua a essere visibile dove l'hai prenotato.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Sostituzione garantita</h3>
+      <p class="mt-4">Se un manifesto viene danneggiato, strappato o coperto, lo sostituiamo. La garanzia di sostituzione è inclusa durante il periodo di esposizione.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Report fotografico</h3>
+      <p class="mt-4">Documentiamo ogni posizione con foto all'inizio, durante e alla fine della campagna, così puoi verificare il lavoro svolto.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-32 grid gap-16 lg:grid-cols-2">
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Formati e supporti</h2>
+    <p class="mt-6 text-xl text-gray-600">Affiggiamo manifesti in tutti i formati abituali della pubblicità esterna e adattiamo il supporto a ogni campagna:</p>
+    <ul class="mt-6 space-y-2 text-lg">
+      <li>Manifesti A3, A2 e B2 per negozi, bar e spazi interni.</li>
+      <li>Grande formato B1 e B0 su colonne pubblicitarie e muri autorizzati.</li>
+      <li>Arredo urbano: pensiline, fermate dell'autobus e pannelli.</li>
+      <li>Circuiti interni in università, locali notturni e negozi.</li>
+    </ul>
+  </div>
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">Zone autorizzate e normativa</h2>
+    <p class="mt-6 text-xl text-gray-600">Lavoriamo su spazi autorizzati e rispettiamo i regolamenti comunali di ogni località. Il nostro team conosce le zone abilitate e i requisiti di ogni comune, così la tua campagna si svolge senza sorprese e con la massima visibilità.</p>
+    <a href="/it/contacto/" class="btn mt-8">Richiedi un preventivo</a>
+  </div>
+</section>
+
+<section class="container mt-32 text-center">
+  <h2 class="text-5xl font-extrabold uppercase text-black md:text-7xl">Affissione di manifesti per città</h2>
+  <p class="font-script mt-8 text-4xl font-bold text-balance md:text-5xl">Abbiamo una presenza diretta e squadre locali nelle principali capitali</p>
+  <ul class="mt-12 flex flex-wrap justify-center gap-4 list-none">
+    <li><a href="/it/affissione-manifesti/madrid/" class="btn">Affissione di manifesti a Madrid</a></li>
+    <li><a href="/it/affissione-manifesti/barcelona/" class="btn">Affissione di manifesti a Barcellona</a></li>
+    <li><a href="/it/affissione-manifesti/valencia/" class="btn">Affissione di manifesti a Valencia</a></li>
+    <li><a href="/it/affissione-manifesti/sevilla/" class="btn">Affissione di manifesti a Siviglia</a></li>
+    <li><a href="/it/affissione-manifesti/malaga/" class="btn">Affissione di manifesti a Malaga</a></li>
+  </ul>
+  <p class="mt-10 text-xl text-gray-600">Non vedi la tua città? Consulta la nostra <a href="/it/affissione-manifesti/">copertura di affissione manifesti in Spagna</a>.</p>
+</section>
+
+<BlogPostCards
+  title="Scopri di più sulla pubblicità esterna"
+  slugs={[
+    "es-legal-pegar-carteles-en-la-calle",
+    "la-importancia-del-diseno-en-la-pegada-de-carteles",
+    "como-usar-de-manera-correcta-una-campana-de-wild-posting-y-pegada-de-carteles",
+  ]}
+/>
 
 <Faqs />
 
