@@ -145,7 +145,7 @@
 
 ---
 
-## Phase G — Learn-more cards + localized homepage parity (2026-09-14)
+## Phase G — Learn-more cards + localized homepage parity (2026-09-15)
 
 > **Status:** not started. Follow-up to Phase D: commit `661f9f6d` added the new homepage sections to the ES page only, and commit `a2f83964` created the localized copies without them.
 
@@ -558,3 +558,10 @@ for (const slug of slugs) {
 - [ ] Section parity: `What our poster pasting includes` / `Formats and media` / `Authorized areas and regulations` / `Poster pasting by city` on `dist/en/index.html`; equivalents on fr/it/pt
 - [ ] Locale CTAs resolve: `/en/contacto/`, `/fr/contacto/`, `/it/contacto/`, `/pt/contacto/`; coverage links `/en/poster-pasting/madrid/`, `/fr/collage-affiches/madrid/`, `/it/affissione-manifesti/madrid/`, `/pt/colagem-cartazes/madrid/`
 - [ ] Commit: `feat(seo): blog cards for learn-more section + localized homepage sections`
+
+**Results (2026-09-15)**
+- Commits: `8e5a6b79` (cards + localized sections) and `37d8d5e` on kv55 (`content: translate blog post to en/fr/it/pt` — fixed an unescaped apostrophe in the EN frontmatter of the DELLAFUENTE translation that was failing the build and blocking every deploy)
+- `bun run build`: 1150 pages, no errors on dev and kv55
+- Cards: 3 per homepage in all 5 locales (`aspect-[16/12]` + `bg-skew` blog-picture styling), titles overlaid with `bg-linear-to-t` gradient; localized titles/covers/links resolved from post frontmatter
+- Localized parity live: includes / formats / authorized areas / cities / learn-more on `/en/`, `/fr/`, `/it/`, `/pt/`
+- Deploy: kv55 `buildSite()` + `uploadDist()` → 1160 uploaded / 966 unchanged; curl verification on production: headings, card links, section parity, translated DELLAFUENTE posts return 200 in en/fr/it/pt
