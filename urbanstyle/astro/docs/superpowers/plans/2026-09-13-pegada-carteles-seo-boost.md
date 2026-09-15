@@ -565,3 +565,13 @@ for (const slug of slugs) {
 - Cards: 3 per homepage in all 5 locales (`aspect-[16/12]` + `bg-skew` blog-picture styling), titles overlaid with `bg-linear-to-t` gradient; localized titles/covers/links resolved from post frontmatter
 - Localized parity live: includes / formats / authorized areas / cities / learn-more on `/en/`, `/fr/`, `/it/`, `/pt/`
 - Deploy: kv55 `buildSite()` + `uploadDist()` → 1160 uploaded / 966 unchanged; curl verification on production: headings, card links, section parity, translated DELLAFUENTE posts return 200 in en/fr/it/pt
+
+### Stage 1 execution (2026-09-15, session 2)
+
+- `2359a62e` feat(seo): homepage AEO answers, GBP schema signals, city-to-home internal links
+- Homepage: direct answers added (`¿Qué es una pegada de carteles?`, `¿Es legal pegar en Madrid?`, `¿Cuánto cuesta?`) — ES only
+- Schema: Organization `sameAs` now includes the GBP link; LocalBusiness Madrid `hasMap`; removed generic Wikidata `Q216931`
+- City pages: link to homepage with localized "poster pasting company in {city}" anchors (5 locales)
+- `scripts/seo/serp-check.mjs`: Camoufox + UULE organic-only SERP tracker; logs to gitignored `seo/reports/serp-history.csv`
+- Baseline (Sep 15): **organic #5** (ads excluded). User-visible "#7" = 2 ads + 5th organic. Top: pegadadecarteles.es, newstreetart.com, pegadocartelesmadrid.com, carteles.madrid
+- Deployed via kv55 (1159 uploaded); live verified: AEO block, hasMap/GBP sameAs, Madrid city→home anchor
