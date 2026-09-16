@@ -7,6 +7,8 @@
  * shown on Google Search/Maps. Google expires them after 7 days.
  */
 
+import { DRY_RUN_LINK, dryRunLog, isDryRun } from "../dryRun";
+
 const API_URL = "https://api.buffer.com/graphql";
 
 function token(): string {
@@ -48,6 +50,10 @@ interface CreatePostResult {
 
 /** Find the Google Business Profile channel in the GBP Buffer workspace. */
 export async function getGbpChannel(): Promise<{ id: string; name: string }> {
+  if (isDryRun()) {
+    dryRunLog("GBP channel lookup skipped");
+    return { id: "gbpch", name: "dry-run gbp" };
+  }
   const orgId =
     process.env.GBP_BUFFER_ORGANIZATION_ID ??
     (async () => {
@@ -75,6 +81,10 @@ export async function createGbpPost(
   text: string,
   imageUrl?: string,
 ): Promise<{ id: string; externalLink?: string }> {
+  if (isDryRun()) {
+    dryRunLog("GBP createGbpPost skipped");
+    return { id: "dry-gbp", externalLink: `${DRY_RUN_LINK}/gbp` };
+  }
   const assets = imageUrl ? [{ image: { url: imageUrl } }] : [];
   const result = await gql<CreatePostResult>(
     `mutation CreatePost($input: CreatePostInput!) {

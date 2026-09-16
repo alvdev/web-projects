@@ -5,6 +5,7 @@ import { createHash } from "node:crypto";
 import { join, sep } from "node:path";
 import * as tls from "node:tls";
 import { Client } from "basic-ftp";
+import { dryRunLog, isDryRun } from "./dryRun";
 
 // Hosts whose TLS certificate is issued to the hosting provider (not the hostname).
 // checkServerIdentity returns undefined for these, trusting the pinned host only.
@@ -89,6 +90,10 @@ async function walkLocal(dir: string): Promise<Map<string, LocalFile>> {
  * absolute remote path ("/urbanstylepublicity.com/blog/<slug>").
  */
 export async function removeRemoteDir(remoteDir: string): Promise<void> {
+  if (isDryRun()) {
+    dryRunLog(`removeRemoteDir skipped: ${remoteDir}`);
+    return;
+  }
   const host = process.env.FTP_HOST ?? "";
   const user = process.env.FTP_USER ?? "";
   const pass = process.env.FTP_PASSWORD ?? "";
@@ -156,6 +161,10 @@ function curlUpload(localPath: string, remoteUrl: string, user: string, pass: st
 export async function uploadDist(
   onProgress?: (uploaded: number, pending: number) => void,
 ): Promise<{ uploaded: number; skipped: number; total: number; pending: number }> {
+  if (isDryRun()) {
+    dryRunLog("uploadDist skipped (FTPS disabled)");
+    return { uploaded: 0, skipped: 0, total: 0, pending: 0 };
+  }
   const host = process.env.FTP_HOST ?? "";
   const user = process.env.FTP_USER ?? "";
   const pass = process.env.FTP_PASSWORD ?? "";

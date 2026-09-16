@@ -79,10 +79,22 @@ export interface SocialPlatformState {
   tweet?: string;        // approved tweet text (FB text for facebook)
   tweetProvider?: LlmProvider;  // provider chosen for the tweet
   publishedAt?: string;
+  link?: string;         // published post URL (persisted so reports can list it later)
   error?: string;
   handlesApproved?: boolean; // user approved the FB text WITH @mentions as-is
   fbMentions?: { handle: string; pageName: string; pageUrl?: string }[]; // verified pages per @handle
   verifiedHandles?: VerifiedHandle[]; // X verification cache (with verifiedAt)
+}
+
+export type PublishPlatform = "x" | "facebook" | "gbp" | "linkedin";
+
+export interface PublishResult {
+  ok: boolean;
+  line: string;                 // Telegram-formatted status line
+  platform: PublishPlatform;
+  status: "published" | "failed";
+  link?: string;                // raw published URL when available
+  error?: string;               // raw error message when failed
 }
 
 export interface PublishedEntry {

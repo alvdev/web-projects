@@ -7,6 +7,8 @@
  * allows mentioning other pages from its composer UI.
  */
 
+import { DRY_RUN_LINK, dryRunLog, isDryRun } from "../dryRun";
+
 const GRAPH_URL = "https://graph.facebook.com/v21.0";
 
 function pageToken(): string {
@@ -49,6 +51,10 @@ export async function createFbPost(
   message: string,
   link: string,
 ): Promise<{ id: string; externalLink: string }> {
+  if (isDryRun()) {
+    dryRunLog("Facebook Graph createFbPost skipped");
+    return { id: "dry-facebook", externalLink: `${DRY_RUN_LINK}/facebook` };
+  }
   const body = new URLSearchParams();
   body.set("message", message);
   body.set("link", link);
@@ -70,6 +76,10 @@ export async function createFbPost(
 
 /** Delete a post (works via the direct API — Buffer cannot delete). */
 export async function deleteFbPost(postId: string): Promise<void> {
+  if (isDryRun()) {
+    dryRunLog(`Facebook deleteFbPost skipped: ${postId}`);
+    return;
+  }
   const res = await fetch(`${GRAPH_URL}/${postId}?access_token=${pageToken()}`, { method: "DELETE" });
   const data = (await res.json()) as { success?: boolean; error?: { message: string } };
   if (data.error) throw new Error(`Facebook API delete: ${data.error.message}`);

@@ -3,6 +3,7 @@
  * Posts to the connected X/Twitter channel with optional image (by URL —
  * Buffer downloads it server-side).
  */
+import { DRY_RUN_LINK, dryRunLog, isDryRun } from "../dryRun";
 
 const API_URL = "https://api.buffer.com/graphql";
 
@@ -45,6 +46,10 @@ interface CreatePostResult {
 
 /** Find a channel by Buffer service name for the Buffer organization. */
 async function getChannel(service: "twitter" | "facebook"): Promise<{ id: string; name: string }> {
+  if (isDryRun()) {
+    dryRunLog(`Buffer channel lookup: ${service}`);
+    return { id: service === "twitter" ? "xch" : "fbch", name: `dry-run ${service}` };
+  }
   const orgId =
     process.env.BUFFER_ORGANIZATION_ID ??
     (async () => {
@@ -87,6 +92,10 @@ export async function createPost(
   facebookType?: "post" | "story" | "reel",
   facebookAnnotations?: { content: string; indices: number[]; text: string; url: string }[],
 ): Promise<{ id: string; externalLink?: string }> {
+  if (isDryRun()) {
+    dryRunLog(`Buffer createPost (${facebookType ?? "x"}) → ${channelId}`);
+    return { id: `dry-${channelId}`, externalLink: `${DRY_RUN_LINK}/${channelId}` };
+  }
   const assets = imageUrl ? [{ image: { url: imageUrl } }] : [];
   const result = await gql<CreatePostResult>(
     `mutation CreatePost($input: CreatePostInput!) {

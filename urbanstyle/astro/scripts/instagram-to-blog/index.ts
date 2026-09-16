@@ -95,7 +95,7 @@ export async function queuePost(
   return entry;
 }
 
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
   console.log(`=== instagram-to-blog daily sync ===`);
   const startedAt = new Date().toISOString();
 

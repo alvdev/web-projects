@@ -7,9 +7,10 @@ import { preparePost } from "./content";
 import { generateTweets, buildTweetPrompt } from "./tweet";
 import { addInstruction, loadInstructions, removeInstruction } from "./instructions";
 import { sendAlert } from "./mailer";
+import { sendPublishReport } from "./report";
 import { notifyTelegram, escMarkdown, mdToHtml, escHtml } from "./telegram";
 import { translatePostBySlug } from "./translate";
-import type { PendingEntry, PendingState, PreparedPost, PublishedEntry } from "./types";
+import type { PendingEntry, PendingState, PreparedPost, PublishResult, PublishedEntry } from "./types";
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
 
@@ -49,7 +50,7 @@ async function freshState(): Promise<PendingState> {
   return loadState();
 }
 
-async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyContext): Promise<void> {
+export async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyContext): Promise<void> {
   const chatId = ctx.chat?.id ?? state.chatId ?? 0;
   const statusMsg = await ctx.reply(`⏳ Publicando "${entry.prepared.title}"...`);
 
@@ -108,13 +109,6 @@ async function publishEntry(entry: PendingEntry, state: PendingState, ctx: MyCon
       .text("🗑 Eliminar", `remove:${entry.id}`)
       .text("▶️ Publicar en redes", `social:${entry.id}`);
     await ctx.api.editMessageReplyMarkup(chatId, statusMsg.message_id, { reply_markup: publishedKeyboard });
-
-    await sendAlert(`[Urban Sync] Publicado: ${entry.prepared.title}`, [
-      `Título: ${entry.prepared.title}`,
-      `URL: /blog/${entry.prepared.slug}`,
-      `Fecha: ${entry.prepared.pubDate}`,
-      `Uploaded: ${uploaded}, unchanged: ${skipped}`,
-    ].join("\n"));
 
     void runPostTranslations(entry.prepared.slug);
   } catch (err) {
@@ -211,7 +205,7 @@ async function retryPendingTranslations(): Promise<void> {
 
 // ---- Remove / social queue after publish ----
 
-async function removePublishedPost(postId: string, ctx: MyContext): Promise<void> {
+export async function removePublishedPost(postId: string, ctx: MyContext): Promise<void> {
   const state = await freshState();
   const published = state.published.find((e) => e.id === postId);
   if (!published) {
@@ -763,15 +757,14 @@ async function showTweetApproval(
 
 // ---- Publish helpers (server-side gates enforced here) ----
 
-interface PublishResult {
-  ok: boolean;
-  line: string;
-}
-
-async function publishToX(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
+export async function publishToX(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
   const xState = published.social.x;
-  if (!xState?.tweet) return { ok: false, line: "❌ *X:* no hay tweet aprobado" };
-  if (xState.status === "published") return { ok: true, line: "✅ *X:* ya estaba publicado" };
+  if (!xState?.tweet) {
+    return { ok: false, platform: "x", status: "failed", line: "❌ *X:* no hay tweet aprobado", error: "no hay tweet aprobado" };
+  }
+  if (xState.status === "published") {
+    return { ok: true, platform: "x", status: "published", line: "✅ *X:* ya estaba publicado", link: xState.link };
+  }
   try {
     const { cachedHandlesCover, verifyTweetHandles } = await import("./social/xverify");
     let handleInfos: import("./social/xverify").HandleInfo[];
@@ -783,33 +776,48 @@ async function publishToX(published: PublishedEntry, state: PendingState): Promi
       await saveState(state);
     }
     if (handleInfos.some((h) => h.status !== "verified")) {
-      return { ok: false, line: "❌ *X:* menciones sin verificar — pulsa ▶️ Publicar en redes para arreglarlas." };
+      return {
+        ok: false,
+        platform: "x",
+        status: "failed",
+        line: "❌ *X:* menciones sin verificar — pulsa ▶️ Publicar en redes para arreglarlas.",
+        error: "menciones sin verificar",
+      };
     }
     const { getXChannel, createPost } = await import("./social/buffer");
     const channel = await getXChannel();
     const imageUrl = getPostImageUrl(published.slug);
     const post = await createPost(channel.id, xState.tweet, imageUrl ?? undefined);
+    const link = post.externalLink ?? `https://x.com/pegadacarteles`;
     xState.status = "published";
     xState.publishedAt = new Date().toISOString();
+    xState.link = link;
     xState.error = undefined;
     await saveState(state);
-    const link = post.externalLink ?? `https://x.com/pegadacarteles`;
-    await sendAlert(`[Urban Sync] Tweet publicado en X: ${published.title}`, `${xState.tweet}\n\n${link}`);
-    return { ok: true, line: `✅ *X:* ${escMarkdown(link)}` };
+    return { ok: true, platform: "x", status: "published", line: `✅ *X:* ${escMarkdown(link)}`, link };
   } catch (err) {
     console.error("[bot] postX failed:", err);
     xState.status = "failed";
     xState.error = (err as Error).message;
     await saveState(state);
-    await sendAlert("[Urban Sync] Error publicando tweet en X", `${(err as Error).message}\n\nPost: ${published.title}`);
-    return { ok: false, line: `❌ *X:* ${(err as Error).message}` };
+    return {
+      ok: false,
+      platform: "x",
+      status: "failed",
+      line: `❌ *X:* ${(err as Error).message}`,
+      error: (err as Error).message,
+    };
   }
 }
 
-async function publishToFb(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
+export async function publishToFb(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
   const fbState = published.social.facebook;
-  if (!fbState?.tweet) return { ok: false, line: "❌ *Facebook:* no hay post aprobado" };
-  if (fbState.status === "published") return { ok: true, line: "✅ *Facebook:* ya estaba publicado" };
+  if (!fbState?.tweet) {
+    return { ok: false, platform: "facebook", status: "failed", line: "❌ *Facebook:* no hay post aprobado", error: "no hay post aprobado" };
+  }
+  if (fbState.status === "published") {
+    return { ok: true, platform: "facebook", status: "published", line: "✅ *Facebook:* ya estaba publicado", link: fbState.link };
+  }
   try {
     const { extractHandles } = await import("./social/xverify");
     // Gate: refuse @mentions that are neither verified (in fbMentions) nor
@@ -818,7 +826,13 @@ async function publishToFb(published: PublishedEntry, state: PendingState): Prom
     const mentions = fbState.fbMentions ?? [];
     const unverified = handles.filter((h) => !mentions.some((m) => m.handle.toLowerCase() === h.toLowerCase()));
     if (unverified.length > 0 && fbState.handlesApproved !== true) {
-      return { ok: false, line: "❌ *Facebook:* menciones sin verificar — usa ✂️ Quitar menciones o ✅ Aprobar." };
+      return {
+        ok: false,
+        platform: "facebook",
+        status: "failed",
+        line: "❌ *Facebook:* menciones sin verificar — usa ✂️ Quitar menciones o ✅ Aprobar.",
+        error: "menciones sin verificar",
+      };
     }
     const blogUrl = `https://urbanstylepublicity.com/blog/${published.slug}`;
 
@@ -830,10 +844,16 @@ async function publishToFb(published: PublishedEntry, state: PendingState): Prom
         const post = await createFbPost(fbState.tweet, blogUrl);
         fbState.status = "published";
         fbState.publishedAt = new Date().toISOString();
+        fbState.link = post.externalLink;
         fbState.error = undefined;
         await saveState(state);
-        await sendAlert(`[Urban Sync] Publicado en Facebook (Graph API): ${published.title}`, `${fbState.tweet}\n\n${post.externalLink}`);
-        return { ok: true, line: `✅ *Facebook (directo):* ${escMarkdown(post.externalLink)}` };
+        return {
+          ok: true,
+          platform: "facebook",
+          status: "published",
+          line: `✅ *Facebook (directo):* ${escMarkdown(post.externalLink)}`,
+          link: post.externalLink,
+        };
       } catch (err) {
         // Fallback to Buffer below (no post was created on a failed call).
         console.warn("[bot] postFb direct FB failed — falling back to Buffer:", (err as Error).message);
@@ -847,79 +867,148 @@ async function publishToFb(published: PublishedEntry, state: PendingState): Prom
     const post = await createPost(channel.id, fbState.tweet, imageUrl ?? undefined, fbType);
     fbState.status = "published";
     fbState.publishedAt = new Date().toISOString();
+    fbState.link = post.externalLink || undefined;
     fbState.error = undefined;
     await saveState(state);
     const link = post.externalLink ?? "";
-    await sendAlert(`[Urban Sync] Publicado en Facebook: ${published.title}`, `${fbState.tweet}\n\n${link}`);
-    return { ok: true, line: link ? `✅ *Facebook:* ${escMarkdown(link)}` : "✅ *Facebook:* publicado" };
+    return {
+      ok: true,
+      platform: "facebook",
+      status: "published",
+      line: link ? `✅ *Facebook:* ${escMarkdown(link)}` : "✅ *Facebook:* publicado",
+      link: link || undefined,
+    };
   } catch (err) {
     console.error("[bot] postFb failed:", err);
     fbState.status = "failed";
     fbState.error = (err as Error).message;
     await saveState(state);
-    await sendAlert("[Urban Sync] Error publicando en Facebook", `${(err as Error).message}\n\nPost: ${published.title}`);
-    return { ok: false, line: `❌ *Facebook:* ${(err as Error).message}` };
+    return {
+      ok: false,
+      platform: "facebook",
+      status: "failed",
+      line: `❌ *Facebook:* ${(err as Error).message}`,
+      error: (err as Error).message,
+    };
   }
 }
 
-async function publishToGbp(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
+export async function publishToGbp(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
   const fbState = published.social.facebook;
   const gbpState = published.social.gbp ?? { status: "queued" };
   published.social.gbp = gbpState;
-  if (!fbState?.tweet) return { ok: false, line: "❌ *Google:* no hay texto de Facebook aprobado" };
-  if (gbpState.status === "published") return { ok: true, line: "✅ *Google:* ya estaba publicado" };
+  if (!fbState?.tweet) {
+    return {
+      ok: false,
+      platform: "gbp",
+      status: "failed",
+      line: "❌ *Google:* no hay texto de Facebook aprobado",
+      error: "no hay texto de Facebook aprobado",
+    };
+  }
+  if (gbpState.status === "published") {
+    return { ok: true, platform: "gbp", status: "published", line: "✅ *Google:* ya estaba publicado", link: gbpState.link };
+  }
   try {
     const { stripMentions, createGbpPost } = await import("./social/gbp");
     const text = stripMentions(fbState.tweet, fbState.fbMentions ?? []);
-    if (!text) return { ok: false, line: "❌ *Google:* texto vacío tras quitar menciones" };
+    if (!text) {
+      return {
+        ok: false,
+        platform: "gbp",
+        status: "failed",
+        line: "❌ *Google:* texto vacío tras quitar menciones",
+        error: "texto vacío tras quitar menciones",
+      };
+    }
     const imageUrl = getPostImageUrl(published.slug);
     const post = await createGbpPost(text, imageUrl ?? undefined);
     gbpState.status = "published";
     gbpState.tweet = text;
     gbpState.publishedAt = new Date().toISOString();
+    gbpState.link = post.externalLink || undefined;
     gbpState.error = undefined;
     await saveState(state);
     const link = post.externalLink ?? "";
-    await sendAlert(`[Urban Sync] Publicado en Google Business Profile: ${published.title}`, `${text}\n\n${link}`);
-    return { ok: true, line: link ? `✅ *Google:* ${escMarkdown(link)}` : "✅ *Google:* publicado" };
+    return {
+      ok: true,
+      platform: "gbp",
+      status: "published",
+      line: link ? `✅ *Google:* ${escMarkdown(link)}` : "✅ *Google:* publicado",
+      link: link || undefined,
+    };
   } catch (err) {
     console.error("[bot] postGbp failed:", err);
     gbpState.status = "failed";
     gbpState.error = (err as Error).message;
     await saveState(state);
-    await sendAlert("[Urban Sync] Error publicando en Google Business Profile", `${(err as Error).message}\n\nPost: ${published.title}`);
-    return { ok: false, line: `❌ *Google:* ${(err as Error).message}` };
+    return {
+      ok: false,
+      platform: "gbp",
+      status: "failed",
+      line: `❌ *Google:* ${(err as Error).message}`,
+      error: (err as Error).message,
+    };
   }
 }
 
-async function publishToLinkedIn(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
+export async function publishToLinkedIn(published: PublishedEntry, state: PendingState): Promise<PublishResult> {
   const fbState = published.social.facebook;
   const liState = published.social.linkedin ?? { status: "queued" };
   published.social.linkedin = liState;
-  if (!fbState?.tweet) return { ok: false, line: "❌ *LinkedIn:* no hay texto de Facebook aprobado" };
-  if (liState.status === "published") return { ok: true, line: "✅ *LinkedIn:* ya estaba publicado" };
+  if (!fbState?.tweet) {
+    return {
+      ok: false,
+      platform: "linkedin",
+      status: "failed",
+      line: "❌ *LinkedIn:* no hay texto de Facebook aprobado",
+      error: "no hay texto de Facebook aprobado",
+    };
+  }
+  if (liState.status === "published") {
+    return { ok: true, platform: "linkedin", status: "published", line: "✅ *LinkedIn:* ya estaba publicado", link: liState.link };
+  }
   try {
     const { stripMentions } = await import("./social/gbp");
     const { createLinkedInPost } = await import("./social/linkedin");
     const text = stripMentions(fbState.tweet, fbState.fbMentions ?? []);
-    if (!text) return { ok: false, line: "❌ *LinkedIn:* texto vacío tras quitar menciones" };
+    if (!text) {
+      return {
+        ok: false,
+        platform: "linkedin",
+        status: "failed",
+        line: "❌ *LinkedIn:* texto vacío tras quitar menciones",
+        error: "texto vacío tras quitar menciones",
+      };
+    }
     const imageUrl = getPostImageUrl(published.slug);
     const post = await createLinkedInPost(text, imageUrl ?? undefined);
     liState.status = "published";
     liState.tweet = text;
     liState.publishedAt = new Date().toISOString();
+    liState.link = post.externalLink || undefined;
     liState.error = undefined;
     await saveState(state);
     const link = post.externalLink ?? "";
-    await sendAlert(`[Urban Sync] Publicado en LinkedIn: ${published.title}`, `${text}\n\n${link}`);
-    return { ok: true, line: link ? `✅ *LinkedIn:* ${escMarkdown(link)}` : "✅ *LinkedIn:* publicado" };
+    return {
+      ok: true,
+      platform: "linkedin",
+      status: "published",
+      line: link ? `✅ *LinkedIn:* ${escMarkdown(link)}` : "✅ *LinkedIn:* publicado",
+      link: link || undefined,
+    };
   } catch (err) {
     console.error("[bot] postLinkedIn failed:", err);
     liState.status = "failed";
     liState.error = (err as Error).message;
     await saveState(state);
-    await sendAlert("[Urban Sync] Error publicando en LinkedIn", `${(err as Error).message}\n\nPost: ${published.title}`);
-    return { ok: false, line: `❌ *LinkedIn:* ${(err as Error).message}` };
+    return {
+      ok: false,
+      platform: "linkedin",
+      status: "failed",
+      line: `❌ *LinkedIn:* ${(err as Error).message}`,
+      error: (err as Error).message,
+    };
   }
 }
 
@@ -988,46 +1077,38 @@ bot.callbackQuery(/^social:(.+)$/, async (ctx) => {
   if (xClean && fbClean) {
     // Everything approved → publish the remaining platforms. GBP and LinkedIn
     // are derived from the approved FB text (mentions stripped), so fbClean
-    // implies both are ready — no separate approval step.
+    // implies both are ready — no separate approval step. One consolidated
+    // report email is sent at the end of the attempt.
     const statusMsg = await ctx.reply("⏳ Publicando en redes...", { parse_mode: "Markdown" });
     const lines: string[] = [];
+    const results: PublishResult[] = [];
+
+    const attempt = async (progress: string, run: () => Promise<PublishResult>): Promise<boolean> => {
+      await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, progress, { parse_mode: "Markdown" });
+      const result = await run();
+      results.push(result);
+      lines.push(result.line);
+      return result.ok;
+    };
+
+    let allOk = true;
     if (!xDone) {
-      await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Publicando en X (@pegadacarteles) vía Buffer...", { parse_mode: "Markdown" });
-      const rx = await publishToX(published, state);
-      lines.push(rx.line);
-      if (!rx.ok) {
-        await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, lines.join("\n"), { parse_mode: "Markdown" });
-        return;
-      }
+      allOk = await attempt("⏳ Publicando en X (@pegadacarteles) vía Buffer...", () => publishToX(published, state));
     }
-    if (!fbDone) {
-      await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Publicando en Facebook (Urban Style Publicity) vía Buffer...", { parse_mode: "Markdown" });
-      const rf = await publishToFb(published, state);
-      lines.push(rf.line);
-      if (!rf.ok) {
-        await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, lines.join("\n"), { parse_mode: "Markdown" });
-        return;
-      }
+    if (allOk && !fbDone) {
+      allOk = await attempt("⏳ Publicando en Facebook (Urban Style Publicity) vía Buffer...", () => publishToFb(published, state));
     }
-    if (!gbpDone) {
-      await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Publicando en Google Business Profile (Urban Style Publicity) vía Buffer...", { parse_mode: "Markdown" });
-      const rg = await publishToGbp(published, state);
-      lines.push(rg.line);
-      if (!rg.ok) {
-        await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, lines.join("\n"), { parse_mode: "Markdown" });
-        return;
-      }
+    if (allOk && !gbpDone) {
+      allOk = await attempt("⏳ Publicando en Google Business Profile (Urban Style Publicity) vía Buffer...", () => publishToGbp(published, state));
     }
-    if (!linkedinDone) {
-      await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, "⏳ Publicando en LinkedIn (urban-style-publicity) vía Buffer...", { parse_mode: "Markdown" });
-      const rl = await publishToLinkedIn(published, state);
-      lines.push(rl.line);
-      if (!rl.ok) {
-        await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, lines.join("\n"), { parse_mode: "Markdown" });
-        return;
-      }
+    if (allOk && !linkedinDone) {
+      allOk = await attempt("⏳ Publicando en LinkedIn (urban-style-publicity) vía Buffer...", () => publishToLinkedIn(published, state));
     }
-    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, `✅ *Publicado en redes:*\n\n${lines.join("\n")}`, { parse_mode: "Markdown" });
+
+    await sendPublishReport(published, results);
+
+    const summary = allOk ? `✅ *Publicado en redes:*\n\n${lines.join("\n")}` : lines.join("\n");
+    await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, summary, { parse_mode: "Markdown" });
     return;
   }
 
@@ -1487,6 +1568,7 @@ bot.callbackQuery(/^postX:(.+)$/, async (ctx) => {
   await ctx.answerCallbackQuery({ text: "Publicando en X..." });
   const statusMsg = await ctx.reply(`⏳ Publicando tweet en X (@pegadacarteles) vía Buffer...`, { parse_mode: "Markdown" });
   const rx = await publishToX(published, state);
+  await sendPublishReport(published, [rx]);
   await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, rx.line, { parse_mode: "Markdown" });
 });
 
@@ -1512,6 +1594,7 @@ bot.callbackQuery(/^postFb:(.+)$/, async (ctx) => {
   await ctx.answerCallbackQuery({ text: "Publicando en Facebook..." });
   const statusMsg = await ctx.reply(`⏳ Publicando en Facebook (Urban Style Publicity) vía Buffer...`, { parse_mode: "Markdown" });
   const rf = await publishToFb(published, state);
+  await sendPublishReport(published, [rf]);
   await ctx.api.editMessageText(ctx.chat!.id, statusMsg.message_id, rf.line, { parse_mode: "Markdown" });
 });
 
@@ -2132,21 +2215,23 @@ bot.catch((err) => {
   console.error("[bot] error:", err.error);
 });
 
-console.log("[bot] starting Telegram bot...");
+if (import.meta.main) {
+  console.log("[bot] starting Telegram bot...");
 
-// Seed the verified-lookup caches from persisted state.
-(async () => {
-  try {
-    const state = await loadState();
-    const { seedKnownArtistHandles } = await import("./social/xverify");
-    const { seedKnownFbPages } = await import("./social/fbverify");
-    seedKnownArtistHandles(state.knownXHandles);
-    seedKnownFbPages(state.knownFbPages);
-    console.log("[bot] caches sembrados:", Object.keys(state.knownXHandles ?? {}).length, "artistas,", Object.keys(state.knownFbPages ?? {}).length, "páginas FB");
-  } catch (err) {
-    console.warn("[bot] no se pudieron sembrar caches:", (err as Error).message);
-  }
-})();
+  // Seed the verified-lookup caches from persisted state.
+  (async () => {
+    try {
+      const state = await loadState();
+      const { seedKnownArtistHandles } = await import("./social/xverify");
+      const { seedKnownFbPages } = await import("./social/fbverify");
+      seedKnownArtistHandles(state.knownXHandles);
+      seedKnownFbPages(state.knownFbPages);
+      console.log("[bot] caches sembrados:", Object.keys(state.knownXHandles ?? {}).length, "artistas,", Object.keys(state.knownFbPages ?? {}).length, "páginas FB");
+    } catch (err) {
+      console.warn("[bot] no se pudieron sembrar caches:", (err as Error).message);
+    }
+  })();
 
-bot.start({ onStart: (me) => console.log(`[bot] running as @${me.username}`) });
-void retryPendingTranslations();
+  bot.start({ onStart: (me) => console.log(`[bot] running as @${me.username}`) });
+  void retryPendingTranslations();
+}

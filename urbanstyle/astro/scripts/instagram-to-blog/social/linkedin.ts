@@ -9,6 +9,8 @@
  * (AnnotationInputLinkedIn), left as future work.
  */
 
+import { DRY_RUN_LINK, dryRunLog, isDryRun } from "../dryRun";
+
 const API_URL = "https://api.buffer.com/graphql";
 
 function token(): string {
@@ -50,6 +52,10 @@ interface CreatePostResult {
 
 /** Find the LinkedIn channel in the GBP Buffer workspace. */
 export async function getLinkedInChannel(): Promise<{ id: string; name: string }> {
+  if (isDryRun()) {
+    dryRunLog("LinkedIn channel lookup skipped");
+    return { id: "lich", name: "dry-run linkedin" };
+  }
   const orgId =
     process.env.GBP_BUFFER_ORGANIZATION_ID ??
     (async () => {
@@ -75,6 +81,10 @@ export async function createLinkedInPost(
   text: string,
   imageUrl?: string,
 ): Promise<{ id: string; externalLink?: string }> {
+  if (isDryRun()) {
+    dryRunLog("LinkedIn createLinkedInPost skipped");
+    return { id: "dry-linkedin", externalLink: `${DRY_RUN_LINK}/linkedin` };
+  }
   const assets = imageUrl ? [{ image: { url: imageUrl } }] : [];
   const result = await gql<CreatePostResult>(
     `mutation CreatePost($input: CreatePostInput!) {

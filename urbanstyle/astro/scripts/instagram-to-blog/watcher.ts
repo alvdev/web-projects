@@ -39,7 +39,7 @@ async function ensureToken(state: Awaited<ReturnType<typeof loadState>>): Promis
   return token;
 }
 
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
   console.log(`=== instagram-to-blog hourly watcher ===`);
 
   try {

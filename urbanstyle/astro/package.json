@@ -9,6 +9,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test": "bun test --isolate scripts/instagram-to-blog",
+    "sandbox": "bun run scripts/instagram-to-blog/sandbox/run.ts",
     "instagram:sync": "bun run scripts/instagram-to-blog/index.ts"
   },
   "dependencies": {
@@ -47,6 +49,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
+    "@types/bun": "^1.4.2",
     "@types/nodemailer": "^8.0.1",
     "camoufox-js": "^0.12.0",
     "playwright-core": "^1.63.0"
