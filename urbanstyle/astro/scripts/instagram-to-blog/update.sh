@@ -43,7 +43,11 @@ fi
 
 if echo "$CHANGED" | grep -q "urbanstyle/astro/bun.lock"; then
   echo "=== bun install (lockfile changed) ==="
-  (cd "$ASTRO" && "$BUN" install)
+  # --ignore-scripts: kv55 runs only the bot + Astro build, which need no
+  # dependency lifecycle scripts (sharp/esbuild ship platform binaries as
+  # optional deps). It also avoids the node-gyp build of better-sqlite3, a
+  # native dep of camoufox-js used only by the local SEO SERP checker.
+  (cd "$ASTRO" && "$BUN" install --ignore-scripts)
 fi
 
 if echo "$CHANGED" | grep -q "urbanstyle/astro/scripts/instagram-to-blog/systemd/"; then
