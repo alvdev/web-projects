@@ -34,11 +34,14 @@ final class StorePriceDbPathTest extends TestCase
         $db = new StorePriceDB($explicitPath);
         $this->assertFileExists($explicitPath);
 
-        $db->upsertUrl('game', 'steam', 'https://store.steampowered.com/app/1');
-        $this->assertSame(
-            'https://store.steampowered.com/app/1',
-            $db->getPrice('game', 'steam')['url']
-        );
+        $db->upsertPrice('game', 'steam', [
+            'url' => 'https://store.steampowered.com/app/1',
+            'price' => 12.34,
+        ]);
+        $row = $db->getPrice('game', 'steam');
+        $this->assertNotNull($row);
+        $this->assertSame('https://store.steampowered.com/app/1', $row['url']);
+        $this->assertEqualsWithDelta(12.34, (float)$row['price'], 0.001);
 
         $envDb = new StorePriceDB($this->tempDatabasePath);
         $this->assertNull($envDb->getPrice('game', 'steam'));
@@ -49,9 +52,15 @@ final class StorePriceDbPathTest extends TestCase
         $db = new StorePriceDB();
         $this->assertFileExists($this->tempDatabasePath);
 
-        $db->upsertUrl('game', 'g2a', 'https://www.g2a.com/game');
+        $db->upsertPrice('game', 'g2a', [
+            'url' => 'https://www.g2a.com/game',
+            'price' => 9.99,
+        ]);
 
         $direct = new StorePriceDB($this->tempDatabasePath);
-        $this->assertSame('https://www.g2a.com/game', $direct->getPrice('game', 'g2a')['url']);
+        $directRow = $direct->getPrice('game', 'g2a');
+        $this->assertNotNull($directRow);
+        $this->assertSame('https://www.g2a.com/game', $directRow['url']);
+        $this->assertEqualsWithDelta(9.99, (float)$directRow['price'], 0.001);
     }
 }
