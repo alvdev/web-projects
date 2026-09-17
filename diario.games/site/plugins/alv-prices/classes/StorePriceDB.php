@@ -6,14 +6,15 @@ class StorePriceDB
 {
     private \PDO $pdo;
 
-    public function __construct()
+    public function __construct(?string $dbPath = null)
     {
-        $dbDir = dirname(__DIR__, 4) . '/sqlite';
+        $dbPath ??= (getenv('STEAM_STATS_DB_PATH') ?: dirname(__DIR__, 4) . '/sqlite/steam_stats.db');
+
+        $dbDir = dirname($dbPath);
         if (!is_dir($dbDir)) {
             mkdir($dbDir, 0755, true);
         }
 
-        $dbPath = $dbDir . '/steam_stats.db';
         $this->pdo = new \PDO('sqlite:' . $dbPath, options: [
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
         ]);
