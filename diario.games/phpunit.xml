@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         cacheDirectory="tests/.tmp/phpunit.cache"
+         colors="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true">
+    <testsuites>
+        <testsuite name="unit">
+            <directory>tests/phpunit/Unit</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>tests/phpunit/Integration</directory>
+        </testsuite>
+        <testsuite name="cli">
+            <directory>tests/phpunit/Cli</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
