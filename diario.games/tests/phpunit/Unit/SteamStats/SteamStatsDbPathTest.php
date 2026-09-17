@@ -32,9 +32,9 @@ final class SteamStatsDbPathTest extends TestCase
     {
         $explicitPath = $this->tempDatabaseDir . '/explicit.db';
         $db = new SteamStatsDB($explicitPath);
-        $db->upsertGame(730, 'counter-strike-2', 'Counter-Strike 2');
-
         $this->assertFileExists($explicitPath);
+
+        $db->upsertGame(730, 'counter-strike-2', 'Counter-Strike 2');
         $this->assertSame('counter-strike-2', $db->getGameBySlug('counter-strike-2')['slug']);
 
         $envDb = new SteamStatsDB($this->tempDatabasePath);
