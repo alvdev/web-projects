@@ -172,9 +172,15 @@ function downloadImage(string $url, string $destPath): bool
     return true;
 }
 
-function _db(): ?\Alv\SteamStats\SteamStatsDB
+function _db(bool $reset = false): ?\Alv\SteamStats\SteamStatsDB
 {
     static $instance = null;
+
+    if ($reset) {
+        $instance = null;
+        return null;
+    }
+
     if ($instance === null) {
         try {
             $instance = new \Alv\SteamStats\SteamStatsDB();
@@ -182,6 +188,7 @@ function _db(): ?\Alv\SteamStats\SteamStatsDB
             return null;
         }
     }
+
     return $instance;
 }
 
