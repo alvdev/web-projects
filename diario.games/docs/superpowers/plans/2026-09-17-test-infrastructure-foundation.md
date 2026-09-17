@@ -10,6 +10,12 @@
 
 **Spec:** `docs/superpowers/specs/2026-09-17-regression-test-suite-design.md` (Phases 1 and seam 1 only; later phases get their own plans).
 
+**Execution notes (post-review hardening, 2026-09-17):** During execution, code review hardened several tests beyond the snippets below. The committed code is authoritative:
+- `TempDatabase` saves/restores a pre-existing `STEAM_STATS_DB_PATH`, guards teardown when setup never ran, and defaults its properties to `''`.
+- Seam tests assert the mechanism (explicit path takes precedence and env-path DB stays empty; env override round-trips data) with fail-safe assertion ordering (path assertion before any fixture write).
+- `StorePriceDbPathTest` uses the primary `upsertPrice` write path and `assertNotNull` before row access.
+- Actual counts: Task 3 = 2 tests / 5 assertions; Task 4 = 2 tests / 9 assertions; Task 5 = 1 test / 7 assertions; Task 7 = 16 tests / 28 assertions; full PHP suite = 52 tests / 149 assertions; Vitest = 15 tests.
+
 ---
 
 ## File Structure
