@@ -130,9 +130,9 @@ class StorePriceDB
         ]);
     }
 
-    public function isExpired(int $scrapedAt, int $ttl = 86400): bool
+    public function isExpired(int $scrapedAt, int $ttl = 86400, ?int $now = null): bool
     {
-        return (time() - $scrapedAt) >= $ttl;
+        return (($now ?? time()) - $scrapedAt) >= $ttl;
     }
 
     public function upsertG2aProduct(string $productId, string $name): void
