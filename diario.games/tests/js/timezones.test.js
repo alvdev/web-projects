@@ -16,7 +16,7 @@ describe('normalize', () => {
     expect(normalize('SÃO PAULO')).toBe('sao paulo')
   })
 
-  it('strips only Latin-1 accented characters', () => {
+  it('strips accents only in the à–ü range', () => {
     expect(normalize('Köln')).toBe('koln')
     expect(normalize('Łódź')).toBe('łodź')
     expect(normalize('Straße')).toBe('straße')
