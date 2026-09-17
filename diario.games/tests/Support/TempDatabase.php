@@ -6,8 +6,9 @@ namespace Tests\Support;
 
 trait TempDatabase
 {
-    protected string $tempDatabaseDir;
-    protected string $tempDatabasePath;
+    protected string $tempDatabaseDir = '';
+    protected string $tempDatabasePath = '';
+    private string|false $previousDbPathEnv = false;
 
     protected function setUpTempDatabase(): void
     {
@@ -17,6 +18,7 @@ trait TempDatabase
         }
 
         $this->tempDatabasePath = $this->tempDatabaseDir . '/steam_stats.db';
+        $this->previousDbPathEnv = getenv('STEAM_STATS_DB_PATH');
         putenv('STEAM_STATS_DB_PATH=' . $this->tempDatabasePath);
 
         if (function_exists('DiarioGames\\IGDB\\_db')) {
@@ -26,7 +28,15 @@ trait TempDatabase
 
     protected function tearDownTempDatabase(): void
     {
-        putenv('STEAM_STATS_DB_PATH');
+        if ($this->tempDatabaseDir === '') {
+            return;
+        }
+
+        if ($this->previousDbPathEnv === false) {
+            putenv('STEAM_STATS_DB_PATH');
+        } else {
+            putenv('STEAM_STATS_DB_PATH=' . $this->previousDbPathEnv);
+        }
 
         if (function_exists('DiarioGames\\IGDB\\_db')) {
             \DiarioGames\IGDB\_db(true);
@@ -36,5 +46,7 @@ trait TempDatabase
             @unlink($file);
         }
         @rmdir($this->tempDatabaseDir);
+        $this->tempDatabaseDir = '';
+        $this->tempDatabasePath = '';
     }
 }

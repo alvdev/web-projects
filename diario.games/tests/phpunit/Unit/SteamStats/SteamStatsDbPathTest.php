@@ -28,19 +28,27 @@ final class SteamStatsDbPathTest extends TestCase
         $this->tearDownTempDatabase();
     }
 
-    public function testConstructorCreatesDatabaseAtGivenPath(): void
+    public function testConstructorPrefersExplicitPathOverEnv(): void
     {
-        $db = new SteamStatsDB($this->tempDatabasePath);
-
-        $this->assertFileExists($this->tempDatabasePath);
+        $explicitPath = $this->tempDatabaseDir . '/explicit.db';
+        $db = new SteamStatsDB($explicitPath);
         $db->upsertGame(730, 'counter-strike-2', 'Counter-Strike 2');
+
+        $this->assertFileExists($explicitPath);
         $this->assertSame('counter-strike-2', $db->getGameBySlug('counter-strike-2')['slug']);
+
+        $envDb = new SteamStatsDB($this->tempDatabasePath);
+        $this->assertNull($envDb->getGameBySlug('counter-strike-2'));
     }
 
     public function testConstructorHonorsEnvOverride(): void
     {
-        new SteamStatsDB();
-
+        $db = new SteamStatsDB();
         $this->assertFileExists($this->tempDatabasePath);
+
+        $db->upsertGame(570, 'dota-2', 'Dota 2');
+
+        $direct = new SteamStatsDB($this->tempDatabasePath);
+        $this->assertSame('dota-2', $direct->getGameBySlug('dota-2')['slug']);
     }
 }
