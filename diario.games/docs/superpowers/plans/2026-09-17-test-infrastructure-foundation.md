@@ -412,8 +412,8 @@ describe('getCountryForTimezone', () => {
 })
 
 describe('getDisplayLabel', () => {
-  it('combines country and zone name', () => {
-    expect(getDisplayLabel('Europe/Madrid')).toBe('España - Madrid')
+  it('combines country and localized zone name', () => {
+    expect(getDisplayLabel('Europe/Madrid')).toBe('España - Península y Baleares')
   })
 
   it('returns the raw timezone when no country is known', () => {
