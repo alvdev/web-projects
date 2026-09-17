@@ -1,7 +1,7 @@
 # Regression Test Suite — Design
 
 Date: 2026-09-17
-Status: proposed
+Status: approved
 
 ## Goal
 
