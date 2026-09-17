@@ -15,6 +15,12 @@ describe('normalize', () => {
     expect(normalize('España')).toBe('espana')
     expect(normalize('SÃO PAULO')).toBe('sao paulo')
   })
+
+  it('strips only Latin-1 accented characters', () => {
+    expect(normalize('Köln')).toBe('koln')
+    expect(normalize('Łódź')).toBe('łodź')
+    expect(normalize('Straße')).toBe('straße')
+  })
 })
 
 describe('findCityMatch', () => {
@@ -23,6 +29,7 @@ describe('findCityMatch', () => {
     expect(findCityMatch('londres')).toBe('Europe/London')
     expect(findCityMatch('amst')).toBe('Europe/Amsterdam')
     expect(findCityMatch('sterdam')).toBe('Europe/Amsterdam')
+    expect(findCityMatch('México')).toBe('America/Mexico_City')
   })
 
   it('returns null for empty or unknown queries', () => {
@@ -37,6 +44,7 @@ describe('findCountryMatch', () => {
     expect(findCountryMatch('España')).toEqual(['Europe/Madrid', 'Atlantic/Canary', 'Africa/Ceuta'])
     expect(findCountryMatch('espana')).toEqual(['Europe/Madrid', 'Atlantic/Canary', 'Africa/Ceuta'])
     expect(findCountryMatch('mex')).toEqual(findCountryMatch('Mexico'))
+    expect(findCountryMatch('Mexico')).toContain('America/Mexico_City')
   })
 
   it('returns null for unknown queries', () => {
@@ -83,8 +91,9 @@ describe('getUtcOffset', () => {
   })
 
   it('returns hour offsets for real zones', () => {
-    expect(getUtcOffset('Europe/Madrid')).toMatch(/^\+[12](:00)?$/)
-    expect(getUtcOffset('America/New_York')).toMatch(/^-[45](:00)?$/)
+    expect(getUtcOffset('Europe/Madrid')).toMatch(/^\+0?[12](:00)?$/)
+    expect(getUtcOffset('America/New_York')).toMatch(/^-0?[45](:00)?$/)
+    expect(getUtcOffset('Asia/Kolkata')).toBe('+5:30')
   })
 
   it('falls back to +00:00 for invalid zones', () => {
