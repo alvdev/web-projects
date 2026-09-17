@@ -115,7 +115,7 @@ async function runInClone(): Promise<number> {
 
   // Never let production credentials leak into the sandbox process.
   for (const key of Object.keys(process.env)) {
-    if (/^(FTP_|BUFFER_|GBP_BUFFER_|FB_|IG_|GEMINI_|OPENCODE_|SMTP_|ALERT_EMAIL)/.test(key)) {
+    if (/^(FTP_|BUFFER_|GBP_BUFFER_|FB_|IG_|GEMINI_|OPENCODE_|DEEPSEEK_|SMTP_|ALERT_EMAIL)/.test(key)) {
       delete process.env[key];
     }
   }
@@ -126,6 +126,7 @@ async function runInClone(): Promise<number> {
   // auth errors later (translations are queued for retry), never reaching the network
   // with real credentials.
   process.env.OPENCODE_API_KEY = "sandbox";
+  process.env.DEEPSEEK_API_KEY = "sandbox";
   process.env.GEMINI_API_KEY = "sandbox";
 
   // Local image server for downloadImage (1x1 PNG placeholder).

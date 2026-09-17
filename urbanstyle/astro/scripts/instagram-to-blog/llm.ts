@@ -13,23 +13,34 @@ const BASE_DELAY_MS = 2000;
 // the loop (see below) so a fully quota-exhausted day can never block the flow forever.
 const AVAILABILITY_INTERVALS_MS = [30_000, 60_000, 120_000, 120_000];
 
+// LLM backend for the DeepSeek client: "deepseek" (direct API, default) or
+// "opencode" (zen/go gateway, kept as a fallback). LLM_PROVIDER switches back.
+const LLM_PROVIDER = process.env.LLM_PROVIDER ?? "deepseek";
+const USE_OPENCODE_GATEWAY = LLM_PROVIDER === "opencode";
+
 // Stable session id for opencode Go API (x-opencode-session header, required
-// since ~2026-09-07 for routing/prompt-caching). One per process — retries of a
-// request reuse it.
+// since ~2026-09-07 for routing/prompt-caching). Only used with the opencode
+// gateway. One per process — retries of a request reuse it.
 const OPENCODE_SESSION_ID = `urbanstyle-ig-blog-${randomUUID()}`;
 
 const deepseekClient = new OpenAI({
-  apiKey: process.env.OPENCODE_API_KEY ?? "",
-  baseURL: process.env.OPENCODE_BASE_URL ?? "https://opencode.ai/zen/go/v1",
+  apiKey: USE_OPENCODE_GATEWAY
+    ? process.env.OPENCODE_API_KEY ?? ""
+    : process.env.DEEPSEEK_API_KEY ?? "",
+  baseURL: USE_OPENCODE_GATEWAY
+    ? process.env.OPENCODE_BASE_URL ?? "https://opencode.ai/zen/go/v1"
+    : process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com",
   defaultHeaders: {
-    "x-opencode-session": OPENCODE_SESSION_ID,
+    ...(USE_OPENCODE_GATEWAY ? { "x-opencode-session": OPENCODE_SESSION_ID } : {}),
     "User-Agent": "urbanstyle-ig-blog/1.0",
   },
   timeout: 180_000,
   maxRetries: 0,
 });
 
-const DEEPSEEK_MODEL = process.env.OPENCODE_MODEL ?? "deepseek-v4-flash";
+const DEEPSEEK_MODEL = USE_OPENCODE_GATEWAY
+  ? process.env.OPENCODE_MODEL ?? "deepseek-v4-flash"
+  : process.env.DEEPSEEK_MODEL ?? "deepseek-flash";
 
 const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
 
