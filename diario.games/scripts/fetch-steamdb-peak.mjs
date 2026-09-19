@@ -1,8 +1,8 @@
 import { launchOptions } from 'camoufox-js';
 import { firefox } from 'playwright-core';
-import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildProxyUrl, computePeak, loadEnv, sleep } from './lib/steamdb-parsers.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const appid = process.argv[2];
@@ -15,36 +15,8 @@ if (!appid) {
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 3000;
 
-function loadEnv() {
-    const envPath = resolve(__dirname, '..', '.env');
-    try {
-        const content = readFileSync(envPath, 'utf-8');
-        const env = {};
-        for (const line of content.split('\n')) {
-            const trimmed = line.trim();
-            if (!trimmed || trimmed.startsWith('#')) continue;
-            const eqIdx = trimmed.indexOf('=');
-            if (eqIdx === -1) continue;
-            env[trimmed.slice(0, eqIdx)] = trimmed.slice(eqIdx + 1);
-        }
-        return env;
-    } catch { return {}; }
-}
-
-function buildProxyUrl(env) {
-    const host = env.PROXY_HOST, port = env.PROXY_PORT, user = env.PROXY_USER, pass = env.PROXY_PASS;
-    if (!host || !port) return null;
-    const p = { server: `http://${host}:${port}` };
-    if (user && pass) { p.username = user; p.password = pass; }
-    return p;
-}
-
-const env = loadEnv();
+const env = loadEnv(resolve(__dirname, '..', '.env'));
 const proxy = buildProxyUrl(env);
-
-async function sleep(ms) {
-    return new Promise(r => setTimeout(r, ms));
-}
 
 async function attemptScrape() {
     let browser;
@@ -116,16 +88,13 @@ async function attemptScrape() {
         }
 
         const { start, step, values } = apiJson.data;
-        let maxPeak = 0, maxIdx = 0;
-        for (let i = 0; i < values.length; i++) {
-            if (values[i] > maxPeak) { maxPeak = values[i]; maxIdx = i; }
-        }
+        const peak = computePeak(values, start, step);
 
-        if (maxPeak === 0) {
+        if (!peak) {
             return { success: false, reason: 'zero-peak' };
         }
 
-        console.log(JSON.stringify({ peak: maxPeak, timestamp: start + maxIdx * step }));
+        console.log(JSON.stringify(peak));
         return { success: true };
 
     } catch (err) {

@@ -1,8 +1,8 @@
 import { launchOptions } from 'camoufox-js';
 import { firefox } from 'playwright-core';
-import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildProxyUrl, loadEnv, parseDataTableRows, sleep } from './lib/steamdb-parsers.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CHARTS_URL = process.env.CHARTS_URL || 'https://steamdb.info/charts/';
@@ -11,36 +11,8 @@ const limit = Math.max(100, parseInt(process.argv[2] || '1000', 10) || 1000);
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 3000;
 
-function loadEnv() {
-    const envPath = resolve(__dirname, '..', '.env');
-    try {
-        const content = readFileSync(envPath, 'utf-8');
-        const env = {};
-        for (const line of content.split('\n')) {
-            const trimmed = line.trim();
-            if (!trimmed || trimmed.startsWith('#')) continue;
-            const eqIdx = trimmed.indexOf('=');
-            if (eqIdx === -1) continue;
-            env[trimmed.slice(0, eqIdx)] = trimmed.slice(eqIdx + 1);
-        }
-        return env;
-    } catch { return {}; }
-}
-
-function buildProxyUrl(env) {
-    const host = env.PROXY_HOST, port = env.PROXY_PORT, user = env.PROXY_USER, pass = env.PROXY_PASS;
-    if (!host || !port) return null;
-    const p = { server: `http://${host}:${port}` };
-    if (user && pass) { p.username = user; p.password = pass; }
-    return p;
-}
-
-const env = loadEnv();
+const env = loadEnv(resolve(__dirname, '..', '.env'));
 const proxy = buildProxyUrl(env);
-
-async function sleep(ms) {
-    return new Promise(r => setTimeout(r, ms));
-}
 
 async function attemptScrape() {
     let browser;
@@ -117,36 +89,11 @@ async function attemptScrape() {
                         d.innerHTML = html || '';
                         return d.textContent.replace(/\s+/g, ' ').trim();
                     };
-                    const num = (cell) => {
-                        if (cell && typeof cell === 'object') {
-                            const raw = cell['@data-sort'] !== undefined ? cell['@data-sort'] : cell.display;
-                            return parseInt(String(raw).replace(/[^\d]/g, ''), 10) || 0;
-                        }
-                        return parseInt(String(cell ?? '0').replace(/[^\d]/g, ''), 10) || 0;
-                    };
 
-                    const rows = [];
                     const data = api.rows().data().toArray();
-                    for (let i = 0; i < data.length && rows.length < maxRows; i++) {
-                        const row = data[i];
-                        if (!Array.isArray(row) || row.length < 6) continue;
-                        const logoHtml = String(row[1] ?? '');
-                        const nameHtml = String(row[2] ?? '');
-                        const match = (logoHtml + ' ' + nameHtml).match(/\/app\/(\d+)\//);
-                        if (!match) continue;
+                    const names = data.map((row) => strip(Array.isArray(row) ? row[2] : ''));
 
-                        rows.push({
-                            rank: rows.length + 1,
-                            appid: parseInt(match[1], 10),
-                            name: strip(nameHtml),
-                            current: num(row[3]),
-                            peak_24h: num(row[4]),
-                            peak_all_time: num(row[5]),
-                        });
-                    }
-
-                    if (!rows.length) return null;
-                    return { total, rows };
+                    return { total, data, names };
                 } catch (e) {
                     return null;
                 }
@@ -157,6 +104,11 @@ async function attemptScrape() {
             }
 
             if (!extracted) await page.waitForTimeout(500);
+        }
+
+        if (extracted) {
+            const rows = parseDataTableRows(extracted.data, extracted.names, limit);
+            extracted = rows.length ? { total: extracted.total, rows } : null;
         }
 
         if (!extracted) {

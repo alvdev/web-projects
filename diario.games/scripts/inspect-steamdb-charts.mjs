@@ -1,37 +1,13 @@
 import { launchOptions } from 'camoufox-js';
 import { firefox } from 'playwright-core';
-import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildProxyUrl, loadEnv } from './lib/steamdb-parsers.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CHARTS_URL = process.env.CHARTS_URL || 'https://steamdb.info/charts/?category=1';
 
-function loadEnv() {
-    const envPath = resolve(__dirname, '..', '.env');
-    try {
-        const content = readFileSync(envPath, 'utf-8');
-        const env = {};
-        for (const line of content.split('\n')) {
-            const trimmed = line.trim();
-            if (!trimmed || trimmed.startsWith('#')) continue;
-            const eqIdx = trimmed.indexOf('=');
-            if (eqIdx === -1) continue;
-            env[trimmed.slice(0, eqIdx)] = trimmed.slice(eqIdx + 1);
-        }
-        return env;
-    } catch { return {}; }
-}
-
-function buildProxyUrl(env) {
-    const host = env.PROXY_HOST, port = env.PROXY_PORT, user = env.PROXY_USER, pass = env.PROXY_PASS;
-    if (!host || !port) return null;
-    const p = { server: `http://${host}:${port}` };
-    if (user && pass) { p.username = user; p.password = pass; }
-    return p;
-}
-
-const env = loadEnv();
+const env = loadEnv(resolve(__dirname, '..', '.env'));
 const proxy = buildProxyUrl(env);
 
 const options = await launchOptions({
