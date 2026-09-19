@@ -16,6 +16,12 @@
 
 **Prerequisites:** Plans 1–4 merged. Run tests from `diario.games/`. Never write to `content/`, `sqlite/steam_stats.db`, `storage/`, `media/`, `site/cache`.
 
+**Execution notes (2026-09-17):** The committed code is authoritative; deviations from the snippets below:
+- `RouteTestApp::call()` swaps the cached `App::$request` via a `ReflectionProperty` instead of `$app->clone(['request' => null])`. Cloning constructs a new `App` mid-test, which re-registers error/exception handlers and makes PHPUnit mark every test risky.
+- The rankings red-phase run must hold `/tmp/steamdb-charts-browser.lock`; without the spawner seam an un-held lock would launch real background `php` processes.
+- The stale-chunk test requests chunk 0 (rank 1) because the route derives `maxChunk` from the total entry count, so a high sparse rank is treated as out of range.
+- Actual counts: rankings 6/24, search 5/23, game data 4/34, import 5/10; full suite after Plan 5 = 146 tests / 461 assertions / 1 skipped.
+
 ---
 
 ### Task 1: Route harness + rankings freshness matrix
