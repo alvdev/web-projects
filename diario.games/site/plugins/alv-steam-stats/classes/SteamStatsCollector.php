@@ -202,22 +202,35 @@ class SteamStatsCollector
     public function collectSteamDBPeak(int $appid): ?array
     {
         $scriptPath = dirname(__DIR__, 4) . '/scripts/fetch-steamdb-peak.mjs';
+        $stdout = $this->runNodeScript($scriptPath, [$appid]);
+        if ($stdout === null) return null;
+
+        $data = json_decode($stdout, true);
+        if (!$data || empty($data['peak']) || empty($data['timestamp'])) return null;
+
+        return ['peak' => (int)$data['peak'], 'timestamp' => (int)$data['timestamp']];
+    }
+
+    protected function runNodeScript(string $scriptPath, array $args): ?string
+    {
         if (!file_exists($scriptPath)) return null;
 
         $nodeBin = $this->findNodeBinary();
         if (!$nodeBin) return null;
 
-        $cmd = escapeshellarg($nodeBin) . ' ' . escapeshellarg($scriptPath) . ' ' . escapeshellarg((string)$appid) . ' 2>/dev/null';
+        $cmd = escapeshellarg($nodeBin) . ' ' . escapeshellarg($scriptPath);
+        foreach ($args as $arg) {
+            $cmd .= ' ' . escapeshellarg((string)$arg);
+        }
+        $cmd .= ' 2>/dev/null';
+
         $output = [];
         $exitCode = 0;
         exec($cmd, $output, $exitCode);
 
         if ($exitCode !== 0 || empty($output)) return null;
 
-        $data = json_decode($output[0], true);
-        if (!$data || empty($data['peak']) || empty($data['timestamp'])) return null;
-
-        return ['peak' => (int)$data['peak'], 'timestamp' => (int)$data['timestamp']];
+        return implode('', $output);
     }
 
     private function findNodeBinary(): ?string
@@ -322,30 +335,39 @@ class SteamStatsCollector
         if (file_exists($lockFile)) return null;
 
         $scriptPath = dirname(__DIR__, 4) . '/scripts/scrape-steamdb-history.mjs';
-        if (!file_exists($scriptPath)) return null;
-
-        $nodeBin = $this->findNodeBinary();
-        if (!$nodeBin) return null;
 
         touch($lockFile);
 
-        $cmd = escapeshellarg($nodeBin) . ' ' . escapeshellarg($scriptPath) . ' ' . escapeshellarg((string)$appid) . ' 2>/dev/null';
-        $output = [];
-        $exitCode = 0;
-        exec($cmd, $output, $exitCode);
-
-        if ($exitCode !== 0 || empty($output)) {
+        $stdout = $this->runNodeScript($scriptPath, [$appid]);
+        if ($stdout === null) {
             @unlink($lockFile);
             return null;
         }
 
-        $raw = json_decode(implode('', $output), true);
+        $raw = json_decode($stdout, true);
         if (!is_array($raw) || empty($raw)) {
             @unlink($lockFile);
             return null;
         }
 
-        // Support both old format [[ts,count],...] and new format {points, peak_all_time}
+        $mapped = self::mapSteamDbHistory($raw);
+
+        $inserted = 0;
+        foreach ($mapped['points'] as $point) {
+            $this->db->insertPlayerCount($appid, $point['timestamp'], $point['count']);
+            $inserted++;
+        }
+
+        if ($mapped['peak'] > 0) {
+            $this->db->upsertGamePeak($appid, $mapped['peak'], $mapped['peak_timestamp']);
+        }
+
+        @unlink($lockFile);
+        return ['points' => $inserted, 'peak' => $mapped['peak']];
+    }
+
+    public static function mapSteamDbHistory(array $raw): array
+    {
         if (isset($raw['points'])) {
             $data = $raw['points'];
             $domPeak = (int)($raw['peak_all_time'] ?? 0);
@@ -354,18 +376,17 @@ class SteamStatsCollector
             $domPeak = 0;
         }
 
-        $inserted = 0;
+        $points = [];
         $peak = 0;
         $peakTs = null;
 
         foreach ($data as $point) {
-            if (!isset($point[0], $point[1])) continue;
+            if (!is_array($point) || !isset($point[0], $point[1])) continue;
             $ts = (int)($point[0] / 1000);
             $count = (int)$point[1];
             if ($count <= 0) continue;
 
-            $this->db->insertPlayerCount($appid, $ts, $count);
-            $inserted++;
+            $points[] = ['timestamp' => $ts, 'count' => $count];
 
             if ($count > $peak) {
                 $peak = $count;
@@ -373,18 +394,12 @@ class SteamStatsCollector
             }
         }
 
-        // DOM peak takes priority if higher than the daily-bucket max
         if ($domPeak > $peak) {
             $peak = $domPeak;
             $peakTs = 0;
         }
 
-        if ($peak > 0) {
-            $this->db->upsertGamePeak($appid, $peak, $peakTs);
-        }
-
-        @unlink($lockFile);
-        return ['points' => $inserted, 'peak' => $peak];
+        return ['points' => $points, 'peak' => $peak, 'peak_timestamp' => $peakTs];
     }
 
     /**
@@ -394,19 +409,11 @@ class SteamStatsCollector
     public function collectSteamDBCharts(int $limit = 1000): ?array
     {
         $scriptPath = dirname(__DIR__, 4) . '/scripts/scrape-steamdb-charts.mjs';
-        if (!file_exists($scriptPath)) return null;
 
-        $nodeBin = $this->findNodeBinary();
-        if (!$nodeBin) return null;
+        $stdout = $this->runNodeScript($scriptPath, [$limit]);
+        if ($stdout === null) return null;
 
-        $cmd = escapeshellarg($nodeBin) . ' ' . escapeshellarg($scriptPath) . ' ' . escapeshellarg((string)$limit) . ' 2>/dev/null';
-        $output = [];
-        $exitCode = 0;
-        exec($cmd, $output, $exitCode);
-
-        if ($exitCode !== 0 || empty($output)) return null;
-
-        $data = json_decode(implode('', $output), true);
+        $data = json_decode($stdout, true);
         if (!is_array($data) || empty($data['rows'])) return null;
 
         return [
