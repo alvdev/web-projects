@@ -103,24 +103,8 @@ class ItadAdapter extends StoreAdapter
     {
         $url = self::BASE . "/games/prices/v3?key={$this->apiKey}&country={$this->country}";
 
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_TIMEOUT        => 15,
-            CURLOPT_USERAGENT      => 'Mozilla/5.0 (compatible; DiarioGames/1.0)',
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => json_encode([$gameId]),
-            CURLOPT_HTTPHEADER     => [
-                'Content-Type: application/json',
-                'Accept: application/json',
-            ],
-        ]);
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($httpCode !== 200 || $response === false) {
+        $response = $this->httpPostJson($url, json_encode([$gameId]));
+        if ($response === null) {
             return [];
         }
 
@@ -129,8 +113,13 @@ class ItadAdapter extends StoreAdapter
             return [];
         }
 
+        return $this->parseDeals($data[0]['deals']);
+    }
+
+    public function parseDeals(array $deals): array
+    {
         $results = [];
-        foreach ($data[0]['deals'] as $deal) {
+        foreach ($deals as $deal) {
             $shopName = $deal['shop']['name'] ?? '';
             $storeInfo = $this->storeMap[$shopName] ?? null;
             if ($storeInfo === null) {
@@ -167,7 +156,33 @@ class ItadAdapter extends StoreAdapter
         return $results;
     }
 
-    private function resolveStoreUrl(string $itadUrl, string $storeName): string
+    protected function httpPostJson(string $url, string $jsonBody): ?string
+    {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT        => 15,
+            CURLOPT_USERAGENT      => 'Mozilla/5.0 (compatible; DiarioGames/1.0)',
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $jsonBody,
+            CURLOPT_HTTPHEADER     => [
+                'Content-Type: application/json',
+                'Accept: application/json',
+            ],
+        ]);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200 || $response === false) {
+            return null;
+        }
+
+        return $response;
+    }
+
+    public function resolveStoreUrl(string $itadUrl, string $storeName): string
     {
         $affId = $this->affiliateIds[$storeName] ?? '';
 
@@ -211,7 +226,7 @@ class ItadAdapter extends StoreAdapter
         return $finalUrl;
     }
 
-    private function appendAffiliate(string $url, string $storeName, string $affId): string
+    public function appendAffiliate(string $url, string $storeName, string $affId): string
     {
         $params = match ($storeName) {
             'GreenManGaming'  => 'utm_source=affiliate&utm_medium=link&utm_campaign=',
@@ -255,7 +270,7 @@ class ItadAdapter extends StoreAdapter
         return $base;
     }
 
-    private function buildFallbackUrl(string $storeName, string $affId): string
+    public function buildFallbackUrl(string $storeName, string $affId): string
     {
         $domain = $this->storeMap[$storeName]['domain'] ?? '';
         $url = "https://{$domain}/";
