@@ -247,21 +247,11 @@ class SteamStatsCollector
         foreach ($appids as $appid) {
             $log && $log("Backfilling app $appid...");
 
-            $url = "https://steamcharts.com/app/{$appid}/chart-data.json";
+            $response = $this->fetchSteamchartsChartData($appid);
 
-            $ch = curl_init($url);
-            curl_setopt_array($ch, [
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_TIMEOUT => 15,
-                CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
-            ]);
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-
-            if ($httpCode !== 200 || !$response) {
+            if ($response === null) {
                 $stats['errors'][] = $appid;
-                $log && $log("  HTTP $httpCode, skipping");
+                $log && $log("  No data, skipping");
                 continue;
             }
 
@@ -274,13 +264,8 @@ class SteamStatsCollector
             $stats['fetched']++;
             $inserted = 0;
 
-            foreach ($data as $point) {
-                if (!isset($point[0], $point[1])) continue;
-                $ts = (int)($point[0] / 1000); // ms to seconds
-                $count = (int)$point[1];
-
-                // INSERT OR IGNORE handles duplicates
-            $this->db->insertPlayerCountIfMissing($appid, $ts, $count);
+            foreach (self::mapSteamchartsPoints($data) as $point) {
+                $this->db->insertPlayerCountIfMissing($appid, $point['timestamp'], $point['count']);
                 $inserted++;
             }
 
@@ -292,6 +277,43 @@ class SteamStatsCollector
         }
 
         return $stats;
+    }
+
+    public static function mapSteamchartsPoints(array $points): array
+    {
+        $mapped = [];
+
+        foreach ($points as $point) {
+            if (!is_array($point) || !isset($point[0], $point[1])) continue;
+
+            $mapped[] = [
+                'timestamp' => (int) ($point[0] / 1000),
+                'count'     => (int) $point[1],
+            ];
+        }
+
+        return $mapped;
+    }
+
+    protected function fetchSteamchartsChartData(int $appid): ?string
+    {
+        $url = "https://steamcharts.com/app/{$appid}/chart-data.json";
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 15,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; SteamStats/1.0)',
+        ]);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200 || !$response) {
+            return null;
+        }
+
+        return $response;
     }
 
     public function collectSteamDBHistory(int $appid): ?array
