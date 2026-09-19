@@ -14,6 +14,13 @@
 
 **Prerequisites:** Plans 1–3 merged. Run tests from `diario.games/`. Never write to `content/`, `sqlite/steam_stats.db`, `storage/`, `media/`, `site/cache`. SteamDB lock tests use unique fake appids in `/tmp` and clean up in `finally`.
 
+**Execution notes (2026-09-17):** The committed code is authoritative; deviations from the snippets below:
+- `collect()` test slug is the directory name (`alpha`), not a slugified title — the collector uses `basename(dirname(...))`. Test expectation corrected.
+- Red-phase runs for `backfill`/`collectSteamDB*` must be scoped to the pure mapper tests (`--filter ...::testMap...`) — running whole classes before the seams exist triggers live HTTP/`exec`.
+- `SteamStatsTrendingTest` pre-boots a Kirby `App` with temp roots in `setUpBeforeClass`: the DB-overlay path (`getAllPlayerDataCached`) calls `kirby()`, and constructing an App mid-test registers error/exception handlers, which PHPUnit reports as risky. Booting once before tests avoids the handler change.
+- `getMostPlayed` prefers the scraped entry's name over the appdetails name (`$entry['name'] ?? $detail['name']`); the test pins that.
+- Actual counts: collector collect 5/14, backfill 2/5, SteamDB 7/15, parse 3/4, trending 3/19; full suite after Plan 4 = 126 tests / 370 assertions / 1 skipped.
+
 ---
 
 ### Task 1: Collector content parsing + `collect()`
