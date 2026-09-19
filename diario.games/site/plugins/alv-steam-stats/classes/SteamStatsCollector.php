@@ -13,9 +13,9 @@ class SteamStatsCollector
         $this->db = new SteamStatsDB();
     }
 
-    public function collect(): array
+    public function collect(?string $gamesDir = null): array
     {
-        $gamesDir = dirname(__DIR__, 4) . '/content/games';
+        $gamesDir ??= dirname(__DIR__, 4) . '/content/games';
         $stats = ['scanned' => 0, 'updated' => 0, 'errors' => []];
 
         $recursive = new \RecursiveIteratorIterator(
@@ -29,21 +29,9 @@ class SteamStatsCollector
 
             $stats['scanned']++;
 
-            // Extract Steam app ID from Websites field
-            if (preg_match('/store\.steampowered\.com\/app\/(\d+)/i', $content, $m)) {
-                $appid = (int) $m[1];
-
-                // Extract title
-                preg_match('/^Title:\s*(.+)/m', $content, $tm);
-                $name = trim($tm[1] ?? $slug);
-
-                // Extract IGDB ID
-                $igdbId = null;
-                if (preg_match('/^IgdbId:\s*(\d+)/m', $content, $im)) {
-                    $igdbId = (int) $im[1];
-                }
-
-                $this->db->upsertGame($appid, $slug, $name, $igdbId);
+            $parsed = self::parseGameTxt($content, $slug);
+            if ($parsed !== null) {
+                $this->db->upsertGame($parsed['appid'], $parsed['slug'], $parsed['name'], $parsed['igdbId']);
             }
         }
 
@@ -63,6 +51,25 @@ class SteamStatsCollector
         }
 
         return $stats;
+    }
+
+    public static function parseGameTxt(string $content, string $fallbackSlug): ?array
+    {
+        if (!preg_match('/store\.steampowered\.com\/app\/(\d+)/i', $content, $m)) {
+            return null;
+        }
+
+        $appid = (int) $m[1];
+
+        preg_match('/^Title:\s*(.+)/m', $content, $tm);
+        $name = trim($tm[1] ?? $fallbackSlug);
+
+        $igdbId = null;
+        if (preg_match('/^IgdbId:\s*(\d+)/m', $content, $im)) {
+            $igdbId = (int) $im[1];
+        }
+
+        return ['appid' => $appid, 'slug' => $fallbackSlug, 'name' => $name, 'igdbId' => $igdbId];
     }
 
     public function collectAllTimePeaks(?callable $log = null, int $limit = 100): array
@@ -524,7 +531,7 @@ class SteamStatsCollector
         imagedestroy($src);
     }
 
-    private function fetchCurrentPlayers(int $appid): ?int
+    protected function fetchCurrentPlayers(int $appid): ?int
     {
         if (empty($this->apiKey)) {
             return null;
