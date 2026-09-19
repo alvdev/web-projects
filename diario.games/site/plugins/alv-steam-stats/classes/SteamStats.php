@@ -178,7 +178,7 @@ class SteamStats
         return $result;
     }
 
-    private function getMostPlayedFallback(int $limit): array
+    protected function getMostPlayedFallback(int $limit): array
     {
         $ranks = $this->fetchMostPlayedFromSteam();
         if (empty($ranks)) {
@@ -294,7 +294,7 @@ class SteamStats
         return $data['response']['ranks'] ?? [];
     }
 
-    private function fetchCurrentPlayers(int $appid): int
+    protected function fetchCurrentPlayers(int $appid): int
     {
         if (empty($this->apiKey)) {
             return 0;
@@ -334,7 +334,7 @@ class SteamStats
         return null;
     }
 
-    private function fetchGameDetails(array $appids): array
+    protected function fetchGameDetails(array $appids): array
     {
         if (empty($appids)) {
             return [];
@@ -409,7 +409,7 @@ class SteamStats
         return $results;
     }
 
-    private function getCurrentPlayers(int $appid): int
+    protected function getCurrentPlayers(int $appid): int
     {
         $cached = $this->getCached('current-players.' . $appid, 3600);
 
@@ -423,7 +423,7 @@ class SteamStats
         return $count;
     }
 
-    private function getPlayerHistory(int $appid): array
+    protected function getPlayerHistory(int $appid): array
     {
         // Prefer SQLite — always shared between CLI and web, has richer data
         try {
@@ -487,7 +487,7 @@ class SteamStats
         }
     }
 
-    private function getCached(string $key, int $ttl)
+    protected function getCached(string $key, int $ttl)
     {
         $cache = kirby()->cache('alv/steam-stats.cache');
         $entry = $cache->get($key);
@@ -509,7 +509,7 @@ class SteamStats
         return $entry;
     }
 
-    private function setCache(string $key, $value): void
+    protected function setCache(string $key, $value): void
     {
         $cache = kirby()->cache('alv/steam-stats.cache');
         $cache->set($key, ['value' => $value, 'timestamp' => time()]);
