@@ -62,7 +62,12 @@ class G2AAdapter extends StoreAdapter
             return null;
         }
 
-        $cheapest = $offers['offers'][0];
+        return $this->buildPriceFromOffers($offers, $gameName, $productId);
+    }
+
+    public function buildPriceFromOffers(array $offers, string $gameName, string $productId): ?array
+    {
+        $cheapest = $offers['offers'][0] ?? [];
         $price = (float)($cheapest['price'] ?? 0);
         if ($price <= 0) {
             return null;
@@ -80,7 +85,7 @@ class G2AAdapter extends StoreAdapter
         ];
     }
 
-    private function getToken(): ?string
+    protected function getToken(): ?string
     {
         $ch = curl_init('https://api.g2a.com/oauth/token');
         curl_setopt_array($ch, [
@@ -103,7 +108,7 @@ class G2AAdapter extends StoreAdapter
         return $data['access_token'] ?? null;
     }
 
-    private function getOffers(string $token, string $productId): ?array
+    protected function getOffers(string $token, string $productId): ?array
     {
         $url = "https://api.g2a.com/export/v1/product-offers/{$productId}";
 
