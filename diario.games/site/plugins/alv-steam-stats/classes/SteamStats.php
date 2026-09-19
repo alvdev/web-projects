@@ -227,7 +227,7 @@ class SteamStats
         return $games;
     }
 
-    private function fetchGameListFromStats(): array
+    protected function fetchGameListFromStats(): array
     {
         $url = 'https://store.steampowered.com/stats/stats';
 
@@ -245,10 +245,15 @@ class SteamStats
             return [];
         }
 
+        return self::parseStatsHtml($response);
+    }
+
+    public static function parseStatsHtml(string $html): array
+    {
         $games = [];
         $pattern = '/<tr class="player_count_row[^>]*">\s*<td[^>]*>\s*<span[^>]*>([\d,]+)<\/span>\s*<\/td>\s*<td[^>]*>\s*<span[^>]*>([\d,]+)<\/span>\s*<\/td>\s*<td[^>]*>[^<]*<\/td>\s*<td[^>]*>\s*<a[^>]*href="[^"]*app\/(\d+)\/[^"]*"[^>]*>([^<]+)<\/a>/s';
 
-        if (preg_match_all($pattern, $response, $matches, PREG_SET_ORDER)) {
+        if (preg_match_all($pattern, $html, $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
                 $games[] = [
                     'appid' => (int)$match[3],
@@ -262,7 +267,7 @@ class SteamStats
         return $games;
     }
 
-    private function fetchMostPlayedFromSteam(): array
+    protected function fetchMostPlayedFromSteam(): array
     {
         $url = 'https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/';
 
@@ -280,6 +285,12 @@ class SteamStats
         }
 
         $data = json_decode($response, true);
+
+        return self::parseMostPlayedJson($data ?? []);
+    }
+
+    public static function parseMostPlayedJson(array $data): array
+    {
         return $data['response']['ranks'] ?? [];
     }
 
