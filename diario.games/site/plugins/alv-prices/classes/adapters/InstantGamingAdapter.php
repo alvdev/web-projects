@@ -85,7 +85,7 @@ class InstantGamingAdapter extends StoreAdapter
         ];
     }
 
-    private function searchAlgolia(string $query): array
+    protected function searchAlgolia(string $query): array
     {
         $url = 'https://' . self::ALGOLIA_APP_ID . '-dsn.algolia.net/1/indexes/' . self::ALGOLIA_INDEX . '/query';
 
@@ -120,7 +120,7 @@ class InstantGamingAdapter extends StoreAdapter
         return $data['hits'] ?? [];
     }
 
-    private function pickBestHit(array $hits, string $gameName): ?array
+    public function pickBestHit(array $hits, string $gameName): ?array
     {
         $normalized = mb_strtolower(trim($gameName));
         $best = null;
