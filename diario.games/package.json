@@ -7,9 +7,12 @@
         "build": "vite build",
         "preview": "vite preview",
         "test:unit": "vitest run",
-        "test": "bun run test:unit && composer test"
+        "test": "bun run test:unit && composer test",
+        "test:e2e": "bun run build && playwright test",
+        "test:all": "bun run test:unit && composer test && bun run test:e2e"
     },
     "devDependencies": {
+        "@playwright/test": "^1.63.0",
         "@tailwindcss/typography": "^0.5.20",
         "@tailwindcss/vite": "^4.3.3",
         "concurrently": "^9.2.4",

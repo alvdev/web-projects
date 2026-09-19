@@ -15,6 +15,10 @@ App::plugin('alv/prices', [
     ],
     'siteMethods' => [
         'priceComparison' => function (string $slug, string $gameName): array {
+            if (getenv('DIARIO_DISABLE_PRICES')) {
+                return [];
+            }
+
             try {
                 $fetcher = \Alv\Prices\PriceFetcher::createFromEnv();
                 return $fetcher->fetch($slug, $gameName);

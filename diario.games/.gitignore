@@ -67,3 +67,7 @@ site/plugins/*
 content/
 data/games/
 /tests/.tmp/
+
+# Playwright
+/test-results/
+/playwright-report/
