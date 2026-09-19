@@ -18,6 +18,12 @@
 
 **Prerequisites:** Plans 1–5 merged. Run tests from `diario.games/`. Never write to `content/`, `sqlite/steam_stats.db`, `storage/`, `media/`, `site/cache`.
 
+**Execution notes (2026-09-17):** The committed code is authoritative; deviations from the snippets below:
+- `scripts/inspect-steamdb-charts.mjs` was also wired to the shared parsers (it had the same `loadEnv`/`buildProxyUrl` duplication); zero local copies remain across `scripts/*.mjs`.
+- The history scraper's Highstock stderr log line ("Using Highstock data") was dropped during extraction; stdout JSON is unchanged.
+- Task 1 red phase: the safe `--filter` regex actually matches 4 tests (two `testHistoryBySlug*`, one `testSteamDbPeak*`, one `testChartsMode*`), all pass pre-seam.
+- Actual counts: CLI 5 tests / 15 assertions; parser tests 15; full suites after Plan 6 = PHP 151 tests / 476 assertions / 1 skipped, Vitest 30 tests.
+
 ---
 
 ### Task 1: CLI env seams + subprocess contract tests
