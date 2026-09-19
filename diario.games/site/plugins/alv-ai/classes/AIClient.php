@@ -39,6 +39,23 @@ class AIClient
         return self::call($systemPrompt, $prompt, $backend) ?? '';
     }
 
+    public static function buildMessages(string $systemPrompt, string $userMsg): array
+    {
+        return [
+            ['role' => 'system', 'content' => $systemPrompt],
+            ['role' => 'user', 'content' => $userMsg],
+        ];
+    }
+
+    public static function parseCompletion(array $data): ?string
+    {
+        $content = $data['choices'][0]['message']['content'] ?? '';
+        if (!is_string($content) || trim($content) === '') {
+            return null;
+        }
+        return trim($content);
+    }
+
     private static function call(string $systemPrompt, string $userMsg, string $backend): ?string
     {
         $config = ['opencode', 'openrouter'];
@@ -63,10 +80,7 @@ class AIClient
 
         $body = json_encode([
             'model' => 'deepseek-v4-flash',
-            'messages' => [
-                ['role' => 'system', 'content' => $systemPrompt],
-                ['role' => 'user', 'content' => $userMsg],
-            ],
+            'messages' => self::buildMessages($systemPrompt, $userMsg),
         ]);
 
         $ch = curl_init('https://opencode.ai/zen/go/v1/chat/completions');
@@ -85,9 +99,8 @@ class AIClient
         curl_close($ch);
 
         if ($response && $httpCode === 200) {
-            $data = json_decode($response, true);
-            $content = $data['choices'][0]['message']['content'] ?? '';
-            if ($content) return trim($content);
+            $content = self::parseCompletion(json_decode($response, true) ?? []);
+            if ($content !== null) return $content;
         }
 
         return null;
@@ -100,10 +113,7 @@ class AIClient
 
         $body = json_encode([
             'model' => 'openrouter/auto',
-            'messages' => [
-                ['role' => 'system', 'content' => $systemPrompt],
-                ['role' => 'user', 'content' => $userMsg],
-            ],
+            'messages' => self::buildMessages($systemPrompt, $userMsg),
         ]);
 
         $ch = curl_init('https://openrouter.ai/api/v1/chat/completions');
@@ -122,9 +132,8 @@ class AIClient
         curl_close($ch);
 
         if ($response && $httpCode === 200) {
-            $data = json_decode($response, true);
-            $content = $data['choices'][0]['message']['content'] ?? '';
-            if ($content) return trim($content);
+            $content = self::parseCompletion(json_decode($response, true) ?? []);
+            if ($content !== null) return $content;
         }
 
         return null;
