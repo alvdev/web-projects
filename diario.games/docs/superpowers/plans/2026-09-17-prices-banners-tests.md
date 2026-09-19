@@ -14,6 +14,12 @@
 
 **Prerequisites:** Plans 1 and 2 merged. Run tests from `diario.games/`. Every DB test uses the `TempDatabase` trait (env-isolated temp SQLite) and `PluginClasses::load()`.
 
+**Execution notes (2026-09-17):** The committed code is authoritative; deviations from the snippets below:
+- `tests/Support/PluginClasses.php` also loads the price classes now (`StoreAdapter`, three adapters, `PriceFetcher`) — added during Task 1; without it every adapter test failed with "class not found".
+- Red-phase runs must be scoped to pure tests (e.g. `--filter ItadAdapterTest::testParseDeals`, `G2AAdapterTest::testBuildPriceFromOffers`, `InstantGamingAdapterTest::testPickBestHit`): running whole classes before the seams exist lets `fetchPrice`/`fetchAllPrices` attempt live HTTP.
+- The snippet uses the fully-qualified `\Alv\AffBanners\AffiliateBanners::matchingPrograms(...)` (snippets have no `use` imports).
+- Actual counts: ITAD 8/21, G2A 5/12, InstantGaming 5/11, PriceFetcher 5/13, AffiliateBanners 7/39, banner render 2/5; full suite after Plan 3 = 106 tests / 313 assertions / 1 skipped.
+
 **Safety rules:** production changes additive with identical defaults; no live API calls; no writes to `content/`, `sqlite/`, `storage/`, `media/`, `site/cache`.
 
 ---
