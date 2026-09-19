@@ -91,14 +91,20 @@ App::plugin('alv/steam-stats', [
                     if ($locked) {
                         $refreshPending = true;
                     } elseif ($cooldownOk) {
-                        $php = PHP_BINDIR . '/php';
-                        if (!is_executable($php)) $php = PHP_BINARY;
-                        if (!is_executable($php)) $php = 'php';
+                        $spawner = option('alv.steam-stats.charts-spawner');
 
-                        $script = dirname(__DIR__, 3) . '/scripts/collect-steam-stats.php';
-                        $cmd = 'nohup ' . escapeshellarg($php) . ' ' . escapeshellarg($script)
-                            . ' charts ' . $chunk . ' > /dev/null 2>&1 &';
-                        @exec($cmd);
+                        if (is_callable($spawner)) {
+                            $spawner($chunk);
+                        } else {
+                            $php = PHP_BINDIR . '/php';
+                            if (!is_executable($php)) $php = PHP_BINARY;
+                            if (!is_executable($php)) $php = 'php';
+
+                            $script = dirname(__DIR__, 3) . '/scripts/collect-steam-stats.php';
+                            $cmd = 'nohup ' . escapeshellarg($php) . ' ' . escapeshellarg($script)
+                                . ' charts ' . $chunk . ' > /dev/null 2>&1 &';
+                            @exec($cmd);
+                        }
 
                         try {
                             kirby()->cache('alv/steam-stats.cache')
