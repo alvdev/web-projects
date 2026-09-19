@@ -36,24 +36,11 @@ if (!isset($GLOBALS['alv_aff_banners_init'])) {
 
 $matching = [];
 
-foreach ($enabledPrograms as $program) {
-    $bpType = null;
-
-    if ($itemCount === $program['sm_position']) {
-        $bpType = 'sm';
-    } elseif ($itemCount === $program['md_position']) {
-        $bpType = 'md';
-    } elseif ($itemCount === $program['xl_position']) {
-        $bpType = 'xl';
-    }
-
-    if ($bpType === null) continue;
-
-    $showKey = $program['name'] . '_' . $bpType;
+foreach (\Alv\AffBanners\AffiliateBanners::matchingPrograms($itemCount, array_values($enabledPrograms)) as $program) {
+    $showKey = $program['name'] . '_' . $program['_bpType'];
     if (in_array($showKey, $GLOBALS['alv_aff_banners_shown'])) continue;
 
     $GLOBALS['alv_aff_banners_shown'][] = $showKey;
-    $program['_bpType'] = $bpType;
     $matching[] = $program;
 }
 
