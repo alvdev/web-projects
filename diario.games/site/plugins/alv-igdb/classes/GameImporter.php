@@ -78,10 +78,38 @@ class GameImporter
     private IGDBClient $client;
     private string $gamesDir;
 
-    public function __construct(IGDBClient $client)
+    public function __construct(IGDBClient $client, ?string $gamesDir = null)
     {
         $this->client = $client;
-        $this->gamesDir = dirname(__DIR__, 4) . '/content/games';
+        $this->gamesDir = $gamesDir ?? dirname(__DIR__, 4) . '/content/games';
+    }
+
+    protected function translateText(string $text, string $backend = 'opencode'): string
+    {
+        return \DiarioGames\IGDB\translate($text, $backend);
+    }
+
+    protected function downloadImageTo(string $url, string $destPath): bool
+    {
+        return \DiarioGames\IGDB\downloadImage($url, $destPath);
+    }
+
+    protected function fetchThesvgIconFor(string $url): ?array
+    {
+        return \DiarioGames\IGDB\fetchThesvgIcon($url);
+    }
+
+    protected function steamApiKey(): string
+    {
+        if (function_exists('option')) {
+            return (string) option('alv.steam-stats.api-key', '');
+        }
+        return (string) (getenv('STEAM_STATS_API_KEY') ?: '');
+    }
+
+    protected function makeSteamCollector(string $apiKey): \Alv\SteamStats\SteamStatsCollector
+    {
+        return new \Alv\SteamStats\SteamStatsCollector($apiKey);
     }
 
     private const EXCLUDED_PATTERNS = ['/season/i', '/battle.?pass/i', '/dlc.?pack/i'];
@@ -177,7 +205,7 @@ class GameImporter
 
         if ($progress) $progress('description');
 
-        $summary = \DiarioGames\IGDB\translate($this->stringVal($gameData['summary'] ?? ''));
+        $summary = $this->translateText($this->stringVal($gameData['summary'] ?? ''));
         $rating = $this->stringVal($gameData['rating'] ?? '');
         $aggRating = $this->stringVal($gameData['aggregated_rating'] ?? '');
 
@@ -254,14 +282,14 @@ class GameImporter
         if (!empty($websiteData)) {
             foreach ($websiteData as $w) {
                 $siteUrl = $w['url'] ?? '';
-                if ($siteUrl) \DiarioGames\IGDB\fetchThesvgIcon($siteUrl);
+                if ($siteUrl) $this->fetchThesvgIconFor($siteUrl);
             }
         }
 
         return $slug;
     }
 
-    private function registerSteamGame(string $slug, array $gameData, string $name): void
+    protected function registerSteamGame(string $slug, array $gameData, string $name): void
     {
         $websites = $gameData['websites'] ?? [];
         if (empty($websites)) return;
@@ -287,7 +315,7 @@ class GameImporter
 
             // Fetch current player count immediately so the page shows live data.
             // Historical backfill is handled separately by the steamdb-catchup cron.
-            $apiKey = option('alv.steam-stats.api-key', '');
+            $apiKey = $this->steamApiKey();
             if ($apiKey) {
                 $liveCount = $this->fetchSteamCurrentPlayers($apiKey, $appid);
                 if ($liveCount !== null && $liveCount >= 0) {
@@ -296,7 +324,7 @@ class GameImporter
             }
 
             // Download Steam capsule image so the sparkline section shows it immediately
-            $collector = new \Alv\SteamStats\SteamStatsCollector($apiKey);
+            $collector = $this->makeSteamCollector($apiKey);
             $collector->downloadCapsule($appid, $slug);
         } catch (\Throwable $e) {
             // Steam stats plugin might not be available
@@ -304,7 +332,7 @@ class GameImporter
         }
     }
 
-    private function verifySteamAppId(int $appid): bool
+    protected function verifySteamAppId(int $appid): bool
     {
         $url = "https://store.steampowered.com/api/appdetails?appids={$appid}";
         $ch = curl_init($url);
@@ -323,7 +351,7 @@ class GameImporter
         return isset($data[(string)$appid]['success']) && $data[(string)$appid]['success'] === true;
     }
 
-    private function fetchSteamCurrentPlayers(string $apiKey, int $appid): ?int
+    protected function fetchSteamCurrentPlayers(string $apiKey, int $appid): ?int
     {
         $url = 'https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?' . http_build_query([
             'appid' => $appid,
@@ -408,7 +436,7 @@ class GameImporter
         return null;
     }
 
-    private function resolveGenresAndTags(array $gameData): array
+    protected function resolveGenresAndTags(array $gameData): array
     {
         $genreIds = $this->extractIds($gameData['genres'] ?? []);
         $themeIds = $this->extractIds($gameData['themes'] ?? []);
@@ -445,7 +473,7 @@ class GameImporter
         return [implode(', ', array_keys($genreNames)), implode(', ', array_keys($tagNames))];
     }
 
-    private function resolvePlatformNames(array $ids): string
+    protected function resolvePlatformNames(array $ids): string
     {
         if (empty($ids)) return '';
         $platforms = $this->client->post('platforms', 'fields name; where id = (' . implode(',', $ids) . '); limit 500;');
@@ -470,7 +498,7 @@ class GameImporter
         return array_column($items, 'id');
     }
 
-    private function resolveInvolvedCompanies(array $gameData): array
+    protected function resolveInvolvedCompanies(array $gameData): array
     {
         $companies = $gameData['involved_companies'] ?? [];
         if (empty($companies)) return ['', ''];
@@ -494,7 +522,7 @@ class GameImporter
         return [$developer, $publisher];
     }
 
-    private function importMissingMedia(array $gameData, string $slug, string $dir): void
+    protected function importMissingMedia(array $gameData, string $slug, string $dir): void
     {
         $coverPath = "{$dir}/{$slug}.jpg";
         if (!file_exists($coverPath)) {
@@ -615,11 +643,11 @@ class GameImporter
         }
     }
 
-    private function downloadCover(string $slug, string $dir, string $imageId): void
+    protected function downloadCover(string $slug, string $dir, string $imageId): void
     {
         $url = igdbImageUrl($imageId, 'cover_big');
         $path = "{$dir}/{$slug}.jpg";
-        if (downloadImage($url, $path)) {
+        if ($this->downloadImageTo($url, $path)) {
             file_put_contents(
                 "{$dir}/{$slug}.jpg.txt",
                 "Title: Cover\n\n----\n\nTemplate: cover\n\n----\n"
@@ -627,11 +655,11 @@ class GameImporter
         }
     }
 
-    private function downloadHero(string $slug, string $dir, string $imageId): void
+    protected function downloadHero(string $slug, string $dir, string $imageId): void
     {
         $url = igdbImageUrl($imageId, 'screenshot_huge');
         $path = "{$dir}/{$slug}-hero.jpg";
-        if (downloadImage($url, $path)) {
+        if ($this->downloadImageTo($url, $path)) {
             file_put_contents(
                 "{$dir}/{$slug}-hero.jpg.txt",
                 "Title: Hero\n\n----\n\nTemplate: hero\n\n----\n"
@@ -645,7 +673,7 @@ class GameImporter
             $path = "{$dir}/screenshot-{$i}.jpg";
             if (file_exists($path)) continue;
             $url = igdbImageUrl($imageId, 'screenshot_huge');
-            if (downloadImage($url, $path)) {
+            if ($this->downloadImageTo($url, $path)) {
                 file_put_contents(
                     "{$dir}/screenshot-{$i}.jpg.txt",
                     "Title: Screenshot {$i}\n\n----\n\nTemplate: screenshot\n\n----\n"
@@ -660,7 +688,7 @@ class GameImporter
             $path = "{$dir}/video-{$i}.jpg";
             if (file_exists($path)) continue;
             $url = 'https://img.youtube.com/vi/' . $ytId . '/hqdefault.jpg';
-            if (downloadImage($url, $path)) {
+            if ($this->downloadImageTo($url, $path)) {
                 file_put_contents(
                     "{$dir}/video-{$i}.jpg.txt",
                     "Title: Video {$i}\n\n----\n\nTemplate: video-thumb\n\n----\n"
