@@ -39,10 +39,13 @@ if (empty($key)) {
 
 $mode = $argv[1] ?? 'collect';
 
+$contentDir = getenv('STEAM_STATS_CONTENT_DIR') ?: null;
+$skipExtras = (bool) getenv('STEAM_STATS_SKIP_EXTRAS');
+
 $collector = new \Alv\SteamStats\SteamStatsCollector($key);
 
 if ($mode === 'player-update') {
-    $stats = $collector->collect();
+    $stats = $collector->collect($contentDir);
     echo "Scanned: {$stats['scanned']}, Updated: {$stats['updated']}, Errors: " . count($stats['errors']) . "\n";
     if (!empty($stats['errors'])) {
         echo "Failed appids: " . implode(', ', $stats['errors']) . "\n";
@@ -249,12 +252,16 @@ if ($mode === 'backfill') {
     }
     exit(0);
 } else {
-    $stats = $collector->collect();
+    $stats = $collector->collect($contentDir);
     echo "Scanned: {$stats['scanned']}, Updated: {$stats['updated']}, Errors: " . count($stats['errors']) . "\n";
 }
 
 if (!empty($stats['errors'])) {
     echo "Failed appids: " . implode(', ', $stats['errors']) . "\n";
+}
+
+if ($skipExtras) {
+    exit(0);
 }
 
 // Import scraped top-100 games into collector tracking so they get SQLite data
