@@ -105,6 +105,18 @@ describe("generateTweets", () => {
       "Both LLMs failed to generate a tweet",
     );
   });
+
+  test("resolves with the DeepSeek proposal when Gemini is unavailable (503)", async () => {
+    generateTextCompletionImpl = async (_prompt, provider) => {
+      if (provider === "gemini") throw new Error("503 unavailable (high demand)");
+      return "Propuesta de DeepSeek";
+    };
+    const tweets = await generateTweets(post, "caption", "2026-09-16T08:00:00.000Z");
+    expect(tweets.gemini).toBeUndefined();
+    expect(tweets.deepseek).toBe(
+      "Propuesta de DeepSeek https://urbanstylepublicity.com/blog/concierto-en-madrid",
+    );
+  });
 });
 
 describe("tweet helpers", () => {
