@@ -1,8 +1,67 @@
-import { mkdir, writeFile, readdir, copyFile, stat } from "node:fs/promises";
+import { mkdir, writeFile, readdir, readFile, copyFile, stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
+import yaml from "js-yaml";
 import type { LlmArticle, NewPost, PreparedPost } from "./types";
 
 export const BLOG_ROOT = `${process.cwd()}/src/content/blog`;
+
+export const CONTENT_ROOT = `${process.cwd()}/src/content`;
+
+/**
+ * Parse the YAML frontmatter of a content file with the same parser Astro's
+ * content pipeline uses (js-yaml via @astrojs/mdx). Returns an error string
+ * when a frontmatter block is present but invalid — e.g. an unescaped
+ * apostrophe inside a single-quoted scalar, which breaks the whole site build.
+ * Returns null when the file has no frontmatter or when it parses cleanly.
+ */
+export function frontmatterYamlError(file: string): string | null {
+  const trimmed = file.trimStart();
+  if (!trimmed.startsWith("---\n")) return null;
+  const body = trimmed.slice(4);
+  const closeIdx = body.indexOf("\n---");
+  if (closeIdx === -1) return "frontmatter closing delimiter missing";
+  try {
+    const parsed = yaml.load(body.slice(0, closeIdx));
+    if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return "frontmatter is not a YAML mapping";
+    }
+  } catch (err) {
+    return `invalid YAML frontmatter: ${(err as Error).message.split("\n")[0]}`;
+  }
+  return null;
+}
+
+export interface InvalidContentFile {
+  file: string;
+  error: string;
+}
+
+/**
+ * Recursively scan a content tree for files whose frontmatter would fail the
+ * Astro build, so the build can fail fast with the offending path instead of a
+ * generic "bun run build" error.
+ */
+export async function findInvalidContentFrontmatter(
+  root: string = CONTENT_ROOT,
+): Promise<InvalidContentFile[]> {
+  const invalid: InvalidContentFile[] = [];
+  let entries;
+  try {
+    entries = await readdir(root, { withFileTypes: true });
+  } catch {
+    return invalid;
+  }
+  for (const entry of entries) {
+    const full = join(root, entry.name);
+    if (entry.isDirectory()) {
+      invalid.push(...(await findInvalidContentFrontmatter(full)));
+    } else if (entry.isFile() && /\.(md|mdx)$/i.test(entry.name)) {
+      const error = frontmatterYamlError(await readFile(full, "utf8"));
+      if (error) invalid.push({ file: full, error });
+    }
+  }
+  return invalid;
+}
 
 export const TRANSLATION_LOCALES = ["en", "it", "fr", "pt"] as const;
 

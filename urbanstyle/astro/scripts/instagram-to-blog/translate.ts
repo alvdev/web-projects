@@ -1,13 +1,21 @@
 import { existsSync } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { BLOG_ROOT, TRANSLATION_LOCALES, copyDirAssets, stripSlugFrontmatter } from "./content";
+import {
+  BLOG_ROOT,
+  TRANSLATION_LOCALES,
+  copyDirAssets,
+  frontmatterYamlError,
+  stripSlugFrontmatter,
+} from "./content";
 import { translateFileContent } from "./llm";
 
 /**
- * Validate that a translated file has a well-formed, closed frontmatter block.
- * The LLM occasionally truncates or forgets the closing `---`, which would
- * break the whole collection. Returns an error message or null.
+ * Validate that a translated file has a well-formed, closed frontmatter block
+ * whose YAML actually parses. The LLM occasionally truncates or forgets the
+ * closing `---`, and it can also emit unescaped apostrophes inside
+ * single-quoted scalars (e.g. Italian `l'evoluzione`), which breaks the whole
+ * Astro build. Returns an error message or null.
  */
 export function validateTranslation(file: string, kind: "blog" | "service" | "section"): string | null {
   const trimmed = file.trimStart();
@@ -19,7 +27,7 @@ export function validateTranslation(file: string, kind: "blog" | "service" | "se
   const required = kind === "blog" ? ["title", "description", "cover", "pubDate", "taxonomy"] : kind === "service" ? ["title", "description", "order"] : ["title"];
   const missing = required.filter((key) => !new RegExp(`^${key}:`, "m").test(fm));
   if (missing.length > 0) return `frontmatter missing fields: ${missing.join(", ")}`;
-  return null;
+  return frontmatterYamlError(file);
 }
 
 /**
@@ -33,8 +41,9 @@ export function validateTranslation(file: string, kind: "blog" | "service" | "se
 export async function translatePostBySlug(
   slug: string,
   locales: readonly string[] = TRANSLATION_LOCALES,
+  blogRoot: string = BLOG_ROOT,
 ): Promise<string[]> {
-  const esMdx = join(BLOG_ROOT, slug, "index.mdx");
+  const esMdx = join(blogRoot, slug, "index.mdx");
   if (!existsSync(esMdx)) {
     throw new Error(`Spanish post not found: ${esMdx}`);
   }
@@ -42,10 +51,20 @@ export async function translatePostBySlug(
   const written: string[] = [];
 
   for (const locale of locales) {
-    const localeMdx = join(BLOG_ROOT, locale, slug, "index.mdx");
+    const localeMdx = join(blogRoot, locale, slug, "index.mdx");
     if (existsSync(localeMdx)) {
-      console.log(`[translate] skip ${locale}/${slug} (already exists)`);
-      continue;
+      const existing = await readFile(localeMdx, "utf8");
+      const existingError = validateTranslation(existing, "blog");
+      if (!existingError) {
+        console.log(`[translate] skip ${locale}/${slug} (already exists)`);
+        continue;
+      }
+      // A previously written translation with invalid frontmatter keeps
+      // breaking every site build. Quarantine it (extensions other than
+      // .md/.mdx are ignored by Astro) so a failed regeneration cannot leave
+      // the build broken, then fall through and regenerate it.
+      console.warn(`[translate] ${locale}/${slug} existing file invalid (${existingError}) — regenerating`);
+      await rename(localeMdx, `${localeMdx}.invalid.bak`);
     }
     let final = "";
     for (let attempt = 1; attempt <= 2; attempt++) {
@@ -58,7 +77,7 @@ export async function translatePostBySlug(
     }
     await mkdir(dirname(localeMdx), { recursive: true });
     await writeFile(localeMdx, final, "utf8");
-    await copyDirAssets(join(BLOG_ROOT, slug), join(BLOG_ROOT, locale, slug));
+    await copyDirAssets(join(blogRoot, slug), join(blogRoot, locale, slug));
     written.push(localeMdx);
   }
 
