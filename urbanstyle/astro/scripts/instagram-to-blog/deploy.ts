@@ -1,4 +1,4 @@
-import { execSync, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { readdir, readFile, stat, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
@@ -6,6 +6,7 @@ import { join, sep } from "node:path";
 import * as tls from "node:tls";
 import { Client } from "basic-ftp";
 import { dryRunLog, isDryRun } from "./dryRun";
+import { findInvalidContentFrontmatter } from "./content";
 
 // Hosts whose TLS certificate is issued to the hosting provider (not the hostname).
 // checkServerIdentity returns undefined for these, trusting the pinned host only.
@@ -44,13 +45,38 @@ function nodeBinPath(): string | null {
   return existsSync(candidate) ? candidate : null;
 }
 
+/** Keep the tail of the build log so alerts surface the actual failure. */
+export function formatBuildFailure(output: string, maxLines = 30): string {
+  const lines = output.trim().split("\n");
+  return lines.slice(-maxLines).join("\n");
+}
+
 export async function buildSite(): Promise<void> {
   console.log("[deploy] building site...");
+
+  const invalid = await findInvalidContentFrontmatter();
+  if (invalid.length > 0) {
+    throw new Error(
+      `invalid content frontmatter:\n${invalid.map((i) => `  ${i.file}: ${i.error}`).join("\n")}`,
+    );
+  }
+
   const nodeBin = nodeBinPath();
   const env = nodeBin
     ? { ...process.env, PATH: `${nodeBin}:${process.env.PATH ?? ""}` }
     : process.env;
-  execSync("bun run build", { cwd: PROJECT_ROOT, stdio: "inherit", env });
+  const res = spawnSync("bun", ["run", "build"], {
+    cwd: PROJECT_ROOT,
+    env,
+    encoding: "utf8",
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  const output = `${res.stdout ?? ""}${res.stderr ?? ""}`;
+  if (output.trim()) process.stdout.write(output.endsWith("\n") ? output : `${output}\n`);
+  if (res.error) throw res.error;
+  if (res.status !== 0) {
+    throw new Error(`bun run build failed (exit ${res.status}):\n${formatBuildFailure(output)}`);
+  }
   console.log("[deploy] build done");
 }
 
