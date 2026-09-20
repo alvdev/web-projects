@@ -73,23 +73,28 @@ async function delay(ms: number): Promise<void> {
 }
 
 /**
- * Run fn; if it fails with 503 (high demand), keep retrying with escalating waits
- * (30s -> 60s -> 120s -> 120s...) until the provider is available again.
+ * Run fn; if it fails with 503 (high demand), retry with escalating waits —
+ * but only a BOUNDED number of cycles. A persistent 503 must never block a
+ * Telegram flow forever: after ~90s the error surfaces so callers can fall
+ * back to DeepSeek (the outer withAvailability must not double-retry 503).
  * 429 is NOT retried here — it bubbles up so the model chain can advance.
  */
-async function withAvailability503<T>(label: string, fn: () => Promise<T>): Promise<T> {
+export async function withAvailability503<T>(
+  label: string,
+  fn: () => Promise<T>,
+  intervals: readonly number[] = AVAILABILITY_INTERVALS_MS,
+  maxRetries = 2,
+): Promise<T> {
   let intervalIndex = 0;
-  for (;;) {
+  for (let attempt = 0; ; attempt++) {
     try {
       return await fn();
     } catch (err) {
       if (!is503(err)) throw err;
-      const waitMs =
-        intervalIndex < AVAILABILITY_INTERVALS_MS.length
-          ? AVAILABILITY_INTERVALS_MS[intervalIndex]
-          : AVAILABILITY_INTERVALS_MS[AVAILABILITY_INTERVALS_MS.length - 1];
-      if (intervalIndex < AVAILABILITY_INTERVALS_MS.length - 1) intervalIndex++;
+      if (attempt >= maxRetries) throw err;
+      const waitMs = intervals[Math.min(intervalIndex, intervals.length - 1)] ?? 0;
       console.warn(`[llm] ${label}: 503 unavailable (high demand). Waiting ${waitMs / 1000}s before retrying...`);
+      if (intervalIndex < intervals.length - 1) intervalIndex++;
       await delay(waitMs);
     }
   }
@@ -101,21 +106,29 @@ async function withAvailability503<T>(label: string, fn: () => Promise<T>): Prom
  * minutes; a daily quota exhaustion (all models 429) does not, so after ~2
  * retry cycles (~90s + chain time) the error surfaces and callers fall back
  * (DeepSeek / repair path) instead of blocking the flow forever.
+ *
+ * `retry503: false` is for callers whose fn already retries 503 internally
+ * (geminiWithChain via withAvailability503): retrying again here would
+ * multiply the wait into many minutes.
  */
-async function withAvailability<T>(label: string, fn: () => Promise<T>): Promise<T> {
+export async function withAvailability<T>(
+  label: string,
+  fn: () => Promise<T>,
+  opts: { retry503?: boolean; intervals?: readonly number[] } = {},
+): Promise<T> {
+  const retry503 = opts.retry503 ?? true;
+  const intervals = opts.intervals ?? AVAILABILITY_INTERVALS_MS;
   let intervalIndex = 0;
   for (let cycle = 0; ; cycle++) {
     try {
       return await fn();
     } catch (err) {
-      if (!is503(err) && !is429(err)) throw err;
+      const retriable = is429(err) || (retry503 && is503(err));
+      if (!retriable) throw err;
       if (cycle >= 2) throw err;
-      const waitMs =
-        intervalIndex < AVAILABILITY_INTERVALS_MS.length
-          ? AVAILABILITY_INTERVALS_MS[intervalIndex]
-          : AVAILABILITY_INTERVALS_MS[AVAILABILITY_INTERVALS_MS.length - 1];
-      if (intervalIndex < AVAILABILITY_INTERVALS_MS.length - 1) intervalIndex++;
+      const waitMs = intervals[Math.min(intervalIndex, intervals.length - 1)] ?? 0;
       console.warn(`[llm] ${label}: unavailable (503/429). Waiting ${waitMs / 1000}s before retrying...`);
+      if (intervalIndex < intervals.length - 1) intervalIndex++;
       await delay(waitMs);
     }
   }
@@ -277,7 +290,11 @@ export async function generateTextCompletion(
     );
   };
 
-  return withAvailability(provider === "gemini" ? "Gemini" : "DeepSeek", run);
+  return withAvailability(
+    provider === "gemini" ? "Gemini" : "DeepSeek",
+    run,
+    provider === "gemini" ? { retry503: false } : {},
+  );
 }
 
 /**
@@ -308,6 +325,7 @@ export async function groundedCompletion(
       if (!raw) throw new Error("Grounded Gemini returned empty response");
       return raw;
     }),
+    { retry503: false },
   );
 }
 
@@ -435,6 +453,7 @@ export async function describeImage(post: NewPost): Promise<string> {
       ]);
       return result.response.text().trim();
     }),
+    { retry503: false },
   );
 
   imageDescriptionCache.set(post.id, description);
@@ -452,6 +471,7 @@ export function generateGeminiArticle(post: NewPost, feedback?: string, imageDes
     geminiWithChain("Gemini", (model) =>
       withRetries(() => callGemini(model, post, feedback, imageDescription), `Gemini/${model}`, post.id),
     ),
+    { retry503: false },
   );
 }
 
@@ -558,6 +578,7 @@ export async function translateFileContent(
           `${kind}:${locale}`,
         ),
       ),
+      { retry503: false },
     );
   }
 }
@@ -624,6 +645,7 @@ export async function translateJsonContent(source: string, locale: string): Prom
       geminiWithChain("Gemini/json", (model) =>
         withRetries(() => callGeminiJson(model, source, locale), `Gemini/json/${model}`, `json:${locale}`),
       ),
+      { retry503: false },
     );
   }
 }
