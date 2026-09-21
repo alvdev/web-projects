@@ -1,6 +1,6 @@
 # Test Infrastructure & Foundation — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Install the test toolchain (PHPUnit 11, Vitest) and add the first hermetic tests that lock in pure logic and SQLite behavior, including the `STEAM_STATS_DB_PATH` isolation seam.
 
@@ -58,7 +58,7 @@
 - Modify: `composer.json`
 - Modify: `.gitignore`
 
-- [ ] **Step 1: Write the test files**
+- [x] **Step 1: Write the test files**
 
 `tests/phpunit/Unit/Igdb/HelpersTest.php`:
 
@@ -202,17 +202,17 @@ final class GameImporterExclusionTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run PHPUnit to verify it does not exist yet**
+- [x] **Step 2: Run PHPUnit to verify it does not exist yet**
 
 Run: `vendor/bin/phpunit --testsuite unit`
 Expected: `No such file or directory` (PHPUnit is not installed yet).
 
-- [ ] **Step 3: Install PHPUnit**
+- [x] **Step 3: Install PHPUnit**
 
 Run: `composer require --dev phpunit/phpunit:^11.5 --no-interaction`
 Expected: installs `phpunit/phpunit` and creates `vendor/bin/phpunit`.
 
-- [ ] **Step 4: Add autoload-dev to composer.json**
+- [x] **Step 4: Add autoload-dev to composer.json**
 
 Modify `composer.json` — add after the `config` block (keep valid JSON):
 
@@ -227,7 +227,7 @@ Modify `composer.json` — add after the `config` block (keep valid JSON):
 Then run: `composer dump-autoload`
 Expected: `Generating autoload files` with no errors.
 
-- [ ] **Step 5: Create the test support loader**
+- [x] **Step 5: Create the test support loader**
 
 `tests/Support/PluginClasses.php`:
 
@@ -271,7 +271,7 @@ final class PluginClasses
 }
 ```
 
-- [ ] **Step 6: Create bootstrap and PHPUnit config**
+- [x] **Step 6: Create bootstrap and PHPUnit config**
 
 `tests/bootstrap.php`:
 
@@ -318,7 +318,7 @@ if (!is_dir($tmp) && !mkdir($tmp, 0775, true) && !is_dir($tmp)) {
 Create empty placeholder files so PHPUnit does not error on missing directories:
 `tests/phpunit/Integration/.gitkeep` and `tests/phpunit/Cli/.gitkeep` (empty files).
 
-- [ ] **Step 7: Add composer script and gitignore entry**
+- [x] **Step 7: Add composer script and gitignore entry**
 
 Add to `composer.json` `scripts` (create the block if absent):
 
@@ -335,12 +335,12 @@ Append to `.gitignore`:
 /tests/.tmp/
 ```
 
-- [ ] **Step 8: Run the unit suite**
+- [x] **Step 8: Run the unit suite**
 
 Run: `composer test:unit`
 Expected: `OK` with 8 tests, 20+ assertions, 0 failures.
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add composer.json composer.lock phpunit.xml tests .gitignore
@@ -356,7 +356,7 @@ git commit -m "test: add phpunit setup and igdb pure unit tests"
 - Create: `tests/js/timezones.test.js`
 - Modify: `package.json` (bun-managed deps + scripts)
 
-- [ ] **Step 1: Write the test file**
+- [x] **Step 1: Write the test file**
 
 `tests/js/timezones.test.js`:
 
@@ -456,12 +456,12 @@ describe('getUtcOffset', () => {
 })
 ```
 
-- [ ] **Step 2: Install Vitest and jsdom**
+- [x] **Step 2: Install Vitest and jsdom**
 
 Run: `bun add -d vitest jsdom`
 Expected: `package.json` gets `vitest` and `jsdom` in `devDependencies`, `bun.lock` updated.
 
-- [ ] **Step 3: Create Vitest config**
+- [x] **Step 3: Create Vitest config**
 
 `vitest.config.js`:
 
@@ -476,12 +476,12 @@ export default defineConfig({
 })
 ```
 
-- [ ] **Step 4: Run the JS suite**
+- [x] **Step 4: Run the JS suite**
 
 Run: `bunx vitest run`
 Expected: all tests pass (14 tests).
 
-- [ ] **Step 5: Wire package.json scripts**
+- [x] **Step 5: Wire package.json scripts**
 
 Add to `package.json` `scripts`:
 
@@ -490,12 +490,12 @@ Add to `package.json` `scripts`:
         "test": "bun run test:unit && composer test"
 ```
 
-- [ ] **Step 6: Verify the script wiring**
+- [x] **Step 6: Verify the script wiring**
 
 Run: `bun run test:unit`
 Expected: Vitest passes.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add package.json bun.lock vitest.config.js tests/js
@@ -511,7 +511,7 @@ git commit -m "test: add vitest setup and timezone unit tests"
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsDbPathTest.php`
 - Modify: `site/plugins/alv-steam-stats/classes/SteamStatsDB.php:9-22`
 
-- [ ] **Step 1: Create the TempDatabase trait**
+- [x] **Step 1: Create the TempDatabase trait**
 
 `tests/Support/TempDatabase.php`:
 
@@ -558,7 +558,7 @@ trait TempDatabase
 }
 ```
 
-- [ ] **Step 2: Write the failing seam test**
+- [x] **Step 2: Write the failing seam test**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsDbPathTest.php`:
 
@@ -611,12 +611,12 @@ final class SteamStatsDbPathTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run it to verify it fails safely**
+- [x] **Step 3: Run it to verify it fails safely**
 
 Run: `vendor/bin/phpunit --filter SteamStatsDbPathTest`
 Expected: FAIL. The first assertion (`assertFileExists`) fails before any fixture row is written. Opening the real DB runs only idempotent `CREATE TABLE IF NOT EXISTS` statements; no data rows are written.
 
-- [ ] **Step 4: Implement the seam**
+- [x] **Step 4: Implement the seam**
 
 Replace the constructor in `site/plugins/alv-steam-stats/classes/SteamStatsDB.php` (lines 9-22):
 
@@ -638,17 +638,17 @@ Replace the constructor in `site/plugins/alv-steam-stats/classes/SteamStatsDB.ph
     }
 ```
 
-- [ ] **Step 5: Run to verify it passes**
+- [x] **Step 5: Run to verify it passes**
 
 Run: `vendor/bin/phpunit --filter SteamStatsDbPathTest`
 Expected: `OK (2 tests, 3 assertions)`.
 
-- [ ] **Step 6: Syntax check**
+- [x] **Step 6: Syntax check**
 
 Run: `php -l site/plugins/alv-steam-stats/classes/SteamStatsDB.php`
 Expected: `No syntax errors detected`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add site/plugins/alv-steam-stats/classes/SteamStatsDB.php tests/Support/TempDatabase.php tests/phpunit/Unit/SteamStats/SteamStatsDbPathTest.php
@@ -663,7 +663,7 @@ git commit -m "refactor(steam-stats): allow db path override for tests"
 - Create: `tests/phpunit/Unit/Prices/StorePriceDbPathTest.php`
 - Modify: `site/plugins/alv-prices/classes/StorePriceDB.php:9-24`
 
-- [ ] **Step 1: Write the failing seam test**
+- [x] **Step 1: Write the failing seam test**
 
 `tests/phpunit/Unit/Prices/StorePriceDbPathTest.php`:
 
@@ -716,12 +716,12 @@ final class StorePriceDbPathTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run it to verify it fails safely**
+- [x] **Step 2: Run it to verify it fails safely**
 
 Run: `vendor/bin/phpunit --filter StorePriceDbPathTest`
 Expected: FAIL on `assertFileExists` before any data is written. Opening the real DB runs only idempotent `CREATE TABLE IF NOT EXISTS` statements; no data rows are written.
 
-- [ ] **Step 3: Implement the seam**
+- [x] **Step 3: Implement the seam**
 
 Replace the constructor in `site/plugins/alv-prices/classes/StorePriceDB.php` (lines 9-24):
 
@@ -745,17 +745,17 @@ Replace the constructor in `site/plugins/alv-prices/classes/StorePriceDB.php` (l
     }
 ```
 
-- [ ] **Step 4: Run to verify it passes**
+- [x] **Step 4: Run to verify it passes**
 
 Run: `vendor/bin/phpunit --filter StorePriceDbPathTest`
 Expected: `OK (2 tests, 3 assertions)`.
 
-- [ ] **Step 5: Syntax check**
+- [x] **Step 5: Syntax check**
 
 Run: `php -l site/plugins/alv-prices/classes/StorePriceDB.php`
 Expected: `No syntax errors detected`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add site/plugins/alv-prices/classes/StorePriceDB.php tests/phpunit/Unit/Prices/StorePriceDbPathTest.php
@@ -770,7 +770,7 @@ git commit -m "refactor(prices): allow db path override for tests"
 - Create: `tests/phpunit/Unit/Igdb/DbHelperTest.php`
 - Modify: `site/plugins/alv-igdb/classes/helpers.php:175-186`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 `tests/phpunit/Unit/Igdb/DbHelperTest.php`:
 
@@ -831,12 +831,12 @@ final class DbHelperTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run it to verify it fails safely**
+- [x] **Step 2: Run it to verify it fails safely**
 
 Run: `vendor/bin/phpunit --filter DbHelperTest`
 Expected: FAIL on `assertFileExists($pathA)` (the env is ignored before the seam), before `setYearMonth` writes anything. Opening the real DB runs only idempotent `CREATE TABLE IF NOT EXISTS` statements; no data rows are written.
 
-- [ ] **Step 3: Implement the reset flag**
+- [x] **Step 3: Implement the reset flag**
 
 Replace `_db()` in `site/plugins/alv-igdb/classes/helpers.php` (lines 175-186):
 
@@ -862,17 +862,17 @@ function _db(bool $reset = false): ?\Alv\SteamStats\SteamStatsDB
 }
 ```
 
-- [ ] **Step 4: Run to verify it passes**
+- [x] **Step 4: Run to verify it passes**
 
 Run: `vendor/bin/phpunit --filter DbHelperTest`
 Expected: `OK (1 test, 6 assertions)`.
 
-- [ ] **Step 5: Syntax check**
+- [x] **Step 5: Syntax check**
 
 Run: `php -l site/plugins/alv-igdb/classes/helpers.php`
 Expected: `No syntax errors detected`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add site/plugins/alv-igdb/classes/helpers.php tests/phpunit/Unit/Igdb/DbHelperTest.php
@@ -886,7 +886,7 @@ git commit -m "refactor(igdb): make _db singleton resettable for tests"
 **Files:**
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsDbGamesTest.php`
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsDbGamesTest.php`:
 
@@ -1029,12 +1029,12 @@ final class SteamStatsDbGamesTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 Run: `vendor/bin/phpunit --filter SteamStatsDbGamesTest`
 Expected: `OK (10 tests, 25+ assertions)`.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add tests/phpunit/Unit/SteamStats/SteamStatsDbGamesTest.php
@@ -1048,7 +1048,7 @@ git commit -m "test: cover steam games index and slug normalization"
 **Files:**
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsDbPlayersTest.php`
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsDbPlayersTest.php`:
 
@@ -1290,12 +1290,12 @@ final class SteamStatsDbPlayersTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 Run: `vendor/bin/phpunit --filter SteamStatsDbPlayersTest`
 Expected: `OK (17 tests, 30+ assertions)`.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add tests/phpunit/Unit/SteamStats/SteamStatsDbPlayersTest.php
@@ -1309,7 +1309,7 @@ git commit -m "test: cover steam player counts and aggregations"
 **Files:**
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsDbChartsTest.php`
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsDbChartsTest.php`:
 
@@ -1431,12 +1431,12 @@ final class SteamStatsDbChartsTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 Run: `vendor/bin/phpunit --filter SteamStatsDbChartsTest`
 Expected: `OK (6 tests, 20+ assertions)`.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add tests/phpunit/Unit/SteamStats/SteamStatsDbChartsTest.php
@@ -1451,7 +1451,7 @@ git commit -m "test: cover steam chart chunks and entries"
 - Create: `tests/phpunit/Unit/Prices/StorePriceDbTest.php`
 - Modify: `site/plugins/alv-prices/classes/StorePriceDB.php` (`isExpired` signature)
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Unit/Prices/StorePriceDbTest.php`:
 
@@ -1572,12 +1572,12 @@ final class StorePriceDbTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify `testIsExpiredUsesInjectedNow` fails**
+- [x] **Step 2: Run to verify `testIsExpiredUsesInjectedNow` fails**
 
 Run: `vendor/bin/phpunit --filter StorePriceDbTest`
 Expected: FAIL only in `testIsExpiredUsesInjectedNow` (the third argument is currently ignored); the other tests pass.
 
-- [ ] **Step 3: Implement the `isExpired` seam**
+- [x] **Step 3: Implement the `isExpired` seam**
 
 Replace `isExpired` in `site/plugins/alv-prices/classes/StorePriceDB.php`:
 
@@ -1588,17 +1588,17 @@ Replace `isExpired` in `site/plugins/alv-prices/classes/StorePriceDB.php`:
     }
 ```
 
-- [ ] **Step 4: Run to verify all pass**
+- [x] **Step 4: Run to verify all pass**
 
 Run: `vendor/bin/phpunit --filter StorePriceDbTest`
 Expected: `OK (7 tests, 15+ assertions)`.
 
-- [ ] **Step 5: Syntax check**
+- [x] **Step 5: Syntax check**
 
 Run: `php -l site/plugins/alv-prices/classes/StorePriceDB.php`
 Expected: `No syntax errors detected`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add site/plugins/alv-prices/classes/StorePriceDB.php tests/phpunit/Unit/Prices/StorePriceDbTest.php
@@ -1612,27 +1612,27 @@ git commit -m "test: cover store price db behavior and add isExpired now overrid
 **Files:**
 - No file changes expected.
 
-- [ ] **Step 1: Capture the production DB checksum**
+- [x] **Step 1: Capture the production DB checksum**
 
 Run: `md5sum sqlite/steam_stats.db > /tmp/diario-db-before.txt && cat /tmp/diario-db-before.txt`
 Expected: prints the checksum of the real DB.
 
-- [ ] **Step 2: Run the full PHP suite**
+- [x] **Step 2: Run the full PHP suite**
 
 Run: `composer test`
 Expected: `OK` with all tests passing (50+ tests), 0 failures/errors.
 
-- [ ] **Step 3: Run the full JS suite**
+- [x] **Step 3: Run the full JS suite**
 
 Run: `bun run test:unit`
 Expected: Vitest reports all tests passing.
 
-- [ ] **Step 4: Verify the production DB is untouched**
+- [x] **Step 4: Verify the production DB is untouched**
 
 Run: `md5sum sqlite/steam_stats.db > /tmp/diario-db-after.txt && diff /tmp/diario-db-before.txt /tmp/diario-db-after.txt && echo "DB UNCHANGED"`
 Expected: `DB UNCHANGED` (WAL files may appear/disappear; the main file must match).
 
-- [ ] **Step 5: Lint every changed PHP file**
+- [x] **Step 5: Lint every changed PHP file**
 
 Run:
 
@@ -1644,7 +1644,7 @@ php -l site/plugins/alv-igdb/classes/helpers.php
 
 Expected: `No syntax errors detected` for each.
 
-- [ ] **Step 6: Manual smoke test of the live site**
+- [x] **Step 6: Manual smoke test of the live site**
 
 Run:
 
@@ -1660,7 +1660,7 @@ kill $SERVER_PID
 
 Expected: three `200` responses. This confirms the DB-path seams did not change default behavior.
 
-- [ ] **Step 7: Review the default-behavior diff**
+- [x] **Step 7: Review the default-behavior diff**
 
 Run: `git log --oneline -12` to find the commit just before Task 1 (this plan's commit), then:
 
@@ -1686,3 +1686,7 @@ No commit for this task (verification only).
 2. `2026-09-17-kirby-route-integration-tests.md` — Phase 3: booted-Kirby route/site-method/banner tests.
 3. `2026-09-17-cli-and-scraper-tests.md` — Phase 4: CLI subprocess tests + `.mjs` parser extraction.
 4. `2026-09-17-playwright-e2e.md` — Phase 5: E2E infra and specs.
+
+---
+
+**Status: completed (2026-09-21).** All tasks executed and merged to `main`; see the Execution notes at the top for recorded deviations. Checkboxes were ticked retroactively after completion.

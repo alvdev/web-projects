@@ -1,6 +1,6 @@
 # Prices & Affiliate Banners Test Seams — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Lock in price-adapter parsing, `PriceFetcher` caching/orchestration, and affiliate-banner config/placement with hermetic tests — no live ITAD/G2A/InstantGaming calls.
 
@@ -31,7 +31,7 @@
 - Create: `tests/phpunit/Unit/Prices/ItadAdapterTest.php`
 - Modify: `site/plugins/alv-prices/classes/adapters/ItadAdapter.php`
 
-- [ ] **Step 1: Create the fake adapter**
+- [x] **Step 1: Create the fake adapter**
 
 `tests/Support/FakeItadAdapter.php`:
 
@@ -66,7 +66,7 @@ class FakeItadAdapter extends ItadAdapter
 }
 ```
 
-- [ ] **Step 2: Write the failing tests**
+- [x] **Step 2: Write the failing tests**
 
 `tests/phpunit/Unit/Prices/ItadAdapterTest.php`:
 
@@ -227,12 +227,12 @@ final class ItadAdapterTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run to verify the seams are missing**
+- [x] **Step 3: Run to verify the seams are missing**
 
 Run: `vendor/bin/phpunit --filter ItadAdapterTest`
 Expected: FAIL — `httpPostJson` is not defined in the fake's parent scope? No: the fake defines it, but `parseDeals`, `appendAffiliate`, `buildFallbackUrl`, `resolveStoreUrl` are `private` in the parent → `Call to private method` / `undefined method` errors. No network calls or writes occur.
 
-- [ ] **Step 4: Implement the seams**
+- [x] **Step 4: Implement the seams**
 
 In `site/plugins/alv-prices/classes/adapters/ItadAdapter.php`:
 
@@ -325,16 +325,16 @@ Replace the body of `fetchPrices()` (lines 102-168) with:
 
 Change visibility `private` → `public` for exactly: `resolveStoreUrl`, `appendAffiliate`, `buildFallbackUrl`. Do not change `lookupGame` or `followRedirect`.
 
-- [ ] **Step 5: Run to verify green**
+- [x] **Step 5: Run to verify green**
 
 Run: `vendor/bin/phpunit --filter ItadAdapterTest`
 Expected: `OK (8 tests, 20 assertions)`.
 
-- [ ] **Step 6: Full suite + lint**
+- [x] **Step 6: Full suite + lint**
 
 Run: `composer test` (expect 82 tests) and `php -l site/plugins/alv-prices/classes/adapters/ItadAdapter.php`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add site/plugins/alv-prices/classes/adapters/ItadAdapter.php tests/Support/FakeItadAdapter.php tests/phpunit/Unit/Prices/ItadAdapterTest.php
@@ -350,7 +350,7 @@ git commit -m "refactor(prices): extract ITAD deal parser and transport seam"
 - Create: `tests/phpunit/Unit/Prices/G2AAdapterTest.php`
 - Modify: `site/plugins/alv-prices/classes/adapters/G2AAdapter.php`
 
-- [ ] **Step 1: Create the fake adapter**
+- [x] **Step 1: Create the fake adapter**
 
 `tests/Support/FakeG2AAdapter.php`:
 
@@ -380,7 +380,7 @@ class FakeG2AAdapter extends G2AAdapter
 }
 ```
 
-- [ ] **Step 2: Write the failing tests**
+- [x] **Step 2: Write the failing tests**
 
 `tests/phpunit/Unit/Prices/G2AAdapterTest.php`:
 
@@ -496,7 +496,7 @@ final class G2AAdapterTest extends TestCase
 
 Note: `setUpTempDatabase()` calls `_db(true)` which constructs `SteamStatsDB`; that's fine. `G2AAdapter::fetchPrice` reads `StorePriceDB` from env — the temp DB seeded by the test via explicit path is the same file.
 
-- [ ] **Step 3: Run to verify the seam is missing**
+- [x] **Step 3: Run to verify the seam is missing**
 
 Run: `vendor/bin/phpunit --filter G2AAdapterTest`
 Expected: FAIL — `buildPriceFromOffers` undefined; `getToken`/`getOffers` private (fake overrides are fine, but the parent `fetchPrice` uses `$this` so they will be called on the fake — overriding private methods does not affect the parent's call; `fetchPrice` will call the parent's private curl methods → network). To keep the failing run safe, run with a guard:
@@ -513,7 +513,7 @@ vendor/bin/phpunit --filter 'G2AAdapterTest::testBuildPriceFromOffers'
 
 Expected: FAIL — undefined method `buildPriceFromOffers`.
 
-- [ ] **Step 4: Implement the seam**
+- [x] **Step 4: Implement the seam**
 
 In `site/plugins/alv-prices/classes/adapters/G2AAdapter.php`:
 
@@ -551,12 +551,12 @@ Replace the tail of `fetchPrice()` (lines 60-80):
 
 Change `private` → `protected` for `getToken` and `getOffers`. Keep `slugify` private.
 
-- [ ] **Step 5: Run to verify green**
+- [x] **Step 5: Run to verify green**
 
 Run: `vendor/bin/phpunit --filter G2AAdapterTest`
 Expected: `OK (5 tests, 12 assertions)` — no network, because `getToken`/`getOffers` are now overridden by the fake.
 
-- [ ] **Step 6: Full suite + lint + commit**
+- [x] **Step 6: Full suite + lint + commit**
 
 ```bash
 composer test
@@ -574,7 +574,7 @@ git commit -m "refactor(prices): extract G2A offer parser seam"
 - Create: `tests/phpunit/Unit/Prices/InstantGamingAdapterTest.php`
 - Modify: `site/plugins/alv-prices/classes/adapters/InstantGamingAdapter.php`
 
-- [ ] **Step 1: Create the fake adapter**
+- [x] **Step 1: Create the fake adapter**
 
 `tests/Support/FakeInstantGamingAdapter.php`:
 
@@ -598,7 +598,7 @@ class FakeInstantGamingAdapter extends InstantGamingAdapter
 }
 ```
 
-- [ ] **Step 2: Write the failing tests**
+- [x] **Step 2: Write the failing tests**
 
 `tests/phpunit/Unit/Prices/InstantGamingAdapterTest.php`:
 
@@ -685,7 +685,7 @@ final class InstantGamingAdapterTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run to verify the seams are missing**
+- [x] **Step 3: Run to verify the seams are missing**
 
 Run: `vendor/bin/phpunit --filter InstantGamingAdapterTest`
 Expected: FAIL — `pickBestHit` is private (`Call to private method`), and `searchAlgolia` in the fake does not override the parent's private method (so `fetchPrice` tests would hit the network). No network happens on the failing assertion because `pickBestHit` fails first for the direct tests; the two `fetchPrice` tests would network — run only the direct ones for red:
@@ -696,7 +696,7 @@ vendor/bin/phpunit --filter 'InstantGamingAdapterTest::testPickBestHit'
 
 Expected: FAIL with `Call to private method`.
 
-- [ ] **Step 4: Implement the seams**
+- [x] **Step 4: Implement the seams**
 
 In `site/plugins/alv-prices/classes/adapters/InstantGamingAdapter.php`:
 - Change `private function searchAlgolia(` to `protected function searchAlgolia(`.
@@ -704,12 +704,12 @@ In `site/plugins/alv-prices/classes/adapters/InstantGamingAdapter.php`:
 
 No logic changes.
 
-- [ ] **Step 5: Run to verify green**
+- [x] **Step 5: Run to verify green**
 
 Run: `vendor/bin/phpunit --filter InstantGamingAdapterTest`
 Expected: `OK (5 tests, 11 assertions)` — no network (fake overrides `searchAlgolia`).
 
-- [ ] **Step 6: Full suite + lint + commit**
+- [x] **Step 6: Full suite + lint + commit**
 
 ```bash
 composer test
@@ -729,7 +729,7 @@ git commit -m "refactor(prices): open InstantGaming parser for tests"
 
 No production changes in this task.
 
-- [ ] **Step 1: Create the fakes**
+- [x] **Step 1: Create the fakes**
 
 `tests/Support/FakePriceDb.php`:
 
@@ -855,7 +855,7 @@ class FakeStoreAdapter extends StoreAdapter
 }
 ```
 
-- [ ] **Step 2: Write the tests**
+- [x] **Step 2: Write the tests**
 
 `tests/phpunit/Unit/Prices/PriceFetcherTest.php`:
 
@@ -1011,19 +1011,19 @@ final class PriceFetcherTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run the tests**
+- [x] **Step 3: Run the tests**
 
 Run: `vendor/bin/phpunit --filter PriceFetcherTest`
 Expected: `OK (5 tests, 14 assertions)`.
 
 If `testFetchSurvivesAdapterException` fails, ensure the adapter is registered with `throws = true` (third constructor arg).
 
-- [ ] **Step 4: Full suite**
+- [x] **Step 4: Full suite**
 
 Run: `composer test`
 Expected: all pass (92 tests).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add tests/Support/FakePriceDb.php tests/Support/FakeStoreAdapter.php tests/phpunit/Unit/Prices/PriceFetcherTest.php
@@ -1041,7 +1041,7 @@ git commit -m "test: cover PriceFetcher caching and adapter orchestration"
 - Modify: `site/plugins/alv-aff-banners/snippets/affiliate-banner.php`
 - Modify: `tests/Support/PluginClasses.php`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 `tests/phpunit/Unit/AffBanners/AffiliateBannersTest.php`:
 
@@ -1170,12 +1170,12 @@ final class AffiliateBannersTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify the class is missing**
+- [x] **Step 2: Run to verify the class is missing**
 
 Run: `vendor/bin/phpunit --filter AffiliateBannersTest`
 Expected: FAIL — `Class "Alv\AffBanners\AffiliateBanners" not found` (or the loader fatal for the missing file). Before running, add the file to the loader in Step 3? No: run first to confirm red, then create.
 
-- [ ] **Step 3: Create the class**
+- [x] **Step 3: Create the class**
 
 `site/plugins/alv-aff-banners/classes/AffiliateBanners.php`:
 
@@ -1281,7 +1281,7 @@ final class AffiliateBanners
 }
 ```
 
-- [ ] **Step 4: Add the class to the test loader**
+- [x] **Step 4: Add the class to the test loader**
 
 In `tests/Support/PluginClasses.php`, add to the `$files` array after the alv-ai entry:
 
@@ -1289,12 +1289,12 @@ In `tests/Support/PluginClasses.php`, add to the `$files` array after the alv-ai
             '/site/plugins/alv-aff-banners/classes/AffiliateBanners.php',
 ```
 
-- [ ] **Step 5: Run to verify green**
+- [x] **Step 5: Run to verify green**
 
 Run: `vendor/bin/phpunit --filter AffiliateBannersTest`
 Expected: `OK (7 tests, 36 assertions)`.
 
-- [ ] **Step 6: Wire the plugin site method**
+- [x] **Step 6: Wire the plugin site method**
 
 In `site/plugins/alv-aff-banners/index.php`, add at the top (after `use Kirby\Cms\App;`):
 
@@ -1319,7 +1319,7 @@ Replace the `alvAffBanners` site method body with:
         },
 ```
 
-- [ ] **Step 7: Wire the snippet placement**
+- [x] **Step 7: Wire the snippet placement**
 
 In `site/plugins/alv-aff-banners/snippets/affiliate-banner.php`, replace the matching block (lines 37-60) with:
 
@@ -1339,7 +1339,7 @@ if (empty($matching)) return;
 
 The snippet is loaded by Kirby after the plugin file (which `require_once`s the class), so `AffiliateBanners` is available. Keep the `$grouped` block unchanged.
 
-- [ ] **Step 8: Full suite + lint + commit**
+- [x] **Step 8: Full suite + lint + commit**
 
 ```bash
 composer test
@@ -1357,7 +1357,7 @@ git commit -m "refactor(banners): extract config parsing and placement matching"
 **Files:**
 - Create: `tests/phpunit/Integration/AffiliateBannerRenderTest.php`
 
-- [ ] **Step 1: Write the test**
+- [x] **Step 1: Write the test**
 
 `tests/phpunit/Integration/AffiliateBannerRenderTest.php`:
 
@@ -1457,19 +1457,19 @@ TXT);
 }
 ```
 
-- [ ] **Step 2: Run the test**
+- [x] **Step 2: Run the test**
 
 Run: `vendor/bin/phpunit --filter AffiliateBannerRenderTest`
 Expected: `OK (2 tests, 4 assertions)`.
 
 If the site fields are not read, check that `Alv-aff-programs` YAML parses (Kirby maps `Alv-aff-programs` to the `alv_aff_programs` field).
 
-- [ ] **Step 3: Full suite**
+- [x] **Step 3: Full suite**
 
 Run: `composer test`
 Expected: all pass — 101 tests, ~250 assertions, 1 skipped.
 
-- [ ] **Step 4: Verify isolation**
+- [x] **Step 4: Verify isolation**
 
 Run:
 
@@ -1480,7 +1480,7 @@ php -r '$p=new PDO("sqlite:sqlite/steam_stats.db"); echo "fixtures: ".$p->query(
 
 Expected: only the new test file untracked; `fixtures: 0`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add tests/phpunit/Integration/AffiliateBannerRenderTest.php
@@ -1501,3 +1501,7 @@ git commit -m "test: render affiliate banner from fixture site content"
 5. Kirby route/site-method integration (rankings/search/chart-data routes, fake `exec`).
 6. CLI + `.mjs` scraper parser tests.
 7. Playwright E2E.
+
+---
+
+**Status: completed (2026-09-21).** All tasks executed and merged to `main`; see the Execution notes at the top for recorded deviations. Checkboxes were ticked retroactively after completion.

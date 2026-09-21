@@ -1,6 +1,6 @@
 # Steam Stats Collector & Facade Seams — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Lock in `SteamStatsCollector` parsing/backfill and `SteamStats` scrape/trending behavior with hermetic tests — temp SQLite, fake HTTP/node seams, no live Steam/steamcharts/SteamDB calls.
 
@@ -30,7 +30,7 @@
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsCollectorCollectTest.php`
 - Modify: `site/plugins/alv-steam-stats/classes/SteamStatsCollector.php`
 
-- [ ] **Step 1: Create the fake collector**
+- [x] **Step 1: Create the fake collector**
 
 `tests/Support/FakeSteamStatsCollector.php`:
 
@@ -70,7 +70,7 @@ class FakeSteamStatsCollector extends SteamStatsCollector
 
 This class intentionally overrides methods added in Tasks 2 and 3; declaring them now is harmless (they are plain methods until the parent grows them).
 
-- [ ] **Step 2: Write the failing tests**
+- [x] **Step 2: Write the failing tests**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsCollectorCollectTest.php`:
 
@@ -192,12 +192,12 @@ final class SteamStatsCollectorCollectTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run to verify red**
+- [x] **Step 3: Run to verify red**
 
 Run: `vendor/bin/phpunit --filter SteamStatsCollectorCollectTest`
 Expected: FAIL — `Call to undefined method SteamStatsCollector::parseGameTxt()` (and `collect()` ignores the games-dir argument). No network, no writes outside temp.
 
-- [ ] **Step 4: Implement**
+- [x] **Step 4: Implement**
 
 In `site/plugins/alv-steam-stats/classes/SteamStatsCollector.php`:
 
@@ -252,13 +252,13 @@ Then keep the existing appid fetch loop unchanged, and add this static method af
 
 Change `private function fetchCurrentPlayers(` to `protected function fetchCurrentPlayers(`.
 
-- [ ] **Step 5: Run green + full suite + lint**
+- [x] **Step 5: Run green + full suite + lint**
 
 Run: `vendor/bin/phpunit --filter SteamStatsCollectorCollectTest` → `OK (5 tests, 15 assertions)`.
 Run: `composer test` → all pass.
 Run: `php -l site/plugins/alv-steam-stats/classes/SteamStatsCollector.php`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add site/plugins/alv-steam-stats/classes/SteamStatsCollector.php tests/Support/FakeSteamStatsCollector.php tests/phpunit/Unit/SteamStats/SteamStatsCollectorCollectTest.php
@@ -273,7 +273,7 @@ git commit -m "refactor(steam-stats): extract collector content parser"
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsCollectorBackfillTest.php`
 - Modify: `site/plugins/alv-steam-stats/classes/SteamStatsCollector.php`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsCollectorBackfillTest.php`:
 
@@ -351,12 +351,12 @@ final class SteamStatsCollectorBackfillTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify red**
+- [x] **Step 2: Run to verify red**
 
 Run: `vendor/bin/phpunit --filter SteamStatsCollectorBackfillTest`
 Expected: FAIL — `Call to undefined method SteamStatsCollector::mapSteamchartsPoints()`.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 In `SteamStatsCollector::backfill()`, replace the inline curl block (lines 243-265) with the seam call and mapper:
 
@@ -427,12 +427,12 @@ Add these methods after `backfill()`:
 
 Preserve the existing `usleep(500000)` at the end of the loop.
 
-- [ ] **Step 4: Run green + full suite + lint**
+- [x] **Step 4: Run green + full suite + lint**
 
 Run: `vendor/bin/phpunit --filter SteamStatsCollectorBackfillTest` → `OK (2 tests, 5 assertions)` (the test sleeps ~1s by design).
 Run: `composer test`, `php -l .../SteamStatsCollector.php`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add site/plugins/alv-steam-stats/classes/SteamStatsCollector.php tests/phpunit/Unit/SteamStats/SteamStatsCollectorBackfillTest.php
@@ -447,7 +447,7 @@ git commit -m "refactor(steam-stats): extract steamcharts backfill mapping"
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsCollectorSteamDbTest.php`
 - Modify: `site/plugins/alv-steam-stats/classes/SteamStatsCollector.php`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsCollectorSteamDbTest.php`:
 
@@ -583,12 +583,12 @@ final class SteamStatsCollectorSteamDbTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify red**
+- [x] **Step 2: Run to verify red**
 
 Run: `vendor/bin/phpunit --filter SteamStatsCollectorSteamDbTest`
 Expected: FAIL — `Call to undefined method SteamStatsCollector::mapSteamDbHistory()`.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 Replace `collectSteamDBPeak()` (lines 195-214) with:
 
@@ -716,12 +716,12 @@ Keep the return expression unchanged.
 
 Do not change `backfillSteamDBHistory()` or `downloadCapsule()`.
 
-- [ ] **Step 4: Run green + full suite + lint**
+- [x] **Step 4: Run green + full suite + lint**
 
 Run: `vendor/bin/phpunit --filter SteamStatsCollectorSteamDbTest` → `OK (7 tests, 14 assertions)`.
 Run: `composer test`, `php -l .../SteamStatsCollector.php`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add site/plugins/alv-steam-stats/classes/SteamStatsCollector.php tests/phpunit/Unit/SteamStats/SteamStatsCollectorSteamDbTest.php
@@ -736,7 +736,7 @@ git commit -m "refactor(steam-stats): centralize steamdb node script seam"
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsParseTest.php`
 - Modify: `site/plugins/alv-steam-stats/classes/SteamStats.php`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsParseTest.php`:
 
@@ -803,12 +803,12 @@ HTML;
 }
 ```
 
-- [ ] **Step 2: Run to verify red**
+- [x] **Step 2: Run to verify red**
 
 Run: `vendor/bin/phpunit --filter SteamStatsParseTest`
 Expected: FAIL — `Call to undefined method SteamStats::parseStatsHtml()`.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 In `SteamStats.php`, replace the parsing tail of `fetchGameListFromStats()` (lines 248-262) with `return self::parseStatsHtml($response);` and add after it:
 
@@ -849,12 +849,12 @@ Replace the JSON tail of `fetchMostPlayedFromSteam()` (lines 282-283) with:
 
 Change visibility `private` → `protected` for `fetchGameListFromStats` and `fetchMostPlayedFromSteam`.
 
-- [ ] **Step 4: Run green + full suite + lint**
+- [x] **Step 4: Run green + full suite + lint**
 
 Run: `vendor/bin/phpunit --filter SteamStatsParseTest` → `OK (3 tests, 4 assertions)`.
 Run: `composer test`, `php -l .../SteamStats.php`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add site/plugins/alv-steam-stats/classes/SteamStats.php tests/phpunit/Unit/SteamStats/SteamStatsParseTest.php
@@ -870,7 +870,7 @@ git commit -m "refactor(steam-stats): extract stats html and json parsers"
 - Create: `tests/phpunit/Unit/SteamStats/SteamStatsTrendingTest.php`
 - Modify: `site/plugins/alv-steam-stats/classes/SteamStats.php`
 
-- [ ] **Step 1: Create the test double**
+- [x] **Step 1: Create the test double**
 
 `tests/Support/TestableSteamStats.php`:
 
@@ -917,7 +917,7 @@ class TestableSteamStats extends SteamStats
 }
 ```
 
-- [ ] **Step 2: Write the failing tests**
+- [x] **Step 2: Write the failing tests**
 
 `tests/phpunit/Unit/SteamStats/SteamStatsTrendingTest.php`:
 
@@ -1041,24 +1041,24 @@ final class SteamStatsTrendingTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run to verify red**
+- [x] **Step 3: Run to verify red**
 
 Run: `vendor/bin/phpunit --filter SteamStatsTrendingTest`
 Expected: FAIL — `Error: Call to undefined function kirby()`. The test double's `protected` overrides are legal but have no effect while the parent methods are `private` (private calls resolve to the parent's own method), so `getCached()` reaches `kirby()->cache(...)` instead of the fake. No network.
 
-- [ ] **Step 4: Widen visibility in `SteamStats.php`**
+- [x] **Step 4: Widen visibility in `SteamStats.php`**
 
 Change `private` → `protected` for exactly: `fetchMostPlayedFromSteam` is already protected from Task 4 — leave it; widen these:
 `getMostPlayedFallback`, `fetchCurrentPlayers`, `fetchGameDetails`, `getCurrentPlayers`, `getPlayerHistory`, `getCached`, `setCache`.
 
 No logic changes.
 
-- [ ] **Step 5: Run green + full suite + lint**
+- [x] **Step 5: Run green + full suite + lint**
 
 Run: `vendor/bin/phpunit --filter SteamStatsTrendingTest` → `OK (3 tests, 19 assertions)`.
 Run: `composer test`, `php -l .../SteamStats.php`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add site/plugins/alv-steam-stats/classes/SteamStats.php tests/Support/TestableSteamStats.php tests/phpunit/Unit/SteamStats/SteamStatsTrendingTest.php
@@ -1078,3 +1078,7 @@ git commit -m "refactor(steam-stats): open facade seams for trending tests"
 5. Kirby route/site-method integration (`steam-stats-api/rankings`, search merge, chart-data ranges, fake `exec`; booted Kirby + temp DB; replace the PageSmokeTest `priceComparison` stub once `PriceFetcher` has an injectable seam if desired).
 6. CLI + `.mjs` scraper parser tests (`STEAM_STATS_DB_PATH`/`SKIP_EXTRAS` env seams, extracted parser modules).
 7. Playwright E2E (build + test servers, route mocking, charts/favorites/search).
+
+---
+
+**Status: completed (2026-09-21).** All tasks executed and merged to `main`; see the Execution notes at the top for recorded deviations. Checkboxes were ticked retroactively after completion.

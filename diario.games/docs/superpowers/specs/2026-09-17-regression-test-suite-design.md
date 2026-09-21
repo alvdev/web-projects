@@ -2,6 +2,7 @@
 
 Date: 2026-09-17
 Status: approved
+Implementation: completed 2026-09-21 (Plans 1–7 merged to `main`; final suites: 151 PHP tests, 30 Vitest tests, 7 Playwright tests)
 
 ## Goal
 

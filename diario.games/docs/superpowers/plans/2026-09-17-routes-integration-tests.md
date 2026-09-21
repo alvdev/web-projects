@@ -1,6 +1,6 @@
 # Kirby Routes & Site Methods — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Lock in the `steam-stats-api/*` HTTP routes and the `steamChartData` site method with hermetic integration tests: booted Kirby with temp roots/content/DB, injected chart spawner, no live APIs, no background processes.
 
@@ -31,7 +31,7 @@
 - Create: `tests/phpunit/Integration/RankingsRouteTest.php`
 - Modify: `site/plugins/alv-steam-stats/index.php` (rankings route spawn)
 
-- [ ] **Step 1: Create the route harness**
+- [x] **Step 1: Create the route harness**
 
 `tests/Support/RouteTestApp.php`:
 
@@ -117,7 +117,7 @@ final class RouteTestApp
 }
 ```
 
-- [ ] **Step 2: Write the failing rankings tests**
+- [x] **Step 2: Write the failing rankings tests**
 
 `tests/phpunit/Integration/RankingsRouteTest.php`:
 
@@ -243,7 +243,7 @@ final class RankingsRouteTest extends TestCase
 
 Note: tests run in declaration order. Test 2 leaves entries covering chunk 0, so chunk 9 is out of range in the final test. The stale test uses rank 1 (chunk 0) because `maxChunk` derives from the total entry count, not the requested chunk.
 
-- [ ] **Step 3: Run to verify red**
+- [x] **Step 3: Run to verify red**
 
 Run: `vendor/bin/phpunit --filter RankingsRouteTest`
 Expected: FAIL. Without the spawner option the route calls `@exec(...)` for chunks 0 and 2 — check `RouteTestApp::$spawns` stays empty (no assertion passes), and `refresh_pending` is still true. The `@` suppresses errors; no visible side effects besides a spawned `php` process per stale call. To avoid spawning during the red run, keep the lock file touched:
@@ -254,7 +254,7 @@ touch /tmp/steamdb-charts-browser.lock && vendor/bin/phpunit --filter RankingsRo
 
 Expected: the first assertion (`assertSame([0], RouteTestApp::$spawns)`) fails; no process is spawned because the lock is present.
 
-- [ ] **Step 4: Add the spawner option to the route**
+- [x] **Step 4: Add the spawner option to the route**
 
 In `site/plugins/alv-steam-stats/index.php`, replace the spawn block (lines 93-109) with:
 
@@ -284,12 +284,12 @@ In `site/plugins/alv-steam-stats/index.php`, replace the spawn block (lines 93-1
                     }
 ```
 
-- [ ] **Step 5: Run green + full suite + lint**
+- [x] **Step 5: Run green + full suite + lint**
 
 Run: `vendor/bin/phpunit --filter RankingsRouteTest` → `OK (6 tests, 24 assertions)`.
 Run: `composer test`, `php -l site/plugins/alv-steam-stats/index.php`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add site/plugins/alv-steam-stats/index.php tests/Support/RouteTestApp.php tests/phpunit/Integration/RankingsRouteTest.php
@@ -305,7 +305,7 @@ git commit -m "test: cover rankings route freshness matrix"
 
 No production changes. The harness from Task 1 is reused; fixture content is written per class.
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Integration/SearchRouteTest.php`:
 
@@ -436,12 +436,12 @@ TXT);
 }
 ```
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 Run: `vendor/bin/phpunit --filter SearchRouteTest`
 Expected: `OK (5 tests, 23 assertions)`. If a platform string differs, check `normalizePlatformNames` output before adjusting anything.
 
-- [ ] **Step 3: Full suite + commit**
+- [x] **Step 3: Full suite + commit**
 
 ```bash
 composer test
@@ -458,7 +458,7 @@ git commit -m "test: cover steam search route with fixture content and db"
 
 No production changes.
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Integration/GameDataRouteTest.php`:
 
@@ -583,12 +583,12 @@ TXT);
 
 Note: `steamChartData` calls `page('games/2024/03/alpha-quest')` and `kirby()->cache(...)`; the fixture content provides the page, and the booted app has a temp cache root.
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 Run: `vendor/bin/phpunit --filter GameDataRouteTest`
 Expected: `OK (4 tests, 25+ assertions)`. If `steamChartData` tries the live API, the seeded `current` (40) prevents the fallback — do not weaken assertions; investigate instead.
 
-- [ ] **Step 3: Full suite + commit**
+- [x] **Step 3: Full suite + commit**
 
 ```bash
 composer test
@@ -605,7 +605,7 @@ git commit -m "test: cover game data route and chart-data parity"
 
 No production changes.
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Integration/ImportRoutesTest.php`:
 
@@ -683,12 +683,12 @@ final class ImportRoutesTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 Run: `vendor/bin/phpunit --filter ImportRoutesTest`
 Expected: `OK (5 tests, 10 assertions)`.
 
-- [ ] **Step 3: Full suite + verification + commit**
+- [x] **Step 3: Full suite + verification + commit**
 
 Run: `composer test`, then:
 
@@ -716,3 +716,7 @@ git commit -m "test: cover import routes and capsule media fallback"
 
 6. CLI + `.mjs` scraper parser tests (`STEAM_STATS_DB_PATH`/`STEAM_STATS_SKIP_EXTRAS` env seams, extracted parser modules, subprocess contracts).
 7. Playwright E2E (build + test servers, route mocking, charts/favorites/search).
+
+---
+
+**Status: completed (2026-09-21).** All tasks executed and merged to `main`; see the Execution notes at the top for recorded deviations. Checkboxes were ticked retroactively after completion.

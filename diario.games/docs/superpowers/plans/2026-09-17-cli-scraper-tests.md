@@ -1,6 +1,6 @@
 # CLI & SteamDB Scraper Parser Seams — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Lock in the `collect-steam-stats.php` CLI contract (argv, exit codes, locks, skip-extras) with hermetic subprocess tests, and extract the five duplicated SteamDB `.mjs` parsers into a shared module with Vitest fixture tests.
 
@@ -33,7 +33,7 @@
 - Create: `tests/phpunit/Cli/CollectSteamStatsCliTest.php`
 - Modify: `scripts/collect-steam-stats.php`
 
-- [ ] **Step 1: Create the subprocess runner**
+- [x] **Step 1: Create the subprocess runner**
 
 `tests/Support/CliRunner.php`:
 
@@ -76,7 +76,7 @@ final class CliRunner
 }
 ```
 
-- [ ] **Step 2: Write the failing tests**
+- [x] **Step 2: Write the failing tests**
 
 `tests/phpunit/Cli/CollectSteamStatsCliTest.php`:
 
@@ -177,7 +177,7 @@ final class CollectSteamStatsCliTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run to verify red**
+- [x] **Step 3: Run to verify red**
 
 Run: `vendor/bin/phpunit --testsuite cli`
 Expected: FAIL — `testCollectModeScansFixtureContentAndSkipsExtras` sees `Scanned: 52` (real content dir ignored) and the extras run against live APIs. **Hold the charts lock for the whole red run to avoid spawning scrapes**, and set `STEAM_STATS_SKIP_EXTRAS` is not yet honored — the extras WILL run (network). To keep the red phase safe, run only the argv/lock tests first:
@@ -188,7 +188,7 @@ vendor/bin/phpunit --filter 'CollectSteamStatsCliTest::(testHistoryBySlug|testSt
 
 Expected: 3 pass (no seams needed), 0 failures; the seam tests are committed to run after implementation. (The `collect` test's red phase requires live-crawlable extras, so it is verified green only after Step 4.)
 
-- [ ] **Step 4: Implement the env seams**
+- [x] **Step 4: Implement the env seams**
 
 In `scripts/collect-steam-stats.php`:
 
@@ -211,14 +211,14 @@ if ($skipExtras) {
 }
 ```
 
-- [ ] **Step 5: Run green + full suite + lint**
+- [x] **Step 5: Run green + full suite + lint**
 
 Run: `vendor/bin/phpunit --testsuite cli`
 Expected: `OK (5 tests, 13 assertions)` — no network, no spawned processes (charts lock is unlinked in `tearDown`; the collect test scans only temp content).
 
 Run `composer test` and `php -l scripts/collect-steam-stats.php`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add scripts/collect-steam-stats.php tests/Support/CliRunner.php tests/phpunit/Cli/CollectSteamStatsCliTest.php
@@ -235,7 +235,7 @@ git commit -m "test: add cli subprocess harness and env seams"
 
 No changes to the scraper scripts in this task (they still have their local copies; Task 3 wires them).
 
-- [ ] **Step 1: Create the parser module**
+- [x] **Step 1: Create the parser module**
 
 `scripts/lib/steamdb-parsers.mjs`:
 
@@ -364,7 +364,7 @@ export function parseDomPeak(text) {
 }
 ```
 
-- [ ] **Step 2: Write the tests**
+- [x] **Step 2: Write the tests**
 
 `tests/js/steamdb-parsers.test.js`:
 
@@ -526,12 +526,12 @@ describe('parseDomPeak', () => {
 })
 ```
 
-- [ ] **Step 3: Run the tests**
+- [x] **Step 3: Run the tests**
 
 Run: `bunx vitest run tests/js/steamdb-parsers.test.js`
 Expected: `15 tests` pass (all green).
 
-- [ ] **Step 4: Full JS suite + commit**
+- [x] **Step 4: Full JS suite + commit**
 
 ```bash
 bun run test:unit
@@ -549,7 +549,7 @@ git commit -m "test: extract shared steamdb parser module with fixtures"
 - Modify: `scripts/backfill-steamdb.mjs`
 - Modify: `scripts/scrape-steamdb-charts.mjs`
 
-- [ ] **Step 1: Wire the history scraper**
+- [x] **Step 1: Wire the history scraper**
 
 In `scripts/scrape-steamdb-history.mjs`:
 - Add import: `import { buildProxyUrl, loadEnv, mergeGraphPoints, sleep } from './lib/steamdb-parsers.mjs';`
@@ -564,7 +564,7 @@ In `scripts/scrape-steamdb-history.mjs`:
         console.error(`[scrape-steamdb] Total: ${points.length} data points`);
 ```
 
-- [ ] **Step 2: Wire the peak scraper**
+- [x] **Step 2: Wire the peak scraper**
 
 In `scripts/fetch-steamdb-peak.mjs`:
 - Add import: `import { buildProxyUrl, computePeak, loadEnv, sleep } from './lib/steamdb-parsers.mjs';`
@@ -585,7 +585,7 @@ In `scripts/fetch-steamdb-peak.mjs`:
         return { success: true };
 ```
 
-- [ ] **Step 3: Wire the backfill scraper**
+- [x] **Step 3: Wire the backfill scraper**
 
 In `scripts/backfill-steamdb.mjs`:
 - Add import: `import { buildProxyUrl, loadEnv, mergeDailyHourlyPoints } from './lib/steamdb-parsers.mjs';`
@@ -601,7 +601,7 @@ console.error(`Got ${points.length} data points`);
 process.stdout.write(JSON.stringify(points));
 ```
 
-- [ ] **Step 4: Wire the charts scraper**
+- [x] **Step 4: Wire the charts scraper**
 
 In `scripts/scrape-steamdb-charts.mjs`:
 - Add import: `import { buildProxyUrl, loadEnv, parseDataTableRows, sleep } from './lib/steamdb-parsers.mjs';`
@@ -646,7 +646,7 @@ Then, immediately after the retry `while` loop (before `if (!extracted)`), conve
         }
 ```
 
-- [ ] **Step 5: Syntax-check every script**
+- [x] **Step 5: Syntax-check every script**
 
 Run:
 
@@ -660,7 +660,7 @@ node --check scripts/lib/steamdb-parsers.mjs
 
 Expected: no output (success) for all five.
 
-- [ ] **Step 6: Full suites + commit**
+- [x] **Step 6: Full suites + commit**
 
 Run: `bun run test:unit` (parsers tests still green) and `composer test` (PHP untouched, green).
 
@@ -681,3 +681,7 @@ git commit -m "refactor(scrapers): use shared steamdb parsers"
 ## Next plan
 
 7. Playwright E2E: build + test servers (`php -S` + upstream mock), route mocking for `/steam-stats-api/*`, chart/range/timezone/share interactions, header search + import overlay, favorites persistence.
+
+---
+
+**Status: completed (2026-09-21).** All tasks executed and merged to `main`; see the Execution notes at the top for recorded deviations. Checkboxes were ticked retroactively after completion.

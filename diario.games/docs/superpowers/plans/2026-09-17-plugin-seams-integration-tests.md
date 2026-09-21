@@ -1,6 +1,6 @@
 # Plugin Seams & Integration Tests (Part 1) — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Lock in the IGDB import pipeline with fake-client integration tests, extract testable AI parser methods, and add Kirby page-render smoke tests — all hermetic (no live APIs, no production data writes).
 
@@ -30,7 +30,7 @@
 - Create: `tests/Support/Files.php`
 - Modify: `site/plugins/alv-igdb/classes/GameImporter.php`
 
-- [ ] **Step 1: Create the support classes**
+- [x] **Step 1: Create the support classes**
 
 `tests/Support/Files.php`:
 
@@ -130,7 +130,7 @@ class FakeIGDBClient extends IGDBClient
 }
 ```
 
-- [ ] **Step 2: Write the seam test**
+- [x] **Step 2: Write the seam test**
 
 `tests/phpunit/Unit/Igdb/GameImporterSeamTest.php`:
 
@@ -181,12 +181,12 @@ final class GameImporterSeamTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run it to verify it fails safely**
+- [x] **Step 3: Run it to verify it fails safely**
 
 Run: `vendor/bin/phpunit --filter GameImporterSeamTest`
 Expected: FAIL — `assertSame` sees the real `content/games` path because the second constructor arg is ignored. This test performs no import, so nothing is written anywhere.
 
-- [ ] **Step 4: Implement the seams in `site/plugins/alv-igdb/classes/GameImporter.php`**
+- [x] **Step 4: Implement the seams in `site/plugins/alv-igdb/classes/GameImporter.php`**
 
 Replace the constructor (lines 78-85):
 
@@ -250,17 +250,17 @@ Apply these exact call-site replacements:
 
 Do not change any other logic.
 
-- [ ] **Step 5: Run the seam test**
+- [x] **Step 5: Run the seam test**
 
 Run: `vendor/bin/phpunit --filter GameImporterSeamTest`
 Expected: `OK (1 test, 1 assertion)`.
 
-- [ ] **Step 6: Run the full suite and lint**
+- [x] **Step 6: Run the full suite and lint**
 
 Run: `composer test:unit` (expect 53 tests) and `php -l site/plugins/alv-igdb/classes/GameImporter.php`.
 Expected: all pass; no syntax errors.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add site/plugins/alv-igdb/classes/GameImporter.php tests/Support/Files.php tests/Support/FakeIGDBClient.php tests/phpunit/Unit/Igdb/GameImporterSeamTest.php
@@ -275,7 +275,7 @@ git commit -m "refactor(igdb): add importer seams for hermetic integration tests
 - Create: `tests/Support/TestableGameImporter.php`
 - Create: `tests/phpunit/Unit/Igdb/GameImporterImportTest.php`
 
-- [ ] **Step 1: Create the test double**
+- [x] **Step 1: Create the test double**
 
 `tests/Support/TestableGameImporter.php`:
 
@@ -343,7 +343,7 @@ class TestableGameImporter extends GameImporter
 }
 ```
 
-- [ ] **Step 2: Write the import pipeline tests**
+- [x] **Step 2: Write the import pipeline tests**
 
 `tests/phpunit/Unit/Igdb/GameImporterImportTest.php`:
 
@@ -479,17 +479,17 @@ final class GameImporterImportTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run the tests**
+- [x] **Step 3: Run the tests**
 
 Run: `vendor/bin/phpunit --filter GameImporterImportTest`
 Expected: `OK (4 tests, 20+ assertions)`. If any assertion fails, STOP and report the exact mismatch; do not modify production code.
 
-- [ ] **Step 4: Run the full suite**
+- [x] **Step 4: Run the full suite**
 
 Run: `composer test:unit`
 Expected: all pass (57 tests).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add tests/Support/TestableGameImporter.php tests/phpunit/Unit/Igdb/GameImporterImportTest.php
@@ -503,7 +503,7 @@ git commit -m "test: cover GameImporter import pipeline"
 **Files:**
 - Create: `tests/phpunit/Unit/Igdb/GameImporterFallbackTest.php`
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Unit/Igdb/GameImporterFallbackTest.php`:
 
@@ -638,17 +638,17 @@ final class GameImporterFallbackTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 Run: `vendor/bin/phpunit --filter GameImporterFallbackTest`
 Expected: `OK (5 tests, 12 assertions)`.
 
-- [ ] **Step 3: Run the full suite**
+- [x] **Step 3: Run the full suite**
 
 Run: `composer test:unit`
 Expected: all pass (62 tests).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add tests/phpunit/Unit/Igdb/GameImporterFallbackTest.php
@@ -662,7 +662,7 @@ git commit -m "test: cover IGDB import fallback and steam registration"
 **Files:**
 - Create: `tests/phpunit/Unit/Igdb/AutoFetcherTest.php`
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/phpunit/Unit/Igdb/AutoFetcherTest.php`:
 
@@ -761,17 +761,17 @@ final class AutoFetcherTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 Run: `vendor/bin/phpunit --filter AutoFetcherTest`
 Expected: `OK (2 tests, 5 assertions)`.
 
-- [ ] **Step 3: Run the full suite**
+- [x] **Step 3: Run the full suite**
 
 Run: `composer test:unit`
 Expected: all pass (64 tests).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add tests/phpunit/Unit/Igdb/AutoFetcherTest.php
@@ -786,7 +786,7 @@ git commit -m "test: cover AutoFetcher run loop"
 - Create: `tests/phpunit/Unit/Ai/AIClientTest.php`
 - Modify: `site/plugins/alv-ai/classes/AIClient.php`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 `tests/phpunit/Unit/Ai/AIClientTest.php`:
 
@@ -848,12 +848,12 @@ final class AIClientTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify the new methods fail**
+- [x] **Step 2: Run to verify the new methods fail**
 
 Run: `vendor/bin/phpunit --filter AIClientTest`
 Expected: FAIL — `Call to undefined method DiarioGames\AI\AIClient::buildMessages()`.
 
-- [ ] **Step 3: Implement the extraction in `site/plugins/alv-ai/classes/AIClient.php`**
+- [x] **Step 3: Implement the extraction in `site/plugins/alv-ai/classes/AIClient.php`**
 
 Add these methods after `generate()`:
 
@@ -898,16 +898,16 @@ and replace the inline response parsing:
 
 Apply the same two replacements in `callOpenRouter()` (model `openrouter/auto` stays).
 
-- [ ] **Step 4: Run the tests**
+- [x] **Step 4: Run the tests**
 
 Run: `vendor/bin/phpunit --filter AIClientTest`
 Expected: `OK (6 tests, 9 assertions)`.
 
-- [ ] **Step 5: Full suite + lint**
+- [x] **Step 5: Full suite + lint**
 
 Run: `composer test:unit` (expect 70 tests) and `php -l site/plugins/alv-ai/classes/AIClient.php`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add site/plugins/alv-ai/classes/AIClient.php tests/phpunit/Unit/Ai/AIClientTest.php
@@ -921,14 +921,14 @@ git commit -m "refactor(ai): extract message building and completion parsing"
 **Files:**
 - Create: `tests/phpunit/Integration/PageSmokeTest.php`
 
-- [ ] **Step 1: Preconditions check**
+- [x] **Step 1: Preconditions check**
 
 Run: `ls public/assets/.vite/manifest.json || bun run build`
 Expected: manifest present (or build completes).
 
 Note (execution reality, 2026-09-17): this project's `.env` contains price-provider keys, so `priceComparison()` would hit live ITAD/G2A/InstantGaming APIs during game-page render. The smoke test therefore stubs the `priceComparison` site method (`Site::$methods`, public static) for the test process only and restores it after — no production change, no network.
 
-- [ ] **Step 2: Write the smoke test**
+- [x] **Step 2: Write the smoke test**
 
 `tests/phpunit/Integration/PageSmokeTest.php`:
 
@@ -1041,7 +1041,7 @@ final class PageSmokeTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run the smoke test**
+- [x] **Step 3: Run the smoke test**
 
 Run: `vendor/bin/phpunit --filter PageSmokeTest`
 
@@ -1052,7 +1052,7 @@ Expected: `OK (4 tests, ...)`. If rendering fails, read the exception; typical f
 
 Do not weaken assertions to hide a real render error; fix the environment or report NEEDS_CONTEXT.
 
-- [ ] **Step 4: Verify production isolation**
+- [x] **Step 4: Verify production isolation**
 
 Run:
 
@@ -1063,12 +1063,12 @@ git status --short | head
 
 Expected: `fixtures: 0`; no new untracked files under `content/` or `site/cache/`.
 
-- [ ] **Step 5: Full suite**
+- [x] **Step 5: Full suite**
 
 Run: `composer test`
 Expected: all pass — 74 tests, 212 assertions, 1 skipped (no article content locally). Note: `composer test:unit` only runs the `unit` suite; the smoke test lives in the `integration` suite.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add tests/phpunit/Integration/PageSmokeTest.php
@@ -1090,3 +1090,7 @@ git commit -m "test: add kirby page render smoke tests"
 5. Kirby route/site-method integration (rankings/search/chart-data routes, fake `exec`).
 6. CLI + `.mjs` scraper parser tests.
 7. Playwright E2E.
+
+---
+
+**Status: completed (2026-09-21).** All tasks executed and merged to `main`; see the Execution notes at the top for recorded deviations. Checkboxes were ticked retroactively after completion.

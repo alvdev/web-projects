@@ -1,6 +1,6 @@
 # Playwright E2E — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Add real-browser E2E coverage for the game-page Steam chart (ranges, timezone picker, share download), header search + import overlay, and favorite persistence — running against a hermetic `php -S` server with fixture content and a seeded temp SQLite DB, with all client API calls mocked.
 
@@ -39,12 +39,12 @@
 - Modify: `site/plugins/alv-prices/index.php`
 - Modify: `package.json`
 
-- [ ] **Step 1: Install Playwright Test**
+- [x] **Step 1: Install Playwright Test**
 
 Run: `bun add -d @playwright/test@^1.63.0`
 Expected: devDependency added, `bun.lock` updated. Browsers are already cached (`~/.cache/ms-playwright/chromium-1228`); if `bunx playwright test` later reports a missing browser, run `bunx playwright install chromium`.
 
-- [ ] **Step 2: Add the price-fetch kill switch**
+- [x] **Step 2: Add the price-fetch kill switch**
 
 In `site/plugins/alv-prices/index.php`, at the top of the `priceComparison` closure:
 
@@ -64,7 +64,7 @@ In `site/plugins/alv-prices/index.php`, at the top of the `priceComparison` clos
         },
 ```
 
-- [ ] **Step 3: Create the E2E bootstrap**
+- [x] **Step 3: Create the E2E bootstrap**
 
 `tests/e2e/index.php` (copied into the temp document root by the launcher; Kirby only honors `roots` passed as constructor props, not config options):
 
@@ -90,7 +90,7 @@ $kirby = new \Kirby\Cms\App([
 echo $kirby->render();
 ```
 
-- [ ] **Step 4: Create the fixture seeders**
+- [x] **Step 4: Create the fixture seeders**
 
 `tests/e2e/seed-content.php`:
 
@@ -174,7 +174,7 @@ $db->insertPlayerCount(990002, $now - 3600, 100);
 
 The `setYearMonth` calls are required so the root `(:any)` route resolves the pages by DB path instead of attempting an on-the-fly IGDB import. The nonzero counts for both games prevent the footer's live-player fallback.
 
-- [ ] **Step 5: Create the server launcher**
+- [x] **Step 5: Create the server launcher**
 
 `tests/e2e/app-server.sh` (make executable: `chmod +x`):
 
@@ -211,7 +211,7 @@ exec env \
 
 `kirby/router.php` requires `$_SERVER['DOCUMENT_ROOT'] . '/index.php'`, i.e. the copied `$TMP/index.php`; `kirby/bootstrap.php` finds the autoloader via `dirname(__DIR__)` through the `kirby` symlink, and `site/config/config.php` loads the real `.env` through the `site` symlink.
 
-- [ ] **Step 6: Create the Playwright config**
+- [x] **Step 6: Create the Playwright config**
 
 `playwright.config.js`:
 
@@ -242,7 +242,7 @@ export default defineConfig({
 })
 ```
 
-- [ ] **Step 7: Add package scripts**
+- [x] **Step 7: Add package scripts**
 
 In `package.json` `scripts`:
 
@@ -251,7 +251,7 @@ In `package.json` `scripts`:
         "test:all": "bun run test:unit && composer test && bun run test:e2e"
 ```
 
-- [ ] **Step 8: Write the smoke spec**
+- [x] **Step 8: Write the smoke spec**
 
 `tests/e2e/specs/smoke.spec.js`:
 
@@ -270,12 +270,12 @@ test('game page renders the steam chart with seeded data', async ({ page }) => {
 })
 ```
 
-- [ ] **Step 9: Run the E2E suite**
+- [x] **Step 9: Run the E2E suite**
 
 Run: `bun run test:e2e`
 Expected: build succeeds, server starts, `1 passed`. If the chart is missing, check that `public/assets/.vite/manifest.json` exists after the build and that the temp docroot has no `.dev` file. If `/e2e-game` triggers an import, verify `setYearMonth` ran in `seed-db.php` and that `$TMP/index.php` sets the content root.
 
-- [ ] **Step 10: Verify the other suites still pass and commit**
+- [x] **Step 10: Verify the other suites still pass and commit**
 
 Run: `composer test` (151 tests) and `bun run test:unit` (30 tests).
 
@@ -291,7 +291,7 @@ git commit -m "test: add playwright e2e infrastructure and smoke spec"
 **Files:**
 - Create: `tests/e2e/specs/chart.spec.js`
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/e2e/specs/chart.spec.js`:
 
@@ -347,14 +347,14 @@ test.describe('steam chart interactions', () => {
 })
 ```
 
-- [ ] **Step 2: Run the spec**
+- [x] **Step 2: Run the spec**
 
 Run: `bunx playwright test tests/e2e/specs/chart.spec.js`
 Expected: `3 passed`.
 
 If the timezone initial value differs, check the config `timezoneId` (Europe/Madrid → `getDisplayLabel('Europe/Madrid')` = `España - Península y Baleares`). If the share test times out, confirm the chart canvas is not tainted (no external images in the game page fixture) and that downloads are accepted (Playwright default).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add tests/e2e/specs/chart.spec.js
@@ -368,7 +368,7 @@ git commit -m "test: cover chart interactions in e2e"
 **Files:**
 - Create: `tests/e2e/specs/search-favorites.spec.js`
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 `tests/e2e/specs/search-favorites.spec.js`:
 
@@ -459,19 +459,19 @@ test('favorites persist across reload', async ({ page }) => {
 })
 ```
 
-- [ ] **Step 2: Run the spec**
+- [x] **Step 2: Run the spec**
 
 Run: `bunx playwright test tests/e2e/specs/search-favorites.spec.js`
 Expected: `3 passed`.
 
 If the import overlay never appears, ensure the mocked search result has `exists: false` (that is what adds `data-importing`). If the redirect assertion fails, confirm `e2e-second` content exists (seeded by `seed-content.php`) and its DB row has `year_month` so the route resolves without an IGDB import.
 
-- [ ] **Step 3: Run the full E2E suite and all suites**
+- [x] **Step 3: Run the full E2E suite and all suites**
 
 Run: `bun run test:e2e` → `7 passed`.
 Run: `composer test` → 151 tests; `bun run test:unit` → 30 tests.
 
-- [ ] **Step 4: Verify isolation**
+- [x] **Step 4: Verify isolation**
 
 Run: `git status --short | head` (only the new spec untracked) and confirm the real DB has no fixture rows:
 
@@ -481,7 +481,7 @@ php -r '$p=new PDO("sqlite:sqlite/steam_stats.db"); echo "e2e rows: ".$p->query(
 
 Expected: `e2e rows: 0`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add tests/e2e/specs/search-favorites.spec.js
@@ -507,3 +507,7 @@ All seven implementation plans from `2026-09-17-regression-test-suite-design.md`
 5. Kirby routes (Plan 5)
 6. CLI + scrapers (Plan 6)
 7. Playwright E2E (Plan 7)
+
+---
+
+**Status: completed (2026-09-21).** All tasks executed and merged to `main`; see the Execution notes at the top for recorded deviations. Checkboxes were ticked retroactively after completion.
