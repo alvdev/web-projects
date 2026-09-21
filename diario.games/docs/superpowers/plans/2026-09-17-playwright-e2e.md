@@ -17,6 +17,14 @@
 
 **Prerequisites:** Plans 1–6 merged. Run from `diario.games/`. `bun run test:e2e` builds assets first, so a running `npm run dev` is not required; the E2E temp root has no `.dev` file, so it always uses the built bundle (your dev server and project-root `.dev` are left untouched).
 
+**Execution notes (2026-09-21):** The committed code is authoritative; deviations from the snippets below:
+- E2E server port is **8898**, not 8899: the local dev server already listens on 8899 (`vite` 5173 + `php -S localhost:8899`), and `webServer` has `reuseExistingServer: false`. Both `app-server.sh` and `playwright.config.js` use 8898.
+- One-time browser install was required: `bunx playwright install chromium` downloads the headless-shell build 1243 that `@playwright/test` 1.63 expects; the pre-existing `chromium-1228` cache (from the `playwright` scraper dependency) is not used by the test runner.
+- `.gitignore` also ignores `/test-results/` and `/playwright-report/`.
+- Task 2's spec was committed by the human as `ca44322f` ("test: add e2e playwrite chart test") after an interrupted controller commit; content matches the plan verbatim (note the "playwrite" typo).
+- Actual E2E result: 7 passed in ~20s. Suites unchanged: PHP 151 tests / 476 assertions / 1 skipped, Vitest 30.
+- Real DB isolation verified: no `e2e-game`/`e2e-second` rows in `sqlite/steam_stats.db`.
+
 ---
 
 ### Task 1: E2E infrastructure + smoke spec
