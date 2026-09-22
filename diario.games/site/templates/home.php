@@ -1,11 +1,25 @@
 <?php snippet('header') ?>
 
-<?php snippet('hero') ?>
-
 <?php
 $bannerConfig = site()->alvAffBanners();
 $hasEnabledPrograms = $bannerConfig['enabled'] && !empty(array_filter($bannerConfig['programs'], fn($p) => $p['enabled']));
 ?>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8" data-home-charts-row>
+    <?php snippet('steam-stats-tabs') ?>
+    <div class="hidden lg:block" data-home-reserved aria-hidden="true">
+        <?php /* Reserved for the next homepage section */ ?>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8" data-home-posts-row>
+    <?php snippet('hero', ['latestPosts' => $latestPosts]) ?>
+    <?php if ($latestPosts->count() > 0): ?>
+        <?php snippet('home-latest-posts', ['posts' => $latestPosts]) ?>
+    <?php else: ?>
+        <div class="hidden lg:block" aria-hidden="true"></div>
+    <?php endif ?>
+</div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <?php

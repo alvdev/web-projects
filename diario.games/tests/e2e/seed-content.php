@@ -42,3 +42,31 @@ foreach ($games as $path => $fields) {
 
     file_put_contents($dir . '/game.txt', implode("\n\n----\n\n", $parts) . "\n");
 }
+
+@mkdir($contentDir . '/home', 0775, true);
+file_put_contents($contentDir . '/home/home.txt', "Title: Inicio\n\n----\n\nTemplate: home\n");
+
+$articles = [
+    'e2e-news-one'    => ['template' => 'news',  'date' => '2024-04-10'],
+    'e2e-news-two'    => ['template' => 'news',  'date' => '2024-04-09'],
+    'e2e-guide-three' => ['template' => 'guide', 'date' => '2024-04-08'],
+    'e2e-news-four'   => ['template' => 'news',  'date' => '2024-04-07'],
+    'e2e-guide-five'  => ['template' => 'guide', 'date' => '2024-04-06'],
+];
+
+$gameDir = $contentDir . '/games/2024/03/e2e-game';
+foreach ($articles as $slug => $data) {
+    $dir = $gameDir . '/' . $slug;
+    @mkdir($dir, 0775, true);
+
+    $title = ucwords(str_replace('-', ' ', $slug));
+    $parts = [
+        'Title: ' . $title,
+        'Template: ' . $data['template'],
+        'Date: ' . $data['date'],
+        'Summary: Summary for ' . $title,
+    ];
+
+    file_put_contents($dir . '/' . $data['template'] . '.txt', implode("\n\n----\n\n", $parts) . "\n");
+}
+

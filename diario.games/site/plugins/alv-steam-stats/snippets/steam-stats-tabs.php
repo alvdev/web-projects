@@ -59,61 +59,68 @@ foreach ($appIdToSlug as $appid => $slug) {
     }
 }
 
-function steamFormatPlayers(int $count): string
-{
-    if ($count >= 1000000) {
-        return round($count / 1000000, 2) . 'M';
+if (!function_exists('steamFormatPlayers')) {
+    function steamFormatPlayers(int $count): string
+    {
+        if ($count >= 1000000) {
+            return round($count / 1000000, 2) . 'M';
+        }
+        if ($count >= 1000) {
+            return round($count / 1000, 1) . 'K';
+        }
+        return (string) $count;
     }
-    if ($count >= 1000) {
-        return round($count / 1000, 1) . 'K';
-    }
-    return (string) $count;
 }
 
-function steamFormatGrowth(array $game): string
-{
-    if (!empty($game['is_new'])) {
-        return '<span class="text-neon-green font-semibold">Nuevo</span>';
+if (!function_exists('steamFormatGrowth')) {
+    function steamFormatGrowth(array $game): string
+    {
+        if (!empty($game['is_new'])) {
+            return '<span class="text-neon-green font-semibold">Nuevo</span>';
+        }
+        $pct = $game['growth_pct'] ?? 0;
+        $sign = $pct >= 0 ? '+' : '';
+        $color = $pct >= 0 ? 'text-neon-green' : 'text-red-400';
+        return '<span class="' . $color . ' font-semibold">' . $sign . round($pct, 1) . '%</span>';
     }
-    $pct = $game['growth_pct'] ?? 0;
-    $sign = $pct >= 0 ? '+' : '';
-    $color = $pct >= 0 ? 'text-neon-green' : 'text-red-400';
-    return '<span class="' . $color . ' font-semibold">' . $sign . round($pct, 1) . '%</span>';
 }
-function steamSparkline(array $history, int $width = 100, int $height = 30): string
-{
-    if (empty($history)) {
-        return '<svg width="' . $width . '" height="' . $height . '"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#888888" font-size="10">No data</text></svg>';
+
+if (!function_exists('steamSparkline')) {
+    function steamSparkline(array $history, int $width = 100, int $height = 30): string
+    {
+        if (empty($history)) {
+            return '<svg width="' . $width . '" height="' . $height . '"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#888888" font-size="10">No data</text></svg>';
+        }
+
+        $values = array_map(fn($point) => $point['players'] ?? 0, $history);
+        $min = min($values);
+        $max = max($values);
+        $range = $max - $min;
+
+        if ($range === 0) {
+            $range = 1;
+            $min = $min - 1;
+        }
+
+        $count = count($values);
+
+        $points = [];
+        $dots = [];
+        foreach ($values as $i => $value) {
+            $x = $count > 1 ? ($i / ($count - 1)) * $width : $width / 2;
+            $y = $height - (($value - $min) / $range) * ($height - 4) - 2;
+            $points[] = round($x, 1) . ',' . round($y, 1);
+
+            $ts = (int)($history[$i]['timestamp'] ?? 0);
+            $players = (int)($history[$i]['players'] ?? $value);
+            $dots[] = '<circle cx="' . round($x, 1) . '" cy="' . round($y, 1) . '" r="6" fill="transparent" class="sparkline-dot" data-ts="' . $ts . '" data-players="' . $players . '"/>';
+        }
+
+        return '<svg width="' . $width . '" height="' . $height . '" viewBox="0 0 ' . $width . ' ' . $height . '">'
+            . '<polyline points="' . implode(' ', $points) . '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+            . implode('', $dots)
+            . '</svg>';
     }
-
-    $values = array_map(fn($point) => $point['players'] ?? 0, $history);
-    $min = min($values);
-    $max = max($values);
-    $range = $max - $min;
-
-    if ($range === 0) {
-        $range = 1;
-        $min = $min - 1;
-    }
-
-    $count = count($values);
-
-    $points = [];
-    $dots = [];
-    foreach ($values as $i => $value) {
-        $x = $count > 1 ? ($i / ($count - 1)) * $width : $width / 2;
-        $y = $height - (($value - $min) / $range) * ($height - 4) - 2;
-        $points[] = round($x, 1) . ',' . round($y, 1);
-
-        $ts = (int)($history[$i]['timestamp'] ?? 0);
-        $players = (int)($history[$i]['players'] ?? $value);
-        $dots[] = '<circle cx="' . round($x, 1) . '" cy="' . round($y, 1) . '" r="6" fill="transparent" class="sparkline-dot" data-ts="' . $ts . '" data-players="' . $players . '"/>';
-    }
-
-    return '<svg width="' . $width . '" height="' . $height . '" viewBox="0 0 ' . $width . ' ' . $height . '">'
-        . '<polyline points="' . implode(' ', $points) . '" fill="none" stroke="#39ff14" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
-        . implode('', $dots)
-        . '</svg>';
 }
 ?>
 

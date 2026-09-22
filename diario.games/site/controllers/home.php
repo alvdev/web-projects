@@ -25,7 +25,13 @@ return function ($site) {
         }
     }
 
+    $latestPosts = $games->children()
+        ->filter(fn($p) => in_array($p->intendedTemplate()->name(), ['news', 'guide'], true))
+        ->sortBy('date', 'desc')
+        ->limit(5);
+
     return [
         'genreGames' => $genreGames,
+        'latestPosts' => $latestPosts,
     ];
 };
