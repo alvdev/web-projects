@@ -63,6 +63,58 @@ final class ItadAdapterTest extends TestCase
         $this->assertSame('PC, Linux', $results[0]['platforms']);
     }
 
+    public function testParseDealsCanonicalizesEpicShopName(): void
+    {
+        $adapter = new ItadAdapter('test-key');
+
+        $results = $adapter->parseDeals([[
+            'shop' => ['name' => 'Epic Game Store'],
+            'price' => ['amount' => 7.5, 'currency' => 'EUR'],
+            'regular' => ['amount' => 7.5],
+            'cut' => 0,
+            'platforms' => [],
+            'url' => 'https://itad.example/epic',
+        ]]);
+
+        $this->assertCount(1, $results);
+        $this->assertSame('Epic Games Store', $results[0]['storeName']);
+        $this->assertSame('epicgames', $results[0]['storeLogo']);
+    }
+
+    public function testParseDealsKeepsEaStoreAndNewShops(): void
+    {
+        $adapter = new ItadAdapter('test-key');
+
+        $shopLogos = [
+            'EA Store'        => 'ea',
+            'DLGamer'         => 'dlgamer',
+            'Muve'            => 'muve',
+            'Zapagames'       => 'zapagames',
+            'Microsoft Store' => 'microsoft',
+            'PlanetPlay'      => 'planetplay',
+            'Gamesload'       => 'gamesload',
+            'PlayerLand'      => 'playerland',
+            'Playsum'         => 'playsum',
+        ];
+
+        $deals = [];
+        foreach ($shopLogos as $shop => $logo) {
+            $deals[] = [
+                'shop' => ['name' => $shop],
+                'price' => ['amount' => 9.99, 'currency' => 'EUR'],
+                'regular' => ['amount' => 19.99],
+                'cut' => 50,
+                'platforms' => [],
+                'url' => 'https://itad.example/' . $logo,
+            ];
+        }
+
+        $results = $adapter->parseDeals($deals);
+
+        $this->assertSame(array_keys($shopLogos), array_column($results, 'storeName'));
+        $this->assertSame(array_values($shopLogos), array_column($results, 'storeLogo'));
+    }
+
     public function testParseDealsNullsRedundantInitialPriceAndZeroDiscount(): void
     {
         $adapter = new ItadAdapter('test-key');

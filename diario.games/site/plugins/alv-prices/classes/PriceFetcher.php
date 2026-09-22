@@ -129,6 +129,15 @@ class PriceFetcher
             'eTail.Market'     => 'etail',
             'Instant Gaming'   => 'instant-gaming',
             'G2A'              => 'g2a',
+            'EA Store'         => 'ea',
+            'DLGamer'          => 'dlgamer',
+            'Muve'             => 'muve',
+            'Zapagames'        => 'zapagames',
+            'Microsoft Store'  => 'microsoft',
+            'PlanetPlay'       => 'planetplay',
+            'Gamesload'        => 'gamesload',
+            'PlayerLand'       => 'playerland',
+            'Playsum'          => 'playsum',
         ];
 
         foreach ($rows as $row) {
@@ -184,13 +193,21 @@ class PriceFetcher
             $instance->register(new InstantGamingAdapter($igAffId));
         }
 
-        $g2aClientId = env('G2A_CLIENT_ID', '');
-        $g2aApiKey = env('G2A_API_KEY', '');
-        if ($g2aClientId && $g2aApiKey && $g2aClientId !== 'qdaiciDiyMaTjxMt') {
+        $g2aClientId = (string) env('G2A_CLIENT_ID', '');
+        $g2aApiKey = (string) env('G2A_API_KEY', '');
+        if (self::shouldRegisterG2a($g2aClientId, $g2aApiKey, env('G2A_ENABLED', ''))) {
             $instance->register(new G2AAdapter($g2aClientId, $g2aApiKey));
         }
 
         return $instance;
+    }
+
+    public static function shouldRegisterG2a(?string $clientId, ?string $apiKey, mixed $enabled): bool
+    {
+        return !empty($clientId)
+            && !empty($apiKey)
+            && $clientId !== 'qdaiciDiyMaTjxMt'
+            && filter_var($enabled, FILTER_VALIDATE_BOOLEAN);
     }
 
     private function resolveAppid(string $slug): ?int

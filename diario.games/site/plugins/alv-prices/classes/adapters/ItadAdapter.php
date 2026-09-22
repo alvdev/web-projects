@@ -28,6 +28,19 @@ class ItadAdapter extends StoreAdapter
         'WinGameStore'     => ['logo' => 'wingamestore',     'domain' => 'wingamestore.com'],
         'JoyBuggy'         => ['logo' => 'joybuggy',         'domain' => 'joybuggy.com'],
         'eTail.Market'     => ['logo' => 'etail',            'domain' => 'etail.market'],
+        'EA Store'         => ['logo' => 'ea',               'domain' => 'ea.com'],
+        'DLGamer'          => ['logo' => 'dlgamer',          'domain' => 'dlgamer.com'],
+        'Muve'             => ['logo' => 'muve',             'domain' => 'muve.games'],
+        'Zapagames'        => ['logo' => 'zapagames',        'domain' => 'zapagames.com'],
+        'Microsoft Store'  => ['logo' => 'microsoft',        'domain' => 'microsoft.com'],
+        'PlanetPlay'       => ['logo' => 'planetplay',       'domain' => 'planetplay.com'],
+        'Gamesload'        => ['logo' => 'gamesload',        'domain' => 'gamesload.eu'],
+        'PlayerLand'       => ['logo' => 'playerland',       'domain' => 'player.land'],
+        'Playsum'          => ['logo' => 'playsum',          'domain' => 'playsum.live'],
+    ];
+
+    private array $shopAliases = [
+        'Epic Game Store' => 'Epic Games Store',
     ];
 
     public function __construct(string $apiKey, array $affiliateIds = [], string $country = 'ES')
@@ -121,6 +134,7 @@ class ItadAdapter extends StoreAdapter
         $results = [];
         foreach ($deals as $deal) {
             $shopName = $deal['shop']['name'] ?? '';
+            $shopName = $this->shopAliases[$shopName] ?? $shopName;
             $storeInfo = $this->storeMap[$shopName] ?? null;
             if ($storeInfo === null) {
                 continue;

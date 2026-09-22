@@ -138,6 +138,50 @@ final class PriceFetcherTest extends TestCase
         $this->assertSame(['fanatical', 'gogdotcom'], array_column($results, 'storeLogo'));
     }
 
+    public function testFetchMapsNewStoreLogos(): void
+    {
+        $db = new FakePriceDb();
+        $db->rows['game'] = [
+            [
+                'slug' => 'game', 'store' => 'EA Store', 'url' => 'https://ea.example',
+                'price' => 3.99, 'initial_price' => null, 'discount_percent' => 0,
+                'currency' => 'EUR', 'platforms' => '', 'scraped_at' => time(),
+            ],
+            [
+                'slug' => 'game', 'store' => 'Microsoft Store', 'url' => 'https://ms.example',
+                'price' => 4.99, 'initial_price' => null, 'discount_percent' => 0,
+                'currency' => 'EUR', 'platforms' => '', 'scraped_at' => time(),
+            ],
+            [
+                'slug' => 'game', 'store' => 'PlayerLand', 'url' => 'https://pl.example',
+                'price' => 5.99, 'initial_price' => null, 'discount_percent' => 0,
+                'currency' => 'EUR', 'platforms' => '', 'scraped_at' => time(),
+            ],
+        ];
+
+        $fetcher = new PriceFetcher($db, 86400);
+
+        $results = $fetcher->fetch('game', 'Game');
+
+        $this->assertSame(['EA Store', 'Microsoft Store', 'PlayerLand'], array_column($results, 'storeName'));
+        $this->assertSame(['ea', 'microsoft', 'playerland'], array_column($results, 'storeLogo'));
+    }
+
+    public function testShouldRegisterG2aRequiresExplicitEnableFlag(): void
+    {
+        $this->assertFalse(PriceFetcher::shouldRegisterG2a('client', 'secret', ''));
+        $this->assertFalse(PriceFetcher::shouldRegisterG2a('client', 'secret', false));
+        $this->assertTrue(PriceFetcher::shouldRegisterG2a('client', 'secret', 'true'));
+        $this->assertTrue(PriceFetcher::shouldRegisterG2a('client', 'secret', '1'));
+    }
+
+    public function testShouldRegisterG2aRejectsMissingCredsAndSampleClientId(): void
+    {
+        $this->assertFalse(PriceFetcher::shouldRegisterG2a('', 'secret', 'true'));
+        $this->assertFalse(PriceFetcher::shouldRegisterG2a('client', '', 'true'));
+        $this->assertFalse(PriceFetcher::shouldRegisterG2a('qdaiciDiyMaTjxMt', 'secret', 'true'));
+    }
+
     public function testFetchSurvivesAdapterException(): void
     {
         $db = new FakePriceDb();

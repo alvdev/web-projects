@@ -20,6 +20,15 @@ $storeFavicons = [
     'eTail.Market'     => 'etail.market',
     'Instant Gaming'   => 'instant-gaming.com',
     'G2A'              => 'g2a.com',
+    'EA Store'         => 'ea.com',
+    'DLGamer'          => 'dlgamer.com',
+    'Muve'             => 'muve.games',
+    'Zapagames'        => 'zapagames.com',
+    'Microsoft Store'  => 'microsoft.com',
+    'PlanetPlay'       => 'planetplay.com',
+    'Gamesload'        => 'gamesload.eu',
+    'PlayerLand'       => 'player.land',
+    'Playsum'          => 'playsum.live',
 ];
 
 $faviconDir = __DIR__ . '/../favicons';
