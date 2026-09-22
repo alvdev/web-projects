@@ -29,6 +29,40 @@ final class InstantGamingAdapterTest extends TestCase
         $this->assertEqualsWithDelta(8.0, (float)$best['price_eur'], 0.001);
     }
 
+    public function testPickBestHitMatchesPunctuationAndSeparatorVariants(): void
+    {
+        $adapter = new FakeInstantGamingAdapter();
+
+        $best = $adapter->pickBestHit([
+            ['name' => 'Call to Arms: Gates of Hell - Ostfront - Deluxe Edition', 'price_eur' => 5.0, 'has_stock' => true],
+            ['name' => 'Call to Arms - Gates of Hell: Ostfront', 'price_eur' => 26.83, 'has_stock' => true],
+        ], 'Call to Arms: Gates of Hell - Ostfront');
+
+        $this->assertNotNull($best);
+        $this->assertSame('Call to Arms - Gates of Hell: Ostfront', $best['name']);
+    }
+
+    public function testPickBestHitIgnoresAccentsTrademarksAndExtraSpaces(): void
+    {
+        $adapter = new FakeInstantGamingAdapter();
+
+        $best = $adapter->pickBestHit([
+            ['name' => 'Pokemon   Test', 'price_eur' => 9.99, 'has_stock' => true],
+        ], 'Pokémon™ Test');
+
+        $this->assertNotNull($best);
+        $this->assertSame('Pokemon   Test', $best['name']);
+    }
+
+    public function testPickBestHitStillRejectsDifferentEditions(): void
+    {
+        $adapter = new FakeInstantGamingAdapter();
+
+        $this->assertNull($adapter->pickBestHit([
+            ['name' => 'Call to Arms - Gates of Hell: Ostfront - Deluxe Edition', 'price_eur' => 5.0, 'has_stock' => true],
+        ], 'Call to Arms: Gates of Hell - Ostfront'));
+    }
+
     public function testPickBestHitSkipsOutOfStockAndZeroPrice(): void
     {
         $adapter = new FakeInstantGamingAdapter();

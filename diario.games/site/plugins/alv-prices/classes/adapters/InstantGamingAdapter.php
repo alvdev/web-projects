@@ -122,7 +122,7 @@ class InstantGamingAdapter extends StoreAdapter
 
     public function pickBestHit(array $hits, string $gameName): ?array
     {
-        $normalized = mb_strtolower(trim($gameName));
+        $normalized = $this->normalizeTitle($gameName);
         $best = null;
         $bestPrice = PHP_FLOAT_MAX;
 
@@ -130,7 +130,7 @@ class InstantGamingAdapter extends StoreAdapter
             $name = $hit['name'] ?? '';
             if (empty($name)) continue;
 
-            $hitName = mb_strtolower(trim($name));
+            $hitName = $this->normalizeTitle($name);
 
             if ($hitName !== $normalized) {
                 continue;
@@ -149,5 +149,19 @@ class InstantGamingAdapter extends StoreAdapter
         }
 
         return $best;
+    }
+
+    private function normalizeTitle(string $title): string
+    {
+        $title = str_replace(['™', '®', '©'], ' ', $title);
+
+        if (function_exists('iconv')) {
+            $transliterated = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $title);
+            if ($transliterated !== false) {
+                $title = $transliterated;
+            }
+        }
+
+        return trim(preg_replace('/[^a-z0-9]+/', ' ', mb_strtolower($title)));
     }
 }
