@@ -13,6 +13,11 @@ $kirby = new \Kirby\Cms\App([
     ],
     'options' => [
         'debug' => false,
+        'igdb' => [
+            'client_id' => '',
+            'client_secret' => '',
+        ],
+        'alv.twitch-stats.fixture-file' => getenv('TWITCH_STATS_FIXTURE') ?: '',
     ],
 ]);
 

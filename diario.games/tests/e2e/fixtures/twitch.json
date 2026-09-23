@@ -1,0 +1,89 @@
+{
+  "games": [
+    {
+      "id": "1",
+      "name": "E2E Game",
+      "box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/1-{width}x{height}.jpg",
+      "igdb_id": 1
+    },
+    {
+      "id": "987654",
+      "name": "Remote Category",
+      "box_art_url": "",
+      "igdb_id": 987654
+    },
+    {
+      "id": "555",
+      "name": "Chatting",
+      "box_art_url": "",
+      "igdb_id": null
+    }
+  ],
+  "streamers": [
+    {
+      "user_id": "u1",
+      "user_login": "e2e-streamer",
+      "user_name": "E2E Streamer",
+      "game_id": "1",
+      "game_name": "E2E Game",
+      "viewer_count": 1000
+    },
+    {
+      "user_id": "u2",
+      "user_login": "second-streamer",
+      "user_name": "Second Streamer",
+      "game_id": "1",
+      "game_name": "E2E Game",
+      "viewer_count": 500
+    },
+    {
+      "user_id": "u3",
+      "user_login": "third-streamer",
+      "user_name": "Third Streamer",
+      "game_id": "555",
+      "game_name": "Chatting",
+      "viewer_count": 100
+    }
+  ],
+  "spanish": [
+    {
+      "user_id": "u4",
+      "user_login": "spanish-one",
+      "user_name": "Spanish One",
+      "game_id": "1",
+      "game_name": "E2E Game",
+      "viewer_count": 700
+    },
+    {
+      "user_id": "u5",
+      "user_login": "spanish-two",
+      "user_name": "Spanish Two",
+      "game_id": "555",
+      "game_name": "Chatting",
+      "viewer_count": 300
+    }
+  ],
+  "tracker_games": {
+    "1": {
+      "avg_viewers": 900,
+      "avg_channels": 10,
+      "rank": 1,
+      "hours_watched": 100000
+    }
+  },
+  "tracker_channels": {
+    "e2e-streamer": {
+      "avg_viewers": 800,
+      "max_viewers": 1500,
+      "followers_total": 1000000,
+      "rank": 10
+    }
+  },
+  "avatars": {
+    "u1": "/assets/images/diario-games-logo.webp",
+    "u2": "/assets/images/diario-games-logo.webp",
+    "u3": "/assets/images/diario-games-logo.webp",
+    "u4": "/assets/images/diario-games-logo.webp",
+    "u5": "/assets/images/diario-games-logo.webp"
+  }
+}

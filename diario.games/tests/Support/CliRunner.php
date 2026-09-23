@@ -8,8 +8,13 @@ final class CliRunner
 {
     public static function run(array $args, array $env = []): array
     {
+        return self::runScript('collect-steam-stats.php', $args, $env);
+    }
+
+    public static function runScript(string $scriptName, array $args, array $env = []): array
+    {
         $root = dirname(__DIR__, 2);
-        $script = $root . '/scripts/collect-steam-stats.php';
+        $script = $root . '/scripts/' . $scriptName;
 
         $cmd = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($script);
         foreach ($args as $arg) {
