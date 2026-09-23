@@ -23,6 +23,7 @@ final class PluginClasses
             '/site/plugins/alv-twitch-stats/classes/TwitchTrackerClient.php',
             '/site/plugins/alv-twitch-stats/classes/TwitchStatsDB.php',
             '/site/plugins/alv-twitch-stats/classes/TwitchStatsCollector.php',
+            '/site/plugins/alv-twitch-stats/classes/TwitchStats.php',
             '/site/plugins/alv-steam-stats/classes/SteamStatsDB.php',
             '/site/plugins/alv-steam-stats/classes/SteamStats.php',
             '/site/plugins/alv-steam-stats/classes/SteamStatsCollector.php',
