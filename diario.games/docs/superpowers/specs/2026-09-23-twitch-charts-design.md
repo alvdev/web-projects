@@ -29,8 +29,8 @@ Auth: OAuth client-credentials app access token from `https://id.twitch.tv/oauth
 
 | Endpoint | Fields used | Notes |
 |---|---|---|
-| `GET /helix/games/top?first=100` | `id`, `name`, `box_art_url`, `igdb_id` | Sorted by live viewers desc |
-| `GET /helix/streams?first=100` | `user_id`, `user_login`, `user_name`, `game_id`, `game_name`, `viewer_count`, `title`, `thumbnail_url` | Top live channels |
+| `GET /helix/games/top?first=100` | `id`, `name`, `box_art_url`, `igdb_id` | Sorted by live viewers desc; the response has no viewer counts, so per-category live viewers are aggregated from the top-100 live-streams sample (`game_id` → sum + channel count) |
+| `GET /helix/streams?first=100` | `user_id`, `user_login`, `user_name`, `game_id`, `game_name`, `viewer_count`, `title`, `thumbnail_url` | Top live channels; also the source for per-game viewer aggregation |
 | `GET /helix/streams?first=100&language=es` | same | Spanish tab |
 | `GET /helix/users?id=…` (up to 100 ids) | `profile_image_url`, `display_name` | Avatars; cached 24 h |
 
@@ -122,9 +122,9 @@ Cache namespace `alv/twitch-stats.cache` (file), configured in `site/config/conf
 
 | Key | TTL | Content |
 |---|---|---|
-| `top-games` | 300 s | assembled game list (live + 30-day + history) |
-| `top-streamers` | 300 s | assembled streamer list |
-| `top-spanish` | 300 s | assembled Spanish streamer list |
+| `top-games` | 300 s | raw Helix top-games list |
+| `top-streams` | 300 s | raw global live streams (also used for per-game viewer aggregation) |
+| `top-spanish` | 300 s | raw Spanish live streams |
 | `tracker.game.{id}` | 21 600 s | TwitchTracker game summary |
 | `tracker.channel.{login}` | 21 600 s | TwitchTracker channel summary |
 | `avatars` | 86 400 s | user_id → profile_image_url |
@@ -140,7 +140,6 @@ New routes registered by the plugin:
 |---|---|---|
 | `twitch-stats` | GET | Renders the full rankings page |
 | `twitch-stats-warm` | POST | Refreshes caches, writes hourly snapshot, prunes; requires warm key |
-| `twitch-stats-api/refresh` | GET | Optional JSON refresh endpoint used by the page's "actualizado" indicator (cache-only, never triggers upstream calls) |
 
 `site/config/config.php` additions:
 - `'cache.alv/twitch-stats.cache'` file cache,
