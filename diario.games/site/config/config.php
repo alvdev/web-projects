@@ -104,6 +104,39 @@ return [
             }
         ],
         [
+            'pattern' => 'games/by-igdb-id/(:num)',
+            'method' => 'GET',
+            'action' => function (string $igdbIdStr) {
+                $igdbId = (int) $igdbIdStr;
+
+                // 1. Already imported → permanent redirect to the game page.
+                foreach (site()->index()->filterBy('intendedTemplate', 'game') as $gamePage) {
+                    if ((int) $gamePage->content()->get('IgdbId')->value() === $igdbId) {
+                        go('/' . $gamePage->slug(), 301);
+                    }
+                }
+
+                // 2. Resolve the IGDB slug, then hand off to the root-level game
+                //    route which already handles on-the-fly import.
+                $config = kirby()->option('igdb');
+                if (!empty($config['client_id']) && !empty($config['client_secret'])) {
+                    try {
+                        require_once dirname(__DIR__, 2) . '/site/plugins/alv-igdb/classes/IGDBClient.php';
+                        $client = new \DiarioGames\IGDB\IGDBClient($config['client_id'], $config['client_secret']);
+                        $gameData = $client->fetchGameById($igdbId);
+                        if (!empty($gameData['slug'])) {
+                            go('/' . \DiarioGames\IGDB\romanToDigits($gameData['slug']), 302);
+                        }
+                    } catch (\Throwable $e) {
+                        error_log('by-igdb-id slug lookup failed for ' . $igdbId . ': ' . $e->getMessage());
+                    }
+                }
+
+                // 3. Could not resolve a slug — fall back to the Twitch category.
+                go('https://www.twitch.tv/directory/category/' . $igdbId, 302);
+            }
+        ],
+        [
             'pattern' => '(:any)',
             'method' => 'GET',
             'action' => function (string $slug) {
