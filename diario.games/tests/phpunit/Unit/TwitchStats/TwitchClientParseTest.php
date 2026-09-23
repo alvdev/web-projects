@@ -78,6 +78,20 @@ final class TwitchClientParseTest extends TestCase
         $this->assertSame([], TwitchClient::parseAvatars(['data' => [['id' => '']]]));
     }
 
+    public function testAggregateByGameSumsViewersAndCountsChannels(): void
+    {
+        $streams = [
+            ['user_id' => 'u1', 'user_login' => 'a', 'user_name' => 'A', 'game_id' => '1', 'game_name' => 'Game One', 'viewer_count' => 100],
+            ['user_id' => 'u2', 'user_login' => 'b', 'user_name' => 'B', 'game_id' => '1', 'game_name' => 'Game One', 'viewer_count' => 50],
+            ['user_id' => 'u3', 'user_login' => 'c', 'user_name' => 'C', 'game_id' => '2', 'game_name' => 'Game Two', 'viewer_count' => 30],
+        ];
+
+        $aggregated = TwitchClient::aggregateByGame($streams);
+
+        $this->assertSame(['viewers' => 150, 'channels' => 2], $aggregated['1']);
+        $this->assertSame(['viewers' => 30, 'channels' => 1], $aggregated['2']);
+    }
+
     public function testIsConfiguredRequiresBothCredentials(): void
     {
         $this->assertFalse((new TwitchClient('', ''))->isConfigured());

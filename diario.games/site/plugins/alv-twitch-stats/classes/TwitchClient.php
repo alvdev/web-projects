@@ -159,6 +159,26 @@ class TwitchClient
         return $avatars;
     }
 
+    public static function aggregateByGame(array $streams): array
+    {
+        $aggregated = [];
+        foreach ($streams as $stream) {
+            $gameId = (string) ($stream['game_id'] ?? '');
+            if ($gameId === '') {
+                continue;
+            }
+
+            if (!isset($aggregated[$gameId])) {
+                $aggregated[$gameId] = ['viewers' => 0, 'channels' => 0];
+            }
+
+            $aggregated[$gameId]['viewers'] += (int) ($stream['viewer_count'] ?? 0);
+            $aggregated[$gameId]['channels']++;
+        }
+
+        return $aggregated;
+    }
+
     public static function boxArt(string $template, int $width = 144, int $height = 192): string
     {
         if ($template === '') {
