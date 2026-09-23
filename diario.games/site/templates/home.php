@@ -7,9 +7,7 @@ $hasEnabledPrograms = $bannerConfig['enabled'] && !empty(array_filter($bannerCon
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8" data-home-charts-row>
     <?php snippet('steam-stats-tabs') ?>
-    <div class="hidden lg:block" data-home-reserved aria-hidden="true">
-        <?php /* Reserved for the next homepage section */ ?>
-    </div>
+    <?php snippet('twitch-stats-tabs') ?>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8" data-home-posts-row>

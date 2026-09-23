@@ -48,10 +48,11 @@ final class HomePageFallbackTest extends TestCase
         $this->assertStringNotContainsString('data-spotlight', $html);
     }
 
-    public function testReservedBlankStillRendersWithoutPosts(): void
+    public function testTwitchWidgetRendersWithoutPosts(): void
     {
         $html = RouteTestApp::app()->page('home')->render();
 
-        $this->assertStringContainsString('data-home-reserved', $html);
+        $this->assertStringContainsString('data-twitch-widget', $html);
+        $this->assertStringContainsString('No hay datos', $html);
     }
 }

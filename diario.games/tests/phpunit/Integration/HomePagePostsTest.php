@@ -87,13 +87,14 @@ final class HomePagePostsTest extends TestCase
         $this->assertLessThan($spotlight, $charts, 'Steam charts should render above the spotlight');
     }
 
-    public function testReservedBlankHalfIsPresentInChartsRow(): void
+    public function testTwitchWidgetTakesTheChartsRowRightHalf(): void
     {
         $html = $this->renderHome();
 
         $rowOne = $this->segment($html, 'data-home-charts-row', 'data-home-posts-row');
 
-        $this->assertStringContainsString('data-home-reserved', $rowOne);
+        $this->assertStringContainsString('data-twitch-widget', $rowOne);
+        $this->assertStringContainsString('data-twitch-tab="games"', $rowOne);
     }
 
     public function testSpotlightShowsTheFiveNewestPostsInOrder(): void
