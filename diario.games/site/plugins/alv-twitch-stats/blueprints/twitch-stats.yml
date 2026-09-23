@@ -1,0 +1,18 @@
+fields:
+  twitch_stats_cache_ttl:
+    label: Live cache TTL (seconds)
+    type: number
+    default: 300
+    help: How long live Helix rankings are cached (default 300 = 5 minutes)
+
+  twitch_stats_tracker_ttl:
+    label: TwitchTracker cache TTL (seconds)
+    type: number
+    default: 21600
+    help: How long 30-day TwitchTracker summaries are cached (default 21600 = 6 hours)
+
+  twitch_stats_history_ttl:
+    label: History retention (seconds)
+    type: number
+    default: 7776000
+    help: How long viewer snapshots are kept (default 7776000 = 90 days)

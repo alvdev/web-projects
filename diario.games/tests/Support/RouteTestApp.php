@@ -24,6 +24,7 @@ final class RouteTestApp
         file_put_contents(self::$tmp . '/content/site.txt', "Title: Test Site\n");
 
         putenv('STEAM_STATS_DB_PATH=' . self::$tmp . '/steam_stats.db');
+        putenv('TWITCH_STATS_DB_PATH=' . self::$tmp . '/twitch_stats.db');
 
         self::$app = new App([
             'roots' => [
@@ -73,6 +74,7 @@ final class RouteTestApp
     public static function shutdown(): void
     {
         putenv('STEAM_STATS_DB_PATH');
+        putenv('TWITCH_STATS_DB_PATH');
         Files::removeDir(self::$tmp);
         self::$app = null;
         self::$spawns = [];

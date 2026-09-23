@@ -43,7 +43,18 @@ return [
     'alv.steam-stats.warm-key' => env('STEAM_STATS_WARM_KEY', ''),
     'alv.steam-stats.charts-ttl' => (int) env('STEAM_STATS_CHARTS_TTL', 900),
 
+    'alv.twitch-stats.warm-key' => env('TWITCH_STATS_WARM_KEY', env('STEAM_STATS_WARM_KEY', '')),
+    'alv.twitch-stats.cache-ttl' => (int) env('TWITCH_STATS_CACHE_TTL', 300),
+    'alv.twitch-stats.tracker-ttl' => (int) env('TWITCH_STATS_TRACKER_TTL', 21600),
+    'alv.twitch-stats.history-ttl' => (int) env('TWITCH_STATS_HISTORY_TTL', 7776000),
+    'alv.twitch-stats.fixture-file' => env('TWITCH_STATS_FIXTURE', ''),
+
     'cache.alv/steam-stats.cache' => [
+        'type' => 'file',
+        'active' => true,
+    ],
+
+    'cache.alv/twitch-stats.cache' => [
         'type' => 'file',
         'active' => true,
     ],
@@ -96,7 +107,7 @@ return [
             'pattern' => '(:any)',
             'method' => 'GET',
             'action' => function (string $slug) {
-                $reserved = ['search', 'genre', 'steam-stats', 'error', 'home'];
+                $reserved = ['search', 'genre', 'steam-stats', 'twitch-stats', 'error', 'home'];
                 if (in_array($slug, $reserved)) {
                     return page($slug);
                 }
@@ -142,7 +153,7 @@ return [
             'pattern' => '(:any)/(:all)',
             'method' => 'GET',
             'action' => function (string $parentSlug, string $childPath) {
-                $reserved = ['search', 'genre', 'steam-stats', 'error', 'home', 'games'];
+                $reserved = ['search', 'genre', 'steam-stats', 'twitch-stats', 'error', 'home', 'games'];
                 if (in_array($parentSlug, $reserved)) {
                     return null;
                 }
