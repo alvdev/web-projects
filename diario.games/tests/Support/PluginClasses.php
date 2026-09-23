@@ -20,6 +20,7 @@ final class PluginClasses
             '/site/plugins/alv-ai/classes/AIClient.php',
             '/site/plugins/alv-aff-banners/classes/AffiliateBanners.php',
             '/site/plugins/alv-twitch-stats/classes/TwitchClient.php',
+            '/site/plugins/alv-twitch-stats/classes/TwitchTrackerClient.php',
             '/site/plugins/alv-steam-stats/classes/SteamStatsDB.php',
             '/site/plugins/alv-steam-stats/classes/SteamStats.php',
             '/site/plugins/alv-steam-stats/classes/SteamStatsCollector.php',
