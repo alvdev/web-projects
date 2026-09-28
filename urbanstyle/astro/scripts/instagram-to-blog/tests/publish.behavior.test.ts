@@ -239,6 +239,40 @@ describe("publishToLinkedIn", () => {
     expect(published.social.linkedin?.status).toBe("published");
   });
 
+  test("resolves the link by polling when Buffer returns none immediately", async () => {
+    const published = makePublished({
+      facebook: { status: "approved", tweet: "Hola Madrid" },
+    });
+    stateWith(published);
+    h.createLinkedInPostImpl = async () => ({ id: "li-2" });
+    h.waitForLinkedInLinkImpl = async (id) => `https://linkedin.test/${id}`;
+
+    const res = await bot.publishToLinkedIn(published, h.state!);
+
+    expect(res.ok).toBe(true);
+    expect(res.link).toBe("https://linkedin.test/li-2");
+    expect(res.line).toContain("https://linkedin.test/li-2");
+    expect(published.social.linkedin?.link).toBe("https://linkedin.test/li-2");
+    expect(published.social.linkedin?.status).toBe("published");
+  });
+
+  test("stays published without a link when Buffer never exposes one", async () => {
+    const published = makePublished({
+      facebook: { status: "approved", tweet: "Hola Madrid" },
+    });
+    stateWith(published);
+    h.createLinkedInPostImpl = async () => ({ id: "li-3" });
+    h.waitForLinkedInLinkImpl = async () => undefined;
+
+    const res = await bot.publishToLinkedIn(published, h.state!);
+
+    expect(res.ok).toBe(true);
+    expect(res.link).toBeUndefined();
+    expect(res.line).toContain("publicado");
+    expect(published.social.linkedin?.status).toBe("published");
+    expect(published.social.linkedin?.link).toBeUndefined();
+  });
+
   test("refuses without an approved Facebook text", async () => {
     const published = makePublished({});
     const res = await bot.publishToLinkedIn(published, stateWith(published));

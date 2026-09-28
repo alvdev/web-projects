@@ -970,7 +970,7 @@ export async function publishToLinkedIn(published: PublishedEntry, state: Pendin
   }
   try {
     const { stripMentions } = await import("./social/gbp");
-    const { createLinkedInPost } = await import("./social/linkedin");
+    const { createLinkedInPost, waitForLinkedInExternalLink } = await import("./social/linkedin");
     const text = stripMentions(fbState.tweet, fbState.fbMentions ?? []);
     if (!text) {
       return {
@@ -983,13 +983,17 @@ export async function publishToLinkedIn(published: PublishedEntry, state: Pendin
     }
     const imageUrl = getPostImageUrl(published.slug);
     const post = await createLinkedInPost(text, imageUrl ?? undefined);
+    // Buffer publishes LinkedIn asynchronously: externalLink is missing from
+    // the createPost response and appears a few seconds later. Poll for it so
+    // the Telegram summary and report carry a clickable post URL.
+    const link = post.externalLink ?? (await waitForLinkedInExternalLink(post.id));
+    if (!link) console.warn(`[bot] LinkedIn post ${post.id} published without an external link yet`);
     liState.status = "published";
     liState.tweet = text;
     liState.publishedAt = new Date().toISOString();
-    liState.link = post.externalLink || undefined;
+    liState.link = link || undefined;
     liState.error = undefined;
     await saveState(state);
-    const link = post.externalLink ?? "";
     return {
       ok: true,
       platform: "linkedin",

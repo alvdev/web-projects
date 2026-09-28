@@ -86,6 +86,7 @@ export const h = {
     id: "li-1",
     externalLink: "https://linkedin.test/post/1",
   }),
+  waitForLinkedInLinkImpl: async (id: string): Promise<string | undefined> => `https://linkedin.test/${id}`,
   translateImpl: async (_slug: string): Promise<string[]> => {
     throw new Error("translations disabled in tests");
   },
@@ -335,6 +336,7 @@ mock.module(join(ROOT, "social", "linkedin.ts"), () => ({
     publishOrder.push("linkedin");
     return h.createLinkedInPostImpl(text, imageUrl);
   },
+  waitForLinkedInExternalLink: async (id: string): Promise<string | undefined> => h.waitForLinkedInLinkImpl(id),
 }));
 
 // ---- reset between tests ----

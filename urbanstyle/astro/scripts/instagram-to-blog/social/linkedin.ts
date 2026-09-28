@@ -50,6 +50,25 @@ interface CreatePostResult {
     | { message?: string };
 }
 
+interface PostQuery {
+  post: {
+    id: string;
+    status: string;
+    externalLink?: string | null;
+    error?: { message: string } | null;
+  } | null;
+}
+
+export interface LinkedInPost {
+  id: string;
+  status: string;
+  externalLink?: string;
+  error?: string;
+}
+
+const LINK_POLL_INTERVAL_MS = 3_000;
+const LINK_POLL_TIMEOUT_MS = 60_000;
+
 /** Find the LinkedIn channel in the GBP Buffer workspace. */
 export async function getLinkedInChannel(): Promise<{ id: string; name: string }> {
   if (isDryRun()) {
@@ -112,4 +131,53 @@ export async function createLinkedInPost(
     return { id: payload.post.id, externalLink: payload.post.externalLink };
   }
   throw new Error(`Buffer createPost failed: ${payload.message ?? "unknown error"}`);
+}
+
+/**
+ * Fetch a Buffer post by id. Buffer publishes LinkedIn asynchronously: right
+ * after createPost the post still has no externalLink and the URL shows up a
+ * few seconds later, so callers poll this.
+ */
+export async function getLinkedInPost(id: string): Promise<LinkedInPost> {
+  if (isDryRun()) {
+    dryRunLog("LinkedIn getLinkedInPost skipped");
+    return { id, status: "sent", externalLink: `${DRY_RUN_LINK}/linkedin` };
+  }
+  const result = await gql<PostQuery>(
+    `query Post($input: PostInput!) {
+      post(input: $input) { id status externalLink error { message } }
+    }`,
+    { input: { id } },
+  );
+  if (!result.post) throw new Error(`Buffer post ${id} not found`);
+  return {
+    id: result.post.id,
+    status: result.post.status,
+    externalLink: result.post.externalLink ?? undefined,
+    error: result.post.error?.message,
+  };
+}
+
+/**
+ * Wait (bounded) until Buffer exposes the published LinkedIn post URL.
+ * Returns undefined on timeout — the post DID publish, only the link is
+ * missing. Throws when Buffer reports a publishing error.
+ */
+export async function waitForLinkedInExternalLink(
+  id: string,
+  options: { timeoutMs?: number; intervalMs?: number } = {},
+): Promise<string | undefined> {
+  const timeoutMs = options.timeoutMs ?? LINK_POLL_TIMEOUT_MS;
+  const intervalMs = options.intervalMs ?? LINK_POLL_INTERVAL_MS;
+  const deadline = Date.now() + timeoutMs;
+
+  for (;;) {
+    const post = await getLinkedInPost(id);
+    if (post.externalLink) return post.externalLink;
+    if (post.status === "error") {
+      throw new Error(`Buffer LinkedIn publish failed: ${post.error ?? "unknown error"}`);
+    }
+    if (Date.now() >= deadline) return undefined;
+    await new Promise((resolve) => setTimeout(resolve, Math.min(intervalMs, deadline - Date.now())));
+  }
 }
