@@ -56,8 +56,6 @@ function geminiModelChain(): string[] {
   return list.length > 0 ? list : [legacy];
 }
 
-const imageDescriptionCache = new Map<string, string>();
-
 /** 503 = high demand — retry the SAME model with escalation (switching models does not help). */
 function is503(err: unknown): boolean {
   return err instanceof Error && /\b503\b/i.test(err.message);
@@ -162,7 +160,6 @@ async function geminiWithChain<T>(
 async function buildPrompt(
   post: NewPost,
   feedback?: string,
-  imageDescription?: string,
 ): Promise<{ prompt: string; instructionIds: string[] }> {
   const base = `Write a high-quality article in castilian spanish of about 500 words for a wild posting (pegada de carteles)/street marketing website based on this Instagram post.
 
@@ -206,10 +203,6 @@ SELF-AUDIT BEFORE RETURNING THE JSON: Check that every work title (album, tour, 
   const guidelines = formatInstructions(instructions);
   const instructionIds = instructions.map((i) => i.id);
   let prompt = base;
-
-  if (imageDescription) {
-    prompt += `\n\nIMAGE ANALYSIS (what is actually visible in the Instagram image, described by a vision model):\n${imageDescription}\n\nUse this image analysis to make the article more accurate, realistic and creative, but NEVER invent details that are not visible in the image or the caption.`;
-  }
 
   if (guidelines) {
     prompt += `\n\nReviewer guidelines that MUST be followed for this article:\n${guidelines}`;
@@ -349,14 +342,27 @@ async function fetchImageBase64(url: string): Promise<{ base64: string; mimeType
   }
 }
 
-async function callDeepseek(post: NewPost, feedback?: string, imageDescription?: string): Promise<LlmArticle> {
-  const { prompt, instructionIds } = await buildPrompt(post, feedback, imageDescription);
+async function callDeepseek(post: NewPost, feedback?: string): Promise<LlmArticle> {
+  const { prompt, instructionIds } = await buildPrompt(post, feedback);
+
+  // DeepSeek-V4.1-Flash supports vision: attach the Instagram image as an
+  // OpenAI-style image_url part (data URL) so it sees the post directly.
+  const content: OpenAI.Chat.Completions.ChatCompletionContentPart[] = [
+    { type: "text", text: prompt },
+  ];
+  const image = await fetchImageBase64(post.mediaUrl);
+  if (image) {
+    content.push({
+      type: "image_url",
+      image_url: { url: `data:${image.mimeType};base64,${image.base64}` },
+    });
+  }
 
   const completion = await deepseekClient.chat.completions.create({
     model: DEEPSEEK_MODEL,
     messages: [
       { role: "system", content: "You are an expert Spanish SEO copywriter for a street marketing company." },
-      { role: "user", content: prompt },
+      { role: "user", content },
     ],
     temperature: 0.7,
     max_tokens: 16_000,
@@ -374,9 +380,8 @@ async function callGemini(
   model: string,
   post: NewPost,
   feedback?: string,
-  imageDescription?: string,
 ): Promise<LlmArticle> {
-  const { prompt, instructionIds } = await buildPrompt(post, feedback, imageDescription);
+  const { prompt, instructionIds } = await buildPrompt(post, feedback);
 
   const generativeModel = gemini.getGenerativeModel({
     model,
@@ -424,52 +429,16 @@ async function withRetries<T>(
   throw new Error(`${label} generation failed after ${MAX_RETRIES} attempts: ${(lastError as Error).message}`);
 }
 
-/**
- * Have Gemini (vision) describe what is actually visible in the Instagram image.
- * Cached per post id within the process. Uses the model chain; waits for Gemini
- * if it is 503.
- */
-export async function describeImage(post: NewPost): Promise<string> {
-  const cached = imageDescriptionCache.get(post.id);
-  if (cached !== undefined) return cached;
-
-  const description = await withAvailability("describeImage", () =>
-    geminiWithChain("describeImage", async (model) => {
-      const image = await fetchImageBase64(post.mediaUrl);
-      if (!image) return "";
-
-      const generativeModel = gemini.getGenerativeModel({
-        model,
-        generationConfig: {
-          temperature: 0.2,
-          maxOutputTokens: 1024,
-          responseMimeType: "text/plain",
-        },
-      });
-
-      const result = await generativeModel.generateContent([
-        `Describe in Spanish, factually and in detail, what is actually visible in this Instagram image: the subject(s), people, brands, text, colors, location hints, mood and atmosphere. ONLY describe what you can see. Do not invent anything that is not visible.`,
-        { inlineData: { mimeType: image.mimeType, data: image.base64 } },
-      ]);
-      return result.response.text().trim();
-    }),
-    { retry503: false },
-  );
-
-  imageDescriptionCache.set(post.id, description);
-  return description;
-}
-
-export function generateDeepseekArticle(post: NewPost, feedback?: string, imageDescription?: string): Promise<LlmArticle> {
+export function generateDeepseekArticle(post: NewPost, feedback?: string): Promise<LlmArticle> {
   return withAvailability("DeepSeek", () =>
-    withRetries(() => callDeepseek(post, feedback, imageDescription), "DeepSeek", post.id),
+    withRetries(() => callDeepseek(post, feedback), "DeepSeek", post.id),
   );
 }
 
-export function generateGeminiArticle(post: NewPost, feedback?: string, imageDescription?: string): Promise<LlmArticle> {
+export function generateGeminiArticle(post: NewPost, feedback?: string): Promise<LlmArticle> {
   return withAvailability("Gemini", () =>
     geminiWithChain("Gemini", (model) =>
-      withRetries(() => callGemini(model, post, feedback, imageDescription), `Gemini/${model}`, post.id),
+      withRetries(() => callGemini(model, post, feedback), `Gemini/${model}`, post.id),
     ),
     { retry503: false },
   );
@@ -653,38 +622,32 @@ export async function translateJsonContent(source: string, locale: string): Prom
 /**
  * Generate with the chosen provider only (used for regeneration after feedback).
  * Defaults to gemini (primary provider), falls back to deepseek.
- * The Instagram image is read (via Gemini vision) and passed to both providers.
+ * Both providers receive the Instagram image directly (vision).
  */
 export async function generateArticle(
   post: NewPost,
   feedback?: string,
   provider?: LlmProvider,
 ): Promise<LlmArticle> {
-  const imageDescription = await describeImage(post);
   if (provider === "deepseek") {
-    return generateDeepseekArticle(post, feedback, imageDescription);
+    return generateDeepseekArticle(post, feedback);
   }
-  return generateGeminiArticle(post, feedback, imageDescription);
+  return generateGeminiArticle(post, feedback);
 }
 
 /**
- * Generate with BOTH providers in parallel. Each retries its own 503s until
- * available, so both must succeed before this returns.
- * Gemini reads the actual image (vision); DeepSeek receives Gemini's image
- * description as text.
+ * Generate with BOTH providers in parallel, each receiving the Instagram
+ * image directly (Gemini inlineData, DeepSeek image_url). A provider outage
+ * (429/503) only loses that provider's article — Promise.allSettled lets the
+ * other one through, so a Gemini high-demand day never blocks the pipeline.
  */
 export async function generateArticles(
   post: NewPost,
   feedback?: string,
 ): Promise<{ gemini?: LlmArticle; deepseek?: LlmArticle }> {
-  // 1) Gemini reads the image first — this also waits for Gemini if it is 503.
-  const imageDescription = await describeImage(post);
-
-  // 2) Generate with both providers in parallel. Each independently waits for
-  //    its own provider to be available (503 handling).
   const [geminiResult, deepseekResult] = await Promise.allSettled([
-    generateGeminiArticle(post, feedback, imageDescription),
-    generateDeepseekArticle(post, feedback, imageDescription),
+    generateGeminiArticle(post, feedback),
+    generateDeepseekArticle(post, feedback),
   ]);
 
   const articles: { gemini?: LlmArticle; deepseek?: LlmArticle } = {};
