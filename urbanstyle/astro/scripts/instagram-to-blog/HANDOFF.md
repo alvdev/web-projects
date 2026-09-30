@@ -26,7 +26,7 @@ Automated content pipeline: Instagram posts → AI-generated blog articles (Astr
 | `content.ts` | `preparePost`, `buildMdx` (frontmatter incl. `objectPosition`), `writePostFiles`, `generateSlug` (max 100, word-boundary, no dangling prepositions), `validateTitleEnding` |
 | `deploy.ts` | `buildSite` (bun run build, NODE_BIN_DIR), `uploadDist` (SHA-256 hash manifest `.deploy-manifest.json`, curl FTPS, cert-pinned), `removeRemoteDir` (basic-ftp, accepts `/blog/slug` or absolute) |
 | `mailer.ts` | nodemailer alerts → ALERT_EMAIL via SMTP |
-| `telegram.ts` | Notifications (approval-dual, approval, published, error), keyboards, `escMarkdown`, `mdToHtml` (Markdown→HTML for collapsible `<blockquote expandable>`), collapsible articles (ONE blockquote per article) |
+| `telegram.ts` | Notifications (approval-dual, approval, published, error), keyboards, `escMarkdown`, `mdToHtml` (Markdown→HTML for collapsible `<blockquote expandable>`), collapsible articles (ONE blockquote per article). Approval photos are downloaded by our server and sent as an `InputFile` upload (`fetchPhotoInput`, upload→URL→text fallback, failures logged) because Telegram cannot reliably fetch Instagram CDN URLs |
 | `social/buffer.ts` | Buffer GraphQL client: `getXChannel()`/`getFbChannel()` (service lookup), `createPost(channelId, text, imageUrl?, facebookType?, facebookAnnotations?)` with `mode:"shareNow"`, returns externalLink |
 | `social/facebook.ts` | Direct Facebook Graph API (own page token): `createFbPost(message, link)` (link preview + API deletion), `deleteFbPost`, `resolvePageId` (needs app review for non-owned pages). Real page mentions NOT supported by FB API |
 | `social/xverify.ts` | `verifyHandle` (fetch x.com profile, parse followers + is_blue_verified), `findOfficialHandle` (web search Bing+DDG FIRST via shared `searchProfile`, then grounded Gemini as fallback; Spain-account rule; candidate verified by scraping x.com), `suggestCandidates`, `extractHandles`, `verifyTweetHandles` |
@@ -92,6 +92,7 @@ Blog picker → combo pick → crop → approve → publish (build+FTPS) → `�
 ## 9. Known gotchas
 
 - Telegram legacy Markdown: escape `_ * [ ] ` ` in user/LLM text (`escMarkdown`); image URLs (`_astro`) MUST be escaped or "can't parse entities" 400
+- Telegram approval photos: never rely on Telegram fetching the IG CDN URL (it can be blocked/expired and the old silent catch sent text without image) — `sendApprovalPhoto` uploads the bytes from our server first; URL and text fallbacks are logged. Content previews also strip `[` `]` so the 1024-char caption truncation can't leave an unbalanced Markdown entity
 - Telegram 4096 limit: collapsible blockquotes must self-cap (trim near END, never mid-`</blockquote>`)
 - X verification: fetch may 403/429 → retry ×3 backoff → `⚠️ no verificado`
 - IG media_url expires (~5 days) — use og:image from built page for Buffer instead

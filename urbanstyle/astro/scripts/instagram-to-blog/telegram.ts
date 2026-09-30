@@ -1,4 +1,4 @@
-import { Bot, InlineKeyboard } from "grammy";
+import { Bot, InlineKeyboard, InputFile } from "grammy";
 import type { PendingEntry } from "./types";
 import { validateTitleEnding } from "./content";
 
@@ -44,7 +44,7 @@ export function formatEntryPreview(entry: PendingEntry): string {
     `*Descripción:* ${escMarkdown(p.description)}`,
     "",
     `*Contenido:*`,
-    truncate(p.content.replace(/[#*`_>]/g, ""), 800),
+    truncate(p.content.replace(/[#*`_>[\]]/g, ""), 800),
     "",
     `_Intento ${entry.attempts}_`,
   );
@@ -173,6 +173,65 @@ function formatFullArticle(entry: PendingEntry, provider: "gemini" | "deepseek")
   return `${headerHtml}<blockquote expandable>${contentHtml}</blockquote>`;
 }
 
+const PHOTO_EXTENSIONS: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+};
+
+/**
+ * Download the post image ourselves and wrap it as a Telegram upload, because
+ * Telegram's servers cannot reliably fetch Instagram CDN URLs. Returns null
+ * when our own fetch fails (caller falls back to sending the URL).
+ */
+export async function fetchPhotoInput(url: string): Promise<InputFile | null> {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const contentType = (res.headers.get("content-type") ?? "image/jpeg").split(";")[0]!.trim();
+    if (!contentType.startsWith("image/")) return null;
+    const bytes = new Uint8Array(await res.arrayBuffer());
+    return new InputFile(bytes, `post.${PHOTO_EXTENSIONS[contentType] ?? "jpg"}`);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Send the approval photo with upload → URL → text fallback. The text fallback
+ * is loud (logged) so a missing image is never silent again.
+ */
+async function sendApprovalPhoto(
+  api: Bot["api"],
+  cid: number,
+  entry: PendingEntry,
+  caption: string,
+  replyMarkup: InlineKeyboard,
+): Promise<void> {
+  const upload = await fetchPhotoInput(entry.post.mediaUrl);
+  const attempts: (InputFile | string)[] = upload ? [upload, entry.post.mediaUrl] : [entry.post.mediaUrl];
+
+  for (const photo of attempts) {
+    try {
+      await api.sendPhoto(cid, photo, {
+        parse_mode: "Markdown",
+        caption: truncate(caption, 1024),
+        reply_markup: replyMarkup,
+      });
+      return;
+    } catch (err) {
+      console.warn(
+        `[telegram] sendPhoto failed for entry ${entry.id} (${typeof photo === "string" ? "url" : "upload"}): ${(err as Error).message}`,
+      );
+    }
+  }
+
+  await api.sendMessage(cid, caption, {
+    parse_mode: "Markdown",
+    reply_markup: replyMarkup,
+  });
+}
+
 export async function notifyTelegram(
   kind: "approval" | "approval-dual" | "published" | "error",
   entry: PendingEntry | { title: string; error?: string },
@@ -186,18 +245,7 @@ export async function notifyTelegram(
 
   if (kind === "approval-dual" && "prepared" in entry) {
     const caption = truncate(formatDualPreview(entry), 1024);
-    try {
-      await api.sendPhoto(cid, entry.post.mediaUrl, {
-        parse_mode: "Markdown",
-        caption,
-        reply_markup: dualPickKeyboard(entry),
-      });
-    } catch {
-      await api.sendMessage(cid, caption, {
-        parse_mode: "Markdown",
-        reply_markup: dualPickKeyboard(entry),
-      });
-    }
+    await sendApprovalPhoto(api, cid, entry, caption, dualPickKeyboard(entry));
     // Send both full articles so the reviewer can pick based on the entire
     // article, not just the title. Sections are collapsible (HTML blockquotes).
     if (entry.articles?.gemini) {
@@ -212,21 +260,8 @@ export async function notifyTelegram(
     }
   } else if (kind === "approval" && "prepared" in entry) {
     const caption = formatEntryPreview(entry);
-    const mediaUrl = entry.post.mediaUrl;
     // Send the actual header photo so the reviewer sees the image before approving
-    try {
-      await api.sendPhoto(cid, mediaUrl, {
-        parse_mode: "Markdown",
-        caption: truncate(caption, 1024),
-        reply_markup: approvalKeyboard(entry),
-      });
-    } catch {
-      // Fallback to text-only if the photo cannot be fetched/attached
-      await api.sendMessage(cid, caption, {
-        parse_mode: "Markdown",
-        reply_markup: approvalKeyboard(entry),
-      });
-    }
+    await sendApprovalPhoto(api, cid, entry, caption, approvalKeyboard(entry));
   } else if (kind === "published" && "prepared" in entry) {
     await api.sendMessage(cid, `✅ *Publicado:* ${entry.prepared.title}\n\nURL: /blog/${entry.prepared.slug}`, {
       parse_mode: "Markdown",
