@@ -1,28 +1,16 @@
-Title: 
+Title: Todos los juegos
 
 ----
 
-Summary: 
+Summary: Catálogo completo de videojuegos de Diario.Games: fichas, guías, noticias y estadísticas de Steam y Twitch.
 
 ----
 
-Release-date: 
+MetaDescription: Catálogo completo de videojuegos de Diario.Games: fichas, guías, noticias y estadísticas de Steam y Twitch.
 
 ----
 
-Developer: 
-
-----
-
-Publisher: 
-
-----
-
-Genres: 
-
-----
-
-Featured: 
+Template: games
 
 ----
 

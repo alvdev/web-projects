@@ -29,5 +29,6 @@ exec env \
   STEAM_STATS_DB_PATH="$E2E_DB" \
   TWITCH_STATS_DB_PATH="$E2E_TWITCH_DB" \
   TWITCH_STATS_FIXTURE="$ROOT/tests/e2e/fixtures/twitch.json" \
+  RELEASES_FIXTURE="$ROOT/tests/e2e/fixtures/releases.json" \
   DIARIO_DISABLE_PRICES=1 \
   php -S 127.0.0.1:8898 -t "$TMP" "$ROOT/kirby/router.php"

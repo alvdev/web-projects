@@ -18,6 +18,7 @@ $kirby = new \Kirby\Cms\App([
             'client_secret' => '',
         ],
         'alv.twitch-stats.fixture-file' => getenv('TWITCH_STATS_FIXTURE') ?: '',
+        'alv.releases.fixture-file' => getenv('RELEASES_FIXTURE') ?: '',
     ],
 ]);
 

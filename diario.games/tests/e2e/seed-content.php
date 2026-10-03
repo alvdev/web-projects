@@ -26,6 +26,7 @@ $games = [
         'Title' => 'E2E Second',
         'ReleaseDate' => '2024-04-01',
         'IgdbId' => '2',
+        'Genres' => 'Acción',
         'Screenshots' => 'shot_1',
     ],
 ];
@@ -45,6 +46,9 @@ foreach ($games as $path => $fields) {
 
 @mkdir($contentDir . '/home', 0775, true);
 file_put_contents($contentDir . '/home/home.txt', "Title: Inicio\n\n----\n\nTemplate: home\n");
+
+@mkdir($contentDir . '/games', 0775, true);
+file_put_contents($contentDir . '/games/games.txt', "Title: Todos los juegos\n\n----\n\nTemplate: games\n");
 
 $articles = [
     'e2e-news-one'    => ['template' => 'news',  'date' => '2024-04-10'],

@@ -35,6 +35,7 @@
                         <path d="M22 19V7"></path>
                     </svg>
                 </a>
+                <a href="/lanzamientos" class="text-xs text-neon-cyan hover:text-white">Lanzamientos</a>
                 <?php snippet('genre-nav') ?>
             </div>
         </div>

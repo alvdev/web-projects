@@ -37,6 +37,7 @@ final class PluginClasses
             '/site/plugins/alv-igdb/classes/IGDBClient.php',
             '/site/plugins/alv-igdb/classes/GameImporter.php',
             '/site/plugins/alv-igdb/classes/AutoFetcher.php',
+            '/site/plugins/alv-releases/classes/Releases.php',
         ];
 
         foreach ($files as $file) {

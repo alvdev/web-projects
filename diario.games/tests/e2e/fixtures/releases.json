@@ -1,0 +1,134 @@
+{
+  "recentlyReleased": [
+    {
+      "igdb_id": 5001,
+      "slug": "neon-drift",
+      "name": "Neon Drift",
+      "release_date": "2026-09-25",
+      "display_date": "25 de septiembre de 2026",
+      "month_key": "2026-09",
+      "month_label": "Septiembre 2026",
+      "hypes": 321,
+      "cover_url": null,
+      "platforms": ["PC", "PS5"],
+      "genres": ["Carreras"],
+      "local_url": null
+    },
+    {
+      "igdb_id": 2,
+      "slug": "e2e-second",
+      "name": "E2E Second",
+      "release_date": "2024-04-01",
+      "display_date": "1 de abril de 2024",
+      "month_key": "2024-04",
+      "month_label": "Abril 2024",
+      "hypes": 50,
+      "cover_url": null,
+      "platforms": ["PC"],
+      "genres": ["Acción"],
+      "local_url": null
+    },
+    {
+      "igdb_id": 5005,
+      "slug": "starfall",
+      "name": "Starfall",
+      "release_date": "2026-09-20",
+      "display_date": "20 de septiembre de 2026",
+      "month_key": "2026-09",
+      "month_label": "Septiembre 2026",
+      "hypes": 40,
+      "cover_url": null,
+      "platforms": ["PC"],
+      "genres": ["RPG"],
+      "local_url": null
+    }
+  ],
+  "upcoming": [
+    {
+      "igdb_id": 5002,
+      "slug": "shadow-realm",
+      "name": "Shadow Realm",
+      "release_date": "2026-11-15",
+      "display_date": "15 de noviembre de 2026",
+      "month_key": "2026-11",
+      "month_label": "Noviembre 2026",
+      "hypes": 150,
+      "cover_url": null,
+      "platforms": ["PC"],
+      "genres": ["RPG"],
+      "local_url": null
+    },
+    {
+      "igdb_id": 5006,
+      "slug": "hollow-vale",
+      "name": "Hollow Vale",
+      "release_date": "2026-11-28",
+      "display_date": "28 de noviembre de 2026",
+      "month_key": "2026-11",
+      "month_label": "Noviembre 2026",
+      "hypes": 30,
+      "cover_url": null,
+      "platforms": ["Xbox"],
+      "genres": ["Acción"],
+      "local_url": null
+    },
+    {
+      "igdb_id": 5003,
+      "slug": "void-runner",
+      "name": "Void Runner",
+      "release_date": "2026-12-10",
+      "display_date": "10 de diciembre de 2026",
+      "month_key": "2026-12",
+      "month_label": "Diciembre 2026",
+      "hypes": 90,
+      "cover_url": null,
+      "platforms": ["PC"],
+      "genres": ["Aventura"],
+      "local_url": null
+    }
+  ],
+  "anticipated": [
+    {
+      "igdb_id": 5004,
+      "slug": "most-wanted",
+      "name": "Most Wanted",
+      "release_date": null,
+      "display_date": "Q2 2027",
+      "month_key": "2027-q2",
+      "month_label": "Q2 2027",
+      "hypes": 5000,
+      "cover_url": null,
+      "platforms": ["PC"],
+      "genres": ["RPG"],
+      "local_url": null
+    },
+    {
+      "igdb_id": 5100,
+      "slug": "silent-sky",
+      "name": "Silent Sky",
+      "release_date": null,
+      "display_date": "2027",
+      "month_key": "2027",
+      "month_label": "2027",
+      "hypes": 1200,
+      "cover_url": null,
+      "platforms": ["PS5"],
+      "genres": ["Aventura"],
+      "local_url": null
+    },
+    {
+      "igdb_id": 5101,
+      "slug": "iron-crown",
+      "name": "Iron Crown",
+      "release_date": null,
+      "display_date": "Q1 2027",
+      "month_key": "2027-q1",
+      "month_label": "Q1 2027",
+      "hypes": 800,
+      "cover_url": null,
+      "platforms": ["PC"],
+      "genres": ["RPG"],
+      "local_url": null
+    }
+  ]
+}

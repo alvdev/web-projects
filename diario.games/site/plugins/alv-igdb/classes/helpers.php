@@ -235,6 +235,24 @@ function deriveYearMonth(string $releaseDate): array
     return ['00', '00'];
 }
 
+function allowedPlatformIds(IGDBClient $client): array
+{
+    $allowedKeywords = ['pc', 'xbox', 'playstation', 'nintendo', 'android'];
+    $ids = [];
+
+    foreach ($client->fetchAllPlatforms() as $platform) {
+        $lower = mb_strtolower((string) ($platform['name'] ?? ''));
+        foreach ($allowedKeywords as $keyword) {
+            if (str_contains($lower, $keyword)) {
+                $ids[] = (int) $platform['id'];
+                break;
+            }
+        }
+    }
+
+    return $ids;
+}
+
 function fetchThesvgIcon(string $url): ?array
 {
     $host = parse_url($url, PHP_URL_HOST);
