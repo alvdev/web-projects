@@ -107,6 +107,11 @@ async function baseline(siteUrl: string) {
  printRows(trend.slice(-21), ["date"]); // last 3 weeks
  await saveCsv("head-query-trend.csv", ["date", "clicks", "impressions", "ctr", "position"], trend.map(r => [r.keys?.[0] ?? "", fmt(r.clicks), fmt(r.impressions), fmt((r.ctr ?? 0) * 100, 2), fmt(r.position, 2)]));
 
+ console.log("\n== 1b. Head query — homepage-only position trend by date ==");
+ const homeTrend = await query({ siteUrl, startDate: longStart, endDate: today, dimensions: ["date"], queryFilter: "pegada de carteles", pageFilter: siteUrl });
+ printRows(homeTrend.slice(-21), ["date"]);
+ await saveCsv("head-query-trend-homepage.csv", ["date", "clicks", "impressions", "ctr", "position"], homeTrend.map(r => [r.keys?.[0] ?? "", fmt(r.clicks), fmt(r.impressions), fmt((r.ctr ?? 0) * 100, 2), fmt(r.position, 2)]));
+
  console.log("\n== 2. Head query — pages competing for it (full range) ==");
  const pages = await query({ siteUrl, startDate: longStart, endDate: today, dimensions: ["page"], queryFilter: "pegada de carteles", rowLimit: 100 });
  printRows(pages, ["page"]);
@@ -183,6 +188,22 @@ switch (cmd) {
   const end = args[3] ?? new Date().toISOString().slice(0, 10);
   const rows = await query({ siteUrl, startDate: start, endDate: end, dimensions: ["date"], queryFilter: text, pageFilter: page, rowLimit: 500 });
   printRows(rows, ["date"]);
+  break;
+ }
+ case "inspect": {
+  if (!siteUrl) {
+   console.error("GSC_SITE_URL is not set");
+   process.exit(1);
+  }
+  const url = args[0];
+  if (!url) {
+   console.error("Usage: bun scripts/seo/gsc-report.ts inspect <url>");
+   process.exit(1);
+  }
+  const res = await sc.urlInspection.index.inspect({
+   requestBody: { inspectionUrl: url, siteUrl },
+  });
+  console.log(JSON.stringify(res.data.inspectionResult?.indexStatusResult ?? res.data, null, 2));
   break;
  }
  default:
