@@ -1,18 +1,257 @@
 ---
-title: "Wild posting"
-description: "Como parte de nuesto servicio de pegada de carteles, incluimos el wild posting, una técnica para potenciar tu campaña y grabar tu marca en la mente de tu público."
-cover: "./images/urban-wild-posting.webp"
-slug: "wild-posting"
+title: 'Wild posting en Madrid, Barcelona y resto de España'
+shortTitle: 'Wild posting'
+description: 'Series de carteles que empapelan muros y circuitos urbanos autorizados hasta formar un único mensaje visual. Wild posting para giras, festivales y lanzamientos en Madrid, Barcelona y toda España.'
+cover: './images/urban-wild-posting.webp'
+coverAlt: 'Muro de Madrid con varios carteles pegados de una campaña de wild posting'
+slug: 'wild-posting'
 order: 20
+seo:
+  title: 'Wild posting en Madrid y Barcelona | Carteles urbanos de impacto'
+  description: 'Agencia de wild posting en Madrid, Barcelona y toda España. Diseñamos, imprimimos y pegamos series de carteles en muros y circuitos autorizados para giras, festivales y lanzamientos.'
 ---
 
-<div class="container prose-2xl *:[h2]:font-bold *:[h2]:uppercase *:[h2]:leading-tight *:[h3]:font-bold">
-  El Wild Posting es una tendencia dentro del street marketing que actúa como un
-  medio de comunicación visual brindando una visibilidad moderna y destacada en
-  sintonía con las nuevas culturas urbanas. El proceso implica la colocación de
-  carteles en paredes de gran tamaño, cada uno con distintas creatividades,
-  creando una composición con un mensaje global. Este mensaje puede consistir en
-  texto, imágenes de marca o elementos visuales. Por lo general, se juega con
-  una paleta de colores que transmite la identidad de la marca y evoca emociones
-  directas en su público objetivo.
+import Desc1 from '@/components/Desc1.astro';
+import InfiniteCarousel from '@/components/InfiniteCarousel.astro';
+import BlogPostCards from '@/components/BlogPostCards.astro';
+import Reviews from '@/components/Reviews.astro';
+import Logos from '@/components/Logos.astro';
+
+<Desc1
+  title="Wild posting: <mark class='under'>carteles que no se pueden saltar</mark>"
+  description="El wild posting es nuestro formato de <strong>cartelería urbana de impacto</strong>: series de carteles que empapelan muros y circuitos autorizados hasta convertirse en un único mensaje. Lo ejecutamos en Madrid, Barcelona y toda España para giras, festivales, lanzamientos y activaciones de marca."
+/>
+
+<section class="container mt-32 grid items-center gap-12 lg:grid-cols-2">
+  <div>
+    <h2 class="text-4xl font-extrabold uppercase text-black md:text-5xl">¿Qué es el wild posting?</h2>
+    <div class="mt-6 space-y-5 text-xl leading-relaxed text-gray-600">
+      <p>El wild posting, también conocido como flyposting, es una técnica de <strong>street marketing</strong> que consiste en empapelar un muro, una valla de obra o un circuito urbano autorizado con una serie de carteles. Cada cartel lleva una creatividad distinta y, en conjunto, construyen un único mensaje visual. Es la diferencia entre colocar un cartel y crear una pared que se lee de un vistazo.</p>
+      <p>Nació en las escenas musicales de Nueva York y Londres, donde los sellos anunciaban conciertos y discos sin presupuesto para grandes vallas. Esa estética urbana, repetitiva y directa es hoy una de las fórmulas más reconocibles de la publicidad exterior: no parece un anuncio, parece parte de la ciudad.</p>
+      <p>En Urban Style Publicity nos encargamos de todo el proceso: adaptamos o diseñamos las creatividades en serie, imprimimos, seleccionamos los muros y circuitos autorizados, pegamos con equipos propios y supervisamos la campaña de principio a fin.</p>
+    </div>
+  </div>
+  <figure class="rotate-1 border-4 border-white shadow-2xl">
+    ![Wild posting en Madrid: carteles pegados en serie sobre un muro urbano](./images/wild-posting-muro.jpg 'Campaña de wild posting en Madrid')
+  </figure>
+</section>
+
+<section class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold uppercase text-balance text-black md:text-7xl">Campañas donde el wild posting<br /> marca la diferencia</h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">Del estreno de un disco a la apertura de un festival</p>
+
+  <div class="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Giras y conciertos</h3>
+      <p class="mt-4">Anunciamos cada fecha en la ciudad correcta: accesos a salas, recintos y zonas de ocio donde se mueve tu público.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Festivales</h3>
+      <p class="mt-4">Saturamos los accesos y alrededores del recinto para que el cartel sea imposible de ignorar en los días previos.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Lanzamientos musicales</h3>
+      <p class="mt-4">Álbumes, singles y EPs que necesitan presencia física en la calle el mismo día del estreno.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Activaciones de marca</h3>
+      <p class="mt-4">Moda urbana, cosmética, bebidas o tecnología: series de carteles que convierten la ciudad en soporte de campaña.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Eventos culturales</h3>
+      <p class="mt-4">Obras, exposiciones, ferias y ciclos: una pared llena de carteles genera conversación y cobertura en redes.</p>
+    </div>
+    <div class="p-8 bg-white border rounded-xs shadow-xl">
+      <h3 class="text-2xl font-semibold">Aperturas de local</h3>
+      <p class="mt-4">Tiendas, salas y restaurantes que quieren que su barrio sepa que llegan. El wild posting se comparte solo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold uppercase text-balance text-black md:text-7xl">Cómo ejecutamos<br /> el wild posting</h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">Un proceso en cuatro pasos, de la <mark class="under">estrategia</mark> al informe</p>
+
+  <ol class="mt-16 grid list-none gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <li class="p-8 bg-white border rounded-xs shadow-xl">
+      <span class="font-script text-5xl font-bold text-red-800">1</span>
+      <h3 class="mt-4 text-2xl font-semibold">Estrategia y ubicaciones</h3>
+      <p class="mt-4">Definimos el mensaje, el número de carteles y los muros o circuitos autorizados que mejor encajan con tu público.</p>
+    </li>
+    <li class="p-8 bg-white border rounded-xs shadow-xl">
+      <span class="font-script text-5xl font-bold text-red-800">2</span>
+      <h3 class="mt-4 text-2xl font-semibold">Creatividades en serie</h3>
+      <p class="mt-4">Diseñamos o adaptamos cada pieza para que el conjunto funcione como una sola composición y se lea de un vistazo.</p>
+    </li>
+    <li class="p-8 bg-white border rounded-xs shadow-xl">
+      <span class="font-script text-5xl font-bold text-red-800">3</span>
+      <h3 class="mt-4 text-2xl font-semibold">Impresión y pegado</h3>
+      <p class="mt-4">Imprimimos en gran formato y pegamos con equipos propios, controlando la densidad y la visibilidad de cada muro.</p>
+    </li>
+    <li class="p-8 bg-white border rounded-xs shadow-xl">
+      <span class="font-script text-5xl font-bold text-red-800">4</span>
+      <h3 class="mt-4 text-2xl font-semibold">Supervisión y reporte</h3>
+      <p class="mt-4">Revisamos las ubicaciones durante la campaña y te enviamos un informe fotográfico con el resultado final.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="container mt-32 grid gap-8 lg:grid-cols-2">
+  <div class="relative -rotate-1 p-10 bg-black text-white shadow-xl">
+    <h2 class="text-4xl font-extrabold uppercase text-white">Wild posting</h2>
+    <p class="mt-6 text-xl leading-relaxed text-white/80">Nuestro formato creativo de impacto. Series de carteles sobre muro que construyen un mensaje único, en zonas culturales y de ocio. Ideal cuando buscas notoriedad y conversación.</p>
+  </div>
+  <div class="relative rotate-1 p-10 bg-white border-2 border-black shadow-xl">
+    <h2 class="text-4xl font-extrabold uppercase">Pegada de carteles</h2>
+    <p class="mt-6 text-xl leading-relaxed text-gray-600">Nuestro servicio general de colocación de cartelería en circuitos y soportes autorizados, con cobertura nacional y reposición garantizada. Ideal cuando buscas presencia sostenida en la calle.</p>
+  </div>
+  <p class="lg:col-span-2 mt-4 text-center text-2xl text-gray-600">¿Buscas cobertura amplia más que una pared concreta? Descubre nuestro <a href="/">servicio de pegada de carteles</a>.</p>
+</section>
+
+<div class="container mt-32">
+  <h2 class="text-center text-5xl font-extrabold text-balance text-black uppercase md:text-7xl">
+    Algunos de nuestros
+    <br /> wild postings
+  </h2>
+  <p class="font-script mt-8 text-center text-4xl font-bold text-balance md:text-5xl">Series que convierten un muro en el <mark class="under">soporte más visto</mark> de la ciudad</p>
 </div>
+<div class="torn-top torn-bottom bg-black">
+  <InfiniteCarousel
+    folder="carousel-wildposting"
+    speed="slow"
+    classes="**:border-0 mt-16 **:gap-2 py-6"
+    descPosition="top"
+    itemsWidth="300"
+    itemsHeight="400"
+  />
+</div>
+
+<section class="container mt-32">
+  <h2 class="text-center text-4xl font-extrabold uppercase text-balance text-black md:text-5xl">Preguntas frecuentes sobre wild posting</h2>
+
+  <div
+    x-data="{ activeAccordion: '', setActiveAccordion(id) { this.activeAccordion = (this.activeAccordion == id) ? '' : id } }"
+    class="relative mx-auto mt-16 max-w-4xl"
+  >
+    <div
+      x-data="{ id: $id('accordion') }"
+      class="relative text-black text-pretty transition-all after:absolute after:left-1.5 after:-bottom-1.5 after:-z-50 after:h-full after:w-full after:bg-black after:content-['']"
+    >
+      <button
+        x-on:click="setActiveAccordion(id)"
+        class="group relative flex w-full items-center justify-between border-2 bg-white px-6 py-4 text-left"
+      >
+        <h3 class="text-xl leading-relaxed text-pretty">¿Qué diferencia hay entre wild posting y pegada de carteles?</h3>
+        <svg class="h-5 w-5 shrink-0 rounded-full bg-red-700 stroke-white duration-300 ease-out group-hover:ring-2 ring-red-700" x-bind:class="{ '-rotate-[45deg]': activeAccordion == id }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+        </svg>
+      </button>
+      <div x-show="activeAccordion == id" x-collapse x-cloak>
+        <div class="pb-1">
+          <p class="relative pl-10 pr-6 pt-6 pb-5 text-white">El wild posting es un formato creativo: series de carteles que componen un único mensaje sobre muros y circuitos urbanos. La pegada de carteles es el servicio general de colocación de cartelería en soportes y circuitos autorizados. Muchas campañas combinan los dos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      x-data="{ id: $id('accordion') }"
+      class="relative mt-4 text-black text-pretty transition-all after:absolute after:left-1.5 after:-bottom-1.5 after:-z-50 after:h-full after:w-full after:bg-black after:content-['']"
+    >
+      <button
+        x-on:click="setActiveAccordion(id)"
+        class="group relative flex w-full items-center justify-between border-2 bg-white px-6 py-4 text-left"
+      >
+        <h3 class="text-xl leading-relaxed text-pretty">¿Es legal hacer wild posting en Madrid o Barcelona?</h3>
+        <svg class="h-5 w-5 shrink-0 rounded-full bg-red-700 stroke-white duration-300 ease-out group-hover:ring-2 ring-red-700" x-bind:class="{ '-rotate-[45deg]': activeAccordion == id }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+        </svg>
+      </button>
+      <div x-show="activeAccordion == id" x-collapse x-cloak>
+        <div class="pb-1">
+          <p class="relative pl-10 pr-6 pt-6 pb-5 text-white">Sí, cuando se realiza sobre espacios autorizados. Trabajamos con muros, vallas y mobiliario habilitado, y gestionamos los permisos municipales necesarios en cada localidad. Nunca pegamos en espacios prohibidos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      x-data="{ id: $id('accordion') }"
+      class="relative mt-4 text-black text-pretty transition-all after:absolute after:left-1.5 after:-bottom-1.5 after:-z-50 after:h-full after:w-full after:bg-black after:content-['']"
+    >
+      <button
+        x-on:click="setActiveAccordion(id)"
+        class="group relative flex w-full items-center justify-between border-2 bg-white px-6 py-4 text-left"
+      >
+        <h3 class="text-xl leading-relaxed text-pretty">¿Dónde se hace wild posting?</h3>
+        <svg class="h-5 w-5 shrink-0 rounded-full bg-red-700 stroke-white duration-300 ease-out group-hover:ring-2 ring-red-700" x-bind:class="{ '-rotate-[45deg]': activeAccordion == id }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+        </svg>
+      </button>
+      <div x-show="activeAccordion == id" x-collapse x-cloak>
+        <div class="pb-1">
+          <p class="relative pl-10 pr-6 pt-6 pb-5 text-white">En zonas de alto tránsito y entornos afines a tu campaña: accesos a recintos, ocio nocturno, barrios culturales, universidades y calles comerciales. Siempre en ubicaciones autorizadas de Madrid, Barcelona y las principales capitales.</p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      x-data="{ id: $id('accordion') }"
+      class="relative mt-4 text-black text-pretty transition-all after:absolute after:left-1.5 after:-bottom-1.5 after:-z-50 after:h-full after:w-full after:bg-black after:content-['']"
+    >
+      <button
+        x-on:click="setActiveAccordion(id)"
+        class="group relative flex w-full items-center justify-between border-2 bg-white px-6 py-4 text-left"
+      >
+        <h3 class="text-xl leading-relaxed text-pretty">¿Cuánto dura una campaña de wild posting?</h3>
+        <svg class="h-5 w-5 shrink-0 rounded-full bg-red-700 stroke-white duration-300 ease-out group-hover:ring-2 ring-red-700" x-bind:class="{ '-rotate-[45deg]': activeAccordion == id }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+        </svg>
+      </button>
+      <div x-show="activeAccordion == id" x-collapse x-cloak>
+        <div class="pb-1">
+          <p class="relative pl-10 pr-6 pt-6 pb-5 text-white">Desde unos días para el estreno de un disco hasta varias semanas para una gira o un festival. Incluimos supervisión y reposición de las piezas dañadas o tapadas durante el periodo contratado.</p>
+        </div>
+      </div>
+    </div>
+
+</div>
+</section>
+
+<section class="container mt-32 text-center">
+  <h2 class="text-5xl font-extrabold uppercase text-black md:text-7xl">Wild posting por ciudades</h2>
+  <p class="font-script mt-8 text-4xl font-bold text-balance md:text-5xl">Equipos locales y ubicaciones autorizadas en las principales capitales</p>
+  <ul class="mt-12 flex flex-wrap justify-center gap-4 list-none">
+    <li><a href="/pegada-carteles/madrid/" class="btn">Wild posting en Madrid</a></li>
+    <li><a href="/pegada-carteles/barcelona/" class="btn">Wild posting en Barcelona</a></li>
+    <li><a href="/pegada-carteles/valencia/" class="btn">Wild posting en Valencia</a></li>
+    <li><a href="/pegada-carteles/sevilla/" class="btn">Wild posting en Sevilla</a></li>
+    <li><a href="/pegada-carteles/malaga/" class="btn">Wild posting en Málaga</a></li>
+  </ul>
+  <p class="mt-10 text-xl text-gray-600">¿No ves tu ciudad? Consulta nuestra <a href="/pegada-carteles/">cobertura de pegada de carteles en España</a>.</p>
+</section>
+
+<BlogPostCards
+  title="Wild posting en acción"
+  slugs={[
+    "como-llevamos-la-mitica-campana-de-adidas-superstar-a-las-calles-de-madrid-y-barcelona-con-pegada",
+    "llevamos-a-las-calles-de-madrid-la-campana-de-uber-eats-con-una-impactante-pegada-de-carteles",
+    "asi-promocionamos-el-nuevo-album-natsukashii-yoru-de-saiko-con-pegada-de-carteles-en-madrid",
+  ]}
+/>
+
+<section class="torn-top torn-bottom mt-36">
+  <div class="wall-full relative bg-red-900 py-24">
+    <div class="container text-center">
+      <h2 class="text-5xl font-bold uppercase text-white [text-shadow:2px_2px_2px_black] text-balance md:text-6xl">¿Montamos tu wild posting?</h2>
+      <p class="font-script mt-8 text-3xl font-semibold text-white/90 text-balance md:text-4xl">Cuéntanos tu campaña y te propondremos muros, circuitos y un presupuesto a medida.</p>
+      <div class="mt-12 flex flex-col items-center justify-center gap-4 md:flex-row">
+        <a href="/contacto/" class="w-fit rounded-full bg-black px-12 py-6 text-center font-semibold uppercase text-white transition ease-in-out duration-200 hover:ring-3 hover:ring-black">Pedir presupuesto</a>
+        <a href="https://wa.me/34609151772" target="_blank" class="w-fit rounded-full border-2 border-white px-8 py-6 font-semibold uppercase text-white transition ease-in-out duration-200 hover:bg-black/40">WhatsApp</a>
+        <a href="tel:+34913052922" class="w-fit rounded-full border-2 border-white px-8 py-6 font-semibold uppercase text-white transition ease-in-out duration-200 hover:bg-black/40">91 305 29 22</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<Reviews />
+
+<Logos title="" subtitle="" />
