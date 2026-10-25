@@ -15,6 +15,9 @@ STEAM_STATS_DB_PATH="$E2E_DB" php "$ROOT/tests/e2e/seed-db.php"
 E2E_TWITCH_DB="$TMP/twitch_stats.db"
 TWITCH_STATS_DB_PATH="$E2E_TWITCH_DB" php "$ROOT/tests/e2e/seed-twitch.php"
 
+E2E_RELEASES="$TMP/releases.json"
+php "$ROOT/tests/e2e/seed-releases.php" "$E2E_RELEASES"
+
 # Kirby resolves plugin/config paths through these symlinks; public/assets are
 # copied because the router only serves static files whose realpath is inside
 # the document root.
@@ -29,6 +32,6 @@ exec env \
   STEAM_STATS_DB_PATH="$E2E_DB" \
   TWITCH_STATS_DB_PATH="$E2E_TWITCH_DB" \
   TWITCH_STATS_FIXTURE="$ROOT/tests/e2e/fixtures/twitch.json" \
-  RELEASES_FIXTURE="$ROOT/tests/e2e/fixtures/releases.json" \
+  RELEASES_FIXTURE="$E2E_RELEASES" \
   DIARIO_DISABLE_PRICES=1 \
   php -S 127.0.0.1:8898 -t "$TMP" "$ROOT/kirby/router.php"

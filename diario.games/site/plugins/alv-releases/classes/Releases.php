@@ -33,7 +33,7 @@ class Releases
     private const RECENT_DAYS = 30;
     private const RECENT_LIMIT = 100;
     private const UPCOMING_LIMIT = 200;
-    private const ANTICIPATED_LIMIT = 50;
+    private const ANTICIPATED_LIMIT = 100;
 
     private array $settings;
     private ?IGDBClient $client;

@@ -42,8 +42,10 @@ in IGDB, so the queries use `(category = 0 | category = null)`):
   sorted by date asc, excluding games shown in "Más esperados"
 - **Más esperados**: future releases with `hypes > 0`, sorted by `hypes desc`
 
-The homepage renders the three lists as columns. `/lanzamientos` renders the three
-lists as sections with genre filter chips (client-side, like `/games`).
+The homepage renders the three lists as columns. `/lanzamientos` renders the same
+three columns inside a card, with genre filter chips (client-side, like `/games`)
+and progressive reveal: the first 30 rows per column are visible and 30 more are
+revealed on scroll, up to 100 per column (all rows are server-rendered).
 
 Unreleased games are never linked to internal pages. Released games link to
 their diario.games page or fall back to `/games/by-igdb-id/{id}`.

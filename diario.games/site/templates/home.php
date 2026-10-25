@@ -14,7 +14,7 @@
     <?php endif ?>
 </div>
 
+<?php snippet('affiliate-banner', ['standalone' => true]) ?>
 <?php snippet('home-upcoming-releases') ?>
-<?php snippet('affiliate-banner', ['itemCount' => 1]) ?>
 
 <?php snippet('footer') ?>

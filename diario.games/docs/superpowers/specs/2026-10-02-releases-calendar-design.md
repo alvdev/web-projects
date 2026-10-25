@@ -22,13 +22,13 @@ Audience: Spanish-speaking PC/console players. All UI copy follows the project's
   - Up to 8 games per column: cover, title, display date, platform abbreviations; "Más esperados" also shows the follower count.
   - CTA "Ver calendario completo →" linking to `/lanzamientos`.
   - Renders nothing when all three datasets are empty; never breaks the homepage.
-  - One affiliate banner slot after the module.
+  - Standalone affiliate banner rendered **before** the module (`standalone` mode, visible at every breakpoint).
 - **`/lanzamientos` page**:
   - H1 "Próximos lanzamientos de videojuegos {year}" plus a short intro paragraph targeting "lanzamientos {year}".
-  - Three sections (**Recién lanzados** 30 / **Próximos lanzamientos** 60 / **Más esperados** 30), same definitions as the homepage.
-  - Genre filter chips (like `/games`: counts, single-select, "Todos" first, client-side) filtering rows across all sections; sections with zero visible rows auto-hide and an empty-state message appears when nothing matches.
+  - Three side-by-side columns (Recién lanzados / Próximos lanzamientos / Más esperados) inside the same card style as the homepage. All rows are server-rendered (up to 100 per column); the first 30 per column are visible and JS reveals 30 more when the column's sentinel enters the viewport.
+  - Genre filter chips (like `/games`: counts, single-select, "Todos" first, client-side) filtering rows across all columns; with a filter active every matching row is shown (reveal paused), columns with zero matches hide, and an empty-state message appears when nothing matches. Resetting "Todos" restores the 30-per-column reveal.
   - Released games link to their internal page or `/games/by-igdb-id/{id}`; upcoming/anticipated rows are unlinked.
-  - Affiliate banners inserted after each section.
+  - One standalone affiliate banner after the columns card.
   - JSON-LD `ItemList` of `VideoGame` entries with a precise release date.
   - Meta title/description via existing meta-kit.
   - Required attribution "Datos de IGDB".
@@ -140,9 +140,10 @@ Normalized entry shape:
 - `snippet('header')` / `snippet('footer')`.
 - H1 + intro paragraph in Spanish with dynamic `{year}`.
 - Genre chips (`data-releases-filter`) derived from the genres of all rendered games; rows carry `data-genre-item data-genres='[...]'`.
-- Three sections (`data-releases-section="recent|upcoming|anticipated"`), two-column row grid on desktop.
-- Inline vanilla JS filters rows and hides empty sections; "no lanzamientos para este filtro" empty state.
-- Affiliate banner after each section via `snippet('affiliate-banner', ['grid' => true, 'itemCount' => $i])`.
+- One card container (same style as the homepage module) holding a responsive `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` of three `release-column` calls (`context => 'page'`, `data-releases-section="recent|upcoming|anticipated"`).
+- Progressive reveal: rows carry `data-load-item data-load-index`, index ≥ 30 start `hidden`; each column has a `data-load-sentinel` observed by an `IntersectionObserver` that reveals the next 30 rows up to the 100-row cap.
+- Inline vanilla JS filters rows (`hidden` toggling), pauses reveal while a filter is active, hides empty columns, and shows the "no lanzamientos para este filtro" empty state.
+- One standalone affiliate banner after the card: `snippet('affiliate-banner', ['standalone' => true])`.
 - JSON-LD `ItemList` with `VideoGame` (`name`, `image`, `releaseDate`, `gamePlatform`).
 - Attribution footer: "Datos de IGDB" linking to `https://www.igdb.com`.
 - Meta title/description set on the virtual page content.
@@ -151,8 +152,8 @@ Normalized entry shape:
 
 `site/templates/home.php`:
 
-- Genre grid removed; `snippet('home-upcoming-releases')` followed by a standalone `snippet('affiliate-banner', ['itemCount' => 1])`.
-- `home-upcoming-releases.php` renders a responsive three-column grid (`sm:grid-cols-2 lg:grid-cols-3`), returns early when all datasets are empty.
+- Genre grid removed; `snippet('affiliate-banner', ['standalone' => true])` rendered **before** `snippet('home-upcoming-releases')`.
+- Shared `release-column` snippet renders each column (identical markup to the page columns); `home-upcoming-releases.php` wraps three calls in a responsive three-column grid (`sm:grid-cols-2 lg:grid-cols-3`) and returns early when all datasets are empty.
 - Column accents: green (recent), cyan (upcoming), magenta (anticipated).
 - `site/controllers/home.php`: keeps only `$latestPosts`.
 - `site/snippets/header.php`: "Lanzamientos" link next to the Steam/Twitch links.
@@ -188,9 +189,9 @@ Already implemented: Spanish H1/meta and genre chips filtering the A–Z grid cl
   - `HomePageReleasesTest` — three columns rendered; hidden when all datasets empty
   - `LanzamientosWarmRouteTest` — auth + counts
   - `GamesPageFilterTest` — chips and `data-genres` attributes
-- **E2E** (`tests/e2e/specs/releases.spec.js`) with `RELEASES_FIXTURE` wired in `tests/e2e/app-server.sh`:
-  - homepage three columns with 9 fixture entries
-  - `/lanzamientos` sections + genre filtering
+- **E2E** (`tests/e2e/specs/releases.spec.js`) with `RELEASES_FIXTURE` generated by `tests/e2e/seed-releases.php` (35 recent / 5 upcoming / 5 anticipated) and wired in `tests/e2e/app-server.sh`:
+  - homepage columns render 8/5/5
+  - `/lanzamientos` renders three columns with 45 rows, 40 visible initially, 23 after the RPG chip, and 45 after scrolling the reveal sentinel
   - `/games` chip filtering
 - Verification: `composer test`, `bun run test:unit`, `bun run test:e2e`, `bun run build` all green.
 

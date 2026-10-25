@@ -91,4 +91,14 @@ TXT);
         $this->assertStringNotContainsString('ig-aff-banner-test-program', $html);
         $this->assertStringNotContainsString('loader.js', $html);
     }
+
+    public function testStandaloneRendersVisibleAtAllBreakpoints(): void
+    {
+        $html = snippet('affiliate-banner', ['standalone' => true], true);
+
+        $this->assertStringContainsString('ig-aff-banner-test-program-all', $html);
+        $this->assertStringContainsString("igr: 'testaff'", $html);
+        $this->assertStringContainsString('loader.js', $html);
+        $this->assertStringContainsString('class="alv-aff-banner-wrapper -mx-4 px-4 "', $html);
+    }
 }

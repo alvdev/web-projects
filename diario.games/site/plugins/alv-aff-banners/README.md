@@ -48,3 +48,9 @@ Or as a grid item (no breakout margins):
 ```php
 <?php snippet('affiliate-banner', ['grid' => true]) ?>
 ```
+
+Or as a standalone banner, rendered once and visible at every breakpoint (no position matching):
+
+```php
+<?php snippet('affiliate-banner', ['standalone' => true]) ?>
+```

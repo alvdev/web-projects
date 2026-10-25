@@ -2,6 +2,7 @@
 
 $grid = $grid ?? false;
 $itemCount = $itemCount ?? 0;
+$standalone = $standalone ?? false;
 
 $config = site()->alvAffBanners();
 
@@ -36,12 +37,23 @@ if (!isset($GLOBALS['alv_aff_banners_init'])) {
 
 $matching = [];
 
-foreach (\Alv\AffBanners\AffiliateBanners::matchingPrograms($itemCount, array_values($enabledPrograms)) as $program) {
-    $showKey = $program['name'] . '_' . $program['_bpType'];
-    if (in_array($showKey, $GLOBALS['alv_aff_banners_shown'])) continue;
+if ($standalone) {
+    foreach (array_values($enabledPrograms) as $program) {
+        $showKey = $program['name'] . '_all';
+        if (in_array($showKey, $GLOBALS['alv_aff_banners_shown'])) continue;
 
-    $GLOBALS['alv_aff_banners_shown'][] = $showKey;
-    $matching[] = $program;
+        $GLOBALS['alv_aff_banners_shown'][] = $showKey;
+        $program['_bpType'] = 'all';
+        $matching[] = $program;
+    }
+} else {
+    foreach (\Alv\AffBanners\AffiliateBanners::matchingPrograms($itemCount, array_values($enabledPrograms)) as $program) {
+        $showKey = $program['name'] . '_' . $program['_bpType'];
+        if (in_array($showKey, $GLOBALS['alv_aff_banners_shown'])) continue;
+
+        $GLOBALS['alv_aff_banners_shown'][] = $showKey;
+        $matching[] = $program;
+    }
 }
 
 if (empty($matching)) return;
@@ -52,7 +64,7 @@ foreach ($matching as $program) {
 }
 
 foreach ($grouped as $bpType => $programs):
-    $bpClass = "alv-aff-bp-{$bpType}";
+    $bpClass = $bpType === 'all' ? '' : "alv-aff-bp-{$bpType}";
 ?>
 <section class="alv-aff-banner-wrapper <?= $grid ? 'col-span-full' : '-mx-4 px-4' ?> <?= $bpClass ?>" aria-label="Ofertas de juegos">
     <?php foreach ($programs as $program): ?>

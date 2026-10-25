@@ -2,19 +2,10 @@
 
 <?php
 $releases = site()->releases();
-$recentlyReleased = $releases->getRecentlyReleased(30);
-$upcoming = $releases->getNotableUpcoming(60);
-$anticipated = $releases->getAnticipated(30);
+$recentlyReleased = $releases->getRecentlyReleased(100);
+$upcoming = $releases->getNotableUpcoming(100);
+$anticipated = $releases->getAnticipated(100);
 $year = date('Y');
-
-$affBanners = site()->alvAffBanners();
-$hasEnabledPrograms = $affBanners['enabled'] && !empty(array_filter($affBanners['programs'], fn($p) => $p['enabled']));
-
-$sections = [
-    'recent' => ['title' => 'Recién lanzados', 'accent' => 'text-neon-green', 'games' => $recentlyReleased, 'link' => true, 'hypes' => false],
-    'upcoming' => ['title' => 'Próximos lanzamientos', 'accent' => 'text-neon-cyan', 'games' => $upcoming, 'link' => false, 'hypes' => false],
-    'anticipated' => ['title' => 'Más esperados', 'accent' => 'text-neon-magenta', 'games' => $anticipated, 'link' => false, 'hypes' => true],
-];
 
 $allGames = array_merge($recentlyReleased, $upcoming, $anticipated);
 $total = count($allGames);
@@ -26,29 +17,6 @@ foreach ($allGames as $game) {
     }
 }
 ksort($genreCounts);
-
-$rowInner = function (array $game, bool $showHypes = false): string {
-    ob_start(); ?>
-    <div class="h-20 w-14 shrink-0 overflow-hidden rounded bg-surface-alt">
-        <?php if ($game['cover_url']): ?>
-            <img src="<?= htmlspecialchars($game['cover_url']) ?>" alt="" class="h-full w-full object-cover" loading="lazy">
-        <?php endif ?>
-    </div>
-    <div class="min-w-0 flex-1">
-        <h3 class="text-sm font-semibold leading-tight text-text"><?= htmlspecialchars($game['name']) ?></h3>
-        <p class="mt-1 text-xs text-neon-cyan"><?= htmlspecialchars($game['display_date']) ?></p>
-        <?php if (!empty($game['platforms'])): ?>
-            <p class="mt-0.5 text-[10px] text-muted"><?= htmlspecialchars(implode(' · ', $game['platforms'])) ?></p>
-        <?php endif ?>
-        <?php if (!empty($game['genres'])): ?>
-            <p class="mt-0.5 text-[10px] text-muted"><?= htmlspecialchars(implode(', ', $game['genres'])) ?></p>
-        <?php endif ?>
-    </div>
-    <?php if ($showHypes): ?>
-        <span class="shrink-0 text-xs text-neon-magenta"><?= number_format($game['hypes']) ?> seguidores</span>
-    <?php endif ?>
-    <?php return (string) ob_get_clean();
-};
 ?>
 
 <section class="mb-8">
@@ -77,36 +45,49 @@ $rowInner = function (array $game, bool $showHypes = false): string {
 <?php if ($total === 0): ?>
     <p class="text-muted">No hay lanzamientos disponibles en este momento. Vuelve pronto.</p>
 <?php else: ?>
-    <?php $i = 0; ?>
-    <?php foreach ($sections as $key => $section): ?>
-        <?php if (empty($section['games'])) continue; $i++; ?>
-        <section data-releases-section="<?= $key ?>" class="mb-8">
-            <h2 class="mb-3 uppercase tracking-wider <?= $section['accent'] ?>"><?= $section['title'] ?></h2>
-            <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
-                <?php foreach ($section['games'] as $game): ?>
-                    <?php $genresJson = htmlspecialchars(json_encode($game['genres'], JSON_UNESCAPED_UNICODE)); ?>
-                    <?php if ($section['link']): ?>
-                        <a data-release-row data-genre-item data-genres="<?= $genresJson ?>"
-                           href="<?= htmlspecialchars($game['local_url'] ?? '/games/by-igdb-id/' . $game['igdb_id']) ?>"
-                           class="flex items-center gap-3 rounded-lg border border-border bg-surface p-3 transition hover:border-neon-green/50">
-                            <?= $rowInner($game, $section['hypes']) ?>
-                        </a>
-                    <?php else: ?>
-                        <div data-release-row data-genre-item data-genres="<?= $genresJson ?>"
-                             class="flex items-center gap-3 rounded-lg border border-border bg-surface p-3">
-                            <?= $rowInner($game, $section['hypes']) ?>
-                        </div>
-                    <?php endif ?>
-                <?php endforeach ?>
-            </div>
-        </section>
-        <?php if ($hasEnabledPrograms): ?>
-            <?php snippet('affiliate-banner', ['grid' => true, 'itemCount' => $i]) ?>
-        <?php endif ?>
-    <?php endforeach ?>
+    <div class="bg-surface/50 backdrop-blur-sm border-4 border-border rounded-xl p-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <?php if (!empty($recentlyReleased)): ?>
+                <?php snippet('release-column', [
+                    'columnKey' => 'recent',
+                    'title' => 'Recién lanzados',
+                    'accent' => 'text-neon-green',
+                    'games' => $recentlyReleased,
+                    'linked' => true,
+                    'context' => 'page',
+                    'headingLevel' => 'h2',
+                ]) ?>
+            <?php endif ?>
+
+            <?php if (!empty($upcoming)): ?>
+                <?php snippet('release-column', [
+                    'columnKey' => 'upcoming',
+                    'title' => 'Próximos lanzamientos',
+                    'accent' => 'text-neon-cyan',
+                    'games' => $upcoming,
+                    'context' => 'page',
+                    'headingLevel' => 'h2',
+                ]) ?>
+            <?php endif ?>
+
+            <?php if (!empty($anticipated)): ?>
+                <?php snippet('release-column', [
+                    'columnKey' => 'anticipated',
+                    'title' => 'Más esperados',
+                    'accent' => 'text-neon-magenta',
+                    'games' => $anticipated,
+                    'showHypes' => true,
+                    'context' => 'page',
+                    'headingLevel' => 'h2',
+                ]) ?>
+            <?php endif ?>
+        </div>
+    </div>
 
     <p data-releases-empty class="hidden text-muted">No hay lanzamientos para este filtro.</p>
 <?php endif ?>
+
+<?php snippet('affiliate-banner', ['standalone' => true]) ?>
 
 <?php
 $listItems = [];
@@ -142,34 +123,88 @@ foreach ($allGames as $game) {
 
 <script>
     (function() {
+        var PAGE_SIZE = 30;
         var root = document.querySelector('[data-releases-filter]');
-        if (!root) return;
-
-        var chips = Array.prototype.slice.call(root.querySelectorAll('[data-genre]'));
-        var items = Array.prototype.slice.call(document.querySelectorAll('[data-genre-item]'));
+        var chips = root ? Array.prototype.slice.call(root.querySelectorAll('[data-genre]')) : [];
         var sections = Array.prototype.slice.call(document.querySelectorAll('[data-releases-section]'));
         var empty = document.querySelector('[data-releases-empty]');
+        var activeFilter = '*';
+        var revealed = {};
 
-        function apply(selected) {
-            items.forEach(function(item) {
-                var genres = [];
-                try {
-                    genres = JSON.parse(item.getAttribute('data-genres') || '[]');
-                } catch (e) {}
-                item.classList.toggle('hidden', selected !== '*' && genres.indexOf(selected) === -1);
+        function rowsOf(section) {
+            return Array.prototype.slice.call(section.querySelectorAll('[data-load-item]'));
+        }
+
+        function updateSentinel(section) {
+            var sentinel = section.querySelector('[data-load-sentinel]');
+            if (!sentinel) return;
+            var key = section.getAttribute('data-releases-section');
+            var done = revealed[key] >= rowsOf(section).length;
+            sentinel.classList.toggle('hidden', activeFilter !== '*' || done);
+        }
+
+        function applyReveal(section) {
+            if (activeFilter !== '*') return;
+            var key = section.getAttribute('data-releases-section');
+            rowsOf(section).forEach(function(row, index) {
+                row.classList.toggle('hidden', index >= revealed[key]);
             });
+            updateSentinel(section);
+        }
 
-            var visibleTotal = 0;
+        function applyFilter(selected) {
+            activeFilter = selected;
+
             sections.forEach(function(section) {
-                var visible = section.querySelectorAll('[data-genre-item]:not(.hidden)').length;
+                var rows = rowsOf(section);
+
+                if (selected === '*') {
+                    section.classList.toggle('hidden', rows.length === 0);
+                    applyReveal(section);
+                    return;
+                }
+
+                var visible = 0;
+                rows.forEach(function(row) {
+                    var genres = [];
+                    try {
+                        genres = JSON.parse(row.getAttribute('data-genres') || '[]');
+                    } catch (e) {}
+                    var match = genres.indexOf(selected) !== -1;
+                    row.classList.toggle('hidden', !match);
+                    if (match) visible++;
+                });
                 section.classList.toggle('hidden', visible === 0);
-                visibleTotal += visible;
+                updateSentinel(section);
             });
 
             if (empty) {
-                empty.classList.toggle('hidden', visibleTotal > 0);
+                var anyVisible = sections.some(function(section) {
+                    return !section.classList.contains('hidden');
+                });
+                empty.classList.toggle('hidden', anyVisible);
             }
         }
+
+        sections.forEach(function(section) {
+            var key = section.getAttribute('data-releases-section');
+            var rows = rowsOf(section);
+            revealed[key] = Math.min(PAGE_SIZE, rows.length);
+            applyReveal(section);
+
+            var sentinel = section.querySelector('[data-load-sentinel]');
+            if (!sentinel || rows.length <= revealed[key]) return;
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting || activeFilter !== '*') return;
+                    revealed[key] = Math.min(revealed[key] + PAGE_SIZE, rows.length);
+                    applyReveal(section);
+                    if (revealed[key] >= rows.length) observer.disconnect();
+                });
+            }, { rootMargin: '240px 0px' });
+            observer.observe(sentinel);
+        });
 
         chips.forEach(function(chip) {
             chip.addEventListener('click', function() {
@@ -184,7 +219,7 @@ foreach ($allGames as $game) {
                     candidate.setAttribute('aria-pressed', active ? 'true' : 'false');
                 });
 
-                apply(selected);
+                applyFilter(selected);
             });
         });
     })();

@@ -7,6 +7,7 @@ use Kirby\Cms\App;
 App::plugin('alv/releases', [
     'snippets' => [
         'home-upcoming-releases' => __DIR__ . '/snippets/home-upcoming-releases.php',
+        'release-column' => __DIR__ . '/snippets/release-column.php',
     ],
     'templates' => [
         'lanzamientos' => __DIR__ . '/templates/lanzamientos.php',
